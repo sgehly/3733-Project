@@ -1,11 +1,11 @@
-package sample;
+package app;
 
 import javafx.fxml.FXML;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaView;
 import javafx.scene.media.MediaPlayer;
 import java.net.URL;
-import java.net.URLClassLoader;
+
 public class Controller {
 
     @FXML
