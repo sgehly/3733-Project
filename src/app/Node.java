@@ -31,6 +31,15 @@ public class Node {
         this.shortName = shortName;
     }
 
-    public int getEdges(Node n){}
+    //getter for a node's edge list
+    public ArrayList<Edge> getEdges(){
+        return this.edgeList;
+    }
+
+    //this function for returning the distance between a node and
+    public int getDistance(Node n){
+
+    }
+    public void addEdge(Node n, Node m){};
 }
 
