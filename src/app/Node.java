@@ -5,11 +5,15 @@ import java.util.ArrayList;
 public class Node {
 
     protected class Edge{
-        Node start;
         Node end;
         int id;
         int weight;
+
+        protected Edge (Node end) {
+            this.end = end;
+        }
     }
+
     private String id;
     private int x;
     private int y;
@@ -67,6 +71,9 @@ public class Node {
 
     }
 
-    public void addEdge(Node n, Node m){};
+    // adds the edge of the new node to the current edgeList
+    public void addEdge(Node n){
+        this.edgeList.add(new Edge(n));
+    }
 }
 
