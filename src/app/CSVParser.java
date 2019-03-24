@@ -87,8 +87,10 @@ public class CSVParser {
             while ((br.readLine()) != null) {
                 line = br.readLine();
                 String[] edgeInfo = line.split(delimiter);
-                nodeMap.get(line[1]).addEdge(line[2]);
-                nodeMap.get(line[2]).addEdge(line[1]);
+                Node firstNode = nodeMap.get(edgeInfo[1]);
+                Node secondNode = nodeMap.get(edgeInfo[2]);
+                firstNode.addEdge(secondNode);
+                secondNode.addEdge(firstNode);
             }
         } catch (FileNotFoundException e) {
             System.out.println("file not found!");
