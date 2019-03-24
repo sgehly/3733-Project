@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main extends Application {
 
     @Override

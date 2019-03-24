@@ -1,16 +1,24 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Node {
 
-    protected class Edge{
-        Node end;
-        int id;
-        int weight;
+    public class Edge{
+        private Node end;
+        private int weight;
 
-        protected Edge (Node end) {
+        private Edge (Node end) {
             this.end = end;
+        }
+
+        public Node getEndNode() {
+            return end;
+        }
+
+        public int getWeight() {
+            return weight;
         }
     }
 
@@ -22,7 +30,7 @@ public class Node {
     private String nodeType;
     private String longName;
     private String shortName;
-    private ArrayList<Edge> edgeList;
+    private List<Edge> edgeList;
 
     public Node(String id, int x, int y, String floor, String building, String nodeType, String longName, String shortName) {
         this.id = id;
@@ -33,6 +41,8 @@ public class Node {
         this.nodeType = nodeType;
         this.longName = longName;
         this.shortName = shortName;
+
+        edgeList = new ArrayList<>();
     }
 
     /**
@@ -40,7 +50,7 @@ public class Node {
      *
      * @return List of edges to this node
      */
-    public ArrayList<Edge> getEdges(){
+    public List<Edge> getEdges(){
         return this.edgeList;
     }
 
