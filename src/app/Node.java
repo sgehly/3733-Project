@@ -35,20 +35,39 @@ public class Node {
         this.shortName = shortName;
     }
 
-    //getter for a node's edge list
+    /**
+     * Get list of classes edges
+     *
+     * @return List of edges to this node
+     */
     public ArrayList<Edge> getEdges(){
         return this.edgeList;
     }
 
+    /**
+     * Get the X coordinate of this node
+     *
+     * @return The node's x coordinate
+     */
     public int getXCoord() {
         return this.x;
     }
 
+    /**
+     * Get the Y coordinate of this node
+     *
+     * @return The node's y coordinate
+     */
     public int getYCoord() {
         return this.y;
     }
 
-    //this function for returning the distance between this node and the node specified
+    /**
+     * The Distance between this node and another node
+     *
+     * @param n - The node to find the distance between
+     * @return The distance in pixels
+     */
     public double getDistance(Node n){
 
         // x-coordinate values
@@ -71,7 +90,11 @@ public class Node {
 
     }
 
-    // adds the edge of the new node to the current edgeList
+    /**
+     * Add edge to the node
+     *
+     * @param n - The node that an edge needs to be formed with
+     */
     public void addEdge(Node n){
         this.edgeList.add(new Edge(n));
     }
