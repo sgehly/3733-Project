@@ -36,10 +36,37 @@ public class Node {
         return this.edgeList;
     }
 
-    //this function for returning the distance between a node and
-    public int getDistance(Node n){
+    public int getXCoord() {
+        return this.x;
+    }
+
+    public int getYCoord() {
+        return this.y;
+    }
+
+    //this function for returning the distance between this node and the node specified
+    public double getDistance(Node n){
+
+        // x-coordinate values
+        int x1 = this.getXCoord();
+        int x2 = n.getXCoord();
+
+        // y-coordinate values
+        int y1 = this.getYCoord();
+        int y2 = n.getYCoord();
+
+        // differences between coordinates
+        int xDiff = x1 - x2;
+        int yDiff = y1 - y2;
+
+        // Math.pow is being mean to me so I just multiplied them together the long way
+        int xSqr = xDiff * xDiff;
+        int ySqr = yDiff * yDiff;
+
+        return Math.sqrt(xSqr + ySqr); // returns distance between nodes
 
     }
+
     public void addEdge(Node n, Node m){};
 }
 
