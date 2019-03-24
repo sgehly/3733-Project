@@ -4,7 +4,7 @@ public class Edge{
     private Node end;
     private int weight;
 
-    private Edge (Node end) {
+    public Edge (Node end) {
         this.end = end;
     }
 
