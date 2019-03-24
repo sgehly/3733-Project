@@ -19,6 +19,8 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+.idea/**/workspace.xml
+.idea/**/vcs.xml
 
 # Gradle
 .idea/**/gradle.xml
