@@ -94,8 +94,8 @@ public class CSVParser {
                     String[] edgeInfo = line.split(delimiter);
                     Node firstNode = nodeMap.get(edgeInfo[1]);
                     Node secondNode = nodeMap.get(edgeInfo[2]);
-                    firstNode.addEdge(secondNode);
-                    secondNode.addEdge(firstNode);
+                    firstNode.addEdge(secondNode, edgeInfo[0]);
+                    secondNode.addEdge(firstNode, edgeInfo[0]);
                 }
                 catch (NullPointerException e) {
                     System.out.println("Invalid line: " + line);

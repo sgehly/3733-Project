@@ -86,9 +86,10 @@ public class Node {
      * Add edge to the node
      *
      * @param n - The node that an edge needs to be formed with
+     * @param edgeID - The ID of the specific edge
      */
-    public void addEdge(Node n){
-        this.edgeList.add(new Edge(n));
+    public void addEdge(Node n, String edgeID){
+        this.edgeList.add(new Edge(n, edgeID));
     }
 }
 
