@@ -12,6 +12,9 @@ import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
 import java.net.URL;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main extends Application {
 
     private static Stage primaryStage = null;
