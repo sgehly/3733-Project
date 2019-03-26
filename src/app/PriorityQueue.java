@@ -50,18 +50,18 @@ public class PriorityQueue{
         int leftChildIndex = (2*i) + 1; //the index of a node's left child
         int rightChildIndex = (2*i) + 2; //the index of a node's right child
         Node n = heap.get(i); //easier way to access the node
-        Node leftChild = heap.get(leftChildIndex); //left child of n
-        Node rightChild = heap.get(rightChildIndex); //right child of n
+        //Node leftChild = heap.get(leftChildIndex); //left child of n
+        //Node rightChild = heap.get(rightChildIndex); //right child of n
         int smallest = 0; //smallest node (f score) in the the parent/leftchild/rightchild sub-heap
 
         //figuring out which node in subtree has the smallest f score
-        if(leftChildIndex < size && leftChild.getF() < n.getF()){
+        if(leftChildIndex < size && heap.get(leftChildIndex).getF() < n.getF()){
             smallest = leftChildIndex;
         }
         else{
             smallest = i;
         }
-        if(rightChildIndex < size && rightChild.getF() < heap.get(smallest).getF()){
+        if(rightChildIndex < size && heap.get(rightChildIndex).getF() < heap.get(smallest).getF()){
             smallest = rightChildIndex;
         }
         if(smallest != i){ //a swap is necessary if the smallest one isn't the parent
@@ -70,5 +70,14 @@ public class PriorityQueue{
             heap.set(smallest, temp);
             heapify(smallest);
         }
+    }
+
+    public boolean findNode(Node node){
+        for(Node n : this.getHeap()){
+            if(n.getId().equals(node.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

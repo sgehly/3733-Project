@@ -20,12 +20,14 @@ public class Node {
         return id;
     }
 
-    public double getH() {
-        return h;
-    }
+    public String getFloor() { return this.floor;}
 
-    public void setH(double h) {
-        this.h = h;
+    protected double getG() { return this.g;}
+
+    public void setWeights(Node end) {
+        this.g = this.parent.getG() + this.getDistance(parent);
+        this.h = this.getDistance(end);
+        this.setF(this.h + this.g);
     }
 
     public double getF() {
@@ -36,12 +38,12 @@ public class Node {
         this.f = f;
     }
 
-    public double getG() {
-        return g;
+    public void setG(double g){
+        this.g = g;
     }
 
-    public void setG(double g) {
-        this.g = g;
+    public void setH(double h){
+        this.h = h;
     }
 
     public Node getParent() {
@@ -66,6 +68,7 @@ public class Node {
         this.shortName = shortName;
 
         edgeList = new ArrayList<>();
+        this.parent = null;
     }
 
     /**

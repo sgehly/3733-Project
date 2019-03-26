@@ -67,8 +67,8 @@ public class AStar {
         //ArrayList<Node> closedList = new ArrayList<Node>();
         HashMap<String, Node> closedList = new HashMap<String, Node>();
         start.setG(0);
-        start.setH(start.getDistance(end));
-        start.setF(start.getG() + start.getH());
+        start.setH(0);
+        start.setF(0);
         openList.addtoHeap(start);
         //TODO: Find node of lowest F
         while(openList.getHeapSize() != 0){
@@ -77,8 +77,12 @@ public class AStar {
             openList.getHeap().remove(0);
             for(Edge e : current.getEdges()){
                 Node neighbor = e.getEndNode();
-                neighbor.setParent(current);
-                openList.addtoHeap(neighbor);
+                if (neighbor.getParent() == null) neighbor.setParent(current);
+                else if (neighbor.getG() > current.getG() + current.getDistance(neighbor)) neighbor.setParent(current);
+                neighbor.setWeights(end);
+                if(!closedList.containsKey(neighbor.getId()) && !openList.findNode(neighbor)){
+                    if (neighbor.getFloor().equals(end.getFloor())) openList.addtoHeap(neighbor);
+                }
                 if(neighbor.getId().equals(end.getId())){
                     List<Node> path = new ArrayList<>();
                     current = neighbor;
@@ -86,6 +90,7 @@ public class AStar {
                         path.add(current);
                         current = current.getParent();
                     }
+                    path.add(start);
                     return path;
                 }
             }
@@ -98,7 +103,7 @@ public class AStar {
      * This version of the method will the locally store the image, while the other will actually transfer the image itself
      * @param nodeArrayList
      */
-    public static void drawPath(ArrayList<Node> nodeArrayList)
+    public static void drawPath(List<Node> nodeArrayList)
     {
         int width = 5000; //The given width and height of the image
         int height = 3400;
@@ -135,7 +140,7 @@ public class AStar {
 
         //write image
         try{
-            f = new File("C:\\Users\\Vishn\\Downloads\\PathTestOutput.png");
+            f = new File("C:\\Users\\kenne\\Downloads\\PathTestOutput.png");
             ImageIO.write(img, "png", f); //We will write out a png to my downloads folder
         }catch(IOException e){
             System.out.println("Error: " + e);
