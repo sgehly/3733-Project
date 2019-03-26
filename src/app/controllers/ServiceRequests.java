@@ -2,17 +2,17 @@ package app.controllers;
 
 import app.Main;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
-
-import java.net.URL;
 
 public class ServiceRequests {
 
@@ -46,7 +46,7 @@ public class ServiceRequests {
 
     @FXML
     void makeRequest(ActionEvent event) {
-        //to be implemented later on...
+        //to be implemented later on
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete

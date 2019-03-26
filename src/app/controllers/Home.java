@@ -20,6 +20,13 @@ public class Home {
     }
 
     @FXML
+    public void navigateToServiceRequests() throws Exception{
+        Parent pane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
+        Scene scene = new Scene(pane);
+        Main.getStage().setScene(scene);
+    }
+
+    @FXML
     public void logout() throws Exception{
         Parent pane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene scene = new Scene(pane);
