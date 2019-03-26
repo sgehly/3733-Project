@@ -13,6 +13,47 @@ public class Node {
     private String longName;
     private String shortName;
     private List<Edge> edgeList;
+    private double f;
+    private double h;
+
+    public String getId() {
+        return id;
+    }
+
+    public double getH() {
+        return h;
+    }
+
+    public void setH(double h) {
+        this.h = h;
+    }
+
+    public double getF() {
+        return f;
+    }
+
+    public void setF(double f) {
+        this.f = f;
+    }
+
+    public double getG() {
+        return g;
+    }
+
+    public void setG(double g) {
+        this.g = g;
+    }
+
+    public Node getParent() {
+        return parent;
+    }
+
+    public void setParent(Node parent) {
+        this.parent = parent;
+    }
+
+    private double g;
+    private Node parent;
 
     public Node(String id, int x, int y, String floor, String building, String nodeType, String longName, String shortName) {
         this.id = id;

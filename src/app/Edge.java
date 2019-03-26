@@ -54,4 +54,8 @@ public class Edge{
     public String getEdgeID(){
         return edgeID;
     }
+
+    public Node getEnd() {
+        return end;
+    }
 }
