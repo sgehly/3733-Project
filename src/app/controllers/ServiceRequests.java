@@ -1,16 +1,18 @@
-/**
- * Sample Skeleton for 'serviceRequests.fxml' Controller Class
- */
+package app.controllers;
 
-package app.Controllers;
+import app.Main;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
+
+import java.net.URL;
 
 public class ServiceRequests {
 
@@ -36,13 +38,15 @@ public class ServiceRequests {
     private TextArea notesText; // Value injected by FXMLLoader
 
     @FXML
-    void goToIdle(ActionEvent event) {
-
+    public void logout() throws Exception {
+        Parent pane = FXMLLoader.load(Main.getFXMLURL("welcome"));
+        Scene scene = new Scene(pane);
+        Main.getStage().setScene(scene);
     }
 
     @FXML
     void makeRequest(ActionEvent event) {
-
+        //to be implemented later on...
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
