@@ -1,12 +1,11 @@
 /*
-The #Algo Team
+The #Algo Team yip yip
  */
 package app;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class is to run the A* algorithm and to also handle any other methods associated with the path-finding
