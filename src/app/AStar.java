@@ -1,7 +1,9 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is to run the A* algorithm and to also handle any other methods associated with the path-finding
@@ -54,7 +56,8 @@ public class AStar {
     //Actual A* algorithm
     public List<Node> findPath(Node start, Node end){
         PriorityQueue openList = new PriorityQueue(start, end);
-        ArrayList<Node> closedList = new ArrayList<Node>();
+        //ArrayList<Node> closedList = new ArrayList<Node>();
+        HashMap<String, Node> closedList = new HashMap<String, Node>();
         start.setG(0);
         start.setH(start.getDistance(end));
         start.setF(start.getG() + start.getH());
@@ -62,6 +65,7 @@ public class AStar {
         //TODO: Find node of lowest F
         while(openList.getHeapSize() != 0){
             Node current = openList.getHeap().get(0);
+            closedList.put(current.getId(), current);
             openList.getHeap().remove(0);
             for(Edge e : current.getEdges()){
                 Node neighbor = e.getEndNode();
