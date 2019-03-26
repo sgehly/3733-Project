@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane scaleShape="false" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Home">
+<AnchorPane scaleShape="false" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controllers.ServiceRequests">
    <children>
       <StackPane style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -50,7 +50,7 @@
                         <Region HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" style="-fx-background-color: white;" text="LOGOUT" HBox.hgrow="ALWAYS">
+                              <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#goToIdle" style="-fx-background-color: white;" text="LOGOUT" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
@@ -111,7 +111,7 @@
                                                       <Insets left="30.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <TextArea maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="226.0" promptText="Room #" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+                                                <TextArea fx:id="roomNumber" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="226.0" promptText="Room #" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
                                                    <GridPane.margin>
                                                       <Insets bottom="30.0" left="15.0" top="30.0" />
                                                    </GridPane.margin>
@@ -119,7 +119,7 @@
                                                       <Font size="24.0" />
                                                    </font>
                                                 </TextArea>
-                                                <ChoiceBox accessibleRole="TREE_VIEW" prefHeight="48.0" prefWidth="372.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                <ChoiceBox fx:id="languageSelection" accessibleRole="TREE_VIEW" prefHeight="48.0" prefWidth="372.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                    <opaqueInsets>
                                                       <Insets left="15.0" right="15.0" />
                                                    </opaqueInsets>
@@ -127,7 +127,7 @@
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
                                                 </ChoiceBox>
-                                                <Button defaultButton="true" mnemonicParsing="false" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                <Button fx:id="requestButton" defaultButton="true" mnemonicParsing="false" onAction="#makeRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                    <GridPane.margin>
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
@@ -135,7 +135,7 @@
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Button>
-                                                <TextArea prefHeight="200.0" prefWidth="200.0" promptText="Optional" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                <TextArea fx:id="notesText" prefHeight="200.0" prefWidth="200.0" promptText="Optional" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
