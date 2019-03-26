@@ -53,4 +53,34 @@ public class AStar {
         finalPath[1] = finalEdges;
         return finalPath;
     }
+
+    //Actual A* algorithm
+    public List<Node> findPath(Node start, Node end){
+        PriorityQueue openList = new PriorityQueue(start, end);
+        ArrayList<Node> closedList = new ArrayList<Node>();
+        start.setG(0);
+        start.setH(start.getDistance(end));
+        start.setF(start.getG() + start.getH());
+        openList.addtoHeap(start);
+        //TODO: Find node of lowest F
+        while(openList.getHeapSize() != 0){
+            Node current = openList.getHeap().get(0);
+            openList.getHeap().remove(0);
+            for(Edge e : current.getEdges()){
+                Node neighbor = e.getEndNode();
+                neighbor.setParent(current);
+                openList.addtoHeap(neighbor);
+                if(neighbor.getId().equals(end.getId())){
+                    List<Node> path = new ArrayList<>();
+                    current = neighbor;
+                    while (!current.getId().equals(start.getId())) {
+                        path.add(current);
+                        current = current.getParent();
+                    }
+                    return path;
+                }
+            }
+        }
+        return null;
+    }
 }
