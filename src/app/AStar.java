@@ -62,40 +62,51 @@ public class AStar {
     }
 
     //Actual A* algorithm
-    public List<Node> findPath(Node start, Node end){
-        PriorityQueue openList = new PriorityQueue(start, end);
-        //ArrayList<Node> closedList = new ArrayList<Node>();
-        HashMap<String, Node> closedList = new HashMap<String, Node>();
+    public List<Node> findPath(Node start, Node end) {
+        double cost = 0;
         start.setG(0);
-        start.setH(0);
         start.setF(0);
+        PriorityQueue openList = new PriorityQueue(); //prio queue to keep track of lowest f score
         openList.addtoHeap(start);
-        //TODO: Find node of lowest F
-        while(openList.getHeapSize() != 0){
-            Node current = openList.getHeap().get(0);
-            closedList.put(current.getId(), current);
-            openList.getHeap().remove(0);
-            for(Edge e : current.getEdges()){
+        HashMap<String, Node> closedList = new HashMap<String, Node>();
+        while (!openList.getHeap().get(0).getId().equals(end.getId())) { //while the node with the lowest f score isn't the goal
+            openList.buildHeap(); //build the heap again
+            Node current = openList.getHeap().get(0); //get the current lowest f score node
+            openList.getHeap().remove(0); //remove it from the open list
+            closedList.put(current.getId(), current); //put it in the closed list
+            for (Edge e : current.getEdges()) { //for every single neighbor of that node
                 Node neighbor = e.getEndNode();
-                if (neighbor.getParent() == null) neighbor.setParent(current);
-                else if (neighbor.getG() > current.getG() + current.getDistance(neighbor)) neighbor.setParent(current);
-                neighbor.setWeights(end);
-                if(!closedList.containsKey(neighbor.getId()) && !openList.findNode(neighbor)){
-                    if (neighbor.getFloor().equals(end.getFloor())) openList.addtoHeap(neighbor);
-                }
-                if(neighbor.getId().equals(end.getId())){
-                    List<Node> path = new ArrayList<>();
-                    current = neighbor;
-                    while (!current.getId().equals(start.getId())) {
-                        path.add(current);
-                        current = current.getParent();
+                cost = current.getG() + neighbor.getDistance(current);
+                if (openList.findNode(neighbor) && cost < neighbor.getG()) { //if the node is already on the open list, but its cost can be lowered
+                    for (Node n : openList.getHeap()) {
+                        if (n.getId().equals(neighbor.getId())) {
+                            int index = openList.getHeap().indexOf(n); //find it in the open list and record its index
+                            openList.getHeap().remove(index); //remove it from the open list
+                        }
                     }
-                    path.add(start);
-                    return path;
+                }
+                if (closedList.containsKey(neighbor.getId()) && cost < neighbor.getG()) { //if its on the closed list and its cost can be lowered
+                    closedList.remove(neighbor.getId()); //remove it from the closed list
+                }
+                if (!openList.findNode(neighbor) && !closedList.containsKey(neighbor.getId())) { //if its not on either list
+                    if (neighbor.getFloor().equals(end.getFloor())) { //if it is on the same floor as the destination node
+                        neighbor.setG(cost); //set its g, h, f, and parent
+                        openList.addtoHeap(neighbor);
+                        neighbor.setH(neighbor.getDistance(end));
+                        neighbor.setF(neighbor.getG() + neighbor.getH());
+                        neighbor.setParent(current);
+                    }
                 }
             }
         }
-        return null;
+        List<Node> path = new ArrayList<>(); //reconstruct and return the completed path
+        Node current = end;
+        while (!current.getId().equals(start.getId())) {
+            path.add(current);
+            current = current.getParent();
+        }
+        path.add(start);
+        return path;
     }
 
     /**

@@ -15,35 +15,44 @@ public class Node {
     private List<Edge> edgeList;
     private double f;
     private double h;
+    private double g;
+    private Node parent;
+
+
+    public double getF() {
+        return f;
+    }
 
     public String getId() {
         return id;
     }
 
-    public String getFloor() { return this.floor;}
-
-    protected double getG() { return this.g;}
-
-    public void setWeights(Node end) {
-        this.g = this.parent.getG() + this.getDistance(parent);
-        this.h = this.getDistance(end);
-        this.setF(this.h + this.g);
+    public String getFloor() {
+        return floor;
     }
 
-    public double getF() {
-        return f;
+    public List<Edge> getEdgeList() {
+        return edgeList;
     }
 
     public void setF(double f) {
         this.f = f;
     }
 
-    public void setG(double g){
-        this.g = g;
+    public double getH() {
+        return h;
     }
 
-    public void setH(double h){
+    public void setH(double h) {
         this.h = h;
+    }
+
+    public double getG() {
+        return g;
+    }
+
+    public void setG(double g) {
+        this.g = g;
     }
 
     public Node getParent() {
@@ -54,9 +63,6 @@ public class Node {
         this.parent = parent;
     }
 
-    private double g;
-    private Node parent;
-
     public Node(String id, int x, int y, String floor, String building, String nodeType, String longName, String shortName) {
         this.id = id;
         this.x = x;
@@ -66,7 +72,6 @@ public class Node {
         this.nodeType = nodeType;
         this.longName = longName;
         this.shortName = shortName;
-
         edgeList = new ArrayList<>();
         this.parent = null;
     }

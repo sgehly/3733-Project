@@ -4,14 +4,10 @@ import java.util.*;
 public class PriorityQueue{
 
     private ArrayList<Node>heap;
-    private Node end;
-    private Node start;
 
     //constructor for min heap
-    public PriorityQueue(Node start, Node end){
+    public PriorityQueue(){
         heap = new ArrayList<Node>();
-        this.start = start;
-        this.end = end;
     }
 
     //getter for the heap
