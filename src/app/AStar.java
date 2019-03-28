@@ -67,7 +67,8 @@ public class AStar {
                         }
                     }
                 }
-                if(neighbor.getFloor().equals(end.getFloor())) { //if the neighbor is on the same floor as the end node, add it the open list
+                if(neighbor.getFloor().equals(end.getFloor()) && neighbor.isEnabled()) { //if the neighbor is on the same floor as the end node, add it the open list
+                    // also checks for if the node is enabled
                     openList.addtoHeap(neighbor);
                 }
             }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node {
+
     private String id;
     private int x;
     private int y;
@@ -17,7 +18,7 @@ public class Node {
     private double h;
     private double g;
     private Node parent;
-
+    private boolean enabled;
 
     public double getF() {
         return f;
@@ -74,6 +75,7 @@ public class Node {
         this.shortName = shortName;
         edgeList = new ArrayList<>();
         this.parent = null;
+        this.enabled = true;
     }
 
     /**
@@ -128,7 +130,25 @@ public class Node {
         int ySqr = yDiff * yDiff;
 
         return Math.sqrt(xSqr + ySqr); // returns distance between nodes
+    }
 
+    /**
+     * Enable the node
+     */
+    public void enable() { this.enabled = false;}
+
+    /**
+     * Disable the node
+     */
+    public void disable() { this.enabled = true;}
+
+    /**
+     * Get the state of the node
+     *
+     * @return if the node is enabled
+     */
+    public boolean isEnabled(){
+        return this.enabled;
     }
 
     /**
