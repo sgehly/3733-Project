@@ -3,7 +3,7 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node {
+public class Node implements Comparable{
 
     private String id;
     private int x;
@@ -135,12 +135,12 @@ public class Node {
     /**
      * Enable the node
      */
-    public void enable() { this.enabled = false;}
+    public void enable() { this.enabled = true;}
 
     /**
      * Disable the node
      */
-    public void disable() { this.enabled = true;}
+    public void disable() { this.enabled = false;}
 
     /**
      * Get the state of the node
@@ -159,6 +159,12 @@ public class Node {
      */
     public void addEdge(Node n, String edgeID){
         this.edgeList.add(new Edge(n, edgeID));
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Node n = (Node) o;
+        return (int) ((this.getF() * 100) - (n.getF() * 100));
     }
 }
 

@@ -29,13 +29,11 @@ public class AStar {
         start.setG(0);
         start.setF(0);
         List<Node> path = new ArrayList<>(); //where the final path will be stored
-        PriorityQueue openList = new PriorityQueue(); //prio queue to keep track of lowest f score
-        openList.addtoHeap(start);
+        PriorityQueue<Node> openList = new PriorityQueue<>(); //priority queue to keep track of lowest f score
+        openList.addToQueue(start);
         HashMap<String, Node> closedList = new HashMap<String, Node>(); //closed list
-        while(openList.getHeapSize() != 0){ //while the open list is not empty
-            openList.buildHeap(); //bring best node to head of open list
-            Node current = openList.getHeap().get(0); //set it to current
-            openList.getHeap().remove(0); //remove it from the open list
+        while(openList.getLength() != 0){ //while the open list is not empty
+            Node current = openList.pop(); //set it to current
             closedList.put(current.getId(), current); //add it to the closed list
             if(current.getId().equals(end.getId())){ //if the goal is found, add nodes along path to the path list
                 current = end;
@@ -55,12 +53,9 @@ public class AStar {
                 neighbor.setH(neighbor.getDistance(end));
                 neighbor.setF(neighbor.getG() + neighbor.getH());
                 neighbor.setParent(current);
-                for(Node n : openList.getHeap()){
+                for(Node n : openList.getQueue()){
                     if(neighbor == n){ //if its in the open list
-                        if(neighbor.getG() >= n.getG()){ //if the cost of the node cannot be lowered, continue
-                            continue;
-                        }
-                        else{ //else if the cost can be lowered
+                        if(neighbor.getG() < n.getG()){ //if the cost of the node cannot be lowered, continue
                             n.setParent(current);
                             n.setG(n.getDistance(current) + current.getG());
                             n.setF(n.getG() + n.getH());
@@ -69,7 +64,7 @@ public class AStar {
                 }
                 if(neighbor.getFloor().equals(end.getFloor()) && neighbor.isEnabled()) { //if the neighbor is on the same floor as the end node, add it the open list
                     // also checks for if the node is enabled
-                    openList.addtoHeap(neighbor);
+                    openList.addToQueue(neighbor);
                 }
             }
         }
