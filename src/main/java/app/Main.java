@@ -8,8 +8,6 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,8 +16,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Font.loadFont(getClass().getResource("/resources/palatino-linotype/palab.ttf").toExternalForm(), 10);
-        Font.loadFont(getClass().getResource("/resources/palatino-linotype/pala.ttf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("/palatino-linotype/palab.ttf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("/palatino-linotype/pala.ttf").toExternalForm(), 10);
 
         Parent root = FXMLLoader.load(getClass().getResource("welcome.fxml"));
         Scene mainScene = new Scene(root, 1024, 768);
@@ -40,8 +38,8 @@ public class Main extends Application {
 
         Map<String, Node> mappedNodes = parse.getNodes();
 
-        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
-        aS.drawPath(path);
+//        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
+        //aS.drawPath(path);
 
 
 

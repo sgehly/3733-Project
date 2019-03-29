@@ -1,0 +1,39 @@
+plugins {
+    id 'application'
+    id 'java'
+    id 'idea'
+}
+mainClassName = 'app.Main'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    testCompile(
+            [group: 'junit', name: 'junit', version: '4.12'],
+            [group: 'com.jfoenix', name: 'jfoenix', version: '9.0.2'],
+            [group: 'org.apache.derby', name: 'derby', version: '10.11.1.1'],
+            [group: 'org.apache.derby', name: 'derbyclient', version: '10.11.1.1'],
+            [group: 'org.apache.derby', name: 'derbytools', version: '10.11.1.1']
+    )
+    compile(
+            [group: 'junit', name: 'junit', version: '4.12'],
+            [group: 'com.jfoenix', name: 'jfoenix', version: '9.0.2'],
+            [group: 'org.apache.derby', name: 'derby', version: '10.11.1.1'],
+            [group: 'org.apache.derby', name: 'derbyclient', version: '10.11.1.1'],
+            [group: 'org.apache.derby', name: 'derbytools', version: '10.11.1.1']
+    )
+}
+
+jar {
+
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    from configurations.runtime.collect {it.isDirectory() ? it : zipTree(it) }
+}

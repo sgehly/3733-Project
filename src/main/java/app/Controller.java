@@ -13,7 +13,7 @@ public class Controller {
 
     @FXML
     protected void initialize() {
-        URL url = getClass().getResource("/resources/Pressure.mp4");
+        URL url = getClass().getResource("/Pressure.mp4");
         System.out.println(url);
         Media media = new Media(url.toExternalForm());
 
