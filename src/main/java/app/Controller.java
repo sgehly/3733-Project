@@ -1,6 +1,7 @@
-package app.controllers;
+package app;
 
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaView;
@@ -10,7 +11,7 @@ import javafx.animation.*;
 import javafx.util.Duration;
 import java.net.URL;
 
-public class Idle {
+public class Controller {
 
     @FXML
     private MediaView mediaView;
@@ -24,12 +25,8 @@ public class Idle {
 
     @FXML
     protected void initialize() {
-<<<<<<< HEAD:src/app/controllers/Idle.java
-        URL url = getClass().getResource("/resources/Pressure.mp4");
-=======
         URL url = getClass().getResource("/Pressure.mp4");
         System.out.println(url);
->>>>>>> Pathfinding_PostNuke:src/main/java/app/Controller.java
         Media media = new Media(url.toExternalForm());
 
         MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -47,4 +44,6 @@ public class Idle {
     }
 
 
+    public void navigateToHome(MouseEvent mouseEvent) {
+    }
 }
