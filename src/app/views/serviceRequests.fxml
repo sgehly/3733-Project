@@ -28,6 +28,14 @@
                <children>
                   <HBox alignment="CENTER" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
                      <children>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="/resources/icons/back.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
                         <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="269.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY" HBox.hgrow="ALWAYS">
