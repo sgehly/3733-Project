@@ -3,7 +3,7 @@ package app.AStar;
 import java.util.*;
 
 public class Path {
-    List<Node> finalPath;
+    private List<Node> finalPath;
 
     public Path() {
         finalPath = new ArrayList<>();
