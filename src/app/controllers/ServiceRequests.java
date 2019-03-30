@@ -10,10 +10,27 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
-
+import java.sql.*;
 import java.awt.event.MouseEvent;
+import java.lang.String;
+import java.sql.Timestamp;
+import java.util.Date;
+
+
+
 
 public class ServiceRequests {
+
+    String dbPath = "jdbc:derby:myDB";
+    int idgnerator = 1;
+
+    Date date= new Date();
+
+    long time = date.getTime();
+
+    Timestamp ts = new Timestamp(time);
+
+
 
     @FXML
     private Button logoutButton;
@@ -59,7 +76,34 @@ public class ServiceRequests {
 
     @FXML
     void makeSanitationRequest(ActionEvent event) {
+        System.out.println("----Test Connection----");
 
+        try{
+
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            String query = "insert into  APP.REQUESTINPROGRESS  (REQUESTID , ROOM , NOTE , DATE, STATUS ) values (?,?,?,?,?)";
+            //
+            //PreparedStatement stmt=conn.prepareStatement("insert into  REQUESTINPROGRESS set REQUESTID = ? , ROOM = ?, NOTE = ?, DATE = ?, STATUS = ?");
+            //PreparedStatement stmt = conn.prepareStatement("SELECT * from REQUESTINPROGRESS");
+            PreparedStatement stmt = conn.prepareStatement(query);
+
+            stmt.setInt(1,(idgnerator));
+            stmt.setString(2,(sanitationRoomNumber.getText()));
+            stmt.setString(3,sanitationNotes.getText());
+            stmt.setTimestamp(4,ts);
+            stmt.setBoolean(5,false);
+            System.out.println("in table ");
+
+            stmt.executeUpdate();
+            stmt.close();
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        idgnerator = idgnerator++;
+        System.out.println("id generator ");
     }
 
     @FXML
