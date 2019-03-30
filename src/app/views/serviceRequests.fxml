@@ -118,7 +118,7 @@
                                                       <Font size="24.0" />
                                                    </font>
                                                 </TextArea>
-                                                <Button fx:id="sanitationRequestButton" defaultButton="true" mnemonicParsing="false" onAction="#makeRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                <Button fx:id="sanitationRequestButton" defaultButton="true" mnemonicParsing="false" onAction="#makeSanitationRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                    <GridPane.margin>
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
@@ -202,7 +202,7 @@
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
                                                 </ChoiceBox>
-                                                <Button fx:id="languageRequestButton" defaultButton="true" mnemonicParsing="false" onAction="#makeRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                <Button fx:id="languageRequestButton" defaultButton="true" mnemonicParsing="false" onAction="#makeSanitationRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                    <GridPane.margin>
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
