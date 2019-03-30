@@ -152,20 +152,20 @@ public class Node implements Comparable{
     }
 
     /**
-     * Add edge to the node
+     * Adds an edge to the node
      *
      * @param n - The node that an edge needs to be formed with
      * @param edgeID - The ID of the specific edge
      */
     public void addEdge(Node n, String edgeID){
 
-        // need to add edgesto both edge lists
+        // need to add edges to both edge lists
         this.edgeList.add(new Edge(n, edgeID));
         n.edgeList.add(new Edge(this, edgeID ));
     }
 
     /**
-     * Removes edge from a node
+     * Removes an edge from a node
      *
      * @param n
      * @param edgeID
