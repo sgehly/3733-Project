@@ -27,8 +27,8 @@ dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.google.guava:guava:27.0.1-jre'
 
-    implementation group: 'org.apache.derby','derby',version: '10.14.2.0'
-    implementation group: 'org.apache.derby','derbytools',version: '10.14.2.0'
+    implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
+    implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
 
 
     // Use JUnit test framework
