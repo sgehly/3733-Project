@@ -7,14 +7,22 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.*;
 
-public class Floor {
+public class Floor{
+    private Map<String,Node> floorMap;
 
     /**
      * Constructor for Floor
      */
     public Floor() {
+        floorMap = new HashMap<>();
     }
+
+    //getters and setters for the floor maps
+    public Map<String, Node> getFloorMap(){return floorMap;}
+
+    public void setFloorMap(Map<String, Node> floorMap) {this.floorMap = floorMap;}
 
     /**
      * This method will take in the list of Nodes and Produce a transparent image with the nodes and path.
