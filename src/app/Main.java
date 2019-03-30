@@ -1,5 +1,6 @@
 package app;
 
+import app.addDelete.DatabaseParser;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -51,16 +52,20 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        CSVParser parse = new CSVParser("C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\nodes.csv", "C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\edges.csv");
-        AStar aS = new AStar();
-
-        Map<String, Node> mappedNodes = parse.getNodes();
+//        CSVParser parse = new CSVParser("C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\nodes.csv", "C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\edges.csv");
+//        AStar aS = new AStar();
+//
+//        Map<String, Node> mappedNodes = parse.getNodes();
 
 //        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
         //aS.drawPath(path);
 
 
 
-        launch(args);
+        //launch(args);
+        DatabaseParser parser = new DatabaseParser();
+
+        parser.nodeParse();
+        //parser.edgeParse();
     }
 }
