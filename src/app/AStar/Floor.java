@@ -8,12 +8,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class Graph {
+public class Floor {
 
     /**
-     * Constructor for Graph
+     * Constructor for Floor
      */
-    public Graph() {
+    public Floor() {
     }
 
     /**
