@@ -43,6 +43,12 @@ public class ServiceRequests {
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
     }
+    @FXML
+    private void navigateToHome() throws Exception{
+        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
+        Scene scene = new Scene(pane);
+        Main.getStage().setScene(scene);
+    }
 
     @FXML
     void makeRequest(ActionEvent event) {
