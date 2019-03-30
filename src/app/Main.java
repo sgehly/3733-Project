@@ -62,10 +62,10 @@ public class Main extends Application {
 
 
 
-        //launch(args);
-        DatabaseParser parser = new DatabaseParser();
+        launch(args);
+        //DatabaseParser parser = new DatabaseParser();
 
-        parser.nodeParse();
+        //parser.nodeParse();
         //parser.edgeParse();
     }
 }
