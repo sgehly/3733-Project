@@ -25,6 +25,42 @@ public class Floor{
     public void setFloorMap(Map<String, Node> floorMap) {this.floorMap = floorMap;}
 
     /**
+     * Adds a node to the graph
+     *
+     * @param addN
+     */
+    public void addNode(Node addN) {
+        // use breadth first search to find where node should go in tree
+        // yeah i really don't understand how to do this
+        // find a way to go through of the map
+
+        //this.add(addN);
+        floorMap.put(addN.getId(), addN);
+    }
+
+    /**
+     * Removes a node from the graph
+     *
+     * @param rem
+     */
+    public void removeNode(Node rem) {
+
+        // check to make sure part of the graph
+//        if(!this.containsValue(rem)) {
+//            System.out.println("sorry doesn't exist in map");
+//        }
+
+        // removes all the edges of the node that you want to remove
+        for(Edge e: rem.getEdges()) {
+            rem.removeEdge(rem, e.getEdgeID());
+        }
+
+        // remove node
+        floorMap.remove(rem.getId()); // does this work??
+
+    }
+
+    /**
      * This method will take in the list of Nodes and Produce a transparent image with the nodes and path.
      * This version of the method will the locally store the image, while the other will actually transfer the image itself
      * @param nodeArrayList - A list of nodes that represent a path
