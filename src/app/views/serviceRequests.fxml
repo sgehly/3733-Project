@@ -28,12 +28,20 @@
                <children>
                   <HBox alignment="CENTER" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
                      <children>
+                        <ImageView onMouseClicked="#navigateToHome">
+                           <image>
+                              <Image url="@../../../../../Users/17742/AppData/Local/Temp/icons8_circled_left_2_40px_1.png" />
+                           </image>
+                        </ImageView>
                         <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="269.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Open Sans Bold" size="36.0" />
                                  </font>
+                                 <HBox.margin>
+                                    <Insets left="15.0" />
+                                 </HBox.margin>
                               </Text>
                            </children>
                         </HBox>
@@ -146,7 +154,7 @@
                                     <Font size="36.0" />
                                  </font>
                             </TitledPane>
-                            <TitledPane prefHeight="593.0" prefWidth="1440.0" text="Language">
+                            <TitledPane animated="false" prefHeight="593.0" prefWidth="1440.0" text="Language">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
