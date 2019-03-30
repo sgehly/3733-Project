@@ -28,9 +28,9 @@
                <children>
                   <HBox alignment="CENTER" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
                      <children>
-                        <ImageView onMouseClicked="#navigateToHome">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../Users/17742/AppData/Local/Temp/icons8_circled_left_2_40px_1.png" />
+                              <Image url="@../../resources/icons/back.png" />
                            </image>
                         </ImageView>
                         <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="269.0" HBox.hgrow="ALWAYS">
@@ -110,7 +110,7 @@
                                                       <Insets left="30.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <TextArea fx:id="roomNumber1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="226.0" promptText="Room #" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+                                                <TextArea fx:id="sanitationRoomNumber" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="226.0" promptText="Room #" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
                                                    <GridPane.margin>
                                                       <Insets bottom="30.0" left="15.0" top="30.0" />
                                                    </GridPane.margin>
@@ -118,7 +118,7 @@
                                                       <Font size="24.0" />
                                                    </font>
                                                 </TextArea>
-                                                <Button fx:id="requestButton1" defaultButton="true" mnemonicParsing="false" onAction="#makeRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                <Button fx:id="sanitationRequestButton" defaultButton="true" mnemonicParsing="false" onAction="#makeRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                    <GridPane.margin>
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
@@ -126,7 +126,7 @@
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Button>
-                                                <TextArea fx:id="notesText1" prefHeight="200.0" prefWidth="200.0" promptText="Optional" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                <TextArea fx:id="sanitationNotes" prefHeight="200.0" prefWidth="200.0" promptText="Optional" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
@@ -186,7 +186,7 @@
                                                       <Insets left="30.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <TextArea fx:id="roomNumber" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="226.0" promptText="Room #" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+                                                <TextArea fx:id="languageRoomNumber" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="226.0" promptText="Room #" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
                                                    <GridPane.margin>
                                                       <Insets bottom="30.0" left="15.0" top="30.0" />
                                                    </GridPane.margin>
@@ -202,7 +202,7 @@
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
                                                 </ChoiceBox>
-                                                <Button fx:id="requestButton" defaultButton="true" mnemonicParsing="false" onAction="#makeRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                <Button fx:id="languageRequestButton" defaultButton="true" mnemonicParsing="false" onAction="#makeRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                    <GridPane.margin>
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
@@ -210,7 +210,7 @@
                                                       <Font size="24.0" />
                                                    </font>
                                                 </Button>
-                                                <TextArea fx:id="notesText" prefHeight="200.0" prefWidth="200.0" promptText="Optional" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                <TextArea fx:id="languageNotes" prefHeight="200.0" prefWidth="200.0" promptText="Optional" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                    <font>
                                                       <Font size="24.0" />
                                                    </font>
