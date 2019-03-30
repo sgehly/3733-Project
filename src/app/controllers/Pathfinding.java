@@ -45,7 +45,10 @@ public class Pathfinding {
 
     @FXML
     private void findPath() throws Exception{
-
+    //TODO: Get String IDs from the Input things and see if you can get Nodes from them
+        //If Not, then create a popup that will let them know that they did not enter it correctly
+    //TODO: Find the path between the nodes and store it in the resources folder
+    //TODO: Get image from resources folder and overlay it on the map image and display
     }
 
     @FXML
