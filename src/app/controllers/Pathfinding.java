@@ -44,6 +44,11 @@ public class Pathfinding {
     }
 
     @FXML
+    private void findPath() throws Exception{
+
+    }
+
+    @FXML
     protected void initialize() {
 
         //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx

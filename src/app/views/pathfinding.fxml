@@ -106,7 +106,7 @@
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" style="-fx-background-color: white;" text="NAVIGATE">
+                              <Button mnemonicParsing="false" onMouseClicked="#findPath" style="-fx-background-color: white;" text="NAVIGATE">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
