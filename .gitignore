@@ -1,5 +1,22 @@
 # Ignore Gradle project-specific cache directory
-.gradle
+# Files to ignore as specified by JetBrains
+.idea/**/gradle.xml
+.idea/**/libraries
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+
+.idea/**/gradle.xml
+.idea/**/libraries
+
+auto-import.
+.idea/modules.xml
+.idea/*.iml
+.idea/modules
+
+out/
 
 **/.idea/workspace.xml
 **/.idea/tasks.xml 
