@@ -12,6 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class ServiceRequests {
 
@@ -55,6 +56,14 @@ public class ServiceRequests {
     @FXML
     void checkRoomValidity(MouseEvent event) {
 
+    }
+
+
+    @FXML
+    private void goToRequestList() throws IOException {
+        Parent pane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+        Scene scene = new Scene(pane);
+        Main.getStage().setScene(scene);
     }
 
     @FXML

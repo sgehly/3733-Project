@@ -28,14 +28,14 @@
                <children>
                   <HBox alignment="CENTER" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
                      <children>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true">
+                        <ImageView fx:id="backButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" preserveRatio="true">
                            <image>
                               <Image url="@../../resources/icons/back.png" />
                            </image>
                         </ImageView>
                         <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="269.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY" HBox.hgrow="ALWAYS">
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGehly" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Open Sans Bold" size="36.0" />
                                  </font>
@@ -58,7 +58,15 @@
                         <Region HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: white;" text="LOGOUT" HBox.hgrow="ALWAYS">
+                              <Button fx:id="viewServiceRequestsButton" mnemonicParsing="false" onMouseClicked="#goToRequestList" style="-fx-background-color: white;" text="View Requests" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="logoutButton1" mnemonicParsing="false" onAction="#logout" onMouseClicked="#logout" style="-fx-background-color: white;" text="Logout">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
