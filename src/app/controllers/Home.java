@@ -1,14 +1,11 @@
 package app.controllers;
 
-import app.Main;
+import app.AStar.Main;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
-import java.net.URL;
 
 public class Home {
 

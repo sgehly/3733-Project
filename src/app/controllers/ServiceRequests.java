@@ -1,6 +1,6 @@
 package app.controllers;
 
-import app.Main;
+import app.AStar.Main;
 
 import java.net.URL;
 import java.util.ResourceBundle;

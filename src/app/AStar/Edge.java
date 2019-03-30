@@ -1,4 +1,4 @@
-package app;
+package app.AStar;
 
 public class Edge{
     private Node end;

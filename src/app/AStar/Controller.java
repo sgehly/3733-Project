@@ -1,4 +1,4 @@
-package app;
+package app.AStar;
 
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;

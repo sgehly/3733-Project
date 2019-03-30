@@ -1,6 +1,6 @@
 package app.controllers;
 
-import app.Main;
+import app.AStar.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

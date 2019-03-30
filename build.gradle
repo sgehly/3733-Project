@@ -3,7 +3,7 @@ plugins {
     id 'java'
     id 'idea'
 }
-mainClassName = 'app.Main'
+mainClassName = 'app.AStar.Main'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 version = '1.0'

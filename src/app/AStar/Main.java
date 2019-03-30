@@ -1,7 +1,6 @@
-package app;
+package app.AStar;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,7 +11,6 @@ import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
 import java.net.URL;
 
-import java.util.List;
 import java.util.Map;
 
 public class Main extends Application {
