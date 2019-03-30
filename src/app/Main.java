@@ -1,5 +1,6 @@
 package app;
 
+import app.addDelete.DatabaseParser;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +15,8 @@ import java.net.URL;
 import java.util.Map;
 
 import app.AStar.*;
+
+import javax.xml.crypto.Data;
 
 public class Main extends Application {
 
@@ -59,8 +62,11 @@ public class Main extends Application {
 //        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
         //aS.drawPath(path);
 
+        DatabaseParser parser = new DatabaseParser();
+        parser.edgeParse();
+        parser.nodeParse();
 
 
-        launch(args);
+       // launch(args);
     }
 }

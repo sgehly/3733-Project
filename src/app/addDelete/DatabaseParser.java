@@ -18,7 +18,7 @@ public class DatabaseParser {
             return;
         }
 
-        File file = new File("resources/edges.csv");
+        File file = new File("resources/edgesv3.csv");
 
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
@@ -73,16 +73,8 @@ public class DatabaseParser {
     }
 
     public static void nodeParse(){
-        try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Cant connect");
-            return;
-        }
 
-        File file = new File("resources/node.csv");
-
+        File file = new File(DatabaseParser.class.getResource("/resources/nodesv3.csv").getPath());
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
 
