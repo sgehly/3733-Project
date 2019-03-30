@@ -3,7 +3,7 @@ package app.controllers;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import app.AStar.Main;
+import app.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;

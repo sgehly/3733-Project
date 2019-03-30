@@ -1,4 +1,4 @@
-package app.AStar;
+package app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +12,8 @@ import javafx.geometry.Rectangle2D;
 import java.net.URL;
 
 import java.util.Map;
+
+import app.AStar.*;
 
 public class Main extends Application {
 
@@ -28,10 +30,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Font.loadFont(getClass().getResource("/palatino-linotype/palab.ttf").toExternalForm(), 10);
-        Font.loadFont(getClass().getResource("/palatino-linotype/pala.ttf").toExternalForm(), 10);
+        this.primaryStage = primaryStage;
 
-        Parent root = FXMLLoader.load(getClass().getResource("welcome.fxml"));
+        Font.loadFont(getClass().getResource("../resources/palatino-linotype/palab.ttf").toExternalForm(), 10);
+        Font.loadFont(getClass().getResource("../resources/palatino-linotype/pala.ttf").toExternalForm(), 10);
+
+        Parent root = FXMLLoader.load(getClass().getResource("views/welcome.fxml"));
         Scene mainScene = new Scene(root);
         mainScene.setFill(Color.web("#012d5a"));
         primaryStage.setTitle("Brigham and Women's Hospital");

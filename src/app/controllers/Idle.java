@@ -24,12 +24,8 @@ public class Idle {
 
     @FXML
     protected void initialize() {
-<<<<<<< HEAD:src/app/controllers/Idle.java
         URL url = getClass().getResource("/resources/Pressure.mp4");
-=======
-        URL url = getClass().getResource("/Pressure.mp4");
         System.out.println(url);
->>>>>>> Pathfinding_PostNuke:src/main/java/app/Controller.java
         Media media = new Media(url.toExternalForm());
 
         MediaPlayer mediaPlayer = new MediaPlayer(media);

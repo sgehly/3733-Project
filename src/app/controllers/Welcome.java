@@ -1,6 +1,7 @@
 package app.controllers;
 
-import app.AStar.Main;
+import app.Main;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -38,7 +39,7 @@ public class Welcome {
 
     @FXML
     public void navigateToHome() throws Exception{
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
+        Parent pane = FXMLLoader.load(app.Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
     }
