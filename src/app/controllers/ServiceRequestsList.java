@@ -17,7 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class ServiceRequestList{
+public class ServiceRequestsList {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -50,6 +50,13 @@ public class ServiceRequestList{
         Parent pane = FXMLLoader.load(app.Main.getFXMLURL("serviceRequests"));
         Scene scene = new Scene(pane);
         app.Main.getStage().setScene(scene);
+    }
+
+    @FXML
+    private void navigateToHome() throws Exception{
+        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
+        Scene scene = new Scene(pane);
+        Main.getStage().setScene(scene);
     }
 
     @FXML

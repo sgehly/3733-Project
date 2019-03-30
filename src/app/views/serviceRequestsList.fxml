@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane scaleShape="false" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ServiceRequestList">
+<AnchorPane scaleShape="false" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ServiceRequestsList">
    <children>
       <StackPane style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -27,9 +27,9 @@
                <children>
                   <HBox alignment="CENTER" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
                      <children>
-                        <ImageView fx:id="back" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#goToMakeServiceRequest" preserveRatio="true">
+                        <ImageView fx:id="back" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" preserveRatio="true">
                            <image>
-                              <Image url="@../../resources/icons/back.png" />
+                              <Image url="@../../resources/icons/icons8_home_page_40px_1.png" />
                            </image>
                         </ImageView>
                         <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="269.0" HBox.hgrow="ALWAYS">
@@ -57,7 +57,15 @@
                         <Region HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" onMouseClicked="#logout" style="-fx-background-color: white;" text="Logout">
+                              <Button fx:id="makeRequestButton" mnemonicParsing="false" onMouseClicked="#goToMakeServiceRequest" style="-fx-background-color: white;" text="Make Request">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="logoutButton1" mnemonicParsing="false" onMouseClicked="#logout" style="-fx-background-color: white;" text="Logout">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
@@ -86,7 +94,7 @@
                      <children>
                         <Accordion prefHeight="616.0" prefWidth="1464.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                           <panes>
-                            <TitledPane animated="false" text="Incomplete Requests">
+                            <TitledPane animated="false" expanded="false" text="Incomplete Requests">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>

@@ -46,6 +46,7 @@ public class ServiceRequests {
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
     }
+
     @FXML
     private void navigateToHome() throws Exception{
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
@@ -60,14 +61,14 @@ public class ServiceRequests {
 
 
     @FXML
-    private void goToRequestList() throws IOException {
+    public void goToRequestList() throws IOException {
         Parent pane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
     }
 
     @FXML
-    void makeSanitationRequest(ActionEvent event) {
+    public void makeSanitationRequest() throws IOException {
 
     }
 
