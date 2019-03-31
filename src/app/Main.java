@@ -69,11 +69,11 @@ public class Main extends Application {
         parser.edgeParse();
         parser.nodeParse();
 
-
         launch(args);
         //DatabaseParser parser = new DatabaseParser();
 
         //parser.nodeParse();
         //parser.edgeParse();
+        //parser.floorTables();
     }
 }
