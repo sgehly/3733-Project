@@ -33,6 +33,9 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+
+    compile group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
+    compile group: 'org.apache.derby', name: 'derbytools', version: '10.14.1.0'
 }
 
 // Define the main class for the application
