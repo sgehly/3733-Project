@@ -6,6 +6,10 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.*;
 
@@ -25,17 +29,45 @@ public class Floor{
     public void setFloorMap(Map<String, Node> floorMap) {this.floorMap = floorMap;}
 
     /**
-     * Adds a node to the graph
+     * Adds a node to the graph if the node already exists in the database
      *
-     * @param addN
+     * @param x
+     * @param y
      */
-    public void addNode(Node addN) {
+    public void addNode(int x, int y) {
         // use breadth first search to find where node should go in tree
         // yeah i really don't understand how to do this
         // find a way to go through of the map
 
         //this.add(addN);
-        floorMap.put(addN.getId(), addN);
+        //floorMap.put(addN.getId(), addN);
+        Node newNode = new Node(null, x, y, null, null, null, null, null);
+        try{
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            PreparedStatement stmt = ((Connection) conn).prepareStatement("select * from node where xcoord = ? and ycoord = ?");
+            stmt.setInt(1, x);
+            stmt.setInt(2, y);
+            ResultSet rs =  stmt.executeQuery();
+
+            while(rs.next()) {
+                newNode.setId(rs.getString("nodeID"));
+                newNode.setFloor(rs.getString("floor"));
+                newNode.setBuilding(rs.getString("building"));
+                newNode.setNodeType(rs.getString("nodeType"));
+                newNode.setLongName(rs.getString("longName"));
+                newNode.setShortName(rs.getString("shortName"));
+            }
+
+            conn.close();
+        }
+        catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+
+
     }
 
     /**
@@ -46,9 +78,9 @@ public class Floor{
     public void removeNode(Node rem) {
 
         // check to make sure part of the graph
-//        if(!this.containsValue(rem)) {
-//            System.out.println("sorry doesn't exist in map");
-//        }
+        if(!floorMap.containsKey(rem.getId())) {
+            System.out.println("sorry doesn't exist in map");
+        }
 
         // removes all the edges of the node that you want to remove
         for(Edge e: rem.getEdges()) {

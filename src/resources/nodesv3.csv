@@ -266,7 +266,7 @@ EHALL01301,2660,954,1,45 Francis,HALL,Hallway Node 11 Floor 1,HallE11
 EHALL01401,2660,979,1,45 Francis,HALL,Hallway Node 12 Floor 1,HallE12
 EHALL01501,2675,910,1,45 Francis,HALL,Hallway Node 13 Floor 1,HallE13
 EHALL01601,2910,910,1,45 Francis,HALL,Hallway Node 14 Floor 1,HallE14
-EHALL01701,2910,890,1,45 Francis,HALL,Hallway Node 15 Floor 1,HallE15
+EHALL01701,2910,907,1,45 Francis,HALL,Hallway Node 15 Floor 1,HallE15
 EHALL01801,2925,910,1,45 Francis,HALL,Hallway Node 16 Floor 1,HallE16
 EHALL01901,2960,900,1,45 Francis,HALL,Hallway Node 17 Floor 1,HallE17
 EHALL02001,2950,745,1,45 Francis,HALL,Hallway Node 18 Floor 1,HallE18
@@ -278,7 +278,7 @@ EDEPT00301,3200,880,1,45 Francis,DEPT,Ocupational Health Floor 1,Ocupational 1
 EHALL02101,3230,880,1,45 Francis,HALL,Hallway Node 19 Floor 1,HallE19
 EHALL02201,3270,875,1,45 Francis,HALL,Hallway Node 20 Floor 1,HallE20
 EHALL02301,3325,870,1,45 Francis,HALL,Hallway Node 21 Floor 1,HallE21
-EHALL02401,2770,980,1,45 Francis,HALL,Hallway Node 22 Floor 1,HallE22
+EHALL02401,2770,1010,1,45 Francis,HALL,Hallway Node 22 Floor 1,HallE22
 EHALL02501,2925,980,1,45 Francis,HALL,Hallway Node 23 Floor 1,HallE23
 EREST00201,2985,980,1,45 Francis,REST,Restroom F1 Floor 1,Restroom F1
 EHALL02601,3085,980,1,45 Francis,HALL,Hallway Node 24 Floor 1,HallE24
