@@ -107,7 +107,7 @@ public class ServiceRequestsList {
             while (rs.next()) {
                 DisplayTable ent = new DisplayTable();
                 ent.setRoom(rs.getString("room"));
-                ent.setNotes(rs.getString("notes"));
+                ent.setNotes(rs.getString("note"));
                 ent.setType(rs.getString("type"));
                 entList.add(ent);
             }
@@ -121,13 +121,14 @@ public class ServiceRequestsList {
 
 
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
-        String query = "SELECT * FROM REQUESTINPROGRESS";
+        String query = "SELECT * FROM APP.REQUESTINPROGRESS";
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection(dbPath);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
+
             return entryList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
@@ -138,8 +139,8 @@ public class ServiceRequestsList {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-
         try {
+
             ObservableList<DisplayTable> entList = getAllRecords();
             Room.setCellValueFactory(new PropertyValueFactory<>("room"));
             Notes.setCellValueFactory(new PropertyValueFactory<>("notes"));
