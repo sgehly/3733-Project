@@ -181,43 +181,6 @@ public class DatabaseParser {
         }
     }
 
-    public void addNodeDB(Node node, String floorNum){
-        try{
-            connect();
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-            Statement stmt1 = conn.createStatement();
-            Statement stmt2 = conn.createStatement();
-            String floorTable; //which floor table are we inserting into?
-            if (floorNum.equals("1")){
-                floorTable  = "Floor1";
-            }
-            else if (floorNum.equals("2")){
-                floorTable = "Floor2";
-            }
-            else if (floorNum.equals("3")){
-                floorTable = "Floor3";
-            }
-            else if (floorNum.equals("L1")){
-                floorTable = "FloorL1";
-            }
-            else if (floorNum.equals("L2")){
-                floorTable = "FloorL2";
-            }
-            else{
-                System.out.println("That floor does not exist");
-            }
 
-            String floorTableQuery = "INSERT INTO "+floorNum+"VALUES("+node.nodeID+", "+node.xcoord+", "+node.ycoord+")";
-            String nodeTableQuery = "INSERT INTO Node VALUES("+node.nodeID+", "+node.xcoord+", "+node.ycoord+", "+node.floor+", "+node.building+", "+node.nodeType+", "+node.longName+", "+node.shortName+")";
-
-            stmt1.execute(floorTableQuery);
-            stmt2.execute(nodeTableQuery);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Oh no");
-        }
-
-    }
 }
 

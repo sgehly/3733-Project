@@ -6,6 +6,9 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.List;
 
 public class Floor {
@@ -61,6 +64,50 @@ public class Floor {
         } catch (IOException e) {
             System.out.println("Error: " + e);
         }
+    }
+
+    public void addNodeDB(Node node, String floorNum){
+        try{
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Didnt work");
+            }
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Statement stmt1 = conn.createStatement();
+            Statement stmt2 = conn.createStatement();
+            String floorTable; //which floor table are we inserting into?
+            if (floorNum.equals("1")){
+                floorTable  = "Floor1";
+            }
+            else if (floorNum.equals("2")){
+                floorTable = "Floor2";
+            }
+            else if (floorNum.equals("3")){
+                floorTable = "Floor3";
+            }
+            else if (floorNum.equals("L1")){
+                floorTable = "FloorL1";
+            }
+            else if (floorNum.equals("L2")){
+                floorTable = "FloorL2";
+            }
+            else{
+                System.out.println("That floor does not exist");
+            }
+
+            String floorTableQuery = "INSERT INTO "+floorNum+"VALUES("+node.getId()+", "+node.getXCoord()+", "+node.getYCoord()+")";
+            String nodeTableQuery = "INSERT INTO Node VALUES("+node.getId()+", "+node.getXCoord()+", "+node.getYCoord()+", "+node.getFloor()+", "+node.getBuilding()+", "+node.getNodeType()+", "+node.getLongName()+", "+node.getShortName()+")";
+
+            stmt1.execute(floorTableQuery);
+            stmt2.execute(nodeTableQuery);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Oh no");
+        }
+
     }
 
 }
