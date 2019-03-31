@@ -86,7 +86,7 @@ public class Pathfinding {
                 Image Overlaysource = null;
                 String path = getClass().getResource("/resources/maps/PathOutput.png").toString().replace("file:","");
                 Overlaysource = new Image(new FileInputStream(path)); //See if we can get the image to overlay and then create a new image object from it
-
+                overlayImage.setImage(Overlaysource); //set the image as the overlay image
 
             }
             catch (FileNotFoundException e)
@@ -171,6 +171,8 @@ public class Pathfinding {
             }
 
             image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+            overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+
         });
         Vscroll.valueProperty().addListener(e -> {
             offSetY = height - Vscroll.getValue();
@@ -183,6 +185,8 @@ public class Pathfinding {
                 offSetY = height - ((height / newValue) / 2);
             }
             image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+            overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+
         });
         //imageView.setCenter(image);
         //imageView.setTop(Hscroll);
@@ -205,6 +209,8 @@ public class Pathfinding {
             Hscroll.setValue(offSetX);
             Vscroll.setValue(height - offSetY);
             image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+            overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+
         });
         imageView.setCursor(Cursor.OPEN_HAND);
         image.setOnMousePressed(e -> {
@@ -216,6 +222,21 @@ public class Pathfinding {
             imageView.setCursor(Cursor.OPEN_HAND);
         });
         image.setOnMouseDragged(e -> {
+            Hscroll.setValue(Hscroll.getValue() + (initx - e.getSceneX()));
+            Vscroll.setValue(Vscroll.getValue() - (inity - e.getSceneY()));
+            initx = e.getSceneX();
+            inity = e.getSceneY();
+        });
+
+        overlayImage.setOnMousePressed(e -> {
+            initx = e.getSceneX();
+            inity = e.getSceneY();
+            imageView.setCursor(Cursor.CLOSED_HAND);
+        });
+        overlayImage.setOnMouseReleased(e -> {
+            imageView.setCursor(Cursor.OPEN_HAND);
+        });
+        overlayImage.setOnMouseDragged(e -> {
             Hscroll.setValue(Hscroll.getValue() + (initx - e.getSceneX()));
             Vscroll.setValue(Vscroll.getValue() - (inity - e.getSceneY()));
             initx = e.getSceneX();
