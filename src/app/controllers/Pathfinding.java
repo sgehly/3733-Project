@@ -10,6 +10,7 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.Cursor;
 
@@ -35,6 +36,12 @@ public class Pathfinding {
 
     @FXML
     private Slider zoomLvl;
+
+    @FXML
+    private TextField startText;
+
+    @FXML
+    private TextField endText;
 
     @FXML
     private void navigateToHome() throws Exception{
