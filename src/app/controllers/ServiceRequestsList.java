@@ -22,8 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+
 
 
 public class ServiceRequestsList {
@@ -109,6 +108,10 @@ public class ServiceRequestsList {
                 ent.setRoom(rs.getString("room"));
                 ent.setNotes(rs.getString("note"));
                 ent.setType(rs.getString("type"));
+                System.out.println(rs.getString("room"));
+                System.out.println(rs.getString("note"));
+                System.out.println(rs.getString("type"));
+
                 entList.add(ent);
             }
             return entList;
@@ -121,7 +124,7 @@ public class ServiceRequestsList {
 
 
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
-        String query = "SELECT * FROM APP.REQUESTINPROGRESS";
+        String query = "SELECT * FROM REQUESTINPROGRESS";
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection(dbPath);
