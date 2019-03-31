@@ -42,6 +42,9 @@ public class Pathfinding {
     private ImageView image;
 
     @FXML
+    private ImageView overlayImage;
+
+    @FXML
     private Slider zoomLvl;
 
     @FXML
@@ -76,6 +79,20 @@ public class Pathfinding {
 
             //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
             floor.drawPath(nodeArrayList);
+
+            //Now we will try to get the image
+            try
+            {
+                Image Overlaysource = null;
+                String path = getClass().getResource("/resources/maps/PathOutput.png").toString().replace("file:","");
+                Overlaysource = new Image(new FileInputStream(path)); //See if we can get the image to overlay and then create a new image object from it
+
+
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
 
 
         }
