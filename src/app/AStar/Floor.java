@@ -15,12 +15,14 @@ import java.util.*;
 
 public class Floor{
     private Map<String,Node> floorMap;
+    private String floorid;
 
     /**
      * Constructor for Floor
      */
-    public Floor() {
+    public Floor(String f) {
         floorMap = new HashMap<>();
+        this.floorid = f;
     }
 
     //getters and setters for the floor maps
@@ -41,33 +43,57 @@ public class Floor{
 
         //this.add(addN);
         //floorMap.put(addN.getId(), addN);
-        Node newNode = new Node(null, x, y, null, null, null, null, null);
+
         try{
+            Node newNode = new Node(null, x, y, null, null, null, null, null);
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-            PreparedStatement stmt = ((Connection) conn).prepareStatement("select * from node where xcoord = ? and ycoord = ?");
+            PreparedStatement stmt = conn.prepareStatement("select * from floor" + floorid + " where xcoord = ? and ycoord = ?");
             stmt.setInt(1, x);
             stmt.setInt(2, y);
             ResultSet rs =  stmt.executeQuery();
 
-            while(rs.next()) {
-                newNode.setId(rs.getString("nodeID"));
-                newNode.setFloor(rs.getString("floor"));
-                newNode.setBuilding(rs.getString("building"));
-                newNode.setNodeType(rs.getString("nodeType"));
-                newNode.setLongName(rs.getString("longName"));
-                newNode.setShortName(rs.getString("shortName"));
-            }
+            newNode.setX(x);
+            newNode.setY(y);
+            //rs.next();
+
+            newNode.setId(rs.getString("nodeID"));
+            newNode.setFloor(rs.getString("floor"));
+            newNode.setBuilding(rs.getString("building"));
+            newNode.setNodeType(rs.getString("nodeType"));
+            newNode.setLongName(rs.getString("longName"));
+            newNode.setShortName(rs.getString("shortName"));
 
             conn.close();
+            floorMap.put(newNode.getId(), newNode);
         }
         catch (Exception e){
                 e.printStackTrace();
             }
+    }
 
+    public void addNode(String id, int x, int y, String floor, String building, String type, String longN, String shortN){
+        try{
+            Node newNode  = new Node(id, x, y, floor, building, type, longN, shortN);
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            PreparedStatement stmt = conn.prepareStatement("insert into floor" + floorid + " values(?, ? ,? ,?, ?, ?, ?, ?)");
+            stmt.setString(1, id);
+            stmt.setInt(2, x);
+            stmt.setInt(3, y);
+            stmt.setString(4, floor);
+            stmt.setString(5, building);
+            stmt.setString(6, type);
+            stmt.setString(7, longN);
+            stmt.setString(8, shortN);
 
+            stmt.executeQuery();
 
-
+            conn.close();
+            floorMap.put(newNode.getId(), newNode);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -75,21 +101,75 @@ public class Floor{
      *
      * @param rem
      */
-    public void removeNode(Node rem) {
-
-        // check to make sure part of the graph
-        if(!floorMap.containsKey(rem.getId())) {
-            System.out.println("sorry doesn't exist in map");
+    public void removeNode(Node rem){
+        try{
+            for(Edge e: rem.getEdges()){
+                this.removeEdge(e.getEdgeID());
+            }
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            PreparedStatement stmt = conn.prepareStatement("delete from floor" + floorid + " where nodeID = ?");
+            stmt.setString(1, rem.getId());
+            stmt.executeQuery();
+            conn.close();
+            floorMap.remove(rem.getId());
+        }catch(Exception e){
+            e.printStackTrace();
         }
+    }
 
-        // removes all the edges of the node that you want to remove
-        for(Edge e: rem.getEdges()) {
-            rem.removeEdge(rem, e.getEdgeID());
+
+    public void removeEdge(String edgeID){
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            PreparedStatement stmt = conn.prepareStatement("delete from edge where edgeID = ?");
+            stmt.setString(1, edgeID);
+            stmt.executeQuery();
+            conn.close();
+            String delim = "_";
+            String[] nodeKeys;
+            nodeKeys = edgeID.split(delim);
+            Node start = floorMap.get(nodeKeys[0]);
+            Node end = floorMap.get(nodeKeys[1]);
+            for(Edge e: start.getEdges()){
+                if(e.getEdgeID().equals(edgeID)){
+                    start.getEdges().remove(e);
+                    break;
+                }
+            }
+            for(Edge e: end.getEdges()){
+                if(e.getEdgeID().equals(edgeID)){
+                    end.getEdges().remove(e);
+                    break;
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
+    }
 
-        // remove node
-        floorMap.remove(rem.getId()); // does this work??
 
+    public void addEdge(String edgeID){
+        try{
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String[] edgeNodes = edgeID.split("_");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            PreparedStatement stmt = conn.prepareStatement("insert into edge where edgeID = ? startNode = ? endNode = ?");
+            stmt.setString(1, edgeID);
+            stmt.setString(2, edgeNodes[0]);
+            stmt.setString(3, edgeNodes[1]);
+            stmt.executeQuery();
+            conn.close();
+
+            Node start = floorMap.get(edgeNodes[0]);
+            Node end = floorMap.get(edgeNodes[1]);
+            start.addEdge(end, edgeID);
+            end.addEdge(start, edgeID);
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
