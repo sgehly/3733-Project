@@ -16,8 +16,6 @@ import java.util.Map;
 
 import app.AStar.*;
 
-import javax.xml.crypto.Data;
-
 public class Main extends Application {
 
     private static Stage primaryStage = null;
@@ -61,12 +59,12 @@ public class Main extends Application {
 
 //        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
         //aS.drawPath(path);
-
-        DatabaseParser parser = new DatabaseParser();
-        parser.edgeParse();
+       /* DatabaseParser parser = new DatabaseParser();
         parser.nodeParse();
+        parser.edgeParse();*/
 
 
-       // launch(args);
+
+       launch(args);
     }
 }
