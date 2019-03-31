@@ -61,11 +61,11 @@ public class Main extends Application {
         //aS.drawPath(path);
 
 
-
         launch(args);
         //DatabaseParser parser = new DatabaseParser();
 
         //parser.nodeParse();
         //parser.edgeParse();
+        //parser.floorTables();
     }
 }
