@@ -211,5 +211,9 @@
       <Position>5</Position>
       <DataType>BOOLEAN|16s</DataType>
     </column>
+    <column id="64" parent="20" name="TYPE">
+      <Position>6</Position>
+      <DataType>VARCHAR(200)|12s</DataType>
+    </column>
   </database-model>
 </dataSource>

@@ -114,7 +114,6 @@ public class ServiceRequestsList {
 
                 entList.add(ent);
             }
-            requestInProgress.setItems(entList);
             return entList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");

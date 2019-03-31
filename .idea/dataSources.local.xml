@@ -2,11 +2,7 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="myDB" uuid="056a9c83-df65-4957-838c-be70d7516fb9">
-      <database-info product="Apache Derby" version="10.14.1.0 - (1808820)" jdbc-version="4.2" driver-name="Apache Derby Embedded JDBC Driver" driver-version="10.14.1.0 - (1808820)" dbms="DERBY" exact-version="10.14.1.0" exact-driver-version="10.14">
-        <identifier-quote-string>&quot;</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="DERBY" exact-version="0" />
       <introspection-schemas>*:@</introspection-schemas>
     </data-source>
   </component>
