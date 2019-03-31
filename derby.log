@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Sun Mar 31 13:22:08 EDT 2019:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0169-d4c5-d47c-0000276bdde0 
+Sun Mar 31 13:45:23 EDT 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0169-d4db-1bad-00001cebaa98 
 on database directory /Users/sgehly/SoftEng/3733-Project/myDB with class loader sun.misc.Launcher$AppClassLoader@2a139a55 
 Loaded from file:/Users/sgehly/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.14.2.0/7efad40ef52fbb1f08142f07a83b42d29e47d8ce/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation
@@ -10,4 +10,9 @@ os.name=Mac OS X
 os.arch=x86_64
 os.version=10.14
 derby.system.home=null
+------------  Begin Error Message -------------
+
+System may be in a inconsistent state, missing file /Users/sgehly/SoftEng/3733-Project/myDB/log/log6.dat
+------------  End Error Message -------------
+
 Database Class Loader started - derby.database.classpath=''
