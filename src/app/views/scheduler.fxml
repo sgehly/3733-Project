@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -18,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.Scheduler">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.Scheduler">
     <children>
         <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
             <children>
@@ -28,7 +27,7 @@
                             <children>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="/resources/icons/back.png" />
+                                        <Image url="@../../resources/icons/back.png" />
                                     </image>
                                 </ImageView>
                                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -70,29 +69,35 @@
                             <children>
                                 <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Room: ">
+                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time:">
                                             <font>
                                                 <Font name="System Bold" size="34.0" />
                                             </font>
                                         </Text>
-                                        <TextField promptText="Description" HBox.hgrow="ALWAYS">
+                                        <TextField promptText="02:50" HBox.hgrow="ALWAYS">
                                             <font>
                                                 <Font size="31.0" />
                                             </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
                                         </TextField>
                                     </children>
                                 </HBox>
-                                <HBox alignment="CENTER">
+                                <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Description: ">
+                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time: ">
                                             <font>
                                                 <Font name="System Bold" size="34.0" />
                                             </font>
                                         </Text>
-                                        <TextField promptText="Description" HBox.hgrow="ALWAYS">
+                                        <TextField promptText="04:50" HBox.hgrow="ALWAYS">
                                             <font>
                                                 <Font size="31.0" />
                                             </font>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
                                         </TextField>
                                     </children>
                                 </HBox>
@@ -103,7 +108,6 @@
                                                 <Font name="Open Sans Bold" size="24.0" />
                                             </font>
                                         </Button>
-                                        <Slider fx:id="zoomLvl" />
                                     </children>
                                 </HBox>
                             </children>
@@ -150,8 +154,9 @@
                                     <children>
                                         <ImageView fx:id="image" fitHeight="973.0" fitWidth="1434.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-101.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-14.0" AnchorPane.topAnchor="0.0">
                                             <image>
-                                                <Image url="/resources/icons/map.png" />
-                                            </image></ImageView>
+                                                <Image url="@../../resources/icons/map.png" />
+                                            </image>
+                                        </ImageView>
                                     </children>
                                 </AnchorPane>
                             </children>
