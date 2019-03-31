@@ -52,19 +52,20 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        CSVParser parse = new CSVParser("C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\nodes.csv", "C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\edges.csv");
-        AStar aS = new AStar();
+        //CSVParser parse = new CSVParser("C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\nodes.csv", "C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\edges.csv");
+        //AStar aS = new AStar();
 
-        Map<String, Node> mappedNodes = parse.getNodes();
+        //Map<String, Node> mappedNodes = parse.getNodes();
 
 //        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
         //aS.drawPath(path);
-       /* DatabaseParser parser = new DatabaseParser();
-        parser.nodeParse();
-        parser.edgeParse();*/
+        //DatabaseParser parser = new DatabaseParser();
+        //parser.nodeParse();
+        //parser.floorTables();
+        //parser.edgeParse();
 
-
-
-       launch(args);
+        Floor myFloor = new Floor("1");
+        myFloor.populateFloor();
+        //launch(args);
     }
 }
