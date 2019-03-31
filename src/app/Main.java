@@ -1,5 +1,6 @@
 package app;
 
+import app.addDelete.DatabaseParser;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -58,9 +59,12 @@ public class Main extends Application {
 
 //        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
         //aS.drawPath(path);
+        DatabaseParser parser = new DatabaseParser();
+        parser.nodeParse();
+        parser.edgeParse();
 
 
 
-        launch(args);
+       //launch(args);
     }
 }
