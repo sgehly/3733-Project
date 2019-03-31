@@ -78,6 +78,34 @@ public class Node implements Comparable{
         this.enabled = true;
     }
 
+    public void setId(String id) { this.id = id; }
+
+    public int getX() { return x; }
+
+    public void setX(int x) { this.x = x; }
+
+    public int getY() { return y; }
+
+    public void setY(int y) { this.y = y; }
+
+    public void setFloor(String floor) { this.floor = floor; }
+
+    public String getBuilding() { return building; }
+
+    public void setBuilding(String building) { this.building = building; }
+
+    public String getNodeType() { return nodeType; }
+
+    public void setNodeType(String nodeType) { this.nodeType = nodeType; }
+
+    public String getLongName() { return longName; }
+
+    public void setLongName(String longName) { this.longName = longName; }
+
+    public String getShortName() { return shortName; }
+
+    public void setShortName(String shortName) { this.shortName = shortName; }
+
     /**
      * Get list of classes edges
      *

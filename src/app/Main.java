@@ -16,6 +16,8 @@ import java.util.Map;
 
 import app.AStar.*;
 
+import javax.xml.crypto.Data;
+
 public class Main extends Application {
 
     private static Stage primaryStage = null;
@@ -63,6 +65,9 @@ public class Main extends Application {
         parser.nodeParse();
         parser.edgeParse();*/
 
+        DatabaseParser parser = new DatabaseParser();
+        parser.edgeParse();
+        parser.nodeParse();
 
 
         launch(args);
