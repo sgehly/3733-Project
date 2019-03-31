@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Sat Mar 30 18:29:52 EDT 2019:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-0169-d0b9-3524-00000df47178 
-on database directory /Users/JeffHarnois/IdeaProjects/3733-Project/myDB with class loader sun.misc.Launcher$AppClassLoader@2a139a55 
-Loaded from file:/Users/JeffHarnois/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.14.1.0/3bcd8b1af3f8cd022d54d331e00064776be04f9c/derby-10.14.1.0.jar
+Sun Mar 31 12:55:46 EDT 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-0169-d4ad-af47-0000067e9d88 
+on database directory /Users/Bridget/IdeaProjects/3733-Project/myDB with class loader sun.misc.Launcher$AppClassLoader@2a139a55 
+Loaded from file:/Users/Bridget/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.14.1.0/3bcd8b1af3f8cd022d54d331e00064776be04f9c/derby-10.14.1.0.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_201-b09
-user.dir=/Users/JeffHarnois/IdeaProjects/3733-Project
+java.runtime.version=1.8.0_151-b12
+user.dir=/Users/Bridget/IdeaProjects/3733-Project
 os.name=Mac OS X
 os.arch=x86_64
-os.version=10.12.6
+os.version=10.14.2
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
