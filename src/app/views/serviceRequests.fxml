@@ -28,14 +28,14 @@
                <children>
                   <HBox alignment="CENTER" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
                      <children>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true">
+                        <ImageView fx:id="homeButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" preserveRatio="true">
                            <image>
-                              <Image url="@../../resources/icons/back.png" />
+                              <Image url="@../../resources/icons/icons8_home_page_40px_1.png" />
                            </image>
                         </ImageView>
                         <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="269.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY" HBox.hgrow="ALWAYS">
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGehly" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Open Sans Bold" size="36.0" />
                                  </font>
@@ -58,7 +58,15 @@
                         <Region HBox.hgrow="ALWAYS" />
                         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: white;" text="LOGOUT" HBox.hgrow="ALWAYS">
+                              <Button fx:id="viewServiceRequestsButton" mnemonicParsing="false" onMouseClicked="#goToRequestList" style="-fx-background-color: white;" text="View Requests" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="15.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="logoutButton1" mnemonicParsing="false" onAction="#logout" onMouseClicked="#logout" style="-fx-background-color: white;" text="Logout">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
@@ -118,7 +126,7 @@
                                                       <Font size="24.0" />
                                                    </font>
                                                 </TextArea>
-                                                <Button fx:id="sanitationRequestButton" defaultButton="true" mnemonicParsing="false" onAction="#makeSanitationRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                <Button fx:id="sanitationRequestButton" defaultButton="true" mnemonicParsing="false" onMouseClicked="#makeSanitationRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                    <GridPane.margin>
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
@@ -202,7 +210,7 @@
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
                                                 </ChoiceBox>
-                                                <Button fx:id="languageRequestButton" defaultButton="true" mnemonicParsing="false" onAction="#makeSanitationRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                <Button fx:id="languageRequestButton" defaultButton="true" mnemonicParsing="false" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                    <GridPane.margin>
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
@@ -232,11 +240,6 @@
                                                 </VBox>
                                              </children>
                                           </GridPane>
-                                          <ImageView fitHeight="92.0" fitWidth="130.0" layoutX="1455.0" layoutY="-1.0" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <image>
-                                                <Image url="@../../../../../Users/17742/AppData/Local/Temp/icons8_talk_40px_2.png" />
-                                             </image>
-                                          </ImageView>
                                        </children>
                                     </AnchorPane>
                               </content>
