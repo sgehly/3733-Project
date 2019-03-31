@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
@@ -19,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane scaleShape="false" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ServiceRequestsList">
+<AnchorPane scaleShape="false" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ServiceRequestsList">
    <children>
       <StackPane style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -55,6 +61,7 @@
                            </children>
                         </HBox>
                         <Region HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="93.0" text="Refresh" />
                         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                            <children>
                               <Button fx:id="makeRequestButton" mnemonicParsing="false" onMouseClicked="#goToMakeServiceRequest" style="-fx-background-color: white;" text="Make Request">
