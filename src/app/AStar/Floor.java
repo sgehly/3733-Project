@@ -73,6 +73,57 @@ public class Floor{
             }
     }
 
+    public void populateFloor(){
+        try {
+            String cmd = "select * from floor" + floorid;
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Statement stmt = conn.createStatement();
+            ResultSet set = stmt.executeQuery(cmd);
+            Node n;
+            while (set.next()) {
+                String id = set.getString("nodeID");
+                String floor = set.getString("floor");
+                String building = set.getString("building");
+                String type = set.getString("nodeType");
+                String longName = set.getString("longName");
+                String shortName = set.getString("shortName");
+                int x = set.getInt("XCoord");
+                int y = set.getInt("YCoord");
+                n = new Node(id, x, y, floor, building, type, longName, shortName);
+                floorMap.put(id, n);
+            }
+            conn.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            String cmd = "select * from edge";
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Statement stmt = conn.createStatement();
+            ResultSet set = stmt.executeQuery(cmd);
+            Node n1;
+            Node n2;
+            while (set.next()) {
+                n1 = floorMap.get(set.getString("startNode"));
+                n2 = floorMap.get(set.getString("endNode"));
+                n1.addEdge(n2, set.getString("edgeID"));
+                n2.addEdge(n1, set.getString("edgeID"));
+
+            }
+            conn.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+    }
+
     public void addNode(String id, int x, int y, String floor, String building, String type, String longN, String shortN){
         try{
             Node newNode  = new Node(id, x, y, floor, building, type, longN, shortN);
