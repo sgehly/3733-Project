@@ -2,7 +2,14 @@ package app.controllers;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import app.AStar.AStar;
+import app.AStar.Floor;
+import app.AStar.Node;
 import app.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +17,7 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.Cursor;
 
@@ -34,7 +42,16 @@ public class Pathfinding {
     private ImageView image;
 
     @FXML
+    private ImageView overlayImage;
+
+    @FXML
     private Slider zoomLvl;
+
+    @FXML
+    private TextField startText;
+
+    @FXML
+    private TextField endText;
 
     @FXML
     private void navigateToHome() throws Exception{
@@ -45,11 +62,40 @@ public class Pathfinding {
 
     @FXML
     private void findPath() throws Exception{
-    //TODO: Get String IDs from the Input things and see if you can get Nodes from them
-        //If Not, then create a popup that will let them know that they did not enter it correctly
+    //Get the starting and ending nodes ID
+    String startString = startText.getText();
+    String endString = endText.getText();
+    //Check if either are empty
+        if(startString != "" && endString!="") //If not empty
+        {
+            Floor floor = new Floor();//Create an instance of the floor and get the start and end nodes
+            HashMap<String,Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
+            Node startNode = floorMap.get(startString); //Get starting and ending string using keys
+            Node endNode = floorMap.get(endString);
 
-    //TODO: Find the path between the nodes and store it in the resources folder
-    //TODO: Get image from resources folder and overlay it on the map image and display
+            //Now we create an A* object to find the path between the two and store the final list of nodes
+            AStar aStar = new AStar();
+            List<Node> nodeArrayList = aStar.findPath(startNode,endNode);
+
+            //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
+            floor.drawPath(nodeArrayList);
+
+            //Now we will try to get the image
+            try
+            {
+                Image Overlaysource = null;
+                String path = getClass().getResource("/resources/maps/PathOutput.png").toString().replace("file:","");
+                Overlaysource = new Image(new FileInputStream(path)); //See if we can get the image to overlay and then create a new image object from it
+                overlayImage.setImage(Overlaysource); //set the image as the overlay image
+
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+
+
+        }
     }
 
     @FXML
@@ -125,6 +171,8 @@ public class Pathfinding {
             }
 
             image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+            overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+
         });
         Vscroll.valueProperty().addListener(e -> {
             offSetY = height - Vscroll.getValue();
@@ -137,6 +185,8 @@ public class Pathfinding {
                 offSetY = height - ((height / newValue) / 2);
             }
             image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+            overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+
         });
         //imageView.setCenter(image);
         //imageView.setTop(Hscroll);
@@ -159,6 +209,8 @@ public class Pathfinding {
             Hscroll.setValue(offSetX);
             Vscroll.setValue(height - offSetY);
             image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+            overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+
         });
         imageView.setCursor(Cursor.OPEN_HAND);
         image.setOnMousePressed(e -> {
@@ -170,6 +222,21 @@ public class Pathfinding {
             imageView.setCursor(Cursor.OPEN_HAND);
         });
         image.setOnMouseDragged(e -> {
+            Hscroll.setValue(Hscroll.getValue() + (initx - e.getSceneX()));
+            Vscroll.setValue(Vscroll.getValue() - (inity - e.getSceneY()));
+            initx = e.getSceneX();
+            inity = e.getSceneY();
+        });
+
+        overlayImage.setOnMousePressed(e -> {
+            initx = e.getSceneX();
+            inity = e.getSceneY();
+            imageView.setCursor(Cursor.CLOSED_HAND);
+        });
+        overlayImage.setOnMouseReleased(e -> {
+            imageView.setCursor(Cursor.OPEN_HAND);
+        });
+        overlayImage.setOnMouseDragged(e -> {
             Hscroll.setValue(Hscroll.getValue() + (initx - e.getSceneX()));
             Vscroll.setValue(Vscroll.getValue() - (inity - e.getSceneY()));
             initx = e.getSceneX();
