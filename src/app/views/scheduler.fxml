@@ -134,10 +134,10 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <TableView prefHeight="451.0" prefWidth="500.0">
+                                                <TableView fx:id="tableView" prefHeight="451.0" prefWidth="500.0">
                                                     <columns>
-                                                        <TableColumn prefWidth="75.0" text="Room" />
-                                                        <TableColumn prefWidth="225.99996948242188" text="Descrition" />
+                                                        <TableColumn fx:id="roomId" prefWidth="75.0" text="Room" />
+                                                        <TableColumn fx:id="details" prefWidth="225.99996948242188" text="Description" />
                                                         <TableColumn maxWidth="339.0" minWidth="109.00003051757812" prefWidth="198.0" text="Time/Date Available" />
                                                     </columns>
                                                 </TableView>

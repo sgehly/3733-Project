@@ -4,9 +4,12 @@ package app.controllers;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 import app.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
@@ -21,6 +24,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Scheduler {
     static double initx;
@@ -29,6 +35,8 @@ public class Scheduler {
     static int width;
     public static String path;
     static double offSetX,offSetY,zoomlvl;
+
+    String dbPath = "jdbc:derby:myDB";
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -46,14 +54,71 @@ public class Scheduler {
     private ImageView image; // Value injected by FXMLLoader
 
     @FXML
+    private TableView tableView = new TableView();
+
+    @FXML
+    private TableColumn<DisplayTable,String> roomId = new TableColumn("roomId");;
+
+    @FXML
+    private TableColumn<DisplayTable,String> details = new TableColumn("details");;
+
+    @FXML
     private void navigateToHome() throws Exception{
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
     }
 
+    private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws SQLException {
+        ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
+        try {
+            while (rs.next()) {
+                DisplayTable ent = new DisplayTable();
+                ent.setRoom(rs.getString("roomId"));
+                ent.setNotes(rs.getString("details"));
+                System.out.println(rs.getString("details"));
+                System.out.println(rs.getString("roomId"));
+                entList.add(ent);
+            }
+            tableView.setItems(entList);
+            return entList;
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
+        String query = "SELECT * FROM ROOMS";
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            ObservableList<DisplayTable> entryList = getEntryObjects(rs);
+            tableView.setItems(entryList);
+            return entryList;
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+
+        try {
+            ObservableList<DisplayTable> entList = getAllRecords();
+            roomId.setCellValueFactory(new PropertyValueFactory<>("Room"));
+            details.setCellValueFactory(new PropertyValueFactory<>("Notes"));
+            tableView.setItems(entList);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
         assert zoomLvl != null : "fx:id=\"zoomLvl\" was not injected: check your FXML file 'scheduler.fxml'.";
         assert imageView != null : "fx:id=\"imageView\" was not injected: check your FXML file 'scheduler.fxml'.";
         assert image != null : "fx:id=\"image\" was not injected: check your FXML file 'scheduler.fxml'.";

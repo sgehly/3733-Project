@@ -66,8 +66,8 @@ public class Main extends Application {
         parser.edgeParse();*/
 
         DatabaseParser parser = new DatabaseParser();
-        parser.edgeParse();
-        parser.nodeParse();
+        //parser.edgeParse();
+        //parser.nodeParse();
 
         launch(args);
         //DatabaseParser parser = new DatabaseParser();
