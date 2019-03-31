@@ -58,14 +58,14 @@ public class ServiceRequestsList {
     private TableView requestInProgress = new TableView();
 
     @FXML
-     private TableColumn<DisplayTable,String> Room = new TableColumn("room");
+    private TableColumn<DisplayTable,String> room = new TableColumn("room");
 
     @FXML
-    private TableColumn<DisplayTable,String> Notes = new TableColumn("notes");
+    private TableColumn<DisplayTable,String> notes = new TableColumn("notes");
 
 
     @FXML
-    private TableColumn<DisplayTable,String> Type = new TableColumn("type");
+    private TableColumn<DisplayTable,String> type = new TableColumn("type");
 
 
     @FXML
@@ -114,6 +114,7 @@ public class ServiceRequestsList {
 
                 entList.add(ent);
             }
+            requestInProgress.setItems(entList);
             return entList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
@@ -131,6 +132,7 @@ public class ServiceRequestsList {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
+            requestInProgress.setItems(entryList);
 
             return entryList;
         } catch (SQLException e) {
@@ -143,11 +145,11 @@ public class ServiceRequestsList {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         try {
-
             ObservableList<DisplayTable> entList = getAllRecords();
-            Room.setCellValueFactory(new PropertyValueFactory<>("room"));
-            Notes.setCellValueFactory(new PropertyValueFactory<>("notes"));
-            Type.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+            room.setCellValueFactory(new PropertyValueFactory<>("room"));
+            notes.setCellValueFactory(new PropertyValueFactory<>("notes"));
+            type.setCellValueFactory(new PropertyValueFactory<>("type"));
             requestInProgress.setItems(entList);
         }
         catch (Exception e){
