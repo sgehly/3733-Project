@@ -65,7 +65,10 @@ public class Scheduler {
     private TableColumn<DisplayTable,String> roomId = new TableColumn("roomId");;
 
     @FXML
-    private TableColumn<DisplayTable,String> details = new TableColumn("details");;
+    private TableColumn<DisplayTable,String> capacity = new TableColumn("capacity");;
+
+    @FXML
+    private TableColumn<DisplayTable,String> type = new TableColumn("type");;
 
     @FXML
     private JFXDatePicker startDate = new JFXDatePicker();
@@ -123,8 +126,9 @@ public class Scheduler {
             while (rs.next()) {
                 DisplayTable ent = new DisplayTable();
                 ent.setRoom(rs.getString("roomId"));
-                ent.setNotes(rs.getString("details"));
-                System.out.println(rs.getString("details"));
+                ent.setCapacity(String.valueOf(rs.getInt("capacity")));
+                ent.setType(rs.getString("roomType"));
+                System.out.println(rs.getString("capacity"));
                 System.out.println(rs.getString("roomId"));
                 entList.add(ent);
             }
@@ -160,7 +164,8 @@ public class Scheduler {
         try {
             ObservableList<DisplayTable> entList = getAllRecords();
             roomId.setCellValueFactory(new PropertyValueFactory<>("Room"));
-            details.setCellValueFactory(new PropertyValueFactory<>("Notes"));
+            capacity.setCellValueFactory(new PropertyValueFactory<>("Capacity"));
+            type.setCellValueFactory(new PropertyValueFactory<>("Type"));
             tableView.setItems(entList);
         }
         catch (Exception e){
