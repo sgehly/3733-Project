@@ -154,6 +154,23 @@ public class Scheduler {
         }
     }
 
+    void getAvailableRooms(){
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            Statement stmt = conn.createStatement();
+
+            String query1 = "SELECT Rooms.roomID, startTime, endTime, capacity, details, roomType FROM BookedTimes Join Rooms on (Rooms.roomID) = (BookedTimes.roomID) MINUS (SELECT Rooms.roomID, startTime, endTime, capacity, details, roomType FROM BookedTimes JOIN Rooms ON (Rooms.roomID) = (BookedTimes.roomID) WHERE ((BookedTimes.startTime >= "+ startDate+" "+ startTime + ") AND (BookedTimes.startTime <= "+ startDate+" "+ startTime + ") )OR ((BookedTimes.endTime >= "+ endDate+" "+ endTime + ") AND (BookedTimes.endTime <= "+ endDate+" "+ endTime + ")))";
+
+            ResultSet availRooms = stmt.executeQuery(query1);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Error trying to get available rooms");
+        }
+
+    }
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
 

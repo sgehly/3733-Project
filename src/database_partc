@@ -180,6 +180,22 @@ create table floorL2(
          SHORTNAME varchar(100)
 );
 
+create table Rooms(
+    roomID varchar2(20),
+    capacity number(3),
+    details varchar2(100),
+    roomType varchar2(5),
+    Constraint comRoom_PK Primary key (roomID),
+    Constraint checkType CHECK (roomType in ('COMP', 'CLASS'))
+);
+
+create table BookedTimes(
+    roomID varchar2(20),
+    startTime timestamp,
+    endTime timestamp,
+    Constraint room_FK Foreign Key (roomID) REFERENCES Rooms(roomID)
+);
+
  */
 
 
