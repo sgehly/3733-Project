@@ -9,6 +9,5 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="Gradle: com.jfoenix:jfoenix:8.0.8" level="project" />
   </component>
 </module>
