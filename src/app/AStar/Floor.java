@@ -91,14 +91,12 @@ public class Floor{
                 int y = set.getInt("YCoord");
                 Node n = new Node(id, x, y, floorid, building, type, longName, shortName);
                 floorMap.put(id, n);
-                //System.out.println(floorMap.get(n.getId()));
             }
             conn.close();
         }
         catch (Exception e){
             e.printStackTrace();
         }
-
         try {
             String cmd = "select * from edge";
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -107,27 +105,19 @@ public class Floor{
             ResultSet rs = stmt.executeQuery(cmd);
             Node n1 = new Node("343", 34,34, "d", "e", "e","e","e");
             Node n2 = new Node("243", 34,34, "d", "e", "e","e","e");
-            while (rs.next()){
-                System.out.println(rs.getString("edgeID"));
-                System.out.println(rs.getString("startNode"));
-                System.out.println(rs.getString("endNode"));
-
-                n1 = floorMap.get(rs.getString("startNode"));
-                n2 = floorMap.get(rs.getString("endNode"));
-                //System.out.println(floorMap.get(rs.getString("startNode")));
-                //System.out.println(floorMap.get(rs.getString("endNode")));
-                n1.addEdge(n2, rs.getString("edgeID"));
-                n2.addEdge(n1, rs.getString("edgeID"));
-
+            while (rs.next()) {
+                if (floorMap.containsKey(rs.getString("startNode")) && floorMap.containsKey(rs.getString("endNode"))) {
+                    n1 = floorMap.get(rs.getString("startNode"));
+                    n2 = floorMap.get(rs.getString("endNode"));
+                    n1.addEdge(n2, rs.getString("edgeID"));
+                    n2.addEdge(n1, rs.getString("edgeID"));
+                }
             }
             conn.close();
         }
         catch (Exception e){
             e.printStackTrace();
         }
-
-
-
     }
 
     public void addNode(String id, int x, int y, String floor, String building, String type, String longN, String shortN){
