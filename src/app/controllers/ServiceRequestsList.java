@@ -10,6 +10,7 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 import app.Main;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -54,6 +56,8 @@ public class ServiceRequestsList {
     @FXML // fx:id="deleteCompletedButton"
     private Button deleteCompletedButton; // Value injected by FXMLLoader
 
+
+    // table and columns for the request in progress table.
     @FXML
     private TableView requestInProgress = new TableView();
 
@@ -63,14 +67,85 @@ public class ServiceRequestsList {
     @FXML
     private TableColumn<DisplayTable,String> notes = new TableColumn("notes");
 
-
     @FXML
     private TableColumn<DisplayTable,String> type = new TableColumn("type");
 
+    @FXML
+    private TableColumn<DisplayTable,Integer> requestId = new TableColumn("requestId");
+
+    //table and columns for request log table.
+    @FXML
+    private TableView reqeustLog = new TableView();
 
     @FXML
-    void deleteRequest(MouseEvent event) {
+    private TableColumn<DisplayTable,String> room1 = new TableColumn("room");
+
+    @FXML
+    private TableColumn<DisplayTable,String> notes1 = new TableColumn("notes");
+
+    @FXML
+    private TableColumn<DisplayTable,String> type1 = new TableColumn("type");
+
+    @FXML
+    private TableColumn<DisplayTable,Integer> requestId1 = new TableColumn("requestId");
+
+    @FXML
+    private TableColumn<DisplayTable,String> filledBy = new TableColumn("filledBy");
+
+
+    @FXML
+    private TextField FilledBy;
+
+    @FXML
+    private TextField getid;
+
+
+
+    @FXML
+    void deleteRequest(MouseEvent event)throws ClassNotFoundException {
         //delete a request
+        String query3 = " DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+
+
+            PreparedStatement s = conn.prepareStatement(query3);
+            s.setString(1, getid.getText());
+            s.executeUpdate();
+            System.out.println("deleted from db");
+            //stmt.setString(6,FilledBy.getText());
+            conn.close();
+        }
+        catch (Exception e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+        }
+        try {
+            ObservableList<DisplayTable> entList = getAllRecords();
+            ObservableList<DisplayTable> entList2 = getAllRecords2();
+
+
+
+            requestId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            room.setCellValueFactory(new PropertyValueFactory<>("room"));
+            notes.setCellValueFactory(new PropertyValueFactory<>("notes"));
+            type.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+            requestId1.setCellValueFactory(new PropertyValueFactory<>("id"));
+            room1.setCellValueFactory(new PropertyValueFactory<>("room"));
+            notes1.setCellValueFactory(new PropertyValueFactory<>("notes"));
+            type1.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+
+
+            requestInProgress.setItems(entList);
+            reqeustLog.setItems(entList2);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
@@ -95,8 +170,74 @@ public class ServiceRequestsList {
     }
 
     @FXML
-    void markAsComplete(MouseEvent event) {
+    void markAsComplete(MouseEvent event) throws ClassNotFoundException{
         //move to complete table
+        String query = "\n" +
+                "INSERT INTO REQUESTLOG (REQUESTID, ROOM, NOTE, DATE, TYPE, FINISHED_BY) SELECT REQUESTID,ROOM,\n" +
+                "NOTE,DATE,TYPE,FINISHED_BY from REQUESTINPROGRESS where REQUESTID = ?";
+        String query2 = " UPDATE REQUESTLOG SET FINISHED_BY = ? WHERE REQUESTID = ?";
+        String query3 = " DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
+
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+
+            // insert from requesinprogress to request log the desired request
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, getid.getText());
+            stmt.executeUpdate();
+            System.out.println("inserted into db");
+
+
+            //add the name of the person that got it done
+            PreparedStatement st = conn.prepareStatement(query2);
+            st.setString(1, filledBy.getText());
+            st.setString(2, getid.getText());
+            st.executeUpdate();
+            System.out.println("inserted into db");
+
+
+            //delet from request that has been moved.
+            PreparedStatement s = conn.prepareStatement(query3);
+            s.setString(1, getid.getText());
+            s.executeUpdate();
+            System.out.println("deleted from db");
+            //stmt.setString(6,FilledBy.getText());
+            conn.close();
+
+        }
+        catch (Exception e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+        }
+
+        try {
+            ObservableList<DisplayTable> entList = getAllRecords();
+            ObservableList<DisplayTable> entList2 = getAllRecords2();
+
+
+
+            requestId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            room.setCellValueFactory(new PropertyValueFactory<>("room"));
+            notes.setCellValueFactory(new PropertyValueFactory<>("notes"));
+            type.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+            requestId1.setCellValueFactory(new PropertyValueFactory<>("id"));
+            room1.setCellValueFactory(new PropertyValueFactory<>("room"));
+            notes1.setCellValueFactory(new PropertyValueFactory<>("notes"));
+            type1.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+
+
+            requestInProgress.setItems(entList);
+            reqeustLog.setItems(entList2);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
     }
 
 
@@ -108,10 +249,7 @@ public class ServiceRequestsList {
                 ent.setRoom(rs.getString("room"));
                 ent.setNotes(rs.getString("note"));
                 ent.setType(rs.getString("type"));
-                System.out.println(rs.getString("room"));
-                System.out.println(rs.getString("note"));
-                System.out.println(rs.getString("type"));
-
+                ent.setId(rs.getInt("requestId"));
                 entList.add(ent);
             }
             return entList;
@@ -121,6 +259,8 @@ public class ServiceRequestsList {
             throw e;
         }
     }
+
+
 
 
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
@@ -141,15 +281,49 @@ public class ServiceRequestsList {
         }
     }
 
+    public ObservableList<DisplayTable> getAllRecords2() throws ClassNotFoundException, SQLException {
+        String query = "SELECT * FROM REQUESTLOG";
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            ObservableList<DisplayTable> entryList = getEntryObjects(rs);
+            reqeustLog.setItems(entryList);
+
+            return entryList;
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         try {
             ObservableList<DisplayTable> entList = getAllRecords();
+            ObservableList<DisplayTable> entList2 = getAllRecords2();
 
+
+
+            requestId.setCellValueFactory(new PropertyValueFactory<>("id"));
             room.setCellValueFactory(new PropertyValueFactory<>("room"));
             notes.setCellValueFactory(new PropertyValueFactory<>("notes"));
             type.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+            requestId1.setCellValueFactory(new PropertyValueFactory<>("id"));
+            room1.setCellValueFactory(new PropertyValueFactory<>("room"));
+            notes1.setCellValueFactory(new PropertyValueFactory<>("notes"));
+            type1.setCellValueFactory(new PropertyValueFactory<>("type"));
+            filledBy.setCellValueFactory(new PropertyValueFactory<>("filledBy"));
+
+
+
             requestInProgress.setItems(entList);
+            reqeustLog.setItems(entList2);
         }
         catch (Exception e){
             e.printStackTrace();

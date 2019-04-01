@@ -61,7 +61,6 @@
                            </children>
                         </HBox>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="93.0" text="Refresh" />
                         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                            <children>
                               <Button fx:id="makeRequestButton" mnemonicParsing="false" onMouseClicked="#goToMakeServiceRequest" style="-fx-background-color: white;" text="Make Request">
@@ -109,18 +108,35 @@
                                              <children>
                                                 <TableView fx:id="requestInProgress" prefHeight="275.0" prefWidth="1523.0" VBox.vgrow="ALWAYS">
                                                   <columns>
-                                                    <TableColumn fx:id="room" prefWidth="255.0" text="Room" />
-                                                      <TableColumn fx:id="notes" prefWidth="884.9999389648438" text="Notes" />
-                                                    <TableColumn fx:id="type" prefWidth="349.0001342892647" text="Type" />
+                                                    <TableColumn fx:id="requestId" maxWidth="500.0" prefWidth="255.0" text="Request ID" />
+                                                      <TableColumn fx:id="room" maxWidth="500.0" prefWidth="403.09832763671875" text="Room" />
+                                                    <TableColumn fx:id="notes" maxWidth="500.0" minWidth="0.0" prefWidth="449.11846923828125" text="Notes" />
+                                                      <TableColumn fx:id="type" maxWidth="522.0" prefWidth="441.881591796875" text="Type" />
                                                   </columns>
                                                 </TableView>
                                                 <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button fx:id="requestFulfilledButton" mnemonicParsing="false" onMouseClicked="#markAsComplete" prefHeight="41.0" prefWidth="175.0" text="Fulfill" textAlignment="RIGHT">
+                                                      <Button fx:id="requestFulfilledButton" mnemonicParsing="false" onMouseClicked="#markAsComplete" prefHeight="41.0" prefWidth="175.0" text="Fulfill:" textAlignment="RIGHT">
                                                          <font>
                                                             <Font name="Open Sans" size="24.0" />
                                                          </font>
+                                                         <HBox.margin>
+                                                            <Insets right="10.0" />
+                                                         </HBox.margin>
                                                       </Button>
+                                                      <TextField fx:id="FilledBy" promptText="Name">
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </TextField>
+                                                      <TextField fx:id="getid" promptText="Request ID">
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </TextField>
                                                       <Button fx:id="deleteIncompleteButton" mnemonicParsing="false" onMouseClicked="#deleteRequest" prefHeight="41.0" prefWidth="175.0" text="Delete" textAlignment="RIGHT">
                                                          <font>
                                                             <Font name="Open Sans" size="24.0" />
@@ -145,11 +161,13 @@
                                        <children>
                                           <VBox alignment="TOP_RIGHT" layoutX="33.8" prefHeight="541.0" prefWidth="1538.0" AnchorPane.bottomAnchor="-30.0" AnchorPane.leftAnchor="-30.0" AnchorPane.rightAnchor="-30.0" AnchorPane.topAnchor="-30.0">
                                              <children>
-                                                <TableView prefHeight="385.0" prefWidth="1491.0" VBox.vgrow="ALWAYS">
+                                                <TableView fx:id="reqeustLog" prefHeight="385.0" prefWidth="1491.0" VBox.vgrow="ALWAYS">
                                                    <columns>
-                                                      <TableColumn prefWidth="255.0" text="Room" />
-                                                      <TableColumn prefWidth="884.9999389648438" text="Notes" />
-                                                      <TableColumn prefWidth="349.0001342892647" text="Type" />
+                                                      <TableColumn fx:id="requestId1" maxWidth="500.0" prefWidth="255.0" text="Request ID" />
+                                                      <TableColumn fx:id="notes1" maxWidth="500.0" minWidth="0.0" prefWidth="329.54083251953125" text="Notes" />
+                                                      <TableColumn fx:id="room1" maxWidth="500.0" prefWidth="248.459228515625" text="Room" />
+                                                      <TableColumn fx:id="type1" maxWidth="728.4976196289062" prefWidth="384.15838623046875" text="Type" />
+                                                      <TableColumn prefWidth="331.841552734375" text="Filled By" />
                                                    </columns>
                                                 </TableView>
                                                 <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
@@ -159,9 +177,17 @@
                                                             <Font name="Open Sans" size="24.0" />
                                                          </font>
                                                          <HBox.margin>
-                                                            <Insets left="15.0" right="15.0" />
+                                                            <Insets left="15.0" />
                                                          </HBox.margin>
                                                       </Button>
+                                                      <TextField fx:id="getid2" promptText="Request ID">
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" right="50.0" />
+                                                         </HBox.margin>
+                                                         <font>
+                                                            <Font size="24.0" />
+                                                         </font>
+                                                      </TextField>
                                                    </children>
                                                 </HBox>
                                              </children>

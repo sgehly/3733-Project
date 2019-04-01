@@ -16,14 +16,15 @@ import java.awt.event.MouseEvent;
 import java.lang.String;
 import java.sql.Timestamp;
 import java.util.Date;
-
+import java.util.Random;
 
 import java.io.IOException;
 
 public class ServiceRequests {
 
     String dbPath = "jdbc:derby:myDB";
-    int idgnerator = 1;
+
+
 
 
     Date date = new Date();
@@ -57,6 +58,35 @@ public class ServiceRequests {
 
     @FXML
     private TextArea languageNotes;
+
+
+
+
+    public int RandIDgenerator(){
+        Random rand = new Random();
+        int id = rand.nextInt(10000);
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            String query = "SELECT REQUESTID FROM REQUESTINPROGRESS";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()){
+                if(rs.getInt(1) == id){
+                    RandIDgenerator();
+                }
+                else{
+                    return id;
+                }
+            }
+        }
+
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
 
     @FXML
     public void logout() throws Exception {
@@ -93,17 +123,17 @@ public class ServiceRequests {
 
                 Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
                 Connection conn = DriverManager.getConnection(dbPath);
-                String query = "insert into  APP.REQUESTINPROGRESS  (REQUESTID , ROOM , NOTE , DATE, STATUS ) values (?,?,?,?,?)";
+                String query = "insert into  APP.REQUESTINPROGRESS  (REQUESTID , ROOM , NOTE , DATE ) values (?,?,?,?)";
                 //
                 //PreparedStatement stmt=conn.prepareStatement("insert into  REQUESTINPROGRESS set REQUESTID = ? , ROOM = ?, NOTE = ?, DATE = ?, STATUS = ?");
                 //PreparedStatement stmt = conn.prepareStatement("SELECT * from REQUESTINPROGRESS");
                 PreparedStatement stmt = conn.prepareStatement(query);
 
-                stmt.setInt(1, (idgnerator));
+                stmt.setInt(1, (RandIDgenerator()));
                 stmt.setString(2, (sanitationRoomNumber.getText()));
                 stmt.setString(3, sanitationNotes.getText());
                 stmt.setTimestamp(4, ts);
-                stmt.setBoolean(5, false);
+                //stmt.setBoolean(5, false);
                 System.out.println("in table ");
 
                 stmt.executeUpdate();
@@ -112,8 +142,6 @@ public class ServiceRequests {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            idgnerator = idgnerator++;
-            System.out.println("id generator ");
         }
 
 
