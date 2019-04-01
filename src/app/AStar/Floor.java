@@ -24,6 +24,7 @@ public class Floor{
     public Floor(String f) {
         floorMap = new HashMap<>();
         this.floorid = f;
+        this.populateFloor();
     }
 
     //getters and setters for the floor maps
@@ -71,6 +72,62 @@ public class Floor{
         catch (Exception e){
                 e.printStackTrace();
             }
+    }
+
+    public void populateFloor(){
+        try {
+            String cmd = "select * from floor" + floorid;
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Statement stmt = conn.createStatement();
+            ResultSet set = stmt.executeQuery(cmd);
+            while (set.next()) {
+                String id = set.getString("nodeID");
+                String building = set.getString("building");
+                String type = set.getString("nodeType");
+                String longName = set.getString("longName");
+                String shortName = set.getString("shortName");
+                int x = set.getInt("XCoord");
+                int y = set.getInt("YCoord");
+                Node n = new Node(id, x, y, floorid, building, type, longName, shortName);
+                floorMap.put(id, n);
+                //System.out.println(floorMap.get(n.getId()));
+            }
+            conn.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            String cmd = "select * from edge";
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(cmd);
+            Node n1 = new Node("343", 34,34, "d", "e", "e","e","e");
+            Node n2 = new Node("243", 34,34, "d", "e", "e","e","e");
+            while (rs.next()){
+                System.out.println(rs.getString("edgeID"));
+                System.out.println(rs.getString("startNode"));
+                System.out.println(rs.getString("endNode"));
+
+                n1 = floorMap.get(rs.getString("startNode"));
+                n2 = floorMap.get(rs.getString("endNode"));
+                //System.out.println(floorMap.get(rs.getString("startNode")));
+                //System.out.println(floorMap.get(rs.getString("endNode")));
+                n1.addEdge(n2, rs.getString("edgeID"));
+                n2.addEdge(n1, rs.getString("edgeID"));
+
+            }
+            conn.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
     }
 
     public void addNode(String id, int x, int y, String floor, String building, String type, String longN, String shortN){
@@ -231,7 +288,7 @@ public class Floor{
             Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
             Statement stmt1 = conn.createStatement();
             Statement stmt2 = conn.createStatement();
-            String floorTable; //which floor table are we inserting into?
+            String floorTable = null; //which floor table are we inserting into?
             if (floorNum.equals("1")){
                 floorTable  = "Floor1";
             }
@@ -251,7 +308,7 @@ public class Floor{
                 System.out.println("That floor does not exist");
             }
 
-            String floorTableQuery = "INSERT INTO "+floorNum+"VALUES("+node.getId()+", "+node.getXCoord()+", "+node.getYCoord()+")";
+            String floorTableQuery = "INSERT INTO "+floorTable+" VALUES("+node.getId()+", "+node.getXCoord()+", "+node.getYCoord()+")";
             String nodeTableQuery = "INSERT INTO Node VALUES("+node.getId()+", "+node.getXCoord()+", "+node.getYCoord()+", "+node.getFloor()+", "+node.getBuilding()+", "+node.getNodeType()+", "+node.getLongName()+", "+node.getShortName()+")";
 
             stmt1.execute(floorTableQuery);

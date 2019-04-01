@@ -81,6 +81,7 @@ public class DatabaseParser {
 
         try {
             inputStream = new Scanner(file);
+            inputStream.nextLine();
             while (inputStream.hasNext()) {
                 String line = inputStream.nextLine();
                 String[] values = line.split(",");
@@ -96,6 +97,7 @@ public class DatabaseParser {
             for (List<String> line : lines) {
                 Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
                 Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+                //String query = "insert into floor" + line.get(3) +" (nodeid, xcoord, ycoord, floor, building, nodetype, longname, shortname) values (?, ?, ?, ?, ?, ?, ?, ?)";
                 String query = "insert into node (nodeid, xcoord, ycoord, floor, building, nodetype, longname, shortname) values (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement preStmt = conn.prepareStatement(query);
                 for (int columnNum = 0; columnNum < 8; columnNum++) {
@@ -136,43 +138,49 @@ public class DatabaseParser {
     }
 
     public void floorTables(){
-       // String floor1TableQuery = "CREATE TABLE Floor1(nodeID varchar(20), xcoord int, ycoord int, CONSTRAINT f1_PK PRIMARY KEY (nodeID))";
-       // String floor2TableQuery = "CREATE TABLE Floor2(nodeID varchar(20), xcoord int, ycoord int, CONSTRAINT f2_PK PRIMARY KEY (nodeID))";
-       // String floor3TableQuery = "CREATE TABLE Floor3(nodeID varchar(20), xcoord int, ycoord int, CONSTRAINT f3_PK PRIMARY KEY (nodeID))";
-       // String floorL1TableQuery = "CREATE TABLE FloorL1(nodeID varchar(20), xcoord int, ycoord int, CONSTRAINT fl1_PK PRIMARY KEY (nodeID))";
-       // String floorL2TableQuery = "CREATE TABLE FloorL2(nodeID varchar(20), xcoord int, ycoord int, CONSTRAINT fl2_PK PRIMARY KEY (nodeID))";
+        String floor1TableQuery = "CREATE TABLE Floor1(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100) CONSTRAINT f1_PK PRIMARY KEY (nodeID))";
+        String floor2TableQuery = "CREATE TABLE Floor2(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100) CONSTRAINT f2_PK PRIMARY KEY (nodeID))";
+        String floor3TableQuery = "CREATE TABLE Floor3(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100)  CONSTRAINT f3_PK PRIMARY KEY (nodeID))";
+        String floorL1TableQuery = "CREATE TABLE FloorL1(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100) CONSTRAINT fl1_PK PRIMARY KEY (nodeID))";
+        String floorL2TableQuery = "CREATE TABLE FloorL2(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100) CONSTRAINT fl2_PK PRIMARY KEY (nodeID))";
+        String edgeTableQuery = "CREATE TABLE Edge(edgeID varchar(25), startNode varchar(12), endNode varchar(12) CONSTRAINT fe_PK PRIMARY KEY (edgeID))";
 
 
-        String floor1PopQuery = "INSERT INTO Floor1 SELECT nodeID, xcoord, ycoord FROM node WHERE floor = '1'";
-        String floor2PopQuery = "INSERT INTO Floor2 SELECT nodeID, xcoord, ycoord FROM node WHERE floor = '2'";
-        String floor3PopQuery = "INSERT INTO Floor3 SELECT nodeID, xcoord, ycoord FROM node WHERE floor = '3'";
-        String floorL1PopQuery = "INSERT INTO FloorL1 SELECT nodeID, xcoord, ycoord FROM node WHERE floor = 'L1'";
-        String floorL2PopQuery = "INSERT INTO FloorL2 SELECT nodeID, xcoord, ycoord FROM node WHERE floor = 'L2'";
+        String floor1PopQuery = "INSERT INTO Floor1 SELECT * FROM node WHERE floor = '1'";
+        String floor2PopQuery = "INSERT INTO Floor2 SELECT * FROM node WHERE floor = '2'";
+        String floor3PopQuery = "INSERT INTO Floor3 SELECT * FROM node WHERE floor = '3'";
+        String floorL1PopQuery = "INSERT INTO FloorL1 SELECT * FROM node WHERE floor = 'L1'";
+        String floorL2PopQuery = "INSERT INTO FloorL2 SELECT * FROM node WHERE floor = 'L2'";
+        String edgePopQuery = "insert into Edge select * from Edge";
 
         try {
             connect();
             Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-//            Statement stmt1 = conn.createStatement();
-//            Statement stmt2 = conn.createStatement();
-//            Statement stmt3 = conn.createStatement();
-//            Statement stmt4 = conn.createStatement();
-//            Statement stmt5 = conn.createStatement();
+            Statement stmt1 = conn.createStatement();
+            Statement stmt2 = conn.createStatement();
+            Statement stmt3 = conn.createStatement();
+            Statement stmt4 = conn.createStatement();
+            Statement stmt5 = conn.createStatement();
             Statement stmt6 = conn.createStatement();
             Statement stmt7 = conn.createStatement();
             Statement stmt8 = conn.createStatement();
             Statement stmt9 = conn.createStatement();
             Statement stmt10 = conn.createStatement();
+            //Statement stmt11 = conn.createStatement();
+            //Statement stmt12 = conn.createStatement();
 
-           // stmt1.execute(floor1TableQuery);
-           // stmt2.execute(floor2TableQuery);
-           // stmt3.execute(floor3TableQuery);
-           // stmt4.execute(floorL1TableQuery);
-           // stmt5.execute(floorL2TableQuery);
+            stmt1.executeUpdate(floor1TableQuery);
+            stmt2.execute(floor2TableQuery);
+            stmt3.execute(floor3TableQuery);
+            stmt4.execute(floorL1TableQuery);
+            stmt5.execute(floorL2TableQuery);
             stmt6.execute(floor1PopQuery);
             stmt7.execute(floor2PopQuery);
             stmt8.execute(floor3PopQuery);
             stmt9.execute(floorL1PopQuery);
             stmt10.execute(floorL2PopQuery);
+            //stmt11.execute(edgeTableQuery);
+            //stmt12.execute(edgePopQuery);
 
         }
         catch (Exception e){

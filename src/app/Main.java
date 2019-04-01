@@ -16,8 +16,6 @@ import java.util.Map;
 
 import app.AStar.*;
 
-import javax.xml.crypto.Data;
-
 public class Main extends Application {
 
     private static Stage primaryStage = null;
@@ -54,26 +52,20 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-//        CSVParser parse = new CSVParser("C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\nodes.csv", "C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\edges.csv");
-//        AStar aS = new AStar();
-//
-//        Map<String, Node> mappedNodes = parse.getNodes();
+        //CSVParser parse = new CSVParser("C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\nodes.csv", "C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\edges.csv");
+        //AStar aS = new AStar();
+
+        //Map<String, Node> mappedNodes = parse.getNodes();
 
 //        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
         //aS.drawPath(path);
-       /* DatabaseParser parser = new DatabaseParser();
-        parser.nodeParse();
-        parser.edgeParse();*/
-
-        DatabaseParser parser = new DatabaseParser();
-        parser.edgeParse();
-        parser.nodeParse();
-
-        launch(args);
         //DatabaseParser parser = new DatabaseParser();
-
         //parser.nodeParse();
-        //parser.edgeParse();
         //parser.floorTables();
+        //parser.edgeParse();
+
+        Floor myFloor = new Floor("1");
+        myFloor.populateFloor();
+        //launch(args);
     }
 }

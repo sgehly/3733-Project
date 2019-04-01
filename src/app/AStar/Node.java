@@ -182,6 +182,10 @@ public class Node implements Comparable{
         return this.enabled;
     }
 
+    public void setEdgeList(List<Edge> edgeList) {
+        this.edgeList = edgeList;
+    }
+
     /**
      * Adds an edge to the node
      *
@@ -192,7 +196,7 @@ public class Node implements Comparable{
 
         // need to add edges to both edge lists
         this.edgeList.add(new Edge(n, edgeID));
-        n.edgeList.add(new Edge(this, edgeID ));
+        n.getEdgeList().add(new Edge(this, edgeID));
     }
 
 
