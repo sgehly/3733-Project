@@ -62,10 +62,13 @@ public class Scheduler {
     private TableView tableView = new TableView();
 
     @FXML
-    private TableColumn<DisplayTable,String> roomId = new TableColumn("roomId");;
+    private TableColumn<DisplayTable,String> roomId = new TableColumn("roomId");
 
     @FXML
-    private TableColumn<DisplayTable,String> details = new TableColumn("details");;
+    private TableColumn<DisplayTable,String> capacity = new TableColumn("capacity");
+
+    @FXML
+    private TableColumn<DisplayTable,String> roomType = new TableColumn("roomType");
 
     @FXML
     private JFXDatePicker startDate = new JFXDatePicker();
@@ -154,19 +157,24 @@ public class Scheduler {
         }
     }
 
-    void getAvailableRooms(){
+    public ObservableList<DisplayTable> getAvailableRooms() throws ClassNotFoundException, SQLException{
+
+        String query1 = "SELECT Rooms.roomID, capacity, roomType FROM BookedTimes Join Rooms on (Rooms.roomID) = (BookedTimes.roomID) MINUS (SELECT Rooms.roomID, capacity, roomType FROM BookedTimes JOIN Rooms ON (Rooms.roomID) = (BookedTimes.roomID) WHERE ((BookedTimes.startTime >= "+ startDate+" "+ startTime + ") AND (BookedTimes.startTime <= "+ startDate+" "+ startTime + ") )OR ((BookedTimes.endTime >= "+ endDate+" "+ endTime + ") AND (BookedTimes.endTime <= "+ endDate+" "+ endTime + ")))";
+
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection(dbPath);
             Statement stmt = conn.createStatement();
 
-            String query1 = "SELECT Rooms.roomID, startTime, endTime, capacity, details, roomType FROM BookedTimes Join Rooms on (Rooms.roomID) = (BookedTimes.roomID) MINUS (SELECT Rooms.roomID, startTime, endTime, capacity, details, roomType FROM BookedTimes JOIN Rooms ON (Rooms.roomID) = (BookedTimes.roomID) WHERE ((BookedTimes.startTime >= "+ startDate+" "+ startTime + ") AND (BookedTimes.startTime <= "+ startDate+" "+ startTime + ") )OR ((BookedTimes.endTime >= "+ endDate+" "+ endTime + ") AND (BookedTimes.endTime <= "+ endDate+" "+ endTime + ")))";
-
             ResultSet availRooms = stmt.executeQuery(query1);
+            ObservableList<DisplayTable> entryList = getEntryObjects(availRooms);
+            tableView.setItems(entryList);
+            return entryList;
         }
         catch (Exception e){
             e.printStackTrace();
             System.out.println("Error trying to get available rooms");
+            throw e;
         }
 
     }
@@ -175,9 +183,10 @@ public class Scheduler {
     void initialize() {
 
         try {
-            ObservableList<DisplayTable> entList = getAllRecords();
+            ObservableList<DisplayTable> entList = getAvailableRooms();
             roomId.setCellValueFactory(new PropertyValueFactory<>("Room"));
-            details.setCellValueFactory(new PropertyValueFactory<>("Notes"));
+            capacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
+            roomType.setCellValueFactory(new PropertyValueFactory<>("roomType"));
             tableView.setItems(entList);
         }
         catch (Exception e){
