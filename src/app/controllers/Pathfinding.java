@@ -68,7 +68,7 @@ public class Pathfinding {
     //Check if either are empty
         if(startString != "" && endString!="") //If not empty
         {
-            Floor floor = new Floor();//Create an instance of the floor and get the start and end nodes
+            Floor floor = new Floor("1");//Create an instance of the floor and get the start and end nodes
             HashMap<String,Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
             Node startNode = floorMap.get(startString); //Get starting and ending string using keys
             Node endNode = floorMap.get(endString);
