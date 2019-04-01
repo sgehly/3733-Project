@@ -67,6 +67,6 @@ public class Main extends Application {
 
         Floor myFloor = new Floor("1");
         myFloor.populateFloor();
-        //launch(args);
+        launch(args);
     }
 }

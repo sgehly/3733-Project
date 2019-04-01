@@ -106,11 +106,14 @@ public class Floor{
             Node n1 = new Node("343", 34,34, "d", "e", "e","e","e");
             Node n2 = new Node("243", 34,34, "d", "e", "e","e","e");
             while (rs.next()) {
-                if (floorMap.containsKey(rs.getString("startNode")) && floorMap.containsKey(rs.getString("endNode"))) {
-                    n1 = floorMap.get(rs.getString("startNode"));
-                    n2 = floorMap.get(rs.getString("endNode"));
-                    n1.addEdge(n2, rs.getString("edgeID"));
-                    n2.addEdge(n1, rs.getString("edgeID"));
+                String startingNode = rs.getString("startNode");
+                String endingNode = rs.getString("endNode");
+                String edgeID = rs.getString("edgeID");
+                if(floorMap.containsKey(startingNode) && floorMap.containsKey(endingNode)){
+                    n1 = floorMap.get(startingNode);
+                    n2 = floorMap.get(endingNode);
+                    n1.addEdge(n2, edgeID);
+                    n2.addEdge(n1, edgeID);
                 }
             }
             conn.close();
@@ -118,6 +121,9 @@ public class Floor{
         catch (Exception e){
             e.printStackTrace();
         }
+
+
+
     }
 
     public void addNode(String id, int x, int y, String floor, String building, String type, String longN, String shortN){
