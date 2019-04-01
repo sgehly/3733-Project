@@ -2,30 +2,30 @@ package app.controllers;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import app.AStar.AStar;
 import app.AStar.Floor;
 import app.AStar.Node;
 import app.Main;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.Cursor;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
+
+import javax.swing.*;
 
 public class Pathfinding {
     static double initx;
@@ -37,6 +37,7 @@ public class Pathfinding {
 
     @FXML
     private Pane imageView;
+
 
     @FXML
     private ImageView image;
@@ -58,6 +59,8 @@ public class Pathfinding {
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
+
+
     }
 
     @FXML
@@ -68,6 +71,21 @@ public class Pathfinding {
     //Check if either are empty
         if(startString != "" && endString!="") //If not empty
         {
+         /*   //Create A popup asking if they want to print it
+            Alert dg = new Alert(Alert.AlertType.NONE);
+            dg.setTitle("Print Map?");
+            dg.setHeaderText("Request to Print Map");
+            dg.setContentText("Would you like to send a printout of this map to your email?");
+
+            ButtonType send_email = new ButtonType("Send Email", ButtonBar.ButtonData.LEFT);
+            ButtonType no_thanks = new ButtonType("No Thanks", ButtonBar.ButtonData.RIGHT);
+            dg.getButtonTypes().add(send_email);
+            dg.getButtonTypes().add(no_thanks);
+
+            dg.getDialogPane().lookupButton(send_email)
+
+            dg.show();*/
+
             Floor floor = new Floor("1");//Create an instance of the floor and get the start and end nodes
             HashMap<String,Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
             Node startNode = floorMap.get(startString); //Get starting and ending string using keys
@@ -83,10 +101,9 @@ public class Pathfinding {
             //Now we will try to get the image
             try
             {
-                Image Overlaysource = null;
-                String path = getClass().getResource("src/resources/maps/PathOutput.png").toString().replace("file:","");
-                Overlaysource = new Image(new FileInputStream(path)); //See if we can get the image to overlay and then create a new image object from it
-                overlayImage.setImage(Overlaysource); //set the image as the overlay image
+                Image Overlaysource;
+                Overlaysource = new Image(new FileInputStream("src/resources/maps/PathOutput.png")); //See if we can get the image to overlay and then create a new image object from it
+                image.setImage(Overlaysource); //set the image as the overlay image
 
             }
             catch (FileNotFoundException e)
