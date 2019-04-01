@@ -103,7 +103,7 @@ public class Pathfinding {
             {
                 Image Overlaysource;
                 Overlaysource = new Image(new FileInputStream("src/resources/maps/PathOutput.png")); //See if we can get the image to overlay and then create a new image object from it
-                image.setImage(Overlaysource); //set the image as the overlay image
+                overlayImage.setImage(Overlaysource); //set the image as the overlay image
 
             }
             catch (FileNotFoundException e)

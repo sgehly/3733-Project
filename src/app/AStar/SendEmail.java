@@ -16,6 +16,12 @@ import javax.mail.internet.MimeMultipart;
  */
 public class SendEmail {
 
+    public static void main(String[] args) {
+        SendEmail mail = new SendEmail();
+
+        mail.sendMail("josephcybul@gmail.com");
+    }
+
     /**
      * The constructor takes in the email of the individual we want to send the email to
      */
