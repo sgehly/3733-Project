@@ -59,13 +59,14 @@ public class Main extends Application {
 
 //        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
         //aS.drawPath(path);
-        //DatabaseParser parser = new DatabaseParser();
+        DatabaseParser parser = new DatabaseParser();
+        //parser.connect();
         //parser.nodeParse();
         //parser.floorTables();
         //parser.edgeParse();
 
         Floor myFloor = new Floor("1");
         myFloor.populateFloor();
-        //launch(args);
+        launch(args);
     }
 }
