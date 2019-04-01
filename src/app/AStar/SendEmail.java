@@ -1,5 +1,10 @@
 package app.AStar;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
+import javax.imageio.ImageIO;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -11,24 +16,17 @@ import javax.mail.internet.MimeMultipart;
  */
 public class SendEmail {
 
-    public static void main(String[] args) {
-    sendMail("yvsp26@gmail.com");
-    }
-
     /**
      * The constructor takes in the email of the individual we want to send the email to
      */
-    public SendEmail(String email)
-    {
-
-
-    }
+    public SendEmail()
+    { }
 
     /**
      * Method that, when given string input, will send an email with the map to the given address
      * @param email
      */
-    public static void sendMail(String email)
+    public void sendMail(String email)
     {
         //auth info
         final String username = "BrighamAndWomensKiosk";
@@ -71,10 +69,10 @@ public class SendEmail {
 
             //Create the image body part
             //Get the overlayed images and store them in resources
-
+            combineImages();
             //Send the attachement
             MimeBodyPart imageAttachment = new MimeBodyPart();
-            imageAttachment.attachFile("src/resources/maps/00_thegroundfloor.png"); //Specify the path over here
+            imageAttachment.attachFile("src/resources/maps/emailOutput.png"); //Specify the path over here
 
             //Attach all the body parts together
             emailContent.addBodyPart(textBodyPart);
@@ -92,7 +90,41 @@ public class SendEmail {
         }
     }
 
+    /**
+     * For the first iteration, which is only for one floor, this will combine the images for the two floors and save as another image meant for email
+     */
+    private void combineImages()
+    {
+    // load source images
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("src/resources/maps/02_thesecondfloor.png")); //Actual Image
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedImage overlay = null;
+        try {
+            overlay = ImageIO.read(new File("src/resources/maps/00_thelowerlevel1.png")); //Overlay (The Path)
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        // create the new image, canvas size is the max. of both image sizes
+        int w = Math.max(image.getWidth(), overlay.getWidth());
+        int h = Math.max(image.getHeight(), overlay.getHeight());
+        BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 
+        // paint both images, preserving the alpha channels
+        Graphics g = combined.getGraphics();
+        g.drawImage(image, 0, 0, null);
+        g.drawImage(overlay, 0, 0, null);
+
+    // Save as new image
+        try {
+            ImageIO.write(combined, "PNG", new File("src/resources/maps/emailOutput.png")); //Where the file is being written to
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
