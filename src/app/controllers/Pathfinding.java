@@ -84,7 +84,7 @@ public class Pathfinding {
             try
             {
                 Image Overlaysource = null;
-                String path = getClass().getResource("/resources/maps/PathOutput.png").toString().replace("file:","");
+                String path = getClass().getResource("src/resources/maps/PathOutput.png").toString().replace("file:","");
                 Overlaysource = new Image(new FileInputStream(path)); //See if we can get the image to overlay and then create a new image object from it
                 overlayImage.setImage(Overlaysource); //set the image as the overlay image
 
