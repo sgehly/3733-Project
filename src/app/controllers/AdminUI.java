@@ -4,7 +4,6 @@ import app.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
@@ -25,6 +24,7 @@ import javafx.stage.Screen;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.sql.*;
 
 public class AdminUI {
@@ -226,6 +226,43 @@ public class AdminUI {
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
+    }
+
+    @FXML
+    private void exportToCsv(ActionEvent event) throws  SQLException,ClassNotFoundException{
+        String filename = "Romminfo.csv";
+        try {
+            FileWriter fw = new FileWriter(filename);
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            String query = "select * from node";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                fw.append(rs.getString(1));
+                fw.append(',');
+                fw.append(rs.getString(2));
+                fw.append(',');
+                fw.append(rs.getString(3));
+                fw.append(',');
+                fw.append(rs.getString(4));
+                fw.append(',');
+                fw.append(rs.getString(5));
+                fw.append(',');
+                fw.append(rs.getString(6));
+                fw.append(',');
+                fw.append(rs.getString(7));
+                fw.append(',');
+                fw.append(rs.getString(8));
+                fw.append('\n');
+            }
+            fw.flush();
+            fw.close();
+            conn.close();
+            System.out.println("CSV File is created successfully.");
+        } catch (Exception ev) {
+            ev.printStackTrace();
+        }
     }
 
 }
