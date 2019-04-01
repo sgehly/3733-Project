@@ -104,6 +104,82 @@ CREATE TABLE SOFTENG_PARTC
     SHORTNAME varchar(20)
 );
 CREATE UNIQUE INDEX SQL190323122638210 ON SOFTENG_PARTC (NODEID);
+
+USE THIS NOT THE CODE ABOVE!!!
+
+CREATE TABLE node
+(
+    NODEID varchar(20) PRIMARY KEY NOT NULL,
+    XCOORD int,
+    YCOORD varchar(2),
+    FLOOR int,
+    BUILDING varchar(15),
+    NODETYPE varchar(4),
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
+);
+
+create table edge(
+    edgeid varchar(21),
+    startnode varchar(10),
+    endnode varchar(10),
+);
+
+create table floor1(
+    NODEID varchar(20) PRIMARY KEY NOT NULL,
+    XCOORD int,
+    YCOORD varchar(2),
+    FLOOR int,
+    BUILDING varchar(15),
+    NODETYPE varchar(4),
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
+);
+
+create table floor2(
+    NODEID varchar(20) PRIMARY KEY NOT NULL,
+    XCOORD int,
+    YCOORD varchar(2),
+    FLOOR int,
+    BUILDING varchar(15),
+    NODETYPE varchar(4),
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
+);
+
+create table floor3(
+     NODEID varchar(20) PRIMARY KEY NOT NULL,
+     XCOORD int,
+     YCOORD varchar(2),
+     FLOOR int,
+     BUILDING varchar(15),
+     NODETYPE varchar(4),
+     LONGNAME varchar(100),
+     SHORTNAME varchar(100)
+);
+
+create table floorL1(
+     NODEID varchar(20) PRIMARY KEY NOT NULL,
+     XCOORD int,
+        YCOORD varchar(2),
+        FLOOR int,
+        BUILDING varchar(15),
+        NODETYPE varchar(4),
+        LONGNAME varchar(100),
+        SHORTNAME varchar(100)
+);
+
+create table floorL2(
+      NODEID varchar(20) PRIMARY KEY NOT NULL,
+         XCOORD int,
+         YCOORD varchar(2),
+         FLOOR int,
+         BUILDING varchar(15),
+         NODETYPE varchar(4),
+         LONGNAME varchar(100),
+         SHORTNAME varchar(100)
+);
+
  */
 
 

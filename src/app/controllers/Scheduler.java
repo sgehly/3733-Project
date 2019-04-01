@@ -19,6 +19,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TablePosition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,6 +28,10 @@ import javafx.stage.Screen;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Scheduler {
     static double initx;
@@ -61,6 +66,49 @@ public class Scheduler {
 
     @FXML
     private TableColumn<DisplayTable,String> details = new TableColumn("details");;
+
+    @FXML
+    private JFXDatePicker startDate = new JFXDatePicker();
+
+    @FXML
+    private JFXTimePicker startTime = new JFXTimePicker();;
+
+    @FXML
+    private JFXDatePicker endDate = new JFXDatePicker();
+
+    @FXML
+    private JFXTimePicker endTime = new JFXTimePicker();
+
+    @FXML
+    private void checkAvailability() throws Exception{
+        LocalDate dateStart = startDate.getValue();
+        LocalTime timeStart = startTime.getValue();
+
+        LocalDate dateEnd = startDate.getValue();
+        LocalTime timeEnd = startTime.getValue();
+
+        //Database operations to get available rooms from the database;
+        System.out.println(dateStart+":"+timeStart+"-"+dateEnd+":"+timeEnd);
+    }
+
+    @FXML
+    private void bookRoom() throws Exception{
+        LocalDate dateStart = startDate.getValue();
+        LocalTime timeStart = startTime.getValue();
+
+        LocalDate dateEnd = startDate.getValue();
+        LocalTime timeEnd = startTime.getValue();
+
+        TablePosition pos = (TablePosition)tableView.getSelectionModel().getSelectedCells().get(0);
+        int row = pos.getRow();
+
+        Object item = tableView.getItems().get(row);
+        TableColumn col = pos.getTableColumn();
+        String data = (String) col.getCellObservableValue(item).getValue();
+
+        System.out.println(dateStart+":"+timeStart+"-"+dateEnd+":"+timeEnd+"-"+data);
+    }
+
 
     @FXML
     private void navigateToHome() throws Exception{
