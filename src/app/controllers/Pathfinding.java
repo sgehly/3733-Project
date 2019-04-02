@@ -214,7 +214,7 @@ public class Pathfinding {
                dialog.initModality(Modality.APPLICATION_MODAL);
                dialog.initOwner(Main.getStage());
                VBox dialogVbox = new VBox(20);
-               dialogVbox.getChildren().add(new Label("NODE NOT FOUND"));
+               dialogVbox.getChildren().add(new Label("The node that you entered is not found or there is no path between the given starting node and destination"));
                Scene dialogScene = new Scene(dialogVbox, 300, 200);
                dialog.setScene(dialogScene);
                dialog.show();
