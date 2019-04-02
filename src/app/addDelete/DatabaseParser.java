@@ -136,38 +136,22 @@ public class DatabaseParser {
     }
 
     public void floorTables(){
-       // String floor1TableQuery = "CREATE TABLE Floor1(nodeID varchar(20), xcoord int, ycoord int, CONSTRAINT f1_PK PRIMARY KEY (nodeID))";
-       // String floor2TableQuery = "CREATE TABLE Floor2(nodeID varchar(20), xcoord int, ycoord int, CONSTRAINT f2_PK PRIMARY KEY (nodeID))";
-       // String floor3TableQuery = "CREATE TABLE Floor3(nodeID varchar(20), xcoord int, ycoord int, CONSTRAINT f3_PK PRIMARY KEY (nodeID))";
-       // String floorL1TableQuery = "CREATE TABLE FloorL1(nodeID varchar(20), xcoord int, ycoord int, CONSTRAINT fl1_PK PRIMARY KEY (nodeID))";
-       // String floorL2TableQuery = "CREATE TABLE FloorL2(nodeID varchar(20), xcoord int, ycoord int, CONSTRAINT fl2_PK PRIMARY KEY (nodeID))";
 
-
-        String floor1PopQuery = "INSERT INTO Floor1 SELECT nodeID, xcoord, ycoord FROM node WHERE floor = '1'";
-        String floor2PopQuery = "INSERT INTO Floor2 SELECT nodeID, xcoord, ycoord FROM node WHERE floor = '2'";
-        String floor3PopQuery = "INSERT INTO Floor3 SELECT nodeID, xcoord, ycoord FROM node WHERE floor = '3'";
-        String floorL1PopQuery = "INSERT INTO FloorL1 SELECT nodeID, xcoord, ycoord FROM node WHERE floor = 'L1'";
-        String floorL2PopQuery = "INSERT INTO FloorL2 SELECT nodeID, xcoord, ycoord FROM node WHERE floor = 'L2'";
+        String floor1PopQuery = "INSERT INTO Floor1 SELECT nodeID, xcoord, ycoord, floor, building, NODETYPE, LONGNAME, SHORTNAME FROM node WHERE floor = '1'";
+        String floor2PopQuery = "INSERT INTO Floor2 SELECT nodeID, xcoord, ycoord, floor, building, NODETYPE, LONGNAME, SHORTNAME FROM node WHERE floor = '2'";
+        String floor3PopQuery = "INSERT INTO Floor3 SELECT nodeID, xcoord, ycoord, floor, building, NODETYPE, LONGNAME, SHORTNAME FROM node WHERE floor = '3'";
+        String floorL1PopQuery = "INSERT INTO FloorL1 SELECT nodeID, xcoord, ycoord,floor, building, NODETYPE, LONGNAME, SHORTNAME FROM node WHERE floor = 'L1'";
+        String floorL2PopQuery = "INSERT INTO FloorL2 SELECT nodeID, xcoord, ycoord, floor, building, NODETYPE, LONGNAME, SHORTNAME FROM node WHERE floor = 'L2'";
 
         try {
             connect();
             Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-//            Statement stmt1 = conn.createStatement();
-//            Statement stmt2 = conn.createStatement();
-//            Statement stmt3 = conn.createStatement();
-//            Statement stmt4 = conn.createStatement();
-//            Statement stmt5 = conn.createStatement();
             Statement stmt6 = conn.createStatement();
             Statement stmt7 = conn.createStatement();
             Statement stmt8 = conn.createStatement();
             Statement stmt9 = conn.createStatement();
             Statement stmt10 = conn.createStatement();
 
-           // stmt1.execute(floor1TableQuery);
-           // stmt2.execute(floor2TableQuery);
-           // stmt3.execute(floor3TableQuery);
-           // stmt4.execute(floorL1TableQuery);
-           // stmt5.execute(floorL2TableQuery);
             stmt6.execute(floor1PopQuery);
             stmt7.execute(floor2PopQuery);
             stmt8.execute(floor3PopQuery);
