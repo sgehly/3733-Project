@@ -81,6 +81,7 @@ public class DatabaseParser {
 
         try {
             inputStream = new Scanner(file);
+            inputStream.nextLine();
             while (inputStream.hasNext()) {
                 String line = inputStream.nextLine();
                 String[] values = line.split(",");
@@ -96,6 +97,7 @@ public class DatabaseParser {
             for (List<String> line : lines) {
                 Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
                 Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+                //String query = "insert into floor" + line.get(3) +" (nodeid, xcoord, ycoord, floor, building, nodetype, longname, shortname) values (?, ?, ?, ?, ?, ?, ?, ?)";
                 String query = "insert into node (nodeid, xcoord, ycoord, floor, building, nodetype, longname, shortname) values (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement preStmt = conn.prepareStatement(query);
                 for (int columnNum = 0; columnNum < 8; columnNum++) {
@@ -143,6 +145,13 @@ public class DatabaseParser {
         String floorL1PopQuery = "INSERT INTO FloorL1 SELECT nodeID, xcoord, ycoord,floor, building, NODETYPE, LONGNAME, SHORTNAME FROM node WHERE floor = 'L1'";
         String floorL2PopQuery = "INSERT INTO FloorL2 SELECT nodeID, xcoord, ycoord, floor, building, NODETYPE, LONGNAME, SHORTNAME FROM node WHERE floor = 'L2'";
 
+        //String floor1PopQuery = "INSERT INTO Floor1 SELECT * FROM node WHERE floor = '1'";
+        //String floor2PopQuery = "INSERT INTO Floor2 SELECT * FROM node WHERE floor = '2'";
+        //String floor3PopQuery = "INSERT INTO Floor3 SELECT * FROM node WHERE floor = '3'";
+        //String floorL1PopQuery = "INSERT INTO FloorL1 SELECT * FROM node WHERE floor = 'L1'";
+        //String floorL2PopQuery = "INSERT INTO FloorL2 SELECT * FROM node WHERE floor = 'L2'";
+        //String edgePopQuery = "insert into Edge select * from Edge";
+
         try {
             connect();
             Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
@@ -153,10 +162,18 @@ public class DatabaseParser {
             Statement stmt10 = conn.createStatement();
 
             stmt6.execute(floor1PopQuery);
-            stmt7.execute(floor2PopQuery);
-            stmt8.execute(floor3PopQuery);
-            stmt9.execute(floorL1PopQuery);
-            stmt10.execute(floorL2PopQuery);
+//            stmt1.execute(floor1TableQuery);
+//            stmt2.execute(floor2TableQuery);
+//            stmt3.execute(floor3TableQuery);
+//            stmt4.execute(floorL1TableQuery);
+//            stmt5.execute(floorL2TableQuery);
+            //stmt6.execute(floor1PopQuery);
+            //stmt7.execute(floor2PopQuery);
+            //stmt8.execute(floor3PopQuery);
+            //stmt9.execute(floorL1PopQuery);
+            //stmt10.execute(floorL2PopQuery);
+            //stmt11.execute(edgeTableQuery);
+            //stmt12.execute(edgePopQuery);
 
         }
         catch (Exception e){

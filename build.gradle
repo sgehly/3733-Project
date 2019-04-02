@@ -29,7 +29,7 @@ dependencies {
 
     implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
     implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
-
+    implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

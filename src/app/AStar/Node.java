@@ -1,5 +1,8 @@
 package app.AStar;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,6 +182,10 @@ public class Node implements Comparable{
         return this.enabled;
     }
 
+    public void setEdgeList(List<Edge> edgeList) {
+        this.edgeList = edgeList;
+    }
+
     /**
      * Adds an edge to the node
      *
@@ -189,26 +196,8 @@ public class Node implements Comparable{
 
         // need to add edges to both edge lists
         this.edgeList.add(new Edge(n, edgeID));
-        n.edgeList.add(new Edge(this, edgeID ));
     }
 
-    /**
-     * Removes an edge from a node
-     *
-     * @param n
-     * @param edgeID
-     */
-    public void removeEdge(Node n, String edgeID) {
-        for(Edge e: n.edgeList) {
-            // if find the edge ID that you want
-            if(e.getEdgeID().equals(edgeID)) {
-                // get the end node connected to the edge id
-                Node endNode = e.getEndNode();
-                endNode.edgeList.remove(e); // removes edge from list of the end nodes
-                n.edgeList.remove(e); // removes edge from list of current node
-            }
-        }
-    }
 
     @Override
     public int compareTo(Object o) {
