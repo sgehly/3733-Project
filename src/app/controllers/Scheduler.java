@@ -68,7 +68,7 @@ public class Scheduler {
     private TableColumn<DisplayTable,String> capacity = new TableColumn("capacity");
 
     @FXML
-    private TableColumn<DisplayTable,String> roomType = new TableColumn("roomType");
+    private TableColumn<DisplayTable,String> roomtype = new TableColumn("roomtype");
 
     @FXML
     private JFXDatePicker startDate = new JFXDatePicker();
@@ -126,9 +126,13 @@ public class Scheduler {
             while (rs.next()) {
                 DisplayTable ent = new DisplayTable();
                 ent.setRoom(rs.getString("roomId"));
-                ent.setNotes(rs.getString("details"));
-                System.out.println(rs.getString("details"));
+                ent.setCapacity(rs.getString("capacity"));
+                ent.setType(rs.getString("roomtype")); //nope
+                //ent.setNotes(rs.getString("details"));
+                //System.out.println(rs.getString("details"));
                 System.out.println(rs.getString("roomId"));
+                System.out.println(rs.getString("capacity"));
+                System.out.println(rs.getString("roomtype")); //nope
                 entList.add(ent);
             }
             tableView.setItems(entList);
@@ -141,7 +145,7 @@ public class Scheduler {
     }
 
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
-        String query = "SELECT * FROM ROOMS";
+        String query = "SELECT roomID, capacity, roomtype FROM ROOMS";
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection(dbPath);
@@ -159,13 +163,12 @@ public class Scheduler {
 
     public ObservableList<DisplayTable> getAvailableRooms() throws ClassNotFoundException, SQLException{
 
-        String query1 = "SELECT Rooms.roomID, capacity, roomType FROM BookedTimes Join Rooms on (Rooms.roomID) = (BookedTimes.roomID) MINUS (SELECT Rooms.roomID, capacity, roomType FROM BookedTimes JOIN Rooms ON (Rooms.roomID) = (BookedTimes.roomID) WHERE ((BookedTimes.startTime >= "+ startDate+" "+ startTime + ") AND (BookedTimes.startTime <= "+ startDate+" "+ startTime + ") )OR ((BookedTimes.endTime >= "+ endDate+" "+ endTime + ") AND (BookedTimes.endTime <= "+ endDate+" "+ endTime + ")))";
+        String query1 = "SELECT Rooms.roomID, capacity, roomtype FROM BookedTimes Join Rooms on (Rooms.roomID) = (BookedTimes.roomID) - (SELECT Rooms.roomID, capacity, roomType FROM BookedTimes JOIN Rooms ON (Rooms.roomID) = (BookedTimes.roomID) WHERE ((BookedTimes.startTime >= "+ startDate+" "+ startTime + ") AND (BookedTimes.startTime <= "+ startDate+" "+ startTime + ") )OR ((BookedTimes.endTime >= "+ endDate+" "+ endTime + ") AND (BookedTimes.endTime <= "+ endDate+" "+ endTime + ")))";
 
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection(dbPath);
             Statement stmt = conn.createStatement();
-
             ResultSet availRooms = stmt.executeQuery(query1);
             ObservableList<DisplayTable> entryList = getEntryObjects(availRooms);
             tableView.setItems(entryList);
@@ -183,10 +186,39 @@ public class Scheduler {
     void initialize() {
 
         try {
-            ObservableList<DisplayTable> entList = getAvailableRooms();
+            String str1 = "INSERT INTO Rooms VALUES('CR_1', 19, 'TBD', 'COMP')";
+            String str2 = "insert into Rooms values('CR_2', 17, 'TBD', 'COMP')";
+            String str3 = "insert into Rooms values('CR_3', 17, 'TBD', 'COMP')";
+            String str4 = "insert into Rooms values('CR_4', 19, 'TBD', 'CLASS')";
+            String str5 = "insert into Rooms values('CR_5', 25, 'TBD', 'COMP')";
+            String str6 = "insert into Rooms values('CR_6', 19, 'TBD', 'CLASS')";
+            String str7 = "insert into Rooms values('CR_7', 17, 'TBD', 'COMP')";
+            String str8 = "insert into Rooms values('CR_8', 15, 'TBD', 'CLASS')";
+
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            /*Statement stmt1 = conn.createStatement();
+            Statement stmt2 = conn.createStatement();
+            Statement stmt3 = conn.createStatement();
+            Statement stmt4 = conn.createStatement();
+            Statement stmt5 = conn.createStatement();
+            Statement stmt6 = conn.createStatement();
+            Statement stmt7 = conn.createStatement();
+            Statement stmt8 = conn.createStatement();
+
+            stmt1.executeUpdate(str1);
+            stmt2.executeUpdate(str2);
+            stmt3.executeUpdate(str3);
+            stmt4.executeUpdate(str4);
+            stmt5.executeUpdate(str5);
+            stmt6.executeUpdate(str6);
+            stmt7.executeUpdate(str7);
+            stmt8.executeUpdate(str8);*/
+
+            ObservableList<DisplayTable> entList = getAllRecords();
             roomId.setCellValueFactory(new PropertyValueFactory<>("Room"));
             capacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
-            roomType.setCellValueFactory(new PropertyValueFactory<>("roomType"));
+            roomtype.setCellValueFactory(new PropertyValueFactory<>("roomtype"));
             tableView.setItems(entList);
         }
         catch (Exception e){

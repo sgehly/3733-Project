@@ -8,13 +8,13 @@ public class DisplayTable {
     private StringProperty room;
     private StringProperty capacity;
     private StringProperty notes;
-    private StringProperty type;
+    private StringProperty roomType;
 
     public DisplayTable(){
         this.room = new SimpleStringProperty();
         this.capacity = new SimpleStringProperty();
         this.notes = new SimpleStringProperty();
-        this.type = new SimpleStringProperty();
+        this.roomType = new SimpleStringProperty();
     }
 
     public StringProperty roomProperty(){
@@ -24,7 +24,7 @@ public class DisplayTable {
         return capacity;
     }
     public StringProperty typeProperty(){
-        return type;
+        return roomType;
     }
     public StringProperty notesProperty(){
         return notes;
