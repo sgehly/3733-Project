@@ -90,7 +90,7 @@ public class ServiceRequestsList {
     private TableColumn<DisplayTable,Integer> requestId1 = new TableColumn("requestId");
 
     @FXML
-    private TableColumn<DisplayTable,String> filledBy = new TableColumn("filledBy");
+    private TableColumn<DisplayTable,String> filledBy1 = new TableColumn("filledBy");
 
 
     @FXML
@@ -121,30 +121,8 @@ public class ServiceRequestsList {
             System.out.println("Error while trying to fetch all records");
             e.printStackTrace();
         }
-        try {
-            ObservableList<DisplayTable> entList = getAllRecords();
-            ObservableList<DisplayTable> entList2 = getAllRecords2();
 
-
-
-            requestId.setCellValueFactory(new PropertyValueFactory<>("id"));
-            room.setCellValueFactory(new PropertyValueFactory<>("room"));
-            notes.setCellValueFactory(new PropertyValueFactory<>("notes"));
-            type.setCellValueFactory(new PropertyValueFactory<>("type"));
-
-            requestId1.setCellValueFactory(new PropertyValueFactory<>("id"));
-            room1.setCellValueFactory(new PropertyValueFactory<>("room"));
-            notes1.setCellValueFactory(new PropertyValueFactory<>("notes"));
-            type1.setCellValueFactory(new PropertyValueFactory<>("type"));
-
-
-
-            requestInProgress.setItems(entList);
-            reqeustLog.setItems(entList2);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        initialize();
 
     }
 
@@ -173,9 +151,9 @@ public class ServiceRequestsList {
     void markAsComplete(MouseEvent event) throws ClassNotFoundException{
         //move to complete table
         String query = "\n" +
-                "INSERT INTO REQUESTLOG (REQUESTID, ROOM, NOTE, DATE, TYPE, FINISHED_BY) SELECT REQUESTID,ROOM,\n" +
-                "NOTE,DATE,TYPE,FINISHED_BY from REQUESTINPROGRESS where REQUESTID = ?";
-        String query2 = " UPDATE REQUESTLOG SET FINISHED_BY = ? WHERE REQUESTID = ?";
+                "INSERT INTO REQUESTLOG (REQUESTID, ROOM, NOTE, DATE, TYPE, FILLEDBY) SELECT REQUESTID,ROOM,\n" +
+                "NOTE,DATE,TYPE,filledby from REQUESTINPROGRESS where REQUESTID = ?";
+        String query2 = " UPDATE REQUESTLOG SET FILLEDBY = ? WHERE REQUESTID = ?";
         String query3 = " DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
 
         try {
@@ -191,7 +169,7 @@ public class ServiceRequestsList {
 
             //add the name of the person that got it done
             PreparedStatement st = conn.prepareStatement(query2);
-            st.setString(1, filledBy.getText());
+            st.setString(1, FilledBy.getText());
             st.setString(2, getid.getText());
             st.executeUpdate();
             System.out.println("inserted into db");
@@ -211,32 +189,7 @@ public class ServiceRequestsList {
             e.printStackTrace();
         }
 
-        try {
-            ObservableList<DisplayTable> entList = getAllRecords();
-            ObservableList<DisplayTable> entList2 = getAllRecords2();
-
-
-
-            requestId.setCellValueFactory(new PropertyValueFactory<>("id"));
-            room.setCellValueFactory(new PropertyValueFactory<>("room"));
-            notes.setCellValueFactory(new PropertyValueFactory<>("notes"));
-            type.setCellValueFactory(new PropertyValueFactory<>("type"));
-
-            requestId1.setCellValueFactory(new PropertyValueFactory<>("id"));
-            room1.setCellValueFactory(new PropertyValueFactory<>("room"));
-            notes1.setCellValueFactory(new PropertyValueFactory<>("notes"));
-            type1.setCellValueFactory(new PropertyValueFactory<>("type"));
-
-
-
-            requestInProgress.setItems(entList);
-            reqeustLog.setItems(entList2);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-
+       initialize();
 
     }
 
@@ -250,6 +203,29 @@ public class ServiceRequestsList {
                 ent.setNotes(rs.getString("note"));
                 ent.setType(rs.getString("type"));
                 ent.setId(rs.getInt("requestId"));
+                ent.setFilledBy(rs.getString("filledby"));
+                //System.out.println(rs.getString("filledby"));
+                entList.add(ent);
+            }
+            return entList;
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    private static ObservableList<DisplayTable> getEntryObjects2(ResultSet rs) throws SQLException {
+        ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
+        try {
+            while (rs.next()) {
+                DisplayTable ent = new DisplayTable();
+                ent.setRoom(rs.getString("room"));
+                ent.setNotes(rs.getString("note"));
+                ent.setType(rs.getString("type"));
+                ent.setId(rs.getInt("requestId"));
+                ent.setFilledBy(rs.getString("filledby"));
+                //System.out.println(rs.getString("filledby"));
                 entList.add(ent);
             }
             return entList;
@@ -288,7 +264,7 @@ public class ServiceRequestsList {
             Connection conn = DriverManager.getConnection(dbPath);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            ObservableList<DisplayTable> entryList = getEntryObjects(rs);
+            ObservableList<DisplayTable> entryList = getEntryObjects2(rs);
             reqeustLog.setItems(entryList);
 
             return entryList;
@@ -318,7 +294,7 @@ public class ServiceRequestsList {
             room1.setCellValueFactory(new PropertyValueFactory<>("room"));
             notes1.setCellValueFactory(new PropertyValueFactory<>("notes"));
             type1.setCellValueFactory(new PropertyValueFactory<>("type"));
-            filledBy.setCellValueFactory(new PropertyValueFactory<>("filledBy"));
+            filledBy1.setCellValueFactory(new PropertyValueFactory<>("FilledBy"));
 
 
 

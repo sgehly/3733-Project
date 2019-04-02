@@ -167,7 +167,7 @@
                                                       <TableColumn fx:id="notes1" maxWidth="500.0" minWidth="0.0" prefWidth="329.54083251953125" text="Notes" />
                                                       <TableColumn fx:id="room1" maxWidth="500.0" prefWidth="248.459228515625" text="Room" />
                                                       <TableColumn fx:id="type1" maxWidth="728.4976196289062" prefWidth="384.15838623046875" text="Type" />
-                                                      <TableColumn prefWidth="331.841552734375" text="Filled By" />
+                                                      <TableColumn fx:id="filledBy1" prefWidth="331.841552734375" text="Filled By" />
                                                    </columns>
                                                 </TableView>
                                                 <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
