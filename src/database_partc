@@ -92,18 +92,91 @@ public class database_partc {
 }
 
 /*
-CREATE TABLE SOFTENG_PARTC
+CREATE TABLE node
 (
     NODEID varchar(20) PRIMARY KEY NOT NULL,
     XCOORD int,
     YCOORD int,
-    FLOOR int,
+    FLOOR varchar(2),
     BUILDING varchar(15),
     NODETYPE varchar(4),
-    LONGNAME varchar(40),
-    SHORTNAME varchar(20)
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
 );
-CREATE UNIQUE INDEX SQL190323122638210 ON SOFTENG_PARTC (NODEID);
+
+CREATE TABLE floor1
+(
+    NODEID varchar(20) PRIMARY KEY NOT NULL,
+    XCOORD int,
+    YCOORD int,
+    FLOOR varchar(2),
+    BUILDING varchar(15),
+    NODETYPE varchar(4),
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
+);
+
+CREATE TABLE floor2
+(
+    NODEID varchar(20) PRIMARY KEY NOT NULL,
+    XCOORD int,
+    YCOORD int,
+    FLOOR varchar(2),
+    BUILDING varchar(15),
+    NODETYPE varchar(4),
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
+);
+
+CREATE TABLE floor3
+(
+    NODEID varchar(20) PRIMARY KEY NOT NULL,
+    XCOORD int,
+    YCOORD int,
+    FLOOR varchar(2),
+    BUILDING varchar(15),
+    NODETYPE varchar(4),
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
+);
+
+CREATE TABLE floorL1
+(
+    NODEID varchar(20) PRIMARY KEY NOT NULL,
+    XCOORD int,
+    YCOORD int,
+    FLOOR varchar(2),
+    BUILDING varchar(15),
+    NODETYPE varchar(4),
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
+);
+
+CREATE TABLE floorL2
+(
+    NODEID varchar(20) PRIMARY KEY NOT NULL,
+    XCOORD int,
+    YCOORD int,
+    FLOOR varchar(2),
+    BUILDING varchar(15),
+    NODETYPE varchar(4),
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
+);
+
+create table rooms(
+    roomid varchar(20) not null primary key,
+    capacity int,
+    details varchar(100),
+    roomtype varchar(5)
+);
+
+create table edge(
+    edgeid varchar(21) primary key,
+    startnode varchar(10),
+    endnode varchar(10)
+);
+
  */
 
 
