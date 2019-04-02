@@ -7,6 +7,7 @@ import app.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
@@ -21,6 +22,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -49,6 +51,9 @@ public class AdminUI {
 
     double scaledWidth;
     double scaledHeight;
+
+    MapPoint dragDelta = new MapPoint(0,0);
+    MapPoint initial = new MapPoint(0,0);
 
     Rectangle2D primaryScreenBounds;
 
@@ -184,33 +189,37 @@ public class AdminUI {
 
     }
 
+    public void updateValues(String nodeId) throws Exception{
+        System.out.println(nodeId);
+        //TODO: Can someone on database make this so SQL Injection can't happen
+        String query = "SELECT * FROM FLOOR1 WHERE NODEID = ?";
+        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+        Connection conn = DriverManager.getConnection(dbPath);
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, nodeId);
+        ResultSet rs = stmt.executeQuery();
+
+        if(rs.next()){
+            System.out.println(rs.getString("nodeType"));
+            System.out.println(rs.getString("longName"));
+            System.out.println(rs.getString("shortName"));
+            nodeIdTextBox.setText(rs.getString("nodeID"));
+            xCoordTextBox.setText(String.valueOf(rs.getInt("xCoord")));
+            yCoordTextBox.setText(String.valueOf(rs.getInt("yCoord")));
+            floorTextBox.setText(rs.getString("floor"));
+            buildingTextBox.setText(rs.getString("building"));
+            typeTextBox.setText(rs.getString("nodeType"));
+            longNameTextBox.setText(rs.getString("longName"));
+            shortNameTextBox.setText(rs.getString("shortName"));
+        }
+
+        conn.close();
+    }
+
     private void setValues(ActionEvent value){
         try {
             String nodeId = ((Button)value.getSource()).getId();
-            System.out.println(nodeId);
-            //TODO: Can someone on database make this so SQL Injection can't happen
-            String query = "SELECT * FROM FLOOR1 WHERE NODEID = ?";
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, nodeId);
-            ResultSet rs = stmt.executeQuery();
-
-            if(rs.next()){
-                System.out.println(rs.getString("nodeType"));
-                System.out.println(rs.getString("longName"));
-                System.out.println(rs.getString("shortName"));
-                nodeIdTextBox.setText(rs.getString("nodeID"));
-                xCoordTextBox.setText(String.valueOf(rs.getInt("xCoord")));
-                yCoordTextBox.setText(String.valueOf(rs.getInt("yCoord")));
-                floorTextBox.setText(rs.getString("floor"));
-                buildingTextBox.setText(rs.getString("building"));
-                typeTextBox.setText(rs.getString("nodeType"));
-                longNameTextBox.setText(rs.getString("longName"));
-                shortNameTextBox.setText(rs.getString("shortName"));
-            }
-
-            conn.close();
+            this.updateValues(nodeId);
         }
         catch (Exception e) {
             System.out.println("Error while trying to fetch all records");
@@ -225,19 +234,66 @@ public class AdminUI {
             while (rs.next()) {
                 Button newButton = new Button();
                 double size = 5;
+                String id = rs.getString("nodeId");
+
                 newButton.setMinWidth(size);
                 newButton.setMaxWidth(size);
                 newButton.setMinHeight(size);
                 newButton.setPrefHeight(size);
                 newButton.setPrefWidth(size);
                 newButton.setMaxHeight(size);
-                newButton.setId(rs.getString("nodeId"));
+                newButton.setId(id);
                 newButton.setOnAction(this::setValues);
 
                 MapPoint generated = scalePoints(rs.getInt("xcoord"), rs.getInt("ycoord"));
                 newButton.setLayoutX(generated.x-(size/2));
                 newButton.setLayoutY(generated.y-(size/2));
                 newButton.setStyle("-fx-background-color: blue");
+
+                /*newButton.setOnMousePressed(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent)  {
+                        // record a delta distance for the drag and drop operation.
+                        try {
+
+                            updateValues(id);
+                            dragDelta.x = newButton.getLayoutX() - mouseEvent.getSceneX();
+                            dragDelta.y = newButton.getLayoutY() - mouseEvent.getSceneY();
+                            initial.x = Integer.valueOf(xCoordTextBox.getText());
+                            initial.y = Integer.valueOf(yCoordTextBox.getText());
+                            newButton.setCursor(Cursor.MOVE);
+
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+                newButton.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        newButton.setCursor(Cursor.HAND);
+                        initial.x = dragDelta.x;
+                        initial.y = dragDelta.y;
+                    }
+                });
+                newButton.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        newButton.setLayoutX(mouseEvent.getSceneX() + dragDelta.x);
+                        newButton.setLayoutY(mouseEvent.getSceneY() + dragDelta.y);
+                        xCoordTextBox.setText(String.valueOf(initial.x+dragDelta.x));
+                        yCoordTextBox.setText(String.valueOf(initial.y+dragDelta.y));
+                    }
+                });
+                newButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        newButton.setCursor(Cursor.HAND);
+                    }
+                });*/
+
+
                 System.out.println("New Button! ("+String.valueOf(rs.getInt("xcoord")-(size/2))+","+String.valueOf(rs.getInt("ycoord")-(size/2))+") -- ("+String.valueOf(primaryScreenBounds.getWidth())+","+String.valueOf(primaryScreenBounds.getHeight()-200)+") => ("+generated.x+","+generated.y+")");
                 buttonContainer.getChildren().add(newButton);
             }
