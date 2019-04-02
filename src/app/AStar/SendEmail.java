@@ -16,11 +16,6 @@ import javax.mail.internet.MimeMultipart;
  */
 public class SendEmail {
 
-    public static void main(String[] args) {
-        SendEmail mail = new SendEmail();
-
-        mail.sendMail("josephcybul@gmail.com");
-    }
 
     /**
      * The constructor takes in the email of the individual we want to send the email to
@@ -110,7 +105,7 @@ public class SendEmail {
         }
         BufferedImage overlay = null;
         try {
-            overlay = ImageIO.read(new File("src/resources/maps/00_thelowerlevel1.png")); //Overlay (The Path)
+            overlay = ImageIO.read(new File("src/resources/maps/PathOutput.png")); //Overlay (The Path)
         } catch (IOException e) {
             e.printStackTrace();
         }

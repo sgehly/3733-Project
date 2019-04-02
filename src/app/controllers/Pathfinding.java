@@ -1,14 +1,18 @@
 package app.controllers;
 
+import java.awt.Button;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.List;
 
 import app.AStar.AStar;
 import app.AStar.Floor;
 import app.AStar.Node;
+import app.AStar.SendEmail;
 import app.Main;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
@@ -16,6 +20,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.Cursor;
 
@@ -23,7 +28,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 
 import javax.swing.*;
 
@@ -71,7 +75,32 @@ public class Pathfinding {
     //Check if either are empty
         if(startString != "" && endString!="") //If not empty
         {
-         /*   //Create A popup asking if they want to print it
+            // Creating the main window of our application
+
+            //frame.pack();
+
+            // Release the window and quit the application when it has been closed
+          /*
+
+            // Creating a button and setting its action
+            final JButton clickMeButton = new JButton("Click Me!");
+            clickMeButton.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent e) {
+                    // Ask for the user name and say hello
+
+                }
+            });*/
+
+            // Add the button to the window and resize it to fit the button
+           // frame.getContentPane().add(clickMeButton);
+
+            // Displaying the window
+           // frame.setVisible(true);
+
+
+           /* //Create A popup asking if they want to print it
             Alert dg = new Alert(Alert.AlertType.NONE);
             dg.setTitle("Print Map?");
             dg.setHeaderText("Request to Print Map");
@@ -81,11 +110,8 @@ public class Pathfinding {
             ButtonType no_thanks = new ButtonType("No Thanks", ButtonBar.ButtonData.RIGHT);
             dg.getButtonTypes().add(send_email);
             dg.getButtonTypes().add(no_thanks);
-
-            dg.getDialogPane().lookupButton(send_email)
-
-            dg.show();*/
-
+            dg.show();
+*/
             Floor floor = new Floor("1");//Create an instance of the floor and get the start and end nodes
             HashMap<String,Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
             Node startNode = floorMap.get(startString); //Get starting and ending string using keys
@@ -94,12 +120,19 @@ public class Pathfinding {
             //Now we create an A* object to find the path between the two and store the final list of nodes
             AStar aStar = new AStar();
             List<Node> nodeArrayList = aStar.findPath(startNode,endNode);
-
+            System.out.println("Got Path");
+            final JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
             floor.drawPath(nodeArrayList);
+            System.out.println("Plotted path");
+            SendEmail sendEmail = new SendEmail();
+            String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
+            sendEmail.sendMail(email);
+            System.out.println("Sent Mail");
 
             //Now we will try to get the image
-            try
+           /* try
             {
                 Image Overlaysource;
                 Overlaysource = new Image(new FileInputStream("src/resources/maps/PathOutput.png")); //See if we can get the image to overlay and then create a new image object from it
@@ -110,7 +143,7 @@ public class Pathfinding {
             {
                 e.printStackTrace();
             }
-
+*/
 
         }
     }
