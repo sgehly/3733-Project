@@ -8,12 +8,14 @@ public class DisplayTable {
     private StringProperty room;
     private StringProperty capacity;
     private StringProperty notes;
+    private StringProperty roomType;
     private StringProperty type;
 
     public DisplayTable(){
         this.room = new SimpleStringProperty();
         this.capacity = new SimpleStringProperty();
         this.notes = new SimpleStringProperty();
+        this.roomType = new SimpleStringProperty();
         this.type = new SimpleStringProperty();
     }
 
@@ -22,6 +24,9 @@ public class DisplayTable {
     }
     public StringProperty capacityProperty(){
         return capacity;
+    }
+    public StringProperty roomTypeProperty(){
+        return roomType;
     }
     public StringProperty typeProperty(){
         return type;
@@ -40,8 +45,11 @@ public class DisplayTable {
     public String getNotes(){
         return notesProperty().get();
     }
-    public String getType(){
-        return typeProperty().get();
+    public String setRoomType(){
+        return roomTypeProperty().get();
+    }
+    public String setType(){
+        return roomTypeProperty().get();
     }
 
     //setters
@@ -50,6 +58,9 @@ public class DisplayTable {
     }
     public void setCapacity(String capacity){
         this.capacityProperty().set(capacity);
+    }
+    public void setRoomType(String type){
+        this.roomTypeProperty().set(type);
     }
     public void setType(String type){
         this.typeProperty().set(type);

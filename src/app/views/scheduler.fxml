@@ -118,7 +118,7 @@
                                               <columns>
                                                   <TableColumn fx:id="roomId" prefWidth="124.0" text="ID" />
                                                   <TableColumn fx:id="capacity" prefWidth="164.0" text="Capacity" />
-                                                  <TableColumn fx:id="type" maxWidth="358.0" minWidth="109.00003051757812" prefWidth="211.0" text="Type" />
+                                                  <TableColumn fx:id="roomType" maxWidth="358.0" minWidth="109.00003051757812" prefWidth="211.0" text="Type" />
                                               </columns>
                                           </TableView>
                                           <Button mnemonicParsing="false" onAction="#bookRoom" prefHeight="100.0" prefWidth="300.0" text="Book Room">
