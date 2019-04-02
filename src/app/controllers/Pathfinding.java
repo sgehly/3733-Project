@@ -29,7 +29,9 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import javax.swing.*;
 
@@ -122,40 +124,49 @@ public class Pathfinding {
             dg.getButtonTypes().add(no_thanks);
             dg.show();
 */
-            Floor floor = new Floor("1");//Create an instance of the floor and get the start and end nodes
-            HashMap<String,Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
-            Node startNode = floorMap.get(startString); //Get starting and ending string using keys
-            Node endNode = floorMap.get(endString);
+           try {
+               Floor floor = new Floor("1");//Create an instance of the floor and get the start and end nodes
+               HashMap<String, Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
+               Node startNode = floorMap.get(startString); //Get starting and ending string using keys
+               Node endNode = floorMap.get(endString);
 
-            //Now we create an A* object to find the path between the two and store the final list of nodes
-            AStar aStar = new AStar();
-            List<Node> nodeArrayList = aStar.findPath(startNode,endNode);
-            System.out.println("Got Path");
-            final JFrame frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
-            floor.drawPath(nodeArrayList);
-            System.out.println("Plotted path");
-            //System.out.println("Sent Mail");
+               //Now we create an A* object to find the path between the two and store the final list of nodes
+               AStar aStar = new AStar();
+               List<Node> nodeArrayList = aStar.findPath(startNode, endNode);
+               System.out.println("Got Path");
+               final JFrame frame = new JFrame();
+               frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+               //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
+               floor.drawPath(nodeArrayList);
+               System.out.println("Plotted path");
+               //System.out.println("Sent Mail");
 
-            //Now we will try to get the image
-            try
-            {
-                Image Overlaysource;
-                Overlaysource = new Image(new FileInputStream("src/resources/maps/PathOutput.png")); //See if we can get the image to overlay and then create a new image object from it
-                overlayImage.setImage(Overlaysource); //set the image as the overlay image
+               //Now we will try to get the image
+               try {
+                   Image Overlaysource;
+                   Overlaysource = new Image(new FileInputStream("src/resources/maps/PathOutput.png")); //See if we can get the image to overlay and then create a new image object from it
+                   overlayImage.setImage(Overlaysource); //set the image as the overlay image
 
-                startText.setText("");
-                endText.setText("");
-               // SendEmail sendEmail = new SendEmail();
-                //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
-                //sendEmail.sendMail(email);
-            }
-            catch (FileNotFoundException e)
-            {
-                e.printStackTrace();
-            }
-
+                   startText.setText("");
+                   endText.setText("");
+                   // SendEmail sendEmail = new SendEmail();
+                   //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
+                   //sendEmail.sendMail(email);
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+           }
+           catch (Exception e){
+               e.printStackTrace();
+               final Stage dialog = new Stage();
+               dialog.initModality(Modality.APPLICATION_MODAL);
+               dialog.initOwner(Main.getStage());
+               VBox dialogVbox = new VBox(20);
+               dialogVbox.getChildren().add(new Label("NODE NOT FOUND"));
+               Scene dialogScene = new Scene(dialogVbox, 300, 200);
+               dialog.setScene(dialogScene);
+               dialog.show();
+           }
         }
     }
 
