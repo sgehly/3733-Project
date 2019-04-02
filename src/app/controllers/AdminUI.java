@@ -134,7 +134,6 @@ public class AdminUI {
         try{
             System.out.println(1);
             updateHelper();
-            this.getAllRecords();
         }
         catch(Throwable e) {
             e.printStackTrace();
@@ -153,25 +152,30 @@ public class AdminUI {
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection(dbPath);
-            PreparedStatement stmt = conn.prepareStatement("update NODE set nodetype = ?,  longname = ?, shortname = ? where nodeid = ?");
-            stmt.setString(1, typeTextBox.getText());
-            stmt.setString(2, longNameTextBox.getText());
-            stmt.setString(3, shortNameTextBox.getText());
-            stmt.setString(4, nodeIdTextBox.getText());
+            PreparedStatement stmt = conn.prepareStatement("update NODE set xcoord = ?, ycoord = ?, nodetype = ?,  longname = ?, shortname = ? where nodeid = ?");
+            stmt.setString(1, xCoordTextBox.getText());
+            stmt.setString(2, yCoordTextBox.getText());
+            stmt.setString(3, typeTextBox.getText());
+            stmt.setString(4, longNameTextBox.getText());
+            stmt.setString(5, shortNameTextBox.getText());
+            stmt.setString(6, nodeIdTextBox.getText());
             stmt.executeUpdate();
             conn.close();
 
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn2 = DriverManager.getConnection(dbPath);
-            PreparedStatement stmt2 = conn2.prepareStatement("update FLOOR1 set nodetype = ?, longname = ?, shortname = ? where nodeid = ?");
-            stmt2.setString(1, typeTextBox.getText());
-            stmt2.setString(2, longNameTextBox.getText());
-            stmt2.setString(3, shortNameTextBox.getText());
-            stmt2.setString(4, nodeIdTextBox.getText());
+            PreparedStatement stmt2 = conn2.prepareStatement("update FLOOR1 set xcoord = ?, ycoord = ?, nodetype = ?, longname = ?, shortname = ? where nodeid = ?");
+            stmt2.setString(1, xCoordTextBox.getText());
+            stmt2.setString(2, yCoordTextBox.getText());
+            stmt2.setString(3, typeTextBox.getText());
+            stmt2.setString(4, longNameTextBox.getText());
+            stmt2.setString(5, shortNameTextBox.getText());
+            stmt2.setString(6, nodeIdTextBox.getText());
             System.out.println("ping");
             stmt2.executeUpdate();
             System.out.println("pong");
             conn2.close();
+            this.getAllRecords();
         }catch(Exception e){
             e.printStackTrace();
         }
