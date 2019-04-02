@@ -143,6 +143,18 @@ public class Floor{
 
             stmt.execute();
 
+            PreparedStatement stmt2 = conn.prepareStatement("insert into node values(?, ? ,? ,?, ?, ?, ?, ?)");
+            stmt2.setString(1, id);
+            stmt2.setInt(2, x);
+            stmt2.setInt(3, y);
+            stmt2.setString(4, floor);
+            stmt2.setString(5, building);
+            stmt2.setString(6, type);
+            stmt2.setString(7, longN);
+            stmt2.setString(8, shortN);
+
+            stmt2.execute();
+
             conn.close();
             floorMap.put(newNode.getId(), newNode);
         }catch(Exception e){
@@ -165,6 +177,11 @@ public class Floor{
             PreparedStatement stmt = conn.prepareStatement("delete from floor" + floorid + " where nodeID = ?");
             stmt.setString(1, rem.getId());
             stmt.execute();
+
+            PreparedStatement stmt2 = conn.prepareStatement("delete from node where nodeID = ?");
+            stmt2.setString(1, rem.getId());
+            stmt2.execute();
+
             conn.close();
             floorMap.remove(rem.getId());
         }catch(Exception e){

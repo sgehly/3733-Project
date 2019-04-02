@@ -1,5 +1,8 @@
 package app.controllers;
 
+import app.AStar.AStar;
+import app.AStar.Floor;
+import app.AStar.Node;
 import app.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,6 +46,9 @@ public class AdminUI {
     static int width;
     public static String path;
     static double offSetX,offSetY,zoomlvl;
+
+    double scaledWidth;
+    double scaledHeight;
 
     Rectangle2D primaryScreenBounds;
 
@@ -92,11 +98,40 @@ public class AdminUI {
     }
 
     @FXML
+    private void addNode() throws Exception{
+        Floor floorOne = new Floor("1");
+        String nodeID = nodeIdTextBox.getText();
+        String xCoord = xCoordTextBox.getText();
+        String yCoord = yCoordTextBox.getText();
+        String floor = floorTextBox.getText();
+        String building = buildingTextBox.getText();
+        String type = typeTextBox.getText();
+        String longName = longNameTextBox.getText();
+        String shortName = shortNameTextBox.getText();
+        floorOne.addNode(nodeID, Integer.valueOf(xCoord), Integer.valueOf(yCoord), floor, building, type, longName, shortName);
+        this.getAllRecords();
+    }
+
+    @FXML
+    private void removeNode() throws Exception{
+        Floor floorOne = new Floor("1");
+        String nodeID = nodeIdTextBox.getText();
+        System.out.println(nodeID);
+        Node theNode = floorOne.getFloorMap().get(nodeID);
+        System.out.println(theNode.getXCoord());
+        floorOne.removeNode(theNode);
+        this.getAllRecords();
+    }
+
+
+    @FXML
     private void updateNode(){
         try{
+            System.out.println(1);
             updateHelper();
+            this.getAllRecords();
         }
-        catch(Exception e) {
+        catch(Throwable e) {
             e.printStackTrace();
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
@@ -109,37 +144,37 @@ public class AdminUI {
         }
     }
 
-    private void updateHelper()throws Exception{
-        Class.forName("org.aache.derby.jdbc.EmbeddedDriver");
-        Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-        PreparedStatement stmt = conn.prepareStatement("update NODE set xcoord = ?, ycoord = ?, floor = ?, building = ?, building = ?, longname = ?, shortname = ? where nodeid = ?");
-        stmt.setInt(1, Integer.parseInt(xCoordTextBox.getText()));
-        stmt.setInt(2, Integer.parseInt(yCoordTextBox.getText()));
-        stmt.setInt(3, Integer.parseInt(floorTextBox.getText()));
-        stmt.setString(4, buildingTextBox.getText());
-        stmt.setString(5, typeTextBox.getText());
-        stmt.setString(6, longNameTextBox.getText());
-        stmt.setString(7, shortNameTextBox.getText());
-        stmt.setString(8, nodeIdTextBox.getText());
-        stmt.execute();
-        PreparedStatement stmt2 = conn.prepareStatement("update FLOOR1 set xcoord = ?, ycoord = ?, floor = ?, building = ?, building = ?, longname = ?, shortname = ? where nodeid = ?");
-        stmt2.setInt(1, Integer.parseInt(xCoordTextBox.getText()));
-        stmt2.setInt(2, Integer.parseInt(yCoordTextBox.getText()));
-        stmt2.setInt(3, Integer.parseInt(floorTextBox.getText()));
-        stmt2.setString(4, buildingTextBox.getText());
-        stmt2.setString(5, typeTextBox.getText());
-        stmt2.setString(6, longNameTextBox.getText());
-        stmt2.setString(7, shortNameTextBox.getText());
-        stmt2.setString(8, nodeIdTextBox.getText());
-        stmt2.execute();
+    private void updateHelper() throws Exception{
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            PreparedStatement stmt = conn.prepareStatement("update NODE set nodetype = ?,  longname = ?, shortname = ? where nodeid = ?");
+            stmt.setString(1, typeTextBox.getText());
+            stmt.setString(2, longNameTextBox.getText());
+            stmt.setString(3, shortNameTextBox.getText());
+            stmt.setString(4, nodeIdTextBox.getText());
+            stmt.executeUpdate();
+            conn.close();
+
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn2 = DriverManager.getConnection(dbPath);
+            PreparedStatement stmt2 = conn2.prepareStatement("update FLOOR1 set nodetype = ?, longname = ?, shortname = ? where nodeid = ?");
+            stmt2.setString(1, typeTextBox.getText());
+            stmt2.setString(2, longNameTextBox.getText());
+            stmt2.setString(3, shortNameTextBox.getText());
+            stmt2.setString(4, nodeIdTextBox.getText());
+            System.out.println("ping");
+            stmt2.executeUpdate();
+            System.out.println("pong");
+            conn2.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     private MapPoint scalePoints(int pointX, int pointY){
         double rawWidth = 5000;
         double rawHeight = 3400;
-
-        double scaledWidth = imageView.getBoundsInParent().getWidth();
-        double scaledHeight = imageView.getBoundsInParent().getHeight()-50;
 
         System.out.println(scaledHeight+" - "+scaledWidth);
         double scaledX = (pointX*scaledWidth)/rawWidth;
@@ -162,16 +197,20 @@ public class AdminUI {
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()){
+                System.out.println(rs.getString("nodeType"));
+                System.out.println(rs.getString("longName"));
+                System.out.println(rs.getString("shortName"));
                 nodeIdTextBox.setText(rs.getString("nodeID"));
                 xCoordTextBox.setText(String.valueOf(rs.getInt("xCoord")));
                 yCoordTextBox.setText(String.valueOf(rs.getInt("yCoord")));
                 floorTextBox.setText(rs.getString("floor"));
                 buildingTextBox.setText(rs.getString("building"));
-                typeTextBox.setText(rs.getString("type"));
+                typeTextBox.setText(rs.getString("nodeType"));
                 longNameTextBox.setText(rs.getString("longName"));
                 shortNameTextBox.setText(rs.getString("shortName"));
             }
 
+            conn.close();
         }
         catch (Exception e) {
             System.out.println("Error while trying to fetch all records");
@@ -181,6 +220,7 @@ public class AdminUI {
 
     private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws Exception, SQLException {
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
+        buttonContainer.getChildren().clear();
         try {
             while (rs.next()) {
                 Button newButton = new Button();
@@ -218,6 +258,7 @@ public class AdminUI {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
+            conn.close();
             return entryList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
@@ -232,6 +273,7 @@ public class AdminUI {
         //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
         //------------------------------------------------------------------------------------------------
         primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
         Image source = null;
         try {
             String path = getClass().getResource("/resources/maps/01_thefirstfloor.png").toString().replace("file:","");
@@ -241,21 +283,12 @@ public class AdminUI {
             e.printStackTrace();
         }
 
-        double ratio = source.getWidth() / source.getHeight();
-
-        if (500 / ratio < 500) {
-            width = 500;
-            height = (int) (500 / ratio);
-        } else if (500 * ratio < 500) {
-            height = 500;
-            width = (int) (500 * ratio);
-        } else {
-            height = 500;
-            width = 500;
-        }
         image.setImage(source);
         image.setFitWidth(primaryScreenBounds.getWidth());
         image.setFitHeight(primaryScreenBounds.getHeight()-200);
+
+        scaledWidth = imageView.getBoundsInParent().getWidth();
+        scaledHeight = imageView.getBoundsInParent().getHeight()-50;
 
         buttonContainer.setPrefWidth(image.getFitWidth());
         buttonContainer.setPrefHeight(image.getFitHeight());
