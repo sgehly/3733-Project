@@ -76,5 +76,5 @@ public class DisplayTable {
 
     public void setDate(String Date){this.dateProperty();}
 
-    public void setFilledBy(String filledBy){this.filledByProperty();}
+    public void setFilledBy(String filledBy){this.filledByProperty().set(filledBy);}
 }
