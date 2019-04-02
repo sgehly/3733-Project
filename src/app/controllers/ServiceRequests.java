@@ -22,15 +22,25 @@ import java.io.IOException;
 
 public class ServiceRequests {
 
+    Parent welcomePane;
+    Parent serviceRequestsListPane;
+    Parent homePane;
+
+    Scene welcomeScene;
+    Scene serviceRequestsListScene;
+    Scene homeScene;
+
+
+
+    //Scene setup from service requests
+
+
+    //database path
     String dbPath = "jdbc:derby:myDB";
 
-
-
-
+    //initializing the timestamp
     Date date = new Date();
-
     long time = date.getTime();
-
     Timestamp ts = new Timestamp(time);
 
 
@@ -90,16 +100,12 @@ public class ServiceRequests {
 
     @FXML
     public void logout() throws Exception {
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("welcome"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.getStage().setScene(welcomeScene);
     }
 
     @FXML
     private void navigateToHome() throws Exception {
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.getStage().setScene(homeScene);
     }
 
     @FXML
@@ -109,9 +115,7 @@ public class ServiceRequests {
 
     @FXML
     public void goToRequestList() throws IOException {
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.getStage().setScene(serviceRequestsListScene);
     }
 
     @FXML
@@ -146,13 +150,19 @@ public class ServiceRequests {
         }
 
 
-        @FXML
-        void makeLanguageRequest(ActionEvent e){
-        }
+    @FXML
+    void makeLanguageRequest(ActionEvent e){
+    }
 
 
-        @FXML// This method is called by the FXMLLoader when initialization is complete
-        void initialize(){
+    @FXML// This method is called by the FXMLLoader when initialization is complete
+    void initialize() throws IOException {
+            welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
+            welcomeScene = new Scene(welcomePane);
+            serviceRequestsListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+            serviceRequestsListScene = new Scene(serviceRequestsListPane);
+            homePane = FXMLLoader.load(Main.getFXMLURL("home"));
+            homeScene = new Scene(homePane);
             //general asserts
             assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
             //language asserts
