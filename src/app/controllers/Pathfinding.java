@@ -73,7 +73,7 @@ public class Pathfinding {
     String startString = startText.getText();
     String endString = endText.getText();
     //Check if either are empty
-        if(startString != "" && endString!="") //If not empty
+        if(!startString.equals("") && !endString.equals("")) //If not empty
         {
             // Creating the main window of our application
 

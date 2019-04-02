@@ -138,13 +138,11 @@ public class DatabaseParser {
     }
 
     public void floorTables(){
-        String floor1TableQuery = "CREATE TABLE Floor1(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100) CONSTRAINT f1_PK PRIMARY KEY (nodeID))";
-        String floor2TableQuery = "CREATE TABLE Floor2(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100) CONSTRAINT f2_PK PRIMARY KEY (nodeID))";
-        String floor3TableQuery = "CREATE TABLE Floor3(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100)  CONSTRAINT f3_PK PRIMARY KEY (nodeID))";
-        String floorL1TableQuery = "CREATE TABLE FloorL1(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100) CONSTRAINT fl1_PK PRIMARY KEY (nodeID))";
-        String floorL2TableQuery = "CREATE TABLE FloorL2(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100) CONSTRAINT fl2_PK PRIMARY KEY (nodeID))";
-        String edgeTableQuery = "CREATE TABLE Edge(edgeID varchar(25), startNode varchar(12), endNode varchar(12) CONSTRAINT fe_PK PRIMARY KEY (edgeID))";
-
+        String floor1TableQuery = "CREATE TABLE Floor1(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100), CONSTRAINT f1_PK PRIMARY KEY (nodeID))";
+        String floor2TableQuery = "CREATE TABLE Floor2(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100), CONSTRAINT f2_PK PRIMARY KEY (nodeID))";
+        String floor3TableQuery = "CREATE TABLE Floor3(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100),  CONSTRAINT f3_PK PRIMARY KEY (nodeID))";
+        String floorL1TableQuery = "CREATE TABLE FloorL1(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100), CONSTRAINT fl1_PK PRIMARY KEY (nodeID))";
+        String floorL2TableQuery = "CREATE TABLE FloorL2(nodeID varchar(20), xcoord int, ycoord int, floor varchar(100), building varchar(100), nodeType varchar(100), longName varchar(100), shortName varchar(100), CONSTRAINT fl2_PK PRIMARY KEY (nodeID))";
 
         String floor1PopQuery = "INSERT INTO Floor1 SELECT * FROM node WHERE floor = '1'";
         String floor2PopQuery = "INSERT INTO Floor2 SELECT * FROM node WHERE floor = '2'";
@@ -166,10 +164,8 @@ public class DatabaseParser {
             Statement stmt8 = conn.createStatement();
             Statement stmt9 = conn.createStatement();
             Statement stmt10 = conn.createStatement();
-            //Statement stmt11 = conn.createStatement();
-            //Statement stmt12 = conn.createStatement();
 
-            stmt1.executeUpdate(floor1TableQuery);
+            stmt1.execute(floor1TableQuery);
             stmt2.execute(floor2TableQuery);
             stmt3.execute(floor3TableQuery);
             stmt4.execute(floorL1TableQuery);

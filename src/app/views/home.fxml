@@ -67,6 +67,14 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
+                              <Button mnemonicParsing="false" onAction="#navigateToAdmin" onMouseClicked="#logout" style="-fx-background-color: white;" text="ADMIN">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </Button>
                               <Button mnemonicParsing="false" onMouseClicked="#logout" style="-fx-background-color: white;" text="LOGOUT">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
