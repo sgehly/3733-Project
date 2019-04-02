@@ -32,17 +32,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.sql.*;
 
+
 public class AdminUI {
 
-    public class MapPoint {
-        double x;
-        double y;
 
-        public MapPoint(double x, double y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
 
     static double initx;
     static double inity;

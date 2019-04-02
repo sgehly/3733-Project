@@ -1,9 +1,9 @@
 package app.controllers;
 
-import java.awt.Button;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.*;
 import java.util.*;
 import java.util.List;
 
@@ -12,6 +12,8 @@ import app.AStar.Floor;
 import app.AStar.Node;
 import app.AStar.SendEmail;
 import app.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,12 +34,17 @@ import javafx.stage.Screen;
 import javax.swing.*;
 
 public class Pathfinding {
+
+    String dbPath = "jdbc:derby:myDB";
+
     static double initx;
     static double inity;
     static int height;
     static int width;
     public static String path;
     static double offSetX,offSetY,zoomlvl;
+
+    Rectangle2D primaryScreenBounds;
 
     @FXML
     private Pane imageView;
@@ -48,6 +55,9 @@ public class Pathfinding {
 
     @FXML
     private ImageView overlayImage;
+
+    @FXML
+    private Pane buttonContainer;
 
     @FXML
     private Slider zoomLvl;
@@ -134,6 +144,9 @@ public class Pathfinding {
                 Image Overlaysource;
                 Overlaysource = new Image(new FileInputStream("src/resources/maps/PathOutput.png")); //See if we can get the image to overlay and then create a new image object from it
                 overlayImage.setImage(Overlaysource); //set the image as the overlay image
+
+                startText.setText("");
+                endText.setText("");
                // SendEmail sendEmail = new SendEmail();
                 //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
                 //sendEmail.sendMail(email);
@@ -151,7 +164,7 @@ public class Pathfinding {
 
         //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
         //------------------------------------------------------------------------------------------------
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         Image source = null;
         try {
@@ -185,101 +198,87 @@ public class Pathfinding {
         overlayImage.setImage(EMPTY);
         height = (int) source.getHeight();
         width = (int) source.getWidth();
-        System.out.println("height = " + height + "\nwidth = " + width);
-        HBox zoom = new HBox(10);
-        zoom.setAlignment(Pos.CENTER);
 
-        //zoomLvl.setMax(10);
-        //zoomLvl.setMin(1);
+        buttonContainer.setPrefWidth(image.getFitWidth());
+        buttonContainer.setPrefHeight(image.getFitHeight());
 
-        offSetX = width / 2;
-        offSetY = height / 2;
+        getAllRecords();
+    }
 
-        Slider Hscroll = new Slider();
-        Hscroll.setMin(0);
-        Hscroll.setMax(width);
-        Hscroll.setMaxWidth(image.getFitWidth());
-        Hscroll.setMinWidth(image.getFitWidth());
-        Hscroll.setTranslateY(20);
-        Slider Vscroll = new Slider();
-        Vscroll.setMin(0);
-        Vscroll.setMax(height);
-        Vscroll.setMaxHeight(image.getFitHeight());
-        Vscroll.setMinHeight(image.getFitHeight());
-        Vscroll.setOrientation(Orientation.VERTICAL);
-        Vscroll.setTranslateX(-20);
+    private MapPoint scalePoints(int pointX, int pointY){
+        double rawWidth = 5000;
+        double rawHeight = 3400;
 
-        //imageView.setAlignment(Hscroll, Pos.CENTER);
-        //imageView.setAlignment(Vscroll, Pos.CENTER_LEFT);
+        double scaledWidth = imageView.getBoundsInParent().getWidth();
+        double scaledHeight = imageView.getBoundsInParent().getHeight()-50;
 
-        Hscroll.valueProperty().addListener(e -> {
-            offSetX = Hscroll.getValue();
-            zoomlvl = zoomLvl.getValue();
-            double newValue = (double) ((int) (zoomlvl * 10)) / 10;
-            if (offSetX < (width / newValue) / 2) {
-                offSetX = (width / newValue) / 2;
+        System.out.println(scaledHeight+" - "+scaledWidth);
+        double scaledX = (pointX*scaledWidth)/rawWidth;
+        double scaledY = (pointY*scaledHeight)/rawHeight;
+        System.out.println(scaledX+" - "+scaledY);
+        return new MapPoint(scaledX, scaledY);
+
+    }
+
+    private void setValues(ActionEvent value) {
+        String nodeId = ((Button)value.getSource()).getId();
+
+        if(startText.getText().length() == 0){
+            startText.setText(nodeId);
+            endText.requestFocus();
+        }else{
+            endText.setText(nodeId);
+            try {
+                this.findPath();
+            } catch (Exception e){}
+        }
+    }
+
+    private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws Exception, SQLException {
+        ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
+        try {
+            while (rs.next()) {
+                javafx.scene.control.Button newButton = new Button();
+                double size = 5;
+                newButton.setMinWidth(size);
+                newButton.setMaxWidth(size);
+                newButton.setMinHeight(size);
+                newButton.setPrefHeight(size);
+                newButton.setPrefWidth(size);
+                newButton.setMaxHeight(size);
+                newButton.setId(rs.getString("nodeId"));
+                newButton.setOnAction(this::setValues);
+
+                MapPoint generated = scalePoints(rs.getInt("xcoord"), rs.getInt("ycoord"));
+                newButton.setLayoutX(generated.x-(size/2));
+                newButton.setLayoutY(generated.y-(size/2));
+                newButton.setStyle("-fx-background-color: blue");
+                System.out.println("New Button! ("+String.valueOf(rs.getInt("xcoord")-(size/2))+","+String.valueOf(rs.getInt("ycoord")-(size/2))+") -- ("+String.valueOf(primaryScreenBounds.getWidth())+","+String.valueOf(primaryScreenBounds.getHeight()-200)+") => ("+generated.x+","+generated.y+")");
+                buttonContainer.getChildren().add(newButton);
             }
-            if (offSetX > width - ((width / newValue) / 2)) {
-                offSetX = width - ((width / newValue) / 2);
-            }
+            return entList;
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
-            image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
-            //overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
 
-        });
-        Vscroll.valueProperty().addListener(e -> {
-            offSetY = height - Vscroll.getValue();
-            zoomlvl = zoomLvl.getValue();
-            double newValue = (double) ((int) (zoomlvl * 10)) / 10;
-            if (offSetY < (height / newValue) / 2) {
-                offSetY = (height / newValue) / 2;
-            }
-            if (offSetY > height - ((height / newValue) / 2)) {
-                offSetY = height - ((height / newValue) / 2);
-            }
-            image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
-            //overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
-
-        });
-        //imageView.setCenter(image);
-        //imageView.setTop(Hscroll);
-        //imageView.setRight(Vscroll);
-        /*zoomLvl.valueProperty().addListener(e -> {
-            zoomlvl = zoomLvl.getValue();
-            double newValue = (double) ((int) (zoomlvl * 10)) / 10;
-            if (offSetX < (width / newValue) / 2) {
-                offSetX = (width / newValue) / 2;
-            }
-            if (offSetX > width - ((width / newValue) / 2)) {
-                offSetX = width - ((width / newValue) / 2);
-            }
-            if (offSetY < (height / newValue) / 2) {
-                offSetY = (height / newValue) / 2;
-            }
-            if (offSetY > height - ((height / newValue) / 2)) {
-                offSetY = height - ((height / newValue) / 2);
-            }
-            Hscroll.setValue(offSetX);
-            Vscroll.setValue(height - offSetY);
-            image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
-            //overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
-
-        });
-        imageView.setCursor(Cursor.OPEN_HAND);
-        image.setOnMousePressed(e -> {
-            initx = e.getSceneX();
-            inity = e.getSceneY();
-            imageView.setCursor(Cursor.CLOSED_HAND);
-        });
-        image.setOnMouseReleased(e -> {
-            imageView.setCursor(Cursor.OPEN_HAND);
-        });
-        image.setOnMouseDragged(e -> {
-            Hscroll.setValue(Hscroll.getValue() + (initx - e.getSceneX()));
-            Vscroll.setValue(Vscroll.getValue() - (inity - e.getSceneY()));
-            initx = e.getSceneX();
-            inity = e.getSceneY();
-        });*/
+    public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException, Exception {
+        String query = "SELECT * FROM FLOOR1";
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            ObservableList<DisplayTable> entryList = getEntryObjects(rs);
+            return entryList;
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @FXML
