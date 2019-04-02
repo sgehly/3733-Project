@@ -86,14 +86,14 @@ public class ServiceRequestsList {
 
 
     @FXML
-    void deleteRequest(MouseEvent event)throws ClassNotFoundException {
+    void deleteIncompleteRequest(MouseEvent event)throws ClassNotFoundException {
         //delete a request
-        String query3 = " DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
+        String query = " DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection(dbPath);
-            PreparedStatement s = conn.prepareStatement(query3);
-            s.setString(1, this.getIdFromTable());
+            PreparedStatement s = conn.prepareStatement(query);
+            s.setString(1, this.getIdFromTable("incomplete"));
             s.executeUpdate();
             System.out.println("deleted from db");
             //stmt.setString(6,FilledBy.getText());
@@ -108,9 +108,36 @@ public class ServiceRequestsList {
 
     }
 
-    private String getIdFromTable() {
-        ObservableValue<Integer> id = requestId.getCellObservableValue(requestInProgress.getSelectionModel().getFocusedIndex());
-        return Integer.toString(id.getValue());
+    @FXML
+    void deleteCompleteRequest(MouseEvent event)throws ClassNotFoundException{
+        String query = " DELETE FROM REQUESTLOG Where REQUESTID = ?";
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            PreparedStatement s = conn.prepareStatement(query);
+            s.setString(1, this.getIdFromTable("complete"));
+            s.executeUpdate();
+            System.out.println("deleted from db");
+            //stmt.setString(6,FilledBy.getText());
+            conn.close();
+        }
+        catch (Exception e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+        }
+
+        initialize();
+    }
+
+    private String getIdFromTable(String table) {
+        if(table.equals("incomplete")) {
+            ObservableValue<Integer> id = requestId.getCellObservableValue(requestInProgress.getSelectionModel().getFocusedIndex());
+            return Integer.toString(id.getValue());
+        }
+        else{
+            ObservableValue<Integer> id = requestId1.getCellObservableValue(requestCompleted.getSelectionModel().getFocusedIndex());
+            return Integer.toString(id.getValue());
+        }
     }
 
     @FXML
@@ -137,7 +164,7 @@ public class ServiceRequestsList {
     @FXML
     void markAsComplete(MouseEvent event) throws ClassNotFoundException{
         //move to complete table
-        String query = "\n" +
+        String query1 = "\n" +
                 "INSERT INTO REQUESTLOG (REQUESTID, ROOM, NOTE, DATE, TYPE, FINISHED_BY) SELECT REQUESTID,ROOM,\n" +
                 "NOTE,DATE,TYPE,FINISHED_BY from REQUESTINPROGRESS where REQUESTID = ?";
         String query2 = " UPDATE REQUESTLOG SET FINISHED_BY = ? WHERE REQUESTID = ?";
@@ -148,8 +175,8 @@ public class ServiceRequestsList {
             Connection conn = DriverManager.getConnection(dbPath);
 
             // insert from requesinprogress to request log the desired request
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, this.getIdFromTable());
+            PreparedStatement stmt = conn.prepareStatement(query1);
+            stmt.setString(1, this.getIdFromTable("incomplete"));
             stmt.executeUpdate();
             System.out.println("inserted into db");
 
@@ -157,14 +184,14 @@ public class ServiceRequestsList {
             //add the name of the person that got it done
             PreparedStatement st = conn.prepareStatement(query2);
             st.setString(1, FilledBy.getText());
-            st.setString(2, this.getIdFromTable());
+            st.setString(2, this.getIdFromTable("complete"));
             st.executeUpdate();
             System.out.println("inserted into db");
 
 
             //delete from request that has been moved.
             PreparedStatement s = conn.prepareStatement(query3);
-            s.setString(1, this.getIdFromTable());
+            s.setString(1, this.getIdFromTable("incomplete"));
             s.executeUpdate();
             System.out.println("deleted from db");
             //stmt.setString(6,FilledBy.getText());

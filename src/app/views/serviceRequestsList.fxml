@@ -109,30 +109,41 @@
                                                       <TableColumn fx:id="type" maxWidth="522.0" prefWidth="441.881591796875" text="Type" />
                                                   </columns>
                                                 </TableView>
-                                                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                                                <HBox alignment="CENTER_RIGHT" prefHeight="53.0" prefWidth="1551.0">
                                                    <children>
-                                                      <TextField fx:id="FilledBy" promptText="Name">
-                                                         <font>
-                                                            <Font size="24.0" />
-                                                         </font>
-                                                      </TextField>
-                                                      <Button fx:id="requestFulfilledButton" mnemonicParsing="false" onMouseClicked="#markAsComplete" prefHeight="41.0" prefWidth="175.0" text="Fulfill" textAlignment="RIGHT">
-                                                         <font>
-                                                            <Font name="Open Sans" size="24.0" />
-                                                         </font>
-                                                         <HBox.margin>
-                                                            <Insets left="15.0" right="10.0" />
-                                                         </HBox.margin>
-                                                      </Button>
-                                                      <Button fx:id="deleteIncompleteButton" mnemonicParsing="false" onMouseClicked="#deleteRequest" prefHeight="41.0" prefWidth="175.0" text="Delete" textAlignment="RIGHT">
-                                                         <font>
-                                                            <Font name="Open Sans" size="24.0" />
-                                                         </font>
-                                                         <HBox.margin>
-                                                            <Insets left="15.0" right="15.0" />
-                                                         </HBox.margin>
-                                                      </Button>
+                                                      <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <TextField fx:id="FilledBy" promptText="Name">
+                                                               <font>
+                                                                  <Font size="24.0" />
+                                                               </font>
+                                                            </TextField>
+                                                            <Button fx:id="requestFulfilledButton" mnemonicParsing="false" onMouseClicked="#markAsComplete" prefHeight="41.0" prefWidth="175.0" text="Fulfill" textAlignment="RIGHT">
+                                                               <font>
+                                                                  <Font name="Open Sans" size="24.0" />
+                                                               </font>
+                                                               <HBox.margin>
+                                                                  <Insets left="15.0" />
+                                                               </HBox.margin>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox prefHeight="100.0" prefWidth="200.0">
+                                                         <children>
+                                                            <Button fx:id="deleteIncompleteButton" mnemonicParsing="false" onMouseClicked="#deleteIncompleteRequest" prefHeight="41.0" prefWidth="175.0" text="Delete" textAlignment="RIGHT">
+                                                               <font>
+                                                                  <Font name="Open Sans" size="24.0" />
+                                                               </font>
+                                                               <HBox.margin>
+                                                                  <Insets left="15.0" right="15.0" />
+                                                               </HBox.margin>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
                                                    </children>
+                                                   <VBox.margin>
+                                                      <Insets bottom="15.0" left="15.0" top="15.0" />
+                                                   </VBox.margin>
                                                 </HBox>
                                              </children>
                                           </VBox>
@@ -157,24 +168,16 @@
                                                       <TableColumn fx:id="filledBy1" prefWidth="331.841552734375" text="Filled By" />
                                                    </columns>
                                                 </TableView>
-                                                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                                                <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="1551.0">
                                                    <children>
-                                                      <Button fx:id="deleteCompletedButton" mnemonicParsing="false" onMouseClicked="#deleteRequest" prefHeight="41.0" prefWidth="175.0" text="Delete" textAlignment="RIGHT">
+                                                      <Button fx:id="deleteCompletedButton" mnemonicParsing="false" onMouseClicked="#deleteCompleteRequest" prefHeight="41.0" prefWidth="175.0" text="Delete" textAlignment="RIGHT" HBox.hgrow="NEVER">
                                                          <font>
                                                             <Font name="Open Sans" size="24.0" />
                                                          </font>
                                                          <HBox.margin>
-                                                            <Insets left="15.0" />
+                                                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                                          </HBox.margin>
                                                       </Button>
-                                                      <TextField fx:id="getid2" promptText="Request ID">
-                                                         <HBox.margin>
-                                                            <Insets left="10.0" right="50.0" />
-                                                         </HBox.margin>
-                                                         <font>
-                                                            <Font size="24.0" />
-                                                         </font>
-                                                      </TextField>
                                                    </children>
                                                 </HBox>
                                              </children>
