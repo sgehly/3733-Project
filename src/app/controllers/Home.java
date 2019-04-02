@@ -33,4 +33,11 @@ public class Home {
         Scene scene = new Scene(pane);
         app.Main.getStage().setScene(scene);
     }
+
+    @FXML
+    public void navigateToAdmin() throws Exception{
+        Parent pane = FXMLLoader.load(app.Main.getFXMLURL("adminUI"));
+        Scene scene = new Scene(pane);
+        app.Main.getStage().setScene(scene);
+    }
 }
