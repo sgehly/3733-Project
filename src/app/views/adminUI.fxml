@@ -86,7 +86,7 @@
                               <HBox prefHeight="30.0" prefWidth="200.0">
                                  <children>
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID" />
-                                    <TextField fx:id="nodeIdTextBox" HBox.hgrow="ALWAYS" />
+                                    <TextField fx:id="nodeIdTextBox" prefHeight="10.0" prefWidth="355.0" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <VBox.margin>
                                     <Insets left="50.0" right="50.0" />
@@ -155,17 +155,44 @@
                                     <Insets left="50.0" right="50.0" />
                                  </VBox.margin>
                               </HBox>
-                              <Button mnemonicParsing="false" onAction="#updateNode" prefHeight="50.0" prefWidth="400.0" text="Save" />
-                              <HBox prefHeight="50.0" prefWidth="200.0" spacing="50.0">
+                              <HBox prefHeight="30.0" prefWidth="200.0" spacing="5.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#addNode" prefHeight="50.0" prefWidth="400.0" text="Add Node" />
-                                    <Button mnemonicParsing="false" onAction="#removeNode" prefHeight="50.0" prefWidth="400.0" text="Remove Node" />
+                                    <Button mnemonicParsing="false" onAction="#addNode" prefHeight="50.0" prefWidth="400.0" text="Add" />
+                                    <Button mnemonicParsing="false" onAction="#removeNode" prefHeight="50.0" prefWidth="400.0" text="Remove" />
+                                    <Button mnemonicParsing="false" onAction="#updateNode" prefHeight="50.0" prefWidth="400.0" text="Modify/Save" />
+                                    <Button mnemonicParsing="false" onAction="#exportToCsv" prefHeight="50.0" prefWidth="400.0" text="Export" />
                                  </children>
                                  <VBox.margin>
                                     <Insets left="50.0" right="50.0" />
                                  </VBox.margin>
                               </HBox>
-                              <Button mnemonicParsing="false" onAction="#exportToCsv" prefHeight="50.0" prefWidth="400.0" text="Export All to CSV" />
+                              <HBox prefHeight="30.0" prefWidth="200.0">
+                                 <children>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Node" />
+                                    <TextField fx:id="startNodeTextBox" HBox.hgrow="ALWAYS" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="50.0" right="50.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="30.0" prefWidth="200.0">
+                                 <children>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="End Node" />
+                                    <TextField fx:id="endNodeTextBox" HBox.hgrow="ALWAYS" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="50.0" right="50.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="30.0" prefWidth="200.0" spacing="5.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#addEdge" prefHeight="50.0" prefWidth="400.0" text="Add Edge" />
+                                    <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" text="Remove Edge" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="50.0" right="50.0" />
+                                 </VBox.margin>
+                              </HBox>
                                     </children>
                                     <opaqueInsets>
                                         <Insets />

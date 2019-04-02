@@ -96,10 +96,34 @@ public class AdminUI {
     private TextField shortNameTextBox;
 
     @FXML
+    private TextField startNodeTextBox;
+
+    @FXML
+    private TextField endNodeTextBox;
+
+    @FXML
     private void navigateToHome() throws Exception{
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
+    }
+
+    @FXML
+    private void addEdge() throws Exception{
+        String startNode = startNodeTextBox.getText();
+        String endNode = endNodeTextBox.getText();
+
+        Floor floorOne = new Floor("1");
+        floorOne.addEdge(startNode+"_"+endNode);
+    }
+
+    @FXML
+    private void removeEdge() throws Exception{
+        String startNode = startNodeTextBox.getText();
+        String endNode = endNodeTextBox.getText();
+
+        Floor floorOne = new Floor("1");
+        floorOne.removeEdge(startNode+"_"+endNode);
     }
 
     @FXML
