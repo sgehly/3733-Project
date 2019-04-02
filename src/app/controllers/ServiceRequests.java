@@ -22,15 +22,6 @@ import java.io.IOException;
 
 public class ServiceRequests {
 
-    Parent welcomePane;
-    Parent serviceRequestsListPane;
-    Parent homePane;
-
-    Scene welcomeScene;
-    Scene serviceRequestsListScene;
-    Scene homeScene;
-
-
 
     //Scene setup from service requests
 
@@ -100,12 +91,17 @@ public class ServiceRequests {
 
     @FXML
     public void logout() throws Exception {
+        Parent welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
+        Scene welcomeScene = new Scene(welcomePane);
         Main.getStage().setScene(welcomeScene);
     }
 
     @FXML
     private void navigateToHome() throws Exception {
+        Parent homePane = FXMLLoader.load(Main.getFXMLURL("home"));
+        Scene homeScene = new Scene(homePane);
         Main.getStage().setScene(homeScene);
+
     }
 
     @FXML
@@ -115,6 +111,8 @@ public class ServiceRequests {
 
     @FXML
     public void goToRequestList() throws IOException {
+        Parent serviceRequestsListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+        Scene serviceRequestsListScene = new Scene(serviceRequestsListPane);
         Main.getStage().setScene(serviceRequestsListScene);
     }
 
@@ -157,12 +155,6 @@ public class ServiceRequests {
 
     @FXML// This method is called by the FXMLLoader when initialization is complete
     void initialize() throws IOException {
-            welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
-            welcomeScene = new Scene(welcomePane);
-            serviceRequestsListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-            serviceRequestsListScene = new Scene(serviceRequestsListPane);
-            homePane = FXMLLoader.load(Main.getFXMLURL("home"));
-            homeScene = new Scene(homePane);
             //general asserts
             assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
             //language asserts
