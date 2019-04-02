@@ -32,6 +32,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class Scheduler {
     static double initx;
@@ -90,8 +91,13 @@ public class Scheduler {
         LocalDate dateEnd = startDate.getValue();
         LocalTime timeEnd = startTime.getValue();
 
-        //Database operations to get available rooms from the database;
-        System.out.println(dateStart+":"+timeStart+"-"+dateEnd+":"+timeEnd);
+        LocalDateTime start = LocalDateTime.of(dateStart, timeStart);
+        LocalDateTime end = LocalDateTime.of(dateEnd, timeEnd);
+
+        Timestamp ts = Timestamp.valueOf(start);
+        Timestamp te = Timestamp.valueOf(end);
+
+        System.out.println(ts+" TO "+te);
     }
 
     @FXML
@@ -109,7 +115,15 @@ public class Scheduler {
         TableColumn col = pos.getTableColumn();
         String data = (String) col.getCellObservableValue(item).getValue();
 
-        System.out.println(dateStart+":"+timeStart+"-"+dateEnd+":"+timeEnd+"-"+data);
+
+        LocalDateTime start = LocalDateTime.of(dateStart, timeStart);
+        LocalDateTime end = LocalDateTime.of(dateEnd, timeEnd);
+
+        Timestamp ts = Timestamp.valueOf(start);
+        Timestamp te = Timestamp.valueOf(end);
+
+
+        System.out.println(timeStart+" TO "+timeEnd);
     }
 
 
