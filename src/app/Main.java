@@ -46,7 +46,7 @@ public class Main extends Application {
         primaryStage.setY(bounds.getMinY());
         primaryStage.setWidth(bounds.getWidth());
         primaryStage.setHeight(bounds.getHeight());
-        primaryStage.setMaxWidth(bounds.getWidth() * 2);
+        primaryStage.setFullScreen(false);
         primaryStage.show();
     }
 

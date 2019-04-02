@@ -6,7 +6,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -16,109 +15,79 @@
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.Pathfinding">
     <children>
-        <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-            <children>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                    <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
-                            <children>
-                                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                    <children>
-                              <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                                 <image>
-                                    <Image url="@../../resources/icons/icons8-circled_left_2.png" />
-                                 </image>
-                              </ImageView>
-                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
-                                            <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
-                                            </font>
-                                        </Text>
-                                    </children>
-                           <padding>
-                              <Insets top="15.0" />
-                           </padding>
-                                </HBox>
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:24:23">
-                                            <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
-                                            </font>
-                                        </Text>
-                                    </children>
-                           <padding>
-                              <Insets top="15.0" />
-                           </padding>
-                                </HBox>
-                                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <Button mnemonicParsing="false" onMouseClicked="#logout" style="-fx-background-color: white;" text="LOGOUT">
-                                            <font>
-                                                <Font name="Open Sans Bold" size="24.0" />
-                                            </font>
-                                        </Button>
-                                    </children>
-                           <padding>
-                              <Insets top="15.0" />
-                           </padding>
-                                </HBox>
-                            </children>
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
+          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
+                      <children>
+                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                              <children>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../../resources/icons/icons8-circled_left_2.png" />
+                           </image>
+                        </ImageView>
+                                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
+                                      <font>
+                                          <Font name="Open Sans Bold" size="36.0" />
+                                      </font>
+                                  </Text>
+                              </children>
                      <padding>
-                        <Insets bottom="20.0" left="50.0" right="50.0" top="30.0" />
+                        <Insets top="15.0" />
                      </padding>
-                        </HBox>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" spacing="50.0" style="-fx-background-color: #002347;" VBox.vgrow="NEVER">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <TextField fx:id="startText" promptText="Start Node ID" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font size="31.0" />
-                                 </font>
-                              </TextField>
-                           </children>
-                        </HBox>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="TO">
-                           <font>
-                              <Font name="System Bold" size="34.0" />
-                           </font>
-                        </Text>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <TextField fx:id="endText" promptText="Destination Node ID" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font size="31.0" />
-                                 </font>
-                              </TextField>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Button mnemonicParsing="false" style="-fx-background-color: white;" text="FILTERS" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Open Sans Bold" size="24.0" />
-                                 </font>
-                              </Button>
-                              <Button mnemonicParsing="false" onMouseClicked="#findPath" style="-fx-background-color: white;" text="NAVIGATE">
-                                 <font>
-                                    <Font name="Open Sans Bold" size="24.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
+                          </HBox>
+                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                              <children>
+                                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:24:23">
+                                      <font>
+                                          <Font name="Open Sans Bold" size="36.0" />
+                                      </font>
+                                  </Text>
+                              </children>
                      <padding>
-                        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+                        <Insets top="15.0" />
                      </padding>
+                          </HBox>
+                          <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                              <children>
+                                  <Button mnemonicParsing="false" onMouseClicked="#logout" style="-fx-background-color: white;" text="LOGOUT">
+                                      <font>
+                                          <Font name="Open Sans Bold" size="24.0" />
+                                      </font>
+                                  </Button>
+                              </children>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
+                          </HBox>
+                      </children>
+                      <VBox.margin>
+                          <Insets />
+                      </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" left="50.0" right="50.0" top="30.0" />
+               </padding>
                   </HBox>
-                  <HBox fx:id="imageView" alignment="CENTER" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" spacing="50.0" style="-fx-background-color: #002347;" VBox.vgrow="NEVER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <TextField fx:id="startText" promptText="Start Node ID" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font size="31.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="TO">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font>
+                  </Text>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" spacing="40.0" style="-fx-background-color: #001933;">
                            <children>
@@ -171,29 +140,114 @@
                                  </opaqueInsets>
                               </Button>
                            </children>
+                        <TextField fx:id="endText" promptText="Destination Node ID" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font size="31.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: white;" text="FILTERS" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="Open Sans Bold" size="24.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#findPath" style="-fx-background-color: white;" text="NAVIGATE">
+                           <font>
+                              <Font name="Open Sans Bold" size="24.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="imageView" alignment="CENTER" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" spacing="40.0" style="-fx-background-color: #001933;">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Navigation">
+                           <font>
+                              <Font name="Open Sans Bold" size="42.0" />
+                           </font>
+                        </Text>
+                        <Button mnemonicParsing="false" prefHeight="68.0" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Bathroom" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
-                           <padding>
-                              <Insets top="40.0" />
-                           </padding>
-                        </VBox>
-                        <StackPane prefHeight="150.0" prefWidth="200.0">
-                           <children>
-                              <AnchorPane>
-                                 <children>
-                                    <ImageView fx:id="image" fitHeight="856.0" fitWidth="1420.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <ImageView fx:id="overlayImage" fitHeight="856.0" fitWidth="1420.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                               <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" />
-                           </children>
-                        </StackPane>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Staircase" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Elevator">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Exit">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="400.0" style="-fx-background-color: white;" text="Service Desk">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="400.0" style="-fx-background-color: white;" text="Cafeteria">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
                      </children>
-                  </HBox>
-                    </children>
-                </VBox>
-            </children>
-        </StackPane>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets top="40.0" />
+                     </padding>
+                  </VBox>
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane>
+                           <children>
+                              <ImageView fx:id="image" fitHeight="856.0" fitWidth="1420.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <ImageView fx:id="overlayImage" fitHeight="856.0" fitWidth="1420.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                         <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" />
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+              </children>
+          </VBox>
     </children>
 </AnchorPane>
