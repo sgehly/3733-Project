@@ -131,7 +131,7 @@ public class Floor{
             Node newNode  = new Node(id, x, y, floor, building, type, longN, shortN);
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-            PreparedStatement stmt = conn.prepareStatement("insert into floor" + floorid + " values(?, ? ,? ,?, ?, ?, ?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("insert into Floor1 values(?, ? ,? ,?, ?, ?, ?, ?)");
             stmt.setString(1, id);
             stmt.setInt(2, x);
             stmt.setInt(3, y);
@@ -174,7 +174,7 @@ public class Floor{
             }
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-            PreparedStatement stmt = conn.prepareStatement("delete from floor" + floorid + " where nodeID = ?");
+            PreparedStatement stmt = conn.prepareStatement("insert into floor1 values(?, ? ,? ,?, ?, ?, ?, ?)");
             stmt.setString(1, rem.getId());
             stmt.execute();
 

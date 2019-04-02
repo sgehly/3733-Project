@@ -3,14 +3,40 @@ The #Algo Team yip yip
  */
 package app.AStar;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class is to run the A* algorithm and to also handle any other methods associated with the path-finding
  */
 public class AStar {
+    /**
+     * some stuff
+     * @param start
+     * @param destType
+     * @param map
+     * @return
+     */
+    public List<Node> findPresetPath(Node start, String destType, Map<String, Node> map){
+        Iterator it = map.entrySet().iterator();
+        Node closest = null;
+        double lowestCost = 500000;
+        while(it.hasNext()) {
+            Map.Entry set = (Map.Entry) it.next();
+            Node n = (Node) set.getValue();
+            if (n.getNodeType().equals(destType)) {
+                if(n.getDistance(start) < lowestCost){
+                    closest = n;
+                    lowestCost = n.getDistance(start);
+                }
+            }
+        }
+        if(closest != null){
+            return findPath(start, closest);
+        }
+        else{
+            return null;
+        }
+    }
 
     /**
      * Find the path between a start and end node

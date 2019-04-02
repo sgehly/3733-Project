@@ -127,7 +127,7 @@
                                     <Font name="Open Sans Bold" size="42.0" />
                                  </font>
                               </Text>
-                              <Button mnemonicParsing="false" prefHeight="68.0" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Bathroom" VBox.vgrow="ALWAYS">
+                              <Button mnemonicParsing="false" onAction="#findBathroom" prefHeight="68.0" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Bathroom" VBox.vgrow="ALWAYS">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -138,7 +138,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Staircase" VBox.vgrow="ALWAYS">
+                              <Button mnemonicParsing="false" onAction="#findStaircase" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Staircase" VBox.vgrow="ALWAYS">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -146,7 +146,7 @@
                                     <Insets />
                                  </opaqueInsets>
                               </Button>
-                              <Button mnemonicParsing="false" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Elevator">
+                              <Button mnemonicParsing="false" onAction="#findElevator" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Elevator">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -154,7 +154,7 @@
                                     <Insets />
                                  </opaqueInsets>
                               </Button>
-                              <Button mnemonicParsing="false" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Exit">
+                              <Button mnemonicParsing="false" onAction="#findExit" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Exit">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -162,15 +162,7 @@
                                     <Insets />
                                  </opaqueInsets>
                               </Button>
-                              <Button mnemonicParsing="false" prefWidth="400.0" style="-fx-background-color: white;" text="Service Desk">
-                                 <font>
-                                    <Font size="36.0" />
-                                 </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </Button>
-                              <Button mnemonicParsing="false" prefWidth="400.0" style="-fx-background-color: white;" text="Cafeteria">
+                              <Button mnemonicParsing="false" onAction="#findServiceDesk" prefWidth="400.0" style="-fx-background-color: white;" text="Service Desk">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
