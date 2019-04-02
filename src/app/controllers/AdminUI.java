@@ -13,15 +13,20 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
+import javax.xml.soap.Text;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -91,6 +96,49 @@ public class AdminUI {
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
+    }
+
+    @FXML
+    private void updateNode(){
+        try{
+            updateHelper();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(Main.getStage());
+            VBox dialogVbox = new VBox(20);
+            dialogVbox.getChildren().add(new Label("NODE NOT FOUND"));
+            Scene dialogScene = new Scene(dialogVbox, 300, 200);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        }
+    }
+
+    private void updateHelper()throws Exception{
+        Class.forName("org.aache.derby.jdbc.EmbeddedDriver");
+        Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+        PreparedStatement stmt = conn.prepareStatement("update NODE set xcoord = ?, ycoord = ?, floor = ?, building = ?, building = ?, longname = ?, shortname = ? where nodeid = ?");
+        stmt.setInt(1, Integer.parseInt(xCoordTextBox.getText()));
+        stmt.setInt(2, Integer.parseInt(yCoordTextBox.getText()));
+        stmt.setInt(3, Integer.parseInt(floorTextBox.getText()));
+        stmt.setString(4, buildingTextBox.getText());
+        stmt.setString(5, typeTextBox.getText());
+        stmt.setString(6, longNameTextBox.getText());
+        stmt.setString(7, shortNameTextBox.getText());
+        stmt.setString(8, nodeIdTextBox.getText());
+        stmt.execute();
+        PreparedStatement stmt2 = conn.prepareStatement("update FLOOR1 set xcoord = ?, ycoord = ?, floor = ?, building = ?, building = ?, longname = ?, shortname = ? where nodeid = ?");
+        stmt2.setInt(1, Integer.parseInt(xCoordTextBox.getText()));
+        stmt2.setInt(2, Integer.parseInt(yCoordTextBox.getText()));
+        stmt2.setInt(3, Integer.parseInt(floorTextBox.getText()));
+        stmt2.setString(4, buildingTextBox.getText());
+        stmt2.setString(5, typeTextBox.getText());
+        stmt2.setString(6, longNameTextBox.getText());
+        stmt2.setString(7, shortNameTextBox.getText());
+        stmt2.setString(8, nodeIdTextBox.getText());
+        stmt2.execute();
     }
 
     private MapPoint scalePoints(int pointX, int pointY){
