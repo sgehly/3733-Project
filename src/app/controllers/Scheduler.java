@@ -88,8 +88,8 @@ public class Scheduler {
         LocalDate dateStart = startDate.getValue();
         LocalTime timeStart = startTime.getValue();
 
-        LocalDate dateEnd = startDate.getValue();
-        LocalTime timeEnd = startTime.getValue();
+        LocalDate dateEnd = endDate.getValue();
+        LocalTime timeEnd = endTime.getValue();
 
         LocalDateTime start = LocalDateTime.of(dateStart, timeStart);
         LocalDateTime end = LocalDateTime.of(dateEnd, timeEnd);
@@ -98,6 +98,8 @@ public class Scheduler {
         Timestamp te = Timestamp.valueOf(end);
 
         System.out.println(ts+" TO "+te);
+
+        this.getAvailableRooms(ts, te);
     }
 
     @FXML
@@ -105,16 +107,12 @@ public class Scheduler {
         LocalDate dateStart = startDate.getValue();
         LocalTime timeStart = startTime.getValue();
 
-        LocalDate dateEnd = startDate.getValue();
-        LocalTime timeEnd = startTime.getValue();
+        LocalDate dateEnd = endDate.getValue();
+        LocalTime timeEnd = endTime.getValue();
 
-        TablePosition pos = (TablePosition)tableView.getSelectionModel().getSelectedCells().get(0);
-        int row = pos.getRow();
+        DisplayTable pos = (DisplayTable)tableView.getSelectionModel().getSelectedItem();
 
-        Object item = tableView.getItems().get(row);
-        TableColumn col = pos.getTableColumn();
-        String data = (String) col.getCellObservableValue(item).getValue();
-
+        String roomID = pos.getRoom();
 
         LocalDateTime start = LocalDateTime.of(dateStart, timeStart);
         LocalDateTime end = LocalDateTime.of(dateEnd, timeEnd);
@@ -122,10 +120,26 @@ public class Scheduler {
         Timestamp ts = Timestamp.valueOf(start);
         Timestamp te = Timestamp.valueOf(end);
 
-
-        System.out.println(timeStart+" TO "+timeEnd);
+        System.out.println("Booking "+roomID+" between "+ts+" and "+te);
+        this.addBookedTime(roomID, ts, te);
     }
 
+    private void addBookedTime(String roomID, Timestamp start, Timestamp end){
+        String query = "INSERT INTO BookedTimes VALUES(?, ?, ?)";
+        try{
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, roomID);
+            stmt.setTimestamp(2, start);
+            stmt.setTimestamp(3, end);
+            stmt.execute();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Error at addBookedTime()");
+        }
+    }
 
     @FXML
     private void navigateToHome() throws Exception{
@@ -173,15 +187,20 @@ public class Scheduler {
         }
     }
 
-    public ObservableList<DisplayTable> getAvailableRooms() throws ClassNotFoundException, SQLException{
+    public ObservableList<DisplayTable> getAvailableRooms(Timestamp start, Timestamp end) throws ClassNotFoundException, SQLException{
 
-        String query1 = "SELECT Rooms.roomID, capacity, roomtype FROM BookedTimes Join Rooms on (Rooms.roomID) = (BookedTimes.roomID) - (SELECT Rooms.roomID, capacity, roomType FROM BookedTimes JOIN Rooms ON (Rooms.roomID) = (BookedTimes.roomID) WHERE ((BookedTimes.startTime >= "+ startDate+" "+ startTime + ") AND (BookedTimes.startTime <= "+ startDate+" "+ startTime + ") )OR ((BookedTimes.endTime >= "+ endDate+" "+ endTime + ") AND (BookedTimes.endTime <= "+ endDate+" "+ endTime + ")))";
+        String query1 = "SELECT Rooms.ROOMID, CAPACITY, ROOMTYPE FROM BookedTimes RIGHT JOIN Rooms ON (Rooms.roomID) = (BookedTimes.roomID) EXCEPT ( SELECT Rooms.ROOMID, CAPACITY, ROOMTYPE FROM BookedTimes JOIN Rooms ON (Rooms.roomID) = (BookedTimes.roomID) WHERE ((BookedTimes.startTime >= ? AND BOOKEDTIMES.STARTTIME <= ? OR (BookedTimes.endTime <= ? AND BookedTimes.endTime >= ?))))";
+        //STARTTIME, ENDTIME, ENDTIME, STARTTIME
 
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection(dbPath);
-            Statement stmt = conn.createStatement();
-            ResultSet availRooms = stmt.executeQuery(query1);
+            PreparedStatement stmt = conn.prepareStatement(query1);
+            stmt.setTimestamp(1, start);
+            stmt.setTimestamp(2, end);
+            stmt.setTimestamp(3, end);
+            stmt.setTimestamp(4, start);
+            ResultSet availRooms = stmt.executeQuery();
             ObservableList<DisplayTable> entryList = getEntryObjects(availRooms);
             tableView.setItems(entryList);
             return entryList;
