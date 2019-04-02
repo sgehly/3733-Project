@@ -72,8 +72,8 @@
                                           <Font name="System Bold" size="34.0" />
                                       </font>
                                   </Text>
-                        <JFXDatePicker fx:id="startDate" defaultColor="#006bd0" prefHeight="65.0" prefWidth="269.0" />
-                        <JFXTimePicker fx:id="startTime" defaultColor="#006bd0" prefHeight="60.0" prefWidth="171.0" />
+                        <JFXDatePicker fx:id="startDate" defaultColor="#006bd0" prefHeight="65.0" prefWidth="269.0" styleClass="force-white" stylesheets="@../../stylesheet.css" />
+                        <JFXTimePicker fx:id="startTime" defaultColor="#006bd0" prefHeight="60.0" prefWidth="171.0" styleClass="force-white" stylesheets="@../../stylesheet.css" />
                               </children>
                           </HBox>
                           <HBox alignment="CENTER" prefHeight="60.0" prefWidth="659.0" HBox.hgrow="ALWAYS">
@@ -83,8 +83,8 @@
                                           <Font name="System Bold" size="34.0" />
                                       </font>
                                   </Text>
-                        <JFXDatePicker fx:id="endDate" defaultColor="#006bd0" prefHeight="65.0" prefWidth="269.0" />
-                        <JFXTimePicker fx:id="endTime" defaultColor="#006bd0" prefHeight="60.0" prefWidth="204.0" />
+                        <JFXDatePicker fx:id="endDate" defaultColor="#006bd0" prefHeight="65.0" prefWidth="269.0" styleClass="force-white" stylesheets="@../../stylesheet.css" />
+                        <JFXTimePicker fx:id="endTime" defaultColor="#006bd0" prefHeight="60.0" prefWidth="204.0" styleClass="force-white" stylesheets="@../../stylesheet.css" />
                               </children>
                           </HBox>
                           <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" HBox.hgrow="ALWAYS">

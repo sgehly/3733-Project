@@ -121,7 +121,11 @@
 }
 
 
-
+.force-white{
+    -jfx-unfocus-color: blue;
+    -fx-prompt-text-fill: blueviolet;
+    -fx-text-fill: red;
+}
 
 
 /*!* scroll bar starts here *!
