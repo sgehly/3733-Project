@@ -141,7 +141,7 @@ public class Floor{
             stmt.setString(7, longN);
             stmt.setString(8, shortN);
 
-            stmt.executeQuery();
+            stmt.execute();
 
             conn.close();
             floorMap.put(newNode.getId(), newNode);
@@ -164,7 +164,7 @@ public class Floor{
             Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
             PreparedStatement stmt = conn.prepareStatement("delete from floor" + floorid + " where nodeID = ?");
             stmt.setString(1, rem.getId());
-            stmt.executeQuery();
+            stmt.execute();
             conn.close();
             floorMap.remove(rem.getId());
         }catch(Exception e){
@@ -179,7 +179,7 @@ public class Floor{
             Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
             PreparedStatement stmt = conn.prepareStatement("delete from edge where edgeID = ?");
             stmt.setString(1, edgeID);
-            stmt.executeQuery();
+            stmt.execute();
             conn.close();
             String delim = "_";
             String[] nodeKeys;
@@ -189,13 +189,11 @@ public class Floor{
             for(Edge e: start.getEdges()){
                 if(e.getEdgeID().equals(edgeID)){
                     start.getEdges().remove(e);
-                    break;
                 }
             }
             for(Edge e: end.getEdges()){
                 if(e.getEdgeID().equals(edgeID)){
                     end.getEdges().remove(e);
-                    break;
                 }
             }
         }catch(Exception e){
@@ -209,11 +207,11 @@ public class Floor{
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             String[] edgeNodes = edgeID.split("_");
             Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-            PreparedStatement stmt = conn.prepareStatement("insert into edge where edgeID = ? startNode = ? endNode = ?");
+            PreparedStatement stmt = conn.prepareStatement("insert into edge values(?,?,?)");
             stmt.setString(1, edgeID);
             stmt.setString(2, edgeNodes[0]);
             stmt.setString(3, edgeNodes[1]);
-            stmt.executeQuery();
+            stmt.execute();
             conn.close();
 
             Node start = floorMap.get(edgeNodes[0]);
