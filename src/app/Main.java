@@ -62,11 +62,11 @@ public class Main extends Application {
         DatabaseParser parser = new DatabaseParser();
         //parser.connect();
         //parser.nodeParse();
-        //parser.floorTables();
-        //parser.edgeParse();
+       // parser.floorTables();
+       // parser.edgeParse();
 
-        Floor myFloor = new Floor("1");
-        myFloor.populateFloor();
+        //Floor myFloor = new Floor("1");
+        //myFloor.populateFloor();
         launch(args);
     }
 }

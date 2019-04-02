@@ -237,7 +237,7 @@ public class Floor{
         //Draw lines before points so that points do not get covered up
         Graphics2D g2d = img.createGraphics(); //Create the graphics
         g2d.setColor(Color.BLACK);//We will set line color white to visualize it better
-        g2d.setStroke(new BasicStroke(5.0f));
+        g2d.setStroke(new BasicStroke(15.0f));
         //We will draw all the lines
         int listSize = nodeArrayList.size();//Get the number of nodes
         for (int i = 0; i < listSize - 1; i++) //For every node except the last one
@@ -254,7 +254,7 @@ public class Floor{
             int b = 0;//(int)(Math.random()*256); //blue
             int p = (a<<24) | (r<<16) | (g<<8) | b; //pixel*/
 
-            int diameter = 2; //Diameter of the circle
+            int diameter = 7; //Diameter of the circle
             g2d.setColor(Color.YELLOW);
             Shape circle = new Ellipse2D.Double(node.getXCoord() - diameter / 2, node.getYCoord() - diameter / 2, diameter, diameter); //Draw the circles
 

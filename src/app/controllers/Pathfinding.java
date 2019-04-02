@@ -126,9 +126,6 @@ public class Pathfinding {
             //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
             floor.drawPath(nodeArrayList);
             System.out.println("Plotted path");
-            //SendEmail sendEmail = new SendEmail();
-            //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
-            //sendEmail.sendMail(email);
             //System.out.println("Sent Mail");
 
             //Now we will try to get the image
@@ -137,7 +134,9 @@ public class Pathfinding {
                 Image Overlaysource;
                 Overlaysource = new Image(new FileInputStream("src/resources/maps/PathOutput.png")); //See if we can get the image to overlay and then create a new image object from it
                 overlayImage.setImage(Overlaysource); //set the image as the overlay image
-
+               // SendEmail sendEmail = new SendEmail();
+                //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
+                //sendEmail.sendMail(email);
             }
             catch (FileNotFoundException e)
             {
