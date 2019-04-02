@@ -68,7 +68,7 @@ public class Scheduler {
     private TableColumn<DisplayTable,String> capacity = new TableColumn("capacity");
 
     @FXML
-    private TableColumn<DisplayTable,String> roomType = new TableColumn("roomType");
+    private TableColumn<DisplayTable,String> type = new TableColumn("type");
 
     @FXML
     private JFXDatePicker startDate = new JFXDatePicker();
@@ -127,6 +127,7 @@ public class Scheduler {
                 DisplayTable ent = new DisplayTable();
                 ent.setRoom(rs.getString("roomId"));
                 ent.setNotes(rs.getString("details"));
+                ent.setCapacity(String.valueOf(rs.getInt("capacity")));
                 System.out.println(rs.getString("details"));
                 System.out.println(rs.getString("roomId"));
                 entList.add(ent);
@@ -186,7 +187,7 @@ public class Scheduler {
             ObservableList<DisplayTable> entList = getAvailableRooms();
             roomId.setCellValueFactory(new PropertyValueFactory<>("Room"));
             capacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
-            roomType.setCellValueFactory(new PropertyValueFactory<>("roomType"));
+            type.setCellValueFactory(new PropertyValueFactory<>("type"));
             tableView.setItems(entList);
         }
         catch (Exception e){
