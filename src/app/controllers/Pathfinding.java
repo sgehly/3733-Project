@@ -126,13 +126,13 @@ public class Pathfinding {
             //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
             floor.drawPath(nodeArrayList);
             System.out.println("Plotted path");
-            SendEmail sendEmail = new SendEmail();
-            String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
-            sendEmail.sendMail(email);
-            System.out.println("Sent Mail");
+            //SendEmail sendEmail = new SendEmail();
+            //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
+            //sendEmail.sendMail(email);
+            //System.out.println("Sent Mail");
 
             //Now we will try to get the image
-           /* try
+            try
             {
                 Image Overlaysource;
                 Overlaysource = new Image(new FileInputStream("src/resources/maps/PathOutput.png")); //See if we can get the image to overlay and then create a new image object from it
@@ -143,13 +143,12 @@ public class Pathfinding {
             {
                 e.printStackTrace();
             }
-*/
 
         }
     }
 
     @FXML
-    protected void initialize() {
+    protected void initialize() throws Exception {
 
         //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
         //------------------------------------------------------------------------------------------------
@@ -157,7 +156,7 @@ public class Pathfinding {
 
         Image source = null;
         try {
-            String path = getClass().getResource("/resources/maps/01_thefirstfloor.png").toString().replace("file:","");
+            String path = getClass().getResource("/resources/maps/01_thefirstfloor.png").toString().replace("file:", "");
             System.out.println(path);
             source = new Image(new FileInputStream(path));
         } catch (FileNotFoundException e) {
@@ -177,17 +176,22 @@ public class Pathfinding {
             width = 500;
         }
         image.setImage(source);
-        System.out.println(imageView.getBoundsInParent().getWidth());
         image.setFitWidth(primaryScreenBounds.getWidth());
-        image.setFitHeight(primaryScreenBounds.getHeight()-200);
+        image.setFitHeight(primaryScreenBounds.getHeight() - 200);
+
+        overlayImage.setFitWidth(image.getFitWidth());
+        overlayImage.setFitHeight(image.getFitHeight());
+        Image EMPTY = new Image(new FileInputStream("src/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
+
+        overlayImage.setImage(EMPTY);
         height = (int) source.getHeight();
         width = (int) source.getWidth();
         System.out.println("height = " + height + "\nwidth = " + width);
         HBox zoom = new HBox(10);
         zoom.setAlignment(Pos.CENTER);
 
-        zoomLvl.setMax(10);
-        zoomLvl.setMin(1);
+        //zoomLvl.setMax(10);
+        //zoomLvl.setMin(1);
 
         offSetX = width / 2;
         offSetY = height / 2;
@@ -221,7 +225,7 @@ public class Pathfinding {
             }
 
             image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
-            overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+            //overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
 
         });
         Vscroll.valueProperty().addListener(e -> {
@@ -235,13 +239,13 @@ public class Pathfinding {
                 offSetY = height - ((height / newValue) / 2);
             }
             image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
-            overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+            //overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
 
         });
         //imageView.setCenter(image);
         //imageView.setTop(Hscroll);
         //imageView.setRight(Vscroll);
-        zoomLvl.valueProperty().addListener(e -> {
+        /*zoomLvl.valueProperty().addListener(e -> {
             zoomlvl = zoomLvl.getValue();
             double newValue = (double) ((int) (zoomlvl * 10)) / 10;
             if (offSetX < (width / newValue) / 2) {
@@ -259,7 +263,7 @@ public class Pathfinding {
             Hscroll.setValue(offSetX);
             Vscroll.setValue(height - offSetY);
             image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
-            overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
+            //overlayImage.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
 
         });
         imageView.setCursor(Cursor.OPEN_HAND);
@@ -276,22 +280,7 @@ public class Pathfinding {
             Vscroll.setValue(Vscroll.getValue() - (inity - e.getSceneY()));
             initx = e.getSceneX();
             inity = e.getSceneY();
-        });
-
-        overlayImage.setOnMousePressed(e -> {
-            initx = e.getSceneX();
-            inity = e.getSceneY();
-            imageView.setCursor(Cursor.CLOSED_HAND);
-        });
-        overlayImage.setOnMouseReleased(e -> {
-            imageView.setCursor(Cursor.OPEN_HAND);
-        });
-        overlayImage.setOnMouseDragged(e -> {
-            Hscroll.setValue(Hscroll.getValue() + (initx - e.getSceneX()));
-            Vscroll.setValue(Vscroll.getValue() - (inity - e.getSceneY()));
-            initx = e.getSceneX();
-            inity = e.getSceneY();
-        });
+        });*/
     }
 
     @FXML
