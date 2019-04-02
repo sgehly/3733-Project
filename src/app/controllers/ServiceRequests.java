@@ -16,20 +16,22 @@ import java.awt.event.MouseEvent;
 import java.lang.String;
 import java.sql.Timestamp;
 import java.util.Date;
-
+import java.util.Random;
 
 import java.io.IOException;
 
 public class ServiceRequests {
 
+
+    //Scene setup from service requests
+
+
+    //database path
     String dbPath = "jdbc:derby:myDB";
-    int idgnerator = 1;
 
-
+    //initializing the timestamp
     Date date = new Date();
-
     long time = date.getTime();
-
     Timestamp ts = new Timestamp(time);
 
 
@@ -58,18 +60,48 @@ public class ServiceRequests {
     @FXML
     private TextArea languageNotes;
 
+
+
+
+    public int RandIDgenerator(){
+        Random rand = new Random();
+        int id = rand.nextInt(10000);
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            String query = "SELECT REQUESTID FROM REQUESTINPROGRESS";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()){
+                if(rs.getInt(1) == id){
+                    RandIDgenerator();
+                }
+                else{
+                    return id;
+                }
+            }
+        }
+
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
     @FXML
     public void logout() throws Exception {
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("welcome"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Parent welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
+        Scene welcomeScene = new Scene(welcomePane);
+        Main.getStage().setScene(welcomeScene);
     }
 
     @FXML
     private void navigateToHome() throws Exception {
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Parent homePane = FXMLLoader.load(Main.getFXMLURL("home"));
+        Scene homeScene = new Scene(homePane);
+        Main.getStage().setScene(homeScene);
+
     }
 
     @FXML
@@ -77,12 +109,11 @@ public class ServiceRequests {
 
     }
 
-
     @FXML
     public void goToRequestList() throws IOException {
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Parent serviceRequestsListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+        Scene serviceRequestsListScene = new Scene(serviceRequestsListPane);
+        Main.getStage().setScene(serviceRequestsListScene);
     }
 
     @FXML
@@ -93,37 +124,37 @@ public class ServiceRequests {
 
                 Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
                 Connection conn = DriverManager.getConnection(dbPath);
-                String query = "insert into  APP.REQUESTINPROGRESS  (REQUESTID , ROOM , NOTE , DATE, STATUS ) values (?,?,?,?,?)";
+                String query = "insert into  APP.REQUESTINPROGRESS  (REQUESTID , ROOM , NOTE , DATE ) values (?,?,?,?)";
                 //
                 //PreparedStatement stmt=conn.prepareStatement("insert into  REQUESTINPROGRESS set REQUESTID = ? , ROOM = ?, NOTE = ?, DATE = ?, STATUS = ?");
                 //PreparedStatement stmt = conn.prepareStatement("SELECT * from REQUESTINPROGRESS");
                 PreparedStatement stmt = conn.prepareStatement(query);
 
-                stmt.setInt(1, (idgnerator));
+                stmt.setInt(1, (RandIDgenerator()));
                 stmt.setString(2, (sanitationRoomNumber.getText()));
                 stmt.setString(3, sanitationNotes.getText());
                 stmt.setTimestamp(4, ts);
-                stmt.setBoolean(5, false);
+                //stmt.setBoolean(5, false);
                 System.out.println("in table ");
 
                 stmt.executeUpdate();
                 stmt.close();
 
+                this.goToRequestList();
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            idgnerator = idgnerator++;
-            System.out.println("id generator ");
         }
 
 
-        @FXML
-        void makeLanguageRequest(ActionEvent e){
-        }
+    @FXML
+    void makeLanguageRequest(ActionEvent e){
+    }
 
 
-        @FXML// This method is called by the FXMLLoader when initialization is complete
-        void initialize(){
+    @FXML// This method is called by the FXMLLoader when initialization is complete
+    void initialize() throws IOException {
             //general asserts
             assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
             //language asserts
