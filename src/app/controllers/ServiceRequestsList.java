@@ -11,8 +11,6 @@ import java.util.ResourceBundle;
 
 import app.Main;
 
-import javafx.beans.Observable;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,30 +27,25 @@ import javafx.scene.input.MouseEvent;
 
 public class ServiceRequestsList {
 
-
+    //path to the database
     String dbPath = "jdbc:derby:myDB";
 
+
+    //all items for the service request list view
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
-
     @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
-
     @FXML // fx:id="back"
     private ImageView back; // Value injected by FXMLLoader
-
     @FXML // fx:id="logoutButton"
     private Button logoutButton; // Value injected by FXMLLoader
-
     @FXML // fx:id="requestFulfilledButton"
     private Button requestFulfilledButton; // Value injected by FXMLLoader
-
     @FXML
     private Button refresh;
-
     @FXML // fx:id="deleteIncompleteButton"
     private Button deleteIncompleteButton; // Value injected by FXMLLoader
-
     @FXML // fx:id="deleteCompletedButton"
     private Button deleteCompletedButton; // Value injected by FXMLLoader
 
@@ -60,35 +53,26 @@ public class ServiceRequestsList {
     // table and columns for the request in progress table.
     @FXML
     private TableView requestInProgress = new TableView();
-
     @FXML
     private TableColumn<DisplayTable,String> room = new TableColumn("room");
-
     @FXML
     private TableColumn<DisplayTable,String> notes = new TableColumn("notes");
-
     @FXML
     private TableColumn<DisplayTable,String> type = new TableColumn("type");
-
     @FXML
     private TableColumn<DisplayTable,Integer> requestId = new TableColumn("requestId");
 
     //table and columns for request log table.
     @FXML
-    private TableView reqeustLog = new TableView();
-
+    private TableView requestCompleted = new TableView();
     @FXML
     private TableColumn<DisplayTable,String> room1 = new TableColumn("room");
-
     @FXML
     private TableColumn<DisplayTable,String> notes1 = new TableColumn("notes");
-
     @FXML
     private TableColumn<DisplayTable,String> type1 = new TableColumn("type");
-
     @FXML
     private TableColumn<DisplayTable,Integer> requestId1 = new TableColumn("requestId");
-
     @FXML
     private TableColumn<DisplayTable,String> filledBy = new TableColumn("filledBy");
 
@@ -138,7 +122,7 @@ public class ServiceRequestsList {
 
 
             requestInProgress.setItems(entList);
-            reqeustLog.setItems(entList2);
+            requestCompleted.setItems(entList2);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -187,7 +171,7 @@ public class ServiceRequestsList {
 
             // insert from requesinprogress to request log the desired request
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, getid.getText());
+            stmt.setString(1, this.getIdFromTable());
             stmt.executeUpdate();
             System.out.println("inserted into db");
 
@@ -195,14 +179,14 @@ public class ServiceRequestsList {
             //add the name of the person that got it done
             PreparedStatement st = conn.prepareStatement(query2);
             st.setString(1, filledBy.getText());
-            st.setString(2, getid.getText());
+            st.setString(2, this.getIdFromTable());
             st.executeUpdate();
             System.out.println("inserted into db");
 
 
             //delete from request that has been moved.
             PreparedStatement s = conn.prepareStatement(query3);
-            s.setString(1, getid.getText());
+            s.setString(1, this.getIdFromTable());
             s.executeUpdate();
             System.out.println("deleted from db");
             //stmt.setString(6,FilledBy.getText());
@@ -233,14 +217,11 @@ public class ServiceRequestsList {
 
 
             requestInProgress.setItems(entList);
-            reqeustLog.setItems(entList2);
+            requestCompleted.setItems(entList2);
         }
         catch (Exception e){
             e.printStackTrace();
         }
-
-
-
     }
 
     private static ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws SQLException {
@@ -288,7 +269,7 @@ public class ServiceRequestsList {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
-            reqeustLog.setItems(entryList);
+            requestCompleted.setItems(entryList);
 
             return entryList;
         } catch (SQLException e) {
@@ -320,7 +301,7 @@ public class ServiceRequestsList {
 
 
             requestInProgress.setItems(entList);
-            reqeustLog.setItems(entList2);
+            requestCompleted.setItems(entList2);
         }
         catch (Exception e){
             e.printStackTrace();
