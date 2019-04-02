@@ -94,7 +94,7 @@
                                     <children>
                                         <Button mnemonicParsing="false" onAction="#checkAvailability" prefHeight="51.0" prefWidth="337.0" style="-fx-background-color: white;" text="CHECK AVAILABILITY">
                                             <font>
-                                                <Font name="Open Sans Bold" size="24.0" />
+                                                <Font name="Open Sans Bold" size="8.0" />
                                             </font>
                                         </Button>
                                     </children>
