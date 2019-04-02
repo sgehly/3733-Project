@@ -107,7 +107,6 @@ public class ServiceRequests {
 
     }
 
-
     @FXML
     public void goToRequestList() throws IOException {
         Parent pane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
@@ -138,6 +137,8 @@ public class ServiceRequests {
 
                 stmt.executeUpdate();
                 stmt.close();
+
+                this.goToRequestList();
 
             } catch (Exception e) {
                 e.printStackTrace();
