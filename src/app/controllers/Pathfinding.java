@@ -80,56 +80,68 @@ public class Pathfinding {
     @FXML
     private void findBathroom() throws Exception{
         if(startText.getText() != null){
-            String start = startText.getText();
-            Floor floor = new Floor("1");//Create an instance of the floor and get the start and end nodes
-            HashMap<String,Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
-            Node startNode = floorMap.get(start); //Get starting and ending string using keys
-            AStar aStar = new AStar();
-            List<Node> nodeArrayList = aStar.findPresetPath(startNode, "REST", floorMap);
-            System.out.println("Got Path");
-            final JFrame frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
-            floor.drawPath(nodeArrayList);
-            System.out.println("Plotted path");
-            //System.out.println("Sent Mail");
-
-            //Now we will try to get the image
-            try
-            {
-                Image Overlaysource;
-                Overlaysource = new Image(new FileInputStream("src/resources/maps/PathOutput.png")); //See if we can get the image to overlay and then create a new image object from it
-                overlayImage.setImage(Overlaysource); //set the image as the overlay image
-
-                startText.setText("");
-                endText.setText("");
-                // SendEmail sendEmail = new SendEmail();
-                //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
-                //sendEmail.sendMail(email);
-            }
-            catch (FileNotFoundException e)
-            {
-                e.printStackTrace();
-            }
+            findPresetHelper("REST");
         }
     }
     @FXML
     private void findStaircase() throws Exception{
+        if(startText.getText() != null){
+            findPresetHelper("STAI");
+        }
 
     }
     @FXML
     private void findElevator() throws Exception{
+        if(startText.getText() != null){
+            findPresetHelper("ELEV");
+        }
 
     }
     @FXML
     private void findExit() throws Exception{
+        if(startText.getText() != null){
+            findPresetHelper("EXIT");
+        }
 
     }
     @FXML
     private void findServiceDesk() throws Exception{
+        if(startText.getText() != null){
+            findPresetHelper("INFO");
+        }
 
     }
 
+    private void findPresetHelper(String type) {
+        String start = startText.getText();
+        Floor floor = new Floor("1");//Create an instance of the floor and get the start and end nodes
+        HashMap<String, Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
+        Node startNode = floorMap.get(start); //Get starting and ending string using keys
+        AStar aStar = new AStar();
+        List<Node> nodeArrayList = aStar.findPresetPath(startNode, type, floorMap);
+        System.out.println("Got Path");
+        final JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
+        floor.drawPath(nodeArrayList);
+        System.out.println("Plotted path");
+        //System.out.println("Sent Mail");
+
+        //Now we will try to get the image
+        try {
+            Image Overlaysource;
+            Overlaysource = new Image(new FileInputStream("src/resources/maps/PathOutput.png")); //See if we can get the image to overlay and then create a new image object from it
+            overlayImage.setImage(Overlaysource); //set the image as the overlay image
+
+            startText.setText("");
+            endText.setText("");
+            // SendEmail sendEmail = new SendEmail();
+            //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
+            //sendEmail.sendMail(email);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void findPath() throws Exception{

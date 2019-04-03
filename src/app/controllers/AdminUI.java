@@ -139,6 +139,18 @@ public class AdminUI {
         String shortName = shortNameTextBox.getText();
         floorOne.addNode(nodeID, Integer.valueOf(xCoord), Integer.valueOf(yCoord), floor, building, type, longName, shortName);
         this.getAllRecords();
+        resetTextFields();
+    }
+
+    private void resetTextFields(){
+        nodeIdTextBox.setText("");
+        xCoordTextBox.setText("");
+        yCoordTextBox.setText("");
+        floorTextBox.setText("");
+        buildingTextBox.setText("");
+        typeTextBox.setText("");
+        longNameTextBox.setText("");
+        shortNameTextBox.setText("");
     }
 
     @FXML

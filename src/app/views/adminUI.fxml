@@ -26,7 +26,7 @@
                                           <Insets right="10.0" />
                                       </HBox.margin>
                                       <image>
-                                          <Image url="@../../resources/icons/icons8-circled_left_2.png" />
+                                          <Image url="@../../resources/icons/icons8_home_page_40px_1.png" />
                                       </image>
                                   </ImageView>
                                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
@@ -80,79 +80,67 @@
                                           <Font name="Open Sans Bold" size="42.0" />
                                       </font>
                                   </Text>
-                        <HBox prefHeight="30.0" prefWidth="200.0">
+                        <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID" />
-                              <TextField fx:id="nodeIdTextBox" prefHeight="10.0" prefWidth="355.0" HBox.hgrow="ALWAYS" />
+                              <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
+                                 <children>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="XCoord:" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="YCoord:" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Floor:" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Type:" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name:" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Short Name:" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="39.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="nodeIdTextBox" prefHeight="10.0" prefWidth="355.0" />
+                                    <TextField fx:id="xCoordTextBox" />
+                                    <TextField fx:id="yCoordTextBox" />
+                                    <TextField fx:id="floorTextBox">
+                                       <VBox.margin>
+                                          <Insets top="2.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="buildingTextBox">
+                                       <VBox.margin>
+                                          <Insets top="7.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="typeTextBox">
+                                       <VBox.margin>
+                                          <Insets top="-1.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="longNameTextBox">
+                                       <VBox.margin>
+                                          <Insets top="3.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="shortNameTextBox">
+                                       <VBox.margin>
+                                          <Insets top="-1.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </VBox>
                            </children>
                            <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
+                              <Insets bottom="49.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0">
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="XCoord:" />
-                              <TextField HBox.hgrow="ALWAYS" fx:id="xCoordTextBox" />
-                           </children>
-                           <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0">
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="YCoord:" />
-                              <TextField fx:id="yCoordTextBox" HBox.hgrow="ALWAYS" />
-                           </children>
-                           <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0">
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Floor:" />
-                              <TextField fx:id="floorTextBox" HBox.hgrow="ALWAYS" />
-                           </children>
-                           <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0">
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Building:" />
-                              <TextField fx:id="buildingTextBox" HBox.hgrow="ALWAYS" />
-                           </children>
-                           <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0">
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Type:" />
-                              <TextField fx:id="typeTextBox" HBox.hgrow="ALWAYS" />
-                           </children>
-                           <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0">
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name:" />
-                              <TextField fx:id="longNameTextBox" HBox.hgrow="ALWAYS" />
-                           </children>
-                           <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0">
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Short Name:" />
-                              <TextField fx:id="shortNameTextBox" HBox.hgrow="ALWAYS" />
-                           </children>
-                           <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0" spacing="5.0">
+                        <HBox prefHeight="30.0" prefWidth="200.0" spacing="5.0" VBox.vgrow="ALWAYS">
                            <children>
                               <Button mnemonicParsing="false" onAction="#addNode" prefHeight="50.0" prefWidth="400.0" text="Add" />
                               <Button mnemonicParsing="false" onAction="#removeNode" prefHeight="50.0" prefWidth="400.0" text="Remove" />
@@ -160,34 +148,46 @@
                               <Button mnemonicParsing="false" onAction="#exportToCsv" prefHeight="50.0" prefWidth="400.0" text="Export" />
                            </children>
                            <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
+                              <Insets left="50.0" right="50.0" top="-68.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0">
+                        <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Node" />
-                              <TextField fx:id="startNodeTextBox" HBox.hgrow="ALWAYS" />
+                              <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
+                                 <children>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Node" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="End Node" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="startNodeTextBox">
+                                       <VBox.margin>
+                                          <Insets bottom="35.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                    <TextField fx:id="endNodeTextBox">
+                                       <VBox.margin>
+                                          <Insets top="3.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </VBox>
                            </children>
-                           <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0">
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="End Node" />
-                              <TextField fx:id="endNodeTextBox" HBox.hgrow="ALWAYS" />
-                           </children>
-                           <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0" spacing="5.0">
+                        <HBox prefHeight="30.0" prefWidth="200.0" spacing="5.0" VBox.vgrow="ALWAYS">
                            <children>
                               <Button mnemonicParsing="false" onAction="#addEdge" prefHeight="50.0" prefWidth="400.0" text="Add Edge" />
                               <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" text="Remove Edge" />
                            </children>
                            <VBox.margin>
-                              <Insets left="50.0" right="50.0" />
+                              <Insets bottom="30.0" left="50.0" right="50.0" />
                            </VBox.margin>
                         </HBox>
                               </children>
