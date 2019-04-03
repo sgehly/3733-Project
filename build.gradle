@@ -12,7 +12,9 @@ plugins {
 
     // Apply the application plugin to add support for building an application
     id 'application'
+
 }
+
 
 repositories {
     // Use jcenter for resolving your dependencies.
@@ -41,7 +43,6 @@ dependencies {
 
     compile group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
     compile group: 'org.apache.derby', name: 'derbytools', version: '10.14.1.0'
-
     compile group: 'com.jfoenix',name:'jfoenix',version:'8.0.8'
 
     configurations.compile.extendsFrom(configurations.extraLibs)

@@ -14,6 +14,8 @@ import javafx.geometry.Rectangle2D;
 import java.io.InputStream;
 import java.net.URL;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Map;
 
 import app.AStar.*;
@@ -68,14 +70,13 @@ public class Main extends Application {
 //        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
         //aS.drawPath(path);
         DatabaseParser parser = new DatabaseParser();
-
-        //parser.nodeParse();
-        //parser.edgeParse();
-        //parser.floorTables();
         parser.connect();
+        parser.nodeParse();
+        parser.edgeParse();
+        parser.floorTables();
 
-        //Floor myFloor = new Floor("1");
-        //myFloor.populateFloor();
+        Floor myFloor = new Floor("1");
+        myFloor.populateFloor();
         launch(args);
     }
 }

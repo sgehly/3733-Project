@@ -1,8 +1,8 @@
 ----------------------------------------------------------------
-Tue Apr 02 15:59:07 EDT 2019:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0169-dfa2-45c6-00002827c460 
-on database directory /Users/sgehly/SoftEng/3733-Project/myDB with class loader sun.misc.Launcher$AppClassLoader@2a139a55 
-Loaded from file:/Users/sgehly/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.14.2.0/7efad40ef52fbb1f08142f07a83b42d29e47d8ce/derby-10.14.2.0.jar
+Tue Apr 02 22:54:31 EDT 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instance a816c00e-0169-e11e-9438-00001d14c968 
+on database directory /Users/sgehly/SoftEng/3733-Project/myDB with class loader sun.misc.Launcher$AppClassLoader@55f96302 
+Loaded from file:/Users/sgehly/SoftEng/3733-Project/build/libs/3733-Project-all.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_201-b09
 user.dir=/Users/sgehly/SoftEng/3733-Project

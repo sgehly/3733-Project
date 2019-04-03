@@ -281,7 +281,7 @@ public class Floor{
 
         //write image
         try {
-            f = new File("src/resources/maps/PathOutput.png");
+            f = new File("PathOutput.png");
             ImageIO.write(img, "png", f); //We will write out a png to my downloads folder
         } catch (IOException e) {
             System.out.println("Error: " + e);
