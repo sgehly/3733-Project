@@ -34,7 +34,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
 
+/**
+ * The controller class associated with the scheduler
+ */
 public class Scheduler {
+   //Instances of necessary objects
     static double initx;
     static double inity;
     static int height;
@@ -59,6 +63,10 @@ public class Scheduler {
     @FXML // fx:id="image"
     private ImageView image; // Value injected by FXMLLoader
 
+    /**
+     * This method is for the button that allows the user to navigate back to the home screen
+     * @throws Exception
+     */
     @FXML
     private TableView tableView = new TableView();
 
@@ -150,6 +158,7 @@ public class Scheduler {
 
     @FXML
     private void navigateToHome() throws Exception{
+        //Gets an instance of the screen and sets it as the main stage to display
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
@@ -220,6 +229,9 @@ public class Scheduler {
 
     }
 
+    /**
+     * This method initializes the controller and deals with assert statements
+     */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
 
@@ -274,19 +286,15 @@ public class Scheduler {
 
         //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
         //------------------------------------------------------------------------------------------------
+        //Get the bounds of the screen
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-        Image source = null;
-        try {
-            String path = getClass().getResource("/resources/maps/scheduler.jpg").toString().replace("file:","");
-            System.out.println(path);
-            source = new Image(new FileInputStream(path));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        double ratio = source.getWidth() / source.getHeight();
+        Image source = new Image(Main.getResource("/resources/maps/scheduler.jpg"));
 
+        double ratio = source.getWidth() / source.getHeight(); //Get the width to height ratio
+
+        //If the ratio and the actual width and height are not proper, make them a necessary size
         if (500 / ratio < 500) {
             width = 500;
             height = (int) (500 / ratio);
@@ -297,14 +305,15 @@ public class Scheduler {
             height = 500;
             width = 500;
         }
-        image.setImage(source);
+
+
+        image.setImage(source); //Set the image as the source
         System.out.println(imageView.getBoundsInParent().getWidth());
+
+        //Set the proper width and height for the image
         image.setFitWidth(primaryScreenBounds.getWidth());
         image.setFitHeight(primaryScreenBounds.getHeight()-200);
         height = (int) source.getHeight();
         width = (int) source.getWidth();
-        System.out.println("height = " + height + "\nwidth = " + width);
-        HBox zoom = new HBox(10);
-        zoom.setAlignment(Pos.CENTER);
     }
 }
