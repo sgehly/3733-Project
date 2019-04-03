@@ -130,8 +130,9 @@ public class DatabaseParser {
     }
 
     public void connect(){
+
+        try {Class.forName("org.apache.derby.jdbc.EmbeddedDriver");}catch(Exception e){e.printStackTrace();};
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
             String createTable1 = "CREATE TABLE node(NODEID varchar(20) PRIMARY KEY NOT NULL, XCOORD int, ycoord int, floor varchar(2), building varchar(15), nodetype varchar(4), longname varchar(100), shortname varchar(100))";
             String createTable2 = "create table edge(edgeid varchar(21) primary key, startnode varchar(10), endnode varchar(10))";
@@ -143,30 +144,52 @@ public class DatabaseParser {
             String createTable8 = "create table Rooms(roomID varchar(20),capacity int,details varchar(100),roomType varchar(5), Constraint comRoom_PK Primary key (roomID),Constraint checkType CHECK (roomType in ('COMP', 'CLASS')))";
             String createTable9 = "create table BookedTimes(roomID varchar(20),startTime timestamp, endTime timestamp,Constraint room_FK Foreign Key (roomID) REFERENCES Rooms(roomID));";
             String createTable10 = "create table REQUESTINPROGRESS (REQUESTID   INTEGER not null constraint REQUESTINPROGRESS_REQUESTID_UINDEX unique, ROOM VARCHAR(200), NOTE VARCHAR(200), DATE TIMESTAMP, TYPE VARCHAR(200) default 'Sanitation', FINISHED_BY VARCHAR(30)  default 'NULL')";
-            Statement stmt1 = conn.createStatement();
-            Statement stmt2 = conn.createStatement();
-            Statement stmt3 = conn.createStatement();
-            Statement stmt4 = conn.createStatement();
-            Statement stmt5 = conn.createStatement();
-            Statement stmt6 = conn.createStatement();
-            Statement stmt7 = conn.createStatement();
-            Statement stmt8 = conn.createStatement();
-            Statement stmt9 = conn.createStatement();
-            Statement stmt10 = conn.createStatement();
+            try {
+                Statement stmt1 = conn.createStatement();
+                stmt1.executeUpdate(createTable1);
+            }catch(Exception e){e.printStackTrace();};
+            try {
+                Statement stmt2 = conn.createStatement();
+                stmt2.executeUpdate(createTable2);
+            }catch(Exception e){e.printStackTrace();};
+            try {
+                Statement stmt3 = conn.createStatement();
+                stmt3.executeUpdate(createTable3);
+            }catch(Exception e){e.printStackTrace();};
+            try {
+                Statement stmt4 = conn.createStatement();
+                stmt4.executeUpdate(createTable4);
+            }catch(Exception e){e.printStackTrace();};
+            try {
+                Statement stmt5 = conn.createStatement();
+                stmt5.executeUpdate(createTable5);
+            }catch(Exception e){e.printStackTrace();};
+            try {
+                Statement stmt6 = conn.createStatement();
+                stmt6.executeUpdate(createTable6);
+            }catch(Exception e){e.printStackTrace();};
+            try {
+                Statement stmt7 = conn.createStatement();
+                stmt7.executeUpdate(createTable7);
+            }catch(Exception e){e.printStackTrace();};
+            try {
+                Statement stmt8 = conn.createStatement();
+                stmt8.executeUpdate(createTable8);
+            }catch(Exception e){e.printStackTrace();};
+            try {
+                Statement stmt9 = conn.createStatement();
+                stmt9.executeUpdate(createTable9);
+            }catch(Exception e){e.printStackTrace();};
+            try {
+                Statement stmt10 = conn.createStatement();
+                stmt10.executeUpdate(createTable10);
+            }catch(Exception e){e.printStackTrace();};
 
-            stmt1.executeUpdate(createTable1);
-            stmt2.executeUpdate(createTable2);
-            stmt3.executeUpdate(createTable3);
-            stmt4.executeUpdate(createTable4);
-            stmt5.executeUpdate(createTable5);
-            stmt6.executeUpdate(createTable6);
-            stmt7.executeUpdate(createTable7);
-            stmt8.executeUpdate(createTable8);
-            stmt9.executeUpdate(createTable9);
-            stmt10.executeUpdate(createTable10);
             conn.close();
+        }catch(Exception e){e.printStackTrace();};
 
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+        try {Class.forName("org.apache.derby.jdbc.EmbeddedDriver");}catch(Exception e){e.printStackTrace();};
+        try{
             Connection conn2 = DriverManager.getConnection("jdbc:derby:myDB;create=true");
 
             String createTable11 = "create table REQUESTLOG (REQUESTID INTEGER constraint REQUESTLOG_REQUESTID_UINDEX unique, ROOM VARCHAR(100), NOTE VARCHAR(200),DATE TIMESTAMP, TYPE VARCHAR(50),FINISHED_BY VARCHAR(30))";
@@ -175,20 +198,38 @@ public class DatabaseParser {
 
             String createTable13 = "CREATE TABLE BOOKEDTIMES (ROOMID VARCHAR(50),STARTTIME TIMESTAMP,ENDTIME TIMESTAMP)";
 
-            Statement stmt11 = conn.createStatement();
-            Statement stmt12 = conn.createStatement();
-            Statement stmt13 = conn.createStatement();
+            String clearRooms = "DELETE FROM ROOMS";
 
-            stmt11.executeUpdate(createTable11);
-            stmt12.executeUpdate(createTable12);
-            stmt13.executeUpdate(createTable13);
+            String populateRooms = "insert into ROOMS values('CR_1', 19, 'TBD', 'COMP'),('CR_2', 17, 'TBD', 'COMP'),('CR_3', 17, 'TBD', 'COMP'),('CR_4', 19, 'TBD', 'CLASS'),('CR_5', 25, 'TBD', 'COMP'),('CR_6', 19, 'TBD', 'CLASS'),('CR_7', 17, 'TBD', 'COMP'),('CR_8', 15, 'TBD', 'CLASS')";
+            try{
+                Statement stmt11 = conn2.createStatement();
+                stmt11.executeUpdate(createTable11);
+            }catch(Exception e){e.printStackTrace();};
+
+            try{
+                Statement stmt12 = conn2.createStatement();
+                stmt12.executeUpdate(createTable11);
+            }catch(Exception e){e.printStackTrace();};
+
+            try{
+                Statement stmt13 = conn2.createStatement();
+                stmt13.executeUpdate(createTable13);
+            }catch(Exception e){e.printStackTrace();};
+
+            try{
+                Statement stmt15 = conn2.createStatement();
+                stmt15.executeUpdate(clearRooms);
+            }catch(Exception e){e.printStackTrace();};
+
+            try{
+                Statement stmt14 = conn2.createStatement();
+                stmt14.executeUpdate(populateRooms);
+            }catch(Exception e){e.printStackTrace();};
+
             conn2.close();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Didnt work");
-            return;
-        }
+        }catch(Exception e){e.printStackTrace();};
+
     }
 
     public void floorTables(){
