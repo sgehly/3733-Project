@@ -40,7 +40,7 @@
                                     <Font name="Open Sans Bold" size="36.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets top="10.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </Text>
                            </children>
