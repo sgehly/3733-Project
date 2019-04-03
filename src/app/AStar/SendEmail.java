@@ -157,7 +157,7 @@ public class SendEmail extends Thread {
 
     @Override
     public void run() {
-       // this.sendMail("sam@gehly.net");
+        this.sendMail("sam@gehly.net");
         this.sendSMS("+15083178724");
     }
 
