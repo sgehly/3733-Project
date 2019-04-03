@@ -137,19 +137,25 @@ public class Pathfinding {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
         floor.drawPath(nodeArrayList);
-        System.out.println("Plotted path");
+        System.out.println("Plottesd path");
         //System.out.println("Sent Mail");
 
         //Now we will try to get the image
         Image Overlaysource;
-        Overlaysource = new Image("PathOutput.png"); //See if we can get the image to overlay and then create a new image object from it
-        overlayImage.setImage(Overlaysource); //set the image as the overlay image
+        try {
+            URL theUrl = new URL("file:///" + System.getProperty("user.dir") + File.separator + "PathOutput.png");
+            Overlaysource = new Image(theUrl.toURI().toString());
+            overlayImage.setImage(Overlaysource); //set the image as the overlay image
 
-        startText.setText("");
-        endText.setText("");
-        // SendEmail sendEmail = new SendEmail();
-        //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
-        //sendEmail.sendMail(email);
+            startText.setText("");
+            endText.setText("");
+
+            //SendEmail sendEmail = new SendEmail();
+            //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
+            //sendEmail.sendMail(email);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
