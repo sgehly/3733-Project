@@ -31,6 +31,14 @@ public class ServiceRequestsList {
     String dbPath = "jdbc:derby:myDB";
 
 
+    @FXML
+    private Accordion accordion;
+    @FXML
+    private TitledPane incompletePane;
+    @FXML
+    private TitledPane completePane;
+
+
     //all items for the service request list view
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -266,6 +274,8 @@ public class ServiceRequestsList {
     @FXML
     void initialize() {
         try {
+            accordion.setExpandedPane(incompletePane);
+
             ObservableList<DisplayTable> entList = getAllRecords();
             ObservableList<DisplayTable> entList2 = getAllRecords2();
 

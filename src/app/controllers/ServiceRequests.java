@@ -7,10 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+
 import java.sql.*;
 import java.awt.event.MouseEvent;
 import java.lang.String;
@@ -35,9 +33,18 @@ public class ServiceRequests {
     Timestamp ts = new Timestamp(time);
 
 
+
+    @FXML
+    private Accordion accordion;
+    @FXML
+    private TitledPane sanitation;
+    @FXML
+    private TitledPane language;
+
+
+
     @FXML
     private Button logoutButton;
-
 
     @FXML
     private TextArea sanitationRoomNumber;
@@ -155,6 +162,7 @@ public class ServiceRequests {
 
     @FXML// This method is called by the FXMLLoader when initialization is complete
     void initialize() throws IOException {
+            accordion.setExpandedPane(sanitation);
             //general asserts
             assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
             //language asserts

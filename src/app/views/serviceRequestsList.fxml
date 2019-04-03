@@ -13,29 +13,48 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane scaleShape="false" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ServiceRequestsList">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" scaleShape="false" style="-fx-background-color: rgba(1,45,90,1);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ServiceRequestsList">
    <children>
-      <StackPane style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <StackPane style="-fx-background-color: rgba(1,45,90,1);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="CENTER">
+            <VBox alignment="CENTER" spacing="50.0" style="-fx-background-color: rgba(1,45,90,1);">
                <children>
-                  <HBox alignment="CENTER" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
+                  <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="ALWAYS">
                      <children>
-                        <ImageView fx:id="back" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" preserveRatio="true">
-                           <image>
-                              <Image url="@../../resources/icons/icons8_home_page_40px_1.png" />
-                           </image>
-                        </ImageView>
-                        <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="269.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="605.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGehly" HBox.hgrow="ALWAYS">
+                              <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                                 <image>
+                                    <Image url="@../../resources/icons/icons8_home_page_40px_1.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="36.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="609.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <ImageView fx:id="back1" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../resources/icons/icons8-clock_8.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:24:23" wrappingWidth="367.82421875" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font name="Open Sans Bold" size="36.0" />
                                  </font>
@@ -45,20 +64,9 @@
                               </Text>
                            </children>
                         </HBox>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="605.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:24:23" wrappingWidth="367.82421875" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Open Sans Bold" size="36.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </HBox>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Button fx:id="makeRequestButton" mnemonicParsing="false" onMouseClicked="#goToMakeServiceRequest" style="-fx-background-color: white;" text="Make Request">
+                              <Button fx:id="makeRequestButton" mnemonicParsing="false" onMouseClicked="#goToMakeServiceRequest" styleClass="logoutButton" stylesheets="@../../stylesheet.css" text="MAKE REQUEST">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
@@ -66,7 +74,7 @@
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="logoutButton1" mnemonicParsing="false" onMouseClicked="#logout" style="-fx-background-color: white;" text="Logout">
+                              <Button fx:id="logoutButton1" mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" stylesheets="@../../stylesheet.css" text="LOGOUT">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
@@ -75,13 +83,13 @@
                         </HBox>
                      </children>
                      <VBox.margin>
-                        <Insets />
+                        <Insets left="50.0" right="50.0" top="20.0" />
                      </VBox.margin>
                      <padding>
-                        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+                        <Insets bottom="20.0" />
                      </padding>
                   </HBox>
-                  <GridPane style="-fx-background-color: #001933;">
+                  <GridPane style="-fx-background-color: #001933;" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="628.0" minWidth="0.0" prefWidth="0.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1650.0" minWidth="10.0" prefWidth="1650.0" />
@@ -95,7 +103,7 @@
                      <children>
                         <Accordion prefHeight="616.0" prefWidth="1464.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                           <panes>
-                            <TitledPane animated="false" expanded="false" text="Incomplete Requests">
+                            <TitledPane fx:id="incompletePane" animated="false" expanded="false" text="Incomplete Requests">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -118,7 +126,7 @@
                                                                   <Font size="24.0" />
                                                                </font>
                                                             </TextField>
-                                                            <Button fx:id="requestFulfilledButton" mnemonicParsing="false" onMouseClicked="#markAsComplete" prefHeight="41.0" prefWidth="175.0" text="Fulfill" textAlignment="RIGHT">
+                                                            <Button fx:id="requestFulfilledButton" mnemonicParsing="false" onMouseClicked="#markAsComplete" prefHeight="41.0" prefWidth="175.0" styleClass="blackButton" stylesheets="@../../stylesheet.css" text="Fulfill" textAlignment="RIGHT">
                                                                <font>
                                                                   <Font name="Open Sans" size="24.0" />
                                                                </font>
@@ -130,7 +138,7 @@
                                                       </HBox>
                                                       <HBox prefHeight="100.0" prefWidth="200.0">
                                                          <children>
-                                                            <Button fx:id="deleteIncompleteButton" mnemonicParsing="false" onMouseClicked="#deleteIncompleteRequest" prefHeight="41.0" prefWidth="175.0" text="Delete" textAlignment="RIGHT">
+                                                            <Button fx:id="deleteIncompleteButton" mnemonicParsing="false" onMouseClicked="#deleteIncompleteRequest" prefHeight="41.0" prefWidth="175.0" styleClass="blackButton" stylesheets="@../../stylesheet.css" text="Delete" textAlignment="RIGHT">
                                                                <font>
                                                                   <Font name="Open Sans" size="24.0" />
                                                                </font>
@@ -153,7 +161,7 @@
                                     <Font size="36.0" />
                                  </font>
                             </TitledPane>
-                            <TitledPane animated="false" prefHeight="593.0" prefWidth="1440.0" text="Completed Requests">
+                            <TitledPane fx:id="completePane" animated="false" prefHeight="593.0" prefWidth="1440.0" text="Completed Requests">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -170,7 +178,7 @@
                                                 </TableView>
                                                 <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="1551.0">
                                                    <children>
-                                                      <Button fx:id="deleteCompletedButton" mnemonicParsing="false" onMouseClicked="#deleteCompleteRequest" prefHeight="41.0" prefWidth="175.0" text="Delete" textAlignment="RIGHT" HBox.hgrow="NEVER">
+                                                      <Button fx:id="deleteCompletedButton" mnemonicParsing="false" onMouseClicked="#deleteCompleteRequest" prefHeight="41.0" prefWidth="175.0" styleClass="blackButton" stylesheets="@../../stylesheet.css" text="Delete" textAlignment="RIGHT" HBox.hgrow="NEVER">
                                                          <font>
                                                             <Font name="Open Sans" size="24.0" />
                                                          </font>
