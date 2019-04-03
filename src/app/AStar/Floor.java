@@ -174,7 +174,7 @@ public class Floor{
             }
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-            PreparedStatement stmt = conn.prepareStatement("insert into floor1 values(?, ? ,? ,?, ?, ?, ?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("delete from floor1 where nodeID = ?");
             stmt.setString(1, rem.getId());
             stmt.execute();
 
