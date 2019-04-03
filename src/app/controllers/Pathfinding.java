@@ -150,9 +150,7 @@ public class Pathfinding {
             startText.setText("");
             endText.setText("");
 
-            //SendEmail sendEmail = new SendEmail();
-            //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
-            //sendEmail.sendMail(email);
+            new SendEmail().start();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -229,9 +227,7 @@ public class Pathfinding {
 
                    startText.setText("");
                    endText.setText("");
-                   // SendEmail sendEmail = new SendEmail();
-                   //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
-                   //sendEmail.sendMail(email);
+                   new SendEmail().start();
                } catch (Exception e) {
                    e.printStackTrace();
                }

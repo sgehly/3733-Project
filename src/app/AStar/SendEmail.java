@@ -1,8 +1,11 @@
 package app.AStar;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Properties;
 import javax.imageio.ImageIO;
 import javax.mail.*;
@@ -11,12 +14,26 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.swing.*;
+import org.json.*;
+
+import app.Main;
+import com.sendgrid.*;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+import org.apache.commons.codec.binary.Base64;
+import app.externalLibraries.ImgurUploader.*;
+
 
 /**
  * This class sends an email
  */
-public class SendEmail {
+public class SendEmail extends Thread {
 
+    public static final String ACCOUNT_SID =
+            "ACbfbd0226f179ee74597c887298cbda10";
+    public static final String AUTH_TOKEN =
+            "eeb459634d5a8407d077635504386d44";
 
     /**
      * The constructor takes in the email of the individual we want to send the email to
@@ -26,74 +43,42 @@ public class SendEmail {
 
     /**
      * Method that, when given string input, will send an email with the map to the given address
-     * @param email
+     * @param toEmail
      */
-    public void sendMail(String email)
+    public void sendMail(String toEmail)
     {
-        if(email.equals(""))
+        if(toEmail.equals(""))
         {
             return;
         }
-        //auth info
-        final String username = "BrighamAndWomensKiosk";
-        final String password = "mangoManticores";
-        //From and to emails
-        String fromEmail = "BrighamAndWomensKiosk@gmail.com";
-        String toEmail = email;
 
+        String sendgrid_username  = "sgehlywpi";
+        String sendgrid_password  = "MangoManticores1!";
+        String to = toEmail;
+        SendGrid sendgrid = new SendGrid(sendgrid_username, sendgrid_password);
+        SendGrid.Email email = new SendGrid.Email();
 
-        //Set the properties for the auth
-        Properties properties = new Properties();
-        properties.put("mail.smtp.auth","true");
-        properties.put("mail.smtp.starttls.enable","true");
-        properties.put("mail.smtp.host","smtp.gmail.com");
-        properties.put("mail.smtp.port","587");
+        email.addTo(to);
+        email.setFrom(to);
+        email.setFromName("Brigham & Women's");
+        email.setReplyTo("mangomanticores@gehly.net");
+        email.setSubject("Hospital Directions");
+        email.setText("Hello, \n\n Attached to this email is an image that outlines the path to the destination you requested. On behalf of everyone at Brigham and Women's Hospital, have a good day! \n \n Thank You,\n Staff at Brigham and Women's");
 
-        //Create a session
-       Session session = Session.getInstance(properties, new javax.mail.Authenticator()
-       {    //Deal with the authentication for the mail (or else gmail etc. will be unhappy)
-           protected PasswordAuthentication getPasswordAuthentication()
-           {
-               return new PasswordAuthentication(username,password);
-           }
-       });
-       //Let's create the mail message
-        MimeMessage msg = new MimeMessage(session);
-        //Let's try to actually send the email now
-        try
-        {
-            JOptionPane.showMessageDialog(null,"Your Email will be Sent to You in Approximately 10 Seconds");
-            msg.setFrom(new InternetAddress(fromEmail)); //use the provided email to send the message
-            //Try to keep the above as the same client that was used for the server (gmail)
-            msg.setRecipient(Message.RecipientType.TO,new InternetAddress(toEmail));//Set the message recipient
-            msg.setSubject("Directions to Requested Location"); //Set the subject line
+        combineImages();
 
-            Multipart emailContent = new MimeMultipart();
-
-            //Text body content
-            MimeBodyPart textBodyPart = new MimeBodyPart();
-            textBodyPart.setText("Hello, \n\n Attached to this email is an image that outlines the path to the destination you requested. On behalf of everyone at Brigham and Women's Hospital, have a good day! \n \n Thank You,\n Staff at Brigham and Women's"); //The body of the email
-
-            //Create the image body part
-            //Get the overlayed images and store them in resources
-            combineImages();
-            //Send the attachement
-            MimeBodyPart imageAttachment = new MimeBodyPart();
-            imageAttachment.attachFile("src/resources/maps/emailOutput.png"); //Specify the path over here
-            System.out.println("attached file");
-            //Attach all the body parts together
-            emailContent.addBodyPart(textBodyPart);
-            emailContent.addBodyPart(imageAttachment);
-
-            //Attach the multipart to the message
-            msg.setContent(emailContent);
-            System.out.println("Set Content");
-            Transport.send(msg);
-            System.out.println("Sent Mail");
-        }
-        catch (Exception e)
-        {
+        File file = new File("EmailOutput.png");
+        try{
+            email.addAttachment("directions.png", file);
+        }catch(Exception e){
             e.printStackTrace();
+        }
+
+        try {
+            SendGrid.Response response = sendgrid.send(email);
+            System.out.println(response.getMessage());
+        } catch (SendGridException e) {
+            System.out.println(e);
         }
     }
 
@@ -105,13 +90,13 @@ public class SendEmail {
     // load source images
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File("src/resources/maps/02_thesecondfloor.png")); //Actual Image
+            image = ImageIO.read(Main.getResource("/resources/maps/01_thefirstfloor.png")); //Actual Image
         } catch (IOException e) {
             e.printStackTrace();
         }
         BufferedImage overlay = null;
         try {
-            overlay = ImageIO.read(new File("src/resources/maps/PathOutput.png")); //Overlay (The Path)
+            overlay = ImageIO.read(new File("PathOutput.png")); //Overlay (The Path)
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,10 +113,52 @@ public class SendEmail {
 
     // Save as new image
         try {
-            ImageIO.write(combined, "PNG", new File("src/resources/maps/emailOutput.png")); //Where the file is being written to
+            /*AffineTransform at = new AffineTransform();
+            at.scale(0.5, 0.5);
+            BufferedImage after = new BufferedImage(5000/2, 3400/2, BufferedImage.TYPE_INT_ARGB);
+
+            AffineTransformOp scaleOp =
+                    new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+            combined = scaleOp.filter(combined, after);*/
+
+            ImageIO.write(combined, "PNG", new File("EmailOutput.png")); //Where the file is being written to
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void sendSMS(String phoneNumber){
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        try{
+
+            combineImages();
+
+            String response = Uploader.upload(new File("EmailOutput.png"));
+
+            String encodedfile = new String(Base64.encodeBase64(Files.readAllBytes(new File("EmailOutput.png").toPath())), "UTF-8");
+
+            JSONObject obj = new JSONObject(response);
+            System.out.println(response);
+            String link = obj.getJSONObject("data").getString("link").replace(".png","h.png");
+            Message message = Message
+                    .creator(new PhoneNumber(phoneNumber), // to
+                            new PhoneNumber("+15085383787"), // from
+                            "Here are your directions courtesy of Brigham & Women's: "+link)
+                    .setMediaUrl(link)
+                    .create();
+
+            System.out.println(message.getSid());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void run() {
+       // this.sendMail("sam@gehly.net");
+        this.sendSMS("+15083178724");
     }
 
 }
