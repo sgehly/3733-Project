@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.AdminUI">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.AdminUI">
     <children>
           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
@@ -70,16 +70,16 @@
                   </HBox>
                   <HBox fx:id="imageView" alignment="CENTER" VBox.vgrow="ALWAYS">
                       <children>
-                          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" spacing="40.0" style="-fx-background-color: #001933;">
+                          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #001933;">
                               <children>
                                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Operations">
                                       <font>
                                           <Font name="Open Sans Bold" size="42.0" />
                                       </font>
                                   </Text>
-                        <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="237.0" prefWidth="500.0">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="50.0">
+                              <VBox prefWidth="100.0" spacing="25.0">
                                  <children>
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID:" />
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="XCoord:" />
@@ -97,7 +97,7 @@
                                     <Insets left="40.0" right="30.0" />
                                  </HBox.margin>
                               </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="39.0" HBox.hgrow="ALWAYS">
+                              <VBox prefHeight="334.0" prefWidth="300.0" spacing="13.0" HBox.hgrow="NEVER">
                                  <children>
                                     <TextField fx:id="nodeIdTextBox" prefHeight="10.0" prefWidth="355.0" />
                                     <TextField fx:id="xCoordTextBox" />
@@ -134,10 +134,10 @@
                               </VBox>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="49.0" />
+                              <Insets bottom="49.0" top="50.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0" spacing="5.0" stylesheets="@../../stylesheet.css" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="50.0" prefWidth="434.0" spacing="5.0" stylesheets="@../../stylesheet.css" VBox.vgrow="NEVER">
                            <children>
                               <Button mnemonicParsing="false" onAction="#addNode" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" stylesheets="@../../stylesheet.css" text="Add" />
                               <Button mnemonicParsing="false" onAction="#removeNode" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Remove" />
@@ -145,7 +145,7 @@
                               <Button mnemonicParsing="false" onAction="#exportToCsv" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Export" />
                            </children>
                            <VBox.margin>
-                              <Insets left="37.0" right="29.0" top="-68.0" />
+                              <Insets left="37.0" right="29.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
@@ -178,16 +178,16 @@
                               </VBox>
                            </children>
                            <VBox.margin>
-                              <Insets />
+                              <Insets top="50.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="50.0" prefWidth="432.0" spacing="5.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#addEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" stylesheets="@../../stylesheet.css" text="Add Edge" />
                               <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" stylesheets="@../../stylesheet.css" text="Remove Edge" />
                            </children>
                            <VBox.margin>
-                              <Insets bottom="30.0" left="39.0" right="29.0" />
+                              <Insets bottom="30.0" left="39.0" right="29.0" top="50.0" />
                            </VBox.margin>
                         </HBox>
                               </children>
