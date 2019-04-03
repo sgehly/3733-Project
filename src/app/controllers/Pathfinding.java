@@ -162,7 +162,7 @@ public class Pathfinding {
             {
                 e.printStackTrace();
             }
-             SendEmail sendEmail = new SendEmail();
+            SendEmail sendEmail = new SendEmail();
             String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
             sendEmail.sendMail(email);
         }
