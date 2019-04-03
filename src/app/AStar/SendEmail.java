@@ -10,6 +10,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.swing.*;
 
 /**
  * This class sends an email
@@ -29,6 +30,10 @@ public class SendEmail {
      */
     public void sendMail(String email)
     {
+        if(email.equals(""))
+        {
+            return;
+        }
         //auth info
         final String username = "BrighamAndWomensKiosk";
         final String password = "mangoManticores";
@@ -57,6 +62,7 @@ public class SendEmail {
         //Let's try to actually send the email now
         try
         {
+            JOptionPane.showMessageDialog(null,"Your Email will be Sent to You in Approximately 10 Seconds");
             msg.setFrom(new InternetAddress(fromEmail)); //use the provided email to send the message
             //Try to keep the above as the same client that was used for the server (gmail)
             msg.setRecipient(Message.RecipientType.TO,new InternetAddress(toEmail));//Set the message recipient
@@ -74,14 +80,14 @@ public class SendEmail {
             //Send the attachement
             MimeBodyPart imageAttachment = new MimeBodyPart();
             imageAttachment.attachFile("src/resources/maps/emailOutput.png"); //Specify the path over here
-
+            System.out.println("attached file");
             //Attach all the body parts together
             emailContent.addBodyPart(textBodyPart);
             emailContent.addBodyPart(imageAttachment);
 
             //Attach the multipart to the message
             msg.setContent(emailContent);
-
+            System.out.println("Set Content");
             Transport.send(msg);
             System.out.println("Sent Mail");
         }

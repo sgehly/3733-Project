@@ -23,15 +23,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-
-
+/**
+ * This class is the controller for all the ServiceRequestPage related UI elements
+ */
 public class ServiceRequestsList {
 
-    //path to the database
+    //The relative path to the database for access
     String dbPath = "jdbc:derby:myDB";
 
+    //All the different objects that have to be created for the page fxid are all the same name as the instance name
 
-    //all items for the service request list view
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
     @FXML // URL location of the FXML file that was given to the FXMLLoader
@@ -51,8 +52,9 @@ public class ServiceRequestsList {
 
 
     // table and columns for the request in progress table.
-    @FXML
-    private TableView requestInProgress = new TableView();
+    @FXML // fx:id="requestInProgress"
+    private TableView requestInProgress = new TableView(); // Value injected by FXMLLoader
+
     @FXML
     private TableColumn<DisplayTable,String> room = new TableColumn("room");
     @FXML
@@ -85,6 +87,10 @@ public class ServiceRequestsList {
 
 
 
+    /**
+     * Default method to delete a request
+     * @param event: based on mouse input
+     */
     @FXML
     void deleteIncompleteRequest(MouseEvent event)throws ClassNotFoundException {
         //delete a request
@@ -140,27 +146,47 @@ public class ServiceRequestsList {
         }
     }
 
+    /**
+     * The method that helps create the service request
+     * @param event: Takes in the event of clicking the button
+     * @throws IOException: Any errors that occur with the selection or other aspects
+     */
     @FXML
     void goToMakeServiceRequest(MouseEvent event) throws IOException {
+        //Get the screen, create a scene of it, and set it as the primary stage to display
         Parent pane = FXMLLoader.load(app.Main.getFXMLURL("serviceRequests"));
         Scene scene = new Scene(pane);
         app.Main.getStage().setScene(scene);
     }
 
+    /**
+     * This method is linked to the button that allows the individuals to return to the home screen
+     * @throws Exception: Any exception that arises as the person tries to go back to the screen
+     */
     @FXML
     private void navigateToHome() throws Exception{
+        //Get the screen, create a scene of it, and set it as the primary stage to display
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
     }
 
+    /**
+     * This method is linked to the button that allows the individuals to return to the welcome screen
+     * @throws Exception: Any exception that arises as the person tries to go back to the screen
+     */
     @FXML
     public void logout() throws Exception{
+        //Get the screen, create a scene of it, and set it as the primary stage to display
         Parent pane = FXMLLoader.load(app.Main.getFXMLURL("welcome"));
         Scene scene = new Scene(pane);
         app.Main.getStage().setScene(scene);
     }
 
+    /**
+     * Method that is linked to button that allows individual to mark their service request as completed
+     * @param event
+     */
     @FXML
     void markAsComplete(MouseEvent event) throws ClassNotFoundException{
         //move to complete table
@@ -188,7 +214,6 @@ public class ServiceRequestsList {
             st.executeUpdate();
             System.out.println("inserted into db");
 
-
             //delete from request that has been moved.
             PreparedStatement s = conn.prepareStatement(query3);
             s.setString(1, this.getIdFromTable("incomplete"));
@@ -206,10 +231,18 @@ public class ServiceRequestsList {
         initialize();
     }
 
+    /**
+     * This method gets the current objects from the Database and returns it as an Observable List
+     * @param rs: The corresponding result set
+     * @return ObservableList<DisplayTable>: A list with displayable tables to view in the UI the database entries for the service requests
+     * @throws SQLException: Any SQL errors that might occur while trying to get the service requests
+     */
     private static ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws SQLException {
+        //The list we will populate
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
         try {
             while (rs.next()) {
+                //Get the correct entries from the text fields and add to the list so that we can add it to the database
                 DisplayTable ent = new DisplayTable();
                 ent.setRoom(rs.getString("room"));
                 ent.setNotes(rs.getString("note"));
@@ -227,13 +260,22 @@ public class ServiceRequestsList {
         }
     }
 
+    /**
+     * This method gets all the records from the database so that they can be added to the display on the screen
+     * @return ObservableList<DisplayTable>: The List of records that we want to actually display on the screen from the service requests
+     * @throws ClassNotFoundException: If classes are not found
+     * @throws SQLException: Any issues with the database
+     */
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
+        //Get the query from the database
         String query = "SELECT * FROM REQUESTINPROGRESS";
         try {
+            //Get the information that we want from the database
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection(dbPath);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
+            //Store the results we get in the entry list display table
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
             requestInProgress.setItems(entryList);
 
@@ -263,9 +305,15 @@ public class ServiceRequestsList {
         }
     }
 
+
+    /**
+     * This method is meant to initialize the controller for use
+     */
+
     @FXML
     void initialize() {
         try {
+            //Create the table and get get the records and populate it it for viewing
             ObservableList<DisplayTable> entList = getAllRecords();
             ObservableList<DisplayTable> entList2 = getAllRecords2();
 
@@ -291,6 +339,7 @@ public class ServiceRequestsList {
             e.printStackTrace();
         }
 
+        //Necessary assert statements for the different FXML elements
         assert back != null : "fx:id=\"back\" was not injected: check your FXML file 'serviceRequests.fxml'.";
         assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
         assert requestFulfilledButton != null : "fx:id=\"requestFulfilledButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";

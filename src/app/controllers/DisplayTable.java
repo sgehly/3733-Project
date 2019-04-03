@@ -3,8 +3,12 @@ package app.controllers;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.*;
 
+/**
+ * This controller deals with the display tables
+ */
 public class DisplayTable {
 
+    //Create the instances of the different aspects of the table
     private StringProperty room;
     private StringProperty capacity;
     private StringProperty notes;
@@ -15,6 +19,9 @@ public class DisplayTable {
     private StringProperty filledBy;
 
 
+    /**
+     * The constructor for the display table that creates the new properties
+     */
     public DisplayTable(){
         this.room = new SimpleStringProperty();
         this.capacity = new SimpleStringProperty();
@@ -26,21 +33,34 @@ public class DisplayTable {
         this.filledBy = new SimpleStringProperty();
     }
 
-
+    /**
+     * This is for getting the room property
+     * @return StringProperty: The room string
+     */
     public StringProperty roomProperty(){
         return room;
     }
-    public StringProperty capacityProperty(){
-        return capacity;
+
+    /**
+     * This is for getting the notes property
+     * @return StringProperty: The notes string
+     */
+    public StringProperty notesProperty(){
+        return notes;
+    }
+
+    /**
+     * This is for getting the type property
+     * @return StringProperty: The type string
+     */
+    public StringProperty typeProperty(){
+        return type;
     }
     public StringProperty roomTypeProperty(){
         return roomType;
     }
-    public StringProperty typeProperty(){
-        return type;
-    }
-    public StringProperty notesProperty(){
-        return notes;
+    public StringProperty capacityProperty(){
+        return capacity;
     }
     
     public IntegerProperty idProperty(){return requestid;}

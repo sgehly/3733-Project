@@ -5,8 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+/**
+ * The controller for the Home screen
+ */
 public class Home {
 
+    /**
+     * This method
+     * @throws Exception
+     */
     @FXML
     public void navigateToPathfinding() throws Exception{
         Parent pane = FXMLLoader.load(app.Main.getFXMLURL("pathfinding"));
