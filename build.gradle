@@ -20,6 +20,10 @@ repositories {
     jcenter()
 }
 
+configurations {
+    extraLibs
+}
+
 sourceSets.main.java.srcDirs = ['src']
 sourceSets.main.resources.srcDirs = ['src']
 
@@ -37,10 +41,25 @@ dependencies {
 
     compile group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
     compile group: 'org.apache.derby', name: 'derbytools', version: '10.14.1.0'
+
+    compile group: 'com.jfoenix',name:'jfoenix',version:'8.0.8'
+
+    configurations.compile.extendsFrom(configurations.extraLibs)
 }
 
 // Define the main class for the application
 mainClassName = 'app.Main'
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 
 jar {
     manifest {
@@ -48,5 +67,8 @@ jar {
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
                 'Main-Class': mainClassName
         )
+    }
+    from {
+        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }

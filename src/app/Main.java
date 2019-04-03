@@ -10,6 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
+
+import java.io.InputStream;
 import java.net.URL;
 
 import java.util.Map;
@@ -28,13 +30,19 @@ public class Main extends Application {
             return Main.class.getResource("views/"+name+".fxml");
     }
 
+    public static InputStream getResource(String path){
+        System.out.println(path);
+        return Main.class.getResourceAsStream(path);
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         this.primaryStage = primaryStage;
 
-        Font.loadFont(getClass().getResource("../resources/palatino-linotype/palab.ttf").toExternalForm(), 10);
-        Font.loadFont(getClass().getResource("../resources/palatino-linotype/pala.ttf").toExternalForm(), 10);
+        System.out.println();
+        Font.loadFont(getResource("../resources/palatino-linotype/palab.ttf"), 10);
+        Font.loadFont(getResource("../resources/palatino-linotype/pala.ttf"), 10);
 
         Parent root = FXMLLoader.load(getClass().getResource("views/welcome.fxml"));
         Scene mainScene = new Scene(root);
@@ -64,7 +72,7 @@ public class Main extends Application {
         //parser.nodeParse();
         //parser.edgeParse();
         //parser.floorTables();
-        //parser.connect();
+        parser.connect();
 
         //Floor myFloor = new Floor("1");
         //myFloor.populateFloor();
