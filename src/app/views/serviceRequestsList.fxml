@@ -101,7 +101,7 @@
                       <RowConstraints maxHeight="280.0" minHeight="10.0" prefHeight="116.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Accordion prefHeight="616.0" prefWidth="1464.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Accordion fx:id="accordion" prefHeight="616.0" prefWidth="1464.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                           <panes>
                             <TitledPane fx:id="incompletePane" animated="false" expanded="false" text="Incomplete Requests">
                               <content>

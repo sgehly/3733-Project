@@ -8,6 +8,8 @@ import java.net.URL;
 import java.sql.*;
 import java.util.*;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import app.AStar.AStar;
 import app.AStar.Floor;
@@ -77,6 +79,9 @@ public class Pathfinding {
     @FXML
     private TextField endText;
 
+    @FXML
+    private TextField sendMapTextBox;
+
     /**
      * This method lets the user navigate back to the home page
      * @throws Exception
@@ -87,6 +92,23 @@ public class Pathfinding {
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
+    }
+
+    @FXML
+    private void sendMap() throws Exception{
+        //Load the home screen pane, get the scene and update the stage
+
+        String email = sendMapTextBox.getText();
+
+        Pattern pattern = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
+        Matcher mat = pattern.matcher(email);
+
+        if(mat.matches()){
+            new SendEmail("email", email).start();
+        }else{
+            new SendEmail("phone", email).start();
+        }
+        sendMapTextBox.getText();
     }
 
     @FXML
@@ -149,8 +171,6 @@ public class Pathfinding {
 
             startText.setText("");
             endText.setText("");
-
-            new SendEmail().start();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -227,7 +247,6 @@ public class Pathfinding {
 
                    startText.setText("");
                    endText.setText("");
-                   new SendEmail().start();
                } catch (Exception e) {
                    e.printStackTrace();
                }
