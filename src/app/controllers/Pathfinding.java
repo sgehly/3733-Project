@@ -1,8 +1,10 @@
 package app.controllers;
 
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.sql.*;
 import java.util.*;
 import java.util.List;
@@ -139,19 +141,15 @@ public class Pathfinding {
         //System.out.println("Sent Mail");
 
         //Now we will try to get the image
-        try {
-            Image Overlaysource;
-            Overlaysource = new Image(new FileInputStream("src/resources/maps/PathOutput.png")); //See if we can get the image to overlay and then create a new image object from it
-            overlayImage.setImage(Overlaysource); //set the image as the overlay image
+        Image Overlaysource;
+        Overlaysource = new Image("PathOutput.png"); //See if we can get the image to overlay and then create a new image object from it
+        overlayImage.setImage(Overlaysource); //set the image as the overlay image
 
-            startText.setText("");
-            endText.setText("");
-            // SendEmail sendEmail = new SendEmail();
-            //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
-            //sendEmail.sendMail(email);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        startText.setText("");
+        endText.setText("");
+        // SendEmail sendEmail = new SendEmail();
+        //String email = JOptionPane.showInputDialog("Enter your email id if you would like to have map with path sent to you");
+        //sendEmail.sendMail(email);
     }
 
     @FXML
@@ -219,7 +217,8 @@ public class Pathfinding {
                //Now we will try to get the image
                try {
                    Image Overlaysource;
-                   Overlaysource = new Image(new FileInputStream("src/resources/maps/PathOutput.png")); //See if we can get the image to overlay and then create a new image object from it
+                   URL theUrl = new URL("file:///" + System.getProperty("user.dir") + File.separator + "PathOutput.png");
+                   Overlaysource = new Image(theUrl.toURI().toString()); //See if we can get the image to overlay and then create a new image object from it
                    overlayImage.setImage(Overlaysource); //set the image as the overlay image
 
                    startText.setText("");
@@ -256,14 +255,7 @@ public class Pathfinding {
         //------------------------------------------------------------------------------------------------
         primaryScreenBounds = Screen.getPrimary().getVisualBounds(); //Get the bounds of the screen
 
-        Image source = null; //Start with the image being null
-        try {//Try to retrieve the image of the first floor
-            String path = getClass().getResource("/resources/maps/01_thefirstfloor.png").toString().replace("file:", "");
-            System.out.println(path);
-            source = new Image(new FileInputStream(path));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Image source = new Image(Main.getResource("/resources/maps/01_thefirstfloor.png"));;
 
         double ratio = source.getWidth() / source.getHeight();
 
@@ -285,7 +277,7 @@ public class Pathfinding {
         //Gets the overlay image and sets the width and the height of that
         overlayImage.setFitWidth(image.getFitWidth());
         overlayImage.setFitHeight(image.getFitHeight());
-        Image EMPTY = new Image(new FileInputStream("src/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
+        Image EMPTY = new Image(Main.getResource("/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
 
         //Initially set the image to empty and get the width and height
         overlayImage.setImage(EMPTY);

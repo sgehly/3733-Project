@@ -10,8 +10,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
+
+import java.io.InputStream;
 import java.net.URL;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Map;
 
 import app.AStar.*;
@@ -41,11 +45,17 @@ public class Main extends Application {
             return Main.class.getResource("views/"+name+".fxml");
     }
 
+
+    public static InputStream getResource(String path){
+        System.out.println(path);
+        return Main.class.getResourceAsStream(path);
+    }
+
     /**
      * This method creates and sets the stage of the viewable JavaFX screen
      * @param primaryStage: The stage to display on start
      * @throws Exception: Any possible Exception that may arise while trying to start and display the application
-     */
+    */
     @Override
     public void start(Stage primaryStage) throws Exception{
 
@@ -54,8 +64,8 @@ public class Main extends Application {
 
         //Load the fonts that we want to use for the application
         //Fonts have been taken from what B & H hospital uses as their official fonts
-        Font.loadFont(getClass().getResource("../resources/palatino-linotype/palab.ttf").toExternalForm(), 10);
-        Font.loadFont(getClass().getResource("../resources/palatino-linotype/pala.ttf").toExternalForm(), 10);
+        Font.loadFont(getResource("../resources/palatino-linotype/palab.ttf"), 10);
+        Font.loadFont(getResource("../resources/palatino-linotype/pala.ttf"), 10);
 
         //Get the main parent scene and load the FXML
         Parent root = FXMLLoader.load(getClass().getResource("views/welcome.fxml"));
@@ -88,14 +98,13 @@ public class Main extends Application {
 //        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
         //aS.drawPath(path);
         DatabaseParser parser = new DatabaseParser();
+        parser.connect();
+        parser.nodeParse();
+        parser.edgeParse();
+        parser.floorTables();
 
-        //parser.connect();
-        //parser.nodeParse();
-        //parser.edgeParse();
-       // parser.floorTables();
-
-
-
-       launch(args); //Launches the JavaFX application
+        Floor myFloor = new Floor("1");
+        myFloor.populateFloor();
+        launch(args);
     }
 }
