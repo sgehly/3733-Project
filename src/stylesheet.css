@@ -1,6 +1,6 @@
 .root{
-    -fx-font-family: "Droid Serif";
-    -fx-font-size: 16pt;
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 12pt;
 
 }
 
@@ -29,8 +29,7 @@
     -fx-text-fill: #ffffff;
     -fx-border-radius: 1em;
     -fx-background-radius: 1em;
-    -fx-font-family: "Droid Serif";
-    -fx-font-size: 16pt;
+    -fx-font-family: "Open Sans";
 }
 .whiteButton:hover {
     -fx-background-color: white;
@@ -39,21 +38,60 @@
     -fx-border-width: .1em;
     -fx-border-radius: 1em;
     -fx-border-color: #ffffff;
-    -fx-font-family: "Droid Serif";
-    -fx-font-size: 16pt;
+    -fx-font-family: "Open Sans";
+}
+.logoutButton{
+    -fx-background-color: transparent;
+    -fx-border-width: .1em;
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 1em;
+    -fx-background-radius: 1em;
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 24pt;
+}
+.logoutButton:hover {
+    -fx-background-color: white;
+    -fx-background-radius: 1em;
+    -fx-text-fill: black;
+    -fx-border-width: .1em;
+    -fx-border-radius: 1em;
+    -fx-border-color: #ffffff;
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 24pt;
+}
+.bigButton{
+    -fx-background-color: transparent;
+    -fx-border-width: .1em;
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 1em;
+    -fx-background-radius: 1em;
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 24pt;
+}
+.bigButton:hover {
+    -fx-background-color: white;
+    -fx-background-radius: 1em;
+    -fx-text-fill: black;
+    -fx-border-width: .1em;
+    -fx-border-radius: 1em;
+    -fx-border-color: #ffffff;
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 24pt;
 }
 
 
 
 /*labels*/
 .label{
-    -fx-font-family: "Droid Serif";
+    -fx-font-family: "Open Sans";
     -fx-font-size: 24pt;
     -fx-text-fill: white;
 }
 
 .blackLabel{
-    -fx-font-family: "Droid Serif";
+    -fx-font-family: "Open Sans";
     -fx-font-size: 24pt;
     -fx-text-fill: black;
 }

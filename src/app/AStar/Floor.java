@@ -253,7 +253,7 @@ public class Floor{
         File f = null;
         //Draw lines before points so that points do not get covered up
         Graphics2D g2d = img.createGraphics(); //Create the graphics
-        g2d.setColor(Color.BLACK);//We will set line color white to visualize it better
+        g2d.setColor(Color.RED);//We will set line color white to visualize it better
         g2d.setStroke(new BasicStroke(15.0f));
         //We will draw all the lines
         int listSize = nodeArrayList.size();//Get the number of nodes
