@@ -23,16 +23,19 @@
                               <children>
                         <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
-                              <Insets right="10.0" />
+                              <Insets />
                            </HBox.margin>
                            <image>
-                              <Image url="@../../resources/icons/icons8-circled_left_2.png" />
+                              <Image url="@../../resources/icons/icons8_home_page_40px_1.png" />
                            </image>
                         </ImageView>
                                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
                                       <font>
                                           <Font name="Open Sans Bold" size="36.0" />
                                       </font>
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
                                   </Text>
                               </children>
                      <padding>

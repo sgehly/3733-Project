@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.AdminUI">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" stylesheets="@../../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.AdminUI">
     <children>
           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
@@ -53,7 +53,7 @@
                           </HBox>
                           <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
-                                  <Button mnemonicParsing="false" onMouseClicked="#logout" style="-fx-background-color: white;" text="LOGOUT">
+                                  <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="whiteButton" stylesheets="@../../stylesheet.css" text="LOGOUT" HBox.hgrow="ALWAYS">
                                       <font>
                                           <Font name="Open Sans Bold" size="24.0" />
                                       </font>
@@ -68,7 +68,7 @@
                           <Insets />
                       </VBox.margin>
                       <padding>
-                          <Insets bottom="20.0" left="50.0" right="50.0" top="30.0" />
+                          <Insets bottom="20.0" left="50.0" right="50.0" />
                       </padding>
                   </HBox>
                   <HBox fx:id="imageView" alignment="CENTER" VBox.vgrow="ALWAYS">
@@ -82,9 +82,9 @@
                                   </Text>
                         <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="50.0">
                                  <children>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID:" />
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="XCoord:" />
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="YCoord:" />
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Floor:" />
@@ -97,7 +97,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <HBox.margin>
-                                    <Insets right="30.0" />
+                                    <Insets left="40.0" right="30.0" />
                                  </HBox.margin>
                               </VBox>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="39.0" HBox.hgrow="ALWAYS">
@@ -140,26 +140,26 @@
                               <Insets bottom="49.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="30.0" prefWidth="200.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="30.0" prefWidth="200.0" spacing="5.0" stylesheets="@../../stylesheet.css" VBox.vgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#addNode" prefHeight="50.0" prefWidth="400.0" text="Add" />
-                              <Button mnemonicParsing="false" onAction="#removeNode" prefHeight="50.0" prefWidth="400.0" text="Remove" />
-                              <Button mnemonicParsing="false" onAction="#updateNode" prefHeight="50.0" prefWidth="400.0" text="Modify/Save" />
-                              <Button mnemonicParsing="false" onAction="#exportToCsv" prefHeight="50.0" prefWidth="400.0" text="Export" />
+                              <Button mnemonicParsing="false" onAction="#addNode" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" stylesheets="@../../stylesheet.css" text="Add" />
+                              <Button mnemonicParsing="false" onAction="#removeNode" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Remove" />
+                              <Button mnemonicParsing="false" onAction="#updateNode" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Modify/Save" />
+                              <Button mnemonicParsing="false" onAction="#exportToCsv" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Export" />
                            </children>
                            <VBox.margin>
-                              <Insets left="50.0" right="50.0" top="-68.0" />
+                              <Insets left="37.0" right="29.0" top="-68.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="50.0">
                                  <children>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Node" />
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="End Node" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Node:" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="End Node:" />
                                  </children>
                                  <HBox.margin>
-                                    <Insets right="30.0" />
+                                    <Insets left="40.0" right="30.0" />
                                  </HBox.margin>
                               </VBox>
                               <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -180,14 +180,17 @@
                                  </HBox.margin>
                               </VBox>
                            </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </HBox>
                         <HBox prefHeight="30.0" prefWidth="200.0" spacing="5.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#addEdge" prefHeight="50.0" prefWidth="400.0" text="Add Edge" />
-                              <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" text="Remove Edge" />
+                              <Button mnemonicParsing="false" onAction="#addEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" stylesheets="@../../stylesheet.css" text="Add Edge" />
+                              <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" stylesheets="@../../stylesheet.css" text="Remove Edge" />
                            </children>
                            <VBox.margin>
-                              <Insets bottom="30.0" left="50.0" right="50.0" />
+                              <Insets bottom="30.0" left="39.0" right="29.0" />
                            </VBox.margin>
                         </HBox>
                               </children>

@@ -25,7 +25,7 @@
                       <children>
                           <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
                               <image>
-                                  <Image url="@../../resources/icons/back.png" />
+                                  <Image url="@../../resources/icons/icons8_home_page_40px_1.png" />
                               </image>
                           </ImageView>
                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -34,6 +34,9 @@
                                       <font>
                                           <Font name="Open Sans Bold" size="36.0" />
                                       </font>
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
                                   </Text>
                               </children>
                           </HBox>
