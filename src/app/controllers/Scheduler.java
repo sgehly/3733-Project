@@ -269,14 +269,7 @@ public class Scheduler {
         //------------------------------------------------------------------------------------------------
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-        Image source = null;
-        try {
-            String path = getClass().getResource("/resources/maps/scheduler.jpg").toString().replace("file:","");
-            System.out.println(path);
-            source = new Image(new FileInputStream(path));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Image source = new Image(Main.getResource("/resources/maps/scheduler.jpg"));
 
         double ratio = source.getWidth() / source.getHeight();
 

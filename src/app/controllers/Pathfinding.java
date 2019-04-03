@@ -241,14 +241,7 @@ public class Pathfinding {
         //------------------------------------------------------------------------------------------------
         primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-        Image source = null;
-        try {
-            String path = getClass().getResource("/resources/maps/01_thefirstfloor.png").toString().replace("file:", "");
-            System.out.println(path);
-            source = new Image(new FileInputStream(path));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        Image source = new Image(Main.getResource("/resources/maps/01_thefirstfloor.png"));;
 
         double ratio = source.getWidth() / source.getHeight();
 
