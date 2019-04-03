@@ -51,7 +51,7 @@
                           </HBox>
                           <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
-                                  <Button mnemonicParsing="false" style="-fx-background-color: white;" text="LOGOUT">
+                                  <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" stylesheets="@../../stylesheet.css" text="LOGOUT">
                                       <font>
                                           <Font name="Open Sans Bold" size="24.0" />
                                       </font>
@@ -75,8 +75,8 @@
                                           <Font name="System Bold" size="34.0" />
                                       </font>
                                   </Text>
-                        <JFXDatePicker fx:id="startDate" defaultColor="#006bd0" prefHeight="65.0" prefWidth="269.0" styleClass="force-white" stylesheets="@../../stylesheet.css" />
-                        <JFXTimePicker fx:id="startTime" defaultColor="#006bd0" prefHeight="60.0" prefWidth="171.0" styleClass="force-white" stylesheets="@../../stylesheet.css" />
+                        <JFXDatePicker fx:id="startDate" defaultColor="WHITE" prefHeight="65.0" prefWidth="269.0" styleClass="force-white" stylesheets="@../../stylesheet.css" />
+                        <JFXTimePicker fx:id="startTime" defaultColor="WHITE" prefHeight="60.0" prefWidth="171.0" styleClass="force-white" stylesheets="@../../stylesheet.css" />
                               </children>
                           </HBox>
                           <HBox alignment="CENTER" prefHeight="60.0" prefWidth="659.0" HBox.hgrow="ALWAYS">
@@ -86,13 +86,13 @@
                                           <Font name="System Bold" size="34.0" />
                                       </font>
                                   </Text>
-                        <JFXDatePicker fx:id="endDate" defaultColor="#006bd0" prefHeight="65.0" prefWidth="269.0" styleClass="force-white" stylesheets="@../../stylesheet.css" />
-                        <JFXTimePicker fx:id="endTime" defaultColor="#006bd0" prefHeight="60.0" prefWidth="204.0" styleClass="force-white" stylesheets="@../../stylesheet.css" />
+                        <JFXDatePicker fx:id="endDate" defaultColor="WHITE" prefHeight="65.0" prefWidth="269.0" styleClass="force-white" stylesheets="@../../stylesheet.css" />
+                        <JFXTimePicker fx:id="endTime" defaultColor="WHITE" prefHeight="60.0" prefWidth="204.0" styleClass="force-white" stylesheets="@../../stylesheet.css" />
                               </children>
                           </HBox>
                           <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" HBox.hgrow="ALWAYS">
                               <children>
-                                  <Button mnemonicParsing="false" onAction="#checkAvailability" prefHeight="51.0" prefWidth="337.0" style="-fx-background-color: white;" text="CHECK AVAILABILITY">
+                                  <Button mnemonicParsing="false" onAction="#checkAvailability" prefHeight="51.0" prefWidth="337.0" styleClass="bigButton" stylesheets="@../../stylesheet.css" text="CHECK AVAILABILITY">
                                       <font>
                                           <Font name="Open Sans Bold" size="8.0" />
                                       </font>
@@ -121,7 +121,7 @@
                                             <TableColumn fx:id="roomType" maxWidth="358.0" minWidth="109.00003051757812" prefWidth="211.0" text="Type" />
                                         </columns>
                                     </TableView>
-                                    <Button mnemonicParsing="false" onAction="#bookRoom" prefHeight="100.0" prefWidth="300.0" text="Book Room">
+                                    <Button mnemonicParsing="false" onAction="#bookRoom" prefHeight="100.0" prefWidth="300.0" styleClass="bigButton" stylesheets="@../../stylesheet.css" text="Book Room">
                                         <font>
                                             <Font size="35.0" />
                                         </font>

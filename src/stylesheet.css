@@ -68,7 +68,7 @@
     -fx-border-radius: 1em;
     -fx-background-radius: 1em;
     -fx-font-family: "Open Sans";
-    -fx-font-size: 24pt;
+    -fx-font-size: 18pt;
 }
 .bigButton:hover {
     -fx-background-color: white;
@@ -78,7 +78,7 @@
     -fx-border-radius: 1em;
     -fx-border-color: #ffffff;
     -fx-font-family: "Open Sans";
-    -fx-font-size: 24pt;
+    -fx-font-size: 18pt;
 }
 
 

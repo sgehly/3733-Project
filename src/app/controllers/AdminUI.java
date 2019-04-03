@@ -393,7 +393,7 @@ public class AdminUI {
 
     @FXML
     public void logout() throws Exception{
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
+        Parent pane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
     }

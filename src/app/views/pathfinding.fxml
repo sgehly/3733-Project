@@ -17,7 +17,7 @@
     <children>
           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
+                  <HBox alignment="CENTER" style="-fx-background-color: rgba(1,45,90,1);">
                       <children>
                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
@@ -38,9 +38,9 @@
                            </HBox.margin>
                                   </Text>
                               </children>
-                     <padding>
-                        <Insets top="15.0" />
-                     </padding>
+                     <HBox.margin>
+                        <Insets left="50.0" right="50.0" top="20.0" />
+                     </HBox.margin>
                           </HBox>
                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
@@ -71,10 +71,10 @@
                           <Insets />
                       </VBox.margin>
                <padding>
-                  <Insets bottom="20.0" left="50.0" right="50.0" top="30.0" />
+                  <Insets left="50.0" right="50.0" />
                </padding>
                   </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" spacing="50.0" style="-fx-background-color: #002347;" VBox.vgrow="NEVER">
+            <HBox alignment="CENTER" spacing="50.0" style="-fx-background-color: #002347;" VBox.vgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
@@ -100,12 +100,7 @@
                      </children></HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="bigButton" stylesheets="@../../stylesheet.css" text="FILTERS" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Open Sans Bold" size="24.0" />
-                           </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#findPath" styleClass="bigButton" stylesheets="@../../stylesheet.css" text="NAVIGATE">
+                        <Button mnemonicParsing="false" onMouseClicked="#findPath" styleClass="logoutButton" stylesheets="@../../stylesheet.css" text="NAVIGATE">
                            <font>
                               <Font name="Open Sans Bold" size="24.0" />
                            </font>
@@ -119,7 +114,7 @@
             </HBox>
             <HBox fx:id="imageView" alignment="CENTER" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" spacing="40.0" style="-fx-background-color: #001933;">
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" spacing="40.0" style="-fx-background-color: #001933;" HBox.hgrow="ALWAYS">
                      <children>
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Navigation">
                            <font>
@@ -174,7 +169,7 @@
                         </Button>
                </children>
                   </VBox>
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                  <StackPane prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
                         <AnchorPane>
                            <children>

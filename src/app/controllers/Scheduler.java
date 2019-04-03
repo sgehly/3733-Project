@@ -103,6 +103,13 @@ public class Scheduler {
     }
 
     @FXML
+    public void logout() throws Exception{
+        Parent pane = FXMLLoader.load(Main.getFXMLURL("welcome"));
+        Scene scene = new Scene(pane);
+        Main.getStage().setScene(scene);
+    }
+
+    @FXML
     private void bookRoom() throws Exception{
         LocalDate dateStart = startDate.getValue();
         LocalTime timeStart = startTime.getValue();
