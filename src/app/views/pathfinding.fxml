@@ -139,12 +139,13 @@
                                     <Insets />
                                  </opaqueInsets>
                               </Button>
-                           </children>
                         <TextField fx:id="endText" promptText="Destination Node ID" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="31.0" />
                            </font>
                         </TextField>
+                     </children>
+                        </VBox>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" HBox.hgrow="ALWAYS">
