@@ -74,14 +74,14 @@ public class SendEmail {
             //Send the attachement
             MimeBodyPart imageAttachment = new MimeBodyPart();
             imageAttachment.attachFile("src/resources/maps/emailOutput.png"); //Specify the path over here
-
+            System.out.println("attached file");
             //Attach all the body parts together
             emailContent.addBodyPart(textBodyPart);
             emailContent.addBodyPart(imageAttachment);
 
             //Attach the multipart to the message
             msg.setContent(emailContent);
-
+            System.out.println("Set Content");
             Transport.send(msg);
             System.out.println("Sent Mail");
         }
