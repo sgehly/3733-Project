@@ -87,7 +87,14 @@
                         <Font name="System Bold" size="34.0" />
                      </font>
                   </Text>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                  <TextField fx:id="endText" promptText="Destination Node ID" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </TextField>
+                     </children></HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Button mnemonicParsing="false" style="-fx-background-color: white;" text="FILTERS" HBox.hgrow="ALWAYS">
@@ -115,6 +122,9 @@
                            <font>
                               <Font name="Open Sans Bold" size="42.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
                         </Text>
                         <Button mnemonicParsing="false" onAction="#findBathroom" prefHeight="68.0" prefWidth="400.0" style="-fx-background-color: white;" text="Nearest Bathroom" VBox.vgrow="ALWAYS">
                            <font>
@@ -159,11 +169,6 @@
                               <Insets />
                            </opaqueInsets>
                         </Button>
-                  <TextField fx:id="endText" promptText="Destination Node ID" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font size="31.0" />
-                     </font>
-                  </TextField>
                </children>
                   </VBox>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
