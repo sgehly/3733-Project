@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
@@ -28,6 +29,7 @@ import javafx.scene.layout.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -39,13 +41,7 @@ import javax.swing.*;
  */
 public class Pathfinding {
 
-    //Create needed object instances
-    static double initx;
-    static double inity;
-    static int height;
-    static int width;
-    public static String path;
-    static double offSetX,offSetY,zoomlvl;
+    MapUtils util;
 
     Rectangle2D primaryScreenBounds;
 
@@ -73,6 +69,9 @@ public class Pathfinding {
 
     @FXML
     private TextField sendMapTextBox;
+
+    @FXML
+    private Text floorLabel;
 
     /**
      * This method lets the user navigate back to the home page
@@ -170,43 +169,6 @@ public class Pathfinding {
     //Check if either are empty
         if(!startString.equals("") && !endString.equals("")) //If not empty
         {
-            // Creating the main window of our application
-
-            //frame.pack();
-
-            // Release the window and quit the application when it has been closed
-          /*
-
-            // Creating a button and setting its action
-            final JButton clickMeButton = new JButton("Click Me!");
-            clickMeButton.addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(java.awt.event.ActionEvent e) {
-                    // Ask for the user name and say hello
-
-                }
-            });*/
-
-            // Add the button to the window and resize it to fit the button
-           // frame.getContentPane().add(clickMeButton);
-
-            // Displaying the window
-           // frame.setVisible(true);
-
-
-           /* //Create A popup asking if they want to print it
-            Alert dg = new Alert(Alert.AlertType.NONE);
-            dg.setTitle("Print Map?");
-            dg.setHeaderText("Request to Print Map");
-            dg.setContentText("Would you like to send a printout of this map to your email?");
-
-            ButtonType send_email = new ButtonType("Send Email", ButtonBar.ButtonData.LEFT);
-            ButtonType no_thanks = new ButtonType("No Thanks", ButtonBar.ButtonData.RIGHT);
-            dg.getButtonTypes().add(send_email);
-            dg.getButtonTypes().add(no_thanks);
-            dg.show();
-*/
            try {
                Floor floor = new Floor("1");//Create an instance of the floor and get the start and end nodes
                HashMap<String, Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
@@ -255,67 +217,11 @@ public class Pathfinding {
     @FXML
     protected void initialize() throws Exception {
 
-        //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
-        //------------------------------------------------------------------------------------------------
-        primaryScreenBounds = Screen.getPrimary().getVisualBounds(); //Get the bounds of the screen
 
-        Image source = new Image(Main.getResource("/resources/maps/01_thefirstfloor.png"));;
-
-        double ratio = source.getWidth() / source.getHeight();
-
-        //If the ratio and the actual width and height are not proper, make them a necessary size
-        if (500 / ratio < 500) {
-            width = 500;
-            height = (int) (500 / ratio);
-        } else if (500 * ratio < 500) {
-            height = 500;
-            width = (int) (500 * ratio);
-        } else {
-            height = 500;
-            width = 500;
-        }
-        image.setImage(source);//Set the image as the source
-        image.setFitWidth(primaryScreenBounds.getWidth());
-        image.setFitHeight(primaryScreenBounds.getHeight() - 200);
-
-        //Gets the overlay image and sets the width and the height of that
-        overlayImage.setFitWidth(image.getFitWidth());
-        overlayImage.setFitHeight(image.getFitHeight());
-        Image EMPTY = new Image(Main.getResource("/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
-
-        //Initially set the image to empty and get the width and height
-        overlayImage.setImage(EMPTY);
-        height = (int) source.getHeight();
-        width = (int) source.getWidth();
-
-        //Get the buttons on the screen and set the preferred width and height to that of the image
-        buttonContainer.setPrefWidth(image.getFitWidth());
-        buttonContainer.setPrefHeight(image.getFitHeight());
+        util = new MapUtils(buttonContainer, imageView, image, overlayImage, this::setValues);
 
         //Get the necessary records for pathfinding
-        getAllRecords();
-    }
-
-    /**
-     * This method scales all the points that are displayed on the map
-     * @param pointX: The x coordinate
-     * @param pointY: The y coordinate
-     * @return MapPoint: The point on the map that we have scaled
-     */
-    private MapPoint scalePoints(int pointX, int pointY){
-       //The literal width and height of the image
-        double rawWidth = 5000;
-        double rawHeight = 3400;
-
-        //The scaled width and height of the image
-        double scaledWidth = imageView.getBoundsInParent().getWidth();
-        double scaledHeight = imageView.getBoundsInParent().getHeight()-50;
-
-        //Scale the x and y coordinates and set / return as a new map point
-        double scaledX = (pointX*scaledWidth)/rawWidth;
-        double scaledY = (pointY*scaledHeight)/rawHeight;
-        return new MapPoint(scaledX, scaledY);
-
+        util.initialize();
     }
 
     /**
@@ -338,68 +244,14 @@ public class Pathfinding {
         }
     }
 
-    /**
-     * This method gets the current objects from the DatabaseUtils and returns it as an Observable List
-     * @param rs: The corresponding result set
-     * @return ObservableList<DisplayTable>: A list with displayable tables to view in the UI the database entries for the service requests
-     * @throws SQLException: Any SQL errors that might occur while trying to get the service requests
-     */
-    private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws Exception, SQLException {
-        //The list we will populate
-        ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
-        try {
-            while (rs.next()) {
-                //Create a button and set its size
-                javafx.scene.control.Button newButton = new Button();
-                double size = 5;
-                newButton.setMinWidth(size);
-                newButton.setMaxWidth(size);
-                newButton.setMinHeight(size);
-                newButton.setPrefHeight(size);
-                newButton.setPrefWidth(size);
-                newButton.setMaxHeight(size);
-
-                //Set its id to the node that it will be representing
-                newButton.setId(rs.getString("nodeId"));
-                newButton.setOnAction(this::setValues);
-
-                //Generate a map point out of the node button and place it on the screen and make it blue
-                MapPoint generated = scalePoints(rs.getInt("xcoord"), rs.getInt("ycoord"));
-                newButton.setLayoutX(generated.x-(size/2));
-                newButton.setLayoutY(generated.y-(size/2));
-                newButton.setStyle("-fx-background-color: blue");
-                buttonContainer.getChildren().add(newButton); //Add it to the button container
-            }
-            return entList; //Return this list
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw e;
-        }
+    public void moveUp(ActionEvent value) throws Exception{
+        util.moveUp();
+        floorLabel.setText(util.getFloorLabel());
     }
 
-
-    /**
-     * This method gets all the records from the database so that they can be added to the display on the screen
-     * @return ObservableList<DisplayTable>: The List of records that we want to actually display on the screen from the service requests
-     * @throws ClassNotFoundException: If classes are not found
-     * @throws SQLException: Any issues with the database
-     */
-    public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException, Exception {
-        //Get the query from the database
-        String query = "SELECT * FROM FLOOR1";
-        try {
-            //Get the information that we want from the database
-            Connection conn = new DatabaseUtils().getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            //Store the results we get in the entry list display table
-            ObservableList<DisplayTable> entryList = getEntryObjects(rs);
-            return entryList;
-        } catch (SQLException e) {
-            System.out.println("Error while trying to fetch all records");
-            e.printStackTrace();
-            throw e;
-        }
+    public void moveDown(ActionEvent value) throws Exception{
+        util.moveDown();
+        floorLabel.setText(util.getFloorLabel());
     }
 
     /**

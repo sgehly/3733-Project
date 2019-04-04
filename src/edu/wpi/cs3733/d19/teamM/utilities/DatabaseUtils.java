@@ -258,19 +258,11 @@ public class DatabaseUtils {
             Statement stmt9 = conn.createStatement();
             Statement stmt10 = conn.createStatement();
 
-            stmt6.execute(floor1PopQuery);
-//            stmt1.execute(floor1TableQuery);
-//            stmt2.execute(floor2TableQuery);
-//            stmt3.execute(floor3TableQuery);
-//            stmt4.execute(floorL1TableQuery);
-//            stmt5.execute(floorL2TableQuery);
-            //stmt6.execute(floor1PopQuery);
-            //stmt7.execute(floor2PopQuery);
-            //stmt8.execute(floor3PopQuery);
-            //stmt9.execute(floorL1PopQuery);
-            //stmt10.execute(floorL2PopQuery);
-            //stmt11.execute(edgeTableQuery);
-            //stmt12.execute(edgePopQuery);
+            try{stmt6.execute(floor1PopQuery);}catch(Exception e){e.printStackTrace();}
+            try{stmt7.execute(floor2PopQuery);}catch(Exception e){e.printStackTrace();}
+            try{stmt8.execute(floor3PopQuery);}catch(Exception e){e.printStackTrace();}
+            try{stmt9.execute(floorL1PopQuery);}catch(Exception e){e.printStackTrace();}
+            try{stmt10.execute(floorL2PopQuery);}catch(Exception e){e.printStackTrace();}
 
         }
         catch (Exception e){

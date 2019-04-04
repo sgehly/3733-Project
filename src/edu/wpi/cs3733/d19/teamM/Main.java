@@ -166,6 +166,16 @@ public class Main extends Application {
 
         Floor myFloor = new Floor("1");
         myFloor.populateFloor();
+        Floor myFloor2 = new Floor("2");
+        myFloor2.populateFloor();
+        Floor myFloor3 = new Floor("3");
+        myFloor3.populateFloor();
+
+        Floor myFloorL1 = new Floor("L1");
+        myFloorL1.populateFloor();
+        Floor myFloorL2 = new Floor("L2");
+        myFloorL2.populateFloor();
+
         launch(args);
     }
 
