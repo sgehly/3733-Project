@@ -6,6 +6,9 @@ import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
 import edu.wpi.cs3733.d19.teamM.Main;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,9 +26,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.FileWriter;
 import java.sql.*;
+import java.time.LocalTime;
 
 
 public class AdminUI {
@@ -44,6 +49,13 @@ public class AdminUI {
     MapPoint initial = new MapPoint(0,0);
 
     Rectangle2D primaryScreenBounds;
+
+    private int hrs;
+    private int mins;
+    private int secs;
+
+    @FXML
+    private Label lblClock;
 
     @FXML
     private Pane imageView;
@@ -301,6 +313,18 @@ public class AdminUI {
 
     @FXML
     protected void initialize() throws Exception {
+
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+            secs = LocalTime.now().getSecond();
+            mins = LocalTime.now().getMinute();
+            hrs = LocalTime.now().getHour();
+
+            lblClock.setText(hrs + ":" + (mins) + ":" + secs);
+        }), new KeyFrame(Duration.seconds(1)));
+
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
 
         primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
