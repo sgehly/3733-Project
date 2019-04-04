@@ -54,10 +54,7 @@ public class Welcome {
      */
     @FXML
     public void navigateToHome() throws Exception{
-        //We get the FXML page for the home screen, load it, and display it on the primary stage
-        Parent pane = FXMLLoader.load(app.Main.getFXMLURL("home"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.setScene("home");
     }
 
 }

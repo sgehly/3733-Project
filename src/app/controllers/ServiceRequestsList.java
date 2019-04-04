@@ -162,10 +162,7 @@ public class ServiceRequestsList {
      */
     @FXML
     void goToMakeServiceRequest(MouseEvent event) throws IOException {
-        //Get the screen, create a scene of it, and set it as the primary stage to display
-        Parent pane = FXMLLoader.load(app.Main.getFXMLURL("serviceRequests"));
-        Scene scene = new Scene(pane);
-        app.Main.getStage().setScene(scene);
+        Main.setScene("serviceRequest");
     }
 
     /**
@@ -174,10 +171,7 @@ public class ServiceRequestsList {
      */
     @FXML
     private void navigateToHome() throws Exception{
-        //Get the screen, create a scene of it, and set it as the primary stage to display
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.setScene("home");
     }
 
     /**
@@ -186,10 +180,7 @@ public class ServiceRequestsList {
      */
     @FXML
     public void logout() throws Exception{
-        //Get the screen, create a scene of it, and set it as the primary stage to display
-        Parent pane = FXMLLoader.load(app.Main.getFXMLURL("welcome"));
-        Scene scene = new Scene(pane);
-        app.Main.getStage().setScene(scene);
+        Main.setScene("welcome");
     }
 
     /**

@@ -28,12 +28,54 @@ public class Main extends Application {
     //Create the primary stage and set it to null
     private static Stage primaryStage = null;
 
+    private static Parent homePane;
+    private static Parent adminPane;
+    private static Parent pathFindingPane;
+    private static Parent schedulerPane;
+    private static Parent serviceRequestPane;
+    private static Parent serviceRequestListPane;
+    private static Parent welcomePane;
+
+    private static Scene homeScene;
+    private static Scene adminScene;
+    private static Scene pathFindingScene;
+    private static Scene schedulerScene;
+    private static Scene serviceRequestScene;
+    private static Scene serviceRequestListScene;
+    private static Scene welcomeScene;
+
+
+
     /**
      * This method is to return the current stage we are working on for referencing the stage
      * @return Stage: The current stage we are using
      */
     public static Stage getStage(){
         return Main.primaryStage;
+    }
+
+    public static void setScene(String scene){
+        if(scene == "home"){
+            primaryStage.setScene(homeScene);
+        }
+        if(scene == "admin"){
+            primaryStage.setScene(adminScene);
+        }
+        if(scene == "pathfinding"){
+            primaryStage.setScene(pathFindingScene);
+        }
+        if(scene == "scheduling"){
+            primaryStage.setScene(schedulerScene);
+        }
+        if(scene == "serviceRequest"){
+            primaryStage.setScene(serviceRequestScene);
+        }
+        if(scene == "serviceRequestList"){
+            primaryStage.setScene(serviceRequestListScene);
+        }
+        if(scene == "welcome"){
+            primaryStage.setScene(welcomeScene);
+        }
     }
 
     /**
@@ -71,10 +113,26 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("views/welcome.fxml"));
         Scene mainScene = new Scene(root);
 
+        homePane = FXMLLoader.load(Main.getFXMLURL("home"));
+        homeScene= new Scene(homePane);
+        adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
+        adminScene= new Scene(adminPane);
+        pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
+        pathFindingScene= new Scene(pathFindingPane);
+        schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
+        schedulerScene= new Scene(schedulerPane);
+        serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
+        serviceRequestScene= new Scene(serviceRequestPane);
+        serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+        serviceRequestListScene= new Scene(serviceRequestListPane);
+        welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
+        welcomeScene= new Scene(welcomePane);
+
         //Set the color and the title and the screen
         mainScene.setFill(Color.web("#012d5a"));
         primaryStage.setTitle("Brigham and Women's Hospital");
         primaryStage.setScene(mainScene);
+        primaryStage.setMaximized(true);
 
         //Set the bounds and other height and width attributes
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
@@ -92,6 +150,7 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
 
+
         //CSVParser parse = new CSVParser("C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\nodes.csv", "C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\edges.csv");
         //AStar aS = new AStar();
         //Map<String, Node> mappedNodes = parse.getNodes();
@@ -107,4 +166,5 @@ public class Main extends Application {
         myFloor.populateFloor();
         launch(args);
     }
+
 }

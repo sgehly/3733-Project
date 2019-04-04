@@ -88,10 +88,7 @@ public class Pathfinding {
      */
     @FXML
     private void navigateToHome() throws Exception{
-        //Load the home screen pane, get the scene and update the stage
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.setScene("home");
     }
 
     @FXML
@@ -431,9 +428,6 @@ public class Pathfinding {
      */
     @FXML
     public void logout() throws Exception{
-        //Get the pane, the scene, and place it on as the primary stage
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("welcome"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.setScene("welcome");
     }
 }

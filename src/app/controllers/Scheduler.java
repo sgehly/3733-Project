@@ -113,9 +113,7 @@ public class Scheduler {
 
     @FXML
     public void logout() throws Exception{
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("welcome"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.setScene("welcome");
     }
 
     @FXML
@@ -160,10 +158,7 @@ public class Scheduler {
 
     @FXML
     private void navigateToHome() throws Exception{
-        //Gets an instance of the screen and sets it as the main stage to display
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.setScene("home");
     }
 
     private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws SQLException {
