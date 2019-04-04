@@ -11,7 +11,7 @@ import java.util.ResourceBundle;
 
 import edu.wpi.cs3733.d19.teamM.Main;
 
-import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
