@@ -1,5 +1,8 @@
 package app.AStar;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +81,34 @@ public class Node implements Comparable{
         this.enabled = true;
     }
 
+    public void setId(String id) { this.id = id; }
+
+    public int getX() { return x; }
+
+    public void setX(int x) { this.x = x; }
+
+    public int getY() { return y; }
+
+    public void setY(int y) { this.y = y; }
+
+    public void setFloor(String floor) { this.floor = floor; }
+
+    public String getBuilding() { return building; }
+
+    public void setBuilding(String building) { this.building = building; }
+
+    public String getNodeType() { return nodeType; }
+
+    public void setNodeType(String nodeType) { this.nodeType = nodeType; }
+
+    public String getLongName() { return longName; }
+
+    public void setLongName(String longName) { this.longName = longName; }
+
+    public String getShortName() { return shortName; }
+
+    public void setShortName(String shortName) { this.shortName = shortName; }
+
     /**
      * Get list of classes edges
      *
@@ -151,6 +182,10 @@ public class Node implements Comparable{
         return this.enabled;
     }
 
+    public void setEdgeList(List<Edge> edgeList) {
+        this.edgeList = edgeList;
+    }
+
     /**
      * Adds an edge to the node
      *
@@ -161,26 +196,8 @@ public class Node implements Comparable{
 
         // need to add edges to both edge lists
         this.edgeList.add(new Edge(n, edgeID));
-        n.edgeList.add(new Edge(this, edgeID ));
     }
 
-    /**
-     * Removes an edge from a node
-     *
-     * @param n
-     * @param edgeID
-     */
-    public void removeEdge(Node n, String edgeID) {
-        for(Edge e: n.edgeList) {
-            // if find the edge ID that you want
-            if(e.getEdgeID().equals(edgeID)) {
-                // get the end node connected to the edge id
-                Node endNode = e.getEndNode();
-                endNode.edgeList.remove(e); // removes edge from list of the end nodes
-                n.edgeList.remove(e); // removes edge from list of current node
-            }
-        }
-    }
 
     @Override
     public int compareTo(Object o) {

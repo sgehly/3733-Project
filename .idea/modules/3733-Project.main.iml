@@ -8,7 +8,24 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: com.sendgrid:sendgrid-java:1.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.twilio.sdk:twilio:7.37.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.derby:derby:10.14.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.derby:derbytools:10.14.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.jfoenix:jfoenix:8.0.8" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:guava:27.0.1-jre" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.mail:javax.mail:1.6.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.sendgrid:smtpapi-java:0.1.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.json:json:20140107" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpmime:4.3.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.5.6" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpcore:4.4.10" level="project" />
+    <orderEntry type="library" name="Gradle: joda-time:joda-time:2.5" level="project" />
+    <orderEntry type="library" name="Gradle: io.jsonwebtoken:jjwt:0.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: javax.xml.bind:jaxb-api:2.2" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:failureaccess:1.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
@@ -16,5 +33,10 @@
     <orderEntry type="library" name="Gradle: com.google.errorprone:error_prone_annotations:2.2.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.17" level="project" />
+    <orderEntry type="library" name="Gradle: javax.activation:activation:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="Gradle: commons-codec:commons-codec:1.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.6" level="project" />
+    <orderEntry type="library" name="Gradle: javax.xml.stream:stax-api:1.0-2" level="project" />
   </component>
 </module>

@@ -92,18 +92,117 @@ public class database_partc {
 }
 
 /*
-CREATE TABLE SOFTENG_PARTC
+CREATE TABLE node
 (
     NODEID varchar(20) PRIMARY KEY NOT NULL,
     XCOORD int,
     YCOORD int,
+    FLOOR varchar(2),
+    BUILDING varchar(15),
+    NODETYPE varchar(4),
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
+);
+
+create table edge(
+    edgeid varchar(21) primary key,
+    startnode varchar(10),
+    endnode(10)
+)
+
+CREATE UNIQUE INDEX SQL190323122638210 ON SOFTENG_PARTC (NODEID);
+
+USE THIS NOT THE CODE ABOVE!!!
+
+CREATE TABLE node
+(
+    NODEID varchar(20) PRIMARY KEY NOT NULL,
+    XCOORD int,
+    YCOORD varchar(2),
     FLOOR int,
     BUILDING varchar(15),
     NODETYPE varchar(4),
-    LONGNAME varchar(40),
-    SHORTNAME varchar(20)
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
 );
-CREATE UNIQUE INDEX SQL190323122638210 ON SOFTENG_PARTC (NODEID);
+
+create table edge(
+    edgeid varchar(21),
+    startnode varchar(10),
+    endnode varchar(10),
+);
+
+create table floor1(
+    NODEID varchar(20) PRIMARY KEY NOT NULL,
+    XCOORD int,
+    YCOORD varchar(2),
+    FLOOR int,
+    BUILDING varchar(15),
+    NODETYPE varchar(4),
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
+);
+
+create table floor2(
+    NODEID varchar(20) PRIMARY KEY NOT NULL,
+    XCOORD int,
+    YCOORD varchar(2),
+    FLOOR int,
+    BUILDING varchar(15),
+    NODETYPE varchar(4),
+    LONGNAME varchar(100),
+    SHORTNAME varchar(100)
+);
+
+create table floor3(
+     NODEID varchar(20) PRIMARY KEY NOT NULL,
+     XCOORD int,
+     YCOORD varchar(2),
+     FLOOR int,
+     BUILDING varchar(15),
+     NODETYPE varchar(4),
+     LONGNAME varchar(100),
+     SHORTNAME varchar(100)
+);
+
+create table floorL1(
+     NODEID varchar(20) PRIMARY KEY NOT NULL,
+     XCOORD int,
+        YCOORD varchar(2),
+        FLOOR int,
+        BUILDING varchar(15),
+        NODETYPE varchar(4),
+        LONGNAME varchar(100),
+        SHORTNAME varchar(100)
+);
+
+create table floorL2(
+      NODEID varchar(20) PRIMARY KEY NOT NULL,
+         XCOORD int,
+         YCOORD varchar(2),
+         FLOOR int,
+         BUILDING varchar(15),
+         NODETYPE varchar(4),
+         LONGNAME varchar(100),
+         SHORTNAME varchar(100)
+);
+
+create table Rooms(
+    roomID varchar2(20),
+    capacity number(3),
+    details varchar2(100),
+    roomType varchar2(5),
+    Constraint comRoom_PK Primary key (roomID),
+    Constraint checkType CHECK (roomType in ('COMP', 'CLASS'))
+);
+
+create table BookedTimes(
+    roomID varchar2(20),
+    startTime timestamp,
+    endTime timestamp,
+    Constraint room_FK Foreign Key (roomID) REFERENCES Rooms(roomID)
+);
+
  */
 
 

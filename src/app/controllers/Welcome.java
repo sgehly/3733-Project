@@ -14,8 +14,12 @@ import javafx.scene.media.MediaView;
 
 import java.net.URL;
 
+/**
+ * This class is the controller for the primary welcome screen
+ */
 public class Welcome {
 
+    //Create the different objects that are present in the screen
     @FXML
     private MediaView mediaView;
 
@@ -26,19 +30,31 @@ public class Welcome {
     private Pane mainContent;
 
 
+    /**
+     * This method is used to initialize the application by loading all necessary aspects and displaying them
+     */
     @FXML
     protected void initialize() {
+
+        //Gets the video resources and stores it as a media file
         URL url = getClass().getResource("/resources/Pressure.mp4");
         Media media = new Media(url.toExternalForm());
 
+        //Creates the media player to play the video
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
+        //Sets the video on infinite loop and passes it to the mediaView to display on the screen
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaView.setMediaPlayer(mediaPlayer);
     }
 
+    /**
+     * This method is for the button that allows the individual to navigate to the home screen
+     * @throws Exception: Any exception or issue is thrown
+     */
     @FXML
     public void navigateToHome() throws Exception{
+        //We get the FXML page for the home screen, load it, and display it on the primary stage
         Parent pane = FXMLLoader.load(app.Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);

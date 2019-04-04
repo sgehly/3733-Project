@@ -13,75 +13,83 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane scaleShape="false" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ServiceRequests">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" scaleShape="false" style="-fx-background-color: #012d5a;" stylesheets="@../../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ServiceRequests">
    <children>
-      <StackPane style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0">
                <children>
-                  <HBox alignment="CENTER" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
+                  <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1661.0">
                      <children>
-                        <ImageView fx:id="homeButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" preserveRatio="true">
-                           <image>
-                              <Image url="@../../resources/icons/icons8_home_page_40px_1.png" />
-                           </image>
-                        </ImageView>
-                        <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="269.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGehly" HBox.hgrow="ALWAYS">
+                              <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                                 <image>
+                                    <Image url="@../../resources/icons/icons8_home_page_40px_1.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
                                  <font>
                                     <Font name="Open Sans Bold" size="36.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../resources/icons/icons8-clock_8.png" />
+                                 </image>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </ImageView>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:24:23">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="36.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Button mnemonicParsing="false" onMouseClicked="#goToRequestList" styleClass="logoutButton" stylesheets="@../../stylesheet.css" text="VIEW REQUESTS">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" stylesheets="@../../stylesheet.css" text="LOGOUT">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
                                  </font>
                                  <HBox.margin>
                                     <Insets left="15.0" />
                                  </HBox.margin>
-                              </Text>
-                           </children>
-                        </HBox>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:24:23" wrappingWidth="367.82421875" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Open Sans Bold" size="36.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </HBox>
-                        <Region HBox.hgrow="ALWAYS" />
-                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Button fx:id="viewServiceRequestsButton" mnemonicParsing="false" onMouseClicked="#goToRequestList" style="-fx-background-color: white;" text="View Requests" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font name="Open Sans Bold" size="24.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="15.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button fx:id="logoutButton1" mnemonicParsing="false" onAction="#logout" onMouseClicked="#logout" style="-fx-background-color: white;" text="Logout">
-                                 <font>
-                                    <Font name="Open Sans Bold" size="24.0" />
-                                 </font>
                               </Button>
                            </children>
                         </HBox>
                      </children>
                      <VBox.margin>
-                        <Insets />
+                        <Insets left="50.0" right="50.0" top="20.0" />
                      </VBox.margin>
-                     <padding>
-                        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
-                     </padding>
                   </HBox>
-                  <GridPane style="-fx-background-color: #001933;">
+                  <GridPane style="-fx-background-color: #001933 #001933;" VBox.vgrow="ALWAYS">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="628.0" minWidth="0.0" prefWidth="0.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1650.0" minWidth="10.0" prefWidth="1650.0" />
@@ -93,9 +101,9 @@
                       <RowConstraints maxHeight="280.0" minHeight="10.0" prefHeight="116.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Accordion prefHeight="616.0" prefWidth="1464.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Accordion fx:id="accordion" prefHeight="616.0" prefWidth="1464.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                           <panes>
-                            <TitledPane animated="false" text="Sanitation">
+                            <TitledPane fx:id="sanitation" animated="false" text="Sanitation">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
@@ -110,7 +118,7 @@
                                                 <RowConstraints maxHeight="384.00001525878906" minHeight="10.0" prefHeight="100.99998474121094" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
-                                                <Label text="Room:">
+                                                <Label styleClass="blackLabel" stylesheets="@../../stylesheet.css" text="Room:">
                                                    <font>
                                                       <Font size="36.0" />
                                                    </font>
@@ -126,7 +134,7 @@
                                                       <Font size="24.0" />
                                                    </font>
                                                 </TextArea>
-                                                <Button fx:id="sanitationRequestButton" defaultButton="true" mnemonicParsing="false" onMouseClicked="#makeSanitationRequest" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                <Button fx:id="sanitationRequestButton" defaultButton="true" mnemonicParsing="false" onMouseClicked="#makeSanitationRequest" prefHeight="75.0" prefWidth="194.0" styleClass="blackButton" stylesheets="@../../stylesheet.css" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                    <GridPane.margin>
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
@@ -144,7 +152,7 @@
                                                 </TextArea>
                                                 <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                                                    <children>
-                                                      <Label prefHeight="59.0" prefWidth="191.0" text="Notes:" textAlignment="CENTER">
+                                                      <Label prefHeight="59.0" prefWidth="191.0" styleClass="blackLabel" stylesheets="@../../stylesheet.css" text="Notes:" textAlignment="CENTER">
                                                          <font>
                                                             <Font size="36.0" />
                                                          </font>
@@ -156,17 +164,18 @@
                                                 </VBox>
                                              </children>
                                           </GridPane>
-                                       </children></AnchorPane>
+                                       </children>
+                                    </AnchorPane>
                               </content>
                                  <font>
-                                    <Font size="36.0" />
+                                    <Font name="SansSerif Regular" size="36.0" />
                                  </font>
                             </TitledPane>
-                            <TitledPane animated="false" prefHeight="593.0" prefWidth="1440.0" text="Language">
+                            <TitledPane fx:id="language" animated="false" prefHeight="593.0" prefWidth="1440.0" text="Language">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <GridPane alignment="CENTER" prefHeight="196.0" prefWidth="770.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
+                                          <GridPane alignment="CENTER" prefHeight="196.0" prefWidth="770.0" stylesheets="@../../stylesheet.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
                                             <columnConstraints>
                                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="520.0" minWidth="0.0" prefWidth="249.99998474121094" />
                                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="1165.000015258789" minWidth="10.0" prefWidth="1165.000015258789" />
@@ -178,7 +187,7 @@
                                               <RowConstraints maxHeight="384.00001525878906" minHeight="10.0" prefHeight="100.99998474121094" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
-                                                <Label text="Room:">
+                                                <Label styleClass="blackLabel" text="Room:">
                                                    <font>
                                                       <Font size="36.0" />
                                                    </font>
@@ -186,7 +195,7 @@
                                                       <Insets left="30.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label text="Language:" GridPane.rowIndex="1">
+                                                <Label styleClass="blackLabel" text="Language:" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font size="36.0" />
                                                    </font>
@@ -210,7 +219,7 @@
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
                                                 </ChoiceBox>
-                                                <Button fx:id="languageRequestButton" defaultButton="true" mnemonicParsing="false" prefHeight="75.0" prefWidth="194.0" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                <Button fx:id="languageRequestButton" defaultButton="true" mnemonicParsing="false" prefHeight="75.0" prefWidth="194.0" styleClass="blackButton" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                    <GridPane.margin>
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
@@ -228,7 +237,7 @@
                                                 </TextArea>
                                                 <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
                                                    <children>
-                                                      <Label prefHeight="59.0" prefWidth="191.0" text="Notes:" textAlignment="CENTER">
+                                                      <Label prefHeight="59.0" prefWidth="191.0" styleClass="blackLabel" text="Notes:" textAlignment="CENTER">
                                                          <font>
                                                             <Font size="36.0" />
                                                          </font>
@@ -244,7 +253,7 @@
                                     </AnchorPane>
                               </content>
                                  <font>
-                                    <Font size="36.0" />
+                                    <Font name="SansSerif Regular" size="36.0" />
                                  </font>
                             </TitledPane>
                           </panes>
@@ -253,6 +262,9 @@
                            </GridPane.margin>
                         </Accordion>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </GridPane>
                </children>
             </VBox>

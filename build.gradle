@@ -12,12 +12,19 @@ plugins {
 
     // Apply the application plugin to add support for building an application
     id 'application'
+
 }
+
 
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    maven { url "https://jitpack.io" }
+}
+
+configurations {
+    extraLibs
 }
 
 sourceSets.main.java.srcDirs = ['src']
@@ -27,12 +34,37 @@ dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.google.guava:guava:27.0.1-jre'
 
+    implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
+    implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
+    implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+    implementation 'com.jfoenix:jfoenix:8.0.8' // Java 8
+
+    compile 'com.sendgrid:sendgrid-java:1.1.0'
+    compile group: "com.twilio.sdk", name: "twilio", version: "7.37.0"
+
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+
+    compile group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
+    compile group: 'org.apache.derby', name: 'derbytools', version: '10.14.1.0'
+    compile group: 'com.jfoenix',name:'jfoenix',version:'8.0.8'
+
+    configurations.compile.extendsFrom(configurations.extraLibs)
 }
 
 // Define the main class for the application
 mainClassName = 'app.Main'
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 
 jar {
     manifest {
@@ -40,5 +72,8 @@ jar {
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
                 'Main-Class': mainClassName
         )
+    }
+    from {
+        configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
