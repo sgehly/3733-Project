@@ -27,7 +27,6 @@ public class DatabaseUtils {
     }
 
     public void edgeParse() {
-         Connection conn = this.getConnection();
 
         InputStream file = Main.getResource("/resources/edgesv3.csv");
 
@@ -49,6 +48,7 @@ public class DatabaseUtils {
         try {
             int lineNum = 1;
             for (List<String> line : lines) {
+                Connection conn = this.getConnection();
                 String query = "insert into edge (edgeID,startNode,endNode) values (?, ?, ?)";
                 PreparedStatement preStmt = conn.prepareStatement(query);
                 for (int columnNum = 0; columnNum < 3; columnNum++) {
@@ -82,7 +82,6 @@ public class DatabaseUtils {
     }
 
     public void nodeParse(){
-        Connection conn = this.getConnection();
         InputStream file = Main.getResource("/resources/nodesv3.csv");
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
@@ -103,6 +102,7 @@ public class DatabaseUtils {
         try {
             int lineNum = 1;
             for (List<String> line : lines) {
+                Connection conn = this.getConnection();
                 //String query = "insert into floor" + line.get(3) +" (nodeid, xcoord, ycoord, floor, building, nodetype, longname, shortname) values (?, ?, ?, ?, ?, ?, ?, ?)";
                 String query = "insert into node (nodeid, xcoord, ycoord, floor, building, nodetype, longname, shortname) values (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement preStmt = conn.prepareStatement(query);
