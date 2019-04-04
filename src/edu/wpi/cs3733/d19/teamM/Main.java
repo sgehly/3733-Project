@@ -89,6 +89,11 @@ public class Main extends Application {
         return Main.class.getResourceAsStream(path);
     }
 
+    public static InputStream getResourceFromRoot(String path){
+        System.out.println(path);
+        return Main.class.getClassLoader().getResourceAsStream(path);
+    }
+
     /**
      * This method creates and sets the stage of the viewable JavaFX screen
      * @param primaryStage: The stage to display on start
@@ -102,8 +107,9 @@ public class Main extends Application {
 
         //Load the fonts that we want to use for the application
         //Fonts have been taken from what B & H hospital uses as their official fonts
-        Font.loadFont(getResource("/resources/palatino-linotype/palab.ttf"), 10);
-        Font.loadFont(getResource("/resources/palatino-linotype/pala.ttf"), 10);
+        System.out.println(Main.getResourceFromRoot("resources/palatino-linotype/palab.ttf").toString());
+        Font.loadFont(Main.getResourceFromRoot("resources/palatino-linotype/palab.ttf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/palatino-linotype/pala.ttf"), 10);
 
         //Get the main parent scene and load the FXML
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));

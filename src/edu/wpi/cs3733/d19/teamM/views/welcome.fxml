@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane stylesheets="@/resources/stylesheet.css" alignment="center" hgap="10" prefHeight="1080.0" prefWidth="1920.0" vgap="10" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Welcome.Welcome">
+<GridPane alignment="center" hgap="10" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/resources/stylesheet.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Welcome.Welcome">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -36,12 +36,12 @@
                       </ImageView>
                      <Text fill="white" layoutX="-1.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
                         <font>
-                           <Font name="Palatino Linotype Bold" size="64.0" />
+                           <Font name="Palatino" size="64.0" />
                         </font>
                      </Text>
                         <Text fill="white" layoutX="9.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Tap the Screen to Get Started" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
                            <font>
-                               <Font name="Palatino Linotype" size="42.0" />
+                               <Font name="Palatino" size="42.0" />
                            </font>
                         </Text>
                    </children>
