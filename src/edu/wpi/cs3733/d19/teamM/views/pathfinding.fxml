@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane stylesheets="@/resources/stylesheet.css" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Pathfinding.Pathfinding">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" stylesheets="@/resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Pathfinding.Pathfinding">
     <children>
           <VBox alignment="CENTER" maxHeight="1080.0" minHeight="1080.0" prefHeight="1080.0" prefWidth="100.0" spacing="50.0" style="-fx-background-color: rgba(1,45,90,1);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
@@ -52,14 +53,11 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </ImageView>
-                                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:24:23">
-                                      <font>
-                                          <Font name="Open Sans Bold" size="36.0" />
-                                      </font>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
-                                  </Text>
+                        <Label fx:id="lblClock" prefHeight="47.8828125" prefWidth="132.046875" text="Label" textFill="#ffdfdf">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
                               </children>
                           </HBox>
                           <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
