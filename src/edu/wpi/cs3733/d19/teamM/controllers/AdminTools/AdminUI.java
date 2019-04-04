@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
@@ -29,8 +30,6 @@ import java.sql.*;
 
 public class AdminUI {
 
-
-
     static double initx;
     static double inity;
     static int height;
@@ -45,8 +44,6 @@ public class AdminUI {
     MapPoint initial = new MapPoint(0,0);
 
     Rectangle2D primaryScreenBounds;
-
-    String dbPath = "jdbc:derby:myDB";
 
     @FXML
     private Pane imageView;
@@ -173,8 +170,7 @@ public class AdminUI {
 
     private void updateHelper() throws Exception{
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement("update NODE set xcoord = ?, ycoord = ?, nodetype = ?,  longname = ?, shortname = ? where nodeid = ?");
             stmt.setString(1, xCoordTextBox.getText());
             stmt.setString(2, yCoordTextBox.getText());
@@ -185,8 +181,7 @@ public class AdminUI {
             stmt.executeUpdate();
             conn.close();
 
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn2 = DriverManager.getConnection(dbPath);
+            Connection conn2 = new DatabaseUtils().getConnection();
             PreparedStatement stmt2 = conn2.prepareStatement("update FLOOR1 set xcoord = ?, ycoord = ?, nodetype = ?, longname = ?, shortname = ? where nodeid = ?");
             stmt2.setString(1, xCoordTextBox.getText());
             stmt2.setString(2, yCoordTextBox.getText());
@@ -220,8 +215,7 @@ public class AdminUI {
         System.out.println(nodeId);
         //TODO: Can someone on database make this so SQL Injection can't happen
         String query = "SELECT * FROM FLOOR1 WHERE NODEID = ?";
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-        Connection conn = DriverManager.getConnection(dbPath);
+        Connection conn = new DatabaseUtils().getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, nodeId);
         ResultSet rs = stmt.executeQuery();
@@ -292,8 +286,7 @@ public class AdminUI {
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException, Exception {
         String query = "SELECT * FROM FLOOR1";
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
@@ -332,11 +325,10 @@ public class AdminUI {
 
     @FXML
     private void exportToCsv(ActionEvent event) throws  SQLException,ClassNotFoundException{
-        String filename = "Romminfo.csv";
+        String filename = "BWRoomExport.csv";
         try {
             FileWriter fw = new FileWriter(filename);
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = new DatabaseUtils().getConnection();
             String query = "select * from node";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);

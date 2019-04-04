@@ -12,6 +12,7 @@ import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
+import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.SendEmail;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
@@ -37,9 +38,6 @@ import javax.swing.*;
  * The controller class associated with the pathfinding fuctions
  */
 public class Pathfinding {
-
-    //Get the string value of the database path
-    String dbPath = "jdbc:derby:myDB";
 
     //Create needed object instances
     static double initx;
@@ -145,12 +143,10 @@ public class Pathfinding {
         Node startNode = floorMap.get(start); //Get starting and ending string using keys
         AStar aStar = new AStar();
         List<Node> nodeArrayList = aStar.findPresetPath(startNode, type, floorMap);
-        System.out.println("Got Path");
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
         floor.drawPath(nodeArrayList);
-        System.out.println("Plottesd path");
         //System.out.println("Sent Mail");
 
         //Now we will try to get the image
@@ -159,7 +155,6 @@ public class Pathfinding {
             URL theUrl = new URL("file:///" + System.getProperty("user.dir") + File.separator + "PathOutput.png");
             Overlaysource = new Image(theUrl.toURI().toString());
             overlayImage.setImage(Overlaysource); //set the image as the overlay image
-
             startText.setText("");
             endText.setText("");
         }catch(Exception e){
@@ -221,13 +216,10 @@ public class Pathfinding {
                //Now we create an A* object to find the path between the two and store the final list of nodes
                AStar aStar = new AStar();
                List<Node> nodeArrayList = aStar.findPath(startNode, endNode);
-               System.out.println("Got Path");
                final JFrame frame = new JFrame();
                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
                floor.drawPath(nodeArrayList);
-               System.out.println("Plotted path");
-               //System.out.println("Sent Mail");
 
                //Now we will try to get the image
                try {
@@ -319,12 +311,9 @@ public class Pathfinding {
         double scaledWidth = imageView.getBoundsInParent().getWidth();
         double scaledHeight = imageView.getBoundsInParent().getHeight()-50;
 
-        System.out.println(scaledHeight+" - "+scaledWidth);
-
         //Scale the x and y coordinates and set / return as a new map point
         double scaledX = (pointX*scaledWidth)/rawWidth;
         double scaledY = (pointY*scaledHeight)/rawHeight;
-        System.out.println(scaledX+" - "+scaledY);
         return new MapPoint(scaledX, scaledY);
 
     }
@@ -379,12 +368,10 @@ public class Pathfinding {
                 newButton.setLayoutX(generated.x-(size/2));
                 newButton.setLayoutY(generated.y-(size/2));
                 newButton.setStyle("-fx-background-color: blue");
-                System.out.println("New Button! ("+String.valueOf(rs.getInt("xcoord")-(size/2))+","+String.valueOf(rs.getInt("ycoord")-(size/2))+") -- ("+String.valueOf(primaryScreenBounds.getWidth())+","+String.valueOf(primaryScreenBounds.getHeight()-200)+") => ("+generated.x+","+generated.y+")");
                 buttonContainer.getChildren().add(newButton); //Add it to the button container
             }
             return entList; //Return this list
         } catch (SQLException e) {
-            System.out.println("Error while trying to fetch all records");
             e.printStackTrace();
             throw e;
         }
@@ -402,8 +389,7 @@ public class Pathfinding {
         String query = "SELECT * FROM FLOOR1";
         try {
             //Get the information that we want from the database
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             //Store the results we get in the entry list display table

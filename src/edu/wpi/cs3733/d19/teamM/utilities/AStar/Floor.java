@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
+import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -48,8 +50,7 @@ public class Floor{
 
         try{
             Node newNode = new Node(null, x, y, null, null, null, null, null);
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement("select * from floor" + floorid + " where xcoord = ? and ycoord = ?");
             stmt.setInt(1, x);
             stmt.setInt(2, y);
@@ -77,8 +78,7 @@ public class Floor{
     public void populateFloor(){
         try {
             String cmd = "select * from floor" + floorid;
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
             ResultSet set = stmt.executeQuery(cmd);
             while (set.next()) {
@@ -99,8 +99,7 @@ public class Floor{
         }
         try {
             String cmd = "select * from edge";
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(cmd);
             Node n1 = new Node("343", 34,34, "d", "e", "e","e","e");
@@ -129,8 +128,7 @@ public class Floor{
     public void addNode(String id, int x, int y, String floor, String building, String type, String longN, String shortN){
         try{
             Node newNode  = new Node(id, x, y, floor, building, type, longN, shortN);
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement("insert into Floor1 values(?, ? ,? ,?, ?, ?, ?, ?)");
             stmt.setString(1, id);
             stmt.setInt(2, x);
@@ -172,8 +170,7 @@ public class Floor{
             for(Edge e: rem.getEdges()){
                 this.removeEdge(e.getEdgeID());
             }
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement("delete from floor1 where nodeID = ?");
             stmt.setString(1, rem.getId());
             stmt.execute();
@@ -192,8 +189,7 @@ public class Floor{
 
     public void removeEdge(String edgeID){
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement("delete from edge where edgeID = ?");
             stmt.setString(1, edgeID);
             stmt.execute();
@@ -221,9 +217,8 @@ public class Floor{
 
     public void addEdge(String edgeID){
         try{
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             String[] edgeNodes = edgeID.split("_");
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement("insert into edge values(?,?,?)");
             stmt.setString(1, edgeID);
             stmt.setString(2, edgeNodes[0]);
@@ -290,13 +285,7 @@ public class Floor{
 
     public void addNodeDB(Node node, String floorNum){
         try{
-            try {
-                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Didnt work");
-            }
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = new DatabaseUtils().getConnection();
             Statement stmt1 = conn.createStatement();
             Statement stmt2 = conn.createStatement();
             String floorTable = null; //which floor table are we inserting into?

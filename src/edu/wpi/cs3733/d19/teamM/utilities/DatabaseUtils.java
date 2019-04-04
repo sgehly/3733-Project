@@ -13,13 +13,21 @@ import java.sql.*;
 import edu.wpi.cs3733.d19.teamM.Main;
 
 public class DatabaseUtils {
-    public static void edgeParse() {
-        try {
+
+    String dbPath = "jdbc:derby:myDB";
+
+    public Connection getConnection(){
+        try{
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-        } catch (Exception e) {
+            return DriverManager.getConnection(dbPath);
+        }catch(Exception e){
             e.printStackTrace();
-            return;
         }
+        return null;
+    }
+
+    public void edgeParse() {
+         Connection conn = this.getConnection();
 
         InputStream file = Main.getResource("/resources/edgesv3.csv");
 
@@ -41,8 +49,6 @@ public class DatabaseUtils {
         try {
             int lineNum = 1;
             for (List<String> line : lines) {
-                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
                 String query = "insert into edge (edgeID,startNode,endNode) values (?, ?, ?)";
                 PreparedStatement preStmt = conn.prepareStatement(query);
                 for (int columnNum = 0; columnNum < 3; columnNum++) {
@@ -75,7 +81,8 @@ public class DatabaseUtils {
         //System.out.println("Java DB connection established!");
     }
 
-    public static void nodeParse(){
+    public void nodeParse(){
+        Connection conn = this.getConnection();
         InputStream file = Main.getResource("/resources/nodesv3.csv");
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
@@ -96,8 +103,6 @@ public class DatabaseUtils {
         try {
             int lineNum = 1;
             for (List<String> line : lines) {
-                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
                 //String query = "insert into floor" + line.get(3) +" (nodeid, xcoord, ycoord, floor, building, nodetype, longname, shortname) values (?, ?, ?, ?, ?, ?, ?, ?)";
                 String query = "insert into node (nodeid, xcoord, ycoord, floor, building, nodetype, longname, shortname) values (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement preStmt = conn.prepareStatement(query);
@@ -130,9 +135,8 @@ public class DatabaseUtils {
 
     public void connect(){
 
-        try {Class.forName("org.apache.derby.jdbc.EmbeddedDriver");}catch(Exception e){e.printStackTrace();};
         try {
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = this.getConnection();
             String createTable1 = "CREATE TABLE node(NODEID varchar(20) PRIMARY KEY NOT NULL, XCOORD int, ycoord int, floor varchar(2), building varchar(15), nodetype varchar(4), longname varchar(100), shortname varchar(100))";
             String createTable2 = "create table edge(edgeid varchar(21) primary key, startnode varchar(10), endnode varchar(10))";
             String createTable3 = "CREATE TABLE floor1(NODEID varchar(20) PRIMARY KEY NOT NULL, XCOORD int, ycoord int, floor varchar(2), building varchar(15), nodetype varchar(4), longname varchar(100), shortname varchar(100))";
@@ -187,9 +191,8 @@ public class DatabaseUtils {
             conn.close();
         }catch(Exception e){e.printStackTrace();};
 
-        try {Class.forName("org.apache.derby.jdbc.EmbeddedDriver");}catch(Exception e){e.printStackTrace();};
         try{
-            Connection conn2 = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn2 = this.getConnection();
 
             String createTable11 = "create table REQUESTLOG (REQUESTID INTEGER constraint REQUESTLOG_REQUESTID_UINDEX unique, ROOM VARCHAR(100), NOTE VARCHAR(200),DATE TIMESTAMP, TYPE VARCHAR(50),FINISHED_BY VARCHAR(30))";
 
@@ -248,7 +251,7 @@ public class DatabaseUtils {
 
         try {
             connect();
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = this.getConnection();
             Statement stmt6 = conn.createStatement();
             Statement stmt7 = conn.createStatement();
             Statement stmt8 = conn.createStatement();

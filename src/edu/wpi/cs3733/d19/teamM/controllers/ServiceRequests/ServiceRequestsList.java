@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import edu.wpi.cs3733.d19.teamM.Main;
 
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,11 +27,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class ServiceRequestsList {
 
-    //The relative path to the database for access
-    String dbPath = "jdbc:derby:myDB";
-
     //All the different objects that have to be created for the page fxid are all the same name as the instance name
-
     @FXML
     private Accordion accordion;
     @FXML
@@ -101,10 +98,9 @@ public class ServiceRequestsList {
     @FXML
     void deleteIncompleteRequest(MouseEvent event)throws ClassNotFoundException {
         //delete a request
-        String query = " DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
+        String query = "DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement s = conn.prepareStatement(query);
             s.setString(1, this.getIdFromTable("incomplete"));
             s.executeUpdate();
@@ -123,15 +119,13 @@ public class ServiceRequestsList {
 
     @FXML
     void deleteCompleteRequest(MouseEvent event)throws ClassNotFoundException{
-        String query = " DELETE FROM REQUESTLOG Where REQUESTID = ?";
+        String query = "DELETE FROM REQUESTLOG Where REQUESTID = ?";
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement s = conn.prepareStatement(query);
             s.setString(1, this.getIdFromTable("complete"));
             s.executeUpdate();
             System.out.println("deleted from db");
-            //stmt.setString(6,FilledBy.getText());
             conn.close();
         }
         catch (Exception e) {
@@ -195,10 +189,7 @@ public class ServiceRequestsList {
         String query3 = " DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
 
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
-
-            // insert from requesinprogress to request log the desired request
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement(query1);
             stmt.setString(1, this.getIdFromTable("incomplete"));
             stmt.executeUpdate();
@@ -268,9 +259,7 @@ public class ServiceRequestsList {
         //Get the query from the database
         String query = "SELECT * FROM REQUESTINPROGRESS";
         try {
-            //Get the information that we want from the database
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             //Store the results we get in the entry list display table
@@ -288,8 +277,7 @@ public class ServiceRequestsList {
     public ObservableList<DisplayTable> getAllRecords2() throws ClassNotFoundException, SQLException {
         String query = "SELECT * FROM REQUESTLOG";
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);

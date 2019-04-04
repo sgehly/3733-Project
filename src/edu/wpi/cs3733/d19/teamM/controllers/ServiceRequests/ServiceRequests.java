@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import edu.wpi.cs3733.d19.teamM.Main;
 
+import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -21,7 +22,6 @@ import java.io.IOException;
 public class ServiceRequests {
 
     //The path to the databse that we need to use
-    String dbPath = "jdbc:derby:myDB";
     int idgnerator = 1;
 
     //Scene setup from service requests
@@ -35,12 +35,12 @@ public class ServiceRequests {
 
     @FXML
     private Accordion accordion;
+
     @FXML
     private TitledPane sanitation;
+
     @FXML
     private TitledPane language;
-
-
 
     @FXML
     private Button logoutButton;
@@ -71,9 +71,8 @@ public class ServiceRequests {
         Random rand = new Random();
         int id = rand.nextInt(10000);
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
             String query = "SELECT REQUESTID FROM REQUESTINPROGRESS";
+            Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()){
@@ -136,22 +135,14 @@ public class ServiceRequests {
             System.out.println("----Test Connection----");
 
             try {
-
-                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                Connection conn = DriverManager.getConnection(dbPath);
-                String query = "insert into  APP.REQUESTINPROGRESS  (REQUESTID , ROOM , NOTE , DATE ) values (?,?,?,?)";
-                //
-                //PreparedStatement stmt=conn.prepareStatement("insert into  REQUESTINPROGRESS set REQUESTID = ? , ROOM = ?, NOTE = ?, DATE = ?, STATUS = ?");
-                //PreparedStatement stmt = conn.prepareStatement("SELECT * from REQUESTINPROGRESS");
+                Connection conn = new DatabaseUtils().getConnection();
+                String query = "insert into APP.REQUESTINPROGRESS  (REQUESTID , ROOM , NOTE , DATE ) values (?,?,?,?)";
                 PreparedStatement stmt = conn.prepareStatement(query);
 
                 stmt.setInt(1, (RandIDgenerator()));
                 stmt.setString(2, (sanitationRoomNumber.getText()));
                 stmt.setString(3, sanitationNotes.getText());
                 stmt.setTimestamp(4, ts);
-                //stmt.setBoolean(5, false);
-                System.out.println("in table ");
-
                 stmt.executeUpdate();
                 stmt.close();
 

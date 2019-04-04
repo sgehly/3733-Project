@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -38,8 +39,6 @@ public class Scheduler {
     static int width;
     public static String path;
     static double offSetX,offSetY,zoomlvl;
-
-    String dbPath = "jdbc:derby:myDB";
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -134,8 +133,7 @@ public class Scheduler {
     private void addBookedTime(String roomID, Timestamp start, Timestamp end){
         String query = "INSERT INTO BookedTimes VALUES(?, ?, ?)";
         try{
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, roomID);
             stmt.setTimestamp(2, start);
@@ -178,8 +176,7 @@ public class Scheduler {
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
         String query = "SELECT roomID, capacity, roomtype FROM ROOMS";
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
@@ -207,8 +204,7 @@ public class Scheduler {
             dialog.show();
         } else { //else, run as usual
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement(query1);
             stmt.setTimestamp(1, start);
             stmt.setTimestamp(2, end);
@@ -248,8 +244,7 @@ public class Scheduler {
             String str7 = "insert into Rooms values('CR_7', 17, 'TBD', 'COMP')";
             String str8 = "insert into Rooms values('CR_8', 15, 'TBD', 'CLASS')";
 
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             /*Statement stmt1 = conn.createStatement();
             Statement stmt2 = conn.createStatement();
             Statement stmt3 = conn.createStatement();
@@ -303,7 +298,6 @@ public class Scheduler {
             height = 500;
             width = 500;
         }
-
 
         image.setImage(source); //Set the image as the source
         System.out.println(imageView.getBoundsInParent().getWidth());
