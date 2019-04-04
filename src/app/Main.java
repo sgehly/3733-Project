@@ -75,6 +75,7 @@ public class Main extends Application {
         mainScene.setFill(Color.web("#012d5a"));
         primaryStage.setTitle("Brigham and Women's Hospital");
         primaryStage.setScene(mainScene);
+        primaryStage.setMaximized(true);
 
         //Set the bounds and other height and width attributes
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
