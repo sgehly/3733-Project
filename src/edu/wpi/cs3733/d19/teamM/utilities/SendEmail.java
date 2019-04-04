@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamM.utilities.AStar;
+package edu.wpi.cs3733.d19.teamM.utilities;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
