@@ -23,7 +23,7 @@
                               <children>
                         <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../resources/icons/icons8_home_page_40px_1.png" />
+                              <Image url="@/resources/icons/icons8_home_page_40px_1.png" />
                            </image>
                         </ImageView>
                                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
@@ -46,7 +46,7 @@
                                           <Insets right="10.0" />
                                       </HBox.margin>
                                       <image>
-                                          <Image url="@../../../../../../resources/icons/icons8-clock_8.png" />
+                                          <Image url="@/resources/icons/icons8-clock_8.png" />
                                       </image>
                                   </ImageView>
                                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:24:23">
@@ -61,7 +61,7 @@
                           </HBox>
                           <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
-                                  <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" stylesheets="@../../../../../../stylesheet.css" text="LOGOUT" HBox.hgrow="ALWAYS">
+                                  <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT" HBox.hgrow="ALWAYS">
                                       <font>
                                           <Font name="Open Sans Bold" size="24.0" />
                                       </font>
@@ -145,9 +145,9 @@
                               <Insets bottom="49.0" top="50.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="50.0" prefWidth="434.0" spacing="5.0" stylesheets="@../../../../../../stylesheet.css" VBox.vgrow="NEVER">
+                        <HBox prefHeight="50.0" prefWidth="434.0" spacing="5.0" VBox.vgrow="NEVER">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#addNode" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" stylesheets="@../../../../../../stylesheet.css" text="Add" />
+                              <Button mnemonicParsing="false" onAction="#addNode" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Add" />
                               <Button mnemonicParsing="false" onAction="#removeNode" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Remove" />
                               <Button mnemonicParsing="false" onAction="#updateNode" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Modify/Save" />
                               <Button mnemonicParsing="false" onAction="#exportToCsv" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Export" />
@@ -191,8 +191,8 @@
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="432.0" spacing="5.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#addEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" stylesheets="@../../../../../../stylesheet.css" text="Add Edge" />
-                              <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" stylesheets="@../../../../../../stylesheet.css" text="Remove Edge" />
+                              <Button mnemonicParsing="false" onAction="#addEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Add Edge" />
+                              <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Remove Edge" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="30.0" left="39.0" right="29.0" top="50.0" />

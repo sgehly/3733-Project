@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" scaleShape="false" style="-fx-background-color: rgba(1,45,90,1);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ServiceRequestsList">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" scaleShape="false" style="-fx-background-color: rgba(1,45,90,1);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequestsList">
    <children>
       <VBox alignment="CENTER" spacing="50.0" style="-fx-background-color: rgba(1,45,90,1);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -31,7 +31,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                            <image>
-                              <Image url="@../../../../../../resources/icons/icons8_home_page_40px_1.png" />
+                              <Image url="@/resources/icons/icons8_home_page_40px_1.png" />
                            </image>
                         </ImageView>
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
@@ -48,7 +48,7 @@
                      <children>
                         <ImageView fx:id="back1" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../resources/icons/icons8-clock_8.png" />
+                              <Image url="@/resources/icons/icons8-clock_8.png" />
                            </image>
                         </ImageView>
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:24:23" wrappingWidth="367.82421875" HBox.hgrow="ALWAYS">
@@ -63,7 +63,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="makeRequestButton" mnemonicParsing="false" onMouseClicked="#goToMakeServiceRequest" styleClass="logoutButton" stylesheets="@../../stylesheet.css" text="MAKE REQUEST">
+                        <Button fx:id="makeRequestButton" mnemonicParsing="false" onMouseClicked="#goToMakeServiceRequest" styleClass="logoutButton" text="MAKE REQUEST">
                            <font>
                               <Font name="Open Sans Bold" size="24.0" />
                            </font>
@@ -71,7 +71,7 @@
                               <Insets right="15.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="logoutButton1" mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" stylesheets="@../../stylesheet.css" text="LOGOUT">
+                        <Button fx:id="logoutButton1" mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
                            <font>
                               <Font name="Open Sans Bold" size="24.0" />
                            </font>
@@ -123,7 +123,7 @@
                                                             <Font size="24.0" />
                                                          </font>
                                                       </TextField>
-                                                      <Button fx:id="requestFulfilledButton" mnemonicParsing="false" onMouseClicked="#markAsComplete" prefHeight="41.0" prefWidth="175.0" styleClass="blackButton" stylesheets="@../../stylesheet.css" text="Fulfill" textAlignment="RIGHT">
+                                                      <Button fx:id="requestFulfilledButton" mnemonicParsing="false" onMouseClicked="#markAsComplete" prefHeight="41.0" prefWidth="175.0" styleClass="blackButton" text="Fulfill" textAlignment="RIGHT">
                                                          <font>
                                                             <Font name="Open Sans" size="24.0" />
                                                          </font>
@@ -135,7 +135,7 @@
                                                 </HBox>
                                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                                    <children>
-                                                      <Button fx:id="deleteIncompleteButton" mnemonicParsing="false" onMouseClicked="#deleteIncompleteRequest" prefHeight="41.0" prefWidth="175.0" styleClass="blackButton" stylesheets="@../../stylesheet.css" text="Delete" textAlignment="RIGHT">
+                                                      <Button fx:id="deleteIncompleteButton" mnemonicParsing="false" onMouseClicked="#deleteIncompleteRequest" prefHeight="41.0" prefWidth="175.0" styleClass="blackButton" text="Delete" textAlignment="RIGHT">
                                                          <font>
                                                             <Font name="Open Sans" size="24.0" />
                                                          </font>
@@ -176,7 +176,7 @@
                                           </TableView>
                                           <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="1551.0">
                                              <children>
-                                                <Button fx:id="deleteCompletedButton" mnemonicParsing="false" onMouseClicked="#deleteCompleteRequest" prefHeight="41.0" prefWidth="175.0" styleClass="blackButton" stylesheets="@../../stylesheet.css" text="Delete" textAlignment="RIGHT" HBox.hgrow="NEVER">
+                                                <Button fx:id="deleteCompletedButton" mnemonicParsing="false" onMouseClicked="#deleteCompleteRequest" prefHeight="41.0" prefWidth="175.0" styleClass="blackButton" text="Delete" textAlignment="RIGHT" HBox.hgrow="NEVER">
                                                    <font>
                                                       <Font name="Open Sans" size="24.0" />
                                                    </font>

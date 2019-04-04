@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/3733-Project.iml" filepath="$PROJECT_DIR$/.idea/3733-Project.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/3733-Project.main.iml" filepath="$PROJECT_DIR$/.idea/modules/3733-Project.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/3733-Project.test.iml" filepath="$PROJECT_DIR$/.idea/modules/3733-Project.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamm.3733-Project.iml" filepath="$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamm.3733-Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamm.3733-Project.main.iml" filepath="$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamm.3733-Project.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamm.3733-Project.test.iml" filepath="$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamm.3733-Project.test.iml" />
     </modules>
   </component>
 </project>

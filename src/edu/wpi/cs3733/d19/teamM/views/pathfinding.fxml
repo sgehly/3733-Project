@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.Pathfinding">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Pathfinding.Pathfinding">
     <children>
           <VBox alignment="CENTER" maxHeight="1080.0" minHeight="1080.0" prefHeight="1080.0" prefWidth="100.0" spacing="50.0" style="-fx-background-color: rgba(1,45,90,1);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
@@ -26,7 +26,7 @@
                               <Insets />
                            </HBox.margin>
                            <image>
-                              <Image url="@../../../../../../resources/icons/icons8_home_page_40px_1.png" />
+                              <Image url="@/resources/icons/icons8_home_page_40px_1.png" />
                            </image>
                         </ImageView>
                                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
@@ -46,7 +46,7 @@
                               <children>
                         <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../resources/icons/icons8-clock_8.png" />
+                              <Image url="@/resources/icons/icons8-clock_8.png" />
                            </image>
                            <HBox.margin>
                               <Insets right="10.0" />
@@ -64,7 +64,7 @@
                           </HBox>
                           <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
-                                  <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" stylesheets="@../../stylesheet.css" text="LOGOUT">
+                                  <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
                                       <font>
                                           <Font name="Open Sans Bold" size="24.0" />
                                       </font>
@@ -88,7 +88,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <TextField fx:id="startText" promptText="Start Node ID" styleClass="text-field" stylesheets="@../../stylesheet.css" HBox.hgrow="ALWAYS">
+                              <TextField fx:id="startText" promptText="Start Node ID" styleClass="text-field" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="31.0" />
                                  </font>
@@ -102,7 +102,7 @@
                         </Text>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                        <TextField fx:id="endText" promptText="Destination Node ID" styleClass="text-field" stylesheets="@../../stylesheet.css" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="endText" promptText="Destination Node ID" styleClass="text-field" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="31.0" />
                            </font>
@@ -111,7 +111,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onMouseClicked="#findPath" styleClass="bigButton" stylesheets="@../../stylesheet.css" text="NAVIGATE">
+                              <Button mnemonicParsing="false" onMouseClicked="#findPath" styleClass="bigButton" text="NAVIGATE">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
@@ -141,7 +141,7 @@
                                     <Insets top="50.0" />
                                  </VBox.margin>
                               </Text>
-                              <Button mnemonicParsing="false" onAction="#findBathroom" prefHeight="68.0" prefWidth="400.0" styleClass="bigButton" stylesheets="@../../stylesheet.css" text="Nearest Bathroom" VBox.vgrow="ALWAYS">
+                              <Button mnemonicParsing="false" onAction="#findBathroom" prefHeight="68.0" prefWidth="400.0" styleClass="bigButton" text="Nearest Bathroom" VBox.vgrow="ALWAYS">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -152,7 +152,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#findStaircase" prefWidth="400.0" styleClass="bigButton" stylesheets="@../../stylesheet.css" text="Nearest Staircase" VBox.vgrow="ALWAYS">
+                              <Button mnemonicParsing="false" onAction="#findStaircase" prefWidth="400.0" styleClass="bigButton" text="Nearest Staircase" VBox.vgrow="ALWAYS">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -160,7 +160,7 @@
                                     <Insets />
                                  </opaqueInsets>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#findElevator" prefWidth="400.0" styleClass="bigButton" stylesheets="@../../stylesheet.css" text="Nearest Elevator">
+                              <Button mnemonicParsing="false" onAction="#findElevator" prefWidth="400.0" styleClass="bigButton" text="Nearest Elevator">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -168,7 +168,7 @@
                                     <Insets />
                                  </opaqueInsets>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#findExit" prefWidth="400.0" styleClass="bigButton" stylesheets="@../../stylesheet.css" text="Nearest Exit">
+                              <Button mnemonicParsing="false" onAction="#findExit" prefWidth="400.0" styleClass="bigButton" text="Nearest Exit">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -176,7 +176,7 @@
                                     <Insets />
                                  </opaqueInsets>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#findServiceDesk" prefWidth="400.0" styleClass="bigButton" stylesheets="@../../stylesheet.css" text="Service Desk">
+                              <Button mnemonicParsing="false" onAction="#findServiceDesk" prefWidth="400.0" styleClass="bigButton" text="Service Desk">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -198,7 +198,7 @@
                               <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" StackPane.alignment="TOP_CENTER">
                                  <children>
                                     <TextField fx:id="sendMapTextBox" prefHeight="50.0" prefWidth="331.0" promptText="Email Address or Phone #" />
-                                    <Button maxHeight="50.0" mnemonicParsing="false" onAction="#sendMap" prefHeight="40.0" styleClass="blackButton" stylesheets="@../../stylesheet.css" text="SEND MAP">
+                                    <Button maxHeight="50.0" mnemonicParsing="false" onAction="#sendMap" prefHeight="40.0" styleClass="blackButton" text="SEND MAP">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>

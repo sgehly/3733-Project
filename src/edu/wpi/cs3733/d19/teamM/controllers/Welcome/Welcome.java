@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamM.controllers;
+package edu.wpi.cs3733.d19.teamM.controllers.Welcome;
 
 import edu.wpi.cs3733.d19.teamM.Main;
 
@@ -31,11 +31,10 @@ public class Welcome {
      * This method is used to initialize the application by loading all necessary aspects and displaying them
      */
     @FXML
-    protected void initialize() {
+    protected void initialize() throws Exception{
 
         //Gets the video resources and stores it as a media file
-        URL url = getClass().getResource("/resources/Pressure.mp4");
-        Media media = new Media(url.toExternalForm());
+        Media media = new Media(getClass().getResource("/resources/Pressure.mp4").toExternalForm());
 
         //Creates the media player to play the video
         MediaPlayer mediaPlayer = new MediaPlayer(media);

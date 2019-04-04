@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" scaleShape="false" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" scaleShape="false" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests">
    <children>
       <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -34,7 +34,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="@../../../../../../resources/icons/icons8_home_page_40px_1.png" />
+                                    <Image url="@/resources/icons/icons8_home_page_40px_1.png" />
                                  </image>
                               </ImageView>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
@@ -51,7 +51,7 @@
                            <children>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../resources/icons/icons8-clock_8.png" />
+                                    <Image url="@/resources/icons/icons8-clock_8.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets right="10.0" />
@@ -69,12 +69,12 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onMouseClicked="#goToRequestList" styleClass="logoutButton" stylesheets="@../../../../../../stylesheet.css" text="VIEW REQUESTS">
+                              <Button mnemonicParsing="false" onMouseClicked="#goToRequestList" styleClass="logoutButton" text="VIEW REQUESTS">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" stylesheets="@../../../../../../stylesheet.css" text="LOGOUT">
+                              <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
@@ -118,7 +118,7 @@
                                                 <RowConstraints maxHeight="384.00001525878906" minHeight="10.0" prefHeight="100.99998474121094" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
-                                                <Label styleClass="blackLabel" stylesheets="@../../../../../../stylesheet.css" text="Room:">
+                                                <Label styleClass="blackLabel" text="Room:">
                                                    <font>
                                                       <Font size="36.0" />
                                                    </font>
@@ -134,7 +134,7 @@
                                                       <Font size="24.0" />
                                                    </font>
                                                 </TextArea>
-                                                <Button fx:id="sanitationRequestButton" defaultButton="true" mnemonicParsing="false" onMouseClicked="#makeSanitationRequest" prefHeight="75.0" prefWidth="194.0" styleClass="blackButton" stylesheets="@../../../../../../stylesheet.css" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                <Button fx:id="sanitationRequestButton" defaultButton="true" mnemonicParsing="false" onMouseClicked="#makeSanitationRequest" prefHeight="75.0" prefWidth="194.0" styleClass="blackButton" text="Request" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                    <GridPane.margin>
                                                       <Insets left="15.0" />
                                                    </GridPane.margin>
@@ -152,7 +152,7 @@
                                                 </TextArea>
                                                 <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                                                    <children>
-                                                      <Label prefHeight="59.0" prefWidth="191.0" styleClass="blackLabel" stylesheets="@../../../../../../stylesheet.css" text="Notes:" textAlignment="CENTER">
+                                                      <Label prefHeight="59.0" prefWidth="191.0" styleClass="blackLabel" text="Notes:" textAlignment="CENTER">
                                                          <font>
                                                             <Font size="36.0" />
                                                          </font>
@@ -175,7 +175,7 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <GridPane alignment="CENTER" prefHeight="196.0" prefWidth="770.0" stylesheets="@../../../../../../stylesheet.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
+                                          <GridPane alignment="CENTER" prefHeight="196.0" prefWidth="770.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
                                             <columnConstraints>
                                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="520.0" minWidth="0.0" prefWidth="249.99998474121094" />
                                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="1165.000015258789" minWidth="10.0" prefWidth="1165.000015258789" />

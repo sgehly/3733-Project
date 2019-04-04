@@ -15,6 +15,7 @@ plugins {
 
 }
 
+group 'edu.wpi.cs3733.d19.teamm'
 
 repositories {
     // Use jcenter for resolving your dependencies.
@@ -27,8 +28,8 @@ configurations {
     extraLibs
 }
 
-sourceSets.main.java.srcDirs = ['src/edu/wpi/cs3733','src/externalLibraries']
-sourceSets.main.resources.srcDirs = ['src/resources','src/edu/wpi/cs3733/views']
+sourceSets.main.java.srcDirs = ['src']
+sourceSets.main.resources.srcDirs = ['src']
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.

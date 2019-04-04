@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamM.controllers;
+package edu.wpi.cs3733.d19.teamM.controllers.Home;
 
 import edu.wpi.cs3733.d19.teamM.Main;
 import javafx.fxml.FXML;

@@ -79,8 +79,9 @@ public class Main extends Application {
      * @return URL: The url of the page we want to access
      */
     public static URL getFXMLURL(String name){
-        return Main.class.getClassLoader().getResource("views/"+name+".fxml");
+        return Main.class.getResource("views/"+name+".fxml");
     }
+
 
 
     public static InputStream getResource(String path){
@@ -101,8 +102,8 @@ public class Main extends Application {
 
         //Load the fonts that we want to use for the application
         //Fonts have been taken from what B & H hospital uses as their official fonts
-        Font.loadFont(getResource("../resources/palatino-linotype/palab.ttf"), 10);
-        Font.loadFont(getResource("../resources/palatino-linotype/pala.ttf"), 10);
+        Font.loadFont(getResource("/resources/palatino-linotype/palab.ttf"), 10);
+        Font.loadFont(getResource("/resources/palatino-linotype/pala.ttf"), 10);
 
         //Get the main parent scene and load the FXML
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));

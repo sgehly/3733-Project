@@ -12,13 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.Home">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Home.Home">
    <children>
       <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <children>
             <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
                <image>
-                  <Image url="@../../../../../../resources/bg.png" />
+                  <Image url="@/resources/bg.png" />
                </image>
             </ImageView>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
@@ -32,7 +32,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="@../../../../../../resources/icons/icons8-surgeon_skin_type_1.png" />
+                                    <Image url="@/resources/icons/icons8-surgeon_skin_type_1.png" />
                                  </image>
                               </ImageView>
                               <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
@@ -49,7 +49,7 @@
                            <children>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../resources/icons/icons8-clock_8.png" />
+                                    <Image url="@/resources/icons/icons8-clock_8.png" />
                                  </image>
                                  <HBox.margin>
                                     <Insets right="10.0" />
@@ -67,7 +67,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#navigateToAdmin" onMouseClicked="#logout" styleClass="logoutButton" stylesheets="@../../stylesheet.css" text="ADMIN">
+                              <Button mnemonicParsing="false" onAction="#navigateToAdmin" onMouseClicked="#logout" styleClass="logoutButton" text="ADMIN">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
@@ -75,7 +75,7 @@
                                     <Insets right="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" stylesheets="@../../stylesheet.css" text="LOGOUT">
+                              <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
@@ -91,7 +91,7 @@
                      <children>
                         <ImageView fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
+                              <Image url="@/resources/bwh-logo-new-brand.png" />
                            </image>
                         </ImageView>
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Womens, SGehly">
@@ -111,7 +111,7 @@
                                  <children>
                                     <ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../resources/icons/mapnew.png" />
+                                          <Image url="@/resources/icons/mapnew.png" />
                                        </image>
                                     </ImageView>
                                     <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="DIRECTIONS">
@@ -128,7 +128,7 @@
                                  <children>
                                     <ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../resources/icons/calnew.png" />
+                                          <Image url="@/resources/icons/calnew.png" />
                                        </image>
                                     </ImageView>
                                     <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="SCHEDULING">
@@ -145,7 +145,7 @@
                                  <children>
                                     <ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../resources/icons/receptionist.png" />
+                                          <Image url="@/resources/icons/receptionist.png" />
                                        </image>
                                        <VBox.margin>
                                           <Insets />
