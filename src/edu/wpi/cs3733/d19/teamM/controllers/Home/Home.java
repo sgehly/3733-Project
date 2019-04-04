@@ -1,12 +1,27 @@
 package edu.wpi.cs3733.d19.teamM.controllers.Home;
 
 import edu.wpi.cs3733.d19.teamM.Main;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.util.Duration;
+import javafx.scene.control.Label;
+
+import java.awt.*;
+import java.time.LocalTime;
 
 /**
  * The controller for the Home screen
  */
 public class Home {
+
+    @FXML
+    private Label lblClock;
+
+    private int hrs;
+    private int mins;
+    private int secs;
 
     /**
      * This method
@@ -34,5 +49,20 @@ public class Home {
     @FXML
     public void navigateToAdmin(){
         Main.setScene("admin");
+    }
+
+    @FXML
+    public void initialize() {
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+            secs = LocalTime.now().getSecond();
+            mins = LocalTime.now().getMinute();
+            hrs = LocalTime.now().getHour();
+
+            lblClock.setText(hrs + ":" + (mins) + ":" + secs);
+        }), new KeyFrame(Duration.seconds(1)));
+
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
     }
 }
