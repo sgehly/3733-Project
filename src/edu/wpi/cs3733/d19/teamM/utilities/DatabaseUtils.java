@@ -14,7 +14,7 @@ import edu.wpi.cs3733.d19.teamM.Main;
 
 public class DatabaseUtils {
 
-    String dbPath = "jdbc:derby:myDB";
+    String dbPath = "jdbc:derby:myDB;create=true";
 
     public Connection getConnection(){
         try{
