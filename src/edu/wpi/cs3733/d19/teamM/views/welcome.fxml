@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,28 +25,31 @@
    <children>
        <AnchorPane fx:id="mainContent" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
        <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-           <MediaView fx:id="mediaView" opacity="0.2" />
+           <MediaView fx:id="mediaView" opacity="0.13" />
            <VBox alignment="CENTER" onMouseClicked="#navigateToHome" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+             <ImageView fitHeight="275.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                   <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
+                </image>
+             </ImageView>
+            <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
+               <font>
+                  <Font name="Palatino" size="64.0" />
+               </font>
+                  <VBox.margin>
+                     <Insets top="40.0" />
+                  </VBox.margin>
+            </Text>
+               <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Tap the Screen to Get Started" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
+                  <font>
+                      <Font name="Palatino" size="42.0" />
+                  </font>
+                  <VBox.margin>
+                     <Insets top="50.0" />
+                  </VBox.margin>
+               </Text>
                <HBox alignment="CENTER">
-                   <Pane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-                   <children>
-                      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="573.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-                         <image>
-                            <Image url="@/resources/bwh-logo.png" />
-                         </image>
-                      </ImageView>
-                     <Text fill="white" layoutX="-1.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
-                        <font>
-                           <Font name="Palatino" size="64.0" />
-                        </font>
-                     </Text>
-                        <Text fill="white" layoutX="9.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Tap the Screen to Get Started" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
-                           <font>
-                               <Font name="Palatino" size="42.0" />
-                           </font>
-                        </Text>
-                   </children>
-                   </Pane>
+                   <Pane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                </HBox>
            </VBox>
        </StackPane>
