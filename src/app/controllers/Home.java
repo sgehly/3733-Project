@@ -27,4 +27,10 @@ public class Home {
         Scene scene = new Scene(pane);
         app.Main.getStage().setScene(scene);
     }
+    @FXML
+    public void navigateToScheduling() throws Exception{
+        Parent pane = FXMLLoader.load(app.Main.getFXMLURL("scheduler"));
+        Scene scene = new Scene(pane);
+        app.Main.getStage().setScene(scene);
+    }
 }
