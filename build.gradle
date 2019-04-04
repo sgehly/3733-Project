@@ -27,8 +27,8 @@ configurations {
     extraLibs
 }
 
-sourceSets.main.java.srcDirs = ['src']
-sourceSets.main.resources.srcDirs = ['src']
+sourceSets.main.java.srcDirs = ['src/edu/wpi/cs3733','src/externalLibraries']
+sourceSets.main.resources.srcDirs = ['src/resources','src/edu/wpi/cs3733/views']
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
@@ -53,7 +53,7 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'app.Main'
+mainClassName = 'edu.wpi.cs3733.d19.teamM.Main'
 
 //create a single Jar with all dependencies
 task fatJar(type: Jar) {
