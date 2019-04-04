@@ -103,10 +103,7 @@ public class ServiceRequests {
      */
     @FXML
     public void logout() throws Exception {
-        //Get the screen, load the FXML, and set the main stage to that screen
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("welcome"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.setScene("welcome");
     }
 
     /**
@@ -115,10 +112,7 @@ public class ServiceRequests {
      */
     @FXML
     private void navigateToHome() throws Exception {
-        //Get the screen, load the FXML, and set the main stage to that screen
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.setScene("home");
     }
 
     /**
@@ -137,10 +131,7 @@ public class ServiceRequests {
      */
     @FXML
     public void goToRequestList() throws IOException {
-        //Get the screen, load the FXML, and set the main stage to that screen
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.setScene("serviceRequestList");
     }
 
     @FXML

@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,36 +16,26 @@ public class Home {
      * @throws Exception
      */
     @FXML
-    public void navigateToPathfinding() throws Exception{
-        Parent pane = FXMLLoader.load(app.Main.getFXMLURL("pathfinding"));
-        Scene scene = new Scene(pane);
-        app.Main.getStage().setScene(scene);
+    public void navigateToPathfinding(){
+        Main.setScene("pathfinding");
     }
 
     @FXML
-    public void navigateToServiceRequests() throws Exception{
-        Parent pane = FXMLLoader.load(app.Main.getFXMLURL("serviceRequests"));
-        Scene scene = new Scene(pane);
-        app.Main.getStage().setScene(scene);
+    public void navigateToServiceRequests(){
+        Main.setScene("serviceRequest");
     }
 
     @FXML
-    public void logout() throws Exception{
-        Parent pane = FXMLLoader.load(app.Main.getFXMLURL("welcome"));
-        Scene scene = new Scene(pane);
-        app.Main.getStage().setScene(scene);
+    public void logout(){
+        Main.setScene("welcome");
     }
     @FXML
-    public void navigateToScheduling() throws Exception{
-        Parent pane = FXMLLoader.load(app.Main.getFXMLURL("scheduler"));
-        Scene scene = new Scene(pane);
-        app.Main.getStage().setScene(scene);
+    public void navigateToScheduling(){
+        Main.setScene("scheduling");
     }
 
     @FXML
-    public void navigateToAdmin() throws Exception{
-        Parent pane = FXMLLoader.load(app.Main.getFXMLURL("adminUI"));
-        Scene scene = new Scene(pane);
-        app.Main.getStage().setScene(scene);
+    public void navigateToAdmin(){
+        Main.setScene("admin");
     }
 }

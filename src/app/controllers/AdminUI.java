@@ -103,9 +103,7 @@ public class AdminUI {
 
     @FXML
     private void navigateToHome() throws Exception{
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.setScene("home");
     }
 
     @FXML
@@ -386,9 +384,7 @@ public class AdminUI {
 
     @FXML
     public void logout() throws Exception{
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("welcome"));
-        Scene scene = new Scene(pane);
-        Main.getStage().setScene(scene);
+        Main.setScene("welcome");
     }
 
     @FXML
