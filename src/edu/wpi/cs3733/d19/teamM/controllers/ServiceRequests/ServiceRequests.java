@@ -15,7 +15,10 @@ import java.sql.*;
 import java.awt.event.MouseEvent;
 import java.lang.String;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -28,6 +31,9 @@ public class ServiceRequests {
 
     @FXML
     private Label lblClock;
+
+    @FXML
+    private Label lblDate;
 
     private int hrs;
     private int mins;
@@ -193,6 +199,12 @@ public class ServiceRequests {
 
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
+
+        DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
+        Date d = new Date();
+        Calendar cal = Calendar.getInstance();
+        lblDate.setText(date.format(d));
+
 
             accordion.setExpandedPane(sanitation);
             //general asserts
