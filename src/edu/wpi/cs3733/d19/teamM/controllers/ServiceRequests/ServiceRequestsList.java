@@ -7,7 +7,11 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import edu.wpi.cs3733.d19.teamM.Main;
@@ -38,6 +42,9 @@ public class ServiceRequestsList {
 
     @FXML
     private Label lblClock;
+
+    @FXML
+    private Label lblDate;
 
     //All the different objects that have to be created for the page fxid are all the same name as the instance name
     @FXML
@@ -322,6 +329,11 @@ public class ServiceRequestsList {
 
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
+
+        DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
+        java.util.Date d = new Date();
+        Calendar cal = Calendar.getInstance();
+        lblDate.setText(date.format(d));
 
         try {
             accordion.setExpandedPane(incompletePane);
