@@ -4,16 +4,23 @@ package edu.wpi.cs3733.d19.teamM.controllers.LogIn;
  * Sample Skeleton for 'login.fxml' Controller Class
  */
 
+import java.awt.*;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.control.TextField;
 
 public class LogInController {
 
@@ -22,6 +29,12 @@ public class LogInController {
 
     @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
+
+    @FXML
+    private TextField username;
+
+    @FXML
+    private PasswordField password;
 
     @FXML // fx:id="mainContent"
     private AnchorPane mainContent; // Value injected by FXMLLoader
@@ -36,6 +49,23 @@ public class LogInController {
 
     @FXML
     void logIn(ActionEvent event) {
+        try{
+            String query = "SELECT USERPASS from USERS where USERNAME = ?";
+            Connection conn = new DatabaseUtils().getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1,username.getText());
+            ResultSet rs = stmt.executeQuery();
+            System.out.println(rs.getString("USERPASS"));
+                if(password.getText() == rs.getString("USERPASS")){
+                    Main.setScene("home");
+                }
+                else{
+                    System.out.println("user not found");
+                }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 

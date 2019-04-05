@@ -28,12 +28,12 @@
                               <Insets bottom="8.0" />
                            </VBox.margin>
                         </ImageView>
-                        <TextField promptText="Username ">
+                        <TextField fx:id="username" promptText="Username">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </TextField>
-                        <PasswordField promptText="Password">
+                        <PasswordField fx:id="password" promptText="Password">
                            <VBox.margin>
                               <Insets bottom="8.0" />
                            </VBox.margin>
