@@ -30,6 +30,7 @@ public class Main extends Application {
     private static Parent serviceRequestPane;
     private static Parent serviceRequestListPane;
     private static Parent welcomePane;
+    private static Parent loginPane;
 
     private static Scene homeScene;
     private static Scene adminScene;
@@ -38,7 +39,7 @@ public class Main extends Application {
     private static Scene serviceRequestScene;
     private static Scene serviceRequestListScene;
     private static Scene welcomeScene;
-
+    private static Scene loginScene;
 
 
     /**
@@ -70,6 +71,9 @@ public class Main extends Application {
         }
         if(scene == "welcome"){
             primaryStage.setScene(welcomeScene);
+        }
+        if(scene == "login"){
+            primaryStage.setScene(loginScene);
         }
     }
 
@@ -123,6 +127,8 @@ public class Main extends Application {
         serviceRequestListScene= new Scene(serviceRequestListPane);
         welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         welcomeScene= new Scene(welcomePane);
+        loginPane = FXMLLoader.load(Main.getFXMLURL("login"));
+        loginScene = new Scene(loginPane);
 
         //Set the color and the title and the screen
         mainScene.setFill(Color.web("#012d5a"));

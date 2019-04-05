@@ -24,7 +24,7 @@ public class Home {
 
     @FXML
     public void logout(){
-        Main.setScene("welcome");
+        Main.setScene("login");
     }
     @FXML
     public void navigateToScheduling(){
