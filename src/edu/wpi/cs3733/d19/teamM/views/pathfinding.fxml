@@ -45,6 +45,11 @@
                           </HBox>
                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
+                        <Label fx:id="lblDate" alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Label" textFill="#ffdfdf">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
                         <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@/resources/icons/icons8-clock_8.png" />

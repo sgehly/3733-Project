@@ -3,8 +3,11 @@ package edu.wpi.cs3733.d19.teamM.controllers.Pathfinding;
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,6 +64,9 @@ public class Pathfinding {
     //Get the FXML objects to be linked
     @FXML
     private Label lblClock;
+
+    @FXML
+    private Label lblDate;
 
     @FXML
     private Pane imageView;
@@ -278,6 +284,11 @@ public class Pathfinding {
 
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
+
+        DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
+        Date d = new Date();
+        Calendar cal = Calendar.getInstance();
+        lblDate.setText(date.format(d));
 
         //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
         //------------------------------------------------------------------------------------------------
