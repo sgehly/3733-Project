@@ -94,7 +94,7 @@
                               <Image url="@/resources/bwh-logo-new-brand.png" />
                            </image>
                         </ImageView>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's, SGehly">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's">
                            <VBox.margin>
                               <Insets top="40.0" />
                            </VBox.margin>

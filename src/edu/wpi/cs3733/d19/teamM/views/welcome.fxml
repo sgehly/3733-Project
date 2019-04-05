@@ -26,7 +26,7 @@
        <AnchorPane fx:id="mainContent" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
        <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
            <MediaView fx:id="mediaView" opacity="0.13" />
-           <VBox alignment="CENTER" onMouseClicked="#navigateToHome" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+           <VBox alignment="CENTER" onMouseClicked="#navigateToHome" style="-fx-cursor: hand;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
              <ImageView fitHeight="275.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                 <image>
                    <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
