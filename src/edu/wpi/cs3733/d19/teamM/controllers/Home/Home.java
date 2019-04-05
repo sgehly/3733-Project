@@ -9,7 +9,11 @@ import javafx.util.Duration;
 import javafx.scene.control.Label;
 
 import java.awt.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * The controller for the Home screen
@@ -22,6 +26,9 @@ public class Home {
     private int hrs;
     private int mins;
     private int secs;
+
+    @FXML
+    private Label lblDate;
 
     /**
      * This method
@@ -64,5 +71,10 @@ public class Home {
 
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
+
+        DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
+        Date d = new Date();
+        Calendar cal = Calendar.getInstance();
+        lblDate.setText(date.format(d));
     }
 }
