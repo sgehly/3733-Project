@@ -3,14 +3,19 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 import edu.wpi.cs3733.d19.teamM.Main;
 
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 
 import java.sql.*;
 import java.awt.event.MouseEvent;
 import java.lang.String;
 import java.sql.Timestamp;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Random;
 
@@ -20,6 +25,13 @@ import java.io.IOException;
  * The controller class associated with creating service requests
  */
 public class ServiceRequests {
+
+    @FXML
+    private Label lblClock;
+
+    private int hrs;
+    private int mins;
+    private int secs;
 
     //The path to the databse that we need to use
     int idgnerator = 1;
@@ -169,6 +181,19 @@ public class ServiceRequests {
      */
     @FXML// This method is called by the FXMLLoader when initialization is complete
     void initialize(){
+
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+            secs = LocalTime.now().getSecond();
+            mins = LocalTime.now().getMinute();
+            hrs = LocalTime.now().getHour();
+
+            lblClock.setText(hrs + ":" + (mins) + ":" + secs);
+        }), new KeyFrame(Duration.seconds(1)));
+
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
+
             accordion.setExpandedPane(sanitation);
             //general asserts
             assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
