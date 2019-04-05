@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +24,8 @@ import javafx.scene.media.MediaView;
 import javafx.scene.control.TextField;
 
 public class LogInController {
+
+    User user;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -61,9 +64,21 @@ public class LogInController {
             System.out.println(username.getText());
 
             if (password.getText().compareTo(rs.getString("USERPASS")) == 0) {
+                String privQuery = "SELECT accountint from USERS where USERNAME = ?";
+                Connection conn2 = new DatabaseUtils().getConnection();
+                PreparedStatement stmt2 = conn.prepareStatement(query);
+                stmt.setString(1, username.getText());
+                ResultSet rs2 = stmt.executeQuery();
+                rs2.next();
+                int tester = rs2.getInt("accountint");
+                user = new User(username.getText(), tester);
+                System.out.println(user.getUsername());
+                System.out.println(user.getPrivilege());
+                conn2.close();
                 Main.setScene("home");
             } else {
                System.out.println("user not found");
+               conn.close();
            }
         } catch (Exception e) {
             e.printStackTrace();
