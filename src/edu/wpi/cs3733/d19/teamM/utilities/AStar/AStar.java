@@ -69,16 +69,18 @@ public class AStar implements Searchable {
                 if (!closedList.containsKey(neighbor.getId())) { //if its in the closed list, ignore it
                     neighbor.setG(neighbor.getDistance(current) + current.getG()); //set its g, h, f, and parent
                     neighbor.setP(getDeltaFloor(neighbor, end) * 1000);
+                    neighbor.setB(getDeltaBuilding(neighbor, end) * 5000);
                     neighbor.setH(neighbor.getDistance(end));
-                    neighbor.setF(neighbor.getG() + neighbor.getH() + neighbor.getP());
+                    neighbor.setF(neighbor.getG() + neighbor.getH() + neighbor.getP() + neighbor.getB());
                     neighbor.setParent(current);
                     for (Node n : openList.getQueue()) {
                         if (neighbor == n) { //if its in the open list
                             if (neighbor.getG() < n.getG()) { //if the cost of the node cannot be lowered, continue
                                 n.setP(getDeltaFloor(n, end) * 1000);
+                                n.setB(getDeltaBuilding(n, end) * 5000);
                                 n.setParent(current);
                                 n.setG(n.getDistance(current) + current.getG());
-                                n.setF(n.getG() + n.getH() + n.getP());
+                                n.setF(n.getG() + n.getH() + n.getP() + n.getB());
                             }
                         }
                     }
@@ -113,6 +115,30 @@ public class AStar implements Searchable {
         else if (f.equals("2")) return  4;
         else if (f.equals("3")) return  5;
         return -1;
+    }
+
+    private double getBuildingValue(String build){
+        if(build.equals("BTM")) return 0;
+        else if(build.equals("Francis")) return 1;
+        else if(build.equals("Tower")) return 2;
+        else if (build.equals("45 Francis")) return 3;
+        else if(build.equals("15 Francis")) return 4;
+        else if(build.equals("Shapiro")) return 5;
+        return -1;
+    }
+
+    private double getDeltaBuilding(Node n1, Node n2){
+        /*
+        BTM - 0
+        Francis - 1
+        Tower  - 2
+        45 Francis  - 3
+        15 Francis  - 4
+        Shapiro  - 5
+        */
+        double n1BuildingValue = getBuildingValue(n1.getBuilding());
+        double n2BuildingValue = getBuildingValue(n2.getBuilding());
+        return Math.abs(n1BuildingValue - n2BuildingValue);
     }
 
 }

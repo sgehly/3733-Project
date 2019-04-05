@@ -21,6 +21,16 @@ public class Node implements Comparable{
     private double h;
     private double g;
     private double p;
+    private double b;
+
+    public double getB() {
+        return b;
+    }
+
+    public void setB(double b) {
+        this.b = b;
+    }
+
     private Node parent;
     private boolean enabled;
 
