@@ -49,27 +49,30 @@ public class LogInController {
 
     @FXML
     void logIn(ActionEvent event) {
-        try{
+        try {
             String query = "SELECT USERPASS from USERS where USERNAME = ?";
             Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1,username.getText());
+            stmt.setString(1, username.getText());
             ResultSet rs = stmt.executeQuery();
+            rs.next();
             System.out.println(rs.getString("USERPASS"));
-                if(password.getText() == rs.getString("USERPASS")){
-                    Main.setScene("home");
-                }
-                else{
-                    System.out.println("user not found");
-                }
-        }
-        catch(Exception e){
+            System.out.println(password.getText());
+            System.out.println(username.getText());
+
+            if (password.getText().compareTo(rs.getString("USERPASS")) == 0) {
+                Main.setScene("home");
+            } else {
+               System.out.println("user not found");
+           }
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    @FXML // This method is called by the FXMLLoader when initialization is complete
+    @FXML
+        // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         //Gets the video resources and stores it as a media file
         Media media = new Media(getClass().getResource("/resources/Pressure.mp4").toExternalForm());
