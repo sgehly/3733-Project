@@ -9,27 +9,24 @@
 /*buttons*/
 .blackButton {
     -fx-background-color: transparent;
-    -fx-border-width: .1em;
+    -fx-border-width: .2em;
     -fx-border-color:  black;
     -fx-text-fill: black;
-    -fx-border-radius: 1em;
+    -fx-border-radius: 5px;
+    -fx-font-family: "Open Sans Bold"
 }
 .blackButton:hover{
     -fx-background-color: #012D5A;
-    -fx-background-radius: 1em;
     -fx-text-fill: white;
-    -fx-border-width: .1em;
-    -fx-border-radius: 1em;
-    -fx-border-color: #000000;
+    -fx-cursor: hand;
 }
 .whiteButton {
     -fx-background-color: transparent;
-    -fx-border-width: .1em;
+    -fx-border-width: .2em;
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
-    -fx-border-radius: 1em;
-    -fx-background-radius: 1em;
-    -fx-font-family: "Open Sans";
+    -fx-background-radius: 5px;
+    -fx-font-family: "Open Sans Bold";
 }
 .whiteButton:hover {
     -fx-background-color: white;
@@ -42,45 +39,58 @@
 }
 .logoutButton{
     -fx-background-color: transparent;
-    -fx-border-width: .1em;
+    -fx-border-width: .2em;
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
-    -fx-border-radius: 1em;
-    -fx-background-radius: 1em;
-    -fx-font-family: "Open Sans";
-    -fx-font-size: 24pt;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-family: "Open Sans Bold";
+    -fx-font-size: 18pt;
 }
 .logoutButton:hover {
     -fx-background-color: white;
-    -fx-background-radius: 1em;
     -fx-text-fill: black;
-    -fx-border-width: .1em;
-    -fx-border-radius: 1em;
     -fx-border-color: #ffffff;
-    -fx-font-family: "Open Sans";
-    -fx-font-size: 24pt;
+    -fx-cursor: hand;
 }
+
+.hoverIcon:hover{
+    -fx-cursor: hand;
+    -fx-opacity: 0.6;
+}
+
+.mainBlock{
+    -fx-background-color:"white";
+    -fx-background-radius:5;
+}
+.mainBlock:hover{
+    -fx-cursor:hand;
+    -fx-opacity:0.8;
+    -fx-translate-y: -15;
+}
+
 .bigButton{
     -fx-background-color: transparent;
-    -fx-border-width: .1em;
+    -fx-border-width: .2em;
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
-    -fx-border-radius: 1em;
-    -fx-background-radius: 1em;
-    -fx-font-family: "Open Sans";
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-family: "Open Sans Bold";
     -fx-font-size: 18pt;
 }
 .bigButton:hover {
     -fx-background-color: white;
-    -fx-background-radius: 1em;
     -fx-text-fill: black;
-    -fx-border-width: .1em;
-    -fx-border-radius: 1em;
     -fx-border-color: #ffffff;
-    -fx-font-family: "Open Sans";
-    -fx-font-size: 18pt;
+    -fx-cursor: hand;
 }
 
+.nodeTextInput{
+    -fx-background-color: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
 
 
 /*labels*/
@@ -148,16 +158,6 @@
 .table-row-cell:selected {
     -fx-background-color: #cacaca;
 }
-
-
-
-/*textfield*/
-.text-field {
-    -fx-text-fill: white;
-    -fx-border-radius: 1px;
-    -fx-background-color: transparent;
-}
-
 
 .force-white{
     -jfx-unfocus-color: blue;

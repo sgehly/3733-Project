@@ -82,8 +82,6 @@ public class Main extends Application {
         return Main.class.getResource("views/"+name+".fxml");
     }
 
-
-
     public static InputStream getResource(String path){
         System.out.println(path);
         return Main.class.getResourceAsStream(path);

@@ -107,7 +107,7 @@
                               <Insets bottom="50.0" left="150.0" right="150.0" top="50.0" />
                            </padding>
                            <children>
-                              <VBox alignment="CENTER" onMouseClicked="#navigateToPathfinding" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER" onMouseClicked="#navigateToPathfinding" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -124,7 +124,7 @@
                                     </Text>
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" onMouseClicked="#navigateToScheduling" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER" onMouseClicked="#navigateToScheduling" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -141,7 +141,7 @@
                                     </Text>
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" onMouseClicked="#navigateToServiceRequests" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER" onMouseClicked="#navigateToServiceRequests" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

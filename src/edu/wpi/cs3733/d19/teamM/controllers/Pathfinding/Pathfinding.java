@@ -261,19 +261,6 @@ public class Pathfinding {
 
         Image source = new Image(Main.getResource("/resources/maps/01_thefirstfloor.png"));;
 
-        double ratio = source.getWidth() / source.getHeight();
-
-        //If the ratio and the actual width and height are not proper, make them a necessary size
-        if (500 / ratio < 500) {
-            width = 500;
-            height = (int) (500 / ratio);
-        } else if (500 * ratio < 500) {
-            height = 500;
-            width = (int) (500 * ratio);
-        } else {
-            height = 500;
-            width = 500;
-        }
         image.setImage(source);//Set the image as the source
         image.setFitWidth(primaryScreenBounds.getWidth());
         image.setFitHeight(primaryScreenBounds.getHeight() - 200);
