@@ -3,6 +3,10 @@ package edu.wpi.cs3733.d19.teamM.controllers.Scheduler;
 
 import java.net.URL;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import edu.wpi.cs3733.d19.teamM.Main;
@@ -50,6 +54,9 @@ public class Scheduler {
 
     @FXML
     private Label lblClock;
+
+    @FXML
+    private Label lblDate;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -251,6 +258,11 @@ public class Scheduler {
 
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
+
+        DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
+        java.util.Date d = new Date();
+        Calendar cal = Calendar.getInstance();
+        lblDate.setText(date.format(d));
 
         startDate.setStyle("-jfx-unfocus-color: WHITE;");
         startTime.setStyle("-jfx-unfocus-color: WHITE;");
