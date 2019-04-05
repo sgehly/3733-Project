@@ -203,10 +203,8 @@ public class AdminUI {
         double rawWidth = 5000;
         double rawHeight = 3400;
 
-        System.out.println(scaledHeight+" - "+scaledWidth);
         double scaledX = (pointX*scaledWidth)/rawWidth;
         double scaledY = (pointY*scaledHeight)/rawHeight;
-        System.out.println(scaledX+" - "+scaledY);
         return new MapPoint(scaledX, scaledY);
 
     }
@@ -271,7 +269,6 @@ public class AdminUI {
                 newButton.setLayoutY(generated.y-(size/2));
                 newButton.setStyle("-fx-background-color: blue");
 
-                System.out.println("New Button! ("+String.valueOf(rs.getInt("xcoord")-(size/2))+","+String.valueOf(rs.getInt("ycoord")-(size/2))+") -- ("+String.valueOf(primaryScreenBounds.getWidth())+","+String.valueOf(primaryScreenBounds.getHeight()-200)+") => ("+generated.x+","+generated.y+")");
                 buttonContainer.getChildren().add(newButton);
             }
             return entList;
