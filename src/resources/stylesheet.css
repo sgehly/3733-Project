@@ -165,7 +165,10 @@
     -fx-text-fill: red;
 }
 
-
+.hoverRoom:hover{
+    -fx-opacity:0.6;
+    -fx-cursor:hand;
+}
 /*!* scroll bar starts here *!
 !* The increment and decrement button CSS class of scrollbar *!
 .table-view .increment-button ,.table-view .decrement-button {

@@ -12,7 +12,9 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -175,11 +177,135 @@
                                         </GridPane>
                                     </children>
                                 </VBox>
-                                  <ImageView fx:id="image" fitHeight="850.0" fitWidth="1434.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                                      <image>
-                                          <Image url="@../../../../../../resources/maps/scheduler.jpg" />
-                                      </image>
-                                  </ImageView>
+                  <StackPane maxHeight="830.0" maxWidth="1200.0" minHeight="830.0" minWidth="1200.0" prefHeight="830.0" prefWidth="1200.0">
+                     <children>
+                                        <ImageView fx:id="image" fitHeight="830.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                            <image>
+                                                <Image url="@../../../../../../resources/maps/scheduler.jpg" />
+                                            </image>
+                                        </ImageView>
+                        <Pane maxHeight="117.0" maxWidth="109.0" prefHeight="150.0" prefWidth="0.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="607.0" top="27.0" />
+                           </StackPane.margin>
+                           <children>
+                              <ImageView fitHeight="117.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../resources/maps/room1t.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Pane maxHeight="115.0" maxWidth="107.0" prefHeight="150.0" prefWidth="0.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="716.0" top="27.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fitHeight="115.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room2a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="114.0" maxWidth="105.0" prefHeight="116.0" prefWidth="99.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="821.0" top="28.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fitHeight="114.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room3a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="72.0" maxWidth="72.0" prefHeight="116.0" prefWidth="99.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="613.0" top="196.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room4a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="125.0" maxWidth="78.0" prefHeight="116.0" prefWidth="99.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="685.0" top="195.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fitHeight="125.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room5t.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="124.0" maxWidth="100.0" prefHeight="116.0" prefWidth="99.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="763.0" top="196.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fitHeight="124.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room6a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="145.0" maxWidth="112.0" prefHeight="145.0" prefWidth="112.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="915.0" top="185.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fitHeight="139.0" fitWidth="112.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room7a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="145.0" maxWidth="118.0" prefHeight="145.0" prefWidth="118.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="962.0" top="309.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fitHeight="138.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room8t.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="80.0" maxWidth="140.0" prefHeight="116.0" prefWidth="99.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="761.0" top="493.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fitHeight="80.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room10a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="200.0" maxWidth="160.0" prefHeight="116.0" prefWidth="99.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="955.0" top="430.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fitHeight="200.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room9a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                     </children>
+                  </StackPane>
                             </children>
                         </HBox>
                     </children>
