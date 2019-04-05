@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -10,6 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="mainContent" minHeight="1080.0" minWidth="1920.0" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.LogIn.LogInController">
    <children>
@@ -48,6 +51,11 @@
                               <Insets bottom="50.0" />
                            </VBox.margin>
                         </Button>
+                        <Label fx:id="errorMessage" textFill="RED">
+                           <font>
+                              <Font name="Open Sans" size="25.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                </children>

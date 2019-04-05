@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
+import javafx.scene.control.Label;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
@@ -25,13 +26,16 @@ import javafx.scene.control.TextField;
 
 public class LogInController {
 
-    User user;
+    public User user;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
     @FXML // URL location of the FXML file that was given to the FXMLLoader
     private URL location;
+
+    @FXML
+    private Label errorMessage;
 
     @FXML
     private TextField username;
@@ -66,6 +70,7 @@ public class LogInController {
                 Main.setScene("home");
             } else {
                System.out.println("user not found");
+               errorMessage.setText("Incorrect Credentials");
                conn.close();
            }
         } catch (Exception e) {
