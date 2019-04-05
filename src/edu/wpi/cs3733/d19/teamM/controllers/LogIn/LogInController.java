@@ -53,28 +53,16 @@ public class LogInController {
     @FXML
     void logIn(ActionEvent event) {
         try {
-            String query = "SELECT USERPASS from USERS where USERNAME = ?";
+            String query = "SELECT * from USERS where USERNAME = ?";
             Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username.getText());
             ResultSet rs = stmt.executeQuery();
             rs.next();
-            System.out.println(rs.getString("USERPASS"));
-            System.out.println(password.getText());
-            System.out.println(username.getText());
-
             if (password.getText().compareTo(rs.getString("USERPASS")) == 0) {
-                String privQuery = "SELECT accountint from USERS where USERNAME = ?";
-                Connection conn2 = new DatabaseUtils().getConnection();
-                PreparedStatement stmt2 = conn.prepareStatement(query);
-                stmt.setString(1, username.getText());
-                ResultSet rs2 = stmt.executeQuery();
-                rs2.next();
-                int tester = rs2.getInt("accountint");
-                user = new User(username.getText(), tester);
-                System.out.println(user.getUsername());
-                System.out.println(user.getPrivilege());
-                conn2.close();
+                username.setText("");
+                password.setText("");
+                user = new User(username.getText(), rs.getInt("ACCOUNTINT"));
                 Main.setScene("home");
             } else {
                System.out.println("user not found");
