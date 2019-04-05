@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,6 +27,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.stage.Stage;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import javafx.util.Duration;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -40,6 +44,12 @@ public class Scheduler {
     static int width;
     public static String path;
     static double offSetX,offSetY,zoomlvl;
+    private int hrs;
+    private int mins;
+    private int secs;
+
+    @FXML
+    private Label lblClock;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -229,6 +239,18 @@ public class Scheduler {
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+            secs = LocalTime.now().getSecond();
+            mins = LocalTime.now().getMinute();
+            hrs = LocalTime.now().getHour();
+
+            lblClock.setText(hrs + ":" + (mins) + ":" + secs);
+        }), new KeyFrame(Duration.seconds(1)));
+
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
 
         startDate.setStyle("-jfx-unfocus-color: WHITE;");
         startTime.setStyle("-jfx-unfocus-color: WHITE;");
