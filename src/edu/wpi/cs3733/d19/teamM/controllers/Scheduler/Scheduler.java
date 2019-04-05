@@ -23,6 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.stage.Stage;
+import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
