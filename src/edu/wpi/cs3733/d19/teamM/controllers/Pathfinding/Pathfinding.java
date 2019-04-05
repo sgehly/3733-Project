@@ -10,9 +10,7 @@ import java.util.regex.Pattern;
 
 import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
-import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
-import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
-import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.*;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.SendEmail;
 import edu.wpi.cs3733.d19.teamM.Main;
@@ -44,6 +42,8 @@ public class Pathfinding {
     MapUtils util;
 
     Rectangle2D primaryScreenBounds;
+
+    Floor graph;
 
     //Get the FXML objects to be linked
     @FXML
@@ -135,17 +135,15 @@ public class Pathfinding {
 
     }
 
+    //TODO: fix with new graph class
     private void findPresetHelper(String type) {
         String start = startText.getText();
-        Floor floor = new Floor("1");//Create an instance of the floor and get the start and end nodes
-        HashMap<String, Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
-        Node startNode = floorMap.get(start); //Get starting and ending string using keys
-        AStar aStar = new AStar();
-        List<Node> nodeArrayList = aStar.findPresetPath(startNode, type, floorMap);
+        AStar aS = new AStar();
+        Path nodeArrayList = aS.findPresetPath(graph.getNodes().get(start), type, graph.getNodes());
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
-        floor.drawPath(nodeArrayList);
+        graph.drawPath(nodeArrayList);
         //System.out.println("Sent Mail");
 
         //Now we will try to get the image
@@ -163,50 +161,52 @@ public class Pathfinding {
 
     @FXML
     private void findPath() throws Exception{
-    //Get the starting and ending nodes ID
-    String startString = startText.getText();
-    String endString = endText.getText();
-    //Check if either are empty
+        //Get the starting and ending nodes ID
+        String startString = startText.getText();
+        String endString = endText.getText();
+        //Check if either are empty
         if(!startString.equals("") && !endString.equals("")) //If not empty
         {
-           try {
-               Floor floor = new Floor("1");//Create an instance of the floor and get the start and end nodes
-               HashMap<String, Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
-               Node startNode = floorMap.get(startString); //Get starting and ending string using keys
-               Node endNode = floorMap.get(endString);
+            try {
+                Map<String, Node> floorMap = graph.getNodes();
+                Node startNode = floorMap.get(startString); //Get starting and ending string using keys
+                Node endNode = floorMap.get(endString);
+                System.out.println("Finding path between " + startNode.getId() + " and " + endNode.getId());
 
-               //Now we create an A* object to find the path between the two and store the final list of nodes
-               AStar aStar = new AStar();
-               List<Node> nodeArrayList = aStar.findPath(startNode, endNode);
-               final JFrame frame = new JFrame();
-               frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-               //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
-               floor.drawPath(nodeArrayList);
+                //Now we create an A* object to find the path between the two and store the final list of nodes
+                Path nodeArrayList = graph.findPath(startNode, endNode);
+                for (Path p : nodeArrayList.getFloorPaths()){
+                    System.out.println("Path for floor " + p.getFloorID());
+                    System.out.println(PathToString.getDirections(p));
+                }
+                System.out.println("Got Path");
+                final JFrame frame = new JFrame();
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
+                graph.drawPath(nodeArrayList);
+                try {
+                    Image Overlaysource;
+                    URL theUrl = new URL("file:///" + System.getProperty("user.dir") + File.separator + "PathOutput.png");
+                    Overlaysource = new Image(theUrl.toURI().toString()); //See if we can get the image to overlay and then create a new image object from it
+                    overlayImage.setImage(Overlaysource); //set the image as the overlay image
 
-               //Now we will try to get the image
-               try {
-                   Image Overlaysource;
-                   URL theUrl = new URL("file:///" + System.getProperty("user.dir") + File.separator + "PathOutput.png");
-                   Overlaysource = new Image(theUrl.toURI().toString()); //See if we can get the image to overlay and then create a new image object from it
-                   overlayImage.setImage(Overlaysource); //set the image as the overlay image
-
-                   startText.setText("");
-                   endText.setText("");
-               } catch (Exception e) {
-                   e.printStackTrace();
-               }
-           }
-           catch (Exception e){
-               e.printStackTrace();
-               final Stage dialog = new Stage();
-               dialog.initModality(Modality.APPLICATION_MODAL);
-               dialog.initOwner(Main.getStage());
-               VBox dialogVbox = new VBox(20);
-               dialogVbox.getChildren().add(new Label("The node that you entered is not found or there is no path between the given starting node and destination"));
-               Scene dialogScene = new Scene(dialogVbox, 300, 200);
-               dialog.setScene(dialogScene);
-               dialog.show();
-           }
+                    startText.setText("");
+                    endText.setText("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.initOwner(Main.getStage());
+                VBox dialogVbox = new VBox(20);
+                dialogVbox.getChildren().add(new Label("The node that you entered is not found or there is no path between the given starting node and destination"));
+                Scene dialogScene = new Scene(dialogVbox, 300, 200);
+                dialog.setScene(dialogScene);
+                dialog.show();
+            }
         }
     }
 
@@ -217,7 +217,7 @@ public class Pathfinding {
     @FXML
     protected void initialize() throws Exception {
 
-
+        graph = new Floor();
         util = new MapUtils(buttonContainer, imageView, image, overlayImage, this::setValues);
 
         //Get the necessary records for pathfinding

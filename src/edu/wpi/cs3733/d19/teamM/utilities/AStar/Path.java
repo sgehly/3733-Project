@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 
 /**
  * Professor wong suggested we created a path object to hide some of the implementation
@@ -10,9 +11,21 @@ import java.util.List;
 
 public class Path {
     private List<Node> finalPath;
+    private final String floorID;
 
     public Path() {
+
         finalPath = new ArrayList<>();
+        floorID = "";
+    }
+
+    public Path(String floorID){
+        finalPath = new ArrayList<>();
+        this.floorID = floorID;
+    }
+
+    public String getFloorID(){
+        return this.floorID;
     }
 
     //getters and setters for the final path
@@ -41,5 +54,28 @@ public class Path {
      */
     public void remove(Node n){
         finalPath.remove(n);
+    }
+
+    /**
+     * Seperate a global path into local floor paths
+     * @return A list of paths for each floor
+     */
+    public List<Path> getFloorPaths(){
+
+        List<Path> paths = new ArrayList<>();
+        String curFloor = finalPath.get(0).getFloor();
+        paths.add(new Path(curFloor));
+        int index = 0;
+
+        for (Node n : finalPath){
+            if (!n.getFloor().equals(curFloor)) {
+                curFloor = n.getFloor();
+                paths.add(new Path(curFloor));
+                index++;
+            }
+            paths.get(index).add(n);
+        }
+
+        return paths;
     }
 }
