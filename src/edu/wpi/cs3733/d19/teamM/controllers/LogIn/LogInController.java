@@ -65,16 +65,13 @@ public class LogInController {
             rs.next();
             if (password.getText().compareTo(rs.getString("USERPASS")) == 0) {
                 User.getUser();
+                //TODO verify username
                 User.setUsername(username.getText());
                 username.setText("");
                 password.setText("");
                 User.setPrivilege(rs.getInt("ACCOUNTINT"));
                 System.out.println("Logged in " + User.getUsername() + " with privilege " + User.getPrivilege());
-
-
-                Main.homePane = FXMLLoader.load(Main.getFXMLURL("home"));
-                Main.homeScene= new Scene(Main.homePane);
-
+                Main.loadScenes();
                 Main.setScene("home");
             } else {
                System.out.println("user not found");

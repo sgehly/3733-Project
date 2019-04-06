@@ -25,7 +25,7 @@ public class Main extends Application {
     //Create the primary stage and set it to null
     private static Stage primaryStage = null;
 
-    public static Parent homePane;
+    private static Parent homePane;
     private static Parent adminPane;
     private static Parent pathFindingPane;
     private static Parent schedulerPane;
@@ -34,7 +34,7 @@ public class Main extends Application {
     private static Parent welcomePane;
     private static Parent loginPane;
 
-    public static Scene homeScene;
+    private static Scene homeScene;
     private static Scene adminScene;
     private static Scene pathFindingScene;
     private static Scene schedulerScene;
@@ -100,6 +100,21 @@ public class Main extends Application {
         return Main.class.getClassLoader().getResourceAsStream(path);
     }
 
+    public static void loadScenes() throws Exception{
+        homePane = FXMLLoader.load(Main.getFXMLURL("home"));
+        homeScene= new Scene(Main.homePane);
+        adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
+        adminScene= new Scene(adminPane);
+        pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
+        pathFindingScene= new Scene(pathFindingPane);
+        schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
+        schedulerScene= new Scene(schedulerPane);
+        serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
+        serviceRequestScene= new Scene(serviceRequestPane);
+        serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+        serviceRequestListScene= new Scene(serviceRequestListPane);
+    }
+
     /**
      * This method creates and sets the stage of the viewable JavaFX screen
      * @param primaryStage: The stage to display on start
@@ -121,22 +136,10 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene mainScene = new Scene(root);
 
-        //homePane = FXMLLoader.load(Main.getFXMLURL("home"));
-        //homeScene= new Scene(homePane);
-        adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
-        adminScene= new Scene(adminPane);
-        pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
-        pathFindingScene= new Scene(pathFindingPane);
-        schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
-        schedulerScene= new Scene(schedulerPane);
-        serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
-        serviceRequestScene= new Scene(serviceRequestPane);
-        serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-        serviceRequestListScene= new Scene(serviceRequestListPane);
-        welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
-        welcomeScene= new Scene(welcomePane);
         loginPane = FXMLLoader.load(Main.getFXMLURL("login"));
         loginScene = new Scene(loginPane);
+        welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
+        welcomeScene= new Scene(welcomePane);
 
         //Set the color and the title and the screen
         mainScene.setFill(Color.web("#012d5a"));
@@ -152,6 +155,8 @@ public class Main extends Application {
         primaryStage.setHeight(bounds.getHeight());
         primaryStage.setFullScreen(false);
         primaryStage.show();
+
+
     }
 
     /**

@@ -35,7 +35,7 @@
                                     <Image url="@/resources/icons/icons8-surgeon_skin_type_1.png" />
                                  </image>
                               </ImageView>
-                              <Text fx:id="user" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                              <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
                                  <font>
                                     <Font name="Open Sans Bold" size="36.0" />
                                  </font>

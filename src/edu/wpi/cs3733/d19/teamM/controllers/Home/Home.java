@@ -15,7 +15,7 @@ public class Home {
     private Text welcomeMessage;
 
     @FXML
-    private Text user;
+    private Text userText;
 
     /**
      * This method
@@ -47,7 +47,7 @@ public class Home {
 
     @FXML
     void initialize(){
-        user.setText(User.getUsername());
+        userText.setText(User.getUsername());
         welcomeMessage.setText("Welcome to Women's and Brigham, " + User.getUsername());
     }
 
