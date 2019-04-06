@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane stylesheets="@/resources/stylesheet.css" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.AdminTools.AdminUI">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" stylesheets="@/resources/stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.AdminTools.AdminUI">
     <children>
           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
@@ -21,9 +21,9 @@
                       <children>
                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true" styleClass="hoverIcon">
                            <image>
-                              <Image url="@/resources/icons/icons8_home_page_40px_1.png" />
+                              <Image url="@../../../../../../resources/icons/icons8-home.png" />
                            </image>
                         </ImageView>
                                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
@@ -73,8 +73,11 @@
                           </HBox>
                       </children>
                       <VBox.margin>
-                          <Insets left="50.0" right="50.0" top="20.0" />
+                          <Insets left="50.0" right="50.0" top="5.0" />
                       </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
                   </HBox>
                   <HBox fx:id="imageView" alignment="CENTER" VBox.vgrow="ALWAYS">
                       <children>
@@ -206,7 +209,7 @@
                                   <Insets top="40.0" />
                               </padding>
                           </VBox>
-                  <StackPane prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                  <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
                      <children>
                                 <AnchorPane>
                            <children>

@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane stylesheets="@/resources/stylesheet.css" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Home.Home">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@/resources/stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Home.Home">
    <children>
       <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <children>
@@ -94,12 +94,12 @@
                               <Image url="@/resources/bwh-logo-new-brand.png" />
                            </image>
                         </ImageView>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Womens, SGehly">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's">
                            <VBox.margin>
                               <Insets top="40.0" />
                            </VBox.margin>
                            <font>
-                              <Font name="Open Sans Bold" size="49.0" />
+                              <Font name="Palatino" size="49.0" />
                            </font>
                         </Text>
                         <HBox alignment="CENTER" prefHeight="400.0" prefWidth="200.0" spacing="50.0" VBox.vgrow="ALWAYS">
@@ -107,7 +107,7 @@
                               <Insets bottom="50.0" left="150.0" right="150.0" top="50.0" />
                            </padding>
                            <children>
-                              <VBox alignment="CENTER" onMouseClicked="#navigateToPathfinding" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER" onMouseClicked="#navigateToPathfinding" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -124,7 +124,7 @@
                                     </Text>
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" onMouseClicked="#navigateToScheduling" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER" onMouseClicked="#navigateToScheduling" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -141,7 +141,7 @@
                                     </Text>
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER" onMouseClicked="#navigateToServiceRequests" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER" onMouseClicked="#navigateToServiceRequests" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

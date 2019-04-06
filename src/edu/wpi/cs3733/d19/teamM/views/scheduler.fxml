@@ -4,85 +4,110 @@
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane stylesheets="@/resources/stylesheet.css" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Scheduler.Scheduler">
+<AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Scheduler.Scheduler">
     <children>
       <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: rgba(1,45,90,1);">
+            <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../../../../../../resources/bg.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+        <VBox alignment="CENTER" maxHeight="1080.0" minHeight="1080.0" prefHeight="1080.0" prefWidth="100.0" style="-fx-background-color: rgba(1,45,90,0.9);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="100.0" prefWidth="1820.0" VBox.vgrow="NEVER">
                     <children>
-                  <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" prefWidth="1661.0" style="-fx-background-color: rgba(1,45,90,1);">
-                     <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                                 <image>
-                                    <Image url="@/resources/icons/icons8_home_page_40px_1.png" />
-                                 </image>
-                              </ImageView>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
-                                 <font>
-                                    <Font name="Open Sans Bold" size="36.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Text>
-                           </children>
+                            <children>
+                                <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true" styleClass="hoverIcon">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                    <image>
+                                        <Image url="@../../../../../../resources/icons/icons8-home.png" />
+                                    </image>
+                                </ImageView>
+                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
+                                    <font>
+                                        <Font name="Open Sans Bold" size="36.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="15.0" />
+                                    </HBox.margin>
+                                </Text>
+                            </children>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@/resources/icons/icons8-clock_8.png" />
-                                 </image>
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </ImageView>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:24:23">
-                                 <font>
-                                    <Font name="Open Sans Bold" size="36.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets top="5.0" />
-                                 </HBox.margin>
-                              </Text>
-                           </children>
+                            <children>
+                                <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/icons/icons8-clock_8.png" />
+                                    </image>
+                                    <HBox.margin>
+                                        <Insets right="10.0" />
+                                    </HBox.margin>
+                                </ImageView>
+                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:24:23" HBox.hgrow="ALWAYS">
+                                    <font>
+                                        <Font name="Open Sans Bold" size="36.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </Text>
+                            </children>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                     <padding>
+                        <Insets top="15.0" />
+                     </padding>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
-                                 <font>
-                                    <Font name="Open Sans Bold" size="24.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets left="50.0" right="50.0" top="20.0" />
-                     </VBox.margin>
-                  </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" spacing="50.0" style="-fx-background-color: #002347;" VBox.vgrow="ALWAYS">
                             <children>
-                                <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                                <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
+                                    <font>
+                                        <Font name="Open Sans Bold" size="24.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                            <padding>
+                                <Insets top="15.0" />
+                            </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                        </HBox>
+                    </children>
+                    <VBox.margin>
+                        <Insets left="50.0" right="50.0" top="25.0" />
+                    </VBox.margin>
+                    <padding>
+                        <Insets bottom="20.0" />
+                    </padding>
+                </HBox>
+                        <HBox alignment="CENTER" minHeight="100.0" prefHeight="60.0" prefWidth="1661.0" style="-fx-background-color: rgba(0,35,71,0.6);" VBox.vgrow="ALWAYS">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                                     <children>
                                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time:">
                                             <font>
@@ -104,70 +129,177 @@
                               <JFXTimePicker fx:id="endTime" defaultColor="#3d77b1" prefHeight="60.0" prefWidth="204.0" styleClass="force-white" />
                                     </children>
                                 </HBox>
-                                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <Button mnemonicParsing="false" onAction="#checkAvailability" prefHeight="51.0" prefWidth="337.0" styleClass="bigButton" text="CHECK">
-                                            <font>
-                                                <Font name="Open Sans Bold" size="8.0" />
-                                            </font>
-                                        </Button>
-                                    </children>
-                                </HBox>
                             </children>
                             <padding>
-                                <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+                                <Insets left="50.0" right="50.0" />
                             </padding>
                      <VBox.margin>
-                        <Insets top="50.0" />
+                        <Insets />
                      </VBox.margin>
                         </HBox>
-                        <HBox fx:id="imageView" alignment="CENTER" VBox.vgrow="ALWAYS">
+                        <HBox fx:id="imageView" alignment="CENTER" style="-fx-background-color: rgba(0,35,71,0.6);" VBox.vgrow="ALWAYS">
                             <children>
-                                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" spacing="40.0" style="-fx-background-color: #001933;">
+                                <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
                                     <opaqueInsets>
                                         <Insets />
                                     </opaqueInsets>
-                                    <padding>
-                                        <Insets top="40.0" />
-                                    </padding>
                                     <children>
-                                          <TableView fx:id="tableView" prefHeight="700.0" prefWidth="500.0">
-                                              <columns>
-                                                  <TableColumn fx:id="roomId" prefWidth="124.0" text="ID" />
-                                                  <TableColumn fx:id="capacity" prefWidth="164.0" text="Capacity" />
-                                                  <TableColumn fx:id="roomType" maxWidth="358.0" minWidth="109.00003051757812" prefWidth="211.0" text="Type" />
-                                              </columns>
-                                          </TableView>
-                                          <Button mnemonicParsing="false" onAction="#bookRoom" prefHeight="100.0" prefWidth="300.0" styleClass="bigButton" text="Book Room">
+                        <Label fx:id="title" styleClass="title" text="" />
+                        <Label fx:id="subtitle" styleClass="subtitle" text="">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label fx:id="availability" styleClass="controlLabel">
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </Label>
+                                          <Button fx:id="bookButton" mnemonicParsing="false" onAction="#bookRoom" prefHeight="100.0" prefWidth="300.0" styleClass="whiteButton" text="BOOK ROOM">
                                               <font>
                                                   <Font size="35.0" />
                                               </font>
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
                                           </Button>
-                                        <GridPane VBox.vgrow="ALWAYS">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                        </GridPane>
                                     </children>
+                     <padding>
+                        <Insets top="50.0" />
+                     </padding>
                                 </VBox>
-                                <AnchorPane HBox.hgrow="ALWAYS">
-                                    <children>
-                                        <ImageView fx:id="image" fitHeight="973.0" fitWidth="1434.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-101.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-14.0" AnchorPane.topAnchor="0.0">
+                  <StackPane maxHeight="830.0" maxWidth="1200.0" minHeight="830.0" minWidth="1200.0" prefHeight="830.0" prefWidth="1200.0" scaleX="0.9" scaleY="0.9">
+                     <children>
+                                        <ImageView fx:id="image" fitHeight="830.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
                                             <image>
-                                                <Image url="@/resources/icons/map.png" />
+                                                <Image url="@../../../../../../resources/maps/scheduler.png" />
                                             </image>
                                         </ImageView>
-                                    </children>
-                                </AnchorPane>
+                        <Pane maxHeight="117.0" maxWidth="109.0" onMouseClicked="#switchToRoom1" prefHeight="150.0" prefWidth="0.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="607.0" top="27.0" />
+                           </StackPane.margin>
+                           <children>
+                              <ImageView fx:id="room1" fitHeight="117.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../resources/maps/room1t.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Pane maxHeight="115.0" maxWidth="107.0" onMouseClicked="#switchToRoom2" prefHeight="150.0" prefWidth="0.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="716.0" top="27.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fx:id="room2" fitHeight="115.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room2a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="114.0" maxWidth="105.0" onMouseClicked="#switchToRoom3" prefHeight="116.0" prefWidth="99.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="821.0" top="28.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fx:id="room3" fitHeight="114.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room3a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="72.0" maxWidth="72.0" onMouseClicked="#switchToRoom4" prefHeight="116.0" prefWidth="99.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="613.0" top="196.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fx:id="room4" fitHeight="72.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room4a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="125.0" maxWidth="78.0" onMouseClicked="#switchToRoom5" prefHeight="116.0" prefWidth="99.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="685.0" top="195.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fx:id="room5" fitHeight="125.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room5t.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="124.0" maxWidth="100.0" onMouseClicked="#switchToRoom6" prefHeight="116.0" prefWidth="99.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="763.0" top="196.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fx:id="room6" fitHeight="124.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room6a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="145.0" maxWidth="112.0" onMouseClicked="#switchToRoom7" prefHeight="145.0" prefWidth="112.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="915.0" top="185.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fx:id="room7" fitHeight="139.0" fitWidth="112.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room7a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="145.0" maxWidth="118.0" onMouseClicked="#switchToRoom8" prefHeight="145.0" prefWidth="118.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="962.0" top="309.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fx:id="room8" fitHeight="138.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room8t.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="80.0" maxWidth="140.0" onMouseClicked="#switchToRoom9" prefHeight="116.0" prefWidth="99.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="761.0" top="493.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fx:id="room9" fitHeight="80.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room10a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Pane maxHeight="200.0" maxWidth="160.0" onMouseClicked="#switchToRoom10" prefHeight="116.0" prefWidth="99.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="955.0" top="430.0" />
+                           </StackPane.margin>
+                            <children>
+                                <ImageView fx:id="room10" fitHeight="200.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../../../../../resources/maps/room9a.png" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                     </children>
+                  </StackPane>
                             </children>
                         </HBox>
                     </children>
                 </VBox>
          </children>
-      </StackPane>
-    </children>
 </AnchorPane>

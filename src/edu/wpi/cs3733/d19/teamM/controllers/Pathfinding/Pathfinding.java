@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
@@ -66,10 +67,10 @@ public class Pathfinding {
     private Slider zoomLvl;
 
     @FXML
-    private TextField startText;
+    private JFXTextField startText;
 
     @FXML
-    private TextField endText;
+    private JFXTextField endText;
 
     @FXML
     private TextField sendMapTextBox;
@@ -261,22 +262,22 @@ public class Pathfinding {
 
         Image source = new Image(Main.getResource("/resources/maps/01_thefirstfloor.png"));;
 
-        double ratio = source.getWidth() / source.getHeight();
-
-        //If the ratio and the actual width and height are not proper, make them a necessary size
-        if (500 / ratio < 500) {
-            width = 500;
-            height = (int) (500 / ratio);
-        } else if (500 * ratio < 500) {
-            height = 500;
-            width = (int) (500 * ratio);
-        } else {
-            height = 500;
-            width = 500;
-        }
         image.setImage(source);//Set the image as the source
         image.setFitWidth(primaryScreenBounds.getWidth());
         image.setFitHeight(primaryScreenBounds.getHeight() - 200);
+
+        startText.textProperty().addListener((ov, oldValue, newValue) -> {
+            if(startText.getText().length() == 10 && endText.getText().length() == 10){
+                //Both are present.
+                try{this.findPath();}catch(Exception e){e.printStackTrace();}
+            }
+        });
+        endText.textProperty().addListener((ov, oldValue, newValue) -> {
+            if(startText.getText().length() == 10 && endText.getText().length() == 10){
+                //Both are present.
+                try{this.findPath();}catch(Exception e){e.printStackTrace();}
+            }
+        });
 
         //Gets the overlay image and sets the width and the height of that
         overlayImage.setFitWidth(image.getFitWidth());
@@ -285,8 +286,6 @@ public class Pathfinding {
 
         //Initially set the image to empty and get the width and height
         overlayImage.setImage(EMPTY);
-        height = (int) source.getHeight();
-        width = (int) source.getWidth();
 
         //Get the buttons on the screen and set the preferred width and height to that of the image
         buttonContainer.setPrefWidth(image.getFitWidth());
@@ -332,9 +331,6 @@ public class Pathfinding {
             endText.requestFocus();
         }else{
             endText.setText(nodeId);
-            try {
-                this.findPath();
-            } catch (Exception e){}
         }
     }
 

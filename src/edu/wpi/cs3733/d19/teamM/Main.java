@@ -4,8 +4,10 @@ import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -53,23 +55,30 @@ public class Main extends Application {
         if(scene == "home"){
             primaryStage.setScene(homeScene);
         }
-        if(scene == "admin"){
+        else if(scene == "admin"){
             primaryStage.setScene(adminScene);
         }
-        if(scene == "pathfinding"){
+        else if(scene == "pathfinding"){
             primaryStage.setScene(pathFindingScene);
         }
-        if(scene == "scheduling"){
+        else if(scene == "scheduling"){
             primaryStage.setScene(schedulerScene);
         }
-        if(scene == "serviceRequest"){
+        else if(scene == "serviceRequest"){
             primaryStage.setScene(serviceRequestScene);
         }
-        if(scene == "serviceRequestList"){
+        else if(scene == "serviceRequestList"){
             primaryStage.setScene(serviceRequestListScene);
         }
-        if(scene == "welcome"){
+        else if(scene == "welcome"){
             primaryStage.setScene(welcomeScene);
+        }
+        else{
+            try{
+                primaryStage.setScene(new Scene(FXMLLoader.load(Main.getFXMLURL(scene))));
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -82,8 +91,6 @@ public class Main extends Application {
         return Main.class.getResource("views/"+name+".fxml");
     }
 
-
-
     public static InputStream getResource(String path){
         System.out.println(path);
         return Main.class.getResourceAsStream(path);
@@ -93,6 +100,22 @@ public class Main extends Application {
         System.out.println(path);
         return Main.class.getClassLoader().getResourceAsStream(path);
     }
+
+    //https://stackoverflow.com/questions/38136408/how-to-determine-if-the-user-clicked-outside-a-particular-javafx-node
+    public static boolean inHierarchy(Node node, Node potentialHierarchyElement) {
+        if (potentialHierarchyElement == null) {
+            return true;
+        }
+        while (node != null) {
+            if (node == potentialHierarchyElement) {
+                return true;
+            }
+            node = node.getParent();
+        }
+        return false;
+    }
+    //-------
+
 
     /**
      * This method creates and sets the stage of the viewable JavaFX screen

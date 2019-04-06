@@ -1,99 +1,132 @@
-.root{
-    -fx-font-family: "Open Sans";
-    -fx-font-size: 12pt;
-
-}
-
-
 
 /*buttons*/
 .blackButton {
-    -fx-background-color: transparent;
-    -fx-border-width: .1em;
+    -fx-background-color: white;
+    -fx-border-width: .2em;
     -fx-border-color:  black;
     -fx-text-fill: black;
-    -fx-border-radius: 1em;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-family: "Open Sans Bold"
 }
 .blackButton:hover{
     -fx-background-color: #012D5A;
-    -fx-background-radius: 1em;
     -fx-text-fill: white;
-    -fx-border-width: .1em;
-    -fx-border-radius: 1em;
-    -fx-border-color: #000000;
+    -fx-cursor: hand;
+}
+.requestButton{
+    -fx-font-size:36px;
+    padding: 10px 20px 10px 20px;
 }
 .whiteButton {
     -fx-background-color: transparent;
-    -fx-border-width: .1em;
+    -fx-background-radius: 5px;
+    -fx-border-width: .2em;
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
-    -fx-border-radius: 1em;
-    -fx-background-radius: 1em;
-    -fx-font-family: "Open Sans";
+    -fx-background-radius: 5px;
+    -fx-border-width: .2em;
+    -fx-border-radius: 5px;
+    -fx-font-family: "Open Sans Bold";
 }
 .whiteButton:hover {
     -fx-background-color: white;
-    -fx-background-radius: 1em;
     -fx-text-fill: black;
-    -fx-border-width: .1em;
-    -fx-border-radius: 1em;
     -fx-border-color: #ffffff;
-    -fx-font-family: "Open Sans";
+    -fx-font-family: "Open Sans Bold";
+    -fx-cursor: hand;
 }
 .logoutButton{
     -fx-background-color: transparent;
-    -fx-border-width: .1em;
+    -fx-border-width: .2em;
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
-    -fx-border-radius: 1em;
-    -fx-background-radius: 1em;
-    -fx-font-family: "Open Sans";
-    -fx-font-size: 24pt;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-family: "Open Sans Bold";
+    -fx-font-size: 18pt;
 }
 .logoutButton:hover {
     -fx-background-color: white;
-    -fx-background-radius: 1em;
     -fx-text-fill: black;
-    -fx-border-width: .1em;
-    -fx-border-radius: 1em;
     -fx-border-color: #ffffff;
-    -fx-font-family: "Open Sans";
-    -fx-font-size: 24pt;
+    -fx-cursor: hand;
 }
+
+.hoverIcon:hover{
+    -fx-cursor: hand;
+    -fx-opacity: 0.6;
+}
+
+.mainBlock{
+    -fx-font-family: "Open Sans Bold";
+    -fx-background-color:"white";
+    -fx-background-radius:5;
+}
+.mainBlock:hover{
+    -fx-font-family: "Open Sans Bold";
+    -fx-cursor:hand;
+    -fx-opacity:0.8;
+    -fx-translate-y: -7;
+}
+.pane{
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+}
+
 .bigButton{
     -fx-background-color: transparent;
-    -fx-border-width: .1em;
+    -fx-border-width: .2em;
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
-    -fx-border-radius: 1em;
-    -fx-background-radius: 1em;
-    -fx-font-family: "Open Sans";
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-family: "Open Sans Bold";
     -fx-font-size: 18pt;
 }
 .bigButton:hover {
     -fx-background-color: white;
-    -fx-background-radius: 1em;
     -fx-text-fill: black;
-    -fx-border-width: .1em;
-    -fx-border-radius: 1em;
     -fx-border-color: #ffffff;
-    -fx-font-family: "Open Sans";
-    -fx-font-size: 18pt;
+    -fx-cursor: hand;
 }
 
+.nodeTextInput{
+    -fx-background-color: rgba(0,0,0,.4);
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
 
 
 /*labels*/
-.label{
-    -fx-font-family: "Open Sans";
-    -fx-font-size: 24pt;
+.blackLabel{
+    -fx-font-family: "Open Sans Bold";
+    -fx-font-size: 30px;
+    -fx-text-fill: black;
+}
+
+.title{
+    -fx-font-family: "Palatino";
+    -fx-font-size: 36px;
+    -fx-text-fill: white;
+}
+.bigtitle{
+    -fx-font-family: "Palatino";
+    -fx-font-size: 64px;
     -fx-text-fill: white;
 }
 
-.blackLabel{
-    -fx-font-family: "Open Sans";
+
+.subtitle{
+    -fx-font-family: "Palatino";
+    -fx-font-size: 18pt;
+    -fx-text-fill: white;
+}
+
+.controlLabel{
+    -fx-font-family: "Open Sans Bold";
     -fx-font-size: 24pt;
-    -fx-text-fill: black;
 }
 
 /*tab-panes*/
@@ -160,23 +193,16 @@
     -fx-background-color: #cacaca;
 }
 
-
-
-/*textfield*/
-.text-field {
-    -fx-text-fill: white;
-    -fx-border-radius: 1px;
-    -fx-background-color: transparent;
-}
-
-
 .force-white{
     -jfx-unfocus-color: blue;
     -fx-prompt-text-fill: blueviolet;
     -fx-text-fill: red;
 }
 
-
+.hoverRoom:hover{
+    -fx-opacity:0.6;
+    -fx-cursor:hand;
+}
 /*!* scroll bar starts here *!
 !* The increment and decrement button CSS class of scrollbar *!
 .table-view .increment-button ,.table-view .decrement-button {
@@ -204,3 +230,67 @@
 
 }*/
 
+
+.jfx-time-picker, .jfx-date-picker{
+    -jfx-default-color: #012d5a;
+}
+.jfx-date-picker > .jfx-text-field, .jfx-time-picker > .jfx-text-field{
+    -fx-text-fill: white;
+    -fx-font-family: "Open Sans Bold";
+    -fx-font-size:18px;
+    -fx-text-alignment: center;
+    -fx-padding: 0px 0px 0px 20px;
+}
+.jfx-date-picker > .arrow-button > .jfx-svg-glyph, .jfx-time-picker > .arrow-button > .jfx-svg-glyph{
+    -fx-background-color: white;
+}
+
+.jfx-text-field.darkInput{
+    -fx-background-color: rgba(0,0,0,.4);
+    -fx-text-fill: white;
+    -fx-font-family: "Open Sans Bold";
+    -fx-background-radius:5px;
+    -fx-padding: 5px 10px 5px 10px;
+    -fx-font-size:18px;
+    -fx-text-box-border: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.jfx-text-field.lightInput{
+    -fx-background-color: rgba(0,0,0,.01);
+    -fx-border-color: rgba(0,0,0,.1);
+    -fx-border-radius:5px;
+    -fx-text-fill: black;
+    -fx-font-family: "Open Sans Bold";
+    -fx-background-radius:5px;
+    -fx-padding: 5px 10px 5px 10px;
+    -fx-font-size:18px;
+    -fx-text-box-border: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.jfx-text-area.lightInput{
+    -fx-background-color: rgba(0,0,0,.01);
+    -fx-border-color: rgba(0,0,0,.1);
+    -fx-border-radius:5px;
+    -fx-text-fill: black;
+    -fx-font-family: "Open Sans Bold";
+    -fx-background-radius:5px;
+    -fx-padding: 5px 10px 5px 10px;
+    -fx-font-size:18px;
+    -fx-text-box-border: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.text-field .input-line
+{
+    -fx-background-color: transparent;
+}
+
+.requestBox{
+     -fx-font-size:36px;
+ }
+
+.requestBox.small{
+    -fx-font-size:24px;
+}
