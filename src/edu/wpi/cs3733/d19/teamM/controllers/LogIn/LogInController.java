@@ -26,8 +26,6 @@ import javafx.scene.control.TextField;
 
 public class LogInController {
 
-    public User user;
-
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
@@ -64,9 +62,12 @@ public class LogInController {
             ResultSet rs = stmt.executeQuery();
             rs.next();
             if (password.getText().compareTo(rs.getString("USERPASS")) == 0) {
+                User.getUser();
+                User.setUsername(username.getText());
                 username.setText("");
                 password.setText("");
-                user = new User(username.getText(), rs.getInt("ACCOUNTINT"));
+                User.setPrivilege(rs.getInt("ACCOUNTINT"));
+                System.out.println("Logged in " + User.getUsername() + " with privilege " + User.getPrivilege());
                 Main.setScene("home");
             } else {
                System.out.println("user not found");
