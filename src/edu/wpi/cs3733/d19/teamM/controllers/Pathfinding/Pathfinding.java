@@ -47,6 +47,7 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.textfield.TextFields;
 
 import javax.swing.*;
 
@@ -179,9 +180,75 @@ public class Pathfinding {
         if(!startString.equals("") && !endString.equals("")) //If not empty
         {
             try {
+
                 Map<String, Node> floorMap = graph.getNodes();
-                Node startNode = floorMap.get(startString); //Get starting and ending string using keys
-                Node endNode = floorMap.get(endString);
+                Node startNode = null;
+                Node endNode = null;
+
+                if(startString.length() == 10 && endString.length() == 10) //if by node ID
+                {
+                    startNode = floorMap.get(startString); //Get starting and ending string using keys
+                    endNode = floorMap.get(endString);
+                }
+                else
+                {
+                    if(startString.length() == 10 && endString.length() == 10) //if by node ID
+                    {
+                        try
+                        {
+                            startNode = floorMap.get(startString); //Get starting and ending string using keys
+                            endNode = floorMap.get(endString);
+
+                        }catch (Exception e) //Maybe it was normal string of 10 and not node ID
+                        {
+                            try{
+                                for(Node node : floorMap.values())
+                                {
+                                    if(node.getLongName().equals(startString))
+                                    {
+                                        startNode = node;
+                                    }
+                                    if(node.getLongName().equals(endString))
+                                    {
+                                        endNode = node;
+                                    }
+                                }
+
+                            }catch (Exception f) //If that breaks too
+                            {
+
+                            }
+
+                        }
+
+                    }
+                    else { //If it is just a normal string
+                        try{
+                            for(Node node : floorMap.values())
+                            {
+                                if(node.getLongName().equals(startString))
+                                {
+                                    startNode = node;
+                                }
+                                if(node.getLongName().equals(endString))
+                                {
+                                    endNode = node;
+                                }
+                            }
+
+                        }catch (Exception e) //Catch any external exception
+                        {
+
+                        }
+
+                    }
+
+                }
+
+                if(startNode == null || endNode == null)
+                {
+                    return;
+                }
 
                 //Now we create an A* object to find the path between the two and store the final list of nodes
                 path = graph.findPath(startNode, endNode);
@@ -202,6 +269,7 @@ public class Pathfinding {
                 dialog.show();
             }
         }
+
     }
 
     /**
@@ -223,18 +291,7 @@ public class Pathfinding {
         image.setFitWidth(primaryScreenBounds.getWidth());
         image.setFitHeight(primaryScreenBounds.getHeight() - 200);
 
-        startText.textProperty().addListener((ov, oldValue, newValue) -> {
-            if(startText.getText().length() == 10 && endText.getText().length() == 10){
-                //Both are present.
-                try{this.findPath();}catch(Exception e){e.printStackTrace();}
-            }
-        });
-        endText.textProperty().addListener((ov, oldValue, newValue) -> {
-            if(startText.getText().length() == 10 && endText.getText().length() == 10){
-                //Both are present.
-                try{this.findPath();}catch(Exception e){e.printStackTrace();}
-            }
-        });
+
 
         //Gets the overlay image and sets the width and the height of that
         overlayImage.setFitWidth(image.getFitWidth());
@@ -252,8 +309,44 @@ public class Pathfinding {
         path = new Path();
         util = new MapUtils(buttonContainer, imageView, image, overlayImage, this::setValues);
 
+
+
         //Get the necessary records for pathfinding
         util.initialize();
+
+        Map<String, Node> floorMap = graph.getNodes();
+        ArrayList<String> longNames = new ArrayList<String>();//ArrayList of LongNames
+
+        for(Node node: floorMap.values())
+        {
+            longNames.add(node.getLongName());
+        } //Add all long names
+        startText.textProperty().addListener((ov, oldValue, newValue) -> {
+            TextFields.bindAutoCompletion(startText,longNames);
+
+            if(startText.getText().length() == 10 && endText.getText().length() == 10){
+                //Both are present.
+                try{this.findPath();}catch(Exception e){e.printStackTrace();}
+            }
+            else if(startText.getText().length() >= 0 && endText.getText().length() >= 0)
+            {
+                //If the lengths of both aren't zero, try to see if you can get path
+                try{this.findPath();}catch(Exception e){e.printStackTrace();}
+            }
+        });
+        endText.textProperty().addListener((ov, oldValue, newValue) -> {
+            TextFields.bindAutoCompletion(endText,longNames);
+
+            if(startText.getText().length() == 10 && endText.getText().length() == 10){
+                //Both are present.
+                try{this.findPath();}catch(Exception e){e.printStackTrace();}
+            }
+            else if(startText.getText().length() >= 0 && endText.getText().length() >= 0)
+            {
+                //If the lengths of both aren't zero, try to see if you can get path
+                try{this.findPath();}catch(Exception e){e.printStackTrace();}
+            }
+        });
     }
 
     /**
