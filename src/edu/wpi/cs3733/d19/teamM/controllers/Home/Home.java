@@ -49,6 +49,7 @@ public class Home {
     public void logout(){
         Main.setScene("welcome");
     }
+
     @FXML
     public void navigateToScheduling(){
         Main.setScene("scheduling");

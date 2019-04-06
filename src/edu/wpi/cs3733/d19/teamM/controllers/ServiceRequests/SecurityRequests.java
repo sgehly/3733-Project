@@ -2,9 +2,12 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXRadioButton;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class SecurityRequests {
 
@@ -19,6 +22,13 @@ public class SecurityRequests {
 
     @FXML
     ButtonGroup radioButtons;
+
+    @FXML
+    Label lblClock;
+
+    @FXML
+    private Label lblDate;
+
 
 
     /**
@@ -37,5 +47,10 @@ public class SecurityRequests {
     @FXML
     private void navigateBack() throws Exception {
         Main.setScene("serviceRequests");
+    }
+
+    @FXML
+    void initialize(){
+        new Clock(lblClock, lblDate);
     }
 }

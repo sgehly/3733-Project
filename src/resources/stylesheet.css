@@ -294,3 +294,8 @@
 .requestBox.small{
     -fx-font-size:24px;
 }
+
+.jfx-radio-button{
+    -jfx-selected-color: #012d5a;
+    -jfx-unselected-color: default;
+}
