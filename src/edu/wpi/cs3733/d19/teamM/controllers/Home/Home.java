@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.controllers.Home;
 
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.LogIn.LogInController;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
@@ -12,6 +13,9 @@ public class Home {
 
     @FXML
     private Text welcomeMessage;
+
+    @FXML
+    private Text user;
 
     /**
      * This method
@@ -39,6 +43,12 @@ public class Home {
     @FXML
     public void navigateToAdmin(){
         Main.setScene("admin");
+    }
+
+    @FXML
+    void initialize(){
+        user.setText(User.getUsername());
+        welcomeMessage.setText("Welcome to Women's and Brigham, " + User.getUsername());
     }
 
 }

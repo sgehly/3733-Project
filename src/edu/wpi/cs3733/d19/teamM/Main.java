@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d19.teamM;
 
+import edu.wpi.cs3733.d19.teamM.User.User;
+import edu.wpi.cs3733.d19.teamM.controllers.LogIn.LogInController;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import javafx.application.Application;
@@ -23,7 +25,7 @@ public class Main extends Application {
     //Create the primary stage and set it to null
     private static Stage primaryStage = null;
 
-    private static Parent homePane;
+    public static Parent homePane;
     private static Parent adminPane;
     private static Parent pathFindingPane;
     private static Parent schedulerPane;
@@ -32,7 +34,7 @@ public class Main extends Application {
     private static Parent welcomePane;
     private static Parent loginPane;
 
-    private static Scene homeScene;
+    public static Scene homeScene;
     private static Scene adminScene;
     private static Scene pathFindingScene;
     private static Scene schedulerScene;
@@ -119,8 +121,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene mainScene = new Scene(root);
 
-        homePane = FXMLLoader.load(Main.getFXMLURL("home"));
-        homeScene= new Scene(homePane);
+        //homePane = FXMLLoader.load(Main.getFXMLURL("home"));
+        //homeScene= new Scene(homePane);
         adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
         adminScene= new Scene(adminPane);
         pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));

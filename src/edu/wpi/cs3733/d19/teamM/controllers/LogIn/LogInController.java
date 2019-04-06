@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
@@ -68,6 +70,11 @@ public class LogInController {
                 password.setText("");
                 User.setPrivilege(rs.getInt("ACCOUNTINT"));
                 System.out.println("Logged in " + User.getUsername() + " with privilege " + User.getPrivilege());
+
+
+                Main.homePane = FXMLLoader.load(Main.getFXMLURL("home"));
+                Main.homeScene= new Scene(Main.homePane);
+
                 Main.setScene("home");
             } else {
                System.out.println("user not found");
