@@ -102,6 +102,8 @@ public class AdminUI {
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
+        nodeLabel.setVisible(false);
+        edgeLabel.setVisible(false);
     }
 
     @FXML
