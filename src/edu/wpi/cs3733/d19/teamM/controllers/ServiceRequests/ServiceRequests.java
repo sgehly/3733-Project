@@ -111,6 +111,16 @@ public class ServiceRequests {
         Main.setScene("home");
     }
 
+
+    /**
+     * This method is for the logout button which allows the user to go back to the welcome screen
+     * @throws Exception: Any exception that is encountered
+     */
+    @FXML
+    private void navigateToReligious() throws Exception {
+        Main.setScene("serviceRequests/religiousRequests");
+    }
+
     /**
      * This method checks room availability after a button is clicked
      * @param event
@@ -169,7 +179,6 @@ public class ServiceRequests {
      */
     @FXML// This method is called by the FXMLLoader when initialization is complete
     void initialize(){
-            accordion.setExpandedPane(sanitation);
             //general asserts
             assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
             //language asserts
