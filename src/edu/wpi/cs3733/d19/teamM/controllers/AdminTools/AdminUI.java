@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
@@ -50,6 +51,12 @@ public class AdminUI {
 
     @FXML
     private Pane imageView;
+
+    @FXML
+    private Label lblClock;
+
+    @FXML
+    private Label lblDate;
 
     @FXML
     private ImageView image;
