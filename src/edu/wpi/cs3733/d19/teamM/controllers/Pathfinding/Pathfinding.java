@@ -287,8 +287,12 @@ public class Pathfinding {
 
         DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
         Date d = new Date();
-        Calendar cal = Calendar.getInstance();
+        //Calendar cal = Calendar.getInstance();
         lblDate.setText(date.format(d));
+
+        // find a way to connect the long name in the database and then assign the input start string as that
+        //TextFields.bindAutoCompletion();
+        //startText.textProperty().bind()
 
         //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
         //------------------------------------------------------------------------------------------------
