@@ -301,6 +301,8 @@ public class AdminUI {
 
         primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
+
+
         Image source = new Image(Main.getResource("/resources/maps/01_thefirstfloor.png"));
 
         image.setImage(source);
@@ -355,5 +357,6 @@ public class AdminUI {
             ev.printStackTrace();
         }
     }
+
 
 }
