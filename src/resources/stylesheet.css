@@ -1,11 +1,12 @@
 
 /*buttons*/
 .blackButton {
-    -fx-background-color: transparent;
+    -fx-background-color: white;
     -fx-border-width: .2em;
     -fx-border-color:  black;
     -fx-text-fill: black;
     -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
     -fx-font-family: "Open Sans Bold"
 }
 .blackButton:hover{
@@ -15,6 +16,7 @@
 }
 .whiteButton {
     -fx-background-color: transparent;
+    -fx-background-radius: 5px;
     -fx-border-width: .2em;
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
@@ -80,7 +82,8 @@
 }
 
 .nodeTextInput{
-    -fx-background-color: white;
+    -fx-background-color: rgba(0,0,0,.4);
+    -fx-text-fill: white;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
 }
@@ -213,4 +216,20 @@
 }
 .jfx-date-picker > .arrow-button > .jfx-svg-glyph, .jfx-time-picker > .arrow-button > .jfx-svg-glyph{
     -fx-background-color: white;
+}
+
+.jfx-text-field.darkInput{
+    -fx-background-color: rgba(0,0,0,.4);
+    -fx-text-fill: white;
+    -fx-font-family: "Open Sans Bold";
+    -fx-background-radius:5px;
+    -fx-padding: 5px 10px 5px 10px;
+    -fx-font-size:18px;
+    -fx-text-box-border: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.text-field.darkInput .input-line
+{
+    -fx-background-color: transparent;
 }

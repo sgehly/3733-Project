@@ -10,12 +10,16 @@ import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -39,7 +43,8 @@ public class Scheduler {
     public static String path;
 
 
-
+    @FXML
+    private AnchorPane root;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -117,10 +122,15 @@ public class Scheduler {
     @FXML
     private ImageView room10 = new ImageView();
 
+
+    Node[] focusable = new Node[] {startTime, startDate, endTime, endDate};
+
     boolean[] available = new boolean[10];
     int[] capacities = new int[10];
     String[] types = new String[10];
     String[] ids = new String[10];
+
+    boolean error = false;
 
     int selectedRoom = 0;
 
@@ -141,7 +151,6 @@ public class Scheduler {
         System.out.println(ts+" TO "+te);
 
         this.getAvailableRooms(ts, te);
-        this.switchToRoom(this.selectedRoom);
     }
 
     @FXML
@@ -257,17 +266,24 @@ public class Scheduler {
         String query2 = "SELECT ROOMID, CAPACITY, ROOMTYPE FROM Rooms";
         String query1 = "SELECT Rooms.ROOMID, CAPACITY, ROOMTYPE FROM BookedTimes RIGHT JOIN Rooms ON (Rooms.roomID) = (BookedTimes.roomID) EXCEPT ( SELECT Rooms.ROOMID, CAPACITY, ROOMTYPE FROM BookedTimes JOIN Rooms ON (Rooms.roomID) = (BookedTimes.roomID) WHERE ((BookedTimes.startTime >= ? AND BOOKEDTIMES.STARTTIME <= ? OR (BookedTimes.endTime <= ? AND BookedTimes.endTime >= ?))))";
         //STARTTIME, ENDTIME, ENDTIME, STARTTIME
+
+        ImageView[] rooms = new ImageView[] {room1,room2,room3,room4,room5,room6,room7,room8,room9,room10};
+
         if (end.before(start)) { //if the end time comes before the start time, show error pop up
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.initOwner(Main.getStage());
-            VBox dialogVbox = new VBox(20);
-            dialogVbox.getChildren().add(new Label("End time comes before start time!"));
-            Scene dialogScene = new Scene(dialogVbox, 300, 200);
-            dialog.setScene(dialogScene);
-            dialog.show();
+            for(int i=0;i<rooms.length;i++){rooms[i].setVisible(false);}
+            title.setText("Error");
+            error = true;
+            subtitle.setText("End Date comes before Start Date");
+            availability.setText("");
+            title.setStyle("-fx-text-fill: "+("#eb3b5a")+";");
+            bookButton.setDisable(true);
+            bookButton.setStyle("-fx-opacity: "+(0.5)+";");
         } else { //else, run as usual
-        try {
+            for(int i=0;i<rooms.length;i++){rooms[i].setVisible(true);}
+            title.setStyle("-fx-text-fill: "+("#fff")+";");
+            error = false;
+            try {
+
             Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement(query1, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             stmt.setTimestamp(1, start);
@@ -303,7 +319,9 @@ public class Scheduler {
                 availRooms.beforeFirst();
             }
 
-        } catch (Exception e) {
+            this.switchToRoom(this.selectedRoom);
+
+            } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error trying to get available rooms");
             throw e;
@@ -354,7 +372,7 @@ public class Scheduler {
             tableView.setItems(entList);
 
             startDate.setValue(LocalDate.now());
-            endDate.setValue(LocalDate.now());
+            endDate.setValue(LocalDate.now().plus(1, ChronoUnit.DAYS));
 
             startTime.setValue(LocalTime.now());
             endTime.setValue(LocalTime.now().plus(1, ChronoUnit.HOURS));
@@ -364,9 +382,9 @@ public class Scheduler {
             endDate.valueProperty().addListener((ov, oldValue, newValue) -> {try{this.checkAvailability();}catch(Exception e){} });
             endTime.valueProperty().addListener((ov, oldValue, newValue) -> {try{this.checkAvailability();}catch(Exception e){} });
 
+
             this.checkAvailability();;
         }catch(Exception e){e.printStackTrace();};
-
 
         assert zoomLvl != null : "fx:id=\"zoomLvl\" was not injected: check your FXML file 'scheduler.fxml'.";
         assert imageView != null : "fx:id=\"imageView\" was not injected: check your FXML file 'scheduler.fxml'.";
@@ -375,6 +393,7 @@ public class Scheduler {
     }
 
     private void switchToRoom(int id){
+        if(error) return;
         this.selectedRoom = id;
         title.setText(ids[id]);
         subtitle.setText(types[id]+" | CAPACITY: "+capacities[id]);
