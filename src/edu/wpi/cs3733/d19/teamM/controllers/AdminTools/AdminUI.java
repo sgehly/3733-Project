@@ -153,7 +153,7 @@ public class AdminUI {
     public void updateValues(String nodeId) throws Exception{
         System.out.println(nodeId);
         //TODO: Can someone on database make this so SQL Injection can't happen
-        String query = "SELECT * FROM FLOOR1 WHERE NODEID = ?";
+        String query = "SELECT * FROM node WHERE NODEID = ?";
         Connection conn = new DatabaseUtils().getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, nodeId);
