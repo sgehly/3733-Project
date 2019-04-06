@@ -78,4 +78,11 @@ public class Path {
 
         return paths;
     }
+
+    public Path getSpecificPath(String floorID){
+        for (Path p : getFloorPaths()){
+            if (p.getFloorID().equals(floorID)) return p;
+        }
+        return null;
+    }
 }

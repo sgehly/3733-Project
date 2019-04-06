@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 
+import java.awt.image.BufferedImage;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -192,6 +193,10 @@ public class MapUtils {
 
     public String getFloorLabel(){
         return labels[this.floor];
+    }
+
+    public String getCurrentFloorID(){
+        return dbPrefixes[this.floor];
     }
 
 }

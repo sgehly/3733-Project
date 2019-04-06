@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamM.controllers.Pathfinding;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
@@ -17,6 +18,7 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -44,6 +46,8 @@ public class Pathfinding {
     Rectangle2D primaryScreenBounds;
 
     Floor graph;
+
+    Path path;
 
     //Get the FXML objects to be linked
     @FXML
@@ -135,28 +139,15 @@ public class Pathfinding {
 
     }
 
+
     //TODO: fix with new graph class
     private void findPresetHelper(String type) {
         String start = startText.getText();
-        AStar aS = new AStar();
-        Path nodeArrayList = aS.findPresetPath(graph.getNodes().get(start), type, graph.getNodes());
+        Path nodeArrayList = graph.findPresetPath(graph.getNodes().get(start), type);
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
-        graph.drawPath(nodeArrayList);
-        //System.out.println("Sent Mail");
 
-        //Now we will try to get the image
-        Image Overlaysource;
-        try {
-            URL theUrl = new URL("file:///" + System.getProperty("user.dir") + File.separator + "PathOutput.png");
-            Overlaysource = new Image(theUrl.toURI().toString());
-            overlayImage.setImage(Overlaysource); //set the image as the overlay image
-            startText.setText("");
-            endText.setText("");
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        updateMap();
     }
 
     @FXML
@@ -171,30 +162,13 @@ public class Pathfinding {
                 Map<String, Node> floorMap = graph.getNodes();
                 Node startNode = floorMap.get(startString); //Get starting and ending string using keys
                 Node endNode = floorMap.get(endString);
-                System.out.println("Finding path between " + startNode.getId() + " and " + endNode.getId());
 
                 //Now we create an A* object to find the path between the two and store the final list of nodes
-                Path nodeArrayList = graph.findPath(startNode, endNode);
-                for (Path p : nodeArrayList.getFloorPaths()){
-                    System.out.println("Path for floor " + p.getFloorID());
-                    System.out.println(PathToString.getDirections(p));
-                }
-                System.out.println("Got Path");
+                path = graph.findPath(startNode, endNode);
                 final JFrame frame = new JFrame();
                 frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
-                graph.drawPath(nodeArrayList);
-                try {
-                    Image Overlaysource;
-                    URL theUrl = new URL("file:///" + System.getProperty("user.dir") + File.separator + "PathOutput.png");
-                    Overlaysource = new Image(theUrl.toURI().toString()); //See if we can get the image to overlay and then create a new image object from it
-                    overlayImage.setImage(Overlaysource); //set the image as the overlay image
-
-                    startText.setText("");
-                    endText.setText("");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                updateMap();
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -218,6 +192,7 @@ public class Pathfinding {
     protected void initialize() throws Exception {
 
         graph = new Floor();
+        path = new Path();
         util = new MapUtils(buttonContainer, imageView, image, overlayImage, this::setValues);
 
         //Get the necessary records for pathfinding
@@ -247,11 +222,25 @@ public class Pathfinding {
     public void moveUp(ActionEvent value) throws Exception{
         util.moveUp();
         floorLabel.setText(util.getFloorLabel());
+
+        updateMap();
     }
 
     public void moveDown(ActionEvent value) throws Exception{
         util.moveDown();
         floorLabel.setText(util.getFloorLabel());
+
+        updateMap();
+    }
+
+    public void updateMap(){
+        Path floorPath = path.getSpecificPath(util.getCurrentFloorID());
+        if (floorPath != null){
+            overlayImage.setImage(graph.drawPath(floorPath));
+        }
+        else {
+            overlayImage.setImage(null);
+        }
     }
 
     /**

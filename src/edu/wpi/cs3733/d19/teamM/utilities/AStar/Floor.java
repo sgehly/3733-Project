@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import sun.reflect.annotation.ExceptionProxy;
 
 import javax.imageio.ImageIO;
@@ -21,7 +24,8 @@ public class Floor {
     Map<String, Node> nodes;
 
     //Path finders
-    Searchable aStar, dfs, bfs, selected;
+    Searchable dfs, bfs, selected;
+    AStar aStar;
 
     public Floor(){
         nodes = new HashMap<>();
@@ -49,6 +53,9 @@ public class Floor {
         return selected.findPath(start, end);
     }
 
+    public Path findPresetPath(Node start, String type){
+        return aStar.findPresetPath(start, type, this.nodes);
+    }
     /**
      * Get a map of all the nodes
      * @return Map of all the nodes
@@ -62,7 +69,7 @@ public class Floor {
      * This version of the method will the locally store the image, while the other will actually transfer the image itself
      * @param p - A Path
      */
-    public static void drawPath(Path p) {
+    public Image drawPath(Path p) {
         int width = 5000; //The given width and height of the image
         int height = 3400;
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -83,15 +90,9 @@ public class Floor {
             int diameter = 7; //Diameter of the circle
             g2d.setColor(Color.YELLOW);
             Shape circle = new Ellipse2D.Double(node.getXCoord() - diameter / 2.0, node.getYCoord() - diameter / 2.0, diameter, diameter); //Draw the circles
-
             g2d.draw(circle);
         }
-        try {
-            f = new File("PathOutput.png");
-            ImageIO.write(img, "png", f);
-        } catch (IOException e) {
-            System.out.println("Error: " + e);
-        }
+        return SwingFXUtils.toFXImage(img, null);
     }
 
     public void rePopulate(){
