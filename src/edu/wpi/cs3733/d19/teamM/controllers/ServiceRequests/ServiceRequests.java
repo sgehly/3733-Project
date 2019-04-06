@@ -158,6 +158,11 @@ public class ServiceRequests {
         Main.setScene("serviceRequests/religiousRequests");
     }
 
+    @FXML
+    private void navigateToSecurity() throws Exception{
+        Main.setScene("serviceRequests/securityRequests");
+    }
+
     /**
      * This method checks room availability after a button is clicked
      * @param event
