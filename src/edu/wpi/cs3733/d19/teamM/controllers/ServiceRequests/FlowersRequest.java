@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import org.controlsfx.control.textfield.TextFields;
 
+
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +33,7 @@ public class FlowersRequest implements Initializable {
 
     //Text field for additional specifications
     @FXML
-    private TextField notes;
+    private javafx.scene.control.TextArea notes;
 
     @FXML
     private Button submitReuqest;
@@ -59,7 +60,7 @@ public class FlowersRequest implements Initializable {
 
     /**
      * This method allows the user to create a flowers request using the button
-     * @param e: The action that is associated with making the flowers request
+     * @param : The action that is associated with making the flowers request
      */
 
     @FXML
@@ -70,11 +71,16 @@ public class FlowersRequest implements Initializable {
             Connection conn = new DatabaseUtils().getConnection();
             String query = "insert into SERVICEREQUEST  ( ROOM , TYPE , NOTES,SERVICE_TYPE ) values (?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(query);
+            System.out.println("Connected");
 
             stmt.setString(1,room.getText());
+            System.out.println("1");
             stmt.setString(2, (flowerType.getText()));
+            System.out.println("2");
             stmt.setString(3, notes.getText());
+            System.out.println("3");
             stmt.setString(4, "Flowers");
+            System.out.println("4");
             stmt.executeUpdate();
             stmt.close();
 
