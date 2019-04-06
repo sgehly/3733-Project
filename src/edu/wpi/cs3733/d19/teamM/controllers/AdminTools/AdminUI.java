@@ -1,11 +1,15 @@
 package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
 import edu.wpi.cs3733.d19.teamM.Main;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,9 +27,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.FileWriter;
 import java.sql.*;
+import java.time.LocalTime;
 
 
 public class AdminUI {
@@ -44,6 +50,16 @@ public class AdminUI {
     MapPoint initial = new MapPoint(0,0);
 
     Rectangle2D primaryScreenBounds;
+
+    private int hrs;
+    private int mins;
+    private int secs;
+
+    @FXML
+    private Label lblClock;
+
+    @FXML
+    private Label lblDate;
 
     @FXML
     private Pane imageView;
@@ -298,6 +314,8 @@ public class AdminUI {
 
     @FXML
     protected void initialize() throws Exception {
+
+        new Clock(lblClock, lblDate);
 
         primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 

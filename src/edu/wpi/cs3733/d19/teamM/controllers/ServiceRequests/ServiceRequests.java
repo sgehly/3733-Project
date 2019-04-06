@@ -2,7 +2,11 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import edu.wpi.cs3733.d19.teamM.Main;
 
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,6 +16,10 @@ import java.sql.*;
 import java.awt.event.MouseEvent;
 import java.lang.String;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -22,6 +30,16 @@ import java.io.IOException;
  * The controller class associated with creating service requests
  */
 public class ServiceRequests {
+
+    @FXML
+    private Label lblClock;
+
+    @FXML
+    private Label lblDate;
+
+    private int hrs;
+    private int mins;
+    private int secs;
 
     //The path to the databse that we need to use
     int idgnerator = 1;
@@ -231,13 +249,7 @@ public class ServiceRequests {
      */
     @FXML// This method is called by the FXMLLoader when initialization is complete
     void initialize(){
-            //general asserts
-            assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
-            //language asserts
-            assert languageRoomNumber != null : "fx:id=\"roomNumber\" was not injected: check your FXML file 'serviceRequests.fxml'.";
-            assert languageSelection != null : "fx:id=\"languageSelection\" was not injected: check your FXML file 'serviceRequests.fxml'.";
-            assert languageRequestButton != null : "fx:id=\"requestButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
-            assert languageNotes != null : "fx:id=\"notesText\" was not injected: check your FXML file 'serviceRequests.fxml'.";
+        new Clock(lblClock, lblDate);
     }
 }
 

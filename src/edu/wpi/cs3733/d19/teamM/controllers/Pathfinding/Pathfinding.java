@@ -3,7 +3,11 @@ package edu.wpi.cs3733.d19.teamM.controllers.Pathfinding;
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.*;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,10 +17,14 @@ import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.SendEmail;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,6 +40,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import javax.swing.*;
 
@@ -50,7 +59,17 @@ public class Pathfinding {
 
     Rectangle2D primaryScreenBounds;
 
+    private int hrs;
+    private int mins;
+    private int secs;
+
     //Get the FXML objects to be linked
+    @FXML
+    private Label lblClock;
+
+    @FXML
+    private Label lblDate;
+
     @FXML
     private Pane imageView;
 
@@ -255,6 +274,8 @@ public class Pathfinding {
      */
     @FXML
     protected void initialize() throws Exception {
+
+        new Clock(lblClock, lblDate);
 
         //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
         //------------------------------------------------------------------------------------------------

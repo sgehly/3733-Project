@@ -7,12 +7,20 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import edu.wpi.cs3733.d19.teamM.Main;
 
 import edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,11 +29,22 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 /**
  * This class is the controller for all the ServiceRequestPage related UI elements
  */
 public class ServiceRequestsList {
+
+    private int hrs;
+    private int mins;
+    private int secs;
+
+    @FXML
+    private Label lblClock;
+
+    @FXML
+    private Label lblDate;
 
     //All the different objects that have to be created for the page fxid are all the same name as the instance name
     @FXML
@@ -298,6 +317,24 @@ public class ServiceRequestsList {
 
     @FXML
     void initialize() {
+
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+            secs = LocalTime.now().getSecond();
+            mins = LocalTime.now().getMinute();
+            hrs = LocalTime.now().getHour();
+
+            lblClock.setText(hrs + ":" + (mins) + ":" + secs);
+        }), new KeyFrame(Duration.seconds(1)));
+
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
+
+        DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
+        java.util.Date d = new Date();
+        Calendar cal = Calendar.getInstance();
+        lblDate.setText(date.format(d));
+
         try {
             accordion.setExpandedPane(incompletePane);
             //Create the table and get get the records and populate it it for viewing

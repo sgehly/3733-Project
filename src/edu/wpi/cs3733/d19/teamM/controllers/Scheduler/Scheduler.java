@@ -3,11 +3,19 @@ package edu.wpi.cs3733.d19.teamM.controllers.Scheduler;
 
 import java.net.URL;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.beans.value.ChangeListener;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -29,6 +37,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.stage.Stage;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import javafx.util.Duration;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -45,6 +54,14 @@ public class Scheduler {
 
     @FXML
     private AnchorPane root;
+
+    static double offSetX,offSetY,zoomlvl;
+
+    @FXML
+    private Label lblClock;
+
+    @FXML
+    private Label lblDate;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -362,6 +379,12 @@ public class Scheduler {
         try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str9);}catch(Exception e){}
         try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str10);}catch(Exception e){}
 
+        new Clock(lblClock, lblDate);
+
+        startDate.setStyle("-jfx-unfocus-color: WHITE;");
+        startTime.setStyle("-jfx-unfocus-color: WHITE;");
+        endDate.setStyle("-jfx-unfocus-color: WHITE;");
+        endTime.setStyle("-jfx-unfocus-color: WHITE;");
 
 
         try{
