@@ -168,7 +168,6 @@ public class Main extends Application {
         parser.connect();
         parser.nodeParse();
         parser.edgeParse();
-        parser.floorTables();
 
         Floor myFloor = new Floor("1");
         myFloor.populateFloor();
