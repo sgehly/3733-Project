@@ -28,7 +28,7 @@ public class DatabaseUtils {
 
     public void edgeParse() {
 
-        InputStream file = Main.getResource("/resources/edgesv3.csv");
+        InputStream file = Main.getResource("/resources/edgesv4.csv");
 
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
@@ -82,7 +82,7 @@ public class DatabaseUtils {
     }
 
     public void nodeParse(){
-        InputStream file = Main.getResource("/resources/nodesv3.csv");
+        InputStream file = Main.getResource("/resources/nodesv4.csv");
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
 
