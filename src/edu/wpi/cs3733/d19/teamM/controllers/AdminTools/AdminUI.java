@@ -1,20 +1,18 @@
 package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
-import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
 import edu.wpi.cs3733.d19.teamM.Main;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,11 +25,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.FileWriter;
 import java.sql.*;
-import java.time.LocalTime;
 
 
 public class AdminUI {
@@ -42,6 +38,7 @@ public class AdminUI {
     static int width;
     public static String path;
     static double offSetX,offSetY,zoomlvl;
+    String dbPath = "jdbc:derby:myDB";
 
     double scaledWidth;
     double scaledHeight;
@@ -50,16 +47,6 @@ public class AdminUI {
     MapPoint initial = new MapPoint(0,0);
 
     Rectangle2D primaryScreenBounds;
-
-    private int hrs;
-    private int mins;
-    private int secs;
-
-    @FXML
-    private Label lblClock;
-
-    @FXML
-    private Label lblDate;
 
     @FXML
     private Pane imageView;
@@ -105,40 +92,40 @@ public class AdminUI {
 
     @FXML
     private void navigateToHome() throws Exception{
-        Main.setScene("home");
+        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
+        Scene scene = new Scene(pane);
+        Main.getStage().setScene(scene);
     }
 
     @FXML
     private void addEdge() throws Exception{
-        String startNode = startNodeTextBox.getText();
-        String endNode = endNodeTextBox.getText();
-
-        Floor floorOne = new Floor("1");
-        floorOne.addEdge(startNode+"_"+endNode);
+        String edgeID = startNodeTextBox.getText() + "_" + endNodeTextBox.getText();
+        addE(edgeID);
+        resetTextFields();
     }
 
     @FXML
-    private void removeEdge() throws Exception{
-        String startNode = startNodeTextBox.getText();
-        String endNode = endNodeTextBox.getText();
-
-        Floor floorOne = new Floor("1");
-        floorOne.removeEdge(startNode+"_"+endNode);
+    private void removeEdge(){
+        String edgeID = startNodeTextBox.getText() + "_" + endNodeTextBox.getText();
+        removeE(edgeID);
+        resetTextFields();
     }
 
     @FXML
-    private void addNode() throws Exception{
-        Floor floorOne = new Floor("1");
-        String nodeID = nodeIdTextBox.getText();
-        String xCoord = xCoordTextBox.getText();
-        String yCoord = yCoordTextBox.getText();
-        String floor = floorTextBox.getText();
-        String building = buildingTextBox.getText();
-        String type = typeTextBox.getText();
-        String longName = longNameTextBox.getText();
-        String shortName = shortNameTextBox.getText();
-        floorOne.addNode(nodeID, Integer.valueOf(xCoord), Integer.valueOf(yCoord), floor, building, type, longName, shortName);
-        this.getAllRecords();
+    private void addNode(){
+        addN();
+        resetTextFields();
+    }
+
+    @FXML
+    private void removeNode(){
+        removeN();
+        resetTextFields();
+    }
+
+    @FXML
+    private void updateNode(){
+        updateN();
         resetTextFields();
     }
 
@@ -151,68 +138,6 @@ public class AdminUI {
         typeTextBox.setText("");
         longNameTextBox.setText("");
         shortNameTextBox.setText("");
-    }
-
-    @FXML
-    private void removeNode() throws Exception{
-        Floor floorOne = new Floor("1");
-        String nodeID = nodeIdTextBox.getText();
-        System.out.println(nodeID);
-        Node theNode = floorOne.getFloorMap().get(nodeID);
-        System.out.println(theNode.getXCoord());
-        floorOne.removeNode(theNode);
-        this.getAllRecords();
-    }
-
-
-    @FXML
-    private void updateNode(){
-        try{
-            System.out.println(1);
-            updateHelper();
-        }
-        catch(Throwable e) {
-            e.printStackTrace();
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.initOwner(Main.getStage());
-            VBox dialogVbox = new VBox(20);
-            dialogVbox.getChildren().add(new Label("NODE NOT FOUND"));
-            Scene dialogScene = new Scene(dialogVbox, 300, 200);
-            dialog.setScene(dialogScene);
-            dialog.show();
-        }
-    }
-
-    private void updateHelper() throws Exception{
-        try {
-            Connection conn = new DatabaseUtils().getConnection();
-            PreparedStatement stmt = conn.prepareStatement("update NODE set xcoord = ?, ycoord = ?, nodetype = ?,  longname = ?, shortname = ? where nodeid = ?");
-            stmt.setString(1, xCoordTextBox.getText());
-            stmt.setString(2, yCoordTextBox.getText());
-            stmt.setString(3, typeTextBox.getText());
-            stmt.setString(4, longNameTextBox.getText());
-            stmt.setString(5, shortNameTextBox.getText());
-            stmt.setString(6, nodeIdTextBox.getText());
-            stmt.executeUpdate();
-            conn.close();
-
-            Connection conn2 = new DatabaseUtils().getConnection();
-            PreparedStatement stmt2 = conn2.prepareStatement("update FLOOR1 set xcoord = ?, ycoord = ?, nodetype = ?, longname = ?, shortname = ? where nodeid = ?");
-            stmt2.setString(1, xCoordTextBox.getText());
-            stmt2.setString(2, yCoordTextBox.getText());
-            stmt2.setString(3, typeTextBox.getText());
-            stmt2.setString(4, longNameTextBox.getText());
-            stmt2.setString(5, shortNameTextBox.getText());
-            stmt2.setString(6, nodeIdTextBox.getText());
-            System.out.println("ping");
-            stmt2.executeUpdate();
-            System.out.println("pong");
-            conn2.close();
-            this.getAllRecords();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
     }
 
     private MapPoint scalePoints(int pointX, int pointY){
@@ -228,7 +153,7 @@ public class AdminUI {
     public void updateValues(String nodeId) throws Exception{
         System.out.println(nodeId);
         //TODO: Can someone on database make this so SQL Injection can't happen
-        String query = "SELECT * FROM FLOOR1 WHERE NODEID = ?";
+        String query = "SELECT * FROM node WHERE NODEID = ?";
         Connection conn = new DatabaseUtils().getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, nodeId);
@@ -376,5 +301,86 @@ public class AdminUI {
         }
     }
 
+    private void addN(){
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            PreparedStatement stmt = conn.prepareStatement("insert into NODE values (?,?,?,?,?,?,?,?)");
+            stmt.setString(1, nodeIdTextBox.getText());
+            stmt.setInt(2, Integer.parseInt(xCoordTextBox.getText()));
+            stmt.setInt(3, Integer.parseInt(yCoordTextBox.getText()));
+            stmt.setString(4, floorTextBox.getText());
+            stmt.setString(5, buildingTextBox.getText());
+            stmt.setString(6, typeTextBox.getText());
+            stmt.setString(7, longNameTextBox.getText());
+            stmt.setString(8, shortNameTextBox.getText());
+            stmt.executeUpdate();
+            conn.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void removeN(){
+        try{
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            PreparedStatement stmt2 = conn.prepareStatement("delete from node where nodeID = ?");
+            stmt2.setString(1, nodeIdTextBox.getText());
+            stmt2.execute();
+            conn.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void removeE(String edgeID){
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            PreparedStatement stmt = conn.prepareStatement("delete from edge where edgeID = ?");
+            stmt.setString(1, edgeID);
+            stmt.execute();
+            conn.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void addE(String edgeID){
+        try{
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            String[] edgeNodes = edgeID.split("_");
+            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            PreparedStatement stmt = conn.prepareStatement("insert into edge values(?,?,?)");
+            stmt.setString(1, edgeID);
+            stmt.setString(2, edgeNodes[0]);
+            stmt.setString(3, edgeNodes[1]);
+            stmt.execute();
+            conn.close();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void updateN(){
+        try {
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            Connection conn = DriverManager.getConnection(dbPath);
+            PreparedStatement stmt = conn.prepareStatement("update NODE set xcoord = ?, ycoord = ?, nodetype = ?,  longname = ?, shortname = ? where nodeid = ?");
+            stmt.setString(1, xCoordTextBox.getText());
+            stmt.setInt(2, Integer.parseInt(yCoordTextBox.getText()));
+            stmt.setInt(3, Integer.parseInt(typeTextBox.getText()));
+            stmt.setString(4, longNameTextBox.getText());
+            stmt.setString(5, shortNameTextBox.getText());
+            stmt.setString(6, nodeIdTextBox.getText());
+            stmt.executeUpdate();
+            conn.close();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }

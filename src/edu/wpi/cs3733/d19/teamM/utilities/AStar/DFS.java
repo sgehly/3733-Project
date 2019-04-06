@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DFS {
+public class DFS implements Searchable {
 
     Stack<Node> stack;
     Map<String, Node> visited;
@@ -25,9 +25,8 @@ public class DFS {
      * @return A list of nodes that represent a path. path[n] is the end node and path[0] is the start node where n
      *         is path.size() - 1
      */
-    public List<Node> findPath(Node start, Node end){
+    public Path findPath(Node start, Node end){
         p = new Path();
-
         Node curNode = start;
         p.add(curNode);
         stack.addToStack(start); /// add start node to the stack
@@ -39,7 +38,7 @@ public class DFS {
             return null;
         }
         p.add(end);
-        return p.getPath();
+        return p;
     }
 
     /**
@@ -69,5 +68,4 @@ public class DFS {
     private boolean beenVisited(Node n){
         return visited.containsKey(n.getId());
     }
-
 }

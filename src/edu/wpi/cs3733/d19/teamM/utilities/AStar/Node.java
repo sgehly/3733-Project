@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,17 @@ public class Node implements Comparable{
     private double f;
     private double h;
     private double g;
+    private double p;
+    private double b;
+
+    public double getB() {
+        return b;
+    }
+
+    public void setB(double b) {
+        this.b = b;
+    }
+
     private Node parent;
     private boolean enabled;
 
@@ -82,7 +96,13 @@ public class Node implements Comparable{
 
     public int getX() { return x; }
 
+    public double getP() { return p;}
+
     public void setX(int x) { this.x = x; }
+
+    public void setP(double p){
+        this.p = p;
+    }
 
     public int getY() { return y; }
 
