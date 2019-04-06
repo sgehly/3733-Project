@@ -28,7 +28,7 @@ public class DatabaseUtils {
 
     public void edgeParse() {
 
-        InputStream file = Main.getResource("/resources/edgesv3.csv");
+        InputStream file = Main.getResource("/resources/edgesv4.csv");
 
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
@@ -82,7 +82,7 @@ public class DatabaseUtils {
     }
 
     public void nodeParse(){
-        InputStream file = Main.getResource("/resources/nodesv3.csv");
+        InputStream file = Main.getResource("/resources/nodesv4.csv");
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
 
@@ -147,6 +147,9 @@ public class DatabaseUtils {
             String createTable8 = "create table Rooms(roomID varchar(20),capacity int,details varchar(100),roomType varchar(5), Constraint comRoom_PK Primary key (roomID),Constraint checkType CHECK (roomType in ('COMP', 'CLASS')))";
             String createTable9 = "create table BookedTimes(roomID varchar(20),startTime timestamp, endTime timestamp,Constraint room_FK Foreign Key (roomID) REFERENCES Rooms(roomID))";
             String createTable10 = "create table REQUESTINPROGRESS (REQUESTID   INTEGER not null constraint REQUESTINPROGRESS_REQUESTID_UINDEX unique, ROOM VARCHAR(200), NOTE VARCHAR(200), DATE TIMESTAMP, TYPE VARCHAR(200) default 'Sanitation', FINISHED_BY VARCHAR(30)  default 'NULL')";
+            String createTable11 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,isLoggedIn int,constraint adminBool check (accountInt = 100 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0),constraint loggedBool check (isLoggedIn = 0 or isLoggedIn = 1))";
+            String createTable13 = "DELETE FROM users";
+            String createTable12 = "insert into users values ('jeff', 0, '098f6bcd4621d373cade4e832627b4f6', 0),('wong', 1, '098f6bcd4621d373cade4e832627b4f6', 0), ('sam', 2, '098f6bcd4621d373cade4e832627b4f6', 0),('ken', 100, '098f6bcd4621d373cade4e832627b4f6', 0)";
             try {
                 Statement stmt1 = conn.createStatement();
                 stmt1.executeUpdate(createTable1);
@@ -187,6 +190,24 @@ public class DatabaseUtils {
                 Statement stmt10 = conn.createStatement();
                 stmt10.executeUpdate(createTable10);
             }catch(Exception e){};
+            try {
+                Statement stmt11 = conn.createStatement();
+                stmt11.executeUpdate(createTable11);
+            }catch(Exception e){
+                e.printStackTrace();
+            };
+            try {
+                Statement stmt13 = conn.createStatement();
+                stmt13.executeUpdate(createTable13);
+            }catch(Exception e){
+                e.printStackTrace();
+            };
+            try {
+                Statement stmt12 = conn.createStatement();
+                stmt12.executeUpdate(createTable12);
+            }catch(Exception e){
+                e.printStackTrace();
+            };
 
             conn.close();
         }catch(Exception e){e.printStackTrace();};
