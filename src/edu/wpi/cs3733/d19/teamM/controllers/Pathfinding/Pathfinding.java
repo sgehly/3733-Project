@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.controlsfx.control.textfield.TextFields;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
@@ -230,9 +231,40 @@ public class Pathfinding {
            try {
                Floor floor = new Floor("1");//Create an instance of the floor and get the start and end nodes
                HashMap<String, Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
-               Node startNode = floorMap.get(startString); //Get starting and ending string using keys
-               Node endNode = floorMap.get(endString);
+               Node startNode = null;
+               Node endNode = null;
 
+               if(startString.length() == 10 && endString.length() == 10) //if by node ID
+               {
+                    startNode = floorMap.get(startString); //Get starting and ending string using keys
+                    endNode = floorMap.get(endString);
+               }
+               else
+               {
+                   try{
+                       for(Node node : floorMap.values())
+                       {
+                           if(node.getLongName().equals(startString))
+                           {
+                               startNode = node;
+                           }
+                           if(node.getLongName().equals(endString))
+                           {
+                               endNode = node;
+                           }
+                       }
+
+                   }catch (Exception e)
+                   {
+
+                   }
+
+               }
+
+               if(startNode == null || endNode == null)
+               {
+                   return;
+               }
                //Now we create an A* object to find the path between the two and store the final list of nodes
                AStar aStar = new AStar();
                List<Node> nodeArrayList = aStar.findPath(startNode, endNode);
@@ -287,15 +319,36 @@ public class Pathfinding {
         image.setFitWidth(primaryScreenBounds.getWidth());
         image.setFitHeight(primaryScreenBounds.getHeight() - 200);
 
+        Floor floor = new Floor("1");//Create an instance of the floor and get the start and end nodes
+        HashMap<String, Node> floorMap = (HashMap<String, Node>) floor.getFloorMap();//Get the floorMap
+        ArrayList<String> longNames = new ArrayList<String>(); //Create an arrayList to store the names
+        for(Node node : floorMap.values())
+        {
+            //Store all the names
+            longNames.add(node.getLongName());
+        }
+
         startText.textProperty().addListener((ov, oldValue, newValue) -> {
+            TextFields.bindAutoCompletion(startText,longNames);
             if(startText.getText().length() == 10 && endText.getText().length() == 10){
                 //Both are present.
                 try{this.findPath();}catch(Exception e){e.printStackTrace();}
             }
+            else if(startText.getText().length() >= 0 && endText.getText().length() >= 0)
+            {
+                //If the lengths of both aren't zero, try to see if you can get path
+                try{this.findPath();}catch(Exception e){e.printStackTrace();}
+            }
         });
         endText.textProperty().addListener((ov, oldValue, newValue) -> {
+            TextFields.bindAutoCompletion(endText,longNames);
             if(startText.getText().length() == 10 && endText.getText().length() == 10){
                 //Both are present.
+                try{this.findPath();}catch(Exception e){e.printStackTrace();}
+            }
+            else if(startText.getText().length() >= 0 && endText.getText().length() >= 0)
+            {
+                //If the lengths of both aren't zero, try to see if you can get path
                 try{this.findPath();}catch(Exception e){e.printStackTrace();}
             }
         });
