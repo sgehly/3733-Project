@@ -39,6 +39,7 @@ dependencies {
     implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
     implementation 'com.jfoenix:jfoenix:8.0.8' // Java 8
+    
 
     compile 'com.sendgrid:sendgrid-java:1.1.0'
     compile group: "com.twilio.sdk", name: "twilio", version: "7.37.0"
@@ -49,6 +50,7 @@ dependencies {
     compile group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
     compile group: 'org.apache.derby', name: 'derbytools', version: '10.14.1.0'
     compile group: 'com.jfoenix',name:'jfoenix',version:'8.0.8'
+    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
 
     configurations.compile.extendsFrom(configurations.extraLibs)
 }

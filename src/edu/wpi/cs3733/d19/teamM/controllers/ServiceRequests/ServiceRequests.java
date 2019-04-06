@@ -23,9 +23,6 @@ import java.io.IOException;
  */
 public class ServiceRequests {
 
-    //The path to the databse that we need to use
-    int idgnerator = 1;
-
     //Scene setup from service requests
 
     //Create all objects and FXML objects that are needed
@@ -138,6 +135,16 @@ public class ServiceRequests {
     @FXML
     private void navigateToReligious() throws Exception {
         Main.setScene("serviceRequests/religiousRequests");
+    }
+
+    /**
+     * This method is for the logout button which allows the user to go back to the welcome screen
+     * @throws Exception: Any exception that is encountered
+     */
+    @FXML
+    private void navigateToFLowers() throws Exception{
+        Main.setScene("serviceRequests/flowersRequest");
+
     }
 
     /**
