@@ -15,6 +15,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
+import edu.wpi.cs3733.d19.teamM.controllers.LogIn.LogInController;
+import javafx.fxml.FXML;
+import javafx.scene.text.Text;
 
 /**
  * The controller for the Home screen
@@ -30,6 +33,7 @@ public class Home {
 
     @FXML
     private Label lblDate;
+    private Text welcomeMessage;
 
     /**
      * This method
@@ -63,4 +67,5 @@ public class Home {
     public void initialize() {
         new Clock(lblClock, lblDate);
     }
+
 }

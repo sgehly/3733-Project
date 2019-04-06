@@ -50,7 +50,7 @@ public class Welcome {
      */
     @FXML
     public void navigateToHome() throws Exception{
-        Main.setScene("home");
+        Main.setScene("login");
     }
 
 }
