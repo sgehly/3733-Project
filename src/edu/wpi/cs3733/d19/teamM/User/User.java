@@ -6,6 +6,7 @@ public class User {
     
     private static String username;
     private static int privilege;
+    private static String pathToPic;
 
     public static String getUsername() {
         return username;
@@ -18,6 +19,14 @@ public class User {
     }
     public static void setPrivilege(int privilege) {
         user.privilege = privilege;
+    }
+
+    public static String getPathToPic() {
+        return pathToPic;
+    }
+
+    public static void setPathToPic(String pathToPic) {
+        User.pathToPic = pathToPic;
     }
 
     private User(){}
