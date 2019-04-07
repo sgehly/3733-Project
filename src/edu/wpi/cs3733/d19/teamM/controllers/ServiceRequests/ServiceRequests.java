@@ -158,6 +158,11 @@ public class ServiceRequests {
         Main.setScene("serviceRequests/religiousRequests");
     }
 
+    @FXML
+    private void navigateToSecurity() throws Exception{
+        Main.setScene("serviceRequests/securityRequests");
+    }
+
     /**
      * This method send teh user to the service request list page
      * @throws IOException: Any input/output errors that occur
