@@ -92,6 +92,30 @@ public class Pathfinding {
     @FXML
     private TextField sendMapTextBox;
 
+    @FXML
+    private CheckBox bathrooms;
+
+    @FXML
+    private CheckBox stairs;
+
+    @FXML
+    private CheckBox elevators;
+
+    @FXML
+    private CheckBox labs;
+
+    @FXML
+    private CheckBox confs;
+
+    @FXML
+    private CheckBox food;
+
+    @FXML
+    private CheckBox services;
+
+    @FXML
+    private CheckBox exits;
+
     /**
      * This method lets the user navigate back to the home page
      * @throws Exception
@@ -267,6 +291,59 @@ public class Pathfinding {
     }
 
     /**
+     *
+     * @param s
+     */
+    private void filterNodes(String s) throws Exception, SQLException {
+        try {
+            Floor floor = new Floor("1");
+            //Get the information that we want from the database
+            Connection conn = new DatabaseUtils().getConnection();
+            PreparedStatement stmt = conn.prepareStatement("select * from node where nodeType = ?");
+            stmt.setString(1, s);
+            ResultSet rs = stmt.executeQuery(); // execute where the node type is that specified in the database
+
+            getEntryObjects(rs);
+
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     *
+     * @param e
+     */
+    public void handleButton(ActionEvent e) throws Exception, SQLException{
+       if(bathrooms.isSelected()) {
+           filterNodes("REST");
+           filterNodes("BATH");
+       }
+       if(stairs.isSelected()) {
+           filterNodes("STAI");
+       }
+       if(elevators.isSelected()) {
+           filterNodes("ELEV");
+       }
+       if(labs.isSelected()) {
+           filterNodes("LABS");
+       }
+       if(confs.isSelected()) {
+           filterNodes("CONF");
+       }
+       if(food.isSelected()) {
+           filterNodes("RETL");
+       }
+       if(exits.isSelected()) {
+           filterNodes("EXIT");
+       }
+    }
+
+    /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
      */
@@ -332,7 +409,7 @@ public class Pathfinding {
         buttonContainer.setPrefHeight(image.getFitHeight());
 
         //Get the necessary records for pathfinding
-        getAllRecords();
+        //getAllRecords();
     }
 
     /**

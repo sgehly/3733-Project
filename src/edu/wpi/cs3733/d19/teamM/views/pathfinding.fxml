@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -114,6 +121,12 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="50.0" HBox.hgrow="ALWAYS">
                            <children>
+                              <Accordion />
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Accordion layoutX="58.0" layoutY="1.0" />
+                                 </children>
+                              </AnchorPane>
                               <Button mnemonicParsing="false" onMouseClicked="#findPath" styleClass="bigButton" text="NAVIGATE">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
@@ -187,6 +200,7 @@
                                     <Insets />
                                  </opaqueInsets>
                               </Button>
+                              <Accordion />
                      </children>
                         </VBox>
                         <StackPane prefHeight="150.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -197,20 +211,104 @@
                                     <ImageView fx:id="overlayImage" fitHeight="856.0" fitWidth="1420.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
-                               <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" />
-                              <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" StackPane.alignment="TOP_CENTER">
+                               <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                                    <TextField fx:id="sendMapTextBox" prefHeight="50.0" prefWidth="331.0" promptText="Email Address or Phone #" />
-                                    <Button maxHeight="50.0" mnemonicParsing="false" onAction="#sendMap" prefHeight="40.0" styleClass="blackButton" text="SEND MAP">
-                                       <HBox.margin>
-                                          <Insets left="10.0" />
-                                       </HBox.margin>
-                                    </Button>
+                                    <TitledPane animated="false" layoutX="757.0" prefWidth="202.0" text="Filters">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <ScrollPane layoutY="-10.0" prefHeight="200.0" prefWidth="200.0">
+                                                   <content>
+                                                      <GridPane prefHeight="326.0" prefWidth="150.0">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <CheckBox fx:id="bathrooms" mnemonicParsing="false" prefHeight="32.0" prefWidth="139.0" text="Bathrooms">
+                                                               <GridPane.margin>
+                                                                  <Insets left="15.0" top="10.0" />
+                                                               </GridPane.margin>
+                                                            </CheckBox>
+                                                            <CheckBox fx:id="stairs" mnemonicParsing="false" text="Stairs" GridPane.rowIndex="1">
+                                                               <GridPane.margin>
+                                                                  <Insets left="15.0" />
+                                                               </GridPane.margin>
+                                                            </CheckBox>
+                                                            <CheckBox fx:id="elevators" mnemonicParsing="false" text="Elevators" GridPane.rowIndex="2">
+                                                               <GridPane.margin>
+                                                                  <Insets left="15.0" />
+                                                               </GridPane.margin>
+                                                            </CheckBox>
+                                                            <CheckBox fx:id="labs" mnemonicParsing="false" text="Labs" GridPane.rowIndex="3">
+                                                               <GridPane.margin>
+                                                                  <Insets left="15.0" />
+                                                               </GridPane.margin>
+                                                            </CheckBox>
+                                                            <CheckBox fx:id="confs" mnemonicParsing="false" text="Conference Rooms" GridPane.rowIndex="4">
+                                                               <GridPane.margin>
+                                                                  <Insets left="15.0" />
+                                                               </GridPane.margin>
+                                                            </CheckBox>
+                                                            <CheckBox fx:id="food" mnemonicParsing="false" text="Food" GridPane.rowIndex="5">
+                                                               <GridPane.margin>
+                                                                  <Insets left="15.0" />
+                                                               </GridPane.margin>
+                                                            </CheckBox>
+                                                            <CheckBox fx:id="services" mnemonicParsing="false" text="Services" GridPane.rowIndex="6">
+                                                               <GridPane.margin>
+                                                                  <Insets left="15.0" />
+                                                               </GridPane.margin>
+                                                            </CheckBox>
+                                                            <CheckBox fx:id="exits" mnemonicParsing="false" text="Exits" GridPane.rowIndex="7">
+                                                               <GridPane.margin>
+                                                                  <Insets left="15.0" />
+                                                               </GridPane.margin>
+                                                            </CheckBox>
+                                                            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleButton" text="Apply" GridPane.rowIndex="8">
+                                                               <GridPane.margin>
+                                                                  <Insets bottom="15.0" left="90.0" />
+                                                               </GridPane.margin>
+                                                            </Button>
+                                                         </children>
+                                                      </GridPane>
+                                                   </content>
+                                                </ScrollPane>
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets top="20.0" />
+                                       </padding>
+                                    </TitledPane>
+                                    <HBox alignment="TOP_RIGHT" layoutX="959.0" maxHeight="75.0" prefHeight="75.0" prefWidth="456.0">
+                                       <children>
+                                          <TextField fx:id="sendMapTextBox" prefHeight="50.0" prefWidth="331.0" promptText="Email Address or Phone #" />
+                                          <Button maxHeight="50.0" mnemonicParsing="false" onAction="#sendMap" prefHeight="40.0" styleClass="blackButton" text="SEND MAP">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" right="20.0" top="20.0" />
+                                       </padding>
+                                    </HBox>
                                  </children>
-                                 <padding>
-                                    <Insets bottom="10.0" right="20.0" top="20.0" />
-                                 </padding>
-                              </HBox>
+                              </Pane>
                            </children>
                         </StackPane>
                      </children>
