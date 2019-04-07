@@ -5,7 +5,6 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -19,9 +18,6 @@ public class SecurityRequests {
 
     @FXML
     JFXRadioButton high;
-
-    @FXML
-    ButtonGroup radioButtons;
 
     @FXML
     Label lblClock;
