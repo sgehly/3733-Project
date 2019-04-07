@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
+import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -79,7 +80,7 @@ public class LogInController {
             stmt.setString(1, username.getText());
             ResultSet rs = stmt.executeQuery();
             rs.next();
-            if (password.getText().compareTo(rs.getString("USERPASS")) == 0) {
+            if (Encrypt.getMd5(password.getText()).compareTo(rs.getString("USERPASS")) == 0) {
                 User.getUser();
                 User.setUsername(username.getText());
                 username.setText("");
