@@ -245,7 +245,7 @@ public class AdminUI {
 
 
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException, Exception {
-        String query = "SELECT * FROM NODE WHERE FLOOR='1'";
+        String query = "SELECT * FROM NODE WHERE Floor='1'";
         try {
             Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
@@ -363,6 +363,7 @@ public class AdminUI {
             PreparedStatement stmt2 = conn.prepareStatement("delete from node where nodeID = ?");
             stmt2.setString(1, nodeIdTextBox.getText());
             stmt2.execute();
+            conn.close();
 
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);

@@ -79,10 +79,11 @@ public class Path {
         return paths;
     }
 
-    public Path getSpecificPath(String floorID){
+    public List<Path> getSpecificPath(String floorID){
+        List<Path> paths = new ArrayList<>();
         for (Path p : getFloorPaths()){
-            if (p.getFloorID().equals(floorID)) return p;
+            if (p.getFloorID().equals(floorID)) paths.add(p);
         }
-        return null;
+        return paths;
     }
 }

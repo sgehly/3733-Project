@@ -9,11 +9,12 @@ import javafx.beans.property.*;
 public class DisplayTable {
 
     //Create the instances of the different aspects of the table
-    private StringProperty room;
-    private StringProperty capacity;
-    private StringProperty notes;
     private StringProperty type;
-    private IntegerProperty requestid;
+    private StringProperty room;
+    private StringProperty subType;
+    private StringProperty description;
+    private StringProperty checkbox;
+    private IntegerProperty requestId;
     private StringProperty date;
     private StringProperty filledBy;
 
@@ -22,80 +23,75 @@ public class DisplayTable {
      * The constructor for the display table that creates the new properties
      */
     public DisplayTable(){
-        this.room = new SimpleStringProperty();
-        this.capacity = new SimpleStringProperty();
-        this.notes = new SimpleStringProperty();
         this.type = new SimpleStringProperty();
-        this.requestid = new SimpleIntegerProperty();
+        this.room = new SimpleStringProperty();
+        this.subType = new SimpleStringProperty();
+        this.description = new SimpleStringProperty();
+        this.checkbox = new SimpleStringProperty();
+        this.date = new SimpleStringProperty();
         this.filledBy = new SimpleStringProperty();
+        this.requestId = new SimpleIntegerProperty();
     }
 
-    /**
-     * This is for getting the room property
-     * @return StringProperty: The room string
-     */
-    public StringProperty roomProperty(){
-        return room;
-    }
-
-    /**
-     * This is for getting the notes property
-     * @return StringProperty: The notes string
-     */
-    public StringProperty notesProperty(){
-        return notes;
-    }
-
-    /**
-     * This is for getting the type property
-     * @return StringProperty: The type string
-     */
     public StringProperty typeProperty(){
         return type;
     }
-    public StringProperty capacityProperty(){
-        return capacity;
+    public StringProperty roomProperty(){
+        return room;
     }
-    
-    public IntegerProperty idProperty(){return requestid;}
-    public StringProperty dateProperty(){return date;}
+    public StringProperty subTypeProperty(){
+        return subType;
+    }
+    public StringProperty descriptionProperty(){
+        return description;
+    }
+    public StringProperty checkboxProperty(){
+        return checkbox;
+    }
+    public StringProperty dateProperty(){
+        return date;
+    }
     public StringProperty filledByProperty(){return filledBy;}
+    public IntegerProperty requestIdProperty(){return requestId;}
 
     //getters
+    public String getType(){
+        return typeProperty().get();
+    }
     public String getRoom(){
         return roomProperty().get();
     }
-    public String getCapacity(){
-        return capacityProperty().get();
+    public String getSubType(){
+        return subTypeProperty().get();
     }
-    public String getNotes(){
-        return notesProperty().get();
+    public String getDescription(){
+        return descriptionProperty().get();
     }
-    public Integer getID(){
-        return idProperty().get();
-    }
+    public String getCheckbox(){return checkboxProperty().get();}
     public String getDate(){return dateProperty().get();}
     public String getFilledBy(){return filledByProperty().get();}
+    public Integer getRequestId(){return requestIdProperty().get();}
 
     //setters
-    public void setRoom(String room){
-        this.roomProperty().set(room);
-    }
-    public void setCapacity(String capacity){
-        this.capacityProperty().set(capacity);
-    }
     public void setType(String type){
         this.typeProperty().set(type);
     }
-
-    public void setNotes(String notes){
-        this.notesProperty().set(notes);
+    public void setRoom(String room){
+        this.roomProperty().set(room);
     }
-
-    public void setId(Integer id ){this.idProperty().set(id);}
-
-    public void setDate(String Date){this.dateProperty();}
-
-    public void setFilledBy(String filledBy){this.filledByProperty().set(filledBy);}
+    public void setSubType(String subType){
+        this.subTypeProperty().set(subType);
+    }
+    public void setDescription(String description){
+        this.descriptionProperty().set(description);
+    }
+    public void setCheckbox(String checkbox){
+        this.checkboxProperty().set(checkbox);
+    }
+    public void setDate(String date){
+        this.dateProperty().set(date);
+    }
+    public void setFilledBy(String fulfilledBy){this.filledByProperty().set(fulfilledBy);}
+    public void setRequestId(Integer requestId){this.requestIdProperty().set(requestId);}
 
 }

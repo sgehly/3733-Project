@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +57,7 @@ public class Floor {
     public Path findPresetPath(Node start, String type){
         return aStar.findPresetPath(start, type, this.nodes);
     }
+
     /**
      * Get a map of all the nodes
      * @return Map of all the nodes
@@ -69,7 +71,7 @@ public class Floor {
      * This version of the method will the locally store the image, while the other will actually transfer the image itself
      * @param p - A Path
      */
-    public Image drawPath(Path p) {
+    public Image drawPath(List<Path> paths) {
         int width = 5000; //The given width and height of the image
         int height = 3400;
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -77,19 +79,22 @@ public class Floor {
         Graphics2D g2d = img.createGraphics();
         g2d.setColor(Color.RED);
         g2d.setStroke(new BasicStroke(15.0f));
-        List<Node> nodes = p.getPath();
-        for (int i = 0; i < nodes.size() - 1; i++) //For every node except the last one
-        {
-            Node firstNode = nodes.get(i);
-            Node secondNode = nodes.get(i + 1);
-            g2d.drawLine(firstNode.getXCoord(), firstNode.getYCoord(), secondNode.getXCoord(), secondNode.getYCoord()); //Draw a line from it to the next node
+        List<Node> allNodes = new ArrayList<>();
+        for (Path p : paths) {
+            List<Node> nodes = p.getPath();
+            for (int i = 0; i < nodes.size() - 1; i++) //For every node except the last one
+            {
+                allNodes.add(nodes.get(i));
+                Node firstNode = nodes.get(i);
+                Node secondNode = nodes.get(i + 1);
+                g2d.drawLine(firstNode.getXCoord(), firstNode.getYCoord(), secondNode.getXCoord(), secondNode.getYCoord()); //Draw a line from it to the next node
+            }
         }
         //use the nodes to create points for each of the nodes (black points)
-        for (Node node : nodes) {
-
+        for (Node node : allNodes) {
             int diameter = 7; //Diameter of the circle
             g2d.setColor(Color.YELLOW);
-            Shape circle = new Ellipse2D.Double(node.getXCoord() - diameter / 2.0, node.getYCoord() - diameter / 2.0, diameter, diameter); //Draw the circles
+            Shape circle = new Ellipse2D.Double(node.getXCoord() - diameter / 2.0, node.getYCoord() - diameter / 2.0, diameter, diameter); //Draw the circle
             g2d.draw(circle);
         }
         return SwingFXUtils.toFXImage(img, null);

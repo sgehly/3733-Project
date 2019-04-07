@@ -1,20 +1,38 @@
 package edu.wpi.cs3733.d19.teamM.controllers.Pathfinding;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.*;
+import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.User.User;
-import edu.wpi.cs3733.d19.teamM.utilities.AStar.*;
+import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
+import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.*;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.SendEmail;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -29,7 +47,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.controlsfx.control.textfield.AutoCompletionBinding;
+import javafx.util.Duration;
 import org.controlsfx.control.textfield.TextFields;
 
 import javax.swing.*;
@@ -46,6 +64,8 @@ public class Pathfinding {
     Floor graph;
 
     Path path;
+
+    ArrayList<String> longNames;
 
     //Get the FXML objects to be linked
     @FXML
@@ -109,6 +129,52 @@ public class Pathfinding {
     private CheckBox exits;
 
     /**
+     * This method will initialize the pathfinding screen's controller
+     * @throws Exception: Any exception that arises in the screen
+     */
+    @FXML
+    protected void initialize() throws Exception {
+
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+
+        // find a way to connect the long name in the database and then assign the input start string as that
+        //TextFields.bindAutoCompletion();
+        //startText.textProperty().bind()
+
+        //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
+        //------------------------------------------------------------------------------------------------
+        primaryScreenBounds = Screen.getPrimary().getVisualBounds(); //Get the bounds of the screen
+
+        Image source = new Image(Main.getResource("/resources/maps/01_thefirstfloor.png"));;
+
+        image.setImage(source);//Set the image as the source
+        image.setFitWidth(primaryScreenBounds.getWidth());
+        image.setFitHeight(primaryScreenBounds.getHeight() - 200);
+
+        //Gets the overlay image and sets the width and the height of that
+        overlayImage.setFitWidth(image.getFitWidth());
+        overlayImage.setFitHeight(image.getFitHeight());
+        Image EMPTY = new Image(Main.getResource("/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
+
+        //Initially set the image to empty and get the width and height
+        overlayImage.setImage(EMPTY);
+
+        //Get the buttons on the screen and set the preferred width and height to that of the image
+        buttonContainer.setPrefWidth(image.getFitWidth());
+        buttonContainer.setPrefHeight(image.getFitHeight());
+
+        graph = new Floor();
+        path = new Path();
+        util = new MapUtils(buttonContainer, imageView, image, overlayImage, this::setValues);
+        setUpListeners();
+
+        util.initialize();
+
+
+    }
+
+    /**
      * This method lets the user navigate back to the home page
      * @throws Exception
      */
@@ -140,6 +206,7 @@ public class Pathfinding {
             findPresetHelper("REST");
         }
     }
+
     @FXML
     private void findStaircase() throws Exception{
         if(startText.getText() != null){
@@ -162,14 +229,13 @@ public class Pathfinding {
         }
 
     }
+
     @FXML
     private void findServiceDesk() throws Exception{
-        if(startText.getText() != null){
+        if (startText.getText() != null){
             findPresetHelper("INFO");
         }
-
     }
-
 
     //TODO: fix with new graph class
     private void findPresetHelper(String type) {
@@ -183,86 +249,39 @@ public class Pathfinding {
         resetTextBox();
     }
 
-    @FXML
     private void findPath() throws Exception{
-        //Get the starting and ending nodes ID
-        String startString = startText.getText();
-        String endString = endText.getText();
-        //Check if either are empty
-        System.out.println(1);
-        System.out.println(startString+" - "+endString);
-        System.out.println(1);
+        //Get path
+        String start = startText.getText();
+        String end = endText.getText();
+        Node startNode = graph.getNodes().get(start);
+        Node endNode = graph.getNodes().get(end);
+        path = graph.findPath(startNode, endNode);
+        resetTextBox();
+        updateMap();
+    }
 
-        try {
+    private void findPathWithLongNames() {
 
-            Map<String, Node> floorMap = graph.getNodes();
-            Node startNode = null;
-            Node endNode = null;
+        String start = startText.getText();
+        String end = endText.getText();
+        Node startNode = null;
+        Node endNode = null;
 
-            try{
-                for(Node node : floorMap.values())
-                {
-                    if(node.getLongName().equals(startString))
-                    {
-                        System.out.println("Found start node!");
-                        startNode = node;
-                    }
-                    if(node.getLongName().equals(endString))
-                    {
-                        System.out.println("Found end node!");
-                        endNode = node;
-                    }
-                }
-
-            }catch (Exception f) //If that breaks too
-            {
-                f.printStackTrace();
+        for (Node n : graph.getNodes().values()){
+            if (n.getLongName().equals(start)){
+                startNode = n;
             }
-
-            if(startNode == null || endNode == null)
-            {
-                System.out.println("ERR1");
-                return;
-            }
-
-            System.out.println("Finding path between " + startNode.getId() + " and " + endNode.getId());
-
-            //Now we create an A* object to find the path between the two and store the final list of nodes
-            AStar aStar = new AStar();
-            Path nodeArrayList = aStar.findPath(startNode, endNode);
-            for (Path p : nodeArrayList.getFloorPaths()){
-                System.out.println("Path for floor " + p.getFloorID());
-                System.out.println(PathToString.getDirections(p));
-            }
-            System.out.println("Got Path");
-            final JFrame frame = new JFrame();
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
-            graph.drawPath(nodeArrayList);
-            try {
-                Image Overlaysource;
-                URL theUrl = new URL("file:///" + System.getProperty("user.dir") + File.separator + "PathOutput.png");
-                Overlaysource = new Image(theUrl.toURI().toString()); //See if we can get the image to overlay and then create a new image object from it
-                overlayImage.setImage(Overlaysource); //set the image as the overlay image
-
-                startText.setText("");
-                endText.setText("");
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (n.getLongName().equals(end)){
+                endNode = n;
             }
         }
-        catch (Exception e){
-            e.printStackTrace();
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.initOwner(Main.getStage());
-            VBox dialogVbox = new VBox(20);
-            dialogVbox.getChildren().add(new Label("The node that you entered is not found or there is no path between the given starting node and destination"));
-            Scene dialogScene = new Scene(dialogVbox, 300, 200);
-            dialog.setScene(dialogScene);
-            dialog.show();
+
+        if (startNode != null && endNode != null) {
+            path = graph.findPath(startNode, endNode);
         }
 
+        updateMap();
+        resetTextBox();
     }
 
     /**
@@ -319,70 +338,35 @@ public class Pathfinding {
     }
 
     /**
-     * This method will initialize the pathfinding screen's controller
-     * @throws Exception: Any exception that arises in the screen
+     * Sets up listeners for text fields
      */
-    @FXML
-    protected void initialize() throws Exception {
-
-        new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
-
-        // find a way to connect the long name in the database and then assign the input start string as that
-        //TextFields.bindAutoCompletion();
-        //startText.textProperty().bind()
-
-        //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
-        //------------------------------------------------------------------------------------------------
-        primaryScreenBounds = Screen.getPrimary().getVisualBounds(); //Get the bounds of the screen
-
-        Image source = new Image(Main.getResource("/resources/maps/01_thefirstfloor.png"));;
-
-        image.setImage(source);//Set the image as the source
-        image.setFitWidth(primaryScreenBounds.getWidth());
-        image.setFitHeight(primaryScreenBounds.getHeight() - 200);
-
-
-
-        //Gets the overlay image and sets the width and the height of that
-        overlayImage.setFitWidth(image.getFitWidth());
-        overlayImage.setFitHeight(image.getFitHeight());
-        Image EMPTY = new Image(Main.getResource("/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
-
-        //Initially set the image to empty and get the width and height
-        overlayImage.setImage(EMPTY);
-
-        //Get the buttons on the screen and set the preferred width and height to that of the image
-        buttonContainer.setPrefWidth(image.getFitWidth());
-        buttonContainer.setPrefHeight(image.getFitHeight());
-
-        graph = new Floor();
-        path = new Path();
-        util = new MapUtils(buttonContainer, imageView, image, overlayImage, this::setValues);
-        //Get the necessary records for pathfinding
-        //getAllRecords();
-
-
-
-        //Get the necessary records for pathfinding
-        util.initialize();
+    private void setUpListeners(){
 
         Map<String, Node> floorMap = graph.getNodes();
-        ArrayList<String> longNames = new ArrayList<String>();//ArrayList of LongNames
+        longNames = new ArrayList<String>();//ArrayList of LongNames
 
         for(Node node: floorMap.values())
         {
             longNames.add(node.getLongName());
-        } //Add all long names
-
-        AutoCompletionBinding<String> sb = TextFields.bindAutoCompletion(startText,longNames);
-        AutoCompletionBinding<String> eb = TextFields.bindAutoCompletion(endText,longNames);
-
-        sb.setOnAutoCompleted((ov) -> {
-            try{this.findPath();}catch(Exception e){e.printStackTrace();}
+        }
+        startText.textProperty().addListener((ov, oldValue, newValue) -> {
+            TextFields.bindAutoCompletion(startText,longNames);
         });
-        eb.setOnAutoCompleted((ov) -> {
-            try{this.findPath();}catch(Exception e){e.printStackTrace();}
+        endText.textProperty().addListener((ov, oldValue, newValue) -> {
+            TextFields.bindAutoCompletion(endText,longNames);
+            String start = startText.getText();
+            String end = endText.getText();
+            try{
+                if (graph.getNodes().containsKey(start) && graph.getNodes().containsKey(end)){
+                    findPath();
+                }
+                else if (checkValidLongNameInput()){
+                    findPathWithLongNames();
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         });
     }
 
@@ -395,17 +379,11 @@ public class Pathfinding {
         String nodeId = ((Button)value.getSource()).getId();
 
         //Get required tex to display as one of the values for the pathfinding
-        if(startText.getText().length() == 0 && endText.getText().length() == 0){
+        if(startText.getText().length() == 0){
             startText.setText(nodeId);
             endText.requestFocus();
-        }
-        else if(startText.getText().length() == 0){
+        }else{
             endText.setText(nodeId);
-            startText.requestFocus();
-        }
-        else{
-            endText.setText(nodeId);
-            try{this.findPath();}catch(Exception e){e.printStackTrace();}
         }
     }
 
@@ -424,14 +402,7 @@ public class Pathfinding {
     }
 
     private void updateMap(){
-
-        System.out.println(path);
-        System.out.println(util.getCurrentFloorID());
-
-        Path floorPath = path.getSpecificPath(util.getCurrentFloorID());
-
-        System.out.println(floorPath);
-
+        List<Path> floorPath = path.getSpecificPath(util.getCurrentFloorID());
         if (floorPath != null){
             overlayImage.setImage(graph.drawPath(floorPath));
         }
@@ -452,5 +423,22 @@ public class Pathfinding {
     @FXML
     public void logout() throws Exception{
         Main.setScene("welcome");
+    }
+
+    private boolean checkValidLongNameInput(){
+
+        boolean flag = false;
+        String start = startText.getText();
+        String end = endText.getText();
+
+        for (String n : longNames){
+            if (flag && (n.equals(start) || n.equals(end))){
+                return true;
+            }
+            else if (n.equals(start) || n.equals(end)){
+                flag = true;
+            }
+        }
+        return false;
     }
 }

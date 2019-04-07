@@ -1,6 +1,7 @@
 
 package edu.wpi.cs3733.d19.teamM.controllers.Scheduler;
 
+import java.io.FileWriter;
 import java.net.URL;
 import java.sql.*;
 import java.text.DateFormat;
@@ -19,6 +20,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -124,6 +126,9 @@ public class Scheduler {
     private Button bookButton = new Button();
 
     @FXML
+    private Button exp = new Button();
+
+    @FXML
     private ImageView room1 = new ImageView();
     @FXML
     private ImageView room2 = new ImageView();
@@ -216,6 +221,35 @@ public class Scheduler {
         catch (Exception e){
             e.printStackTrace();
             System.out.println("Error at addBookedTime()");
+        }
+    }
+
+    @FXML
+    private void exportToCsv(ActionEvent event) throws SQLException,ClassNotFoundException{
+        System.out.println("in print");
+        String filename = "bookedRooms.csv";
+        try {
+            FileWriter file = new FileWriter(filename);
+            Connection conn = new DatabaseUtils().getConnection();
+            String query = "select * from BOOKEDTIMES";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while (rs.next()) {
+                file.append(rs.getString(1));
+                file.append(',');
+                file.append(rs.getString(2));
+                System.out.println(rs.getString(2));
+                file.append(',');
+                file.append(rs.getString(3));
+                file.append('\n');
+            }
+            file.flush();
+            file.close();
+            conn.close();
+            System.out.println("CSV File is created successfully.");
+        } catch (Exception ev) {
+            ev.printStackTrace();
         }
     }
 

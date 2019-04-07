@@ -24,6 +24,7 @@
     -fx-border-width: .2em;
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
+    -fx-text-size: 26px;
     -fx-background-radius: 5px;
     -fx-border-width: .2em;
     -fx-border-radius: 5px;
@@ -32,7 +33,6 @@
 .whiteButton:hover {
     -fx-background-color: white;
     -fx-text-fill: black;
-    -fx-border-color: #ffffff;
     -fx-font-family: "Open Sans Bold";
     -fx-cursor: hand;
 }
@@ -175,9 +175,17 @@
 }
 
 /*tableview*/
+.table-view, .table-view *{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
 .table-view .column-header,
 .table-view .column-header-background .filler {
-    -fx-background-color: #74b3ce;
+    -fx-background-color: #012d5a;
+    -fx-font-family:"Open Sans Bold";
+    -fx-text-size:22px;
+    -fx-text-alignment: center;
 
 }
 .table-view .column-header .label{
@@ -185,12 +193,24 @@
     -fx-font-size: 12pt;
     -fx-font-weight: bold;
 }
+
 .table-view .cell{
     -fx-cell-size: 35;
-    -fx-text-fill: black;
+}
+
+.table-row-cell{
+    -fx-font-family:"Open Sans Bold";
+    -fx-text-size:22px;
+    -fx-text-alignment: center;
+    -fx-background-color: #fff;
+}
+
+.table-row-cell:odd{
+    -fx-background-color:#fff;
 }
 .table-row-cell:selected {
-    -fx-background-color: #cacaca;
+    -fx-background-color: #012d5a;
+    -fx-text-fill:white;
 }
 
 .force-white{
@@ -203,6 +223,24 @@
     -fx-opacity:0.6;
     -fx-cursor:hand;
 }
+
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background,
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
+
+
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button,
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}
+
+
 /*!* scroll bar starts here *!
 !* The increment and decrement button CSS class of scrollbar *!
 .table-view .increment-button ,.table-view .decrement-button {

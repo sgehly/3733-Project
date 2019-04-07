@@ -176,7 +176,6 @@ public class ServiceRequests {
     @FXML
     private void navigateToGifts() throws Exception
     {
-        //C:\Users\Vishn\IdeaProjects\3733-Project\src\edu\wpi\cs3733\d19\teamM\controllers\ServiceRequests\GiftRequest.java
         Main.setScene("serviceRequests/giftRequest");
     }
 
@@ -207,18 +206,29 @@ public class ServiceRequests {
 
 
     /**
+     * This method checks room availability after a button is clicked
+     * @param event
+     */
+    @FXML
+    void checkRoomValidity(MouseEvent event) {
+
+    }
+
+
+    /**
      * This method send teh user to the service request list page
      * @throws IOException: Any input/output errors that occur
      */
     @FXML
-    public void goToRequestList() throws IOException {
-        Main.setScene("serviceRequestList");
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
     }
 
     public void makeRequest(String type, String room, String subtype, String description, boolean checkbox){
+        System.out.println("Trying to make request");
         try {
             Connection conn = new DatabaseUtils().getConnection();
-            String query = "insert into APP.REQUESTINPROGRESS  (REQUESTID, TYPE, ROOM, SUBTYPE, NOTE , DATE, CHECKBOX) values (?,?,?,?,?,?,?)";
+            String query = "insert into APP.REQUESTINPROGRESS  (REQUESTID, TYPE, ROOM, SUBTYPE, DESCRIPTION, DATE, CHECKBOX) values (?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(query);
 
             stmt.setInt(1, (RandIDgenerator()));
@@ -232,7 +242,7 @@ public class ServiceRequests {
             stmt.executeUpdate();
             stmt.close();
 
-            this.goToRequestList();
+            this.goToList();
 
         } catch (Exception e) {
             e.printStackTrace();

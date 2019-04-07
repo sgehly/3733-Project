@@ -107,7 +107,7 @@ public class MapUtils {
                 MapPoint generated = scalePoints(rs.getInt("xcoord"), rs.getInt("ycoord"));
                 newButton.setLayoutX(generated.x-(size/2));
                 newButton.setLayoutY(generated.y-(size/2));
-                newButton.setStyle("-fx-background-color: blue");
+                newButton.getStylesheets().add("resources/mapNode.css");
                 buttonContainer.getChildren().add(newButton); //Add it to the button container
             }
             return entList; //Return this list
