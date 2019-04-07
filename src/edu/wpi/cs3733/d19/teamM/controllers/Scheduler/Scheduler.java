@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -49,6 +51,9 @@ public class Scheduler {
 
     @FXML // fx:id="zoomLvl"
     private Slider zoomLvl; // Value injected by FXMLLoader
+
+    @FXML
+    private Text userText;
 
     @FXML // fx:id="imageView"
     private HBox imageView; // Value injected by FXMLLoader
@@ -229,6 +234,8 @@ public class Scheduler {
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+
+        userText.setText(User.getUsername());
 
         startDate.setStyle("-jfx-unfocus-color: WHITE;");
         startTime.setStyle("-jfx-unfocus-color: WHITE;");

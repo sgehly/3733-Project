@@ -2,10 +2,12 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import edu.wpi.cs3733.d19.teamM.Main;
 
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 
 import java.sql.*;
 import java.awt.event.MouseEvent;
@@ -32,6 +34,9 @@ public class ServiceRequests {
     //initializing the timestamp
     long time = date.getTime();
     Timestamp ts = new Timestamp(time);
+
+    @FXML
+    private Text userText;
 
     @FXML
     private Accordion accordion;
@@ -169,6 +174,7 @@ public class ServiceRequests {
      */
     @FXML// This method is called by the FXMLLoader when initialization is complete
     void initialize(){
+        userText.setText(User.getUsername());
             accordion.setExpandedPane(sanitation);
             //general asserts
             assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";

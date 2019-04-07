@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
@@ -28,6 +29,7 @@ import javafx.scene.layout.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -50,6 +52,9 @@ public class Pathfinding {
     Rectangle2D primaryScreenBounds;
 
     //Get the FXML objects to be linked
+    @FXML
+    private Text userText;
+
     @FXML
     private Pane imageView;
 
@@ -254,6 +259,8 @@ public class Pathfinding {
      */
     @FXML
     protected void initialize() throws Exception {
+
+        userText.setText(User.getUsername());
 
         //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
         //------------------------------------------------------------------------------------------------

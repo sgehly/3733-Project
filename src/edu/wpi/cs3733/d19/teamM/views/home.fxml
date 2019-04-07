@@ -67,7 +67,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#navigateToAdmin" onMouseClicked="#logout" styleClass="logoutButton" text="ADMIN">
+                              <Button fx:id="admin" mnemonicParsing="false" onAction="#navigateToAdmin" onMouseClicked="#logout" styleClass="logoutButton" text="ADMIN">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>

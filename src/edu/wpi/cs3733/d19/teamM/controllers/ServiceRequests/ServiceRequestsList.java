@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import edu.wpi.cs3733.d19.teamM.Main;
 
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.beans.value.ObservableValue;
@@ -21,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 /**
  * This class is the controller for all the ServiceRequestPage related UI elements
@@ -34,6 +36,8 @@ public class ServiceRequestsList {
     private TitledPane incompletePane;
     @FXML
     private TitledPane completePane;
+    @FXML
+    private Text userText;
 
 
     //all items for the service request list view
@@ -299,6 +303,7 @@ public class ServiceRequestsList {
     @FXML
     void initialize() {
         try {
+            userText.setText(User.getUsername());
             accordion.setExpandedPane(incompletePane);
             //Create the table and get get the records and populate it it for viewing
             ObservableList<DisplayTable> entList = getAllRecords();

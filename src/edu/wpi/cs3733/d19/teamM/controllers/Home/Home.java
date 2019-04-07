@@ -4,6 +4,7 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.LogIn.LogInController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 /**
@@ -16,6 +17,9 @@ public class Home {
 
     @FXML
     private Text userText;
+
+    @FXML
+    private Button admin;
 
     /**
      * This method
@@ -42,13 +46,17 @@ public class Home {
 
     @FXML
     public void navigateToAdmin(){
-        Main.setScene("admin");
+        if(User.getPrivilege() == 1)
+            Main.setScene("admin");
     }
 
     @FXML
     void initialize(){
         userText.setText(User.getUsername());
         welcomeMessage.setText("Welcome to Women's and Brigham, " + User.getUsername());
+        if(User.getPrivilege() != 1){
+            admin.setVisible(false);
+        }
     }
 
 }

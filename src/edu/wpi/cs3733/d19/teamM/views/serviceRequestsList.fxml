@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane stylesheets="@/resources/stylesheet.css" prefHeight="1080.0" prefWidth="1920.0" scaleShape="false" style="-fx-background-color: rgba(1,45,90,1);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequestsList">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" scaleShape="false" style="-fx-background-color: rgba(1,45,90,1);" stylesheets="@/resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequestsList">
    <children>
       <VBox alignment="CENTER" spacing="50.0" style="-fx-background-color: rgba(1,45,90,1);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -34,7 +34,7 @@
                               <Image url="@/resources/icons/icons8_home_page_40px_1.png" />
                            </image>
                         </ImageView>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
+                        <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
                            <font>
                               <Font name="Open Sans Bold" size="36.0" />
                            </font>

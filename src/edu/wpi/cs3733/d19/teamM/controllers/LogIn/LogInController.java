@@ -51,11 +51,27 @@ public class LogInController {
 
     @FXML
     void guestLogIn(ActionEvent event) {
-        Main.setScene("home");
+        try {
+            User.getUser();
+            User.setUsername("Guest");
+            username.setText("");
+            password.setText("");
+            errorMessage.setText("");
+            User.setPrivilege(0);
+            System.out.println("Logged in Guest");
+            Main.loadScenes();
+            Main.setScene("home");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void logIn(ActionEvent event) {
+        /*
+        TODO add username to pages: scheduler, service requests, sr list
+         */
         try {
             String query = "SELECT * from USERS where USERNAME = ?";
             Connection conn = new DatabaseUtils().getConnection();
@@ -65,10 +81,10 @@ public class LogInController {
             rs.next();
             if (password.getText().compareTo(rs.getString("USERPASS")) == 0) {
                 User.getUser();
-                //TODO verify username
                 User.setUsername(username.getText());
                 username.setText("");
                 password.setText("");
+                errorMessage.setText("");
                 User.setPrivilege(rs.getInt("ACCOUNTINT"));
                 System.out.println("Logged in " + User.getUsername() + " with privilege " + User.getPrivilege());
                 Main.loadScenes();
@@ -80,6 +96,9 @@ public class LogInController {
            }
         } catch (Exception e) {
             e.printStackTrace();
+            errorMessage.setText("User " + username.getText() + " Not Found");
+            username.setText("");
+            password.setText("");
         }
 
     }
