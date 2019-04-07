@@ -205,6 +205,20 @@ public class ServiceRequests {
     }
 
 
+    @FXML
+    private void naviagateToExternal() throws Exception{
+        Main.setScene("serviceRequests/ExtTransport");
+    }
+
+
+
+    @FXML
+    private void navigateToIntTransport() throws Exception{
+        Main.setScene("serviceRequests/IntTransport");
+    }
+
+
+
     /**
      * This method checks room availability after a button is clicked
      * @param event
