@@ -1,11 +1,26 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-
+import edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests;
 public class ReligiousRequests {
+
+    @FXML
+    JFXTextField roomField;
+
+    @FXML
+    JFXTextField religion;
+
+    @FXML
+    JFXTextArea requestText;
+
+    @FXML
+    JFXCheckBox possession;
 
     @FXML
     Label lblClock;
@@ -29,6 +44,11 @@ public class ReligiousRequests {
     @FXML
     private void navigateBack() throws Exception {
         Main.setScene("serviceRequests");
+    }
+
+    @FXML
+    private void makeServiceRequest() throws Exception {
+        new ServiceRequests().makeRequest("religion", roomField.getText(), religion.getText(), requestText.getText(), possession.isSelected());
     }
 
     @FXML

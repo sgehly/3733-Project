@@ -14,9 +14,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamM.Main;
 
 import edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -24,6 +26,7 @@ import javafx.animation.Timeline;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -46,14 +49,12 @@ public class ServiceRequestsList {
     @FXML
     private Label lblDate;
 
-    //All the different objects that have to be created for the page fxid are all the same name as the instance name
-    @FXML
-    private Accordion accordion;
     @FXML
     private TitledPane incompletePane;
     @FXML
     private TitledPane completePane;
 
+    int currentTab = 0;
 
     //all items for the service request list view
     @FXML // ResourceBundle that was given to the FXMLLoader
@@ -76,30 +77,39 @@ public class ServiceRequestsList {
 
     // table and columns for the request in progress table.
     @FXML // fx:id="requestInProgress"
-    private TableView requestInProgress = new TableView(); // Value injected by FXMLLoader
+    private TableView requestsInProgress = new TableView(); // Value injected by FXMLLoader
 
     @FXML
-    private TableColumn<DisplayTable,String> room = new TableColumn("room");
+    private TableColumn<DisplayTable,Integer> RIPIdCol = new TableColumn("id");
     @FXML
-    private TableColumn<DisplayTable,String> notes = new TableColumn("notes");
+    private TableColumn<DisplayTable,String> RIPTypeCol = new TableColumn("type");
     @FXML
-    private TableColumn<DisplayTable,String> type = new TableColumn("type");
+    private TableColumn<DisplayTable,String> RIPRoomCol = new TableColumn("room");
     @FXML
-    private TableColumn<DisplayTable,Integer> requestId = new TableColumn("requestId");
+    private TableColumn<DisplayTable,String> RIPSubTypeCol = new TableColumn("subType");
+    @FXML
+    private TableColumn<DisplayTable,String> RIPDescCol = new TableColumn("description");
+    @FXML
+    private TableColumn<DisplayTable,Integer> RIPCheckboxCol = new TableColumn("checkbox");
+
 
     //table and columns for request log table.
     @FXML
-    private TableView requestCompleted = new TableView();
+    private TableView requestsCompleted = new TableView();
     @FXML
-    private TableColumn<DisplayTable,String> room1 = new TableColumn("room");
+    private TableColumn<DisplayTable,Integer> RCIdCol = new TableColumn("id");
     @FXML
-    private TableColumn<DisplayTable,String> notes1 = new TableColumn("notes");
+    private TableColumn<DisplayTable,String> RCTypeCol = new TableColumn("type");
     @FXML
-    private TableColumn<DisplayTable,String> type1 = new TableColumn("type");
+    private TableColumn<DisplayTable,String> RCRoomCol = new TableColumn("room");
     @FXML
-    private TableColumn<DisplayTable,Integer> requestId1 = new TableColumn("requestId");
+    private TableColumn<DisplayTable,String> RCSubTypeCol = new TableColumn("subType");
     @FXML
-    private TableColumn<DisplayTable,String> filledBy1 = new TableColumn("finished_by");
+    private TableColumn<DisplayTable,String> RCDescCol = new TableColumn("description");
+    @FXML
+    private TableColumn<DisplayTable,Integer> RCCheckboxCol = new TableColumn("checkbox");
+    @FXML
+    private TableColumn<DisplayTable,String> RCFilledByCol = new TableColumn("filledBy");
 
 
     @FXML
@@ -109,59 +119,69 @@ public class ServiceRequestsList {
     private TextField getid;
 
 
+    @FXML
+    private JFXComboBox dropdown;
 
     /**
      * Default method to delete a request
      * @param event: based on mouse input
      */
     @FXML
-    void deleteIncompleteRequest(MouseEvent event)throws ClassNotFoundException {
+    void deleteRequest(ActionEvent event){
         //delete a request
-        String query = "DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
-        try {
-            Connection conn = new DatabaseUtils().getConnection();
-            PreparedStatement s = conn.prepareStatement(query);
-            s.setString(1, this.getIdFromTable("incomplete"));
-            s.executeUpdate();
-            System.out.println("deleted from db");
-            //stmt.setString(6,FilledBy.getText());
-            conn.close();
-        }
-        catch (Exception e) {
-            System.out.println("Error while trying to fetch all records");
-            e.printStackTrace();
+
+        if(requestsInProgress.getFocusModel().getFocusedIndex() >= 0){
+            String query = "DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                PreparedStatement s = conn.prepareStatement(query);
+                s.setString(1, this.getIdFromTable("incomplete"));
+                s.executeUpdate();
+
+                System.out.println("deleted from db");
+                //stmt.setString(6,FilledBy.getText());
+                conn.close();
+
+                this.initWithType(this.currentTab);
+
+            }
+            catch (Exception e) {
+                System.out.println("Error while trying to fetch all records");
+                e.printStackTrace();
+            }
         }
 
-        initialize();
+        if(requestsCompleted.getFocusModel().getFocusedIndex() >= 0) {
+            String query = "DELETE FROM REQUESTLOG Where REQUESTID = ?";
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                PreparedStatement s = conn.prepareStatement(query);
+                s.setString(1, this.getIdFromTable("complete"));
+                s.executeUpdate();
+
+                System.out.println("deleted from db");
+                //stmt.setString(6,FilledBy.getText());
+                conn.close();
+
+                this.initWithType(this.currentTab);
+
+            }
+            catch (Exception e) {
+                System.out.println("Error while trying to fetch all records");
+                e.printStackTrace();
+            }
+        }
 
     }
 
-    @FXML
-    void deleteCompleteRequest(MouseEvent event)throws ClassNotFoundException{
-        String query = "DELETE FROM REQUESTLOG Where REQUESTID = ?";
-        try {
-            Connection conn = new DatabaseUtils().getConnection();
-            PreparedStatement s = conn.prepareStatement(query);
-            s.setString(1, this.getIdFromTable("complete"));
-            s.executeUpdate();
-            System.out.println("deleted from db");
-            conn.close();
-        }
-        catch (Exception e) {
-            System.out.println("Error while trying to fetch all records");
-            e.printStackTrace();
-        }
-
-        initialize();
-    }
 
     private String getIdFromTable(String table) {
         if(table.equals("incomplete")) {
-            ObservableValue<Integer> id = requestId.getCellObservableValue(requestInProgress.getSelectionModel().getFocusedIndex());
+            ObservableValue<Integer> id = RIPIdCol.getCellObservableValue(requestsInProgress.getSelectionModel().getFocusedIndex());
             return Integer.toString(id.getValue());
         }
         else{
-            ObservableValue<Integer> id = requestId1.getCellObservableValue(requestCompleted.getSelectionModel().getFocusedIndex());
+            ObservableValue<Integer> id = RCIdCol.getCellObservableValue(requestsCompleted.getSelectionModel().getFocusedIndex());
             return Integer.toString(id.getValue());
         }
     }
@@ -199,13 +219,13 @@ public class ServiceRequestsList {
      * @param event
      */
     @FXML
-    void markAsComplete(MouseEvent event) throws ClassNotFoundException{
+    void markAsComplete(ActionEvent event) throws ClassNotFoundException{
         //move to complete table
-        String query1 = "\n" +
-                "INSERT INTO REQUESTLOG (REQUESTID, ROOM, NOTE, DATE, TYPE, FINISHED_BY) SELECT REQUESTID,ROOM,\n" +
-                "NOTE,DATE,TYPE,FINISHED_BY from REQUESTINPROGRESS where REQUESTID = ?";
+        String query1 = "INSERT INTO REQUESTLOG (REQUESTID, TYPE, ROOM, SUBTYPE, DESCRIPTION, CHECKBOX, DATE, FINISHED_BY) SELECT REQUESTID, TYPE, ROOM, SUBTYPE, DESCRIPTION, CHECKBOX, DATE, FINISHED_BY from REQUESTINPROGRESS where REQUESTID = ?";
         String query2 = " UPDATE REQUESTLOG SET FINISHED_BY = ? WHERE REQUESTID = ?";
         String query3 = " DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
+
+        if(requestsInProgress.getFocusModel().getFocusedIndex() == -1) return;
 
         try {
             Connection conn = new DatabaseUtils().getConnection();
@@ -217,7 +237,7 @@ public class ServiceRequestsList {
 
             //add the name of the person that got it done
             PreparedStatement st = conn.prepareStatement(query2);
-            st.setString(1, FilledBy.getText());
+            st.setString(1, "FIX_ME");
             st.setString(2, this.getIdFromTable("incomplete"));
             st.executeUpdate();
             System.out.println("inserted into db");
@@ -229,14 +249,13 @@ public class ServiceRequestsList {
             System.out.println("deleted from db");
             //stmt.setString(6,FilledBy.getText());
             conn.close();
+            this.initWithType(this.currentTab);
 
         }
         catch (Exception e) {
             System.out.println("Error while trying to fetch all records");
             e.printStackTrace();
         }
-
-        initialize();
     }
 
     /**
@@ -252,12 +271,13 @@ public class ServiceRequestsList {
             while (rs.next()) {
                 //Get the correct entries from the text fields and add to the list so that we can add it to the database
                 DisplayTable ent = new DisplayTable();
-                ent.setRoom(rs.getString("room"));
-                ent.setNotes(rs.getString("note"));
                 ent.setType(rs.getString("type"));
-                ent.setId(rs.getInt("requestId"));
+                ent.setRoom(rs.getString("room"));
+                ent.setSubType(rs.getString("subType"));
+                ent.setDescription(rs.getString("description"));
+                ent.setCheckbox(rs.getString("checkbox").equals("0") ? "NO" : "YES");
+                ent.setRequestId(rs.getInt("requestId"));
                 ent.setFilledBy(rs.getString("finished_by"));
-                //System.out.println(rs.getString("finished_by"));
                 entList.add(ent);
             }
             return entList;
@@ -274,16 +294,21 @@ public class ServiceRequestsList {
      * @throws ClassNotFoundException: If classes are not found
      * @throws SQLException: Any issues with the database
      */
-    public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
+    public ObservableList<DisplayTable> getAllRecords(String type, String table) throws ClassNotFoundException, SQLException {
         //Get the query from the database
-        String query = "SELECT * FROM REQUESTINPROGRESS";
+        String query = "SELECT * FROM "+table;
+
+        if(type != "all"){
+            query += " WHERE TYPE='"+type+"'";
+        }
+
         try {
             Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             //Store the results we get in the entry list display table
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
-            requestInProgress.setItems(entryList);
+            requestsInProgress.setItems(entryList);
 
             return entryList;
         } catch (SQLException e) {
@@ -293,23 +318,53 @@ public class ServiceRequestsList {
         }
     }
 
-    public ObservableList<DisplayTable> getAllRecords2() throws ClassNotFoundException, SQLException {
-        String query = "SELECT * FROM REQUESTLOG";
+
+    private void initWithType(int index){
+
+        String identifiers[] = new String[] {"all","sanitation","language","it", "av","gift", "florist", "internal", "external", "religion", "security", "prescriptions"};
+        String identifier = identifiers[index];
+
         try {
-            Connection conn = new DatabaseUtils().getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            ObservableList<DisplayTable> entryList = getEntryObjects(rs);
-            requestCompleted.setItems(entryList);
+            //Create the table and get get the records and populate it it for viewing
+            ObservableList<DisplayTable> inProgressItems = getAllRecords(identifier, "REQUESTINPROGRESS");
+            ObservableList<DisplayTable> completedItems = getAllRecords(identifier, "REQUESTLOG");
+            requestsInProgress.setItems(inProgressItems);
+            requestsCompleted.setItems(completedItems);
 
-            return entryList;
-        } catch (SQLException e) {
-            System.out.println("Error while trying to fetch all records");
+
+            if(index > 0){
+                String subTypeLabel = "";
+                String descLabel = "";
+                String checkboxLabel = "";
+
+                switch(identifier){
+                    case "religion":
+                        subTypeLabel = "Religion";
+                        descLabel = "Request";
+                        checkboxLabel = "Possession?";
+                        break;
+                }
+                RIPSubTypeCol.setText(subTypeLabel);
+                RIPDescCol.setText(descLabel);
+                RIPCheckboxCol.setText(checkboxLabel);
+
+                RCSubTypeCol.setText(subTypeLabel);
+                RCDescCol.setText(descLabel);
+                RCCheckboxCol.setText(checkboxLabel);
+            }else{
+                RIPSubTypeCol.setText("");
+                RIPDescCol.setText("");
+                RIPCheckboxCol.setText("");
+
+                RCSubTypeCol.setText("");
+                RCDescCol.setText("");
+                RCCheckboxCol.setText("");
+            }
+        }
+        catch (Exception e){
             e.printStackTrace();
-            throw e;
         }
     }
-
 
     /**
      * This method is meant to initialize the controller for use
@@ -318,58 +373,35 @@ public class ServiceRequestsList {
     @FXML
     void initialize() {
 
-        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+        new Clock(lblClock, lblDate);
 
-            secs = LocalTime.now().getSecond();
-            mins = LocalTime.now().getMinute();
-            hrs = LocalTime.now().getHour();
+        ObservableList<String> dropdownList = FXCollections.observableArrayList();;
+        dropdownList.setAll("All","Sanitation","Interpreter","IT Service", "AV Service","Gift Shop", "Florist", "Internal Transport", "External Transport", "Religious", "Security", "Prescriptions");
 
-            lblClock.setText(hrs + ":" + (mins) + ":" + secs);
-        }), new KeyFrame(Duration.seconds(1)));
+        dropdown.setItems(dropdownList);
+        dropdown.getSelectionModel().select("All");
 
-        clock.setCycleCount(Animation.INDEFINITE);
-        clock.play();
+        dropdown.setOnAction((e) -> {
+            currentTab = dropdown.getSelectionModel().getSelectedIndex();
+            initWithType(currentTab);
+        });
 
-        DateFormat date = new SimpleDateFormat("MM/dd/yyyy");
-        java.util.Date d = new Date();
-        Calendar cal = Calendar.getInstance();
-        lblDate.setText(date.format(d));
+        RIPIdCol.setCellValueFactory(new PropertyValueFactory<>("requestId"));
+        RIPTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        RIPRoomCol.setCellValueFactory(new PropertyValueFactory<>("room"));
+        RIPSubTypeCol.setCellValueFactory(new PropertyValueFactory<>("subType"));
+        RIPDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        RIPCheckboxCol.setCellValueFactory(new PropertyValueFactory<>("checkbox"));
 
-        try {
-            accordion.setExpandedPane(incompletePane);
-            //Create the table and get get the records and populate it it for viewing
-            ObservableList<DisplayTable> entList = getAllRecords();
-            ObservableList<DisplayTable> entList2 = getAllRecords2();
+        RCIdCol.setCellValueFactory(new PropertyValueFactory<>("requestId"));
+        RCTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        RCRoomCol.setCellValueFactory(new PropertyValueFactory<>("room"));
+        RCSubTypeCol.setCellValueFactory(new PropertyValueFactory<>("subType"));
+        RCDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        RCCheckboxCol.setCellValueFactory(new PropertyValueFactory<>("checkbox"));
+        RCFilledByCol.setCellValueFactory(new PropertyValueFactory<>("filledBy"));
 
-
-
-            requestId.setCellValueFactory(new PropertyValueFactory<>("id"));
-            room.setCellValueFactory(new PropertyValueFactory<>("room"));
-            notes.setCellValueFactory(new PropertyValueFactory<>("notes"));
-            type.setCellValueFactory(new PropertyValueFactory<>("type"));
-
-            requestId1.setCellValueFactory(new PropertyValueFactory<>("id"));
-            room1.setCellValueFactory(new PropertyValueFactory<>("room"));
-            notes1.setCellValueFactory(new PropertyValueFactory<>("notes"));
-            type1.setCellValueFactory(new PropertyValueFactory<>("type"));
-            filledBy1.setCellValueFactory(new PropertyValueFactory<>("filledBy"));
-
-
-
-            requestInProgress.setItems(entList);
-            requestCompleted.setItems(entList2);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-        //Necessary assert statements for the different FXML elements
-        assert back != null : "fx:id=\"back\" was not injected: check your FXML file 'serviceRequests.fxml'.";
-        assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
-        assert requestFulfilledButton != null : "fx:id=\"requestFulfilledButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
-        assert deleteIncompleteButton != null : "fx:id=\"deleteIncompleteButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
-        assert deleteCompletedButton != null : "fx:id=\"deleteCompletedButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
-
+        initWithType(0);
     }
 
     /**

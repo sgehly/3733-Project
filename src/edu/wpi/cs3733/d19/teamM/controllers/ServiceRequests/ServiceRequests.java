@@ -168,14 +168,15 @@ public class ServiceRequests {
      * @throws IOException: Any input/output errors that occur
      */
     @FXML
-    public void goToRequestList() throws IOException {
-        Main.setScene("serviceRequestList");
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
     }
 
     public void makeRequest(String type, String room, String subtype, String description, boolean checkbox){
+        System.out.println("Trying to make request");
         try {
             Connection conn = new DatabaseUtils().getConnection();
-            String query = "insert into APP.REQUESTINPROGRESS  (REQUESTID, TYPE, ROOM, SUBTYPE, NOTE , DATE, CHECKBOX) values (?,?,?,?,?,?,?)";
+            String query = "insert into APP.REQUESTINPROGRESS  (REQUESTID, TYPE, ROOM, SUBTYPE, DESCRIPTION, DATE, CHECKBOX) values (?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(query);
 
             stmt.setInt(1, (RandIDgenerator()));
@@ -189,7 +190,7 @@ public class ServiceRequests {
             stmt.executeUpdate();
             stmt.close();
 
-            this.goToRequestList();
+            this.goToList();
 
         } catch (Exception e) {
             e.printStackTrace();
