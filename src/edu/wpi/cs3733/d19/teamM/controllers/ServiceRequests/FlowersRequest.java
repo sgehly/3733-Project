@@ -21,7 +21,12 @@ import java.util.ResourceBundle;
 public class FlowersRequest implements Initializable {
 
 
-    String[] flowers = {"Roses","Dahlia","Tulip","Sun Flower"};
+    String[] flowers = {"Roses","Dahlia","Tulip","Sun Flower","Alstroemeria","Amaryllis","Asiatic Lily","Aster","Azalea","Baby’s Breath","Begonia","Bird of Paradise"
+            ,"Calla Lily","Campanula","Carnation","Chrysanthemum","Cockscomb","Crocus","Cyclamen","Cymbidium Orchid","Daffodil","Daisy","Delphinium","Dendrobium Orchid",
+            "Freesia","Gardenia","Geranium","Gladiolus","Heather","Hibiscus","Hyacinth","Hydrangea","Hypericum","Iris","Jasmine","Jonquil","Kalanchoe","Larkspur","Lavender",
+            "Daffodil","Liatris","Lilac","Lily","Limonium","Lisianthus","Magnolia","Marigold","Mini-Carnation","Narcissus","Orchid","Oriental Lily","Pansy","Peace Lily","Petite Rose",
+            "Phalaenopsis Orchid","Poinsettia","Pompon","Protea","Ranunculus","Snapdragon","Solidago","Spray Rose","Star of Bethlehem","Stargazer Lily","Statice","Stock",
+            "Tea Rose","Trachelium","Tuberose","Violet","Waxflower","Zinnia"};
 
 
     //Tesxt Field for flower type input
