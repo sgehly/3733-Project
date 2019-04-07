@@ -144,7 +144,7 @@ public class DatabaseUtils {
             String createTable10 = "create table REQUESTINPROGRESS (REQUESTID   INTEGER not null constraint REQUESTINPROGRESS_REQUESTID_UINDEX unique, ROOM VARCHAR(200), NOTE VARCHAR(200), DATE TIMESTAMP, TYPE VARCHAR(200) default 'Sanitation', FINISHED_BY VARCHAR(30)  default 'NULL')";
             String createTable20 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,pathtopic varchar(100), constraint adminBool check (accountInt = 100 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0))";
             String createTable13 = "DELETE FROM users";
-            String createTable12 = "insert into users values ('jeff', 100, '098f6bcd4621d373cade4e832627b4f6','/resources/People_Pictures/Jeff.jpg')"; //('bridget', 0 '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Bridget.jpg'),('wong', 1, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Wong.jpg'), ('sam', 2, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Sam.jpg'),('ken', 100, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Ken.jpg'), ('staff', 100, '1253208465b1efa876f982d8a9e73eef', '/resources/bwh-logo.png')";
+            String createTable12 = "insert into users values ('jeff', 100, '098f6bcd4621d373cade4e832627b4f6','/resources/People_Pictures/Jeff.jpg'), ('staff', 0, '1253208465b1efa876f982d8a9e73eef', '/resources/bwh-logo.png')"; //('bridget', 0 '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Bridget.jpg'),('wong', 1, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Wong.jpg'), ('sam', 2, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Sam.jpg'),('ken', 100, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Ken.jpg'), ('staff', 100, '1253208465b1efa876f982d8a9e73eef', '/resources/bwh-logo.png')";
             try {
                 Statement stmt1 = conn.createStatement();
                 stmt1.executeUpdate(createTable1);
@@ -388,4 +388,4 @@ CREATE TABLE BOOKEDTIMES (
                            ENDTIME TIMESTAMP
 );
 
-            */
+*/
