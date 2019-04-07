@@ -40,12 +40,12 @@
                                         <Image url="@../../../../../../resources/icons/icons8-home.png" />
                                     </image>
                                 </ImageView>
-                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
+                                <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
                                     <font>
                                         <Font name="Open Sans Bold" size="36.0" />
                                     </font>
                                     <HBox.margin>
-                                        <Insets left="15.0" />
+                                        <Insets />
                                     </HBox.margin>
                                 </Text>
                             </children>

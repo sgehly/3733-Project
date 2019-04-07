@@ -36,7 +36,7 @@
                                     <Image url="@/resources/icons/icons8-surgeon_skin_type_1.png" />
                                  </image>
                               </ImageView>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
+                              <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
                                  <font>
                                     <Font name="Open Sans Bold" size="36.0" />
                                  </font>
@@ -74,7 +74,7 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#navigateToAdmin" onMouseClicked="#logout" styleClass="logoutButton" text="ADMIN">
+                              <Button fx:id="admin" mnemonicParsing="false" onAction="#navigateToAdmin" onMouseClicked="#logout" styleClass="logoutButton" text="ADMIN">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>

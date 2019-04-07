@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.jfoenix.controls.JFXTextField;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
@@ -70,6 +71,9 @@ public class Pathfinding {
 
     @FXML
     private Label lblDate;
+
+    @FXML
+    private Text userText;
 
     @FXML
     private Pane imageView;
@@ -280,6 +284,7 @@ public class Pathfinding {
     protected void initialize() throws Exception {
 
         new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
 
         //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
         //------------------------------------------------------------------------------------------------

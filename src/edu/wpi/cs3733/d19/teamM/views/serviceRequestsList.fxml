@@ -35,7 +35,7 @@
                               <Image url="@/resources/icons/icons8_home_page_40px_1.png" />
                            </image>
                         </ImageView>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
+                        <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
                            <font>
                               <Font name="Open Sans Bold" size="36.0" />
                            </font>

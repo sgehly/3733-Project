@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
@@ -23,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -63,6 +65,9 @@ public class AdminUI {
 
     @FXML
     private Slider zoomLvl;
+
+    @FXML
+    private Text userText;
 
     @FXML
     private Pane buttonContainer;
@@ -248,6 +253,7 @@ public class AdminUI {
     protected void initialize() throws Exception {
 
         new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
 
         primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
@@ -265,6 +271,8 @@ public class AdminUI {
         buttonContainer.setPrefWidth(image.getFitWidth());
         buttonContainer.setPrefHeight(image.getFitHeight());
         getAllRecords();
+
+        //userText.setText(User.getUsername());
     }
 
     @FXML
