@@ -192,11 +192,13 @@ public class Pathfinding {
     //TODO: fix with new graph class
     private void findPresetHelper(String type) {
         String start = startText.getText();
-        Path nodeArrayList = graph.findPresetPath(graph.getNodes().get(start), type);
+        path = graph.findPresetPath(graph.getNodes().get(start), type);
+
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         updateMap();
+        resetTextBox();
     }
 
     @FXML
@@ -205,7 +207,7 @@ public class Pathfinding {
         String startString = startText.getText();
         String endString = endText.getText();
         //Check if either are empty
-        if(!startString.equals("") && !endString.equals("")) //If not empty
+        if(graph.getNodes().containsKey(startString) && graph.getNodes().containsKey(endString)) //If not empty
         {
             try {
 
@@ -296,6 +298,16 @@ public class Pathfinding {
                 dialog.setScene(dialogScene);
                 dialog.show();
             }
+            Map<String, Node> floorMap = graph.getNodes();
+            Node startNode = floorMap.get(startString); //Get starting and ending string using keys
+            Node endNode = floorMap.get(endString);
+            //Now we create an A* object to find the path between the two and store the final list of nodes
+            path = graph.findPath(startNode, endNode);
+            final JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
+            updateMap();
+            resetTextBox();
         }
 
     }
@@ -468,7 +480,7 @@ public class Pathfinding {
         updateMap();
     }
 
-    public void updateMap(){
+    private void updateMap(){
         Path floorPath = path.getSpecificPath(util.getCurrentFloorID());
         if (floorPath != null){
             overlayImage.setImage(graph.drawPath(floorPath));
@@ -476,6 +488,11 @@ public class Pathfinding {
         else {
             overlayImage.setImage(null);
         }
+    }
+
+    private void resetTextBox(){
+        startText.setText("");
+        endText.setText("");
     }
 
     /**

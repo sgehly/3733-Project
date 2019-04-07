@@ -25,6 +25,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -103,14 +104,23 @@ public class AdminUI {
     private TextField endNodeTextBox;
 
     @FXML
+    private Label edgeLabel;
+
+    @FXML
+    private Label nodeLabel;
+
+    @FXML
     private void navigateToHome() throws Exception{
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
+        nodeLabel.setVisible(false);
+        edgeLabel.setVisible(false);
     }
 
     @FXML
     private void addEdge() throws Exception{
+        nodeLabel.setVisible(false);
         String edgeID = startNodeTextBox.getText() + "_" + endNodeTextBox.getText();
         addE(edgeID);
         resetTextFields();
@@ -118,6 +128,7 @@ public class AdminUI {
 
     @FXML
     private void removeEdge(){
+        nodeLabel.setVisible(false);
         String edgeID = startNodeTextBox.getText() + "_" + endNodeTextBox.getText();
         removeE(edgeID);
         resetTextFields();
@@ -125,18 +136,21 @@ public class AdminUI {
 
     @FXML
     private void addNode(){
+        edgeLabel.setVisible(false);
         addN();
         resetTextFields();
     }
 
     @FXML
     private void removeNode(){
+        edgeLabel.setVisible(false);
         removeN();
         resetTextFields();
     }
 
     @FXML
     private void updateNode(){
+        edgeLabel.setVisible(false);
         updateN();
         resetTextFields();
     }
@@ -234,7 +248,7 @@ public class AdminUI {
 
 
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException, Exception {
-        String query = "SELECT * FROM FLOOR1";
+        String query = "SELECT * FROM NODE WHERE FLOOR='1'";
         try {
             Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
@@ -255,6 +269,8 @@ public class AdminUI {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
+        edgeLabel.setVisible(false);
+        nodeLabel.setVisible(false);
         primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
 
@@ -331,9 +347,15 @@ public class AdminUI {
             stmt.setString(8, shortNameTextBox.getText());
             stmt.executeUpdate();
             conn.close();
+            nodeLabel.setTextFill(Color.GREEN);
+            nodeLabel.setVisible(true);
+            nodeLabel.setText("Node Added!");
         }
         catch(Exception e){
             e.printStackTrace();
+            nodeLabel.setTextFill(Color.RED);
+            nodeLabel.setVisible(true);
+            nodeLabel.setText("Node not added!");
         }
     }
 
@@ -344,9 +366,15 @@ public class AdminUI {
             PreparedStatement stmt2 = conn.prepareStatement("delete from node where nodeID = ?");
             stmt2.setString(1, nodeIdTextBox.getText());
             stmt2.execute();
-            conn.close();
+
+            nodeLabel.setTextFill(Color.GREEN);
+            nodeLabel.setVisible(true);
+            nodeLabel.setText("Node Removed!");
         }catch(Exception e){
             e.printStackTrace();
+            nodeLabel.setTextFill(Color.RED);
+            nodeLabel.setVisible(true);
+            nodeLabel.setText("Node Not Removed!");
         }
     }
 
@@ -358,8 +386,14 @@ public class AdminUI {
             stmt.setString(1, edgeID);
             stmt.execute();
             conn.close();
+            edgeLabel.setTextFill(Color.GREEN);
+            edgeLabel.setVisible(true);
+            edgeLabel.setText("Edge Removed!");
         }catch(Exception e){
             e.printStackTrace();
+            edgeLabel.setTextFill(Color.RED);
+            edgeLabel.setVisible(true);
+            edgeLabel.setText("Edge does not exist!");
         }
     }
 
@@ -374,8 +408,14 @@ public class AdminUI {
             stmt.setString(3, edgeNodes[1]);
             stmt.execute();
             conn.close();
+            edgeLabel.setTextFill(Color.GREEN);
+            edgeLabel.setVisible(true);
+            edgeLabel.setText("Edge Added!");
         } catch(Exception e){
             e.printStackTrace();
+            edgeLabel.setTextFill(Color.RED);
+            edgeLabel.setVisible(true);
+            edgeLabel.setText("Edge already exists!");
         }
     }
 
@@ -392,9 +432,15 @@ public class AdminUI {
             stmt.setString(6, nodeIdTextBox.getText());
             stmt.executeUpdate();
             conn.close();
+            nodeLabel.setTextFill(Color.GREEN);
+            nodeLabel.setVisible(true);
+            nodeLabel.setText("Node Updated!");
         }
         catch(Exception e){
             e.printStackTrace();
+            nodeLabel.setTextFill(Color.RED);
+            nodeLabel.setVisible(true);
+            nodeLabel.setText("Node Not Updated!");
         }
     }
 

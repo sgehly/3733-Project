@@ -148,6 +148,14 @@
                                           <Insets top="-1.0" />
                                        </VBox.margin>
                                     </TextField>
+                                    <Label fx:id="nodeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="245.0" text="Label" textFill="WHITE">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
                                  </children>
                                  <HBox.margin>
                                     <Insets right="30.0" />
@@ -192,6 +200,11 @@
                                           <Insets top="3.0" />
                                        </VBox.margin>
                                     </TextField>
+                                    <Label fx:id="edgeLabel" alignment="BASELINE_LEFT" prefHeight="17.0" prefWidth="192.0" text="Label" textFill="WHITE">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Label>
                                  </children>
                                  <HBox.margin>
                                     <Insets right="30.0" />
