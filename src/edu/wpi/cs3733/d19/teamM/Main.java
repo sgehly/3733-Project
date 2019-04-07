@@ -1,18 +1,20 @@
 package edu.wpi.cs3733.d19.teamM;
 
+import edu.wpi.cs3733.d19.teamM.User.User;
+import edu.wpi.cs3733.d19.teamM.controllers.LogIn.LogInController;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
+import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
+import org.apache.commons.codec.digest.Crypt;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -56,33 +58,26 @@ public class Main extends Application {
         if(scene == "home"){
             primaryStage.setScene(homeScene);
         }
-        else if(scene == "admin"){
+        if(scene == "admin"){
             primaryStage.setScene(adminScene);
         }
-        else if(scene == "pathfinding"){
+        if(scene == "pathfinding"){
             primaryStage.setScene(pathFindingScene);
         }
-        else if(scene == "scheduling"){
+        if(scene == "scheduling"){
             primaryStage.setScene(schedulerScene);
         }
-        else if(scene == "serviceRequest"){
+        if(scene == "serviceRequest"){
             primaryStage.setScene(serviceRequestScene);
         }
-        else if(scene == "serviceRequestList"){
+        if(scene == "serviceRequestList"){
             primaryStage.setScene(serviceRequestListScene);
         }
-        else if(scene == "welcome"){
+        if(scene == "welcome"){
             primaryStage.setScene(welcomeScene);
         }
-        else if(scene == "login"){
+        if(scene == "login"){
             primaryStage.setScene(loginScene);
-        }
-        else {
-            try {
-                primaryStage.setScene(new Scene(FXMLLoader.load(Main.getFXMLURL(scene))));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 
@@ -95,6 +90,8 @@ public class Main extends Application {
         return Main.class.getResource("views/"+name+".fxml");
     }
 
+
+
     public static InputStream getResource(String path){
         System.out.println(path);
         return Main.class.getResourceAsStream(path);
@@ -105,21 +102,20 @@ public class Main extends Application {
         return Main.class.getClassLoader().getResourceAsStream(path);
     }
 
-    //https://stackoverflow.com/questions/38136408/how-to-determine-if-the-user-clicked-outside-a-particular-javafx-node
-    public static boolean inHierarchy(Node node, Node potentialHierarchyElement) {
-        if (potentialHierarchyElement == null) {
-            return true;
-        }
-        while (node != null) {
-            if (node == potentialHierarchyElement) {
-                return true;
-            }
-            node = node.getParent();
-        }
-        return false;
+    public static void loadScenes() throws Exception{
+        homePane = FXMLLoader.load(Main.getFXMLURL("home"));
+        homeScene= new Scene(Main.homePane);
+        adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
+        adminScene= new Scene(adminPane);
+        pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
+        pathFindingScene= new Scene(pathFindingPane);
+        schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
+        schedulerScene= new Scene(schedulerPane);
+        serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
+        serviceRequestScene= new Scene(serviceRequestPane);
+        serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+        serviceRequestListScene= new Scene(serviceRequestListPane);
     }
-    //-------
-
 
     /**
      * This method creates and sets the stage of the viewable JavaFX screen
@@ -142,22 +138,10 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene mainScene = new Scene(root);
 
-        homePane = FXMLLoader.load(Main.getFXMLURL("home"));
-        homeScene= new Scene(homePane);
-        adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
-        adminScene= new Scene(adminPane);
-        pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
-        pathFindingScene= new Scene(pathFindingPane);
-        schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
-        schedulerScene= new Scene(schedulerPane);
-        serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
-        serviceRequestScene= new Scene(serviceRequestPane);
-        serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-        serviceRequestListScene= new Scene(serviceRequestListPane);
-        welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
-        welcomeScene= new Scene(welcomePane);
         loginPane = FXMLLoader.load(Main.getFXMLURL("login"));
         loginScene = new Scene(loginPane);
+        welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
+        welcomeScene= new Scene(welcomePane);
 
         //Set the color and the title and the screen
         mainScene.setFill(Color.web("#012d5a"));
@@ -173,6 +157,8 @@ public class Main extends Application {
         primaryStage.setHeight(bounds.getHeight());
         primaryStage.setFullScreen(false);
         primaryStage.show();
+
+
     }
 
     /**
@@ -191,8 +177,9 @@ public class Main extends Application {
         parser.connect();
         parser.nodeParse();
         parser.edgeParse();
-        parser.floorTables();
 
+       /* Floor myFloor = new Floor("1");
+        myFloor.populateFloor();*/
         launch(args);
     }
 

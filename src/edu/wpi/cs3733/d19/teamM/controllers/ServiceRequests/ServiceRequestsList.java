@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamM.Main;
 
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
@@ -33,6 +34,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import javafx.scene.text.Text;
 
 /**
  * This class is the controller for all the ServiceRequestPage related UI elements
@@ -53,6 +55,8 @@ public class ServiceRequestsList {
     private TitledPane incompletePane;
     @FXML
     private TitledPane completePane;
+    @FXML
+    private Text userText;
 
     int currentTab = 0;
 
@@ -374,6 +378,8 @@ public class ServiceRequestsList {
     void initialize() {
 
         new Clock(lblClock, lblDate);
+
+        userText.setText(User.getUsername());
 
         ObservableList<String> dropdownList = FXCollections.observableArrayList();;
         dropdownList.setAll("All","Sanitation","Interpreter","IT Service", "AV Service","Gift Shop", "Florist", "Internal Transport", "External Transport", "Religious", "Security", "Prescriptions");

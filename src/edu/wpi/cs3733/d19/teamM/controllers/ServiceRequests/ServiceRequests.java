@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 import edu.wpi.cs3733.d19.teamM.Main;
 
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -12,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.text.Text;
+
 import java.sql.*;
 import java.awt.event.MouseEvent;
 import java.lang.String;
@@ -69,6 +72,9 @@ public class ServiceRequests {
             "Somali", "Sorani", "Spanish", "Sudanese Arabic", "Sundanese", "Susu", "Swahili", "Swedish", "Sylhetti", "Tagalog", "Taiwanese", "Tajik", "Tamil",
             "Telugu", "Thai", "Tibetan", "Tigre", "Tigrinya", "Toishanese", "Tongan", "Toucouleur", "Trique", "Tshiluba", "Turkish", "Twi", "Ukrainian", "Urdu", "Uyghur", "Uzbek",
             "Vietnamese", "Visayan", "Welsh", "Wolof", "Yiddish", "Yoruba", "Yupik");
+
+    @FXML
+    private Text userText;
 
     @FXML
     private Accordion accordion;
@@ -164,6 +170,52 @@ public class ServiceRequests {
     }
 
     /**
+     * This method navigates to the gift page when clicked
+     * @throws Exception
+     */
+    @FXML
+    private void navigateToGifts() throws Exception
+    {
+        Main.setScene("serviceRequests/giftRequest");
+    }
+
+    /**
+     * This method is for the logout button which allows the user to go back to the welcome screen
+     * @throws Exception: Any exception that is encountered
+     */
+    @FXML
+    private void navigateToFLowers() throws Exception{
+        Main.setScene("serviceRequests/flowersRequest");
+
+    }
+
+
+    /**
+     * This method is for the logout button which allows the user to go back to the welcome screen
+     * @throws Exception: Any exception that is encountered
+     */
+    @FXML
+    private void navigateToSanitaton() throws Exception{
+        Main.setScene("serviceRequests/sanitationRequest");
+    }
+
+    @FXML
+    private void navigateToIT() throws Exception{
+        Main.setScene("serviceRequests/ITRequests");
+    }
+
+
+    /**
+     * This method checks room availability after a button is clicked
+     * @param event
+     */
+    @FXML
+    void checkRoomValidity(MouseEvent event) {
+
+    }
+
+
+    /**
      * This method send teh user to the service request list page
      * @throws IOException: Any input/output errors that occur
      */
@@ -203,6 +255,14 @@ public class ServiceRequests {
     @FXML// This method is called by the FXMLLoader when initialization is complete
     void initialize(){
         new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+            //general asserts
+            assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
+            //language asserts
+            assert languageRoomNumber != null : "fx:id=\"roomNumber\" was not injected: check your FXML file 'serviceRequests.fxml'.";
+            assert languageSelection != null : "fx:id=\"languageSelection\" was not injected: check your FXML file 'serviceRequests.fxml'.";
+            assert languageRequestButton != null : "fx:id=\"requestButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
+            assert languageNotes != null : "fx:id=\"notesText\" was not injected: check your FXML file 'serviceRequests.fxml'.";
     }
 }
 

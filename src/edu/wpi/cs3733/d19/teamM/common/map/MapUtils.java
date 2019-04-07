@@ -107,7 +107,7 @@ public class MapUtils {
                 MapPoint generated = scalePoints(rs.getInt("xcoord"), rs.getInt("ycoord"));
                 newButton.setLayoutX(generated.x-(size/2));
                 newButton.setLayoutY(generated.y-(size/2));
-                newButton.setStyle("-fx-background-color: blue");
+                newButton.getStylesheets().add("resources/mapNode.css");
                 buttonContainer.getChildren().add(newButton); //Add it to the button container
             }
             return entList; //Return this list
@@ -144,7 +144,7 @@ public class MapUtils {
         buttonContainer.setPrefWidth(image.getFitWidth());
         buttonContainer.setPrefHeight(image.getFitHeight());
 
-        String query = "SELECT * FROM NODE WHERE FLOOR='"+dbPrefixes[floor]+"'";
+        String query = "SELECT * FROM NODE WHERE FLOOR='"+this.getCurrentFloorID()+"'";
         try {
             //Get the information that we want from the database
             Connection conn = new DatabaseUtils().getConnection();

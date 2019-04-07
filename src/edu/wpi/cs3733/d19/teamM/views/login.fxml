@@ -46,11 +46,6 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#guestLogIn" text="Guest Login">
-                           <VBox.margin>
-                              <Insets bottom="50.0" />
-                           </VBox.margin>
-                        </Button>
                         <Label fx:id="errorMessage" textFill="RED">
                            <font>
                               <Font name="Open Sans" size="25.0" />

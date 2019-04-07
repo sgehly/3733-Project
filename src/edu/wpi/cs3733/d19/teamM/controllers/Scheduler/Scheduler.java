@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.animation.Animation;
@@ -32,6 +33,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -73,6 +75,9 @@ public class Scheduler {
 
     @FXML // fx:id="zoomLvl"
     private Slider zoomLvl; // Value injected by FXMLLoader
+
+    @FXML
+    private Text userText;
 
     @FXML // fx:id="imageView"
     private HBox imageView; // Value injected by FXMLLoader
@@ -414,6 +419,8 @@ public class Scheduler {
         try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str10);}catch(Exception e){}
 
         new Clock(lblClock, lblDate);
+
+        userText.setText(User.getUsername());
 
         startDate.setStyle("-jfx-unfocus-color: WHITE;");
         startTime.setStyle("-jfx-unfocus-color: WHITE;");
