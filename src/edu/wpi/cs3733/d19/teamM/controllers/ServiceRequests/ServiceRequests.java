@@ -164,6 +164,32 @@ public class ServiceRequests {
     }
 
     /**
+     * This method is for the logout button which allows the user to go back to the welcome screen
+     * @throws Exception: Any exception that is encountered
+     */
+    @FXML
+    private void navigateToFLowers() throws Exception{
+        Main.setScene("serviceRequests/flowersRequest");
+
+    }
+
+
+    /**
+     * This method is for the logout button which allows the user to go back to the welcome screen
+     * @throws Exception: Any exception that is encountered
+     */
+    @FXML
+    private void navigateToSanitaton() throws Exception{
+        Main.setScene("serviceRequests/sanitationRequest");
+    }
+
+    @FXML
+    private void navigateToIT() throws Exception{
+        Main.setScene("serviceRequests/ITRequests");
+    }
+
+
+    /**
      * This method checks room availability after a button is clicked
      * @param event
      */
