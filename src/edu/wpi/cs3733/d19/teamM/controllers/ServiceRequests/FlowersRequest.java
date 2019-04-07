@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class FlowersRequest implements Initializable {
@@ -37,6 +40,35 @@ public class FlowersRequest implements Initializable {
 
     @FXML
     private Button submitReuqest;
+
+
+
+
+
+    public int RandIDgenerator(){
+        Random rand = new Random();
+        int id = rand.nextInt(10000);
+        try {
+            String query = "SELECT REQUESTID FROM SERVICEREQUEST";
+            Connection conn = new DatabaseUtils().getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()){
+                if(rs.getInt(1) == id){
+                    RandIDgenerator();
+                }
+                else{
+                    return id;
+                }
+            }
+        }
+
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
 
 
 
@@ -69,17 +101,17 @@ public class FlowersRequest implements Initializable {
 
         try {
             Connection conn = new DatabaseUtils().getConnection();
-            String query = "insert into SERVICEREQUEST  ( ROOM , TYPE , NOTES,SERVICE_TYPE ) values (?,?,?,?)";
+            String query = "insert into SERVICEREQUEST  (REQUESTID, ROOM , TYPE , NOTES) values (?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             System.out.println("Connected");
 
-            stmt.setString(1,room.getText());
+            stmt.setInt(1,RandIDgenerator());
             System.out.println("1");
-            stmt.setString(2, (flowerType.getText()));
+            stmt.setString(2, (room.getText()));
             System.out.println("2");
-            stmt.setString(3, notes.getText());
+            stmt.setString(4, "The flower type is:" + flowerType.getText() +"  Notes:" + notes.getText());
             System.out.println("3");
-            stmt.setString(4, "Flowers");
+            stmt.setString(3, "Flowers");
             System.out.println("4");
             stmt.executeUpdate();
             stmt.close();

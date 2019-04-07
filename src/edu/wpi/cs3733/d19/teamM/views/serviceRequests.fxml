@@ -92,7 +92,7 @@
                               <Insets bottom="7.0" left="150.0" right="150.0" />
                            </padding>
                            <children>
-                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER" onMouseClicked="#navigateToSanitaton" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ImageView fitHeight="200.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -132,7 +132,7 @@
                                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                  </padding>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER" onMouseClicked="#navigateToIT" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                  <children>
                                     <ImageView fitHeight="200.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
