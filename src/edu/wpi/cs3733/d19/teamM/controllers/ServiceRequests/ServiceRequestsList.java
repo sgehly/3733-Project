@@ -241,7 +241,7 @@ public class ServiceRequestsList {
 
             //add the name of the person that got it done
             PreparedStatement st = conn.prepareStatement(query2);
-            st.setString(1, "FIX_ME");
+            st.setString(1, User.getUsername());
             st.setString(2, this.getIdFromTable("incomplete"));
             st.executeUpdate();
             System.out.println("inserted into db");

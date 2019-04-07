@@ -58,26 +58,28 @@ public class Main extends Application {
         if(scene == "home"){
             primaryStage.setScene(homeScene);
         }
-        if(scene == "admin"){
+        else if(scene == "admin"){
             primaryStage.setScene(adminScene);
         }
-        if(scene == "pathfinding"){
+        else if(scene == "pathfinding"){
             primaryStage.setScene(pathFindingScene);
         }
-        if(scene == "scheduling"){
+        else if(scene == "scheduling"){
             primaryStage.setScene(schedulerScene);
         }
-        if(scene == "serviceRequest"){
+        else if(scene == "serviceRequest"){
             primaryStage.setScene(serviceRequestScene);
         }
-        if(scene == "serviceRequestList"){
+        else if(scene == "serviceRequestList"){
             primaryStage.setScene(serviceRequestListScene);
         }
-        if(scene == "welcome"){
+        else if(scene == "welcome"){
             primaryStage.setScene(welcomeScene);
         }
-        if(scene == "login"){
+        else if(scene == "login"){
             primaryStage.setScene(loginScene);
+        }else{
+            try{primaryStage.setScene(new Scene(FXMLLoader.load(Main.getFXMLURL(scene))));}catch(Exception e){e.printStackTrace();}
         }
     }
 
