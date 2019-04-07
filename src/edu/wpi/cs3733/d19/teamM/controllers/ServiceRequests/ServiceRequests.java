@@ -164,6 +164,17 @@ public class ServiceRequests {
     }
 
     /**
+     * This method navigates to the gift page when clicked
+     * @throws Exception
+     */
+    @FXML
+    private void navigateToGifts() throws Exception
+    {
+        //C:\Users\Vishn\IdeaProjects\3733-Project\src\edu\wpi\cs3733\d19\teamM\controllers\ServiceRequests\GiftRequest.java
+        Main.setScene("serviceRequests/giftRequest");
+    }
+
+    /**
      * This method is for the logout button which allows the user to go back to the welcome screen
      * @throws Exception: Any exception that is encountered
      */
