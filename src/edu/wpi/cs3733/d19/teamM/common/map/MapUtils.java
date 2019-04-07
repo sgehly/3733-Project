@@ -144,7 +144,7 @@ public class MapUtils {
         buttonContainer.setPrefWidth(image.getFitWidth());
         buttonContainer.setPrefHeight(image.getFitHeight());
 
-        String query = "SELECT * FROM FLOOR"+dbPrefixes[floor];
+        String query = "SELECT * FROM NODE WHERE FLOOR='"+this.getCurrentFloorID()+"'";
         try {
             //Get the information that we want from the database
             Connection conn = new DatabaseUtils().getConnection();

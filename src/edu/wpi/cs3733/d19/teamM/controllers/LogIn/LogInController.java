@@ -11,6 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
+import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
@@ -25,8 +28,6 @@ import javafx.scene.media.MediaView;
 import javafx.scene.control.TextField;
 
 public class LogInController {
-
-    public User user;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -51,11 +52,27 @@ public class LogInController {
 
     @FXML
     void guestLogIn(ActionEvent event) {
-        Main.setScene("home");
+        try {
+            User.getUser();
+            User.setUsername("Guest");
+            username.setText("");
+            password.setText("");
+            errorMessage.setText("");
+            User.setPrivilege(0);
+            System.out.println("Logged in Guest");
+            Main.loadScenes();
+            Main.setScene("home");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void logIn(ActionEvent event) {
+        /*
+        TODO add username to pages: scheduler, service requests, sr list
+         */
         try {
             String query = "SELECT * from USERS where USERNAME = ?";
             Connection conn = new DatabaseUtils().getConnection();
@@ -63,10 +80,15 @@ public class LogInController {
             stmt.setString(1, username.getText());
             ResultSet rs = stmt.executeQuery();
             rs.next();
-            if (password.getText().compareTo(rs.getString("USERPASS")) == 0) {
+            if (Encrypt.getMd5(password.getText()).compareTo(rs.getString("USERPASS")) == 0) {
+                User.getUser();
+                User.setUsername(username.getText());
                 username.setText("");
                 password.setText("");
-                user = new User(username.getText(), rs.getInt("ACCOUNTINT"));
+                errorMessage.setText("");
+                User.setPrivilege(rs.getInt("ACCOUNTINT"));
+                System.out.println("Logged in " + User.getUsername() + " with privilege " + User.getPrivilege());
+                Main.loadScenes();
                 Main.setScene("home");
             } else {
                System.out.println("user not found");
@@ -75,6 +97,9 @@ public class LogInController {
            }
         } catch (Exception e) {
             e.printStackTrace();
+            errorMessage.setText("User " + username.getText() + " Not Found");
+            username.setText("");
+            password.setText("");
         }
 
     }

@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.jfoenix.controls.JFXTextField;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
@@ -72,6 +73,9 @@ public class Pathfinding {
     private Label lblDate;
 
     @FXML
+    private Text userText;
+
+    @FXML
     private Pane imageView;
 
     @FXML
@@ -97,6 +101,30 @@ public class Pathfinding {
 
     @FXML
     private Text floorLabel;
+
+    @FXML
+    private CheckBox bathrooms;
+
+    @FXML
+    private CheckBox stairs;
+
+    @FXML
+    private CheckBox elevators;
+
+    @FXML
+    private CheckBox labs;
+
+    @FXML
+    private CheckBox confs;
+
+    @FXML
+    private CheckBox food;
+
+    @FXML
+    private CheckBox services;
+
+    @FXML
+    private CheckBox exits;
 
     /**
      * This method lets the user navigate back to the home page
@@ -164,11 +192,13 @@ public class Pathfinding {
     //TODO: fix with new graph class
     private void findPresetHelper(String type) {
         String start = startText.getText();
-        Path nodeArrayList = graph.findPresetPath(graph.getNodes().get(start), type);
+        path = graph.findPresetPath(graph.getNodes().get(start), type);
+
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         updateMap();
+        resetTextBox();
     }
 
     @FXML
@@ -177,7 +207,7 @@ public class Pathfinding {
         String startString = startText.getText();
         String endString = endText.getText();
         //Check if either are empty
-        if(!startString.equals("") && !endString.equals("")) //If not empty
+        if(graph.getNodes().containsKey(startString) && graph.getNodes().containsKey(endString)) //If not empty
         {
             try {
 
@@ -268,8 +298,71 @@ public class Pathfinding {
                 dialog.setScene(dialogScene);
                 dialog.show();
             }
+            Map<String, Node> floorMap = graph.getNodes();
+            Node startNode = floorMap.get(startString); //Get starting and ending string using keys
+            Node endNode = floorMap.get(endString);
+            //Now we create an A* object to find the path between the two and store the final list of nodes
+            path = graph.findPath(startNode, endNode);
+            final JFrame frame = new JFrame();
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
+            updateMap();
+            resetTextBox();
         }
 
+    }
+
+    /**
+     *
+     * @param s
+     */
+    private void filterNodes(String s) throws Exception, SQLException {
+        try {
+            //Floor floor = new Floor("1");
+            //Get the information that we want from the database
+            Connection conn = new DatabaseUtils().getConnection();
+            PreparedStatement stmt = conn.prepareStatement("select * from node where nodeType = ?");
+            stmt.setString(1, s);
+            ResultSet rs = stmt.executeQuery(); // execute where the node type is that specified in the database
+
+            //util.getEntryObjects(rs);
+
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     *
+     * @param e
+     */
+    public void handleButton(ActionEvent e) throws Exception, SQLException{
+       if(bathrooms.isSelected()) {
+           filterNodes("REST");
+           filterNodes("BATH");
+       }
+       if(stairs.isSelected()) {
+           filterNodes("STAI");
+       }
+       if(elevators.isSelected()) {
+           filterNodes("ELEV");
+       }
+       if(labs.isSelected()) {
+           filterNodes("LABS");
+       }
+       if(confs.isSelected()) {
+           filterNodes("CONF");
+       }
+       if(food.isSelected()) {
+           filterNodes("RETL");
+       }
+       if(exits.isSelected()) {
+           filterNodes("EXIT");
+       }
     }
 
     /**
@@ -280,6 +373,11 @@ public class Pathfinding {
     protected void initialize() throws Exception {
 
         new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+
+        // find a way to connect the long name in the database and then assign the input start string as that
+        //TextFields.bindAutoCompletion();
+        //startText.textProperty().bind()
 
         //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
         //------------------------------------------------------------------------------------------------
@@ -308,6 +406,8 @@ public class Pathfinding {
         graph = new Floor();
         path = new Path();
         util = new MapUtils(buttonContainer, imageView, image, overlayImage, this::setValues);
+        //Get the necessary records for pathfinding
+        //getAllRecords();
 
 
 
@@ -380,7 +480,7 @@ public class Pathfinding {
         updateMap();
     }
 
-    public void updateMap(){
+    private void updateMap(){
         Path floorPath = path.getSpecificPath(util.getCurrentFloorID());
         if (floorPath != null){
             overlayImage.setImage(graph.drawPath(floorPath));
@@ -388,6 +488,11 @@ public class Pathfinding {
         else {
             overlayImage.setImage(null);
         }
+    }
+
+    private void resetTextBox(){
+        startText.setText("");
+        endText.setText("");
     }
 
     /**
