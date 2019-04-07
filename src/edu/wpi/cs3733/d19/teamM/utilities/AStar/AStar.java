@@ -48,6 +48,8 @@ public class AStar implements Searchable {
     public Path findPath(Node start, Node end) {
         start.setG(0);
         start.setF(0);
+        System.out.println("Start node: " + start.getId() + " End node:" + end.getId());
+        System.out.println("Start node's first edge is  " + start.getEdges().get(0));
         Path path = new Path(); //where the final path will be stored
         PriorityQueue<Node> openList = new PriorityQueue<>(); //priority queue to keep track of lowest f score
         openList.addToQueue(start);

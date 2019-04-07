@@ -155,6 +155,7 @@ public class Floor {
                 n2 = nodes.get(endingNode);
                 n1.addEdge(n2, edgeID);
                 n2.addEdge(n1, edgeID);
+                System.out.println("Adding edge " + edgeID);
             }
         }
         conn.close();
