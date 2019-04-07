@@ -1,38 +1,20 @@
 package edu.wpi.cs3733.d19.teamM.controllers.Pathfinding;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.*;
-import java.util.Date;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.User.User;
-import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
-import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
-import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
-import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.*;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
-import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
-import edu.wpi.cs3733.d19.teamM.utilities.AStar.*;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.SendEmail;
 import edu.wpi.cs3733.d19.teamM.Main;
-import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -47,7 +29,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import javax.swing.*;
@@ -207,107 +189,78 @@ public class Pathfinding {
         String startString = startText.getText();
         String endString = endText.getText();
         //Check if either are empty
-        if(graph.getNodes().containsKey(startString) && graph.getNodes().containsKey(endString)) //If not empty
-        {
-            try {
+        System.out.println(1);
+        System.out.println(startString+" - "+endString);
+        System.out.println(1);
 
-                Map<String, Node> floorMap = graph.getNodes();
-                Node startNode = null;
-                Node endNode = null;
+        try {
 
-                if(startString.length() == 10 && endString.length() == 10) //if by node ID
-                {
-                    startNode = floorMap.get(startString); //Get starting and ending string using keys
-                    endNode = floorMap.get(endString);
-                }
-                else
-                {
-                    if(startString.length() == 10 && endString.length() == 10) //if by node ID
-                    {
-                        try
-                        {
-                            startNode = floorMap.get(startString); //Get starting and ending string using keys
-                            endNode = floorMap.get(endString);
-
-                        }catch (Exception e) //Maybe it was normal string of 10 and not node ID
-                        {
-                            try{
-                                for(Node node : floorMap.values())
-                                {
-                                    if(node.getLongName().equals(startString))
-                                    {
-                                        startNode = node;
-                                    }
-                                    if(node.getLongName().equals(endString))
-                                    {
-                                        endNode = node;
-                                    }
-                                }
-
-                            }catch (Exception f) //If that breaks too
-                            {
-
-                            }
-
-                        }
-
-                    }
-                    else { //If it is just a normal string
-                        try{
-                            for(Node node : floorMap.values())
-                            {
-                                if(node.getLongName().equals(startString))
-                                {
-                                    startNode = node;
-                                }
-                                if(node.getLongName().equals(endString))
-                                {
-                                    endNode = node;
-                                }
-                            }
-
-                        }catch (Exception e) //Catch any external exception
-                        {
-
-                        }
-
-                    }
-
-                }
-
-                if(startNode == null || endNode == null)
-                {
-                    return;
-                }
-
-                //Now we create an A* object to find the path between the two and store the final list of nodes
-                path = graph.findPath(startNode, endNode);
-                final JFrame frame = new JFrame();
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
-                updateMap();
-            }
-            catch (Exception e){
-                e.printStackTrace();
-                final Stage dialog = new Stage();
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.initOwner(Main.getStage());
-                VBox dialogVbox = new VBox(20);
-                dialogVbox.getChildren().add(new Label("The node that you entered is not found or there is no path between the given starting node and destination"));
-                Scene dialogScene = new Scene(dialogVbox, 300, 200);
-                dialog.setScene(dialogScene);
-                dialog.show();
-            }
             Map<String, Node> floorMap = graph.getNodes();
-            Node startNode = floorMap.get(startString); //Get starting and ending string using keys
-            Node endNode = floorMap.get(endString);
+            Node startNode = null;
+            Node endNode = null;
+
+            try{
+                for(Node node : floorMap.values())
+                {
+                    if(node.getLongName().equals(startString))
+                    {
+                        System.out.println("Found start node!");
+                        startNode = node;
+                    }
+                    if(node.getLongName().equals(endString))
+                    {
+                        System.out.println("Found end node!");
+                        endNode = node;
+                    }
+                }
+
+            }catch (Exception f) //If that breaks too
+            {
+                f.printStackTrace();
+            }
+
+            if(startNode == null || endNode == null)
+            {
+                System.out.println("ERR1");
+                return;
+            }
+
+            System.out.println("Finding path between " + startNode.getId() + " and " + endNode.getId());
+
             //Now we create an A* object to find the path between the two and store the final list of nodes
-            path = graph.findPath(startNode, endNode);
+            AStar aStar = new AStar();
+            Path nodeArrayList = aStar.findPath(startNode, endNode);
+            for (Path p : nodeArrayList.getFloorPaths()){
+                System.out.println("Path for floor " + p.getFloorID());
+                System.out.println(PathToString.getDirections(p));
+            }
+            System.out.println("Got Path");
             final JFrame frame = new JFrame();
             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             //Now use this list to draw the path and put it in resources "/resources/maps/PathOutput.png"
-            updateMap();
-            resetTextBox();
+            graph.drawPath(nodeArrayList);
+            try {
+                Image Overlaysource;
+                URL theUrl = new URL("file:///" + System.getProperty("user.dir") + File.separator + "PathOutput.png");
+                Overlaysource = new Image(theUrl.toURI().toString()); //See if we can get the image to overlay and then create a new image object from it
+                overlayImage.setImage(Overlaysource); //set the image as the overlay image
+
+                startText.setText("");
+                endText.setText("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(Main.getStage());
+            VBox dialogVbox = new VBox(20);
+            dialogVbox.getChildren().add(new Label("The node that you entered is not found or there is no path between the given starting node and destination"));
+            Scene dialogScene = new Scene(dialogVbox, 300, 200);
+            dialog.setScene(dialogScene);
+            dialog.show();
         }
 
     }
@@ -421,31 +374,15 @@ public class Pathfinding {
         {
             longNames.add(node.getLongName());
         } //Add all long names
-        startText.textProperty().addListener((ov, oldValue, newValue) -> {
-            TextFields.bindAutoCompletion(startText,longNames);
 
-            if(startText.getText().length() == 10 && endText.getText().length() == 10){
-                //Both are present.
-                try{this.findPath();}catch(Exception e){e.printStackTrace();}
-            }
-            else if(startText.getText().length() >= 0 && endText.getText().length() >= 0)
-            {
-                //If the lengths of both aren't zero, try to see if you can get path
-                try{this.findPath();}catch(Exception e){e.printStackTrace();}
-            }
+        AutoCompletionBinding<String> sb = TextFields.bindAutoCompletion(startText,longNames);
+        AutoCompletionBinding<String> eb = TextFields.bindAutoCompletion(endText,longNames);
+
+        sb.setOnAutoCompleted((ov) -> {
+            try{this.findPath();}catch(Exception e){e.printStackTrace();}
         });
-        endText.textProperty().addListener((ov, oldValue, newValue) -> {
-            TextFields.bindAutoCompletion(endText,longNames);
-
-            if(startText.getText().length() == 10 && endText.getText().length() == 10){
-                //Both are present.
-                try{this.findPath();}catch(Exception e){e.printStackTrace();}
-            }
-            else if(startText.getText().length() >= 0 && endText.getText().length() >= 0)
-            {
-                //If the lengths of both aren't zero, try to see if you can get path
-                try{this.findPath();}catch(Exception e){e.printStackTrace();}
-            }
+        eb.setOnAutoCompleted((ov) -> {
+            try{this.findPath();}catch(Exception e){e.printStackTrace();}
         });
     }
 
@@ -458,11 +395,17 @@ public class Pathfinding {
         String nodeId = ((Button)value.getSource()).getId();
 
         //Get required tex to display as one of the values for the pathfinding
-        if(startText.getText().length() == 0){
+        if(startText.getText().length() == 0 && endText.getText().length() == 0){
             startText.setText(nodeId);
             endText.requestFocus();
-        }else{
+        }
+        else if(startText.getText().length() == 0){
             endText.setText(nodeId);
+            startText.requestFocus();
+        }
+        else{
+            endText.setText(nodeId);
+            try{this.findPath();}catch(Exception e){e.printStackTrace();}
         }
     }
 
@@ -481,7 +424,14 @@ public class Pathfinding {
     }
 
     private void updateMap(){
+
+        System.out.println(path);
+        System.out.println(util.getCurrentFloorID());
+
         Path floorPath = path.getSpecificPath(util.getCurrentFloorID());
+
+        System.out.println(floorPath);
+
         if (floorPath != null){
             overlayImage.setImage(graph.drawPath(floorPath));
         }

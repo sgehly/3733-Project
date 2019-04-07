@@ -207,16 +207,6 @@ public class ServiceRequests {
 
 
     /**
-     * This method checks room availability after a button is clicked
-     * @param event
-     */
-    @FXML
-    void checkRoomValidity(MouseEvent event) {
-
-    }
-
-
-    /**
      * This method send teh user to the service request list page
      * @throws IOException: Any input/output errors that occur
      */
@@ -225,72 +215,29 @@ public class ServiceRequests {
         Main.setScene("serviceRequestList");
     }
 
-    @FXML
-    public void makeSanitationRequest() throws IOException {
-            System.out.println("----Test Connection----");
-
-            try {
-                Connection conn = new DatabaseUtils().getConnection();
-                String query = "insert into APP.REQUESTINPROGRESS  (REQUESTID , ROOM , NOTE , DATE ) values (?,?,?,?)";
-                PreparedStatement stmt = conn.prepareStatement(query);
-
-                stmt.setInt(1, (RandIDgenerator()));
-                stmt.setString(2, (sanitationRoomNumber.getText()));
-                stmt.setString(3, sanitationNotes.getText());
-                stmt.setTimestamp(4, ts);
-                stmt.executeUpdate();
-                stmt.close();
-
-                this.goToRequestList();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
-    /**
-     * This method allows the user to create a language request using the button
-     * @param e: The action that is associated with making the language request
-     */
-
-    @FXML
-    void makeLanguageRequest(ActionEvent e) throws Exception{
-        System.out.println("----Test Connection----");
-
+    public void makeRequest(String type, String room, String subtype, String description, boolean checkbox){
         try {
-
             Connection conn = new DatabaseUtils().getConnection();
-            String query = "insert into  APP.REQUESTINPROGRESS  (REQUESTID , ROOM , NOTE , DATE,TYPE ) values (?,?,?,?,?)";
-            //
-            //PreparedStatement stmt=conn.prepareStatement("insert into  REQUESTINPROGRESS set REQUESTID = ? , ROOM = ?, NOTE = ?, DATE = ?, STATUS = ?");
-            //PreparedStatement stmt = conn.prepareStatement("SELECT * from REQUESTINPROGRESS");
+            String query = "insert into APP.REQUESTINPROGRESS  (REQUESTID, TYPE, ROOM, SUBTYPE, NOTE , DATE, CHECKBOX) values (?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(query);
 
             stmt.setInt(1, (RandIDgenerator()));
-            stmt.setString(2, (languageRoomNumber.getText()));
-            stmt.setString(3, "The language is" + languageSelection.getValue() + "/n" + languageNotes.getText());
-            stmt.setTimestamp(4, ts);
-            stmt.setString(5,"Language");
-            //stmt.setBoolean(5, false);
-            System.out.println("in table ");
+            stmt.setString(2, type);
+            stmt.setString(3, room);
+            stmt.setString(4, subtype);
+            stmt.setString(5, description);
+            stmt.setTimestamp(6, ts);
+            stmt.setInt(7, checkbox ? 1 : 0);
 
             stmt.executeUpdate();
             stmt.close();
 
             this.goToRequestList();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
-
-
-
-
-
 
     /**
      * This method initializes the ServiceRequest Controller class and deals with the associated assert statements

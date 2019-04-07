@@ -23,12 +23,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
 
 import java.io.FileWriter;
 import java.sql.*;
