@@ -139,14 +139,9 @@ public class DatabaseUtils {
             Connection conn = this.getConnection();
             String createTable1 = "CREATE TABLE node(NODEID varchar(20) PRIMARY KEY NOT NULL, XCOORD int, ycoord int, floor varchar(2), building varchar(15), nodetype varchar(4), longname varchar(100), shortname varchar(100))";
             String createTable2 = "create table edge(edgeid varchar(21) primary key, startnode varchar(10), endnode varchar(10))";
-            String createTable3 = "CREATE TABLE floor1(NODEID varchar(20) PRIMARY KEY NOT NULL, XCOORD int, ycoord int, floor varchar(2), building varchar(15), nodetype varchar(4), longname varchar(100), shortname varchar(100))";
-            String createTable4 = "CREATE TABLE floor2(NODEID varchar(20) PRIMARY KEY NOT NULL, XCOORD int, ycoord int, floor varchar(2), building varchar(15), nodetype varchar(4), longname varchar(100), shortname varchar(100))";
-            String createTable5 = "CREATE TABLE floor3(NODEID varchar(20) PRIMARY KEY NOT NULL, XCOORD int, ycoord int, floor varchar(2), building varchar(15), nodetype varchar(4), longname varchar(100), shortname varchar(100))";
-            String createTable6 = "CREATE TABLE floorL1(NODEID varchar(20) PRIMARY KEY NOT NULL, XCOORD int, ycoord int, floor varchar(2), building varchar(15), nodetype varchar(4), longname varchar(100), shortname varchar(100))";
-            String createTable7 = "CREATE TABLE floorL2(NODEID varchar(20) PRIMARY KEY NOT NULL, XCOORD int, ycoord int, floor varchar(2), building varchar(15), nodetype varchar(4), longname varchar(100), shortname varchar(100))";
             String createTable8 = "create table Rooms(roomID varchar(20),capacity int,details varchar(100),roomType varchar(5), Constraint comRoom_PK Primary key (roomID),Constraint checkType CHECK (roomType in ('COMP', 'CLASS')))";
             String createTable9 = "create table BookedTimes(roomID varchar(20),startTime timestamp, endTime timestamp,Constraint room_FK Foreign Key (roomID) REFERENCES Rooms(roomID))";
-            String createTable10 = "create table REQUESTINPROGRESS (REQUESTID   INTEGER not null constraint REQUESTINPROGRESS_REQUESTID_UINDEX unique, ROOM VARCHAR(200), NOTE VARCHAR(200), DATE TIMESTAMP, TYPE VARCHAR(200) default 'Sanitation', FINISHED_BY VARCHAR(30)  default 'NULL')";
+            String createTable10 = "create table REQUESTINPROGRESS (REQUESTID   INTEGER not null constraint REQUESTINPROGRESS_REQUESTID_UINDEX unique, ROOM VARCHAR(200), SUBTYPE VARCHAR(200), NOTE VARCHAR(200), DATE TIMESTAMP, CHECKBOX INT, TYPE VARCHAR(200) default 'Sanitation', FINISHED_BY VARCHAR(30)  default 'NULL')";
             String createTable11 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,isLoggedIn int,constraint adminBool check (accountInt = 100 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0),constraint loggedBool check (isLoggedIn = 0 or isLoggedIn = 1))";
             String createTable13 = "DELETE FROM users";
             String createTable12 = "insert into users values ('jeff', 0, '098f6bcd4621d373cade4e832627b4f6', 0),('wong', 1, '098f6bcd4621d373cade4e832627b4f6', 0), ('sam', 2, '098f6bcd4621d373cade4e832627b4f6', 0),('ken', 100, '098f6bcd4621d373cade4e832627b4f6', 0)";
@@ -157,26 +152,6 @@ public class DatabaseUtils {
             try {
                 Statement stmt2 = conn.createStatement();
                 stmt2.executeUpdate(createTable2);
-            }catch(Exception e){};
-            try {
-                Statement stmt3 = conn.createStatement();
-                stmt3.executeUpdate(createTable3);
-            }catch(Exception e){};
-            try {
-                Statement stmt4 = conn.createStatement();
-                stmt4.executeUpdate(createTable4);
-            }catch(Exception e){};
-            try {
-                Statement stmt5 = conn.createStatement();
-                stmt5.executeUpdate(createTable5);
-            }catch(Exception e){};
-            try {
-                Statement stmt6 = conn.createStatement();
-                stmt6.executeUpdate(createTable6);
-            }catch(Exception e){};
-            try {
-                Statement stmt7 = conn.createStatement();
-                stmt7.executeUpdate(createTable7);
             }catch(Exception e){};
             try {
                 Statement stmt8 = conn.createStatement();
@@ -215,7 +190,7 @@ public class DatabaseUtils {
         try{
             Connection conn2 = this.getConnection();
 
-            String createTable11 = "create table REQUESTLOG (REQUESTID INTEGER constraint REQUESTLOG_REQUESTID_UINDEX unique, ROOM VARCHAR(100), NOTE VARCHAR(200),DATE TIMESTAMP, TYPE VARCHAR(50),FINISHED_BY VARCHAR(30))";
+            String createTable11 = "create table REQUESTLOG (REQUESTID INTEGER constraint REQUESTLOG_REQUESTID_UINDEX unique, ROOM VARCHAR(100), TYPE VARCHAR(50), SUBTYPE VARCHAR(50), NOTE VARCHAR(200), DATE TIMESTAMP, FINISHED_BY VARCHAR(30))";
 
             String createTable12 = "CREATE TABLE ROOMS (ROOMID VARCHAR(50),CAPACITY INTEGER,DETAILS VARCHAR(200),ROOMTYPE VARCHAR(200));";
 
@@ -257,40 +232,6 @@ public class DatabaseUtils {
 
     public void floorTables(){
 
-        String floor1PopQuery = "INSERT INTO Floor1 SELECT nodeID, xcoord, ycoord, floor, building, NODETYPE, LONGNAME, SHORTNAME FROM node WHERE floor = '1'";
-        String floor2PopQuery = "INSERT INTO Floor2 SELECT nodeID, xcoord, ycoord, floor, building, NODETYPE, LONGNAME, SHORTNAME FROM node WHERE floor = '2'";
-        String floor3PopQuery = "INSERT INTO Floor3 SELECT nodeID, xcoord, ycoord, floor, building, NODETYPE, LONGNAME, SHORTNAME FROM node WHERE floor = '3'";
-        String floorL1PopQuery = "INSERT INTO FloorL1 SELECT nodeID, xcoord, ycoord,floor, building, NODETYPE, LONGNAME, SHORTNAME FROM node WHERE floor = 'L1'";
-        String floorL2PopQuery = "INSERT INTO FloorL2 SELECT nodeID, xcoord, ycoord, floor, building, NODETYPE, LONGNAME, SHORTNAME FROM node WHERE floor = 'L2'";
-
-        //String floor1PopQuery = "INSERT INTO Floor1 SELECT * FROM node WHERE floor = '1'";
-        //String floor2PopQuery = "INSERT INTO Floor2 SELECT * FROM node WHERE floor = '2'";
-        //String floor3PopQuery = "INSERT INTO Floor3 SELECT * FROM node WHERE floor = '3'";
-        //String floorL1PopQuery = "INSERT INTO FloorL1 SELECT * FROM node WHERE floor = 'L1'";
-        //String floorL2PopQuery = "INSERT INTO FloorL2 SELECT * FROM node WHERE floor = 'L2'";
-        //String edgePopQuery = "insert into Edge select * from Edge";
-
-        try {
-            connect();
-            Connection conn = this.getConnection();
-            Statement stmt6 = conn.createStatement();
-            Statement stmt7 = conn.createStatement();
-            Statement stmt8 = conn.createStatement();
-            Statement stmt9 = conn.createStatement();
-            Statement stmt10 = conn.createStatement();
-
-            try{stmt6.execute(floor1PopQuery);}catch(Exception e){e.printStackTrace();}
-            try{stmt7.execute(floor2PopQuery);}catch(Exception e){e.printStackTrace();}
-            try{stmt8.execute(floor3PopQuery);}catch(Exception e){e.printStackTrace();}
-            try{stmt9.execute(floorL1PopQuery);}catch(Exception e){e.printStackTrace();}
-            try{stmt10.execute(floorL2PopQuery);}catch(Exception e){e.printStackTrace();}
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            System.out.println("Uh oh");
-
-        }
     }
 }
 /*

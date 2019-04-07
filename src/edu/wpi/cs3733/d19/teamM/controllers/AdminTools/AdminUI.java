@@ -229,7 +229,7 @@ public class AdminUI {
 
 
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException, Exception {
-        String query = "SELECT * FROM FLOOR1";
+        String query = "SELECT * FROM NODE WHERE Floor='1'";
         try {
             Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
