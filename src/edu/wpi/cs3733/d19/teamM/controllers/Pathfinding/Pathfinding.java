@@ -402,7 +402,7 @@ public class Pathfinding {
     }
 
     private void updateMap(){
-        Path floorPath = path.getSpecificPath(util.getCurrentFloorID());
+        List<Path> floorPath = path.getSpecificPath(util.getCurrentFloorID());
         if (floorPath != null){
             overlayImage.setImage(graph.drawPath(floorPath));
         }
