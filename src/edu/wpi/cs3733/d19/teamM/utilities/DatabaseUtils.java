@@ -28,7 +28,7 @@ public class DatabaseUtils {
 
     public void edgeParse() {
 
-        InputStream file = Main.getResource("/resources/edgesv4.csv");
+        InputStream file = Main.getResource("/resources/edgesv5.csv");
 
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
@@ -141,11 +141,9 @@ public class DatabaseUtils {
             String createTable8 = "create table Rooms(roomID varchar(20),capacity int,details varchar(100),roomType varchar(5), Constraint comRoom_PK Primary key (roomID),Constraint checkType CHECK (roomType in ('COMP', 'CLASS')))";
             String createTable9 = "create table BookedTimes(roomID varchar(20),startTime timestamp, endTime timestamp,Constraint room_FK Foreign Key (roomID) REFERENCES Rooms(roomID))";
             String createTable10 = "create table REQUESTINPROGRESS (REQUESTID   INTEGER not null constraint REQUESTINPROGRESS_REQUESTID_UINDEX unique, ROOM VARCHAR(200), NOTE VARCHAR(200), DATE TIMESTAMP, TYPE VARCHAR(200) default 'Sanitation', FINISHED_BY VARCHAR(30)  default 'NULL')";
-            String createTable11 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,isLoggedIn int,constraint adminBool check (accountInt = 100 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0),constraint loggedBool check (isLoggedIn = 0 or isLoggedIn = 1))";
+            String createTable20 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,pathtopic varchar(100), constraint adminBool check (accountInt = 100 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0))";
             String createTable13 = "DELETE FROM users";
-            //String createTable13 = "DELETE FROM users";
-            //String createTable11 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,isLoggedIn int,constraint adminBool check (accountInt = 100 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0),constraint loggedBool check (isLoggedIn = 0 or isLoggedIn = 1))";
-            String createTable12 = "insert into users values ('jeff', 0, '098f6bcd4621d373cade4e832627b4f6', 0),('wong', 1, '098f6bcd4621d373cade4e832627b4f6', 0), ('sam', 2, '098f6bcd4621d373cade4e832627b4f6', 0),('ken', 100, '098f6bcd4621d373cade4e832627b4f6', 0)";
+            String createTable12 = "insert into users values ('jeff', 100, '098f6bcd4621d373cade4e832627b4f6','/resources/People_Pictures/Jeff.jpg')"; //('bridget', 0 '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Bridget.jpg'),('wong', 1, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Wong.jpg'), ('sam', 2, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Sam.jpg'),('ken', 100, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Ken.jpg'), ('staff', 100, '1253208465b1efa876f982d8a9e73eef', '/resources/bwh-logo.png')";
             try {
                 Statement stmt1 = conn.createStatement();
                 stmt1.executeUpdate(createTable1);
@@ -163,36 +161,19 @@ public class DatabaseUtils {
                 stmt10.executeUpdate(createTable10);
             }catch(Exception e){};
             try {
-                Statement stmt11 = conn.createStatement();
-                stmt11.executeUpdate(createTable11);
-            }catch(Exception e){
-                e.printStackTrace();
-            };
+                Statement stmt20 = conn.createStatement();
+                stmt20.executeUpdate(createTable20);
+            }catch(Exception e){};
             try {
                 Statement stmt13 = conn.createStatement();
                 stmt13.executeUpdate(createTable13);
-            }catch(Exception e){
-                e.printStackTrace();
-            };
-            try {
-                Statement stmt12 = conn.createStatement();
-                stmt12.executeUpdate(createTable12);
-            }catch(Exception e){
-                e.printStackTrace();
-            };
-
-//            try {
-//                Statement stmt13 = conn.createStatement();
-//                stmt13.executeUpdate(createTable13);
-//            }catch(Exception e){};
-            try {
-                Statement stmt11 = conn.createStatement();
-                stmt11.executeUpdate(createTable11);
             }catch(Exception e){};
             try {
                 Statement stmt12 = conn.createStatement();
                 stmt12.executeUpdate(createTable12);
-            }catch(Exception e){};
+            }catch(Exception e){
+                e.printStackTrace();
+            };
             conn.close();
         }catch(Exception e){e.printStackTrace();};
 
