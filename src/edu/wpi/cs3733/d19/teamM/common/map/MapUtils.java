@@ -83,7 +83,7 @@ public class MapUtils {
      * @return ObservableList<DisplayTable>: A list with displayable tables to view in the UI the database entries for the service requests
      * @throws SQLException : Any SQL errors that might occur while trying to get the service requests
      */
-    private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws Exception, SQLException {
+    public ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws Exception, SQLException {
         //The list we will populate
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
         buttonContainer.getChildren().clear();

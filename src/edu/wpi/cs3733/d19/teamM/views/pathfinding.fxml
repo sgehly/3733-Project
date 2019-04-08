@@ -193,7 +193,7 @@
                                                 <Insets />
                                             </opaqueInsets>
                                         </Button>
-                                        <Button mnemonicParsing="false" onAction="#findServiceDesk" prefWidth="400.0" styleClass="bigButton" text="Service Desk">
+                                        <Button mnemonicParsing="false" onAction="#findServiceDesk" prefWidth="400.0" styleClass="bigButton" text="Nearest Service Desk">
                                             <font>
                                                 <Font size="36.0" />
                                             </font>
@@ -201,6 +201,14 @@
                                                 <Insets />
                                             </opaqueInsets>
                                         </Button>
+                              <Button mnemonicParsing="false" onAction="#findCafe" prefWidth="400.0" styleClass="bigButton" text="Nearest Food">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Button>
                                     </children>
                                 </VBox>
                                 <VBox prefHeight="200.0" prefWidth="100.0">
@@ -217,7 +225,7 @@
                                                         <Insets />
                                                     </StackPane.margin>
                                                 </AnchorPane>
-                                    <TitledPane animated="false" maxHeight="200.0" maxWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
+                                    <TitledPane fx:id="filters" animated="false" maxHeight="200.0" maxWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>

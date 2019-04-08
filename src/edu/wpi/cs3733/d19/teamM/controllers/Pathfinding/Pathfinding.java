@@ -128,13 +128,16 @@ public class Pathfinding {
     @FXML
     private CheckBox exits;
 
+    @FXML
+    private TitledPane filters;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
      */
     @FXML
     protected void initialize() throws Exception {
-
+        filters.setExpanded(false);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
@@ -237,6 +240,13 @@ public class Pathfinding {
         }
     }
 
+    @FXML
+    private void findCafe() throws Exception{
+        if(startText.getText() != null){
+            findPresetHelper("RETL");
+        }
+    }
+
     //TODO: fix with new graph class
     private void findPresetHelper(String type) {
         String start = startText.getText();
@@ -288,22 +298,45 @@ public class Pathfinding {
      *
      * @param s
      */
-    private void filterNodes(String s) throws Exception, SQLException {
+    private void filterNodes(String[] s) throws Exception, SQLException {
         try {
-            //Floor floor = new Floor("1");
-            //Get the information that we want from the database
             Connection conn = new DatabaseUtils().getConnection();
-            PreparedStatement stmt = conn.prepareStatement("select * from node where nodeType = ?");
-            stmt.setString(1, s);
-            ResultSet rs = stmt.executeQuery(); // execute where the node type is that specified in the database
 
-            //util.getEntryObjects(rs);
+            String sql = "select * from nodes except select * from nodes where nodeType = ";
+            int counter = 0;
+            for(int i = 0; i < 8; i++){
+                if(s[i] != null) {
+                    if (counter == 0) {
+                        sql += "?";
+                    } else {
+                        sql += " or nodeType = ?";
+                    }
+                }
+            }
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            System.out.println(counter);
+            for(int i = 0; i < 8; i++){
+                if(counter != 0){
+                    if(s[i] != null){
+                        stmt.setString(counter, s[i]);
+                        counter--;
+                    }
+                }
+            }
+            ResultSet rs = stmt.executeQuery(); // execute where the node type is that specified in the database
+            util.getEntryObjects(rs);
 
             conn.close();
 
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
             e.printStackTrace();
+        }
+        //TODO: re-enable the buttons
+        for(Node n : graph.getNodes().values()){
+            if(n.getNodeType().equals(s)){
+                n.disable();
+            }
         }
 
     }
@@ -313,28 +346,30 @@ public class Pathfinding {
      * @param e
      */
     public void handleButton(ActionEvent e) throws Exception, SQLException{
+        String[] s = new String[8];
        if(bathrooms.isSelected()) {
-           filterNodes("REST");
-           filterNodes("BATH");
+           s[0] = "REST";
+           s[1] = "BATH";
        }
        if(stairs.isSelected()) {
-           filterNodes("STAI");
+           s[2] = "STAI";
        }
        if(elevators.isSelected()) {
-           filterNodes("ELEV");
+           s[3] = "ELEV";
        }
        if(labs.isSelected()) {
-           filterNodes("LABS");
+           s[4] = "LABS";
        }
        if(confs.isSelected()) {
-           filterNodes("CONF");
+           s[5] = "CONF";
        }
        if(food.isSelected()) {
-           filterNodes("RETL");
+           s[6] = "RETL";
        }
        if(exits.isSelected()) {
-           filterNodes("EXIT");
+           s[7] = "EXIT";
        }
+       filterNodes(s);
     }
 
     /**
