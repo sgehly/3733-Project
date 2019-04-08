@@ -220,6 +220,10 @@ public class ServiceRequests {
     private void navigateToIntTransport() throws Exception{
         Main.setScene("serviceRequests/IntTransport");
     }
+    @FXML
+    private void navigateToPrescription() throws Exception{
+        Main.setScene("serviceRequests/prescriptionsRequest");
+    }
 
 
 
