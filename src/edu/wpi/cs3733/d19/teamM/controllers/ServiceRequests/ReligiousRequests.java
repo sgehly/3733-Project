@@ -8,7 +8,6 @@ import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests;
 public class ReligiousRequests {
 
     @FXML
@@ -35,18 +34,6 @@ public class ReligiousRequests {
      */
 
     @FXML
-    private JFXTextField roomField;
-
-    @FXML
-    private JFXTextField religion;
-
-    @FXML
-    private JFXTextArea requestText;
-
-    @FXML
-    private JFXCheckBox possession;
-
-    @FXML
     public void logout() throws Exception {
         Main.setScene("welcome");
     }
@@ -58,11 +45,6 @@ public class ReligiousRequests {
     @FXML
     private void navigateBack() throws Exception {
         Main.setScene("serviceRequests");
-    }
-
-    @FXML
-    private void makeServiceRequest() throws Exception {
-        new ServiceRequests().makeRequest("religion", roomField.getText(), religion.getText(), requestText.getText(), possession.isSelected());
     }
 
     @FXML

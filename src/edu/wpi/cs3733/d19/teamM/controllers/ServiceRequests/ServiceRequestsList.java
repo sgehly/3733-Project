@@ -419,15 +419,6 @@ public class ServiceRequestsList {
         Main.setScene("serviceRequests");
     }
 
-    /**
-     * This method is for the logout button which allows the user to go back to the welcome screen
-     * @throws Exception: Any exception that is encountered
-     */
-    @FXML
-    private void navigateBack() throws Exception {
-        Main.setScene("serviceRequests");
-    }
-
 
 
 
