@@ -36,6 +36,12 @@
     -fx-font-family: "Open Sans Bold";
     -fx-cursor: hand;
 }
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-pane {
+    -fx-background-color: transparent;
+}
 .logoutButton{
     -fx-background-color: transparent;
     -fx-border-width: .2em;

@@ -9,14 +9,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.geometry.Orientation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
 import java.awt.image.BufferedImage;
@@ -29,7 +32,8 @@ import java.util.concurrent.Callable;
 
 public class MapUtils {
 
-    Pane buttonContainer;
+    ScrollPane buttonContainer;
+    Pane buttonPane;
     ImageView image;
     Pane imageView;
     ImageView overlayImage;
@@ -53,12 +57,20 @@ public class MapUtils {
     double initx;
     double inity;
 
+    double deltax;
+    double deltay;
+
     //Create needed object instances
     double cachedScaledWidth = 0;
     double cachedScaledHeight = 0;
 
-    public MapUtils(Pane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<ActionEvent> callback) {
+    public MapUtils(ScrollPane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<ActionEvent> callback) {
         this.buttonContainer = buttonContainer;
+        this.buttonPane = new Pane();
+        buttonPane.setLayoutY(buttonContainer.getLayoutY());
+        buttonPane.setLayoutX(buttonContainer.getLayoutX());
+        buttonPane.setStyle("-fx-background-color: rgba(0,0,0,.4)");
+        this.buttonContainer.setContent(buttonPane);
         this.image = image;
         this.imageView = imageView;
         this.callback = callback;
@@ -80,9 +92,11 @@ public class MapUtils {
         //The scaled width and height of the image
         if(cachedScaledHeight == 0){
             cachedScaledHeight = imageView.getBoundsInParent().getHeight()-50;
+            buttonPane.setPrefHeight(cachedScaledHeight);
         }
         if(cachedScaledWidth == 0){
             cachedScaledWidth = imageView.getBoundsInParent().getWidth();
+            buttonPane.setPrefWidth(cachedScaledWidth);
         }
 
         //Scale the x and y coordinates and set / return as a new map point
@@ -101,7 +115,7 @@ public class MapUtils {
     private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws Exception, SQLException {
         //The list we will populate
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
-        buttonContainer.getChildren().clear();
+        buttonPane.getChildren().clear();
         try {
             while (rs.next()) {
                 //Create a button and set its size
@@ -123,7 +137,7 @@ public class MapUtils {
                 newButton.setLayoutX(generated.x-(size/2));
                 newButton.setLayoutY(generated.y-(size/2));
                 newButton.getStylesheets().add("resources/mapNode.css");
-                buttonContainer.getChildren().add(newButton); //Add it to the button container
+                buttonPane.getChildren().add(newButton); //Add it to the button container
             }
             return entList; //Return this list
         } catch (SQLException e) {
@@ -132,6 +146,53 @@ public class MapUtils {
         }
     }
 
+    public void updatePosition(double newValue){
+        /*System.out.println("MINVALS: ("+image.getViewport().getMinX()+","+image.getViewport().getMinY()+")");
+        System.out.println("LAYOUTS: "+image.getFitWidth()+"x"+image.getFitHeight());
+        //double xBase = ((image.getViewport().getMinX()/zoom)-(image.getViewport().getMinX()/zoom)+(image.getFitWidth()/zoom));
+        //double yBase = ((image.getViewport().getMinY()/zoom)-(image.getViewport().getMinY()/zoom)+(image.getFitHeight()/zoom));
+
+        buttonContainer.setScaleX(zoom);
+        buttonContainer.setScaleY(zoom);
+
+        double xBase = -image.getViewport().getMinX()+width/2;
+        double yBase = (image.getViewport().getMinY()+height)/2;
+
+        buttonContainer.setTranslateX(xBase);
+        buttonContainer.setTranslateY(yBase);*
+
+       // buttonContainer.setTranslateX((image.getViewport().getMinX()-image.getViewport().getMinX())/(zoom/2));
+        //buttonContainer.setTranslateY((image.getViewport().getMinY()-image.getViewport().getMinY())/(zoom/2));
+
+
+
+
+        /*double xBase = ((image.getViewport().getMinX()/zoom)+image.getViewport().getMinX());
+        double yBase = ((image.getViewport().getMinY()/zoom)+image.getViewport().getMinY());
+
+        System.out.println(xBase+","+yBase);
+        buttonContainer.setTranslateX(xBase);
+        buttonContainer.setTranslateY(yBase);*/
+        //System.out.println("Changing position");
+        //Rectangle bounds = new Rectangle(image.getViewport().getMinX(), image.getViewport().getMinY(), image.getViewport().getWidth(), image.getViewport().getHeight());
+        //System.out.println(bounds.toString());
+        //buttonContainer.setViewportBounds(bounds.);
+
+        /*Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+        System.out.println(bounds.toString());
+        image.setViewport(bounds);
+
+        overlayImage.setViewport(image.getViewport());
+
+        Rectangle boundRect = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
+        System.out.println(boundRect.toString());
+        buttonContainer.setViewportBounds(boundRect.getLayoutBounds());*/
+
+        Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+        image.setViewport(bounds);
+        overlayImage.setViewport(image.getViewport());
+
+    }
 
     /**
      * This method gets all the records from the database so that they can be added to the display on the screen
@@ -176,6 +237,9 @@ public class MapUtils {
         height = (int) source.getHeight();
         width = (int) source.getWidth();
 
+        System.out.println("SOURCE: 5000x3400");
+        System.out.println("SCALED: "+image.getFitWidth()+"x"+image.getFitHeight());
+
         zoomSlider.setMax(10);
         zoomSlider.setMin(1);
         zoomSlider.setValue(1);
@@ -208,8 +272,10 @@ public class MapUtils {
                 offSetX = width - ((width / newValue) / 2);
             }
 
-            image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
-            overlayImage.setViewport(image.getViewport());
+            System.out.println("HORIZONTAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity)+" -> "+newValue);
+
+            updatePosition(newValue);
+
         });
 
         Vscroll.valueProperty().addListener(e -> {
@@ -222,8 +288,10 @@ public class MapUtils {
             if (offSetY > height - ((height / newValue) / 2)) {
                 offSetY = height - ((height / newValue) / 2);
             }
-            image.setViewport(new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue));
-            overlayImage.setViewport(image.getViewport());
+
+            System.out.println("VERTICAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity)+" -> "+newValue);
+
+            updatePosition(newValue);
         });
 
         zoomSlider.valueProperty().addListener(e -> {
@@ -245,31 +313,54 @@ public class MapUtils {
             double minX = offSetX - ((width / newValue) / 2);
             double minY = offSetY - ((height / newValue) / 2);
 
-            image.setViewport(new Rectangle2D(minX, minY, width / newValue, height / newValue));
+            Hscroll.setValue(width-offSetX);
+            Vscroll.setValue(height-offSetY);
+
+            buttonPane.setScaleX(zoom);
+            buttonPane.setScaleY(zoom);
+
+            buttonContainer.setMaxWidth(overlayImage.getFitWidth());
+            buttonContainer.setMaxHeight(overlayImage.getFitHeight());
+
+            Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+            image.setViewport(bounds);
             overlayImage.setViewport(image.getViewport());
 
-            buttonContainer.getChildren().forEach(node -> {
-                double x = node.getLayoutX();
-                double y = node.getLayoutY();
-                node.setLayoutX(x+minX);
-                node.setLayoutY(y+minY);
-            });
+            System.out.println(minX+"/"+minY+"/"+bounds.getMinX()+"/"+bounds.getMinY());
+
+            //buttonPane.setTranslateX(-minX/zoom);
+            //buttonPane.setTranslateY(-minY/zoom);
+
+           // updatePosition(newValue);
         });
 
-        imageView.setCursor(Cursor.OPEN_HAND);
-        imageView.setOnMousePressed(e -> {
+        buttonPane.setCursor(Cursor.OPEN_HAND);
+        buttonPane.setOnMousePressed(e -> {
+            System.out.println("Press me daddy");
             initx = e.getSceneX();
             inity = e.getSceneY();
-            imageView.setCursor(Cursor.CLOSED_HAND);
+            buttonPane.setCursor(Cursor.CLOSED_HAND);
         });
-        imageView.setOnMouseReleased(e -> {
-            imageView.setCursor(Cursor.OPEN_HAND);
+        buttonPane.setOnMouseReleased(e -> {
+            buttonPane.setCursor(Cursor.OPEN_HAND);
+
         });
-        imageView.setOnMouseDragged(e -> {
-            Hscroll.setValue(Hscroll.getValue() + (initx - e.getSceneX()));
-            Vscroll.setValue(Vscroll.getValue() - (inity - e.getSceneY()));
+        buttonPane.setOnMouseDragged(e -> {
+            double yikes = Hscroll.getValue() + (initx - e.getSceneX());
+            double oof = Vscroll.getValue() - (inity - e.getSceneY());
+
+            System.out.println((initx - e.getSceneX())+"/"+(inity - e.getSceneY()));
+
+            buttonPane.setTranslateX(buttonPane.getTranslateX()-(initx - e.getSceneX()));
+            buttonPane.setTranslateY(buttonPane.getTranslateY()-(inity - e.getSceneY()));
+           // buttonPane.setTranslateY(oof);
+
+            Hscroll.setValue(yikes);
+            Vscroll.setValue(oof);
+
             initx = e.getSceneX();
             inity = e.getSceneY();
+
         });
 
         String query = "SELECT * FROM NODE WHERE FLOOR='"+this.getCurrentFloorID()+"'";

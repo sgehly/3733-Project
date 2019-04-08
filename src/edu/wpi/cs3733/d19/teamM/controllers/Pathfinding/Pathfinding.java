@@ -91,7 +91,7 @@ public class Pathfinding {
     private JFXSlider zoomSlider;
 
     @FXML
-    private Pane buttonContainer;
+    private ScrollPane buttonContainer;
 
     @FXML
     private Slider zoomLvl;

@@ -138,7 +138,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene mainScene = new Scene(root);
 
-        loginPane = FXMLLoader.load(Main.getFXMLURL("login"));
+        loginPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
         loginScene = new Scene(loginPane);
         welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         welcomeScene= new Scene(welcomePane);
