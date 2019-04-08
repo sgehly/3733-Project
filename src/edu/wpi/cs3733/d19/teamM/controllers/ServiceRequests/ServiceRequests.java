@@ -204,6 +204,11 @@ public class ServiceRequests {
         Main.setScene("serviceRequests/ITRequests");
     }
 
+    @FXML
+    private void navigateToAudioVis() throws Exception{
+        Main.setScene("serviceRequests/AudioVisual");
+    }
+
 
     /**
      * This method checks room availability after a button is clicked
