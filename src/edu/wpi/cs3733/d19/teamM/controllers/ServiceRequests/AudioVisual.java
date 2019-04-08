@@ -1,10 +1,12 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import org.controlsfx.control.textfield.TextFields;
 
 
@@ -28,11 +30,9 @@ public class AudioVisual implements Initializable {
     @FXML
     private TextField audioVisType;
 
-
     //Text field for room location input
     @FXML
     private TextField room;
-
 
     //Text field for additional specifications
     @FXML
@@ -40,6 +40,12 @@ public class AudioVisual implements Initializable {
 
     @FXML
     private Button submitReuqest;
+
+    @FXML
+    private Label lblClock;
+
+    @FXML
+    private Label lblDate;
 
 
     public int RandIDgenerator(){
@@ -120,5 +126,7 @@ public class AudioVisual implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         TextFields.bindAutoCompletion(audioVisType,audioVis);
+
+        Clock clock = new Clock(lblClock, lblDate);
     }
 }
