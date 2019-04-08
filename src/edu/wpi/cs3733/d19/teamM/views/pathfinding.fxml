@@ -201,7 +201,7 @@
                                                 <Insets />
                                             </opaqueInsets>
                                         </Button>
-                              <Button mnemonicParsing="false" onAction="#findCafe" prefWidth="400.0" styleClass="bigButton" text="Nearest Food">
+                              <Button mnemonicParsing="false" onAction="#findCafe" prefWidth="400.0" styleClass="bigButton" text="Nearest Watering Hole">
                                  <font>
                                     <Font size="36.0" />
                                  </font>

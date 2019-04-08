@@ -299,39 +299,14 @@ public class Pathfinding {
      * @param s
      */
     private void filterNodes(String[] s) throws Exception, SQLException {
-        try {
+        /*try {
             Connection conn = new DatabaseUtils().getConnection();
 
             String sql = "select * from nodes except select * from nodes where nodeType = ";
-            int counter = 0;
-            for(int i = 0; i < 8; i++){
-                if(s[i] != null) {
-                    if (counter == 0) {
-                        sql += "?";
-                    } else {
-                        sql += " or nodeType = ?";
-                    }
-                }
-            }
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            System.out.println(counter);
-            for(int i = 0; i < 8; i++){
-                if(counter != 0){
-                    if(s[i] != null){
-                        stmt.setString(counter, s[i]);
-                        counter--;
-                    }
-                }
-            }
-            ResultSet rs = stmt.executeQuery(); // execute where the node type is that specified in the database
-            util.getEntryObjects(rs);
-
-            conn.close();
-
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
             e.printStackTrace();
-        }
+        }*/
         //TODO: re-enable the buttons
         for(Node n : graph.getNodes().values()){
             if(n.getNodeType().equals(s)){
@@ -346,30 +321,7 @@ public class Pathfinding {
      * @param e
      */
     public void handleButton(ActionEvent e) throws Exception, SQLException{
-        String[] s = new String[8];
-       if(bathrooms.isSelected()) {
-           s[0] = "REST";
-           s[1] = "BATH";
-       }
-       if(stairs.isSelected()) {
-           s[2] = "STAI";
-       }
-       if(elevators.isSelected()) {
-           s[3] = "ELEV";
-       }
-       if(labs.isSelected()) {
-           s[4] = "LABS";
-       }
-       if(confs.isSelected()) {
-           s[5] = "CONF";
-       }
-       if(food.isSelected()) {
-           s[6] = "RETL";
-       }
-       if(exits.isSelected()) {
-           s[7] = "EXIT";
-       }
-       filterNodes(s);
+        
     }
 
     /**
