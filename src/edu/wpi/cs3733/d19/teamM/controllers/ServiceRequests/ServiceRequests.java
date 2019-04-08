@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import edu.wpi.cs3733.d19.teamM.Main;
-
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
@@ -202,6 +201,11 @@ public class ServiceRequests {
     @FXML
     private void navigateToIT() throws Exception{
         Main.setScene("serviceRequests/ITRequests");
+    }
+
+    @FXML
+    private void navigateToAudioVis() throws Exception{
+        Main.setScene("serviceRequests/AudioVisual");
     }
 
 

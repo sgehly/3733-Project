@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
@@ -85,6 +86,9 @@ public class Pathfinding {
 
     @FXML
     private ImageView overlayImage;
+
+    @FXML
+    private JFXSlider zoomSlider;
 
     @FXML
     private Pane buttonContainer;
@@ -166,7 +170,7 @@ public class Pathfinding {
 
         graph = new Floor();
         path = new Path();
-        util = new MapUtils(buttonContainer, imageView, image, overlayImage, this::setValues);
+        util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues);
         setUpListeners();
 
         util.initialize();
