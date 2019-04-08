@@ -119,7 +119,7 @@
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Room:" />
-                                                        <JFXTextField styleClass="lightInput">
+                                                        <JFXTextField fx:id="room" styleClass="lightInput">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" />
                                                             </HBox.margin>
@@ -129,7 +129,7 @@
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Type of Equipment " />
-                                                        <JFXTextField styleClass="lightInput">
+                                                        <JFXTextField fx:id="typeOfEquipment" styleClass="lightInput">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" />
                                                             </HBox.margin>
@@ -139,7 +139,7 @@
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Comments" />
-                                                        <JFXTextArea styleClass="lightInput">
+                                                        <JFXTextArea fx:id="notes" styleClass="lightInput">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" />
                                                             </HBox.margin>
@@ -149,7 +149,7 @@
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Urgent" />
-                                                        <JFXCheckBox text=" ">
+                                                        <JFXCheckBox fx:id="urgent" text=" ">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" />
                                                             </HBox.margin>
@@ -158,7 +158,7 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                                     <children>
-                                                        <Button mnemonicParsing="false" text="SUBMIT REQUEST">
+                                                        <Button mnemonicParsing="false" onAction="#makeItRequest" text="SUBMIT REQUEST">
                                                             <styleClass>
                                                                 <String fx:value="blackButton" />
                                                                 <String fx:value="requestButton" />

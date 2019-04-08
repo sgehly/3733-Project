@@ -1,14 +1,38 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
+import com.jfoenix.controls.JFXCheckBox;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 
+import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SanitationRequest implements Initializable {
+
+
+
+    @FXML
+    private TextField typeofmess;
+
+    //Text field for room location input
+    @FXML
+    private TextField room;
+
+    @FXML
+    private JFXCheckBox hazard;
+
+    //Text field for additional specifications
+    @FXML
+    private javafx.scene.control.TextArea notes;
+
+    @FXML
+    private Button submitReuqest;
+
 
     @FXML
     private javafx.scene.control.Label lblClock;
@@ -33,6 +57,12 @@ public class SanitationRequest implements Initializable {
     @FXML
     private void navigateBack() throws Exception {
         Main.setScene("serviceRequests");
+    }
+
+    @FXML
+    public void makeSanitationReqeust() throws IOException {
+        new ServiceRequests().makeRequest("sanitation", room.getText(), typeofmess.getText(), notes.getText(), hazard.isSelected());
+
     }
 
 

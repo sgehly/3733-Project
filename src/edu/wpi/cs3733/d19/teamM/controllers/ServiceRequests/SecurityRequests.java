@@ -19,7 +19,7 @@ public class SecurityRequests {
     @FXML
     JFXRadioButton high;
 
-    
+
 
     @FXML
     Label lblClock;

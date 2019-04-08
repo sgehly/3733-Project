@@ -57,36 +57,6 @@ public class FlowersRequest implements Initializable {
     private Button submitReuqest;
 
 
-
-
-
-    public int RandIDgenerator(){
-        Random rand = new Random();
-        int id = rand.nextInt(10000);
-        try {
-            String query = "SELECT REQUESTID FROM SERVICEREQUEST";
-            Connection conn = new DatabaseUtils().getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()){
-                if(rs.getInt(1) == id){
-                    RandIDgenerator();
-                }
-                else{
-                    return id;
-                }
-            }
-        }
-
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
-
-
-
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
      * @throws Exception: Any exception that is encountered

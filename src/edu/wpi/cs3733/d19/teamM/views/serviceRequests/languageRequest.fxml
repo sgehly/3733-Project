@@ -23,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.SanitationRequest">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.LanguageRequests">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -36,7 +36,7 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0">
                             <children>
-                                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="425.0" HBox.hgrow="ALWAYS">
                                     <children>
                                         <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateBack" pickOnBounds="true" preserveRatio="true" styleClass="hoverIcon">
                                             <HBox.margin>
@@ -58,7 +58,7 @@
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                     <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="659.0">
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="617.0">
                                  <children>
                                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -86,9 +86,6 @@
                                  <padding>
                                     <Insets right="300.0" top="15.0" />
                                  </padding>
-                                 <HBox.margin>
-                                    <Insets left="270.0" />
-                                 </HBox.margin>
                               </HBox>
                                     </children>
                                 </HBox>
@@ -117,10 +114,10 @@
                                  <children>
                                     <ImageView fitHeight="250.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../resources/icons/sanitation.png" />
+                                          <Image url="@../../../../../../../resources/icons/interpreter.png" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Sanitation Request">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Interpreter Request ">
                                        <VBox.margin>
                                           <Insets top="20.0" />
                                        </VBox.margin>
@@ -137,8 +134,8 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Type:" />
-                                          <JFXTextField fx:id="typeofmess" styleClass="lightInput">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Language:" />
+                                          <JFXTextField fx:id="Language" styleClass="lightInput">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin>
@@ -147,7 +144,7 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Notes:" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Additional specifications:" />
                                           <JFXTextArea fx:id="notes" styleClass="lightInput">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
@@ -157,12 +154,16 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Radioactive Material " />
-                                          <JFXCheckBox fx:id="hazard" text=" " />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Urgent" />
+                                          <JFXCheckBox fx:id="Urgent" text=" ">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </JFXCheckBox>
                                        </children></HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onMouseClicked="#makeSanitationReqeust" text="SUBMIT REQUEST">
+                                          <Button fx:id="submitRequest" mnemonicParsing="false" onMouseClicked="#makeLanguageRequest" text="SUBMIT REQUEST">
                                              <styleClass>
                                                 <String fx:value="blackButton" />
                                                 <String fx:value="requestButton" />

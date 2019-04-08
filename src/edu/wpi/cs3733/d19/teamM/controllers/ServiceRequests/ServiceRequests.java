@@ -209,6 +209,10 @@ public class ServiceRequests {
     private void navigateToPrescription() throws Exception{
         Main.setScene("serviceRequests/prescriptionsRequest");
     }
+    @FXML
+    private void navigateToLanguage() throws Exception{
+        Main.setScene("serviceRequests/languageRequest");
+    }
 
 
 

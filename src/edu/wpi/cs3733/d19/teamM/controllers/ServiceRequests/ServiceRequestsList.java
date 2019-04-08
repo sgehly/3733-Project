@@ -325,7 +325,7 @@ public class ServiceRequestsList {
 
     private void initWithType(int index){
 
-        String identifiers[] = new String[] {"all","sanitation","language","it", "av","gift", "flowers", "internal", "external", "religion", "security", "prescriptions"};
+        String identifiers[] = new String[] {"all","sanitation","interpreter","it", "av","gift", "flowers", "internal", "external", "religion", "security", "prescriptions"};
         String identifier = identifiers[index];
 
         try {
@@ -364,7 +364,7 @@ public class ServiceRequestsList {
                         descLabel = "Request";
                         checkboxLabel = "Urgent";
                         break;
-                    case "language":
+                    case "interpreter":
                         subTypeLabel = "Language";
                         descLabel = "Request";
                         checkboxLabel = "Urgent";
@@ -389,6 +389,12 @@ public class ServiceRequestsList {
                         descLabel = "Request";
                         checkboxLabel = "Urgent";
                         break;
+                    case "sanitation":
+                        subTypeLabel = "Sanitation";
+                        descLabel = "Request";
+                        checkboxLabel = "Radioactive";
+                        break;
+
                 }
 
 
