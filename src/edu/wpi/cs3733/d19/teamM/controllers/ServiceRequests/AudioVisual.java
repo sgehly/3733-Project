@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
+import com.jfoenix.controls.JFXCheckBox;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
@@ -34,6 +35,9 @@ public class AudioVisual implements Initializable {
     @FXML
     private TextField room;
 
+    @FXML
+    private JFXCheckBox pickUp;
+
     //Text field for additional specifications
     @FXML
     private javafx.scene.control.TextArea notes;
@@ -47,30 +51,6 @@ public class AudioVisual implements Initializable {
     @FXML
     private Label lblDate;
 
-
-    public int RandIDgenerator(){
-        Random rand = new Random();
-        int id = rand.nextInt(10000);
-        try {
-            String query = "SELECT REQUESTID FROM SERVICEREQUEST";
-            Connection conn = new DatabaseUtils().getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()){
-                if(rs.getInt(1) == id){
-                    RandIDgenerator();
-                }
-                else{
-                    return id;
-                }
-            }
-        }
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -97,29 +77,8 @@ public class AudioVisual implements Initializable {
 
     @FXML
     public void makeAudioVisRequest() throws IOException {
-        System.out.println("----Test Connection----");
+        new ServiceRequests().makeRequest("av", room.getText(), audioVisType.getText(), notes.getText(), pickUp.isSelected());
 
-        try {
-            Connection conn = new DatabaseUtils().getConnection();
-            String query = "insert into SERVICEREQUEST  (REQUESTID, ROOM , TYPE , NOTES) values (?,?,?,?)";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            System.out.println("Connected");
-
-            stmt.setInt(1,RandIDgenerator());
-            System.out.println("1");
-            stmt.setString(2, (room.getText()));
-            System.out.println("2");
-            stmt.setString(4, "The audio/visual type is:" + audioVisType.getText() +"  Notes:" + notes.getText());
-            System.out.println("3");
-            stmt.setString(3, "Audio/Visual");
-            System.out.println("4");
-            stmt.executeUpdate();
-            stmt.close();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

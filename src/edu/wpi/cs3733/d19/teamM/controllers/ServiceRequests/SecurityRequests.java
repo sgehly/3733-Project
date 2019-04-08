@@ -19,6 +19,8 @@ public class SecurityRequests {
     @FXML
     JFXRadioButton high;
 
+    
+
     @FXML
     Label lblClock;
 
@@ -49,4 +51,5 @@ public class SecurityRequests {
     void initialize(){
         new Clock(lblClock, lblDate);
     }
+
 }

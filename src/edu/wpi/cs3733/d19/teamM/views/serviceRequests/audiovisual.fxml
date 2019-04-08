@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
@@ -16,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.AudioVisual">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.AudioVisual">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -145,7 +152,11 @@
                                                         </JFXTextArea>
                                                     </children>
                                                 </HBox>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Pick Up" />
+                                          <JFXCheckBox fx:id="pickUp" text=" " />
+                                       </children></HBox>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                                     <children>
                                                         <Button fx:id="submitRequest" mnemonicParsing="false" onAction="#makeAudioVisRequest" text="SUBMIT REQUEST">

@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
@@ -16,7 +23,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.GiftRequest">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.GiftRequest">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -111,7 +118,7 @@
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Room:" />
-                                                        <JFXTextField styleClass="lightInput">
+                                                        <JFXTextField fx:id="room" styleClass="lightInput">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" />
                                                             </HBox.margin>
@@ -131,17 +138,25 @@
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Other Notes:" />
-                                                        <JFXTextArea styleClass="lightInput">
+                                                        <JFXTextArea fx:id="requestText" styleClass="lightInput">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" />
                                                             </HBox.margin>
                                                         </JFXTextArea>
                                                     </children>
                                                 </HBox>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Packaged" />
+                                          <JFXCheckBox fx:id="packaged" text=" ">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </JFXCheckBox>
+                                       </children></HBox>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                                     <children>
-                                                        <Button mnemonicParsing="false" text="SUBMIT REQUEST">
+                                                        <Button mnemonicParsing="false" onAction="#makeGiftRequest" text="SUBMIT REQUEST">
                                                             <styleClass>
                                                                 <String fx:value="blackButton" />
                                                                 <String fx:value="requestButton" />

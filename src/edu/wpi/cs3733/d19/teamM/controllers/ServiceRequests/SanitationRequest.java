@@ -1,10 +1,20 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 
-public class SanitationRequest {
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class SanitationRequest implements Initializable {
+
+    @FXML
+    private javafx.scene.control.Label lblClock;
+
+    @FXML
+    private javafx.scene.control.Label lblDate;
 
 
     /**
@@ -23,5 +33,13 @@ public class SanitationRequest {
     @FXML
     private void navigateBack() throws Exception {
         Main.setScene("serviceRequests");
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        new Clock(lblClock, lblDate);
+
     }
 }

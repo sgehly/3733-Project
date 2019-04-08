@@ -106,7 +106,7 @@
                                     <children>
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
-                                                <ImageView fitHeight="250.0" fitWidth="350.0"  pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="250.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@../../../../../../../resources/icons/doctor.png" />
                                                     </image>
@@ -119,7 +119,7 @@
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Room:" />
-                                                        <JFXTextField styleClass="lightInput">
+                                                        <JFXTextField fx:id="room" styleClass="lightInput">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" />
                                                             </HBox.margin>
@@ -129,7 +129,7 @@
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Fill ID" />
-                                                        <JFXTextField styleClass="lightInput">
+                                                        <JFXTextField fx:id="fillId" styleClass="lightInput">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" />
                                                             </HBox.margin>
@@ -139,17 +139,25 @@
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Comments" />
-                                                        <JFXTextArea styleClass="lightInput">
+                                                        <JFXTextArea fx:id="notes" styleClass="lightInput">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" />
                                                             </HBox.margin>
                                                         </JFXTextArea>
                                                     </children>
                                                 </HBox>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Packaged">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXCheckBox fx:id="urgent" text=" " />
+                                       </children></HBox>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                                     <children>
-                                                        <Button mnemonicParsing="false" text="SUBMIT REQUEST">
+                                                        <Button fx:id="submitReqeust" mnemonicParsing="false" onAction="#makePrescriptionReqeust" text="SUBMIT REQUEST">
                                                             <styleClass>
                                                                 <String fx:value="blackButton" />
                                                                 <String fx:value="requestButton" />

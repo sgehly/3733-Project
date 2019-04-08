@@ -360,7 +360,7 @@
                                           <Insets />
                                        </VBox.margin>
                                     </ImageView>
-                                    <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="REQUESTS">
+                                    <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="Generate Report" wrappingWidth="280.4765625">
                                        <font>
                                           <Font name="Open Sans Bold" size="56.0" />
                                        </font>

@@ -5,7 +5,9 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
 public class IntTransportRequest {
 
@@ -25,6 +27,12 @@ public class IntTransportRequest {
 
     @FXML
     private JFXCheckBox urgent;
+
+    @FXML
+    Label lblClock;
+
+    @FXML
+    private Label lblDate;
 
     @FXML
     public void logout() throws Exception {
@@ -47,6 +55,11 @@ public class IntTransportRequest {
 
     @FXML
     private void makeServiceRequest() throws Exception {
-        new ServiceRequests().makeRequest("religion", roomField.getText(), modeTransport.getText(), requestText.getText(), urgent.isSelected());
+        new ServiceRequests().makeRequest("internal", roomField.getText(), modeTransport.getText(), requestText.getText(), urgent.isSelected());
     }
+    @FXML
+    private void initialize(){
+        new Clock(lblClock, lblDate);
+    }
+
 }

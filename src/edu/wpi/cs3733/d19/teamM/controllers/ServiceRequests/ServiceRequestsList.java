@@ -325,7 +325,7 @@ public class ServiceRequestsList {
 
     private void initWithType(int index){
 
-        String identifiers[] = new String[] {"all","sanitation","language","it", "av","gift", "florist", "internal", "external", "religion", "security", "prescriptions"};
+        String identifiers[] = new String[] {"all","sanitation","language","it", "av","gift", "flowers", "internal", "external", "religion", "security", "prescriptions"};
         String identifier = identifiers[index];
 
         try {
@@ -347,7 +347,51 @@ public class ServiceRequestsList {
                         descLabel = "Request";
                         checkboxLabel = "Possession?";
                         break;
+
+                    case "internal":
+                        subTypeLabel = "Internal Transportation";
+                        descLabel = "Request";
+                        checkboxLabel = "Urgent";
+                        break;
+
+                    case "external":
+                        subTypeLabel = "External Transportation";
+                        descLabel = "Request";
+                        checkboxLabel = "Urgent";
+                        break;
+                    case "it":
+                        subTypeLabel = "IT";
+                        descLabel = "Request";
+                        checkboxLabel = "Urgent";
+                        break;
+                    case "language":
+                        subTypeLabel = "Language";
+                        descLabel = "Request";
+                        checkboxLabel = "Urgent";
+                        break;
+                    case "av":
+                        subTypeLabel = "Audio Visuals";
+                        descLabel = "Request";
+                        checkboxLabel = "Pic Up";
+                        break;
+                    case "gift":
+                        subTypeLabel = "Gift shop";
+                        descLabel = "Request";
+                        checkboxLabel = "Packaged";
+                        break;
+                    case "flowers":
+                        subTypeLabel = "Flowers";
+                        descLabel = "Request";
+                        checkboxLabel = "Replace Old Flowers";
+                        break;
+                    case "prescriptions":
+                        subTypeLabel = "Prescriptions";
+                        descLabel = "Request";
+                        checkboxLabel = "Urgent";
+                        break;
                 }
+
+
                 RIPSubTypeCol.setText(subTypeLabel);
                 RIPDescCol.setText(descLabel);
                 RIPCheckboxCol.setText(checkboxLabel);
