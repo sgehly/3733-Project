@@ -14,6 +14,8 @@
     <bytecodeTargetLevel>
       <module name="3733-Project.main" target="1.8" />
       <module name="3733-Project.test" target="1.8" />
+      <module name="3733-Project_main" target="1.8" />
+      <module name="3733-Project_test" target="1.8" />
       <module name="edu.wpi.cs3733.d19.teamm.3733-Project.main" target="1.8" />
       <module name="edu.wpi.cs3733.d19.teamm.3733-Project.test" target="1.8" />
     </bytecodeTargetLevel>

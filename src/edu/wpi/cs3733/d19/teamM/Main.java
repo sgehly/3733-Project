@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.d19.teamM;
 
-import edu.wpi.cs3733.d19.teamM.User.User;
-import edu.wpi.cs3733.d19.teamM.controllers.LogIn.LogInController;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
