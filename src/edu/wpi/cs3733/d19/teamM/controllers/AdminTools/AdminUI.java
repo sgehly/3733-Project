@@ -1,7 +1,10 @@
 package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
+import com.jfoenix.controls.JFXSlider;
 import edu.wpi.cs3733.d19.teamM.User.User;
+import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Path;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
@@ -16,19 +19,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
-
+import javafx.scene.shape.Line;
 import java.io.FileWriter;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AdminUI {
@@ -37,17 +39,23 @@ public class AdminUI {
     static double inity;
     static int height;
     static int width;
-    public static String path;
     static double offSetX,offSetY,zoomlvl;
     String dbPath = "jdbc:derby:myDB";
 
     double scaledWidth;
     double scaledHeight;
 
+    ArrayList<Line> routeArr = new ArrayList<Line>();
+
     MapPoint dragDelta = new MapPoint(0,0);
     MapPoint initial = new MapPoint(0,0);
 
+    MapUtils util;
+
     Rectangle2D primaryScreenBounds;
+
+    Floor graph;
+    Path path;
 
     @FXML
     private Pane imageView;
@@ -68,7 +76,13 @@ public class AdminUI {
     private Text userText;
 
     @FXML
-    private Pane buttonContainer;
+    private ScrollPane buttonContainer;
+
+    @FXML
+    private JFXSlider zoomSlider;
+
+    @FXML
+    private Text floorLabel;
 
     @FXML
     private TextField nodeIdTextBox;
@@ -174,9 +188,14 @@ public class AdminUI {
     }
 
     public void updateValues(String nodeId) throws Exception{
+
+        routeArr.forEach(route -> {
+            util.buttonPane.getChildren().remove(route);
+        });
+
         System.out.println(nodeId);
         //TODO: Can someone on database make this so SQL Injection can't happen
-        String query = "SELECT * FROM node WHERE NODEID = ?";
+        String query = "SELECT * FROM NODE WHERE LONGNAME = ?";
         Connection conn = new DatabaseUtils().getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, nodeId);
@@ -194,6 +213,37 @@ public class AdminUI {
             typeTextBox.setText(rs.getString("nodeType"));
             longNameTextBox.setText(rs.getString("longName"));
             shortNameTextBox.setText(rs.getString("shortName"));
+
+            String edgeQuery = "SELECT * FROM EDGE WHERE STARTNODE = ? OR ENDNODE = ?";
+            PreparedStatement edgeStatement = conn.prepareStatement(edgeQuery);
+            edgeStatement.setString(1, rs.getString("nodeID"));
+            edgeStatement.setString(2, rs.getString("nodeID"));
+            ResultSet edges = edgeStatement.executeQuery();
+
+            while(edges.next()){
+                System.out.println("Edge Found: "+edges.getString("edgeID"));
+                String otherNodeId = edges.getString("edgeID").replace("_","").replace(rs.getString("nodeID"),"");
+                Node one = graph.getNodes().get(otherNodeId);
+                Node two = graph.getNodes().get(rs.getString("nodeID"));
+
+                System.out.println("Path from "+one.getLongName()+" to "+two.getLongName());
+                double oneX = util.buttonMap.get(one.getLongName()).getLayoutX();
+                double oneY = util.buttonMap.get(one.getLongName()).getLayoutY();
+
+                double twoX = util.buttonMap.get(two.getLongName()).getLayoutX();
+                double twoY = util.buttonMap.get(two.getLongName()).getLayoutY();
+
+                System.out.println(oneX+","+oneY+" -> "+twoX+","+twoY+" ~~ "+Math.max(Math.abs(twoX-oneX),50)+"x"+Math.max(50, Math.abs(twoY-oneY)));
+
+                Line pathObj = new Line();
+                pathObj.setStartX(oneX+2.5);
+                pathObj.setStartY(oneY+2.5);
+                pathObj.setEndX(twoX+2.5);
+                pathObj.setEndY(twoY+2.5);
+                pathObj.setStyle("-fx-background-color: red");
+                routeArr.add(pathObj);
+                util.buttonPane.getChildren().add(pathObj);
+            }
         }
 
         conn.close();
@@ -210,56 +260,6 @@ public class AdminUI {
         }
     }
 
-    private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws Exception, SQLException {
-        ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
-        buttonContainer.getChildren().clear();
-        try {
-            while (rs.next()) {
-                Button newButton = new Button();
-                double size = 5;
-                String id = rs.getString("nodeId");
-
-                newButton.setMinWidth(size);
-                newButton.setMaxWidth(size);
-                newButton.setMinHeight(size);
-                newButton.setPrefHeight(size);
-                newButton.setPrefWidth(size);
-                newButton.setMaxHeight(size);
-                newButton.setId(id);
-                newButton.setOnAction(this::setValues);
-
-                MapPoint generated = scalePoints(rs.getInt("xcoord"), rs.getInt("ycoord"));
-                newButton.setLayoutX(generated.x-(size/2));
-                newButton.setLayoutY(generated.y-(size/2));
-                newButton.setStyle("-fx-background-color: blue");
-
-                buttonContainer.getChildren().add(newButton);
-            }
-            return entList;
-        } catch (SQLException e) {
-            System.out.println("Error while trying to fetch all records");
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
-
-    public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException, Exception {
-        String query = "SELECT * FROM NODE WHERE Floor='1'";
-        try {
-            Connection conn = new DatabaseUtils().getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            ObservableList<DisplayTable> entryList = getEntryObjects(rs);
-            conn.close();
-            return entryList;
-        } catch (SQLException e) {
-            System.out.println("Error while trying to fetch all records");
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
     @FXML
     protected void initialize() throws Exception {
 
@@ -271,21 +271,14 @@ public class AdminUI {
         primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
 
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
 
-        Image source = new Image(Main.getResource("/resources/maps/01_thefirstfloor.png"));
+        graph = new Floor();
+        path = new Path();
+        util = new MapUtils(buttonContainer, imageView, image, new ImageView(), new JFXSlider(), this::setValues);
+        util.initialize();
 
-        image.setImage(source);
-        image.setFitWidth(primaryScreenBounds.getWidth());
-        image.setFitHeight(primaryScreenBounds.getHeight()-200);
-
-        scaledWidth = imageView.getBoundsInParent().getWidth();
-        scaledHeight = imageView.getBoundsInParent().getHeight()-50;
-
-        buttonContainer.setPrefWidth(image.getFitWidth());
-        buttonContainer.setPrefHeight(image.getFitHeight());
-        getAllRecords();
-
-        //userText.setText(User.getUsername());
     }
 
     @FXML
@@ -414,6 +407,31 @@ public class AdminUI {
             edgeLabel.setTextFill(Color.RED);
             edgeLabel.setVisible(true);
             edgeLabel.setText("Edge already exists!");
+        }
+    }
+
+
+    public void moveUp(ActionEvent value) throws Exception{
+        util.moveUp();
+        floorLabel.setText(util.getFloorLabel());
+
+        updateMap();
+    }
+
+    public void moveDown(ActionEvent value) throws Exception{
+        util.moveDown();
+        floorLabel.setText(util.getFloorLabel());
+
+        updateMap();
+    }
+
+    private void updateMap(){
+        List<Path> floorPath = path.getSpecificPath(util.getCurrentFloorID());
+        if (floorPath != null){
+            //overlayImage.setImage(graph.drawPath(floorPath));
+        }
+        else {
+           // overlayImage.setImage(null);
         }
     }
 

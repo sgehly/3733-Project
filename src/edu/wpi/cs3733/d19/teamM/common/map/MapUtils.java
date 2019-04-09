@@ -28,12 +28,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.Callable;
 
 public class MapUtils {
 
     ScrollPane buttonContainer;
-    Pane buttonPane;
+    public Pane buttonPane;
     ImageView image;
     Pane imageView;
     ImageView overlayImage;
@@ -59,6 +60,8 @@ public class MapUtils {
 
     double deltax;
     double deltay;
+
+    public HashMap<String, Button> buttonMap = new HashMap<String,Button>();
 
     //Create needed object instances
     double cachedScaledWidth = 0;
@@ -138,6 +141,7 @@ public class MapUtils {
                 newButton.setLayoutY(generated.y-(size/2));
                 newButton.getStylesheets().add("resources/mapNode.css");
                 buttonPane.getChildren().add(newButton); //Add it to the button container
+                buttonMap.put(rs.getString("longName"), newButton);
             }
             return entList; //Return this list
         } catch (SQLException e) {
@@ -328,10 +332,7 @@ public class MapUtils {
 
             System.out.println(minX+"/"+minY+"/"+bounds.getMinX()+"/"+bounds.getMinY());
 
-            //buttonPane.setTranslateX(-minX/zoom);
-            //buttonPane.setTranslateY(-minY/zoom);
 
-           // updatePosition(newValue);
         });
 
         buttonPane.setCursor(Cursor.OPEN_HAND);

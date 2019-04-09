@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" stylesheets="@/resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.AdminTools.AdminUI">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.AdminTools.AdminUI">
     <children>
-          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../../../../../resources/bg.png" />
+         </image>
+      </ImageView>
+          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: rgba(1,45,90,0.9);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" VBox.vgrow="NEVER">
                       <children>
                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
@@ -89,15 +95,22 @@
                   <Insets bottom="20.0" />
                </padding>
                   </HBox>
-                  <HBox fx:id="imageView" alignment="CENTER" VBox.vgrow="ALWAYS">
+                  <HBox fx:id="imageView" alignment="CENTER" prefWidth="1920.0" VBox.vgrow="ALWAYS">
                       <children>
-                          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #001933;">
+                          <VBox minWidth="500.0" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: rgba(0,35,71,0.6);" HBox.hgrow="ALWAYS">
                               <children>
-                                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Operations">
-                                      <font>
-                                          <Font name="Open Sans Bold" size="42.0" />
-                                      </font>
-                                  </Text>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Admin Operations" HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font name="Open Sans Bold" size="42.0" />
+                                            </font>
+                                 <HBox.margin>
+                                    <Insets top="50.0" />
+                                 </HBox.margin>
+                                        </Text>
+                           </children>
+                        </HBox>
                         <HBox prefHeight="237.0" prefWidth="500.0">
                            <children>
                               <VBox prefWidth="100.0" spacing="25.0">
@@ -225,23 +238,71 @@
                            </VBox.margin>
                         </HBox>
                               </children>
-                              <opaqueInsets>
-                                  <Insets />
-                              </opaqueInsets>
-                              <padding>
-                                  <Insets top="40.0" />
-                              </padding>
                           </VBox>
-                  <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
+                  <VBox maxHeight="700.0" maxWidth="1100.0" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                                <AnchorPane>
-                           <children>
-                                        <ImageView fx:id="image" fitHeight="500.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                                </AnchorPane>
-                        <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" />
+                                  <StackPane maxHeight="700.0" maxWidth="1100.0" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                      <children>
+                                          <AnchorPane maxWidth="1100.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
+                                              <children>
+                                                  <ImageView fx:id="image" fitHeight="700.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                  <ImageView fx:id="overlayImage" fitHeight="700.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                  <ScrollPane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                              </children>
+                                              <StackPane.margin>
+                                                  <Insets />
+                                              </StackPane.margin>
+                                          </AnchorPane>
+                                          <VBox alignment="TOP_RIGHT" maxHeight="100.0" maxWidth="700.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" StackPane.alignment="BOTTOM_RIGHT">
+                                              <children>
+                                                  <HBox maxWidth="430.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                                                      <children>
+                                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                              <image>
+                                                                  <Image url="@../../../../../../resources/icons/icons8-minus2.png" />
+                                                              </image>
+                                                          </ImageView>
+                                                          <JFXSlider fx:id="zoomSlider" maxHeight="500.0" maxWidth="500.0" prefHeight="24.0" prefWidth="490.0" />
+                                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                              <image>
+                                                                  <Image url="@../../../../../../resources/icons/icons8-plus.png" />
+                                                              </image>
+                                                          </ImageView>
+                                                      </children>
+                                                      <VBox.margin>
+                                                          <Insets right="50.0" />
+                                                      </VBox.margin>
+                                                      <padding>
+                                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                      </padding>
+                                                  </HBox>
+                                                  <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
+                                                      <children>
+                                                          <Text fx:id="floorLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="FLOOR 1">
+                                                              <font>
+                                                                  <Font name="Open Sans Bold" size="33.0" />
+                                                              </font>
+                                                          </Text>
+                                                          <Button maxHeight="50.0" mnemonicParsing="false" onAction="#moveDown" prefHeight="40.0" styleClass="blackButton" text="MOVE DOWN FLOOR">
+                                                              <HBox.margin>
+                                                                  <Insets left="10.0" />
+                                                              </HBox.margin>
+                                                          </Button>
+                                                          <Button maxHeight="50.0" mnemonicParsing="false" onAction="#moveUp" prefHeight="40.0" styleClass="blackButton" text="MOVE UP FLOOR" />
+                                                      </children>
+                                                      <padding>
+                                                          <Insets bottom="20.0" right="50.0" />
+                                                      </padding>
+                                                  </HBox>
+                                              </children>
+                                 <StackPane.margin>
+                                    <Insets bottom="40.0" />
+                                 </StackPane.margin>
+                                          </VBox>
+                                      </children>
+                                  </StackPane>
                      </children>
-                  </StackPane>
+                  </VBox>
                       </children>
                   </HBox>
               </children>
