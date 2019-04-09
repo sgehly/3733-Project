@@ -51,7 +51,7 @@ public class SanitationRequestForm {
      */
     @FXML
     private void navigateBack() throws Exception {
-        Main.setScene("serviceRequests");
+        Main.setScene("serviceRequestsList");
     }
 
     @FXML

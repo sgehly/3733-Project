@@ -49,7 +49,7 @@ public class LanguageRequestForm {
      */
     @FXML
     private void navigateBack() throws Exception {
-        Main.setScene("serviceRequests");
+        Main.setScene("serviceRequestsList");
     }
 
     @FXML
