@@ -35,6 +35,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                                   </Text>
+                        <Button mnemonicParsing="false" onAction="#newUser" text="Button" />
                               </children>
                               <padding>
                                   <Insets top="15.0" />

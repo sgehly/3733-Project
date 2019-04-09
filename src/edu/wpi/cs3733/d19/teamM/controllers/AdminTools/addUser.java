@@ -92,7 +92,7 @@ public class addUser {
             Image image = new Image(f.toURI().toString());
             System.out.println(tempType);
             stmt.execute();
-            errorMessage.setStyle("-fx-text-inner-color: green;");
+            errorMessage.setStyle("-fx-text-fill: green;");
             errorMessage.setText("User Added");
         } catch (Exception e) {
             errorMessage.setStyle("-fx-text-inner-color: red;");

@@ -118,6 +118,9 @@ public class Main extends Application {
         serviceRequestScene= new Scene(serviceRequestPane);
         serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
         serviceRequestListScene= new Scene(serviceRequestListPane);
+    }
+
+    public static void loadAddUsers() throws Exception{
         addUserPane = FXMLLoader.load(Main.getFXMLURL("addUser"));
         addUserScene = new Scene(addUserPane);
     }

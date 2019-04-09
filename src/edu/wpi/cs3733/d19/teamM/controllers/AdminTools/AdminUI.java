@@ -135,6 +135,12 @@ public class AdminUI {
     }
 
     @FXML
+    private void newUser() throws Exception {
+        Main.loadAddUsers();
+        Main.setScene("addUser");
+    }
+
+    @FXML
     private void addNode(){
         edgeLabel.setVisible(false);
         addN();
