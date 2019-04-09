@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -8,6 +9,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -148,15 +150,35 @@
                         </HBox>
                         <HBox fx:id="imageView" alignment="CENTER" prefWidth="1920.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" spacing="40.0" style="-fx-background-color: rgba(0,35,71,0.6);" HBox.hgrow="ALWAYS">
+                                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="500.0" spacing="40.0" style="-fx-background-color: rgba(0,35,71,0.6);" HBox.hgrow="ALWAYS">
                                     <children>
+                              <VBox alignment="CENTER" prefHeight="134.0" prefWidth="500.0">
+                                 <children>
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Algorithm">
+                                       <font>
+                                          <Font name="Open Sans Bold" size="42.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0" spacing="40.0">
+                                       <children>
+                                          <JFXRadioButton selected="true" text="A*">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="buttons" />
+                                             </toggleGroup>
+                                          </JFXRadioButton>
+                                          <JFXRadioButton text="BFS" toggleGroup="$buttons" />
+                                          <JFXRadioButton text="DFS" toggleGroup="$buttons" />
+                                       </children>
+                                       <padding>
+                                          <Insets top="-40.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Quick Navigation">
                                             <font>
                                                 <Font name="Open Sans Bold" size="42.0" />
                                             </font>
-                                            <VBox.margin>
-                                                <Insets top="50.0" />
-                                            </VBox.margin>
                                         </Text>
                                         <Button mnemonicParsing="false" onAction="#findBathroom" prefWidth="400.0" styleClass="bigButton" text="Nearest Bathroom" VBox.vgrow="ALWAYS">
                                             <font>
