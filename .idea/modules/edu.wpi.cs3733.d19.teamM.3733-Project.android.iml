@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="3733-Project:android" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="edu.wpi.cs3733.d19.teamM" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
+    <output url="file://$MODULE_DIR$/../../out/android/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../src/android">
+      <sourceFolder url="file://$MODULE_DIR$/../../src/android/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../src/android/resources" type="java-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="edu.wpi.cs3733.d19.teamm.3733-Project.main" />
+    <orderEntry type="library" name="Gradle: org.javafxports:jfxdvk:8.60.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.controlsfx:controlsfx:8.0.5" level="project" />
+  </component>
+</module>

@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/3733-Project.iml" filepath="$PROJECT_DIR$/.idea/modules/3733-Project.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/3733-Project_main.iml" filepath="$PROJECT_DIR$/.idea/modules/3733-Project_main.iml" group="3733-Project" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/3733-Project_test.iml" filepath="$PROJECT_DIR$/.idea/modules/3733-Project_test.iml" group="3733-Project" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamM.3733-Project.android.iml" filepath="$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamM.3733-Project.android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamM.3733-Project.desktop.iml" filepath="$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamM.3733-Project.desktop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamM.3733-Project.embedded.iml" filepath="$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamM.3733-Project.embedded.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamM.3733-Project.ios.iml" filepath="$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamM.3733-Project.ios.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamm.3733-Project.iml" filepath="$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamm.3733-Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamm.3733-Project.main.iml" filepath="$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamm.3733-Project.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamm.3733-Project.test.iml" filepath="$PROJECT_DIR$/.idea/modules/edu.wpi.cs3733.d19.teamm.3733-Project.test.iml" />
     </modules>
   </component>
 </project>

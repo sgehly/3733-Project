@@ -3,7 +3,6 @@ package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import sun.reflect.annotation.ExceptionProxy;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -69,7 +68,7 @@ public class Floor {
     /**
      * This method will take in the list of Nodes and Produce a transparent image with the nodes and path.
      * This version of the method will the locally store the image, while the other will actually transfer the image itself
-     * @param p - A Path
+     * @param paths - A Path
      */
     public Image drawPath(List<Path> paths) {
         int width = 5000; //The given width and height of the image
