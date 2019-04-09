@@ -316,7 +316,7 @@ public class AdminUI {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
-        graph = new Floor();
+        graph = Floor.getFloor();
         path = new Path();
         util = new MapUtils(buttonContainer, imageView, image, new ImageView(), new JFXSlider(), this::setValues, this::clickValues);
         util.initialize();

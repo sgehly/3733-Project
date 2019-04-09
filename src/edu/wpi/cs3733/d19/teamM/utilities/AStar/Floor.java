@@ -21,27 +21,34 @@ import java.util.List;
 import java.util.Map;
 
 public class Floor {
-
+    private static Floor thisFloor;
     Map<String, Node> nodes;
 
     //Path finders
     Searchable dfs, bfs, selected;
     AStar aStar;
 
-    public Floor(){
+    private Floor(){
         nodes = new HashMap<>();
 
         //Path finders
         aStar = new AStar();
         dfs = new DFS();
         bfs = new BFS();
-        selected = bfs;
+        selected = aStar;
         try {
             this.populate();
         }
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public static Floor getFloor(){
+        if(thisFloor == null){
+            thisFloor = new Floor();
+        }
+        return thisFloor;
     }
 
     /**

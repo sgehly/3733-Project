@@ -144,7 +144,7 @@ public class Pathfinding {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
-        graph = new Floor();
+        graph = Floor.getFloor();
         path = new Path();
         util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues);
         setUpListeners();
