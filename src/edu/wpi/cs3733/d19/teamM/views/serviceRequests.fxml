@@ -354,7 +354,7 @@
                                  <children>
                                     <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../resources/icons/LabTest.png" />
+                                          <Image url="@/resources/icons/scientist.png" />
                                        </image>
                                        <VBox.margin>
                                           <Insets />
