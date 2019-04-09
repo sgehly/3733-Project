@@ -340,6 +340,8 @@
 }
 
 .jfx-radio-button{
-    -jfx-selected-color: #012d5a;
-    -jfx-unselected-color: default;
+    -jfx-selected-color: #ffffff;
+    -jfx-unselected-color: #ffffff;
+    -fx-font-size: 16pt;
+    -fx-text-fill: white;
 }

@@ -82,7 +82,7 @@ public class LogInController {
             rs.next();
             if (Encrypt.getMd5(password.getText()).compareTo(rs.getString("USERPASS")) == 0) {
                 User.getUser();
-                User.setUsername(username.getText());
+                User.setUsername(rs.getString("USERNAME"));
                 User.setPathToPic(rs.getString("pathtopic"));
                 username.setText("");
                 password.setText("");

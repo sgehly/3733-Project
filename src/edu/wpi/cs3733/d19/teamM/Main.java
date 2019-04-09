@@ -2,7 +2,6 @@ package edu.wpi.cs3733.d19.teamM;
 
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
-import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
-import org.apache.commons.codec.digest.Crypt;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -33,6 +31,7 @@ public class Main extends Application {
     private static Parent serviceRequestListPane;
     private static Parent welcomePane;
     private static Parent loginPane;
+    private static Parent addUserPane;
 
     private static Scene homeScene;
     private static Scene adminScene;
@@ -42,6 +41,7 @@ public class Main extends Application {
     private static Scene serviceRequestListScene;
     private static Scene welcomeScene;
     private static Scene loginScene;
+    private static Scene addUserScene;
 
 
     /**
@@ -79,6 +79,9 @@ public class Main extends Application {
         }else{
             try{primaryStage.setScene(new Scene(FXMLLoader.load(Main.getFXMLURL(scene))));}catch(Exception e){e.printStackTrace();}
         }
+        if(scene == "addUser"){
+            primaryStage.setScene(addUserScene);
+        }
     }
 
     /**
@@ -115,6 +118,11 @@ public class Main extends Application {
         serviceRequestScene= new Scene(serviceRequestPane);
         serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
         serviceRequestListScene= new Scene(serviceRequestListPane);
+    }
+
+    public static void loadAddUsers() throws Exception{
+        addUserPane = FXMLLoader.load(Main.getFXMLURL("addUser"));
+        addUserScene = new Scene(addUserPane);
     }
 
     /**
