@@ -20,6 +20,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class GenerateReport implements Initializable {
@@ -56,9 +57,6 @@ public class GenerateReport implements Initializable {
     private CheckBox flowers;
 
 
-
-
-
     @FXML
     private BarChart<?, ?> chart;
 
@@ -72,6 +70,7 @@ public class GenerateReport implements Initializable {
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
+     *
      * @throws Exception: Any exception that is encountered
      */
     @FXML
@@ -81,6 +80,7 @@ public class GenerateReport implements Initializable {
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
+     *
      * @throws Exception: Any exception that is encountered
      */
     @FXML
@@ -89,13 +89,13 @@ public class GenerateReport implements Initializable {
     }
 
 
-
     @FXML
-    private void generateReport(){
+    private void generateReport() {
         System.out.println("Trying to make request");
         XYChart.Series set1 = new XYChart.Series<>();
-
-        if(it.isSelected()){
+        set1.getData().clear();
+        //for it services
+        if (it.isSelected()) {
             int size = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
@@ -103,24 +103,110 @@ public class GenerateReport implements Initializable {
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
-                while (rs.next()){
+                while (rs.next()) {
 
-                     size = rs.getInt(1);
-                     System.out.println(size);
+                    size = rs.getInt(1);
+                    System.out.println(size);
 
 
                 }
-                set1.getData().add(new XYChart.Data("IT",size));
+                set1.getData().add(new XYChart.Data("IT", size));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
 
-            catch (Exception e) {
+        //For sanitation
+        if (sanitation.isSelected()) {
+            int s = 0;
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'sanitation'";
+
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+
+                    s = rs.getInt(1);
+
+
+                }
+                set1.getData().add(new XYChart.Data("SANITATION", s));
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            chart.getData().addAll(set1);
+
+        }
+        if (security.isSelected()) {
+            int s = 0;
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'security'";
+
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+
+                    s = rs.getInt(1);
+
+
+                }
+                set1.getData().add(new XYChart.Data("SECURITY", s));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        if (language.isSelected()) {
+            int s = 0;
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'interpreter'";
+
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+
+                    s = rs.getInt(1);
+
+
+                }
+                set1.getData().add(new XYChart.Data("LANGUAGE", s));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        if (flowers.isSelected()) {
+            int s = 0;
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'flowers'";
+
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+
+                    s = rs.getInt(1);
+
+
+                }
+                set1.getData().add(new XYChart.Data("FLOWERS", s));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
         }
 
+        chart.getData().addAll(set1);
+
+
     }
+
 
     //"SELECT cnt as count(TYPE)from REQUESTLOG where (SELECT * from REQUESTLOG where TYPE = 'it')";
 
