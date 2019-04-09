@@ -110,12 +110,12 @@
                                     <Insets top="5.0" />
                                  </HBox.margin>
                               </JFXComboBox>
-                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="EXPORT PENDING">
+                              <Button mnemonicParsing="false" onAction="#exportInProgress" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="EXPORT PENDING">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="EXPORT COMPLETE">
+                              <Button mnemonicParsing="false" onAction="#exportComplete" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="EXPORT COMPLETE">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>

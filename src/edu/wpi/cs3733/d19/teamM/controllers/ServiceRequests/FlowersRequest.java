@@ -85,6 +85,10 @@ public class FlowersRequest implements Initializable {
         new ServiceRequests().makeRequest("flowers", room.getText(), flowerType.getText(), notes.getText(), replace.isSelected());
 
     }
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

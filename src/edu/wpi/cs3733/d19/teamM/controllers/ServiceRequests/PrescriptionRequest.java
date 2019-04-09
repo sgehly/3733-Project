@@ -55,7 +55,10 @@ public class PrescriptionRequest {
 
     }
 
-
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
 
     @FXML
     private void initialize(){

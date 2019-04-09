@@ -58,6 +58,10 @@ public class IntTransportRequest {
         new ServiceRequests().makeRequest("internal", roomField.getText(), modeTransport.getText(), requestText.getText(), urgent.isSelected());
     }
     @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
+    @FXML
     private void initialize(){
         new Clock(lblClock, lblDate);
     }

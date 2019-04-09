@@ -163,7 +163,7 @@
                                                                 <String fx:value="requestButton" />
                                                             </styleClass>
                                                         </Button>
-                                                        <Button mnemonicParsing="false" text="VIEW REQUESTS">
+                                                        <Button mnemonicParsing="false" onMouseClicked="#goToList" text="VIEW REQUESTS">
                                                             <styleClass>
                                                                 <String fx:value="blackButton" />
                                                                 <String fx:value="requestButton" />

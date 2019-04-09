@@ -60,6 +60,10 @@ public class SecurityRequests {
     public void makeSecurityRequest() throws IOException {
         new ServiceRequests().makeRequest("security", room.getText(), type.getText(), notes.getText(), emergency.isSelected());
     }
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
 
     @FXML
     void initialize(){

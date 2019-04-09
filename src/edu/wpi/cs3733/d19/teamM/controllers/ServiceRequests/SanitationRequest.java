@@ -64,6 +64,10 @@ public class SanitationRequest implements Initializable {
         new ServiceRequests().makeRequest("sanitation", room.getText(), typeofmess.getText(), notes.getText(), hazard.isSelected());
 
     }
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
 
 
     @Override

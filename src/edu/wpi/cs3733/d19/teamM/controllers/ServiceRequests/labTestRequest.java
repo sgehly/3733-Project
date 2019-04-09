@@ -49,4 +49,9 @@ public class labTestRequest {
     private void makeServiceRequest() throws Exception {
         new ServiceRequests().makeRequest("laboratory", roomField.getText(), testType.getText(), requestText.getText(), urgent.isSelected());
     }
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
+
 }

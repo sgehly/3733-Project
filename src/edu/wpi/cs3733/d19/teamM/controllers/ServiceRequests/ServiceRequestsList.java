@@ -4,6 +4,7 @@
 
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -321,6 +322,85 @@ public class ServiceRequestsList {
             throw e;
         }
     }
+
+    @FXML
+    private void exportInProgress(ActionEvent event) throws SQLException,ClassNotFoundException{
+        System.out.println("in print");
+        String filename = "RequestInProgress.csv";
+        try {
+            FileWriter file = new FileWriter(filename);
+            Connection conn = new DatabaseUtils().getConnection();
+            String query = "select * from REQUESTINPROGRESS";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                file.append(rs.getString(1));
+                file.append(',');
+                file.append(rs.getString(2));
+                file.append(',');
+                file.append(rs.getString(3));
+                file.append(',');
+                file.append(rs.getString(4));
+                file.append(',');
+                file.append(rs.getString(5));
+                file.append(',');
+                file.append(rs.getString(6));
+                file.append(',');
+                file.append(rs.getString(7));
+                file.append(',');
+                file.append(rs.getString(8));
+                file.append('\n');
+            }
+            file.flush();
+            file.close();
+            conn.close();
+            System.out.println("CSV File is created successfully.");
+        } catch (Exception ev) {
+            ev.printStackTrace();
+        }
+    }
+
+
+
+    @FXML
+    private void exportComplete(ActionEvent event) throws SQLException,ClassNotFoundException{
+        System.out.println("in print");
+        String filename = "CompletedRequestxs.csv";
+        try {
+            FileWriter file = new FileWriter(filename);
+            Connection conn = new DatabaseUtils().getConnection();
+            String query = "select * from REQUESTLOG";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                file.append(rs.getString(1));
+                file.append(',');
+                file.append(rs.getString(2));
+                file.append(',');
+                file.append(rs.getString(3));
+                file.append(',');
+                file.append(rs.getString(4));
+                file.append(',');
+                file.append(rs.getString(5));
+                file.append(',');
+                file.append(rs.getString(6));
+                file.append(',');
+                file.append(rs.getString(7));
+                file.append(',');
+                file.append(rs.getString(8));
+                file.append('\n');
+            }
+            file.flush();
+            file.close();
+            conn.close();
+            System.out.println("CSV File is created successfully.");
+        } catch (Exception ev) {
+            ev.printStackTrace();
+        }
+    }
+
 
 
     private void initWithType(int index){

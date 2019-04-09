@@ -57,6 +57,11 @@ public class GiftRequest {
     }
 
     @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
+
+    @FXML
     void initialize()
     {
         new Clock(lblClock,lblDate); //initialize the clock

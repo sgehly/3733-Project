@@ -80,6 +80,10 @@ public class AudioVisual implements Initializable {
         new ServiceRequests().makeRequest("av", room.getText(), audioVisType.getText(), notes.getText(), pickUp.isSelected());
 
     }
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -56,6 +56,10 @@ public class ReligiousRequests {
     private void goToServiceRequestsList() throws Exception {
         Main.setScene("serviceRequests");
     }
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
 
     @FXML
     private void makeServiceRequest() throws Exception {

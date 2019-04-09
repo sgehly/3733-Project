@@ -54,6 +54,11 @@ public class ITRequests implements Initializable {
         new ServiceRequests().makeRequest("it", room.getText(), typeOfEquipment.getText(), notes.getText(), urgent.isSelected());
     }
 
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

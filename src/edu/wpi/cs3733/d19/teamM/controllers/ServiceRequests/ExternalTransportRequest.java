@@ -58,6 +58,10 @@ public class ExternalTransportRequest {
     private void makeServiceRequest() throws Exception {
         new ServiceRequests().makeRequest("external", roomField.getText(), vehicle.getText(), requestText.getText(), urgent.isSelected());
     }
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
 
     @FXML
     private void initialize(){

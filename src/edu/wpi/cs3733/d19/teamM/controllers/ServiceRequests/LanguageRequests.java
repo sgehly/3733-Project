@@ -79,6 +79,11 @@ public class LanguageRequests implements Initializable {
         Main.setScene("serviceRequests");
     }
 
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
+
     /**
      * This method allows the user to create a flowers request using the button
      * @param : The action that is associated with making the flowers request
