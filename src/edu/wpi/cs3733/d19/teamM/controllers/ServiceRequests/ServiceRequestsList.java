@@ -287,12 +287,14 @@ public class ServiceRequestsList {
             System.out.println("Error while trying to fetch all records");
             e.printStackTrace();
         }
+
+
         if(nextPage.equals("interpreter")){
-            Main.setScene("languageReportTemplate");
+            Main.setScene("serviceRequestReports/languageReportTemplate");
         }
 
         if(nextPage.equals("sanitation")) {
-            Main.setScene("sanitationReportTemplate");
+            Main.setScene("serviceRequestReports/sanitationReportTemplate");
         }
 
 
@@ -537,7 +539,6 @@ public class ServiceRequestsList {
 
 
                 }
-
 
                 RIPSubTypeCol.setText(subTypeLabel);
                 RIPDescCol.setText(descLabel);

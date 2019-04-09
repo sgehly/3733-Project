@@ -495,7 +495,7 @@ public class Pathfinding {
                 if(nextFloor != util.idToFloor(end.getFloor())){
                     System.out.println("Creating Previous");
                     Button startChangeButton = new Button();
-                    startChangeButton.setText("Take the "+(endNodeType == "ELEV" ? "elevator" : "stairs")+" BACK to "+util.getFloorLabel(nextFloor));
+                    startChangeButton.setText("BACK ("+util.getFloorLabel(nextFloor)+")");
                     MapPoint mp = util.scalePoints(end.getX(), end.getY());
                     startChangeButton.setLayoutX(mp.x+5);
                     startChangeButton.setLayoutY(mp.y+5);
