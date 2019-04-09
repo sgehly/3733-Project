@@ -85,7 +85,7 @@ public class Home{
 
     @FXML
     public void navigateToAdmin(){
-        Main.setScene("adminUI");
+        Main.setScene("admin");
 
     }
 

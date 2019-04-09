@@ -46,6 +46,7 @@ dependencies {
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
 // https://mvnrepository.com/artifact/com.github.sarxos/webcam-capture
     compile group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.4'
+    compile group: 'com.github.sarxos', name: 'webcam-capture-driver-jmf', version: '0.3.11'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

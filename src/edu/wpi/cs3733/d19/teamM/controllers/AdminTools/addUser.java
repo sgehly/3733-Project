@@ -72,9 +72,9 @@ public class addUser {
             //TODO change where the if statement is
             Exception e = new Exception();
             if (username.getText() == null || username.getText().isEmpty() ||
-                newPassword.getText() == null || newPassword.getText().isEmpty() ||
-                newPassword.getText().compareTo(confirmPassword.getText()) != 0 ||
-                userType.getText() == null || userType.getText().isEmpty()) {
+                    newPassword.getText() == null || newPassword.getText().isEmpty() ||
+                    newPassword.getText().compareTo(confirmPassword.getText()) != 0 ||
+                    userType.getText() == null || userType.getText().isEmpty()) {
                 throw e;
             }
             String tempName = username.getText();
@@ -85,7 +85,6 @@ public class addUser {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, tempName);
             stmt.setInt(2, tempType);
-            //stmt.setInt(2, tempType);
             stmt.setString(3, tempPass);
             stmt.setString(4, "src/resources/People_Pictures/" + tempName + ".png");
             File f = new File("src/resources/tempPhoto.png");
@@ -95,9 +94,7 @@ public class addUser {
             stmt.execute();
             errorMessage.setStyle("-fx-text-inner-color: green;");
             errorMessage.setText("User Added");
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             errorMessage.setStyle("-fx-text-inner-color: red;");
             errorMessage.setText("Incorrect Fields/Photo");
             e.printStackTrace();
@@ -140,7 +137,6 @@ public class addUser {
         File f = new File("src/resources/tempPhoto.png");
         Image image = new Image(f.toURI().toString());
         tempPhoto.setImage(image);
-        //webcam.close();
     }
 
 
