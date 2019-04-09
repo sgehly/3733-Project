@@ -140,6 +140,7 @@ public class DatabaseUtils {
         try {
             Connection conn = this.getConnection();
             String createTable1 = "CREATE TABLE node(NODEID varchar(20) PRIMARY KEY NOT NULL, XCOORD int, ycoord int, floor varchar(2), building varchar(15), nodetype varchar(4), longname varchar(100), shortname varchar(100))";
+            String createTable14 = "CREATE TABLE edge(edgeid varchar(21) PRIMARY KEY NOT NULL, startnode varchar(10), endnode varchar(10))";
             String createTable8 = "create table Rooms(roomID varchar(20),capacity int,details varchar(100),roomType varchar(5), Constraint comRoom_PK Primary key (roomID),Constraint checkType CHECK (roomType in ('COMP', 'CLASS')))";
             String createTable9 = "create table BookedTimes(roomID varchar(20),startTime timestamp, endTime timestamp,Constraint room_FK Foreign Key (roomID) REFERENCES Rooms(roomID))";
             String createTable10 = "create table REQUESTINPROGRESS (REQUESTID   INTEGER not null constraint REQUESTINPROGRESS_REQUESTID_UINDEX unique, ROOM VARCHAR(200), SUBTYPE VARCHAR(200), DESCRIPTION VARCHAR(200), DATE TIMESTAMP, CHECKBOX INT, TYPE VARCHAR(200) default 'Sanitation', FINISHED_BY VARCHAR(30)  default 'NULL')";
@@ -151,6 +152,10 @@ public class DatabaseUtils {
                 Statement stmt1 = conn.createStatement();
                 stmt1.executeUpdate(createTable1);
             }catch(Exception e){};
+            try{
+                Statement stmt14 = conn.createStatement();
+                stmt14.executeUpdate(createTable14);
+            }catch(Exception e){}
             try {
                 Statement stmt8 = conn.createStatement();
                 stmt8.executeUpdate(createTable8);
