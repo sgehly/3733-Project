@@ -125,6 +125,15 @@ public class AdminUI {
     private Label nodeLabel;
 
     @FXML
+    private RadioButton AStar;
+
+    @FXML
+    private RadioButton BFS;
+
+    @FXML
+    private RadioButton DFS;
+
+    @FXML
     private void navigateToHome() throws Exception{
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
@@ -147,6 +156,23 @@ public class AdminUI {
         String edgeID = startNodeTextBox.getText() + "_" + endNodeTextBox.getText();
         removeE(edgeID);
         resetTextFields();
+    }
+
+    @FXML
+    private void changeAlgorithm(){
+        graph = Floor.getFloor();
+        if(AStar.isSelected()){
+            graph.setAStar();
+        }
+        else if(DFS.isSelected()){
+            graph.setDFS();
+        }
+        else if(BFS.isSelected()){
+            graph.setBFS();
+        }
+        else{
+            graph.setAStar();
+        }
     }
 
     @FXML
@@ -304,7 +330,6 @@ public class AdminUI {
 
     @FXML
     protected void initialize() throws Exception {
-
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
