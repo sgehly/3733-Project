@@ -47,6 +47,6 @@ public class labTestRequest {
 
     @FXML
     private void makeServiceRequest() throws Exception {
-        new ServiceRequests().makeRequest("external transport", roomField.getText(), testType.getText(), requestText.getText(), urgent.isSelected());
+        new ServiceRequests().makeRequest("laboratory", roomField.getText(), testType.getText(), requestText.getText(), urgent.isSelected());
     }
 }

@@ -350,17 +350,17 @@
                                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                  </padding>
                               </VBox>
-                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                              <VBox alignment="CENTER" onMouseClicked="#navigateToLab" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
                                  <children>
                                     <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@/resources/icons/receptionist.png" />
+                                          <Image url="@../../../../../../resources/icons/LabTest.png" />
                                        </image>
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                     </ImageView>
-                                    <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="Generate Report" wrappingWidth="280.4765625">
+                                    <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="LAB TEST" textAlignment="CENTER" wrappingWidth="280.4765625">
                                        <font>
                                           <Font name="Open Sans Bold" size="56.0" />
                                        </font>

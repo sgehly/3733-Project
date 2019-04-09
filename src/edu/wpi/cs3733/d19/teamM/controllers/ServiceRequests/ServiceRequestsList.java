@@ -325,7 +325,7 @@ public class ServiceRequestsList {
 
     private void initWithType(int index){
 
-        String identifiers[] = new String[] {"all","sanitation","interpreter","it", "av","gift", "flowers", "internal", "external", "religion", "security", "prescriptions"};
+        String identifiers[] = new String[] {"all","sanitation","interpreter","it", "av","gift", "flowers", "internal", "external", "religion", "security", "prescriptions","laboratory"};
         String identifier = identifiers[index];
 
         try {
@@ -372,7 +372,7 @@ public class ServiceRequestsList {
                     case "av":
                         subTypeLabel = "Audio Visuals";
                         descLabel = "Request";
-                        checkboxLabel = "Pic Up";
+                        checkboxLabel = "Pick Up";
                         break;
                     case "gift":
                         subTypeLabel = "Gift shop";
@@ -394,6 +394,17 @@ public class ServiceRequestsList {
                         descLabel = "Request";
                         checkboxLabel = "Radioactive";
                         break;
+                    case "laboratory":
+                        subTypeLabel = "Lab test";
+                        descLabel = "Request";
+                        checkboxLabel = "Urgent";
+                        break;
+                    case "security":
+                        subTypeLabel = "Security";
+                        descLabel = "Request";
+                        checkboxLabel = "Emergency";
+                        break;
+
 
                 }
 
@@ -432,7 +443,7 @@ public class ServiceRequestsList {
         userText.setText(User.getUsername());
 
         ObservableList<String> dropdownList = FXCollections.observableArrayList();;
-        dropdownList.setAll("All","Sanitation","Interpreter","IT Service", "AV Service","Gift Shop", "Florist", "Internal Transport", "External Transport", "Religious", "Security", "Prescriptions");
+        dropdownList.setAll("All","Sanitation","Interpreter","IT Service", "AV Service","Gift Shop", "Florist", "Internal Transport", "External Transport", "Religious", "Security", "Prescriptions","Lab test");
 
         dropdown.setItems(dropdownList);
         dropdown.getSelectionModel().select("All");

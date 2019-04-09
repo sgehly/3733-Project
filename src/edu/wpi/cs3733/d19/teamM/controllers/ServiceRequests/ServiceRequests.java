@@ -154,12 +154,12 @@ public class ServiceRequests {
      */
     @FXML
     private void navigateToSecurity() throws Exception{
-        Main.setScene("serviceRequests/securityRequests");
+        Main.setScene("serviceRequests/securityRequest");
     }
 
     @FXML
-    private void  navigateToInterpretter(){
-        Main.setScene("serviceRequests/interpretterRequests");
+    private void  navigateToLab(){
+        Main.setScene("serviceRequests/labTestRequest");
     }
 
     /**
