@@ -174,9 +174,9 @@ public class Pathfinding {
         Matcher mat = pattern.matcher(email);
 
         if(mat.matches()){
-            new SendEmail("email", email).start();
+            new SendEmail("email", email, path).start();
         }else{
-            new SendEmail("phone", email).start();
+            new SendEmail("phone", email, path).start();
         }
         sendMapTextBox.getText();
     }

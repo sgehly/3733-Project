@@ -69,7 +69,7 @@ public class Floor {
      */
     public Path findPath(Node start, Node end){
         Path p = selected.findPath(start, end);
-        //PathToString.getDirections(p);
+        PathToString.getDirections(p);
         //System.out.println(PathToString.getDirections(p));
         return p;
     }
