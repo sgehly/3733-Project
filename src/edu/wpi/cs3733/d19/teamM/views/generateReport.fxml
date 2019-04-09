@@ -194,9 +194,9 @@
                                 </AnchorPane>
                         <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
                            <children>
-                              <BarChart fx:id="chart" layoutX="57.0" layoutY="74.0" prefHeight="836.0" prefWidth="1233.0" title="Request Report">
+                              <BarChart fx:id="chart" layoutX="14.0" layoutY="1.0" prefHeight="944.0" prefWidth="798.0" title="Request Report">
                                 <xAxis>
-                                  <CategoryAxis fx:id="X" label="Time" />
+                                  <CategoryAxis fx:id="X" label="Type" />
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis fx:id="Y" label="Number of Request" side="LEFT">
@@ -205,6 +205,9 @@
                                        </tickLabelFont>
                                     </NumberAxis>
                                 </yAxis>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
                               </BarChart>
                            </children></Pane>
                      </children>
