@@ -149,11 +149,11 @@ public class Main extends Application {
         };
 
 
-        //new Thread(loadAdminThread).start();
+        new Thread(loadAdminThread).start();
         new Thread(loadPathfindingThread).start();
-        //new Thread(loadSchedulerThread).start();
-        //new Thread(loadServiceRequestsThread).start();
-       // new Thread(loadSRListThread).start();
+        new Thread(loadSchedulerThread).start();
+        new Thread(loadServiceRequestsThread).start();
+        new Thread(loadSRListThread).start();
 
     }
 
