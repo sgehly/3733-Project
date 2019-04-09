@@ -33,6 +33,7 @@ public class Main extends Application {
     private static Parent serviceRequestListPane;
     private static Parent welcomePane;
     private static Parent loginPane;
+    private static Parent addUserPane;
 
     private static Scene homeScene;
     private static Scene adminScene;
@@ -42,6 +43,7 @@ public class Main extends Application {
     private static Scene serviceRequestListScene;
     private static Scene welcomeScene;
     private static Scene loginScene;
+    private static Scene addUserScene;
 
 
     /**
@@ -76,6 +78,9 @@ public class Main extends Application {
         }
         if(scene == "login"){
             primaryStage.setScene(loginScene);
+        }
+        if(scene == "addUser"){
+            primaryStage.setScene(addUserScene);
         }
     }
 
@@ -113,6 +118,8 @@ public class Main extends Application {
         serviceRequestScene= new Scene(serviceRequestPane);
         serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
         serviceRequestListScene= new Scene(serviceRequestListPane);
+        addUserPane = FXMLLoader.load(Main.getFXMLURL("addUser"));
+        addUserScene = new Scene(addUserPane);
     }
 
     /**
