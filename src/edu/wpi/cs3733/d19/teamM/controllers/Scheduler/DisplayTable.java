@@ -17,6 +17,9 @@ public class DisplayTable {
     private IntegerProperty requestid;
     private StringProperty date;
     private StringProperty filledBy;
+    private StringProperty roomid;
+    private StringProperty starttime;
+    private StringProperty endtime;
 
 
     /**
@@ -111,7 +114,9 @@ public class DisplayTable {
 
     public void setId(Integer id ){this.idProperty().set(id);}
 
-    public void setDate(String Date){this.dateProperty();}
+    public void setDate(String Date){this.dateProperty().set(Date);}
+    public void setStartTime(String start){this.starttime.set(start);}
+    public void setEndTime(String end){this.endtime.set(end);}
 
     public void setFilledBy(String filledBy){this.filledByProperty().set(filledBy);}
 

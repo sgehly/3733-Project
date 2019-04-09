@@ -93,6 +93,18 @@ public class Scheduler {
     private TableView tableView = new TableView();
 
     @FXML
+    private TableView tableView2 = new TableView();
+
+    @FXML
+    private TableColumn<DisplayTable,Integer> roomitCol = new TableColumn("roomid");
+
+    @FXML
+    private TableColumn<DisplayTable,Integer> starttimeCol = new TableColumn("starttime");
+
+    @FXML
+    private TableColumn<DisplayTable,Integer> endtimeCol = new TableColumn("endtime");
+
+    @FXML
     private TableColumn<DisplayTable,String> roomId = new TableColumn("roomId");
 
     @FXML
@@ -160,6 +172,8 @@ public class Scheduler {
     boolean error = false;
 
     int selectedRoom = 0;
+
+
 
     @FXML
     private void checkAvailability() throws Exception{
@@ -381,8 +395,8 @@ public class Scheduler {
             e.printStackTrace();
             System.out.println("Error trying to get available rooms");
             throw e;
+            }
         }
-    }
         return null;
     }
 
@@ -429,6 +443,7 @@ public class Scheduler {
 
 
         try{
+            initWithType();
             ObservableList<DisplayTable> entList = getAllRecords();
             roomId.setCellValueFactory(new PropertyValueFactory<>("Room"));
             capacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
@@ -497,4 +512,62 @@ public class Scheduler {
 
     @FXML
     private void switchToRoom10(){switchToRoom(9);};
+
+
+
+    private static ObservableList<DisplayTable> getEntryObjects2(ResultSet rs) throws SQLException {
+        //The list we will populate
+        ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
+        try {
+            while (rs.next()) {
+                //Get the correct entries from the text fields and add to the list so that we can add it to the database
+                DisplayTable ent = new DisplayTable();
+                ent.setType(rs.getString("roomid"));
+                ent.setType(rs.getString("starttime"));
+                ent.setType(rs.getString("endtime"));
+                entList.add(ent);
+            }
+            return entList;
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+
+    private void initWithType() throws SQLException{
+
+        try{
+            getAllRecords2();
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method gets all the records from the database so that they can be added to the display on the screen
+     * @return ObservableList<DisplayTable>: The List of records that we want to actually display on the screen from the service requests
+     * @throws ClassNotFoundException: If classes are not found
+     * @throws SQLException: Any issues with the database
+     */
+    public ObservableList<DisplayTable> getAllRecords2() throws ClassNotFoundException, SQLException {
+        //Get the query from the database
+        String query = "SELECT * FROM BOOKEDTIMES";
+
+        try {
+            Connection conn = new DatabaseUtils().getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            ObservableList<DisplayTable> entryList = getEntryObjects(rs);
+            tableView2.setItems(entryList);
+
+            return entryList;
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }
+

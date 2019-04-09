@@ -5,6 +5,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -166,9 +168,19 @@
                               <Insets top="50.0" />
                            </VBox.margin>
                                           </Button>
+                        <TableView fx:id="tableView2" prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn fx:id="roomidCol" prefWidth="219.0" text="Room#" />
+                            <TableColumn fx:id="starttimeCol" minWidth="0.0" prefWidth="253.0" text="Start Time" />
+                              <TableColumn fx:id="endtimeCol" minWidth="0.0" prefWidth="247.0" text="End Time" />
+                          </columns>
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </TableView>
                         <Button fx:id="exp" mnemonicParsing="false" onAction="#exportToCsv" prefHeight="50.0" prefWidth="300.0" styleClass="whiteButton" text="EXPORT ROOMS">
                            <VBox.margin>
-                              <Insets top="150.0" />
+                              <Insets top="400.0" />
                            </VBox.margin>
                         </Button>
                                     </children>
