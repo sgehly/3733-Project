@@ -59,6 +59,8 @@ public class AdminUI {
     Floor graph;
     Path path;
 
+    Button storedYellowButton;
+
     @FXML
     private Pane imageView;
 
@@ -197,6 +199,10 @@ public class AdminUI {
 
     public void updateValues(String nodeId) throws Exception{
 
+        if(storedYellowButton != null){
+            storedYellowButton.setStyle("");
+        }
+
         routeArr.forEach(route -> {
             util.buttonPane.getChildren().remove(route);
         });
@@ -235,6 +241,19 @@ public class AdminUI {
                 Node two = graph.getNodes().get(rs.getString("nodeID"));
 
                 System.out.println("Path from "+one.getLongName()+" to "+two.getLongName());
+
+                if(util.buttonMap.get(one.getLongName()) == null || util.buttonMap.get(two.getLongName()) == null){
+                    //It's a multifloor
+                    if(util.buttonMap.get(one.getLongName()) == null){
+                        storedYellowButton = util.buttonMap.get(two.getLongName());
+                        util.buttonMap.get(two.getLongName()).setStyle("-fx-background-color: yellow;-fx-scale-x: 1.5;-fx-scale-y: 1.5");
+                    }else{
+                        //Two is multifloor.
+                        storedYellowButton = util.buttonMap.get(one.getLongName());
+                        util.buttonMap.get(one.getLongName()).setStyle("-fx-background-color: yellow;-fx-scale-x: 1.5;-fx-scale-y: 1.5");
+                    }
+                    continue;
+                }
                 double oneX = util.buttonMap.get(one.getLongName()).getLayoutX();
                 double oneY = util.buttonMap.get(one.getLongName()).getLayoutY();
 
