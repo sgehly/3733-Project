@@ -299,3 +299,10 @@
     -jfx-selected-color: #012d5a;
     -jfx-unselected-color: default;
 }
+
+.pathfinding-radio-button{
+    -jfx-selected-color: white;
+    -jfx-unselected-color: white;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+}
