@@ -272,29 +272,29 @@ public class Scheduler {
         Main.setScene("home");
     }
 
-//    private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws SQLException {
-//        ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
-//        try {
-//            while (rs.next()) {
-//                DisplayTable ent = new DisplayTable();
-//                ent.setRoom(rs.getString("roomId"));
-//                ent.setCapacity(String.valueOf(rs.getInt("capacity")));
-//                ent.setRoomType(rs.getString("roomType"));
-//                System.out.println(rs.getString("roomId"));
-//                System.out.println(rs.getString("capacity"));
-//                System.out.println(rs.getString("roomType")); //nope
-//                entList.add(ent);
-//            }
-//            tableView2.setItems(entList);
-//            return entList;
-//        } catch (SQLException e) {
-//            System.out.println("Error while trying to fetch all records");
-//            e.printStackTrace();
-//            throw e;
-//        }
-//    }
+    private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws SQLException {
+        ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
+        try {
+            while (rs.next()) {
+                DisplayTable ent = new DisplayTable();
+                ent.setRoom(rs.getString("roomId"));
+                ent.setCapacity(String.valueOf(rs.getInt("capacity")));
+                ent.setRoomType(rs.getString("roomType"));
+                System.out.println(rs.getString("roomId"));
+                System.out.println(rs.getString("capacity"));
+                System.out.println(rs.getString("roomType")); //nope
+                entList.add(ent);
+            }
+            tableView2.setItems(entList);
+            return entList;
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
-    /*public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
+    public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
         String query = "SELECT roomID, capacity, roomtype FROM ROOMS";
         try {
             Connection conn = new DatabaseUtils().getConnection();
@@ -309,7 +309,7 @@ public class Scheduler {
             throw e;
         }
     }
-    */
+
 
     private void processImage(String roomId, boolean available){
 
@@ -444,9 +444,11 @@ public class Scheduler {
 
 
         try{
-            //initWithType();
-            //ObservableList<DisplayTable> entList = getAllRecords2();
+            System.out.println("printing inside initialize");
+           // initWithType();
+           // ObservableList<DisplayTable> entList = getAllRecords2();
             roomidCol.setCellValueFactory(new PropertyValueFactory<>("Room"));
+            System.out.println(" the fucking printed room is " + new PropertyValueFactory<>("Room"));
             starttimeCol.setCellValueFactory(new PropertyValueFactory<>("starttime"));
             endtimeCol.setCellValueFactory(new PropertyValueFactory<>("endtime"));
             //tableView2.setItems(entList);
@@ -531,6 +533,7 @@ public class Scheduler {
                 //Get the correct entries from the text fields and add to the list so that we can add it to the database
                 DisplayTable ent = new DisplayTable();
                 ent.setRoom(rs.getString("Roomid"));
+                System.out.println("The fuckin room is " +rs.getString("Roomid"));
                 ent.setStartTime(rs.getString("starttime"));
                 ent.setEndTime(rs.getString("endtime"));
                 entList.add(ent);

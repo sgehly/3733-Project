@@ -34,6 +34,10 @@ public class DisplayTable {
         this.requestid = new SimpleIntegerProperty();
         //this.date = new SimpleStringProperty();
         this.filledBy = new SimpleStringProperty();
+        this.starttime = new  SimpleStringProperty();
+        this.endtime = new  SimpleStringProperty();
+
+
     }
 
     /**
@@ -69,9 +73,9 @@ public class DisplayTable {
     public IntegerProperty idProperty(){return requestid;}
     public StringProperty dateProperty(){return date;}
     public StringProperty filledByProperty(){return filledBy;}
-    public StringProperty roomidProperty() { return roomid;}
-    public StringProperty starttimeProperty() { return roomid;}
-    public StringProperty endtimeProperty() { return roomid;}
+    public StringProperty starttimeProperty() { return starttime;}
+    public StringProperty endtimeProperty() { return endtime;}
+
 
     //getters
     public String getRoom(){
