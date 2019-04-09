@@ -127,6 +127,12 @@ public class ServiceRequestsList {
     @FXML
     private JFXComboBox dropdown;
 
+
+    @FXML
+    private JFXComboBox usersDropDown;
+
+
+
     /**
      * Default method to delete a request
      * @param event: based on mouse input
@@ -269,7 +275,7 @@ public class ServiceRequestsList {
 
             //add the name of the person that got it done
             PreparedStatement st = conn.prepareStatement(query2);
-            st.setString(1, User.getUsername());
+            st.setString(1, (String) usersDropDown.getSelectionModel().getSelectedItem());
             st.setString(2, this.getIdFromTable("incomplete"));
             st.executeUpdate();
             System.out.println("inserted into db");
@@ -568,6 +574,25 @@ public class ServiceRequestsList {
 
     @FXML
     void initialize() {
+
+
+
+        ObservableList<String> uDropDown = FXCollections.observableArrayList();
+        try {
+            Connection conn = new DatabaseUtils().getConnection();
+            String query = "SELECT * From USERS";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()){
+                uDropDown.add(rs.getString(1));
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        usersDropDown.setItems(uDropDown);
+
         requestsInProgress.getSelectionModel().clearSelection();
         requestsCompleted.getSelectionModel().clearSelection();
 

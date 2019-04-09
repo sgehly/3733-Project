@@ -120,15 +120,14 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false"  onMouseClicked="#navigateToReport" prefHeight="50.0" prefWidth="172.0" styleClass="blackButton" text=" GENERATE REPORT">
+                              <Button mnemonicParsing="false" onMouseClicked="#navigateToReport" prefHeight="50.0" prefWidth="172.0" styleClass="blackButton" text=" GENERATE REPORT">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                               <JFXButton mnemonicParsing="false" onAction="#deleteRequest" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="DELETE">
                                  <HBox.margin>
-                                    <Insets />
+                                    <Insets left="20.0" />
                                  </HBox.margin>
                               </JFXButton>
                               <JFXButton mnemonicParsing="false" onAction="#markAsComplete" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="FULFILL">
@@ -136,6 +135,12 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </JFXButton>
+                              <JFXComboBox fx:id="usersDropDown" prefHeight="50.0" prefWidth="300.0">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </JFXComboBox>
+                              <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
