@@ -38,10 +38,13 @@
                                     <Font name="Open Sans Bold" size="36.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets />
+                                    <Insets left="15.0" />
                                  </HBox.margin>
                               </Text>
                            </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
