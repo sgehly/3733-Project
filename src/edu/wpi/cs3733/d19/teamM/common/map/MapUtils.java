@@ -73,8 +73,8 @@ public class MapUtils {
         this.buttonPane = new Pane();
         buttonPane.setLayoutY(buttonContainer.getLayoutY());
         buttonPane.setLayoutX(buttonContainer.getLayoutX());
-        buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
-        buttonContainer.setStyle("-fx-border-color: blue;-fx-border-width: 5px");
+        //buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
+        //buttonContainer.setStyle("-fx-border-color: blue;-fx-border-width: 5px");
         this.buttonContainer.setContent(buttonPane);
         this.image = image;
         this.imageView = imageView;
@@ -224,13 +224,13 @@ public class MapUtils {
         image.setImage(source);
         image.setFitWidth(primaryScreenBounds.getWidth());
         image.setFitHeight(primaryScreenBounds.getHeight() - 200);
-        image.setStyle("-fx-border-color: pink;-fx-border-width: 5px");
+        //image.setStyle("-fx-border-color: pink;-fx-border-width: 5px");
         //Gets the overlay image and sets the width and the height of that
         Image EMPTY = new Image(Main.getResource("/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
 
         //Initially set the image to empty and get the width and height
         overlayImage.setImage(EMPTY);
-        overlayImage.setStyle("-fx-border-color: orange;-fx-border-width: 5px");
+        //overlayImage.setStyle("-fx-border-color: orange;-fx-border-width: 5px");
         overlayImage.setFitWidth(primaryScreenBounds.getWidth());
         overlayImage.setFitHeight(primaryScreenBounds.getHeight() - 200);
 
@@ -241,7 +241,7 @@ public class MapUtils {
         buttonContainer.setMaxHeight(cachedScaledHeight);
         buttonContainer.setMinWidth(cachedScaledWidth);
         buttonContainer.setMinHeight(cachedScaledHeight);
-        buttonContainer.setStyle("-fx-border-color: aqua;-fx-border-width: 5px");
+       // buttonContainer.setStyle("-fx-border-color: aqua;-fx-border-width: 5px");
 
 
         double ratio = source.getWidth() / source.getHeight();
@@ -317,7 +317,7 @@ public class MapUtils {
             updatePosition(newValue);
         });
 
-        zoomSlider.valueProperty().addListener(e -> {
+        /*zoomSlider.valueProperty().addListener(e -> {
             zoom = zoomSlider.getValue();
             double newValue = (double) ((int) (zoom * 10)) / 10;
             if (offSetX < (width / newValue) / 2) {
@@ -353,9 +353,9 @@ public class MapUtils {
             //System.out.println(minX+"/"+minY+"/"+bounds.getMinX()+"/"+bounds.getMinY());
 
 
-        });
+        });*/
 
-        buttonPane.setCursor(Cursor.OPEN_HAND);
+        /*buttonPane.setCursor(Cursor.OPEN_HAND);
         buttonPane.setOnMousePressed(e -> {
             System.out.println("Press me daddy");
             initx = e.getSceneX();
@@ -387,7 +387,7 @@ public class MapUtils {
             initx = e.getSceneX();
             inity = e.getSceneY();
 
-        });
+        });*/
 
         String query = "SELECT * FROM NODE WHERE FLOOR='"+this.getCurrentFloorID()+"'";
         try {

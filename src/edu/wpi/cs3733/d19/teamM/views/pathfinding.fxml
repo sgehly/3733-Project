@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -301,7 +300,7 @@
                                     </TitledPane>
                                     <VBox alignment="TOP_RIGHT" maxHeight="100.0" maxWidth="700.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" StackPane.alignment="BOTTOM_RIGHT">
                                        <children>
-                                          <HBox maxWidth="430.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                                          <HBox maxWidth="430.0" opacity="0.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
                                              <children>
                                                 <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
