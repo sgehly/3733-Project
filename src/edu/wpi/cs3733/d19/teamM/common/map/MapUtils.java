@@ -74,6 +74,7 @@ public class MapUtils {
         buttonPane.setLayoutY(buttonContainer.getLayoutY());
         buttonPane.setLayoutX(buttonContainer.getLayoutX());
         buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
+        buttonContainer.setStyle("-fx-border-color: blue;-fx-border-width: 5px");
         this.buttonContainer.setContent(buttonPane);
         this.image = image;
         this.imageView = imageView;
@@ -194,20 +195,20 @@ public class MapUtils {
         //System.out.println(bounds.toString());
         //buttonContainer.setViewportBounds(bounds.);
 
-        /*Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
-        System.out.println(bounds.toString());
-        image.setViewport(bounds);
-
-        overlayImage.setViewport(image.getViewport());
-
-        Rectangle boundRect = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
-        System.out.println(boundRect.toString());
-        buttonContainer.setViewportBounds(boundRect.getLayoutBounds());*/
-
         Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+        //System.out.println(bounds.toString());
         image.setViewport(bounds);
+
         overlayImage.setViewport(image.getViewport());
 
+        //System.out.println(bounds);
+        Rectangle boundRect = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
+        //System.out.println(boundRect.toString());
+       // buttonContainer.setViewportBounds(boundRect.getLayoutBounds());*/
+
+        //Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+        image.setViewport(bounds);
+        overlayImage.setViewport(image.getViewport());
     }
 
     /**
@@ -223,18 +224,24 @@ public class MapUtils {
         image.setImage(source);
         image.setFitWidth(primaryScreenBounds.getWidth());
         image.setFitHeight(primaryScreenBounds.getHeight() - 200);
-
+        image.setStyle("-fx-border-color: pink;-fx-border-width: 5px");
         //Gets the overlay image and sets the width and the height of that
         Image EMPTY = new Image(Main.getResource("/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
 
         //Initially set the image to empty and get the width and height
         overlayImage.setImage(EMPTY);
+        overlayImage.setStyle("-fx-border-color: orange;-fx-border-width: 5px");
         overlayImage.setFitWidth(primaryScreenBounds.getWidth());
         overlayImage.setFitHeight(primaryScreenBounds.getHeight() - 200);
 
         //Get the buttons on the screen and set the preferred width and height to that of the image
-        buttonContainer.setPrefWidth(image.getFitWidth());
-        buttonContainer.setPrefHeight(image.getFitHeight());
+        buttonContainer.setPrefWidth(cachedScaledWidth);
+        buttonContainer.setPrefHeight(cachedScaledHeight);
+        buttonContainer.setMaxWidth(cachedScaledWidth);
+        buttonContainer.setMaxHeight(cachedScaledHeight);
+        buttonContainer.setMinWidth(cachedScaledWidth);
+        buttonContainer.setMinHeight(cachedScaledHeight);
+        buttonContainer.setStyle("-fx-border-color: aqua;-fx-border-width: 5px");
 
 
         double ratio = source.getWidth() / source.getHeight();
@@ -288,7 +295,7 @@ public class MapUtils {
                 offSetX = width - ((width / newValue) / 2);
             }
 
-            System.out.println("HORIZONTAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity)+" -> "+newValue);
+            System.out.println("HORIZONTAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity));
 
             updatePosition(newValue);
 
@@ -305,7 +312,7 @@ public class MapUtils {
                 offSetY = height - ((height / newValue) / 2);
             }
 
-            System.out.println("VERTICAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity)+" -> "+newValue);
+            System.out.println("VERTICAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity));
 
             updatePosition(newValue);
         });
@@ -332,17 +339,18 @@ public class MapUtils {
             Hscroll.setValue(width-offSetX);
             Vscroll.setValue(height-offSetY);
 
-            buttonPane.setScaleX(zoom);
-            buttonPane.setScaleY(zoom);
-
-            buttonContainer.setMaxWidth(overlayImage.getFitWidth());
-            buttonContainer.setMaxHeight(overlayImage.getFitHeight());
+            buttonPane.setScaleX(newValue);
+            buttonPane.setScaleY(newValue);
 
             Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
             image.setViewport(bounds);
             overlayImage.setViewport(image.getViewport());
 
-            System.out.println(minX+"/"+minY+"/"+bounds.getMinX()+"/"+bounds.getMinY());
+            buttonPane.setTranslateX(0);
+            buttonPane.setTranslateY(0);
+            //buttonContainer.setViewportBounds(overlayImage.getLayoutBounds());
+
+            //System.out.println(minX+"/"+minY+"/"+bounds.getMinX()+"/"+bounds.getMinY());
 
 
         });
@@ -363,14 +371,18 @@ public class MapUtils {
             double yikes = Hscroll.getValue() + (initx - e.getSceneX());
             double oof = Vscroll.getValue() - (inity - e.getSceneY());
 
-            System.out.println((initx - e.getSceneX())+"/"+(inity - e.getSceneY()));
+            double newValue = (double) ((int) (zoom * 10)) / 10;
 
-            buttonPane.setTranslateX(buttonPane.getTranslateX()-(initx - e.getSceneX()));
-            buttonPane.setTranslateY(buttonPane.getTranslateY()-(inity - e.getSceneY()));
+            //System.out.println((initx - e.getSceneX())+"/"+(inity - e.getSceneY()));
            // buttonPane.setTranslateY(oof);
 
             Hscroll.setValue(yikes);
             Vscroll.setValue(oof);
+
+            Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+
+
+
 
             initx = e.getSceneX();
             inity = e.getSceneY();
