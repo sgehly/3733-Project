@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -175,6 +177,36 @@
                                     <Insets right="30.0" />
                                  </HBox.margin>
                               </VBox>
+                              <VBox prefHeight="331.0" prefWidth="227.0">
+                                 <children>
+                                    <Label alignment="CENTER" style="-fx-underline: true;" text="Search Algorithm Type" textFill="WHITE">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="22.0" />
+                                       </padding>
+                                    </Label>
+                                    <JFXRadioButton fx:id="AStar" onAction="#changeAlgorithm" selected="true" text="A*">
+                                       <padding>
+                                          <Insets left="40.0" top="30.0" />
+                                       </padding>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="algoButtons" />
+                                       </toggleGroup>
+                                    </JFXRadioButton>
+                                    <JFXRadioButton fx:id="DFS" onAction="#changeAlgorithm" text="DFS" toggleGroup="$algoButtons">
+                                       <padding>
+                                          <Insets left="40.0" top="30.0" />
+                                       </padding>
+                                    </JFXRadioButton>
+                                    <JFXRadioButton fx:id="BFS" onAction="#changeAlgorithm" text="BFS" toggleGroup="$algoButtons">
+                                       <padding>
+                                          <Insets left="40.0" top="30.0" />
+                                       </padding>
+                                    </JFXRadioButton>
+                                 </children>
+                              </VBox>
                            </children>
                            <VBox.margin>
                               <Insets bottom="49.0" top="50.0" />
@@ -256,7 +288,7 @@
                                           </AnchorPane>
                                           <VBox alignment="TOP_RIGHT" maxHeight="100.0" maxWidth="700.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" StackPane.alignment="BOTTOM_RIGHT">
                                               <children>
-                                                  <HBox opacity="0" maxWidth="430.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                                                  <HBox maxWidth="430.0" opacity="0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
                                                       <children>
                                                           <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                                               <image>

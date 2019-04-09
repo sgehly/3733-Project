@@ -51,6 +51,16 @@ public class Floor {
         return thisFloor;
     }
 
+    public void setAStar(){
+        selected = aStar;
+    }
+    public void setBFS(){
+        selected = bfs;
+    }
+    public void setDFS(){
+        selected = dfs;
+    }
+
     /**
      * Find the path between a start and end node
      * @param start - The node to start at
@@ -59,8 +69,8 @@ public class Floor {
      */
     public Path findPath(Node start, Node end){
         Path p = selected.findPath(start, end);
-        PathToString.getDirections(p);
-        System.out.println(PathToString.getDirections(p));
+        //PathToString.getDirections(p);
+        //System.out.println(PathToString.getDirections(p));
         return p;
     }
 
