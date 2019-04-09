@@ -355,19 +355,18 @@ public class MapUtils {
 
         });*/
 
-        /*buttonPane.setCursor(Cursor.OPEN_HAND);
+       // buttonPane.setCursor(Cursor.OPEN_HAND);
         buttonPane.setOnMousePressed(e -> {
-            System.out.println("Press me daddy");
-            initx = e.getSceneX();
-            inity = e.getSceneY();
-            buttonPane.setCursor(Cursor.CLOSED_HAND);
+            //initx = e.getSceneX();
+            //inity = e.getSceneY();
+            //buttonPane.setCursor(Cursor.CLOSED_HAND);
             clickCallback.handle(e);
         });
-        buttonPane.setOnMouseReleased(e -> {
+       /* buttonPane.setOnMouseReleased(e -> {
             buttonPane.setCursor(Cursor.OPEN_HAND);
 
         });
-        buttonPane.setOnMouseDragged(e -> {
+       buttonPane.setOnMouseDragged(e -> {
             double yikes = Hscroll.getValue() + (initx - e.getSceneX());
             double oof = Vscroll.getValue() - (inity - e.getSceneY());
 
