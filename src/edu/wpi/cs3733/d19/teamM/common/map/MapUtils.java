@@ -48,7 +48,7 @@ public class MapUtils {
     private String[] images = {"00_thelowerlevel2.png", "00_thelowerlevel1.png", "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
     private String[] labels = {"Lower Level 2", "Lower Level 1", "Floor One", "Floor Two", "Floor Three"};
     private String[] dbPrefixes = {"L2", "L1", "1", "2", "3"};
-    private Image[] imageFiles = new Image[5];
+    private HashMap<Integer, Image> imageFiles = new HashMap<Integer, Image>();
 
     int floor = 2;
     int width;
@@ -220,7 +220,7 @@ public class MapUtils {
     public ObservableList<DisplayTable> getAllRecords(int floor) throws ClassNotFoundException, SQLException, Exception {
         //Get the query from the database
 
-        Image source = imageFiles[floor];
+        Image source = imageFiles.get(floor);
         image.setImage(source);
         image.setFitWidth(primaryScreenBounds.getWidth());
         image.setFitHeight(primaryScreenBounds.getHeight() - 200);
@@ -408,8 +408,14 @@ public class MapUtils {
     public void initialize() throws Exception{
         primaryScreenBounds = Screen.getPrimary().getVisualBounds(); //Get the bounds of the screen
 
-        for(int i=0;i<this.images.length;i++){
-            imageFiles[i] = new Image(Main.getResource("/resources/maps/"+this.images[i]));;
+        imageFiles.put(this.floor, new Image(Main.getResource("/resources/maps/"+this.images[this.floor])));
+
+        for(int i=0;i<images.length;i++){
+            if(i == this.floor) continue;
+            final int index = i;
+            new Thread(() -> {
+                imageFiles.put(index, new Image(Main.getResource("/resources/maps/"+this.images[index])));
+            }).start();
         }
 
         this.getAllRecords(this.floor);

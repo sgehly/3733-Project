@@ -175,8 +175,6 @@ public class Scheduler {
         Timestamp ts = Timestamp.valueOf(start);
         Timestamp te = Timestamp.valueOf(end);
 
-        System.out.println(ts+" TO "+te);
-
         this.getAvailableRooms(ts, te);
     }
 
@@ -203,7 +201,6 @@ public class Scheduler {
         Timestamp ts = Timestamp.valueOf(start);
         Timestamp te = Timestamp.valueOf(end);
 
-        System.out.println("Booking "+roomID+" between "+ts+" and "+te);
         this.addBookedTime(roomID, ts, te);
         this.checkAvailability();
     }
@@ -239,7 +236,6 @@ public class Scheduler {
                 file.append(rs.getString(1));
                 file.append(',');
                 file.append(rs.getString(2));
-                System.out.println(rs.getString(2));
                 file.append(',');
                 file.append(rs.getString(3));
                 file.append('\n');
@@ -266,9 +262,6 @@ public class Scheduler {
                 ent.setRoom(rs.getString("roomId"));
                 ent.setCapacity(String.valueOf(rs.getInt("capacity")));
                 ent.setRoomType(rs.getString("roomType"));
-                System.out.println(rs.getString("roomId"));
-                System.out.println(rs.getString("capacity"));
-                System.out.println(rs.getString("roomType")); //nope
                 entList.add(ent);
             }
             tableView.setItems(entList);
@@ -301,20 +294,21 @@ public class Scheduler {
         char fileSuffix = available ? 'a' : 't';
         String file = "/resources/maps/room"+roomId.split("_")[1]+fileSuffix+".png";
 
-        Image imageFile = new Image(Main.getResource(file));
-        switch(roomId){
-            case "CR_1": room1.setImage(imageFile);
-            case "CR_2": room2.setImage(imageFile);
-            case "CR_3": room3.setImage(imageFile);
-            case "CR_4": room4.setImage(imageFile);
-            case "CR_5": room5.setImage(imageFile);
-            case "CR_6": room6.setImage(imageFile);
-            case "CR_7": room7.setImage(imageFile);
-            case "CR_8": room8.setImage(imageFile);
-            case "CR_9": room9.setImage(imageFile);
-            case "CR_10": room10.setImage(imageFile);
-        }
-
+        new Thread(() -> {
+            Image imageFile = new Image(Main.getResource(file));
+            switch(roomId){
+                case "CR_1": room1.setImage(imageFile);
+                case "CR_2": room2.setImage(imageFile);
+                case "CR_3": room3.setImage(imageFile);
+                case "CR_4": room4.setImage(imageFile);
+                case "CR_5": room5.setImage(imageFile);
+                case "CR_6": room6.setImage(imageFile);
+                case "CR_7": room7.setImage(imageFile);
+                case "CR_8": room8.setImage(imageFile);
+                case "CR_9": room9.setImage(imageFile);
+                case "CR_10": room10.setImage(imageFile);
+            }
+        }).start();
     }
 
     public ObservableList<DisplayTable> getAvailableRooms(Timestamp start, Timestamp end) throws ClassNotFoundException, SQLException {
@@ -359,7 +353,6 @@ public class Scheduler {
 
                 while(availRooms.next()){
                     String availRoomName = availRooms.getString("ROOMID");
-                    System.out.println(availRoomName+"-"+allRoomName);
                     if(allRoomName.equals(availRoomName)){
                         roomIsAvailable = true;
                     }
@@ -370,7 +363,6 @@ public class Scheduler {
                 available[index] = roomIsAvailable;
                 index++;
 
-                System.out.println(allRoomName+":"+roomIsAvailable);
                 processImage(allRoomName, roomIsAvailable);
                 availRooms.beforeFirst();
             }

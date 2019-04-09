@@ -144,39 +144,12 @@ public class Pathfinding {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
-        // find a way to connect the long name in the database and then assign the input start string as that
-        //TextFields.bindAutoCompletion();
-        //startText.textProperty().bind()
-
-        //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
-        //------------------------------------------------------------------------------------------------
-        primaryScreenBounds = Screen.getPrimary().getVisualBounds(); //Get the bounds of the screen
-
-        Image source = new Image(Main.getResource("/resources/maps/01_thefirstfloor.png"));;
-
-        image.setImage(source);//Set the image as the source
-        image.setFitWidth(primaryScreenBounds.getWidth());
-        image.setFitHeight(primaryScreenBounds.getHeight() - 200);
-
-        //Gets the overlay image and sets the width and the height of that
-        overlayImage.setFitWidth(image.getFitWidth());
-        overlayImage.setFitHeight(image.getFitHeight());
-        Image EMPTY = new Image(Main.getResource("/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
-
-        //Initially set the image to empty and get the width and height
-        overlayImage.setImage(EMPTY);
-
-        //Get the buttons on the screen and set the preferred width and height to that of the image
-        buttonContainer.setPrefWidth(image.getFitWidth());
-        buttonContainer.setPrefHeight(image.getFitHeight());
-
         graph = new Floor();
         path = new Path();
         util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues);
         setUpListeners();
 
         util.initialize();
-
 
     }
 

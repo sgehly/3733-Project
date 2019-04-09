@@ -260,8 +260,6 @@ public class AdminUI {
                 double twoX = util.buttonMap.get(two.getLongName()).getLayoutX();
                 double twoY = util.buttonMap.get(two.getLongName()).getLayoutY();
 
-                System.out.println(oneX+","+oneY+" -> "+twoX+","+twoY+" ~~ "+Math.max(Math.abs(twoX-oneX),50)+"x"+Math.max(50, Math.abs(twoY-oneY)));
-
                 Line pathObj = new Line();
                 pathObj.setStartX(oneX+2.5);
                 pathObj.setStartY(oneY+2.5);

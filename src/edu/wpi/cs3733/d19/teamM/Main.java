@@ -93,12 +93,12 @@ public class Main extends Application {
 
 
     public static InputStream getResource(String path){
-        System.out.println(path);
+        System.out.println("Fetching Resource: "+path);
         return Main.class.getResourceAsStream(path);
     }
 
     public static InputStream getResourceFromRoot(String path){
-        System.out.println(path);
+        System.out.println("Fetching Resource from Root: "+path);
         return Main.class.getClassLoader().getResourceAsStream(path);
     }
 
