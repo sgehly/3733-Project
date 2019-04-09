@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamM.common.map;
 
+import com.jfoenix.controls.JFXSlider;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
@@ -8,11 +9,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
+import javafx.geometry.Orientation;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 
 import java.awt.image.BufferedImage;
@@ -21,34 +29,62 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.Callable;
 
 public class MapUtils {
 
-    Pane buttonContainer;
+    ScrollPane buttonContainer;
+    public Pane buttonPane;
     ImageView image;
     Pane imageView;
     ImageView overlayImage;
+    JFXSlider zoomSlider;
     Rectangle2D primaryScreenBounds;
     EventHandler<ActionEvent> callback;
+    EventHandler<MouseEvent> clickCallback;
+
 
     private String[] images = {"00_thelowerlevel2.png", "00_thelowerlevel1.png", "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
     private String[] labels = {"Lower Level 2", "Lower Level 1", "Floor One", "Floor Two", "Floor Three"};
-    private String[] dbPrefixes = {"L2", "L1", "1", "2", "3"};
-    private Image[] imageFiles = new Image[5];
+    public String[] dbPrefixes = {"L2", "L1", "1", "2", "3"};
+    private HashMap<Integer, Image> imageFiles = new HashMap<Integer, Image>();
 
-    int floor = 2;
+    public int floor = 2;
+    int width;
+    int height;
+    double offSetX;
+    double offSetY;
+    double zoom;
+    double initx;
+    double inity;
+
+    double deltax;
+    double deltay;
+
+    Image EMPTY = new Image(Main.getResource("/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
+
+    public HashMap<String, Button> buttonMap = new HashMap<String,Button>();
 
     //Create needed object instances
     double cachedScaledWidth = 0;
     double cachedScaledHeight = 0;
 
-    public MapUtils(Pane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, EventHandler<ActionEvent> callback) {
+    public MapUtils(ScrollPane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<ActionEvent> callback, EventHandler<MouseEvent> clickCallback) {
         this.buttonContainer = buttonContainer;
+        this.buttonPane = new Pane();
+        buttonPane.setLayoutY(buttonContainer.getLayoutY());
+        buttonPane.setLayoutX(buttonContainer.getLayoutX());
+        buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
+
+        //buttonContainer.setStyle("-fx-border-color: blue;-fx-border-width: 5px");
+        this.buttonContainer.setContent(buttonPane);
         this.image = image;
         this.imageView = imageView;
         this.callback = callback;
         this.overlayImage = overlayImage;
+        this.zoomSlider = zoomSlider;
+        this.clickCallback = clickCallback;
     }
 
     /**
@@ -57,7 +93,7 @@ public class MapUtils {
      * @param pointY: The y coordinate
      * @return MapPoint: The point on the map that we have scaled
      */
-    private MapPoint scalePoints(int pointX, int pointY){
+    public MapPoint scalePoints(int pointX, int pointY){
         //The literal width and height of the image
         double rawWidth = 5000;
         double rawHeight = 3400;
@@ -65,9 +101,11 @@ public class MapUtils {
         //The scaled width and height of the image
         if(cachedScaledHeight == 0){
             cachedScaledHeight = imageView.getBoundsInParent().getHeight()-50;
+            buttonPane.setPrefHeight(cachedScaledHeight);
         }
         if(cachedScaledWidth == 0){
             cachedScaledWidth = imageView.getBoundsInParent().getWidth();
+            buttonPane.setPrefWidth(cachedScaledWidth);
         }
 
         //Scale the x and y coordinates and set / return as a new map point
@@ -75,6 +113,16 @@ public class MapUtils {
         double scaledY = (pointY*cachedScaledHeight)/rawHeight;
         return new MapPoint(scaledX, scaledY);
 
+    }
+
+    public MapPoint scalePointReversed(double scaledX, double scaledY){
+        double rawWidth = 5000;
+        double rawHeight = 3400;
+
+        double originalX = (scaledX*rawWidth)/cachedScaledWidth;
+        double originalY = (scaledY*rawHeight)/cachedScaledHeight;
+
+        return new MapPoint(originalX, originalY);
     }
 
     /**
@@ -86,7 +134,7 @@ public class MapUtils {
     private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws Exception, SQLException {
         //The list we will populate
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
-        buttonContainer.getChildren().clear();
+        buttonPane.getChildren().clear();
         try {
             while (rs.next()) {
                 //Create a button and set its size
@@ -108,7 +156,8 @@ public class MapUtils {
                 newButton.setLayoutX(generated.x-(size/2));
                 newButton.setLayoutY(generated.y-(size/2));
                 newButton.getStylesheets().add("resources/mapNode.css");
-                buttonContainer.getChildren().add(newButton); //Add it to the button container
+                buttonPane.getChildren().add(newButton); //Add it to the button container
+                buttonMap.put(rs.getString("longName"), newButton);
             }
             return entList; //Return this list
         } catch (SQLException e) {
@@ -117,6 +166,53 @@ public class MapUtils {
         }
     }
 
+    public void updatePosition(double newValue){
+        /*System.out.println("MINVALS: ("+image.getViewport().getMinX()+","+image.getViewport().getMinY()+")");
+        System.out.println("LAYOUTS: "+image.getFitWidth()+"x"+image.getFitHeight());
+        //double xBase = ((image.getViewport().getMinX()/zoom)-(image.getViewport().getMinX()/zoom)+(image.getFitWidth()/zoom));
+        //double yBase = ((image.getViewport().getMinY()/zoom)-(image.getViewport().getMinY()/zoom)+(image.getFitHeight()/zoom));
+
+        buttonContainer.setScaleX(zoom);
+        buttonContainer.setScaleY(zoom);
+
+        double xBase = -image.getViewport().getMinX()+width/2;
+        double yBase = (image.getViewport().getMinY()+height)/2;
+
+        buttonContainer.setTranslateX(xBase);
+        buttonContainer.setTranslateY(yBase);*
+
+       // buttonContainer.setTranslateX((image.getViewport().getMinX()-image.getViewport().getMinX())/(zoom/2));
+        //buttonContainer.setTranslateY((image.getViewport().getMinY()-image.getViewport().getMinY())/(zoom/2));
+
+
+
+
+        /*double xBase = ((image.getViewport().getMinX()/zoom)+image.getViewport().getMinX());
+        double yBase = ((image.getViewport().getMinY()/zoom)+image.getViewport().getMinY());
+
+        System.out.println(xBase+","+yBase);
+        buttonContainer.setTranslateX(xBase);
+        buttonContainer.setTranslateY(yBase);*/
+        //System.out.println("Changing position");
+        //Rectangle bounds = new Rectangle(image.getViewport().getMinX(), image.getViewport().getMinY(), image.getViewport().getWidth(), image.getViewport().getHeight());
+        //System.out.println(bounds.toString());
+        //buttonContainer.setViewportBounds(bounds.);
+
+        Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+        //System.out.println(bounds.toString());
+        image.setViewport(bounds);
+
+        overlayImage.setViewport(image.getViewport());
+
+        //System.out.println(bounds);
+        Rectangle boundRect = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
+        //System.out.println(boundRect.toString());
+       // buttonContainer.setViewportBounds(boundRect.getLayoutBounds());*/
+
+        //Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+        image.setViewport(bounds);
+        overlayImage.setViewport(image.getViewport());
+    }
 
     /**
      * This method gets all the records from the database so that they can be added to the display on the screen
@@ -127,22 +223,172 @@ public class MapUtils {
     public ObservableList<DisplayTable> getAllRecords(int floor) throws ClassNotFoundException, SQLException, Exception {
         //Get the query from the database
 
-        Image source = imageFiles[floor];
+        Image source = imageFiles.get(floor);
         image.setImage(source);
         image.setFitWidth(primaryScreenBounds.getWidth());
         image.setFitHeight(primaryScreenBounds.getHeight() - 200);
-
+        //image.setStyle("-fx-border-color: pink;-fx-border-width: 5px");
         //Gets the overlay image and sets the width and the height of that
-        Image EMPTY = new Image(Main.getResource("/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
 
         //Initially set the image to empty and get the width and height
         overlayImage.setImage(EMPTY);
+        //overlayImage.setStyle("-fx-border-color: orange;-fx-border-width: 5px");
         overlayImage.setFitWidth(primaryScreenBounds.getWidth());
         overlayImage.setFitHeight(primaryScreenBounds.getHeight() - 200);
 
         //Get the buttons on the screen and set the preferred width and height to that of the image
-        buttonContainer.setPrefWidth(image.getFitWidth());
-        buttonContainer.setPrefHeight(image.getFitHeight());
+        buttonContainer.setPrefWidth(cachedScaledWidth);
+        buttonContainer.setPrefHeight(cachedScaledHeight);
+        buttonContainer.setMaxWidth(cachedScaledWidth);
+        buttonContainer.setMaxHeight(cachedScaledHeight);
+        buttonContainer.setMinWidth(cachedScaledWidth);
+        buttonContainer.setMinHeight(cachedScaledHeight);
+       // buttonContainer.setStyle("-fx-border-color: aqua;-fx-border-width: 5px");
+
+
+        double ratio = source.getWidth() / source.getHeight();
+
+        if (500 / ratio < 500) {
+            width = 500;
+            height = (int) (500 / ratio);
+        } else if (500 * ratio < 500) {
+            height = 500;
+            width = (int) (500 * ratio);
+        } else {
+            height = 500;
+            width = 500;
+        }
+
+        height = (int) source.getHeight();
+        width = (int) source.getWidth();
+
+        System.out.println("SOURCE: 5000x3400");
+        System.out.println("SCALED: "+image.getFitWidth()+"x"+image.getFitHeight());
+
+        zoomSlider.setMax(10);
+        zoomSlider.setMin(1);
+        zoomSlider.setValue(1);
+
+        offSetX = width / 2;
+        offSetY = height / 2;
+
+        Slider Hscroll = new Slider();
+        Hscroll.setMin(0);
+        Hscroll.setMax(width);
+        Hscroll.setMaxWidth(image.getFitWidth());
+        Hscroll.setMinWidth(image.getFitWidth());
+        Hscroll.setTranslateY(-999999);
+        Slider Vscroll = new Slider();
+        Vscroll.setMin(0);
+        Vscroll.setMax(height);
+        Vscroll.setMaxHeight(image.getFitHeight());
+        Vscroll.setMinHeight(image.getFitHeight());
+        Vscroll.setOrientation(Orientation.VERTICAL);
+        Vscroll.setTranslateX(-9999);
+
+        Hscroll.valueProperty().addListener(e -> {
+            offSetX = Hscroll.getValue();
+            zoom = zoomSlider.getValue();
+            double newValue = (double) ((int) (zoom * 10)) / 10;
+            if (offSetX < (width / newValue) / 2) {
+                offSetX = (width / newValue) / 2;
+            }
+            if (offSetX > width - ((width / newValue) / 2)) {
+                offSetX = width - ((width / newValue) / 2);
+            }
+
+            System.out.println("HORIZONTAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity));
+
+            updatePosition(newValue);
+
+        });
+
+        Vscroll.valueProperty().addListener(e -> {
+            offSetY = height - Vscroll.getValue();
+            zoom = zoomSlider.getValue();
+            double newValue = (double) ((int) (zoom * 10)) / 10;
+            if (offSetY < (height / newValue) / 2) {
+                offSetY = (height / newValue) / 2;
+            }
+            if (offSetY > height - ((height / newValue) / 2)) {
+                offSetY = height - ((height / newValue) / 2);
+            }
+
+            System.out.println("VERTICAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity));
+
+            updatePosition(newValue);
+        });
+
+        /*zoomSlider.valueProperty().addListener(e -> {
+            zoom = zoomSlider.getValue();
+            double newValue = (double) ((int) (zoom * 10)) / 10;
+            if (offSetX < (width / newValue) / 2) {
+                offSetX = (width / newValue) / 2;
+            }
+            if (offSetX > width - ((width / newValue) / 2)) {
+                offSetX = width - ((width / newValue) / 2);
+            }
+            if (offSetY < (height / newValue) / 2) {
+                offSetY = (height / newValue) / 2;
+            }
+            if (offSetY > height - ((height / newValue) / 2)) {
+                offSetY = height - ((height / newValue) / 2);
+            }
+
+            double minX = offSetX - ((width / newValue) / 2);
+            double minY = offSetY - ((height / newValue) / 2);
+
+            Hscroll.setValue(width-offSetX);
+            Vscroll.setValue(height-offSetY);
+
+            buttonPane.setScaleX(newValue);
+            buttonPane.setScaleY(newValue);
+
+            Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+            image.setViewport(bounds);
+            overlayImage.setViewport(image.getViewport());
+
+            buttonPane.setTranslateX(0);
+            buttonPane.setTranslateY(0);
+            //buttonContainer.setViewportBounds(overlayImage.getLayoutBounds());
+
+            //System.out.println(minX+"/"+minY+"/"+bounds.getMinX()+"/"+bounds.getMinY());
+
+
+        });*/
+
+       // buttonPane.setCursor(Cursor.OPEN_HAND);
+        buttonPane.setOnMousePressed(e -> {
+            //initx = e.getSceneX();
+            //inity = e.getSceneY();
+            //buttonPane.setCursor(Cursor.CLOSED_HAND);
+            clickCallback.handle(e);
+        });
+       /* buttonPane.setOnMouseReleased(e -> {
+            buttonPane.setCursor(Cursor.OPEN_HAND);
+
+        });
+       buttonPane.setOnMouseDragged(e -> {
+            double yikes = Hscroll.getValue() + (initx - e.getSceneX());
+            double oof = Vscroll.getValue() - (inity - e.getSceneY());
+
+            double newValue = (double) ((int) (zoom * 10)) / 10;
+
+            //System.out.println((initx - e.getSceneX())+"/"+(inity - e.getSceneY()));
+           // buttonPane.setTranslateY(oof);
+
+            Hscroll.setValue(yikes);
+            Vscroll.setValue(oof);
+
+            Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+
+
+
+
+            initx = e.getSceneX();
+            inity = e.getSceneY();
+
+        });*/
 
         String query = "SELECT * FROM NODE WHERE FLOOR='"+this.getCurrentFloorID()+"'";
         try {
@@ -164,11 +410,23 @@ public class MapUtils {
     public void initialize() throws Exception{
         primaryScreenBounds = Screen.getPrimary().getVisualBounds(); //Get the bounds of the screen
 
-        for(int i=0;i<this.images.length;i++){
-            imageFiles[i] = new Image(Main.getResource("/resources/maps/"+this.images[i]));;
-        }
+        imageFiles.put(this.floor, new Image(Main.getResource("/resources/maps/"+this.images[this.floor])));
 
-        this.getAllRecords(this.floor);
+        new Thread(() -> {
+            for (int i = 0; i < images.length; i++) {
+                if (i == this.floor) continue;
+                final int index = i;
+                new Thread(() -> {
+                    imageFiles.put(index, new Image(Main.getResource("/resources/maps/" + this.images[index])));
+                }).start();
+            }
+
+            try{
+                this.getAllRecords(this.floor);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public void moveUp() throws Exception{
@@ -191,8 +449,38 @@ public class MapUtils {
         this.getAllRecords(this.floor);
     }
 
+    public void setFloor(int floor) throws Exception{
+        System.out.println("Setting floor to "+floor);
+        this.floor = floor;
+        this.getAllRecords(floor);
+    }
+    public void setFloor(String floorId) throws Exception{
+        System.out.println("Raw floor id: "+floorId);
+        for(int i=0;i<dbPrefixes.length;i++){
+            System.out.println("Checking "+dbPrefixes[i]);
+            if(dbPrefixes[i].equals(floorId)){
+
+                System.out.println("F Setting floor to "+i);
+                this.floor = i;
+                this.getAllRecords(i);
+            }
+        }
+    }
+
+    public int idToFloor(String id){
+        for(int i=0;i<dbPrefixes.length;i++){
+            if(dbPrefixes[i].equals(id)){
+                return i;
+            }
+        }
+        return -5;
+    }
+
     public String getFloorLabel(){
         return labels[this.floor];
+    }
+    public String getFloorLabel(int floor){
+        return labels[floor];
     }
 
     public String getCurrentFloorID(){

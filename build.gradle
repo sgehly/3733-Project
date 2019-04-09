@@ -43,6 +43,13 @@ dependencies {
     implementation 'com.sendgrid:sendgrid-java:1.1.0'
     implementation group: 'com.twilio.sdk', name: 'twilio', version: '7.37.0'
 
+    compile 'com.sendgrid:sendgrid-java:1.1.0'
+    compile group: "com.twilio.sdk", name: "twilio", version: "7.37.0"
+    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
+// https://mvnrepository.com/artifact/com.github.sarxos/webcam-capture
+    compile group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.4'
+    compile group: 'com.github.sarxos', name: 'webcam-capture-driver-jmf', version: '0.3.11'
+
     // Use JUnit test framework
     //testImplementation 'junit:junit:4.12'
     //configurations.compile.extendsFrom(configurations.extraLibs)

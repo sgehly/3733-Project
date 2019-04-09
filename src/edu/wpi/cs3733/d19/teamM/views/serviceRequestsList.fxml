@@ -103,23 +103,33 @@
                                     <Insets top="5.0" />
                                  </HBox.margin>
                               </JFXComboBox>
-                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="EXPORT PENDING">
+                              <Button mnemonicParsing="false" onAction="#exportInProgress" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="EXPORT PENDING">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="EXPORT COMPLETE">
+                              <Button mnemonicParsing="false" onAction="#exportComplete" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="EXPORT COMPLETE">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onMouseClicked="#navigateToReport" prefHeight="50.0" prefWidth="172.0" styleClass="blackButton" text=" GENERATE REPORT">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
                               <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <JFXButton mnemonicParsing="false" onAction="#deleteRequest" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="DELETE">
+                              <JFXComboBox fx:id="usersDropDown" prefHeight="50.0" prefWidth="300.0">
                                  <HBox.margin>
-                                    <Insets />
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </JFXComboBox>
+                              <JFXButton fx:id="fulfill" disable="true" mnemonicParsing="false" onAction="#markAsComplete" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="FULFILL">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton mnemonicParsing="false" onAction="#markAsComplete" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="FULFILL">
+                              <JFXButton mnemonicParsing="false" onAction="#deleteRequest" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="DELETE">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
@@ -132,20 +142,20 @@
                               <Insets top="15.0" />
                            </VBox.margin>
                         </HBox>
-                        <TableView fx:id="requestsInProgress" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="requestsInProgress" onMouseClicked="#disengageComplete" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                           <columns>
                               <TableColumn fx:id="RIPIdCol" maxWidth="0.0" minWidth="50.0" prefWidth="0.0" text="ID" />
                                 <TableColumn fx:id="RIPTypeCol" minWidth="100.0" prefWidth="250.0" text="REQUEST TYPE" />
                                 <TableColumn fx:id="RIPRoomCol" minWidth="75.0" prefWidth="200.0" text="ROOM #" />
                                 <TableColumn fx:id="RIPSubTypeCol" minWidth="75.0" prefWidth="400.0" text="[type-dependent-subtype]" />
-                                <TableColumn fx:id="RIPDescCol" minWidth="75.0" prefWidth="600.0" text="[type-dependent-description]" />
-                                <TableColumn fx:id="RIPCheckboxCol" minWidth="75.0" prefWidth="150.0" text="[type-dependent-checkbox]" />
+                                <TableColumn fx:id="RIPDescCol" minWidth="75.0" prefWidth="525.5555419921875" text="[type-dependent-description]" />
+                                <TableColumn fx:id="RIPCheckboxCol" minWidth="75.0" prefWidth="224.4444580078125" text="[type-dependent-checkbox]" />
                           </columns>
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" />
                            </VBox.margin>
                         </TableView>
-                        <TableView fx:id="requestsCompleted" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="requestsCompleted" onMouseClicked="#disengageInProgress" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                            <columns>
                               <TableColumn fx:id="RCIdCol" maxWidth="0.0" minWidth="50.0" prefWidth="0.0" text="ID" />
                               <TableColumn fx:id="RCTypeCol" minWidth="100.0" prefWidth="250.0" text="REQUEST TYPE" />

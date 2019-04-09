@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
@@ -34,10 +35,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import javafx.scene.Scene;
@@ -67,6 +70,8 @@ public class Pathfinding {
 
     ArrayList<String> longNames;
 
+    ArrayList<Button> clearNodes = new ArrayList<Button>();
+
     //Get the FXML objects to be linked
     @FXML
     private Label lblClock;
@@ -87,7 +92,10 @@ public class Pathfinding {
     private ImageView overlayImage;
 
     @FXML
-    private Pane buttonContainer;
+    private JFXSlider zoomSlider;
+
+    @FXML
+    private ScrollPane buttonContainer;
 
     @FXML
     private Slider zoomLvl;
@@ -135,44 +143,25 @@ public class Pathfinding {
     @FXML
     protected void initialize() throws Exception {
 
+        System.out.println("Initializing pathfinding");
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
-        // find a way to connect the long name in the database and then assign the input start string as that
-        //TextFields.bindAutoCompletion();
-        //startText.textProperty().bind()
-
-        //Adapted from: https://stackoverflow.com/questions/48687994/zooming-an-image-in-imageview-javafx
-        //------------------------------------------------------------------------------------------------
-        primaryScreenBounds = Screen.getPrimary().getVisualBounds(); //Get the bounds of the screen
-
-        Image source = new Image(Main.getResource("/resources/maps/01_thefirstfloor.png"));;
-
-        image.setImage(source);//Set the image as the source
-        image.setFitWidth(primaryScreenBounds.getWidth());
-        image.setFitHeight(primaryScreenBounds.getHeight() - 200);
-
-        //Gets the overlay image and sets the width and the height of that
-        overlayImage.setFitWidth(image.getFitWidth());
-        overlayImage.setFitHeight(image.getFitHeight());
-        Image EMPTY = new Image(Main.getResource("/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
-
-        //Initially set the image to empty and get the width and height
-        overlayImage.setImage(EMPTY);
-
-        //Get the buttons on the screen and set the preferred width and height to that of the image
-        buttonContainer.setPrefWidth(image.getFitWidth());
-        buttonContainer.setPrefHeight(image.getFitHeight());
-
-        graph = new Floor();
+        graph = Floor.getFloor();
         path = new Path();
-        util = new MapUtils(buttonContainer, imageView, image, overlayImage, this::setValues);
+        util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues);
         setUpListeners();
 
+        System.out.println("Init maputils");
         util.initialize();
 
+        floorLabel.setText(util.getFloorLabel());
+
+        System.out.println("Finished pathfinding");
 
     }
+
+    private void clickValues(MouseEvent evt){}
 
     /**
      * This method lets the user navigate back to the home page
@@ -238,12 +227,15 @@ public class Pathfinding {
     }
 
     //TODO: fix with new graph class
-    private void findPresetHelper(String type) {
+    private void findPresetHelper(String type) throws Exception{
         String start = startText.getText();
         path = graph.findPresetPath(graph.getNodes().get(start), type);
 
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        util.setFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
+        floorLabel.setText(util.getFloorLabel());
 
         updateMap();
         resetTextBox();
@@ -256,11 +248,15 @@ public class Pathfinding {
         Node startNode = graph.getNodes().get(start);
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
+
+        util.setFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
+        floorLabel.setText(util.getFloorLabel());
+
         resetTextBox();
         updateMap();
     }
 
-    private void findPathWithLongNames() {
+    private void findPathWithLongNames() throws Exception{
 
         String start = startText.getText();
         String end = endText.getText();
@@ -280,6 +276,12 @@ public class Pathfinding {
             path = graph.findPath(startNode, endNode);
         }
 
+        int newFloorInt = util.idToFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
+        System.out.println("Setting floor to "+newFloorInt);
+        util.setFloor(newFloorInt);
+        floorLabel.setText(util.getFloorLabel());
+
+        System.out.println("Seeing util floor as "+util.floor);
         updateMap();
         resetTextBox();
     }
@@ -401,14 +403,128 @@ public class Pathfinding {
         updateMap();
     }
 
-    private void updateMap(){
+    private void updateMap() throws Exception{
+        clearNodes.forEach(node -> {
+            util.buttonPane.getChildren().remove(node);
+        });
+        System.out.println("-=-=-=-=INITIALIZING UPDATEMAP-=-=-=-=-=");
+        System.out.println("current floor id: "+util.getCurrentFloorID());
         List<Path> floorPath = path.getSpecificPath(util.getCurrentFloorID());
+        List<Path> allPaths = path.getFloorPaths();
+
         if (floorPath != null){
             overlayImage.setImage(graph.drawPath(floorPath));
         }
         else {
             overlayImage.setImage(null);
         }
+
+        floorPath.forEach(path -> {
+            //Path is each path on a specific floor.
+            List<Node> thePath = path.getPath();
+            Node start = thePath.get(0);
+            Node end = thePath.get(thePath.size()-1);
+
+            //ELEV or STAI
+
+            String startNodeType = start.getNodeType();
+            System.out.println("START NODE: "+start.getLongName()+" | STARTNODETYPE: "+startNodeType);
+
+            if(startNodeType.equals("ELEV") || startNodeType.equals("STAI")){
+
+                int nextFloor = util.floor;
+
+                for(int i=0;i<allPaths.size();i++){
+                    if(util.idToFloor(allPaths.get(i).getFloorID()) != util.idToFloor(floorPath.get(0).getFloorID())){
+
+                        if(i < allPaths.size()){
+                            System.out.println("Looking at next floor");
+                            for(int j=0;j<util.dbPrefixes.length;j++){
+                                nextFloor = util.idToFloor(allPaths.get(i).getPath().get(0).getFloor());
+                            }
+                        }
+
+                    }
+                }
+
+                if(nextFloor != util.idToFloor(start.getFloor())){
+                    System.out.println("Creating");
+                    Button startChangeButton = new Button();
+                    startChangeButton.setText("Take the "+(startNodeType == "ELEV" ? "elevator" : "stairs")+" to "+util.getFloorLabel(nextFloor));
+                    MapPoint mp = util.scalePoints(start.getX(), start.getY());
+                    startChangeButton.setLayoutX(mp.x+5);
+                    startChangeButton.setLayoutY(mp.y+5);
+                    startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-family: \"Open Sans Bold\"");
+                    startChangeButton.setMinWidth(200);
+                    startChangeButton.setMinHeight(15);
+                    startChangeButton.setOpacity(0.5);
+                    startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
+                    startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
+
+                    final int nf = nextFloor;
+
+                    startChangeButton.setOnAction(evt -> {
+                        try{
+                            util.setFloor(nf);
+                            floorLabel.setText(util.getFloorLabel());
+                            this.updateMap();
+                        }catch(Exception e){e.printStackTrace();}
+                    });
+                    util.buttonPane.getChildren().add(startChangeButton);
+                    clearNodes.add(startChangeButton);
+                }
+
+            }
+
+            String endNodeType = end.getNodeType();
+            System.out.println("END NODE: "+end.getLongName()+" | ENDNODETYPE: "+endNodeType);
+
+            if(endNodeType.equals("ELEV") || endNodeType.equals("STAI")){
+                int nextFloor = util.floor;
+                System.out.print(allPaths.size());
+                for(int i=0;i<allPaths.size();i++){
+                    System.out.println(util.idToFloor(allPaths.get(i).getFloorID())+" <> "+util.idToFloor(floorPath.get(0).getFloorID()));
+                    if(util.idToFloor(allPaths.get(i).getFloorID()) != util.idToFloor(floorPath.get(0).getFloorID())){
+
+                        if(i >= 0){
+                            System.out.println("Looking at previous floor");
+                            for(int j=0;j<util.dbPrefixes.length;j++){
+                                nextFloor = util.idToFloor(allPaths.get(i).getPath().get(0).getFloor());
+                            }
+                        }
+
+                    }
+                }
+
+                if(nextFloor != util.idToFloor(end.getFloor())){
+                    System.out.println("Creating Previous");
+                    Button startChangeButton = new Button();
+                    startChangeButton.setText("BACK ("+util.getFloorLabel(nextFloor)+")");
+                    MapPoint mp = util.scalePoints(end.getX(), end.getY());
+                    startChangeButton.setLayoutX(mp.x+5);
+                    startChangeButton.setLayoutY(mp.y+5);
+                    startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-family: \"Open Sans Bold\"");
+                    startChangeButton.setMinWidth(200);
+                    startChangeButton.setMinHeight(15);
+                    startChangeButton.setOpacity(0.5);
+                    startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
+                    startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
+
+                    final int nf = nextFloor;
+
+                    startChangeButton.setOnAction(evt -> {
+                        try{
+                            util.setFloor(nf);
+                            floorLabel.setText(util.getFloorLabel());
+                            this.updateMap();
+                        }catch(Exception e){e.printStackTrace();}
+                    });
+                    util.buttonPane.getChildren().add(startChangeButton);
+                    clearNodes.add(startChangeButton);
+                }
+            }
+
+        });
     }
 
     private void resetTextBox(){

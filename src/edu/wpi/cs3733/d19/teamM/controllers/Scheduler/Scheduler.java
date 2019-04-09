@@ -93,13 +93,25 @@ public class Scheduler {
     private TableView tableView = new TableView();
 
     @FXML
-    private TableColumn<DisplayTable,String> roomId = new TableColumn("roomId");
+    private TableView tableView2 = new TableView();
 
     @FXML
-    private TableColumn<DisplayTable,String> capacity = new TableColumn("capacity");
+    private TableColumn<DisplayTable,Integer> roomidCol = new TableColumn("room");
 
     @FXML
-    private TableColumn<DisplayTable,String> roomType = new TableColumn("roomType");
+    private TableColumn<DisplayTable,Integer> starttimeCol = new TableColumn("starttime");
+
+    @FXML
+    private TableColumn<DisplayTable,Integer> endtimeCol = new TableColumn("endtime");
+
+//    @FXML
+//    private TableColumn<DisplayTable,String> roomId = new TableColumn("roomId");
+//
+//    @FXML
+//    private TableColumn<DisplayTable,String> capacity = new TableColumn("capacity");
+//
+//    @FXML
+//    private TableColumn<DisplayTable,String> roomType = new TableColumn("roomType");
 
     @FXML
     private JFXDatePicker startDate = new JFXDatePicker();
@@ -175,8 +187,6 @@ public class Scheduler {
         Timestamp ts = Timestamp.valueOf(start);
         Timestamp te = Timestamp.valueOf(end);
 
-        System.out.println(ts+" TO "+te);
-
         this.getAvailableRooms(ts, te);
     }
 
@@ -203,9 +213,9 @@ public class Scheduler {
         Timestamp ts = Timestamp.valueOf(start);
         Timestamp te = Timestamp.valueOf(end);
 
-        System.out.println("Booking "+roomID+" between "+ts+" and "+te);
         this.addBookedTime(roomID, ts, te);
         this.checkAvailability();
+        initialize();
     }
 
     private void addBookedTime(String roomID, Timestamp start, Timestamp end){
@@ -239,7 +249,6 @@ public class Scheduler {
                 file.append(rs.getString(1));
                 file.append(',');
                 file.append(rs.getString(2));
-                System.out.println(rs.getString(2));
                 file.append(',');
                 file.append(rs.getString(3));
                 file.append('\n');
@@ -266,12 +275,9 @@ public class Scheduler {
                 ent.setRoom(rs.getString("roomId"));
                 ent.setCapacity(String.valueOf(rs.getInt("capacity")));
                 ent.setRoomType(rs.getString("roomType"));
-                System.out.println(rs.getString("roomId"));
-                System.out.println(rs.getString("capacity"));
-                System.out.println(rs.getString("roomType")); //nope
                 entList.add(ent);
             }
-            tableView.setItems(entList);
+            tableView2.setItems(entList);
             return entList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
@@ -287,7 +293,7 @@ public class Scheduler {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
-            tableView.setItems(entryList);
+            tableView2.setItems(entryList);
             return entryList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
@@ -296,11 +302,12 @@ public class Scheduler {
         }
     }
 
+
     private void processImage(String roomId, boolean available){
+
 
         char fileSuffix = available ? 'a' : 't';
         String file = "/resources/maps/room"+roomId.split("_")[1]+fileSuffix+".png";
-
         Image imageFile = new Image(Main.getResource(file));
         switch(roomId){
             case "CR_1": room1.setImage(imageFile);
@@ -359,7 +366,6 @@ public class Scheduler {
 
                 while(availRooms.next()){
                     String availRoomName = availRooms.getString("ROOMID");
-                    System.out.println(availRoomName+"-"+allRoomName);
                     if(allRoomName.equals(availRoomName)){
                         roomIsAvailable = true;
                     }
@@ -370,7 +376,6 @@ public class Scheduler {
                 available[index] = roomIsAvailable;
                 index++;
 
-                System.out.println(allRoomName+":"+roomIsAvailable);
                 processImage(allRoomName, roomIsAvailable);
                 availRooms.beforeFirst();
             }
@@ -381,8 +386,8 @@ public class Scheduler {
             e.printStackTrace();
             System.out.println("Error trying to get available rooms");
             throw e;
+            }
         }
-    }
         return null;
     }
 
@@ -429,11 +434,15 @@ public class Scheduler {
 
 
         try{
-            ObservableList<DisplayTable> entList = getAllRecords();
-            roomId.setCellValueFactory(new PropertyValueFactory<>("Room"));
-            capacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
-            roomType.setCellValueFactory(new PropertyValueFactory<>("roomType"));
-            tableView.setItems(entList);
+            System.out.println("printing inside initialize");
+           // initWithType();
+           // ObservableList<DisplayTable> entList = getAllRecords2();
+            roomidCol.setCellValueFactory(new PropertyValueFactory<>("Room"));
+            System.out.println(" the fucking printed room is " + new PropertyValueFactory<>("Room"));
+            starttimeCol.setCellValueFactory(new PropertyValueFactory<>("starttime"));
+            endtimeCol.setCellValueFactory(new PropertyValueFactory<>("endtime"));
+            //tableView2.setItems(entList);
+            initWithType();
 
             startDate.setValue(LocalDate.now());
             endDate.setValue(LocalDate.now().plus(1, ChronoUnit.DAYS));
@@ -447,9 +456,15 @@ public class Scheduler {
             endTime.valueProperty().addListener((ov, oldValue, newValue) -> {try{this.checkAvailability();}catch(Exception e){} });
 
 
-            this.checkAvailability();;
+            this.checkAvailability();
+            //initWithType();
         }catch(Exception e){e.printStackTrace();};
-
+        //initWithType();
+//        roomidCol.setCellValueFactory(new PropertyValueFactory<>("room"));
+//        System.out.println(new PropertyValueFactory<>("room"));
+//        starttimeCol.setCellValueFactory(new PropertyValueFactory<>("starttime"));
+//        endtimeCol.setCellValueFactory(new PropertyValueFactory<>("endtime"));
+        //initWithType();
         assert zoomLvl != null : "fx:id=\"zoomLvl\" was not injected: check your FXML file 'scheduler.fxml'.";
         assert imageView != null : "fx:id=\"imageView\" was not injected: check your FXML file 'scheduler.fxml'.";
         assert image != null : "fx:id=\"image\" was not injected: check your FXML file 'scheduler.fxml'.";
@@ -465,6 +480,13 @@ public class Scheduler {
         availability.setStyle("-fx-text-fill: "+(available[id] ? "#20bf6b" : "#eb3b5a")+";");
         bookButton.setDisable(!available[id]);
         bookButton.setStyle("-fx-opacity: "+(available[id] ? 1 : 0.5)+";");
+
+        try{
+            ObservableList<DisplayTable> getRec = getAllRecords2();
+            tableView2.setItems(getRec);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -497,4 +519,66 @@ public class Scheduler {
 
     @FXML
     private void switchToRoom10(){switchToRoom(9);};
+
+
+
+    private static ObservableList<DisplayTable> getEntryObjects2(ResultSet rs) throws SQLException {
+        //The list we will populate
+        ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
+        try {
+            while (rs.next()) {
+                //Get the correct entries from the text fields and add to the list so that we can add it to the database
+                DisplayTable ent = new DisplayTable();
+                ent.setRoom(rs.getString("Roomid"));
+                ent.setStartTime(rs.getString("starttime"));
+                ent.setEndTime(rs.getString("endtime"));
+                entList.add(ent);
+            }
+            return entList;
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+
+    private void initWithType(){
+
+        try{
+            ObservableList<DisplayTable> getRec = getAllRecords2();
+            //getAllRecords2();
+            tableView2.setItems(getRec);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * This method gets all the records from the database so that they can be added to the display on the screen
+     * @return ObservableList<DisplayTable>: The List of records that we want to actually display on the screen from the service requests
+     * @throws ClassNotFoundException: If classes are not found
+     * @throws SQLException: Any issues with the database
+     */
+    public ObservableList<DisplayTable> getAllRecords2() throws ClassNotFoundException, SQLException {
+        //Get the query from the database
+        String query = "SELECT * FROM BOOKEDTIMES WHERE ROOMID=?";
+
+        try {
+            Connection conn = new DatabaseUtils().getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, ids[this.selectedRoom]);
+            ResultSet rs = stmt.executeQuery();
+            ObservableList<DisplayTable> entryList = getEntryObjects2(rs);
+            tableView2.setItems(entryList);
+
+            return entryList;
+        } catch (SQLException e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }
+

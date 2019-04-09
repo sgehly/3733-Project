@@ -36,7 +36,7 @@
                     <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0">
                             <children>
-                                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="425.0" HBox.hgrow="ALWAYS">
                                     <children>
                                         <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateBack" pickOnBounds="true" preserveRatio="true" styleClass="hoverIcon">
                                             <HBox.margin>
@@ -58,22 +58,35 @@
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@/resources/icons/icons8-clock_8.png" />
-                                            </image>
-                                            <HBox.margin>
-                                                <Insets right="10.0" />
-                                            </HBox.margin>
-                                        </ImageView>
-                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="12:24:23">
-                                            <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
-                                            </font>
-                                            <HBox.margin>
-                                                <Insets top="5.0" />
-                                            </HBox.margin>
-                                        </Text>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="617.0">
+                                 <children>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/resources/icons/icons8-clock_8.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <VBox alignment="CENTER" prefHeight="300.0" prefWidth="150.0">
+                                       <children>
+                                          <Label fx:id="lblDate" alignment="CENTER" maxHeight="24.0" prefHeight="50.0" prefWidth="200.0" styleClass="dateLabel" text="04/06/2019" textFill="WHITE">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblClock" alignment="CENTER" maxHeight="24.0" prefHeight="47.8828125" prefWidth="132.046875" styleClass="clockLabel" text="12:24:36" textFill="WHITE">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets right="300.0" top="15.0" />
+                                 </padding>
+                              </HBox>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -139,7 +152,15 @@
                                           </JFXTextArea>
                                        </children>
                                     </HBox>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Replace old Flowers" />
+                                          <JFXCheckBox fx:id="replace" text=" ">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </JFXCheckBox>
+                                       </children></HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
                                           <Button fx:id="submitRequest" mnemonicParsing="false" onAction="#makeFlowersRequest" text="SUBMIT REQUEST">
@@ -148,7 +169,7 @@
                                                 <String fx:value="requestButton" />
                                              </styleClass>
                                           </Button>
-                                          <Button mnemonicParsing="false" text="VIEW REQUESTS">
+                                          <Button mnemonicParsing="false" onMouseClicked="#goToList" text="VIEW REQUESTS">
                                              <styleClass>
                                                 <String fx:value="blackButton" />
                                                 <String fx:value="requestButton" />

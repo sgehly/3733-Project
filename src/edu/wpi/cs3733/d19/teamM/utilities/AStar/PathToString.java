@@ -1,40 +1,53 @@
 package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
+import java.io.FileWriter;
+import java.io.PrintWriter;
+
 public class PathToString {
 
     /**
      * Convert a path to instruction
      * Path must come in correct order to work
-     * @param p
+     * @param paths
      * @return
      */
-    public static String getDirections(Path p){
+    public static String getDirections(Path paths){
         String completePath = "";
+        StringBuilder path = new StringBuilder();
         String step = "";
         int oldX = -1;
         int oldY = -1;
         double angle = 0.0;
         double oldAngle = 0.0;
         Node cur = null;
-        Node start = p.getPath().get(0);
-        for (Node n : p.getPath()){
-            if (oldX == -1 && oldY == -1)completePath = "Start at " + n.getLongName();
-            else if (cur.getId().equals(start.getId())){
-                completePath = completePath + ", go towards " + n.getLongName() + "\n";
-                angle = calcAngle(oldX, oldY, n.getX(), n.getY());
-            }
-            else {
+        Node start = paths.getPath().get(0);
+        //angle = calcAngle(oldX, oldY, n.getX(), n.getY());
+        //step = getDirectionChange(angle, oldAngle);
+        if (paths.getPath().size() < 3) return "Figure it out";
+        for (Path p : paths.getFloorPaths()) {
+            path.append("\n<<<Directions for floor " + p.getFloorID() + ">>>\n\n");
+            path.append("Start at " + p.getPath().get(0).getLongName() + ", move towards " + p.getPath().get(1).getLongName() + "\n");
+            for (Node n : p.getPath().subList(1, p.getPath().size() - 1)) {
                 angle = calcAngle(oldX, oldY, n.getX(), n.getY());
                 step = getDirectionChange(angle, oldAngle);
-                completePath = completePath + "At " + cur.getLongName() + ", " + step + "\n";
+                path.append("At " + n.getLongName() + ", " + step + "\n");
+                oldX = n.getX();
+                oldY = n.getY();
+                oldAngle = angle;
+                cur = n;
             }
-            oldX = n.getX();
-            oldY = n.getY();
-            oldAngle = angle;
-            cur = n;
+        }
+        path.append("Arrive at " + paths.getPath().get(paths.getPath().size() - 1).getLongName());
+        try {
+            PrintWriter writer = new PrintWriter("C:\\Users\\Jack\\Desktop\\the-file-name.txt", "UTF-8");
+            writer.write(path.toString());
+            writer.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
 
-        return completePath + "Arrive at " + cur.getLongName();
+        return path.toString();
     }
 
     private static double calcAngle(double oldX, double oldY, double x, double y){

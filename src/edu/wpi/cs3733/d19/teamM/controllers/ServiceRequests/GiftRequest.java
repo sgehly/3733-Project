@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import javafx.fxml.FXML;
@@ -8,6 +10,7 @@ import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GiftRequest {
@@ -16,10 +19,19 @@ public class GiftRequest {
     JFXTextField giftTypes;
 
     @FXML
+    JFXTextField room;
+
+    @FXML
+    JFXTextArea requestText;
+
+    @FXML
     Label lblClock;
 
     @FXML
     Label lblDate;
+
+    @FXML
+    private JFXCheckBox packaged;
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
      * @throws Exception: Any exception that is encountered
@@ -36,6 +48,17 @@ public class GiftRequest {
     @FXML
     private void navigateBack() throws Exception {
         Main.setScene("serviceRequests");
+    }
+
+    @FXML
+    public void makeGiftRequest() throws IOException {
+        new ServiceRequests().makeRequest("gift", room.getText(), giftTypes.getText(), requestText.getText(), packaged.isSelected());
+
+    }
+
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
     }
 
     @FXML

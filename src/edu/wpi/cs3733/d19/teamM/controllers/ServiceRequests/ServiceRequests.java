@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import edu.wpi.cs3733.d19.teamM.Main;
-
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
@@ -56,22 +55,7 @@ public class ServiceRequests {
     long time = date.getTime();
     Timestamp ts = new Timestamp(time);
 
-    ObservableList<String> languages = FXCollections.observableArrayList("Acholi",
-            "Afrikaans", "Akan", "Albanian","Amharic","Arabic", "Ashante", "Asl", "Assyrian", "Azerbaijani", "Azeri", "Bajuni", "Basque",
-            "Behdini", "Belorussian", "Bengali", "Berber", "Bosnian", "Bravanese", "Bulgarian","Burmese", "Cakchiquel", "Cambodian", "Cantonese","Catalan",
-            "Chaldean", "Chamorro", "Chao-chow", "Chavacano", "Chin", "Chuukese", "Cree", "Croatian", "Czech", "Dakota", "Danish", "Dari", "Dinka",
-            "Diula", "Dutch", "Edo", "English", "Estonian", "Ewe", "Fante", "Farsi", "Fijian Hindi", "Finnish", "Flemish", "French", "French Canadian", "Fukienese",
-            "Fula", "Fulani", "Fuzhou", "Ga", "Gaddang", "Gaelic", "Gaelic-irish", "Gaelic-scottish", "Georgian", "German", "Gorani", "Greek", "Gujarati",
-            "Haitian Creole", "Hakka", "Hakka-chinese", "Hausa", "Hebrew", "Hindi", "Hmong", "Hungarian", "Ibanag", "Ibo", "Icelandic", "Igbo", "Ilocano",
-            "Indonesian", "Inuktitut", "Italian", "Jakartanese", "Japanese", "Javanese", "Kanjobal", "Karen", "Karenni", "Kashmiri", "Kazakh", "Kikuyu",
-            "Kinyarwanda", "Kirundi", "Korean", "Kosovan", "Kotokoli", "Krio", "Kurdish", "Kurmanji", "Kyrgyz", "Lakota", "Laotian",
-            "Latvian", "Lingala", "Lithuanian", "Luganda", "Luo", "Maay", "Macedonian", "Malay", "Malayalam", "Maltese", "Mandarin", "Mandingo", "Mandinka",
-            "Marathi", "Marshallese", "Mien", "Mina", "Mirpuri", "Moldavan", "Mongolian", "Montenegrin", "Navajo", "Neapolitan", "Nepali", "Nigerian Pidgin",
-            "Norwegian", "Oromo", "Pahari", "Papago", "Papiamento", "Pashto", "Patois", "Pidgin English", "Polish", "Portug.creole", "Portuguese", "Pothwari",
-            "Pulaar", "Punjabi", "Putian", "Quichua", "Romanian", "Russian", "Samoan", "Serbian", "Shanghainese", "Shona", "Sichuan", "Sicilian", "Sinhalese", "Slovak",
-            "Somali", "Sorani", "Spanish", "Sudanese Arabic", "Sundanese", "Susu", "Swahili", "Swedish", "Sylhetti", "Tagalog", "Taiwanese", "Tajik", "Tamil",
-            "Telugu", "Thai", "Tibetan", "Tigre", "Tigrinya", "Toishanese", "Tongan", "Toucouleur", "Trique", "Tshiluba", "Turkish", "Twi", "Ukrainian", "Urdu", "Uyghur", "Uzbek",
-            "Vietnamese", "Visayan", "Welsh", "Wolof", "Yiddish", "Yoruba", "Yupik");
+
 
     @FXML
     private Text userText;
@@ -164,9 +148,18 @@ public class ServiceRequests {
         Main.setScene("serviceRequests/religiousRequests");
     }
 
+    /**
+     * This method send teh user to the service request list page
+     * @throws IOException: Any input/output errors that occur
+     */
     @FXML
     private void navigateToSecurity() throws Exception{
-        Main.setScene("serviceRequests/securityRequests");
+        Main.setScene("serviceRequests/securityRequest");
+    }
+
+    @FXML
+    private void  navigateToLab(){
+        Main.setScene("serviceRequests/labTestRequest");
     }
 
     /**
@@ -203,6 +196,33 @@ public class ServiceRequests {
     private void navigateToIT() throws Exception{
         Main.setScene("serviceRequests/ITRequests");
     }
+
+    @FXML
+    private void navigateToAudioVis() throws Exception{
+        Main.setScene("serviceRequests/audiovisual");
+    }
+
+
+    @FXML
+    private void naviagateToExternal() throws Exception{
+        Main.setScene("serviceRequests/ExtTransport");
+    }
+
+
+
+    @FXML
+    private void navigateToIntTransport() throws Exception{
+        Main.setScene("serviceRequests/IntTransport");
+    }
+    @FXML
+    private void navigateToPrescription() throws Exception{
+        Main.setScene("serviceRequests/prescriptionsRequest");
+    }
+    @FXML
+    private void navigateToLanguage() throws Exception{
+        Main.setScene("serviceRequests/languageRequest");
+    }
+
 
 
     /**

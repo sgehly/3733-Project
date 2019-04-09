@@ -4,6 +4,7 @@
 
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -117,6 +118,9 @@ public class ServiceRequestsList {
 
 
     @FXML
+    private Button fulfill;
+
+    @FXML
     private TextField FilledBy;
 
     @FXML
@@ -125,6 +129,12 @@ public class ServiceRequestsList {
 
     @FXML
     private JFXComboBox dropdown;
+
+
+    @FXML
+    private JFXComboBox usersDropDown;
+
+
 
     /**
      * Default method to delete a request
@@ -147,6 +157,8 @@ public class ServiceRequestsList {
                 conn.close();
 
                 this.initWithType(this.currentTab);
+                requestsInProgress.getSelectionModel().clearSelection();
+                requestsCompleted.getSelectionModel().clearSelection();
 
             }
             catch (Exception e) {
@@ -173,11 +185,29 @@ public class ServiceRequestsList {
             catch (Exception e) {
                 System.out.println("Error while trying to fetch all records");
                 e.printStackTrace();
+                requestsInProgress.getSelectionModel().clearSelection();
+                requestsCompleted.getSelectionModel().clearSelection();
             }
         }
 
     }
+    //TODO on request form list employees that can handle them
+    @FXML
+    void disengageComplete(){
+        String test = getRequestFromTable("incomplete");
+        if(getRequestFromTable("incomplete").equals("sanitation") && User.getPrivilege() != 1 && User.getPrivilege() != 100)
+            fulfill.setDisable(true);
+        else if(getRequestFromTable("incomplete").equals("language") && User.getPrivilege() != 2 && User.getPrivilege() != 100)
+            fulfill.setDisable(true);
+        else
+            fulfill.setDisable(false);
+        requestsCompleted.getSelectionModel().clearSelection();
+    }
 
+    @FXML
+    void disengageInProgress(){
+        requestsInProgress.getSelectionModel().clearSelection();
+    }
 
     private String getIdFromTable(String table) {
         if(table.equals("incomplete")) {
@@ -187,6 +217,17 @@ public class ServiceRequestsList {
         else{
             ObservableValue<Integer> id = RCIdCol.getCellObservableValue(requestsCompleted.getSelectionModel().getFocusedIndex());
             return Integer.toString(id.getValue());
+        }
+    }
+
+    private String getRequestFromTable(String table){
+        if(table.equals("incomplete")){
+            ObservableValue<String> id = RIPTypeCol.getCellObservableValue(requestsInProgress.getSelectionModel().getFocusedIndex());
+            return id.getValue();
+        }
+        else{
+            ObservableValue<String> id = RCTypeCol.getCellObservableValue(requestsCompleted.getSelectionModel().getFocusedIndex());
+            return id.getValue();
         }
     }
 
@@ -224,10 +265,14 @@ public class ServiceRequestsList {
      */
     @FXML
     void markAsComplete(ActionEvent event) throws ClassNotFoundException{
+        fulfill.setDisable(true);
         //move to complete table
         String query1 = "INSERT INTO REQUESTLOG (REQUESTID, TYPE, ROOM, SUBTYPE, DESCRIPTION, CHECKBOX, DATE, FINISHED_BY) SELECT REQUESTID, TYPE, ROOM, SUBTYPE, DESCRIPTION, CHECKBOX, DATE, FINISHED_BY from REQUESTINPROGRESS where REQUESTID = ?";
         String query2 = " UPDATE REQUESTLOG SET FINISHED_BY = ? WHERE REQUESTID = ?";
         String query3 = " DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
+
+        String nextPage = getRequestFromTable("incomplete");
+        System.out.println("this is shit:" + getRequestFromTable("incomplete"));
 
         if(requestsInProgress.getFocusModel().getFocusedIndex() == -1) return;
 
@@ -241,7 +286,7 @@ public class ServiceRequestsList {
 
             //add the name of the person that got it done
             PreparedStatement st = conn.prepareStatement(query2);
-            st.setString(1, User.getUsername());
+            st.setString(1, (String) usersDropDown.getSelectionModel().getSelectedItem());
             st.setString(2, this.getIdFromTable("incomplete"));
             st.executeUpdate();
             System.out.println("inserted into db");
@@ -254,12 +299,34 @@ public class ServiceRequestsList {
             //stmt.setString(6,FilledBy.getText());
             conn.close();
             this.initWithType(this.currentTab);
-
         }
         catch (Exception e) {
             System.out.println("Error while trying to fetch all records");
             e.printStackTrace();
         }
+
+
+        if(nextPage.equals("interpreter")){
+            Main.setScene("serviceRequestReports/languageReportTemplate");
+        }
+
+        if(nextPage.equals("sanitation")) {
+            Main.setScene("serviceRequestReports/sanitationReportTemplate");
+        }
+
+
+    }
+
+    private void goToProperReport(String nextPage) {
+        if(nextPage.equals("interpreter")){
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("languageReportTemplate");
+        }
+        else if(nextPage.equals("sanitation")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("sanitationReportTemplate");
+        }
+        System.out.println("yo: " + this.getRequestFromTable("incomplete"));
     }
 
     /**
@@ -322,10 +389,92 @@ public class ServiceRequestsList {
         }
     }
 
+    @FXML
+    private void exportInProgress(ActionEvent event) throws SQLException,ClassNotFoundException{
+        System.out.println("in print");
+        String filename = "RequestInProgress.csv";
+        try {
+            FileWriter file = new FileWriter(filename);
+            Connection conn = new DatabaseUtils().getConnection();
+            String query = "select * from REQUESTINPROGRESS";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                file.append(rs.getString(1));
+                file.append(',');
+                file.append(rs.getString(2));
+                file.append(',');
+                file.append(rs.getString(3));
+                file.append(',');
+                file.append(rs.getString(4));
+                file.append(',');
+                file.append(rs.getString(5));
+                file.append(',');
+                file.append(rs.getString(6));
+                file.append(',');
+                file.append(rs.getString(7));
+                file.append(',');
+                file.append(rs.getString(8));
+                file.append('\n');
+            }
+            file.flush();
+            file.close();
+            conn.close();
+            System.out.println("CSV File is created successfully.");
+        } catch (Exception ev) {
+            ev.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void navigateToReport() throws Exception{
+        Main.setScene("generateReport");
+    }
+
+    @FXML
+    private void exportComplete(ActionEvent event) throws SQLException,ClassNotFoundException{
+        System.out.println("in print");
+        String filename = "CompletedRequestxs.csv";
+        try {
+            FileWriter file = new FileWriter(filename);
+            Connection conn = new DatabaseUtils().getConnection();
+            String query = "select * from REQUESTLOG";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                file.append(rs.getString(1));
+                file.append(',');
+                file.append(rs.getString(2));
+                file.append(',');
+                file.append(rs.getString(3));
+                file.append(',');
+                file.append(rs.getString(4));
+                file.append(',');
+                file.append(rs.getString(5));
+                file.append(',');
+                file.append(rs.getString(6));
+                file.append(',');
+                file.append(rs.getString(7));
+                file.append(',');
+                file.append(rs.getString(8));
+                file.append('\n');
+            }
+            file.flush();
+            file.close();
+            conn.close();
+            System.out.println("CSV File is created successfully.");
+        } catch (Exception ev) {
+            ev.printStackTrace();
+        }
+    }
+
+
 
     private void initWithType(int index){
 
-        String identifiers[] = new String[] {"all","sanitation","language","it", "av","gift", "florist", "internal", "external", "religion", "security", "prescriptions"};
+        String identifiers[] = new String[] {"all","sanitation","interpreter","it", "av","gift", "flowers", "internal", "external", "religion", "security", "prescriptions","laboratory"};
         String identifier = identifiers[index];
 
         try {
@@ -347,7 +496,67 @@ public class ServiceRequestsList {
                         descLabel = "Request";
                         checkboxLabel = "Possession?";
                         break;
+
+                    case "internal":
+                        subTypeLabel = "Internal Transportation";
+                        descLabel = "Request";
+                        checkboxLabel = "Urgent";
+                        break;
+
+                    case "external":
+                        subTypeLabel = "External Transportation";
+                        descLabel = "Request";
+                        checkboxLabel = "Urgent";
+                        break;
+                    case "it":
+                        subTypeLabel = "IT";
+                        descLabel = "Request";
+                        checkboxLabel = "Urgent";
+                        break;
+                    case "interpreter":
+                        subTypeLabel = "Language";
+                        descLabel = "Request";
+                        checkboxLabel = "Urgent";
+                        break;
+                    case "av":
+                        subTypeLabel = "Audio Visuals";
+                        descLabel = "Request";
+                        checkboxLabel = "Pick Up";
+                        break;
+                    case "gift":
+                        subTypeLabel = "Gift shop";
+                        descLabel = "Request";
+                        checkboxLabel = "Packaged";
+                        break;
+                    case "flowers":
+                        subTypeLabel = "Flowers";
+                        descLabel = "Request";
+                        checkboxLabel = "Replace Old Flowers";
+                        break;
+                    case "prescriptions":
+                        subTypeLabel = "Prescriptions";
+                        descLabel = "Request";
+                        checkboxLabel = "Urgent";
+                        break;
+                    case "sanitation":
+                        subTypeLabel = "Sanitation";
+                        descLabel = "Request";
+                        checkboxLabel = "Radioactive";
+                        break;
+                    case "laboratory":
+                        subTypeLabel = "Lab test";
+                        descLabel = "Request";
+                        checkboxLabel = "Urgent";
+                        break;
+                    case "security":
+                        subTypeLabel = "Security";
+                        descLabel = "Request";
+                        checkboxLabel = "Emergency";
+                        break;
+
+
                 }
+
                 RIPSubTypeCol.setText(subTypeLabel);
                 RIPDescCol.setText(descLabel);
                 RIPCheckboxCol.setText(checkboxLabel);
@@ -377,12 +586,33 @@ public class ServiceRequestsList {
     @FXML
     void initialize() {
 
+
+
+        ObservableList<String> uDropDown = FXCollections.observableArrayList();
+        try {
+            Connection conn = new DatabaseUtils().getConnection();
+            String query = "SELECT * From USERS";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()){
+                uDropDown.add(rs.getString(1));
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        usersDropDown.setItems(uDropDown);
+
+        requestsInProgress.getSelectionModel().clearSelection();
+        requestsCompleted.getSelectionModel().clearSelection();
+
         new Clock(lblClock, lblDate);
 
         userText.setText(User.getUsername());
 
         ObservableList<String> dropdownList = FXCollections.observableArrayList();;
-        dropdownList.setAll("All","Sanitation","Interpreter","IT Service", "AV Service","Gift Shop", "Florist", "Internal Transport", "External Transport", "Religious", "Security", "Prescriptions");
+        dropdownList.setAll("All","Sanitation","Interpreter","IT Service", "AV Service","Gift Shop", "Florist", "Internal Transport", "External Transport", "Religious", "Security", "Prescriptions","Lab test");
 
         dropdown.setItems(dropdownList);
         dropdown.getSelectionModel().select("All");
@@ -418,15 +648,6 @@ public class ServiceRequestsList {
     private void navigateBack() throws Exception {
         Main.setScene("serviceRequests");
     }
-
-    /**
-     * This method is for the logout button which allows the user to go back to the welcome screen
-     * @throws Exception: Any exception that is encountered
-     */
-//    @FXML
-//    private void navigateBack() throws Exception {
-//        Main.setScene("serviceRequests");
-//    }
 
 
 

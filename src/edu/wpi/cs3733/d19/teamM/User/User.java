@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamM.User;
 
+
 public class User {
 
     private static User user;
@@ -9,7 +10,7 @@ public class User {
     private static String pathToPic;
 
     public static String getUsername() {
-        return username;
+        return username.substring(0, 1).toUpperCase() + username.substring(1);
     }
     public static void setUsername(String username) {
         user.username = username;

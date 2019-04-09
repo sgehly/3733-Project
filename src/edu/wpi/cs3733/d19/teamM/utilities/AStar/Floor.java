@@ -20,14 +20,14 @@ import java.util.List;
 import java.util.Map;
 
 public class Floor {
-
+    private static Floor thisFloor;
     Map<String, Node> nodes;
 
     //Path finders
     Searchable dfs, bfs, selected;
     AStar aStar;
 
-    public Floor(){
+    private Floor(){
         nodes = new HashMap<>();
 
         //Path finders
@@ -43,6 +43,23 @@ public class Floor {
         }
     }
 
+    public static Floor getFloor(){
+        if(thisFloor == null){
+            thisFloor = new Floor();
+        }
+        return thisFloor;
+    }
+
+    public void setAStar(){
+        selected = aStar;
+    }
+    public void setBFS(){
+        selected = bfs;
+    }
+    public void setDFS(){
+        selected = dfs;
+    }
+
     /**
      * Find the path between a start and end node
      * @param start - The node to start at
@@ -50,7 +67,10 @@ public class Floor {
      * @return A Path
      */
     public Path findPath(Node start, Node end){
-        return selected.findPath(start, end);
+        Path p = selected.findPath(start, end);
+        //PathToString.getDirections(p);
+        //System.out.println(PathToString.getDirections(p));
+        return p;
     }
 
     public Path findPresetPath(Node start, String type){
@@ -138,7 +158,7 @@ public class Floor {
     }
 
     /**
-     * Populares the map edges
+     * Populates the map edges
      * @throws Exception
      */
     private void populateEdges() throws Exception{

@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
+import com.jfoenix.controls.JFXCheckBox;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +22,12 @@ import java.util.ResourceBundle;
 
 public class FlowersRequest implements Initializable {
 
+    @FXML
+    private javafx.scene.control.Label lblClock;
+
+    @FXML
+    private javafx.scene.control.Label lblDate;
+
 
     String[] flowers = {"Roses","Dahlia","Tulip","Sun Flower","Alstroemeria","Amaryllis","Asiatic Lily","Aster","Azalea","Baby’s Breath","Begonia","Bird of Paradise"
             ,"Calla Lily","Campanula","Carnation","Chrysanthemum","Cockscomb","Crocus","Cyclamen","Cymbidium Orchid","Daffodil","Daisy","Delphinium","Dendrobium Orchid",
@@ -38,6 +46,8 @@ public class FlowersRequest implements Initializable {
     @FXML
     private TextField room;
 
+    @FXML
+    private JFXCheckBox replace;
 
     //Text field for additional specifications
     @FXML
@@ -45,36 +55,6 @@ public class FlowersRequest implements Initializable {
 
     @FXML
     private Button submitReuqest;
-
-
-
-
-
-    public int RandIDgenerator(){
-        Random rand = new Random();
-        int id = rand.nextInt(10000);
-        try {
-            String query = "SELECT REQUESTID FROM SERVICEREQUEST";
-            Connection conn = new DatabaseUtils().getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while(rs.next()){
-                if(rs.getInt(1) == id){
-                    RandIDgenerator();
-                }
-                else{
-                    return id;
-                }
-            }
-        }
-
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
-
 
 
     /**
@@ -102,33 +82,18 @@ public class FlowersRequest implements Initializable {
 
     @FXML
     public void makeFlowersRequest() throws IOException {
-        System.out.println("----Test Connection----");
+        new ServiceRequests().makeRequest("flowers", room.getText(), flowerType.getText(), notes.getText(), replace.isSelected());
 
-        try {
-            Connection conn = new DatabaseUtils().getConnection();
-            String query = "insert into SERVICEREQUEST  (REQUESTID, ROOM , TYPE , NOTES) values (?,?,?,?)";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            System.out.println("Connected");
-
-            stmt.setInt(1,RandIDgenerator());
-            System.out.println("1");
-            stmt.setString(2, (room.getText()));
-            System.out.println("2");
-            stmt.setString(4, "The flower type is:" + flowerType.getText() +"  Notes:" + notes.getText());
-            System.out.println("3");
-            stmt.setString(3, "Flowers");
-            System.out.println("4");
-            stmt.executeUpdate();
-            stmt.close();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    }
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        new Clock(lblClock, lblDate);
 
         TextFields.bindAutoCompletion(flowerType,flowers);
     }

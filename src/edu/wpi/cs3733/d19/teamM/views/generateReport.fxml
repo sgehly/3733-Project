@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.GenerateReport">
+    <children>
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../../../../../resources/bg.png" />
+         </image>
+      </ImageView>
+          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: rgba(1,45,90,0.9);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" VBox.vgrow="NEVER">
+                      <children>
+                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                              <children>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true" styleClass="hoverIcon">
+                           <image>
+                              <Image url="@../../../../../../resources/icons/icons8-home.png" />
+                           </image>
+                        </ImageView>
+                                  <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                                      <font>
+                                          <Font name="Open Sans Bold" size="36.0" />
+                                      </font>
+                           <HBox.margin>
+                              <Insets left="15.0" />
+                           </HBox.margin>
+                                  </Text>
+                              </children>
+                              <padding>
+                                  <Insets top="15.0" />
+                              </padding>
+                          </HBox>
+                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                              <children>
+                                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                          <Image url="@/resources/icons/icons8-clock_8.png" />
+                                      </image>
+                                      <HBox.margin>
+                                          <Insets right="10.0" />
+                                      </HBox.margin>
+                                  </ImageView>
+                                  <VBox alignment="CENTER" prefHeight="300.0" prefWidth="150.0">
+                                      <children>
+                                          <Label fx:id="lblDate" alignment="CENTER" maxHeight="24.0" prefHeight="50.0" prefWidth="200.0" styleClass="dateLabel" text="04/06/2019" textFill="WHITE">
+                                              <font>
+                                                  <Font size="24.0" />
+                                              </font>
+                                          </Label>
+                                          <Label fx:id="lblClock" alignment="CENTER" maxHeight="24.0" prefHeight="47.8828125" prefWidth="132.046875" styleClass="clockLabel" text="12:24:36" textFill="WHITE">
+                                              <font>
+                                                  <Font size="24.0" />
+                                              </font>
+                                          </Label>
+                                      </children>
+                                  </VBox>
+                              </children>
+                              <padding>
+                                  <Insets top="15.0" />
+                              </padding>
+                          </HBox>
+                          <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                              <children>
+                                  <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT" HBox.hgrow="ALWAYS">
+                                      <font>
+                                          <Font name="Open Sans Bold" size="24.0" />
+                                      </font>
+                                  </Button>
+                              </children>
+                              <padding>
+                                  <Insets top="15.0" />
+                              </padding>
+                          </HBox>
+                      </children>
+                      <VBox.margin>
+                          <Insets />
+                      </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" left="50.0" right="50.0" top="15.0" />
+               </padding>
+                  </HBox>
+                  <HBox fx:id="imageView" alignment="CENTER" VBox.vgrow="ALWAYS">
+                      <children>
+                          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: rgba(0,35,71,0.6);">
+                              <children>
+                                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Generate Report">
+                                      <font>
+                                          <Font name="Open Sans Bold" size="42.0" />
+                                      </font>
+                                  </Text>
+                        <HBox prefHeight="237.0" prefWidth="500.0">
+                           <children>
+                              <VBox prefHeight="237.0" prefWidth="365.0" spacing="13.0" HBox.hgrow="NEVER">
+                                 <HBox.margin>
+                                    <Insets left="40.0" />
+                                 </HBox.margin>
+                                 <children>
+                                    <CheckBox fx:id="sanitation" mnemonicParsing="false" prefHeight="18.0" prefWidth="223.0" text="SANITATION" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="language" mnemonicParsing="false" prefHeight="18.0" prefWidth="191.0" text="LANGUAGE" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="flowers" mnemonicParsing="false" prefHeight="18.0" prefWidth="220.0" text="FLOWERS" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="security" mnemonicParsing="false" prefHeight="18.0" prefWidth="191.0" text="SECURITY" textAlignment="RIGHT" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="it" mnemonicParsing="false" text="IT" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="gift" mnemonicParsing="false" prefHeight="18.0" prefWidth="149.0" text="GIFT SHOP" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </CheckBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="49.0" top="50.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Button fx:id="generateButton" mnemonicParsing="false" onMouseClicked="#generateReport" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="GENREATE REPORT">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                        </Button>
+                              </children>
+                              <opaqueInsets>
+                                  <Insets />
+                              </opaqueInsets>
+                              <padding>
+                                  <Insets top="40.0" />
+                              </padding>
+                          </VBox>
+                  <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
+                     <children>
+                                <AnchorPane>
+                           <children>
+                                        <ImageView fx:id="image" fitHeight="500.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                                </AnchorPane>
+                        <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
+                           <children>
+                              <BarChart fx:id="chart" prefHeight="944.0" prefWidth="1418.0" title="Request Report">
+                                <xAxis>
+                                  <CategoryAxis fx:id="X" label="Type" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis fx:id="Y" label="Number of Request" side="LEFT">
+                                       <tickLabelFont>
+                                          <Font size="32.0" />
+                                       </tickLabelFont>
+                                    </NumberAxis>
+                                </yAxis>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </BarChart>
+                           </children></Pane>
+                     </children>
+                  </StackPane>
+                      </children>
+                  </HBox>
+              </children>
+          </VBox>
+    </children>
+</AnchorPane>
