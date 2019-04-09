@@ -144,7 +144,7 @@
                         </HBox>
                         <HBox fx:id="imageView" alignment="CENTER" style="-fx-background-color: rgba(0,35,71,0.6);" VBox.vgrow="ALWAYS">
                             <children>
-                                <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+                                <VBox alignment="TOP_CENTER" spacing="30.0" HBox.hgrow="ALWAYS">
                                     <opaqueInsets>
                                         <Insets />
                                     </opaqueInsets>
@@ -168,21 +168,29 @@
                               <Insets top="50.0" />
                            </VBox.margin>
                                           </Button>
-                        <TableView fx:id="tableView2" prefHeight="200.0" prefWidth="200.0">
-                          <columns>
-                            <TableColumn fx:id="roomidCol" prefWidth="219.0" text="Room#" />
-                            <TableColumn fx:id="starttimeCol" minWidth="0.0" prefWidth="253.0" text="Start Time" />
-                              <TableColumn fx:id="endtimeCol" minWidth="0.0" prefWidth="247.0" text="End Time" />
-                          </columns>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="460.0" prefWidth="694.0">
+                           <children>
+                              <HBox prefHeight="153.0" prefWidth="695.0">
+                                 <children>
+                                    <VBox prefHeight="331.0" prefWidth="695.0">
+                                       <children>
+                                          <TableView fx:id="tableView2" prefHeight="480.0" prefWidth="646.0" style="-fx-background-color: ffffff;">
+                                            <columns>
+                                              <TableColumn fx:id="roomidCol" prefWidth="219.0" text="Room#" />
+                                              <TableColumn fx:id="starttimeCol" minWidth="0.0" prefWidth="253.0" text="Start Time" />
+                                                <TableColumn fx:id="endtimeCol" minWidth="0.0" prefWidth="247.0" text="End Time" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
                            <VBox.margin>
-                              <Insets top="50.0" />
+                              <Insets left="15.0" />
                            </VBox.margin>
-                        </TableView>
-                        <Button fx:id="exp" mnemonicParsing="false" onAction="#exportToCsv" prefHeight="50.0" prefWidth="300.0" styleClass="whiteButton" text="EXPORT ROOMS">
-                           <VBox.margin>
-                              <Insets top="400.0" />
-                           </VBox.margin>
-                        </Button>
+                        </AnchorPane>
+                        <Button fx:id="exp" mnemonicParsing="false" onAction="#exportToCsv" prefHeight="50.0" prefWidth="300.0" styleClass="whiteButton" text="EXPORT ROOMS" />
                                     </children>
                      <padding>
                         <Insets top="50.0" />

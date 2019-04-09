@@ -220,6 +220,7 @@ public class Scheduler {
         System.out.println("Booking "+roomID+" between "+ts+" and "+te);
         this.addBookedTime(roomID, ts, te);
         this.checkAvailability();
+        initialize();
     }
 
     private void addBookedTime(String roomID, Timestamp start, Timestamp end){
