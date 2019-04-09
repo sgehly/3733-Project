@@ -118,6 +118,9 @@ public class ServiceRequestsList {
 
 
     @FXML
+    private Button fulfill;
+
+    @FXML
     private TextField FilledBy;
 
     @FXML
@@ -182,9 +185,16 @@ public class ServiceRequestsList {
         }
 
     }
-
+    //TODO on request form list employees that can handle them
     @FXML
     void disengageComplete(){
+        String test = getRequestFromTable("incomplete");
+        if(getRequestFromTable("incomplete").equals("sanitation") && User.getPrivilege() != 1 && User.getPrivilege() != 100)
+            fulfill.setDisable(true);
+        else if(getRequestFromTable("incomplete").equals("language") && User.getPrivilege() != 2 && User.getPrivilege() != 100)
+            fulfill.setDisable(true);
+        else
+            fulfill.setDisable(false);
         requestsCompleted.getSelectionModel().clearSelection();
     }
 
@@ -249,6 +259,7 @@ public class ServiceRequestsList {
      */
     @FXML
     void markAsComplete(ActionEvent event) throws ClassNotFoundException{
+        fulfill.setDisable(true);
         //move to complete table
         String query1 = "INSERT INTO REQUESTLOG (REQUESTID, TYPE, ROOM, SUBTYPE, DESCRIPTION, CHECKBOX, DATE, FINISHED_BY) SELECT REQUESTID, TYPE, ROOM, SUBTYPE, DESCRIPTION, CHECKBOX, DATE, FINISHED_BY from REQUESTINPROGRESS where REQUESTID = ?";
         String query2 = " UPDATE REQUESTLOG SET FINISHED_BY = ? WHERE REQUESTID = ?";
