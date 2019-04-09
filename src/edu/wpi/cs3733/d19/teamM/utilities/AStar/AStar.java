@@ -23,7 +23,8 @@ public class AStar implements Searchable {
         while(it.hasNext()) {
             Map.Entry set = (Map.Entry) it.next();
             Node n = (Node) set.getValue();
-            if (n.getNodeType().equals(destType)) {
+            if (n != null && n.getNodeType().equals(destType)) {
+                System.out.println("Checking Node "+   n.getId());
                 if(n.getDistance(start) < lowestCost){
                     closest = n;
                     lowestCost = n.getDistance(start);

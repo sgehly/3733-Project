@@ -1,13 +1,20 @@
 ----------------------------------------------------------------
+<<<<<<< HEAD
 Tue Apr 09 19:13:45 EDT 2019:
 Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016a-0460-f9e0-00001ceb5180 
 on database directory /Users/sgehly/SoftEng/3733-Project/myDB with class loader sun.misc.Launcher$AppClassLoader@2a139a55 
 Loaded from file:/Users/sgehly/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.14.2.0/7efad40ef52fbb1f08142f07a83b42d29e47d8ce/derby-10.14.2.0.jar
+=======
+Tue Apr 09 19:37:31 EDT 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016a-0476-bd5b-0000060d86e8 
+on database directory C:\Users\Jack\IdeaProjects\3733-Project-2\myDB with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
+Loaded from file:/C:/Users/Jack/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.14.2.0/7efad40ef52fbb1f08142f07a83b42d29e47d8ce/derby-10.14.2.0.jar
+>>>>>>> Sprint2/pathToTextbug
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_201-b09
-user.dir=/Users/sgehly/SoftEng/3733-Project
-os.name=Mac OS X
-os.arch=x86_64
-os.version=10.14
+user.dir=C:\Users\Jack\IdeaProjects\3733-Project-2
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
