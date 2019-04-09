@@ -69,6 +69,9 @@ public class DisplayTable {
     public IntegerProperty idProperty(){return requestid;}
     public StringProperty dateProperty(){return date;}
     public StringProperty filledByProperty(){return filledBy;}
+    public StringProperty roomidProperty() { return roomid;}
+    public StringProperty starttimeProperty() { return roomid;}
+    public StringProperty endtimeProperty() { return roomid;}
 
     //getters
     public String getRoom(){

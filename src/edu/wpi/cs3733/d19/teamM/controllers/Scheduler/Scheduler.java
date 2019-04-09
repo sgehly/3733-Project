@@ -96,7 +96,7 @@ public class Scheduler {
     private TableView tableView2 = new TableView();
 
     @FXML
-    private TableColumn<DisplayTable,Integer> roomitCol = new TableColumn("roomid");
+    private TableColumn<DisplayTable,Integer> roomidCol = new TableColumn("room");
 
     @FXML
     private TableColumn<DisplayTable,Integer> starttimeCol = new TableColumn("starttime");
@@ -104,14 +104,14 @@ public class Scheduler {
     @FXML
     private TableColumn<DisplayTable,Integer> endtimeCol = new TableColumn("endtime");
 
-    @FXML
-    private TableColumn<DisplayTable,String> roomId = new TableColumn("roomId");
-
-    @FXML
-    private TableColumn<DisplayTable,String> capacity = new TableColumn("capacity");
-
-    @FXML
-    private TableColumn<DisplayTable,String> roomType = new TableColumn("roomType");
+//    @FXML
+//    private TableColumn<DisplayTable,String> roomId = new TableColumn("roomId");
+//
+//    @FXML
+//    private TableColumn<DisplayTable,String> capacity = new TableColumn("capacity");
+//
+//    @FXML
+//    private TableColumn<DisplayTable,String> roomType = new TableColumn("roomType");
 
     @FXML
     private JFXDatePicker startDate = new JFXDatePicker();
@@ -272,36 +272,36 @@ public class Scheduler {
         Main.setScene("home");
     }
 
-    private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws SQLException {
-        ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
-        try {
-            while (rs.next()) {
-                DisplayTable ent = new DisplayTable();
-                ent.setRoom(rs.getString("roomId"));
-                ent.setCapacity(String.valueOf(rs.getInt("capacity")));
-                ent.setRoomType(rs.getString("roomType"));
-                System.out.println(rs.getString("roomId"));
-                System.out.println(rs.getString("capacity"));
-                System.out.println(rs.getString("roomType")); //nope
-                entList.add(ent);
-            }
-            tableView.setItems(entList);
-            return entList;
-        } catch (SQLException e) {
-            System.out.println("Error while trying to fetch all records");
-            e.printStackTrace();
-            throw e;
-        }
-    }
+//    private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws SQLException {
+//        ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
+//        try {
+//            while (rs.next()) {
+//                DisplayTable ent = new DisplayTable();
+//                ent.setRoom(rs.getString("roomId"));
+//                ent.setCapacity(String.valueOf(rs.getInt("capacity")));
+//                ent.setRoomType(rs.getString("roomType"));
+//                System.out.println(rs.getString("roomId"));
+//                System.out.println(rs.getString("capacity"));
+//                System.out.println(rs.getString("roomType")); //nope
+//                entList.add(ent);
+//            }
+//            tableView2.setItems(entList);
+//            return entList;
+//        } catch (SQLException e) {
+//            System.out.println("Error while trying to fetch all records");
+//            e.printStackTrace();
+//            throw e;
+//        }
+//    }
 
-    public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
+    /*public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
         String query = "SELECT roomID, capacity, roomtype FROM ROOMS";
         try {
             Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
-            tableView.setItems(entryList);
+            tableView2.setItems(entryList);
             return entryList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
@@ -309,6 +309,7 @@ public class Scheduler {
             throw e;
         }
     }
+    */
 
     private void processImage(String roomId, boolean available){
 
@@ -443,12 +444,13 @@ public class Scheduler {
 
 
         try{
+            //initWithType();
+            //ObservableList<DisplayTable> entList = getAllRecords2();
+            roomidCol.setCellValueFactory(new PropertyValueFactory<>("Room"));
+            starttimeCol.setCellValueFactory(new PropertyValueFactory<>("starttime"));
+            endtimeCol.setCellValueFactory(new PropertyValueFactory<>("endtime"));
+            //tableView2.setItems(entList);
             initWithType();
-            ObservableList<DisplayTable> entList = getAllRecords();
-            roomId.setCellValueFactory(new PropertyValueFactory<>("Room"));
-            capacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
-            roomType.setCellValueFactory(new PropertyValueFactory<>("roomType"));
-            tableView.setItems(entList);
 
             startDate.setValue(LocalDate.now());
             endDate.setValue(LocalDate.now().plus(1, ChronoUnit.DAYS));
@@ -462,9 +464,15 @@ public class Scheduler {
             endTime.valueProperty().addListener((ov, oldValue, newValue) -> {try{this.checkAvailability();}catch(Exception e){} });
 
 
-            this.checkAvailability();;
+            this.checkAvailability();
+            //initWithType();
         }catch(Exception e){e.printStackTrace();};
-
+        //initWithType();
+//        roomidCol.setCellValueFactory(new PropertyValueFactory<>("room"));
+//        System.out.println(new PropertyValueFactory<>("room"));
+//        starttimeCol.setCellValueFactory(new PropertyValueFactory<>("starttime"));
+//        endtimeCol.setCellValueFactory(new PropertyValueFactory<>("endtime"));
+        //initWithType();
         assert zoomLvl != null : "fx:id=\"zoomLvl\" was not injected: check your FXML file 'scheduler.fxml'.";
         assert imageView != null : "fx:id=\"imageView\" was not injected: check your FXML file 'scheduler.fxml'.";
         assert image != null : "fx:id=\"image\" was not injected: check your FXML file 'scheduler.fxml'.";
@@ -522,9 +530,9 @@ public class Scheduler {
             while (rs.next()) {
                 //Get the correct entries from the text fields and add to the list so that we can add it to the database
                 DisplayTable ent = new DisplayTable();
-                ent.setType(rs.getString("roomid"));
-                ent.setType(rs.getString("starttime"));
-                ent.setType(rs.getString("endtime"));
+                ent.setRoom(rs.getString("Roomid"));
+                ent.setStartTime(rs.getString("starttime"));
+                ent.setEndTime(rs.getString("endtime"));
                 entList.add(ent);
             }
             return entList;
@@ -536,14 +544,17 @@ public class Scheduler {
     }
 
 
-    private void initWithType() throws SQLException{
+    private void initWithType(){
 
         try{
-            getAllRecords2();
-        }catch (ClassNotFoundException e){
+            ObservableList<DisplayTable> getRec = getAllRecords2();
+            //getAllRecords2();
+            tableView2.setItems(getRec);
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
+
 
     /**
      * This method gets all the records from the database so that they can be added to the display on the screen
@@ -559,7 +570,7 @@ public class Scheduler {
             Connection conn = new DatabaseUtils().getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            ObservableList<DisplayTable> entryList = getEntryObjects(rs);
+            ObservableList<DisplayTable> entryList = getEntryObjects2(rs);
             tableView2.setItems(entryList);
 
             return entryList;
