@@ -62,6 +62,8 @@ public class MapUtils {
     double deltax;
     double deltay;
 
+    Image EMPTY = new Image(Main.getResource("/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
+
     public HashMap<String, Button> buttonMap = new HashMap<String,Button>();
 
     //Create needed object instances
@@ -226,7 +228,6 @@ public class MapUtils {
         image.setFitHeight(primaryScreenBounds.getHeight() - 200);
         //image.setStyle("-fx-border-color: pink;-fx-border-width: 5px");
         //Gets the overlay image and sets the width and the height of that
-        Image EMPTY = new Image(Main.getResource("/resources/maps/emptyOverlay.png")); //See if we can get the image to overlay and then create a new image object from it
 
         //Initially set the image to empty and get the width and height
         overlayImage.setImage(EMPTY);
@@ -439,6 +440,21 @@ public class MapUtils {
         }
         this.floor = newFloor;
         this.getAllRecords(this.floor);
+    }
+
+    public void setFloor(int floor) throws Exception{
+        this.floor = floor;
+        this.getAllRecords(floor);
+    }
+    public void setFloor(String floorId) throws Exception{
+        System.out.println(floorId);
+        for(int i=0;i<dbPrefixes.length;i++){
+            if(dbPrefixes[i].equals(floorId)){
+                System.out.println(i);
+                this.floor = i;
+                this.getAllRecords(i);
+            }
+        }
     }
 
     public String getFloorLabel(){

@@ -219,7 +219,7 @@ public class Pathfinding {
     }
 
     //TODO: fix with new graph class
-    private void findPresetHelper(String type) {
+    private void findPresetHelper(String type) throws Exception{
         String start = startText.getText();
         path = graph.findPresetPath(graph.getNodes().get(start), type);
 
@@ -241,7 +241,7 @@ public class Pathfinding {
         updateMap();
     }
 
-    private void findPathWithLongNames() {
+    private void findPathWithLongNames() throws Exception{
 
         String start = startText.getText();
         String end = endText.getText();
@@ -382,9 +382,13 @@ public class Pathfinding {
         updateMap();
     }
 
-    private void updateMap(){
+    private void updateMap() throws Exception{
         List<Path> floorPath = path.getSpecificPath(util.getCurrentFloorID());
         if (floorPath != null){
+            if(path.getFinalPath().size() > 0){
+                util.setFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
+                floorLabel.setText(util.getFloorLabel());
+            }
             overlayImage.setImage(graph.drawPath(floorPath));
         }
         else {
