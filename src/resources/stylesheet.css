@@ -289,18 +289,18 @@
     -fx-background-color: white;
 }
 
-.jfx-text-field.darkInput{
+.darkInput{
     -fx-background-color: rgba(0,0,0,.4);
     -fx-text-fill: white;
     -fx-font-family: "Open Sans Bold";
     -fx-background-radius:5px;
-    -fx-padding: 5px 10px 5px 10px;
-    -fx-font-size:18px;
+    -fx-padding: 10px 15px 10px 15px;
+    -fx-font-size:22px;
     -fx-text-box-border: transparent;
     -fx-faint-focus-color: transparent;
 }
 
-.jfx-text-field.lightInput{
+.lightInput{
     -fx-background-color: rgba(0,0,0,.01);
     -fx-border-color: rgba(0,0,0,.1);
     -fx-border-radius:5px;
