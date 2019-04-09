@@ -4,11 +4,17 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
+
 public class ReligiousRequests {
+
+    @FXML
+    private Text userText;
 
     @FXML
     JFXTextField roomField;
@@ -50,6 +56,7 @@ public class ReligiousRequests {
     @FXML
     private void initialize(){
         new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
     }
 
     @FXML

@@ -2,11 +2,13 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
+import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.awt.*;
@@ -15,6 +17,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ITRequests implements Initializable {
+
+
+
+
+    @FXML
+    private Text userText;
 
     @FXML
     private TextField typeOfEquipment;
@@ -63,5 +71,6 @@ public class ITRequests implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         Clock clock = new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
     }
 }
