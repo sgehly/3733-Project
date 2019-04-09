@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
@@ -25,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequestsList">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequestsList">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -120,7 +113,7 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false"  onMouseClicked="#navigateToReport" prefHeight="50.0" prefWidth="172.0" styleClass="blackButton" text=" GENERATE REPORT">
+                              <Button mnemonicParsing="false" onMouseClicked="#navigateToReport" prefHeight="50.0" prefWidth="172.0" styleClass="blackButton" text=" GENERATE REPORT">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
@@ -131,7 +124,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </JFXButton>
-                              <JFXButton mnemonicParsing="false" onAction="#markAsComplete" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="FULFILL">
+                              <JFXButton fx:id="fulfill" disable="true" mnemonicParsing="false" onAction="#markAsComplete" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="FULFILL">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
