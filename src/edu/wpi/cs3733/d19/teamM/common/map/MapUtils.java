@@ -47,10 +47,10 @@ public class MapUtils {
 
     private String[] images = {"00_thelowerlevel2.png", "00_thelowerlevel1.png", "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
     private String[] labels = {"Lower Level 2", "Lower Level 1", "Floor One", "Floor Two", "Floor Three"};
-    private String[] dbPrefixes = {"L2", "L1", "1", "2", "3"};
+    public String[] dbPrefixes = {"L2", "L1", "1", "2", "3"};
     private HashMap<Integer, Image> imageFiles = new HashMap<Integer, Image>();
 
-    int floor = 2;
+    public int floor = 2;
     int width;
     int height;
     double offSetX;
@@ -75,7 +75,8 @@ public class MapUtils {
         this.buttonPane = new Pane();
         buttonPane.setLayoutY(buttonContainer.getLayoutY());
         buttonPane.setLayoutX(buttonContainer.getLayoutX());
-        //buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
+        buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
+
         //buttonContainer.setStyle("-fx-border-color: blue;-fx-border-width: 5px");
         this.buttonContainer.setContent(buttonPane);
         this.image = image;
@@ -92,7 +93,7 @@ public class MapUtils {
      * @param pointY: The y coordinate
      * @return MapPoint: The point on the map that we have scaled
      */
-    private MapPoint scalePoints(int pointX, int pointY){
+    public MapPoint scalePoints(int pointX, int pointY){
         //The literal width and height of the image
         double rawWidth = 5000;
         double rawHeight = 3400;
@@ -443,22 +444,37 @@ public class MapUtils {
     }
 
     public void setFloor(int floor) throws Exception{
+        System.out.println("Setting floor to "+floor);
         this.floor = floor;
         this.getAllRecords(floor);
     }
     public void setFloor(String floorId) throws Exception{
-        System.out.println(floorId);
+        System.out.println("Raw floor id: "+floorId);
         for(int i=0;i<dbPrefixes.length;i++){
+            System.out.println("Checking "+dbPrefixes[i]);
             if(dbPrefixes[i].equals(floorId)){
-                System.out.println(i);
+
+                System.out.println("F Setting floor to "+i);
                 this.floor = i;
                 this.getAllRecords(i);
             }
         }
     }
 
+    public int idToFloor(String id){
+        for(int i=0;i<dbPrefixes.length;i++){
+            if(dbPrefixes[i].equals(id)){
+                return i;
+            }
+        }
+        return -5;
+    }
+
     public String getFloorLabel(){
         return labels[this.floor];
+    }
+    public String getFloorLabel(int floor){
+        return labels[floor];
     }
 
     public String getCurrentFloorID(){
