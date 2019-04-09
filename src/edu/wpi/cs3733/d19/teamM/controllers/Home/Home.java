@@ -86,7 +86,6 @@ public class Home{
     @FXML
     public void navigateToAdmin(){
         Main.setScene("admin");
-
     }
 
     @FXML

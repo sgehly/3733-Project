@@ -204,6 +204,17 @@ public class ServiceRequestsList {
         }
     }
 
+    private String getRequestFromTable(String table){
+        if(table.equals("incomplete")){
+            ObservableValue<String> id = RIPTypeCol.getCellObservableValue(requestsInProgress.getSelectionModel().getFocusedIndex());
+            return id.getValue();
+        }
+        else{
+            ObservableValue<String> id = RCTypeCol.getCellObservableValue(requestsCompleted.getSelectionModel().getFocusedIndex());
+            return id.getValue();
+        }
+    }
+
     /**
      * The method that helps create the service request
      * @param event: Takes in the event of clicking the button
@@ -243,6 +254,9 @@ public class ServiceRequestsList {
         String query2 = " UPDATE REQUESTLOG SET FINISHED_BY = ? WHERE REQUESTID = ?";
         String query3 = " DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
 
+        String nextPage = getRequestFromTable("incomplete");
+        System.out.println("this is shit:" + getRequestFromTable("incomplete"));
+
         if(requestsInProgress.getFocusModel().getFocusedIndex() == -1) return;
 
         try {
@@ -268,12 +282,32 @@ public class ServiceRequestsList {
             //stmt.setString(6,FilledBy.getText());
             conn.close();
             this.initWithType(this.currentTab);
-
         }
         catch (Exception e) {
             System.out.println("Error while trying to fetch all records");
             e.printStackTrace();
         }
+        if(nextPage.equals("interpreter")){
+            Main.setScene("languageReportTemplate");
+        }
+
+        if(nextPage.equals("sanitation")) {
+            Main.setScene("sanitationReportTemplate");
+        }
+
+
+    }
+
+    private void goToProperReport(String nextPage) {
+        if(nextPage.equals("interpreter")){
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("languageReportTemplate");
+        }
+        else if(nextPage.equals("sanitation")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("sanitationReportTemplate");
+        }
+        System.out.println("yo: " + this.getRequestFromTable("incomplete"));
     }
 
     /**

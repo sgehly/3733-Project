@@ -53,8 +53,8 @@ public class Main extends Application {
     }
 
     public static void setScene(String scene){
-        if(scene == "home"){
-            primaryStage.setScene(homeScene);
+        if(scene == "addUser"){
+            primaryStage.setScene(addUserScene);
         }
         else if(scene == "admin"){
             primaryStage.setScene(adminScene);
@@ -78,10 +78,7 @@ public class Main extends Application {
             primaryStage.setScene(loginScene);
         }else{
             try{primaryStage.setScene(new Scene(FXMLLoader.load(Main.getFXMLURL(scene))));}catch(Exception e){e.printStackTrace();}
-        }
-        if(scene == "addUser"){
-            primaryStage.setScene(addUserScene);
-        }
+       }
     }
 
     /**
@@ -108,16 +105,56 @@ public class Main extends Application {
     public static void loadScenes() throws Exception{
         homePane = FXMLLoader.load(Main.getFXMLURL("home"));
         homeScene= new Scene(Main.homePane);
-        adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
-        adminScene= new Scene(adminPane);
-        pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
-        pathFindingScene= new Scene(pathFindingPane);
-        schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
-        schedulerScene= new Scene(schedulerPane);
-        serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
-        serviceRequestScene= new Scene(serviceRequestPane);
-        serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-        serviceRequestListScene= new Scene(serviceRequestListPane);
+
+        Runnable loadAdminThread = () -> {
+            try {
+                System.out.println("Loading scenes");
+                adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
+                adminScene = new Scene(adminPane);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        };
+        Runnable loadPathfindingThread = () -> {
+            try {
+                pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
+                pathFindingScene = new Scene(pathFindingPane);
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        };
+        Runnable loadSchedulerThread = () -> {
+            try {
+                schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
+                schedulerScene = new Scene(schedulerPane);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+        Runnable loadServiceRequestsThread = () -> {
+            try {
+                serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
+                serviceRequestScene = new Scene(serviceRequestPane);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+        Runnable loadSRListThread = () -> {
+            try {
+                serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+                serviceRequestListScene= new Scene(serviceRequestListPane);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        };
+
+
+        new Thread(loadAdminThread).start();
+        new Thread(loadPathfindingThread).start();
+        new Thread(loadSchedulerThread).start();
+        new Thread(loadServiceRequestsThread).start();
+        new Thread(loadSRListThread).start();
+
     }
 
     public static void loadAddUsers() throws Exception{
