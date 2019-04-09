@@ -29,9 +29,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.FileWriter;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Map;
 
 
 public class AdminUI {
@@ -166,6 +169,27 @@ public class AdminUI {
         shortNameTextBox.setText("");
     }
 
+    /**
+     * Creates the listeners for the nodes we want to add
+     */
+    private void setUpListeners()
+    {
+        Floor graph = new Floor();
+        Map<String, Node> floorMap = graph.getNodes();
+        ArrayList<String>longNames = new ArrayList<String>();//ArrayList of LongNames
+
+        for(Node node: floorMap.values())
+        {
+            longNames.add(node.getLongName());
+        }
+        startNodeTextBox.textProperty().addListener((ov, oldValue, newValue) -> {
+            TextFields.bindAutoCompletion(startNodeTextBox,longNames);
+        });
+        endNodeTextBox.textProperty().addListener((ov, oldValue, newValue) -> {
+            TextFields.bindAutoCompletion(endNodeTextBox,longNames);
+        });
+    }
+
     private MapPoint scalePoints(int pointX, int pointY){
         double rawWidth = 5000;
         double rawHeight = 3400;
@@ -288,6 +312,7 @@ public class AdminUI {
         buttonContainer.setPrefHeight(image.getFitHeight());
         getAllRecords();
 
+        setUpListeners();
         //userText.setText(User.getUsername());
     }
 
