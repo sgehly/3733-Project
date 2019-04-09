@@ -7,7 +7,7 @@ import java.util.List;
  * A class to represent a stack
  * @param <T> Generic type of the class
  */
-public class Stack<T> {
+public class Stack<T extends Comparable> {
 
     List<T> stack;
 
@@ -23,10 +23,15 @@ public class Stack<T> {
      * @return The top of the stack
      */
     public T pop(){
+        if (stack.size() == 0) return null;
         int size = stack.size() - 1;
         T obj = stack.get(size);
         stack.remove(size);
         return obj;
+    }
+
+    public void hueristicSort(){
+
     }
 
     /**

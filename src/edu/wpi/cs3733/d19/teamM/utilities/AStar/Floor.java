@@ -3,7 +3,7 @@ package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import sun.reflect.annotation.ExceptionProxy;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -35,7 +35,7 @@ public class Floor {
         aStar = new AStar();
         dfs = new DFS();
         bfs = new BFS();
-        selected = aStar;
+        selected = bfs;
         try {
             this.populate();
         }
@@ -51,7 +51,10 @@ public class Floor {
      * @return A Path
      */
     public Path findPath(Node start, Node end){
-        return selected.findPath(start, end);
+        Path p = selected.findPath(start, end);
+        PathToString.getDirections(p);
+        System.out.println(PathToString.getDirections(p));
+        return p;
     }
 
     public Path findPresetPath(Node start, String type){
@@ -139,7 +142,7 @@ public class Floor {
     }
 
     /**
-     * Populares the map edges
+     * Populates the map edges
      * @throws Exception
      */
     private void populateEdges() throws Exception{
