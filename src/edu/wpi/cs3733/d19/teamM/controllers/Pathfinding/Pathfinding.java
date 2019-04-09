@@ -137,7 +137,7 @@ public class Pathfinding {
      */
     @FXML
     protected void initialize() throws Exception {
-        filters.setExpanded(false);
+//        filters.setExpanded(false);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
