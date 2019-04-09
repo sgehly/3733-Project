@@ -374,7 +374,10 @@ public class ServiceRequestsList {
         }
     }
 
-
+    @FXML
+    private void navigateToReport() throws Exception{
+        Main.setScene("generateReport");
+    }
 
     @FXML
     private void exportComplete(ActionEvent event) throws SQLException,ClassNotFoundException{
