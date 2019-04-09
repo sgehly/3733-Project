@@ -221,7 +221,15 @@ public class Pathfinding {
     //TODO: fix with new graph class
     private void findPresetHelper(String type) throws Exception{
         String start = startText.getText();
-        path = graph.findPresetPath(graph.getNodes().get(start), type);
+        Node startNode = null;
+        for (Node n : graph.getNodes().values()){
+            if (n.getLongName().equals(start)){
+                startNode = n;
+            }
+        }
+        if (startNode != null) {
+            path = graph.findPresetPath(startNode, type, graph.getNodes());
+        }
 
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

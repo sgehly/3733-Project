@@ -74,8 +74,8 @@ public class Floor {
         return p;
     }
 
-    public Path findPresetPath(Node start, String type){
-        return aStar.findPresetPath(start, type, this.nodes);
+    public Path findPresetPath(Node start, String type, Map<String, Node> n){
+        return aStar.findPresetPath(start, type, n);
     }
 
     /**
