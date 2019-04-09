@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,11 +17,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" stylesheets="@/resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.GenerateReport">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.GenerateReport">
     <children>
-          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../../../../../resources/bg.png" />
+         </image>
+      </ImageView>
+          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: rgba(1,45,90,0.9);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" VBox.vgrow="NEVER">
                       <children>
                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
@@ -91,17 +91,17 @@
                           </HBox>
                       </children>
                       <VBox.margin>
-                          <Insets left="50.0" right="50.0" top="5.0" />
+                          <Insets />
                       </VBox.margin>
                <padding>
-                  <Insets bottom="20.0" />
+                  <Insets bottom="20.0" left="50.0" right="50.0" top="15.0" />
                </padding>
                   </HBox>
                   <HBox fx:id="imageView" alignment="CENTER" VBox.vgrow="ALWAYS">
                       <children>
-                          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #001933;">
+                          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: rgba(0,35,71,0.6);">
                               <children>
-                                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Generate Report">
+                                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Generate Report">
                                       <font>
                                           <Font name="Open Sans Bold" size="42.0" />
                                       </font>
@@ -150,33 +150,11 @@
                               <Insets bottom="49.0" top="50.0" />
                            </VBox.margin>
                         </HBox>
-                        <Button fx:id="generateButton" mnemonicParsing="false" onMouseClicked="#generateReport" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Generate">
+                        <Button fx:id="generateButton" mnemonicParsing="false" onMouseClicked="#generateReport" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="GENREATE REPORT">
                            <font>
                               <Font size="26.0" />
                            </font>
                         </Button>
-                        <HBox prefHeight="50.0" prefWidth="434.0" spacing="5.0" VBox.vgrow="NEVER">
-                           <VBox.margin>
-                              <Insets left="37.0" right="29.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets right="30.0" />
-                                 </HBox.margin>
-                              </VBox>
-                           </children>
-                           <VBox.margin>
-                              <Insets top="50.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox prefHeight="50.0" prefWidth="432.0" spacing="5.0">
-                           <VBox.margin>
-                              <Insets bottom="30.0" left="39.0" right="29.0" top="50.0" />
-                           </VBox.margin>
-                        </HBox>
                               </children>
                               <opaqueInsets>
                                   <Insets />
@@ -194,7 +172,7 @@
                                 </AnchorPane>
                         <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
                            <children>
-                              <BarChart fx:id="chart" layoutX="14.0" layoutY="1.0" prefHeight="944.0" prefWidth="798.0" title="Request Report">
+                              <BarChart fx:id="chart" prefHeight="944.0" prefWidth="1418.0" title="Request Report">
                                 <xAxis>
                                   <CategoryAxis fx:id="X" label="Type" />
                                 </xAxis>
