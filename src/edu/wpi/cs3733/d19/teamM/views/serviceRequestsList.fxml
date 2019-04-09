@@ -113,6 +113,11 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
+                              <Button mnemonicParsing="false" onAction="#exportInProgress" prefHeight="50.0" prefWidth="172.0" styleClass="blackButton" text=" GENERATE REPORT">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </Button>
                               <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                               <JFXButton mnemonicParsing="false" onAction="#deleteRequest" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="DELETE">
                                  <HBox.margin>

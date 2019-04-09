@@ -4,9 +4,16 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import org.controlsfx.control.textfield.TextFields;
 
-public class labTestRequest {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class labTestRequest implements Initializable {
 
 
     /**
@@ -25,6 +32,12 @@ public class labTestRequest {
 
     @FXML
     private JFXCheckBox urgent;
+
+    @FXML
+    Label lblClock;
+
+    @FXML
+    private Label lblDate;
 
     @FXML
     public void logout() throws Exception {
@@ -52,6 +65,12 @@ public class labTestRequest {
     @FXML
     private void goToList() throws Exception {
         Main.setScene("serviceRequestsList");
+    }
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
+
+        new Clock(lblClock, lblDate);
+
     }
 
 }
