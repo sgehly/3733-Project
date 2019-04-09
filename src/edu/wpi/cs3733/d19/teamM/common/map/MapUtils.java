@@ -18,6 +18,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
@@ -41,7 +42,7 @@ public class MapUtils {
     JFXSlider zoomSlider;
     Rectangle2D primaryScreenBounds;
     EventHandler<ActionEvent> callback;
-
+    EventHandler<MouseEvent> clickCallback;
 
 
     private String[] images = {"00_thelowerlevel2.png", "00_thelowerlevel1.png", "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
@@ -67,18 +68,19 @@ public class MapUtils {
     double cachedScaledWidth = 0;
     double cachedScaledHeight = 0;
 
-    public MapUtils(ScrollPane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<ActionEvent> callback) {
+    public MapUtils(ScrollPane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<ActionEvent> callback, EventHandler<MouseEvent> clickCallback) {
         this.buttonContainer = buttonContainer;
         this.buttonPane = new Pane();
         buttonPane.setLayoutY(buttonContainer.getLayoutY());
         buttonPane.setLayoutX(buttonContainer.getLayoutX());
-        buttonPane.setStyle("-fx-background-color: rgba(0,0,0,.4)");
+        buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
         this.buttonContainer.setContent(buttonPane);
         this.image = image;
         this.imageView = imageView;
         this.callback = callback;
         this.overlayImage = overlayImage;
         this.zoomSlider = zoomSlider;
+        this.clickCallback = clickCallback;
     }
 
     /**
@@ -107,6 +109,16 @@ public class MapUtils {
         double scaledY = (pointY*cachedScaledHeight)/rawHeight;
         return new MapPoint(scaledX, scaledY);
 
+    }
+
+    public MapPoint scalePointReversed(double scaledX, double scaledY){
+        double rawWidth = 5000;
+        double rawHeight = 3400;
+
+        double originalX = (scaledX*rawWidth)/cachedScaledWidth;
+        double originalY = (scaledY*rawHeight)/cachedScaledHeight;
+
+        return new MapPoint(originalX, originalY);
     }
 
     /**
@@ -341,6 +353,7 @@ public class MapUtils {
             initx = e.getSceneX();
             inity = e.getSceneY();
             buttonPane.setCursor(Cursor.CLOSED_HAND);
+            clickCallback.handle(e);
         });
         buttonPane.setOnMouseReleased(e -> {
             buttonPane.setCursor(Cursor.OPEN_HAND);

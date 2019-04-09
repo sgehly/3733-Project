@@ -14,6 +14,7 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -22,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
@@ -260,6 +262,23 @@ public class AdminUI {
         }
     }
 
+    private void clickValues(MouseEvent value){
+        System.out.println("("+value.getX()+","+value.getY()+")");
+        System.out.println("("+value.getSceneX()+","+value.getSceneY()+")");
+
+        MapPoint original = util.scalePointReversed(value.getX(), value.getY());
+        xCoordTextBox.setText(String.valueOf((int)original.x));
+        yCoordTextBox.setText(String.valueOf((int)original.y));
+
+        nodeIdTextBox.setText("");
+        longNameTextBox.setText("");
+        shortNameTextBox.setText("");
+        floorTextBox.setText("");
+        buildingTextBox.setText("");
+        typeTextBox.setText("");
+
+    }
+
     @FXML
     protected void initialize() throws Exception {
 
@@ -276,7 +295,7 @@ public class AdminUI {
 
         graph = new Floor();
         path = new Path();
-        util = new MapUtils(buttonContainer, imageView, image, new ImageView(), new JFXSlider(), this::setValues);
+        util = new MapUtils(buttonContainer, imageView, image, new ImageView(), new JFXSlider(), this::setValues, this::clickValues);
         util.initialize();
 
     }

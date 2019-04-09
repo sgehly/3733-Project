@@ -35,10 +35,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import javafx.scene.Scene;
@@ -170,13 +172,15 @@ public class Pathfinding {
 
         graph = new Floor();
         path = new Path();
-        util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues);
+        util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues);
         setUpListeners();
 
         util.initialize();
 
 
     }
+
+    private void clickValues(MouseEvent evt){}
 
     /**
      * This method lets the user navigate back to the home page
