@@ -148,6 +148,8 @@ public class ServiceRequestsList {
                 conn.close();
 
                 this.initWithType(this.currentTab);
+                requestsInProgress.getSelectionModel().clearSelection();
+                requestsCompleted.getSelectionModel().clearSelection();
 
             }
             catch (Exception e) {
@@ -174,11 +176,22 @@ public class ServiceRequestsList {
             catch (Exception e) {
                 System.out.println("Error while trying to fetch all records");
                 e.printStackTrace();
+                requestsInProgress.getSelectionModel().clearSelection();
+                requestsCompleted.getSelectionModel().clearSelection();
             }
         }
 
     }
 
+    @FXML
+    void disengageComplete(){
+        requestsCompleted.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    void disengageInProgress(){
+        requestsInProgress.getSelectionModel().clearSelection();
+    }
 
     private String getIdFromTable(String table) {
         if(table.equals("incomplete")) {
@@ -517,6 +530,8 @@ public class ServiceRequestsList {
 
     @FXML
     void initialize() {
+        requestsInProgress.getSelectionModel().clearSelection();
+        requestsCompleted.getSelectionModel().clearSelection();
 
         new Clock(lblClock, lblDate);
 
