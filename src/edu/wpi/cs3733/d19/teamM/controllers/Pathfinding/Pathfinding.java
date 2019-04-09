@@ -273,28 +273,12 @@ public class Pathfinding {
         resetTextBox();
     }
 
-    /**
-     *
-     * @param s
-     */
-    private void filterNodes(String s) throws Exception, SQLException {
-        try {
-            //Floor floor = new Floor("1");
-            //Get the information that we want from the database
-            Connection conn = new DatabaseUtils().getConnection();
-            PreparedStatement stmt = conn.prepareStatement("select * from node where nodeType = ?");
-            stmt.setString(1, s);
-            ResultSet rs = stmt.executeQuery(); // execute where the node type is that specified in the database
+    private void filterNodes(String s) {
+        util.filterNodes(s);
+    }
 
-            //util.getEntryObjects(rs);
-
-            conn.close();
-
-        } catch (SQLException e) {
-            System.out.println("Error while trying to fetch all records");
-            e.printStackTrace();
-        }
-
+    private void unfilterNodes(String s) {
+        util.unfilterNodes(s);
     }
 
     /**
@@ -306,23 +290,45 @@ public class Pathfinding {
            filterNodes("REST");
            filterNodes("BATH");
        }
+       else {
+           unfilterNodes("REST");
+           unfilterNodes("BATH");
+       }
        if(stairs.isSelected()) {
            filterNodes("STAI");
+       }
+       else{
+           unfilterNodes("STAI");
        }
        if(elevators.isSelected()) {
            filterNodes("ELEV");
        }
+       else{
+           unfilterNodes("ELEV");
+       }
        if(labs.isSelected()) {
            filterNodes("LABS");
+       }
+       else {
+           unfilterNodes("LABS");
        }
        if(confs.isSelected()) {
            filterNodes("CONF");
        }
+       else {
+           unfilterNodes("CONF");
+       }
        if(food.isSelected()) {
            filterNodes("RETL");
        }
+       else {
+           unfilterNodes("RETL");
+       }
        if(exits.isSelected()) {
            filterNodes("EXIT");
+       }
+       else {
+           unfilterNodes("EXIT");
        }
     }
 
