@@ -47,7 +47,7 @@
                                         <Font name="Open Sans Bold" size="36.0" />
                                     </font>
                                     <HBox.margin>
-                                        <Insets />
+                                        <Insets left="15.0" />
                                     </HBox.margin>
                                 </Text>
                             </children>
@@ -104,7 +104,7 @@
                         </HBox>
                     </children>
                     <VBox.margin>
-                        <Insets left="50.0" right="50.0" top="25.0" />
+                        <Insets left="50.0" right="50.0" top="40.0" />
                     </VBox.margin>
                     <padding>
                         <Insets bottom="20.0" />

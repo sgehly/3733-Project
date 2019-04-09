@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 
@@ -94,8 +95,10 @@ public class Home{
         userText.setText(User.getUsername());
         File f = new File(User.getPathToPic());
         Image image = new Image(f.toURI().toString());
+        myImg.setStyle("-fx-background-radius: 1000; -fx-border-radius:1000");
         myImg.setImage(image);
-        welcomeMessage.setText("Welcome to Brigham and Women's " + User.getUsername());
+        myImg.setClip(new Circle(24.5,24.5,24));
+        welcomeMessage.setText("Welcome to Brigham and Women's, " + User.getUsername());
         if(User.getPrivilege() != 100){
             admin.setVisible(false);
         }
