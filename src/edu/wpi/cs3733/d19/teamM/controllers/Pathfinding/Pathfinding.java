@@ -143,6 +143,7 @@ public class Pathfinding {
     @FXML
     protected void initialize() throws Exception {
 
+        System.out.println("Initializing pathfinding");
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
@@ -151,9 +152,12 @@ public class Pathfinding {
         util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues);
         setUpListeners();
 
+        System.out.println("Init maputils");
         util.initialize();
 
         floorLabel.setText(util.getFloorLabel());
+
+        System.out.println("Finished pathfinding");
 
     }
 
