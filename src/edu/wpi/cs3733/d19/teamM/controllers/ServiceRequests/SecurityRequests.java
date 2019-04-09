@@ -1,23 +1,35 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXRadioButton;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class SecurityRequests {
 
+
+    //Text field for room location input
     @FXML
-    JFXRadioButton low;
+    private TextField room;
 
     @FXML
-    JFXRadioButton medium;
+    private TextField type;
 
     @FXML
-    JFXRadioButton high;
+    private JFXCheckBox emergency;
+
+    //Text field for additional specifications
+    @FXML
+    private javafx.scene.control.TextArea notes;
+
+
 
     @FXML
     Label lblClock;
@@ -45,8 +57,17 @@ public class SecurityRequests {
         Main.setScene("serviceRequests");
     }
 
+    public void makeSecurityRequest() throws IOException {
+        new ServiceRequests().makeRequest("security", room.getText(), type.getText(), notes.getText(), emergency.isSelected());
+    }
+    @FXML
+    private void goToList() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
+
     @FXML
     void initialize(){
         new Clock(lblClock, lblDate);
     }
+
 }

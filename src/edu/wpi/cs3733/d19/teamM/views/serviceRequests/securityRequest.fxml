@@ -22,9 +22,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.control.Label?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ReligiousRequests">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.SecurityRequests">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -59,28 +58,38 @@
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@/resources/icons/icons8-clock_8.png" />
-                                            </image>
-                                            <HBox.margin>
-                                                <Insets right="10.0" />
-                                            </HBox.margin>
-                                        </ImageView>
-                                        <VBox alignment="CENTER" prefHeight="300.0" prefWidth="150.0">
-                                            <children>
-                                                <Label fx:id="lblDate" alignment="CENTER" maxHeight="24.0" prefHeight="50.0" prefWidth="200.0" styleClass="dateLabel" text="04/06/2019" textFill="WHITE">
-                                                    <font>
-                                                        <Font size="24.0" />
-                                                    </font>
-                                                </Label>
-                                                <Label fx:id="lblClock" alignment="CENTER" maxHeight="24.0" prefHeight="47.8828125" prefWidth="132.046875" styleClass="clockLabel" text="12:24:36" textFill="WHITE">
-                                                    <font>
-                                                        <Font size="24.0" />
-                                                    </font>
-                                                </Label>
-                                            </children>
-                                        </VBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="659.0">
+                                 <children>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@/resources/icons/icons8-clock_8.png" />
+                                       </image>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </ImageView>
+                                    <VBox alignment="CENTER" prefHeight="300.0" prefWidth="150.0">
+                                       <children>
+                                          <Label fx:id="lblDate" alignment="CENTER" maxHeight="24.0" prefHeight="50.0" prefWidth="200.0" styleClass="dateLabel" text="04/06/2019" textFill="WHITE">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="lblClock" alignment="CENTER" maxHeight="24.0" prefHeight="47.8828125" prefWidth="132.046875" styleClass="clockLabel" text="12:24:36" textFill="WHITE">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets right="300.0" top="15.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets left="270.0" />
+                                 </HBox.margin>
+                              </HBox>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -108,10 +117,10 @@
                                  <children>
                                     <ImageView fitHeight="250.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../../../../resources/icons/religious.png" />
+                                          <Image url="@../../../../../../../resources/icons/security.png" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Religious Requests">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Security Request">
                                        <VBox.margin>
                                           <Insets top="20.0" />
                                        </VBox.margin>
@@ -119,7 +128,7 @@
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Room:" />
-                                          <JFXTextField fx:id="roomField" styleClass="lightInput">
+                                          <JFXTextField fx:id="room" styleClass="lightInput">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin>
@@ -128,8 +137,8 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Religion:" />
-                                          <JFXTextField fx:id="religion" styleClass="lightInput">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Type:" />
+                                          <JFXTextField fx:id="type" styleClass="lightInput">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin>
@@ -138,8 +147,8 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Request:" />
-                                          <JFXTextArea fx:id="requestText" styleClass="lightInput">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Notes:" />
+                                          <JFXTextArea fx:id="notes" styleClass="lightInput">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin>
@@ -148,17 +157,15 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Possessed?" />
-                                          <JFXCheckBox fx:id="possession" text=" ">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Emergency" />
+                                          <JFXCheckBox fx:id="emergency" text=" ">
                                              <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </JFXCheckBox>
-                                       </children>
-                                    </HBox>
+                                                <Insets left="10.0" />
+                                             </HBox.margin></JFXCheckBox>
+                                       </children></HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onMouseClicked="#makeServiceRequest" text="SUBMIT REQUEST">
+                                          <Button mnemonicParsing="false" onAction="#makeSecurityRequest" text="SUBMIT REQUEST">
                                              <styleClass>
                                                 <String fx:value="blackButton" />
                                                 <String fx:value="requestButton" />

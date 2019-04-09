@@ -3,7 +3,7 @@ package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import sun.reflect.annotation.ExceptionProxy;
+
 
 import javax.imageio.ImageIO;
 import java.awt.*;

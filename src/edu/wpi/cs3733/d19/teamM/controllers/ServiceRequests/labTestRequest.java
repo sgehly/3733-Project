@@ -1,50 +1,44 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import org.controlsfx.control.textfield.TextFields;
 
-import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SanitationRequest implements Initializable {
-
-
-
-    @FXML
-    private TextField typeofmess;
-
-    //Text field for room location input
-    @FXML
-    private TextField room;
-
-    @FXML
-    private JFXCheckBox hazard;
-
-    //Text field for additional specifications
-    @FXML
-    private javafx.scene.control.TextArea notes;
-
-    @FXML
-    private Button submitReuqest;
-
-
-    @FXML
-    private javafx.scene.control.Label lblClock;
-
-    @FXML
-    private javafx.scene.control.Label lblDate;
+public class labTestRequest implements Initializable {
 
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
      * @throws Exception: Any exception that is encountered
      */
+
+    @FXML
+    private JFXTextField roomField;
+
+    @FXML
+    private JFXTextField testType;
+
+    @FXML
+    private JFXTextArea requestText;
+
+    @FXML
+    private JFXCheckBox urgent;
+
+    @FXML
+    Label lblClock;
+
+    @FXML
+    private Label lblDate;
+
     @FXML
     public void logout() throws Exception {
         Main.setScene("welcome");
@@ -60,20 +54,23 @@ public class SanitationRequest implements Initializable {
     }
 
     @FXML
-    public void makeSanitationReqeust() throws IOException {
-        new ServiceRequests().makeRequest("sanitation", room.getText(), typeofmess.getText(), notes.getText(), hazard.isSelected());
+    private void goToServiceRequestsList() throws Exception {
+        Main.setScene("serviceRequests");
+    }
 
+    @FXML
+    private void makeServiceRequest() throws Exception {
+        new ServiceRequests().makeRequest("laboratory", roomField.getText(), testType.getText(), requestText.getText(), urgent.isSelected());
     }
     @FXML
     private void goToList() throws Exception {
         Main.setScene("serviceRequestsList");
     }
-
-
-    @Override
+    @FXML
     public void initialize(URL location, ResourceBundle resources) {
 
         new Clock(lblClock, lblDate);
 
     }
+
 }

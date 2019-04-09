@@ -4,40 +4,39 @@ import com.jfoenix.controls.JFXCheckBox;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import org.controlsfx.control.textfield.TextFields;
 
 import java.awt.*;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class ITRequests implements Initializable {
+public class PrescriptionRequest {
 
     @FXML
-    private TextField typeOfEquipment;
+    Label lblClock;
+
+    @FXML
+    private Label lblDate;
+
+    //Tesxt Field for flower type input
+    @FXML
+    private TextField fillId;
+
 
     //Text field for room location input
     @FXML
     private TextField room;
 
-    @FXML
-    private JFXCheckBox urgent;
 
-    //Text field for additional specifications
     @FXML
     private javafx.scene.control.TextArea notes;
 
+
+    @FXML
+    private JFXCheckBox urgent;
+
     @FXML
     private Button submitReuqest;
-
-    @FXML
-    private javafx.scene.control.Label lblClock;
-
-    @FXML
-    private javafx.scene.control.Label lblDate;
 
     @FXML
     public void logout() throws Exception {
@@ -49,9 +48,11 @@ public class ITRequests implements Initializable {
         Main.setScene("serviceRequests");
     }
 
+
     @FXML
-    public void makeItRequest() throws IOException {
-        new ServiceRequests().makeRequest("it", room.getText(), typeOfEquipment.getText(), notes.getText(), urgent.isSelected());
+    public void makePrescriptionReqeust() throws IOException {
+        new ServiceRequests().makeRequest("prescriptions", room.getText(), fillId.getText(), notes.getText(), urgent.isSelected());
+
     }
 
     @FXML
@@ -59,9 +60,8 @@ public class ITRequests implements Initializable {
         Main.setScene("serviceRequestsList");
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        Clock clock = new Clock(lblClock, lblDate);
+    @FXML
+    private void initialize(){
+        new Clock(lblClock, lblDate);
     }
 }

@@ -24,7 +24,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ReligiousRequests">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.PrescriptionRequest">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -101,82 +101,81 @@
                             <VBox.margin>
                                 <Insets />
                             </VBox.margin>
-                     <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="pane" VBox.vgrow="ALWAYS">
-                           <children>
-                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <ImageView fitHeight="250.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../../../../resources/icons/religious.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Religious Requests">
-                                       <VBox.margin>
-                                          <Insets top="20.0" />
-                                       </VBox.margin>
-                                    </Text>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="pane" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <ImageView fitHeight="250.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../../../../../../resources/icons/doctor.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Prescription Request">
+                                                    <VBox.margin>
+                                                        <Insets top="20.0" />
+                                                    </VBox.margin>
+                                                </Text>
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Room:" />
+                                                        <JFXTextField fx:id="room" styleClass="lightInput">
+                                                            <HBox.margin>
+                                                                <Insets left="20.0" />
+                                                            </HBox.margin>
+                                                        </JFXTextField>
+                                                    </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Fill ID" />
+                                                        <JFXTextField fx:id="fillId" styleClass="lightInput">
+                                                            <HBox.margin>
+                                                                <Insets left="20.0" />
+                                                            </HBox.margin>
+                                                        </JFXTextField>
+                                                    </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Comments" />
+                                                        <JFXTextArea fx:id="notes" styleClass="lightInput">
+                                                            <HBox.margin>
+                                                                <Insets left="20.0" />
+                                                            </HBox.margin>
+                                                        </JFXTextArea>
+                                                    </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Room:" />
-                                          <JFXTextField fx:id="roomField" styleClass="lightInput">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Urgent ">
                                              <HBox.margin>
-                                                <Insets left="20.0" />
+                                                <Insets right="10.0" />
                                              </HBox.margin>
-                                          </JFXTextField>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Religion:" />
-                                          <JFXTextField fx:id="religion" styleClass="lightInput">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </JFXTextField>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Request:" />
-                                          <JFXTextArea fx:id="requestText" styleClass="lightInput">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </JFXTextArea>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Possessed?" />
-                                          <JFXCheckBox fx:id="possession" text=" ">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </JFXCheckBox>
-                                       </children>
-                                    </HBox>
-                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                       <children>
-                                          <Button mnemonicParsing="false" onMouseClicked="#makeServiceRequest" text="SUBMIT REQUEST">
-                                             <styleClass>
-                                                <String fx:value="blackButton" />
-                                                <String fx:value="requestButton" />
-                                             </styleClass>
-                                          </Button>
-                                          <Button mnemonicParsing="false" onMouseClicked="#goToList" text="VIEW REQUESTS">
-                                             <styleClass>
-                                                <String fx:value="blackButton" />
-                                                <String fx:value="requestButton" />
-                                             </styleClass>
-                                          </Button>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </AnchorPane>
-                     </children>
+                                          </Text>
+                                          <JFXCheckBox fx:id="urgent" text=" " />
+                                       </children></HBox>
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                                    <children>
+                                                        <Button fx:id="submitReqeust" mnemonicParsing="false" onAction="#makePrescriptionReqeust" text="SUBMIT REQUEST">
+                                                            <styleClass>
+                                                                <String fx:value="blackButton" />
+                                                                <String fx:value="requestButton" />
+                                                            </styleClass>
+                                                        </Button>
+                                                        <Button mnemonicParsing="false" onMouseClicked="#goToList" text="VIEW REQUESTS">
+                                                            <styleClass>
+                                                                <String fx:value="blackButton" />
+                                                                <String fx:value="requestButton" />
+                                                            </styleClass>
+                                                        </Button>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </AnchorPane>
+                            </children>
                         </VBox>
                     </children>
                 </VBox>

@@ -4,34 +4,36 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
-import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-public class ReligiousRequests {
+
+public class ExternalTransportRequest {
+
+    /**
+     * This method is for the logout button which allows the user to go back to the welcome screen
+     * @throws Exception: Any exception that is encountered
+     */
 
     @FXML
-    JFXTextField roomField;
+    private JFXTextField roomField;
 
     @FXML
-    JFXTextField religion;
+    private JFXTextField vehicle;
 
     @FXML
-    JFXTextArea requestText;
+    private JFXTextArea requestText;
 
     @FXML
-    JFXCheckBox possession;
+    private JFXCheckBox urgent;
+
 
     @FXML
     Label lblClock;
 
     @FXML
     private Label lblDate;
-
-    /**
-     * This method is for the logout button which allows the user to go back to the welcome screen
-     * @throws Exception: Any exception that is encountered
-     */
 
     @FXML
     public void logout() throws Exception {
@@ -48,13 +50,13 @@ public class ReligiousRequests {
     }
 
     @FXML
-    private void initialize(){
-        new Clock(lblClock, lblDate);
+    private void goToServiceRequestsList() throws Exception {
+        Main.setScene("serviceRequests");
     }
 
     @FXML
-    private void goToServiceRequestsList() throws Exception {
-        Main.setScene("serviceRequests");
+    private void makeServiceRequest() throws Exception {
+        new ServiceRequests().makeRequest("external", roomField.getText(), vehicle.getText(), requestText.getText(), urgent.isSelected());
     }
     @FXML
     private void goToList() throws Exception {
@@ -62,8 +64,8 @@ public class ReligiousRequests {
     }
 
     @FXML
-    private void makeServiceRequest() throws Exception {
-        new ServiceRequests().makeRequest("religion", roomField.getText(), religion.getText(), requestText.getText(), possession.isSelected());
+    private void initialize(){
+        new Clock(lblClock, lblDate);
     }
 
 }
