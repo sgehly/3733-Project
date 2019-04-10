@@ -33,6 +33,8 @@ public class ExternalTransportRequest {
     @FXML
     private JFXCheckBox urgent;
 
+    @FXML
+    private Text errorMessage;
 
     @FXML
     Label lblClock;
@@ -61,8 +63,22 @@ public class ExternalTransportRequest {
 
     @FXML
     private void makeServiceRequest() throws Exception {
-        new ServiceRequests().makeRequest("external", roomField.getText(), vehicle.getText(), requestText.getText(), urgent.isSelected());
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("You didn't answer all the required fields.");
+                throw e;
+            }
+            new ServiceRequests().makeRequest("external", roomField.getText(), vehicle.getText(), requestText.getText(), urgent.isSelected());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    private boolean areFieldsEmpty() {
+        return roomField.getText().isEmpty() || vehicle.getText().isEmpty();
+    }
+
     @FXML
     private void goToList() throws Exception {
         Main.setScene("serviceRequestsList");

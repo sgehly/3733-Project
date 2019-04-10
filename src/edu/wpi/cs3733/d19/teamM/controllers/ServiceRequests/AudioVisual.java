@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -26,8 +27,10 @@ import java.util.ResourceBundle;
 public class AudioVisual implements Initializable {
 
 
-    String[] audioVis = {"Headphones","Speakers","Radio","TV","Camera"};
+    String[] audioVis = {"Headphones", "Speakers", "Radio", "TV", "Camera"};
 
+    @FXML
+    private Text errorMessage;
 
     //Tesxt Field for audio/visual type input
     @FXML
@@ -59,6 +62,7 @@ public class AudioVisual implements Initializable {
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
+     *
      * @throws Exception: Any exception that is encountered
      */
     @FXML
@@ -68,6 +72,7 @@ public class AudioVisual implements Initializable {
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
+     *
      * @throws Exception: Any exception that is encountered
      */
     @FXML
@@ -77,14 +82,29 @@ public class AudioVisual implements Initializable {
 
     /**
      * This method allows the user to create a flowers request using the button
+     *
      * @param : The action that is associated with making the flowers request
      */
 
     @FXML
     public void makeAudioVisRequest() throws IOException {
-        new ServiceRequests().makeRequest("av", room.getText(), audioVisType.getText(), notes.getText(), pickUp.isSelected());
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("You didn't answer all the required fields.");
+                throw e;
+            }
+            new ServiceRequests().makeRequest("av", room.getText(), audioVisType.getText(), notes.getText(), pickUp.isSelected());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
+
+    private boolean areFieldsEmpty() {
+        return audioVisType.getText().isEmpty() || room.getText().isEmpty();
+    }
+
     @FXML
     private void goToList() throws Exception {
         Main.setScene("serviceRequestsList");
@@ -93,7 +113,7 @@ public class AudioVisual implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        TextFields.bindAutoCompletion(audioVisType,audioVis);
+        TextFields.bindAutoCompletion(audioVisType, audioVis);
 
         Clock clock = new Clock(lblClock, lblDate);
 

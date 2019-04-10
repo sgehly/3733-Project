@@ -394,6 +394,10 @@ public class ServiceRequestsList {
             System.out.println(this.getRequestFromTable("incomplete"));
             Main.setScene("giftReportTemplate");
         }
+        else if(nextPage.equals("external")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("extTransportReportTemplate");
+        }
         System.out.println("yo: " + this.getRequestFromTable("incomplete"));
     }
 

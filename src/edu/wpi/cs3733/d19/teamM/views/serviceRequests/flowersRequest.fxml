@@ -155,6 +155,11 @@
                                              </HBox.margin>
                                           </JFXCheckBox>
                                        </children></HBox>
+                                    <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Text>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
                                           <Button fx:id="submitRequest" mnemonicParsing="false" onAction="#makeFlowersRequest" text="SUBMIT REQUEST">
@@ -162,6 +167,9 @@
                                                 <String fx:value="blackButton" />
                                                 <String fx:value="requestButton" />
                                              </styleClass>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
                                           </Button>
                                           <Button mnemonicParsing="false" onMouseClicked="#goToList" text="VIEW REQUESTS">
                                              <styleClass>
@@ -170,6 +178,9 @@
                                              </styleClass>
                                           </Button>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
                                     </HBox>
                                  </children>
                               </VBox>
