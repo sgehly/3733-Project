@@ -326,6 +326,18 @@ public class ServiceRequestsList {
             Main.setScene("serviceRequestReports/sanitationReportTemplate");
         }
 
+        if(nextPage.equals("it")) {
+            Main.setScene("serviceRequestReports/ITReportTemplate");
+        }
+
+        if(nextPage.equals("prescriptions")) {
+            Main.setScene("serviceRequestReports/prescriptionReportTemplate");
+        }
+
+        if(nextPage.equals("internal")) {
+            Main.setScene("serviceRequestReports/IntTransportReportTemplate");
+        }
+
 
     }
 
@@ -336,6 +348,10 @@ public class ServiceRequestsList {
         } else if (nextPage.equals("sanitation")) {
             System.out.println(this.getRequestFromTable("incomplete"));
             Main.setScene("sanitationReportTemplate");
+        }
+        else if(nextPage.equals("prescription")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("prescriptionReportTemplate");
         }
         System.out.println("yo: " + this.getRequestFromTable("incomplete"));
     }
