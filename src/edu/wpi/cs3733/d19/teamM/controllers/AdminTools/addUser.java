@@ -129,7 +129,7 @@ public class addUser {
     void navigateToHome(MouseEvent event) {
         if (webcam != null)
             webcam.close();
-        Main.setScene("home");
+        Main.setScene("adminUI");
     }
 
     @FXML
@@ -206,16 +206,23 @@ public class addUser {
     @FXML
     void initialize() {
         System.out.println("123");
-        if (Webcam.getDefault() != null) {
-            webcam = Webcam.getDefault();
-            webcam.open();
-            webcamPanel = new WebcamPanel(webcam, false);
-            pane.getChildren().add(swingNode);
-            createSwingContent(swingNode);
-        } else {
-            errorMessage.setText("No Webcam Found, Resart");
-            errorMessage.setStyle("-fx-text-inner-color: red;");
+        /*try{
+            if (Webcam.getDefault() != null) {
+                System.out.println("Trying...");
+                webcam = Webcam.getDefault();
+                webcam.open();
+                webcamPanel = new WebcamPanel(webcam, false);
+                pane.getChildren().add(swingNode);
+                createSwingContent(swingNode);
+            } else {
+                errorMessage.setText("No Webcam Found, Resart");
+                errorMessage.setStyle("-fx-text-inner-color: red;");
+            }
         }
+        catch(Exception e){
+            e.printStackTrace();
+        }*/
+
         new Clock(lblClock, lblDate);
 
         userText.setText(User.getUsername());

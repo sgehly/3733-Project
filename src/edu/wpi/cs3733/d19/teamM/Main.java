@@ -178,7 +178,6 @@ public class Main extends Application {
         System.out.println(Main.getResourceFromRoot("resources/palatino-linotype/palab.ttf").toString());
         Font.loadFont(Main.getResourceFromRoot("resources/palatino-linotype/palab.ttf"), 10);
         Font.loadFont(Main.getResourceFromRoot("resources/palatino-linotype/pala.ttf"), 10);
-
         //Get the main parent scene and load the FXML
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene mainScene = new Scene(root);

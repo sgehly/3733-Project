@@ -47,6 +47,7 @@ dependencies {
 // https://mvnrepository.com/artifact/com.github.sarxos/webcam-capture
     compile group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.4'
     compile group: 'com.github.sarxos', name: 'webcam-capture-driver-jmf', version: '0.3.11'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
