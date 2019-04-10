@@ -85,37 +85,40 @@ public class ServiceRequestsList {
     private TableView requestsInProgress = new TableView(); // Value injected by FXMLLoader
 
     @FXML
-    private TableColumn<DisplayTable,Integer> RIPIdCol = new TableColumn("id");
+    private TableColumn<DisplayTable, Integer> RIPIdCol = new TableColumn("id");
     @FXML
-    private TableColumn<DisplayTable,String> RIPTypeCol = new TableColumn("type");
+    private TableColumn<DisplayTable, String> RIPTypeCol = new TableColumn("type");
     @FXML
-    private TableColumn<DisplayTable,String> RIPRoomCol = new TableColumn("room");
+    private TableColumn<DisplayTable, String> RIPRoomCol = new TableColumn("room");
     @FXML
-    private TableColumn<DisplayTable,String> RIPSubTypeCol = new TableColumn("subType");
+    private TableColumn<DisplayTable, String> RIPSubTypeCol = new TableColumn("subType");
     @FXML
-    private TableColumn<DisplayTable,String> RIPDescCol = new TableColumn("description");
+    private TableColumn<DisplayTable, String> RIPDescCol = new TableColumn("description");
     @FXML
-    private TableColumn<DisplayTable,Integer> RIPCheckboxCol = new TableColumn("checkbox");
+    private TableColumn<DisplayTable, Integer> RIPCheckboxCol = new TableColumn("checkbox");
 
 
     //table and columns for request log table.
     @FXML
     private TableView requestsCompleted = new TableView();
     @FXML
-    private TableColumn<DisplayTable,Integer> RCIdCol = new TableColumn("id");
+    private TableColumn<DisplayTable, Integer> RCIdCol = new TableColumn("id");
     @FXML
-    private TableColumn<DisplayTable,String> RCTypeCol = new TableColumn("type");
+    private TableColumn<DisplayTable, String> RCTypeCol = new TableColumn("type");
     @FXML
-    private TableColumn<DisplayTable,String> RCRoomCol = new TableColumn("room");
+    private TableColumn<DisplayTable, String> RCRoomCol = new TableColumn("room");
     @FXML
-    private TableColumn<DisplayTable,String> RCSubTypeCol = new TableColumn("subType");
+    private TableColumn<DisplayTable, String> RCSubTypeCol = new TableColumn("subType");
     @FXML
-    private TableColumn<DisplayTable,String> RCDescCol = new TableColumn("description");
+    private TableColumn<DisplayTable, String> RCDescCol = new TableColumn("description");
     @FXML
-    private TableColumn<DisplayTable,Integer> RCCheckboxCol = new TableColumn("checkbox");
+    private TableColumn<DisplayTable, Integer> RCCheckboxCol = new TableColumn("checkbox");
     @FXML
-    private TableColumn<DisplayTable,String> RCFilledByCol = new TableColumn("filledBy");
+    private TableColumn<DisplayTable, String> RCFilledByCol = new TableColumn("filledBy");
 
+
+    @FXML
+    private Button fulfill;
 
     @FXML
     private TextField FilledBy;
@@ -127,15 +130,21 @@ public class ServiceRequestsList {
     @FXML
     private JFXComboBox dropdown;
 
+
+    @FXML
+    private JFXComboBox usersDropDown;
+
+
     /**
      * Default method to delete a request
+     *
      * @param event: based on mouse input
      */
     @FXML
-    void deleteRequest(ActionEvent event){
+    void deleteRequest(ActionEvent event) {
         //delete a request
 
-        if(requestsInProgress.getFocusModel().getFocusedIndex() >= 0){
+        if (requestsInProgress.getFocusModel().getFocusedIndex() >= 0) {
             String query = "DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
             try {
                 Connection conn = new DatabaseUtils().getConnection();
@@ -151,14 +160,13 @@ public class ServiceRequestsList {
                 requestsInProgress.getSelectionModel().clearSelection();
                 requestsCompleted.getSelectionModel().clearSelection();
 
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Error while trying to fetch all records");
                 e.printStackTrace();
             }
         }
 
-        if(requestsCompleted.getFocusModel().getFocusedIndex() >= 0) {
+        if (requestsCompleted.getFocusModel().getFocusedIndex() >= 0) {
             String query = "DELETE FROM REQUESTLOG Where REQUESTID = ?";
             try {
                 Connection conn = new DatabaseUtils().getConnection();
@@ -172,8 +180,7 @@ public class ServiceRequestsList {
 
                 this.initWithType(this.currentTab);
 
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Error while trying to fetch all records");
                 e.printStackTrace();
                 requestsInProgress.getSelectionModel().clearSelection();
@@ -183,33 +190,51 @@ public class ServiceRequestsList {
 
     }
 
+    //TODO on request form list employees that can handle them
     @FXML
-    void disengageComplete(){
+    void disengageComplete() {
+        try {
+            int temp = 0;
+            String query = "SELECT * FROM USERS Where USERNAME = ?";
+            Connection conn = new DatabaseUtils().getConnection();
+            PreparedStatement s = conn.prepareStatement(query);
+            s.setString(1, (String) usersDropDown.getSelectionModel().getSelectedItem());
+            ResultSet rs = s.executeQuery();
+            while(rs.next()){
+                temp = rs.getInt("ACCOUNTINT");
+            }
+            if (getRequestFromTable("incomplete").equals("sanitation") && temp != 1 && User.getPrivilege() != 100)
+                fulfill.setDisable(true);
+            else if (getRequestFromTable("incomplete").equals("language") && temp != 2 && User.getPrivilege() != 100)
+                fulfill.setDisable(true);
+            else
+                fulfill.setDisable(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         requestsCompleted.getSelectionModel().clearSelection();
     }
 
     @FXML
-    void disengageInProgress(){
+    void disengageInProgress() {
         requestsInProgress.getSelectionModel().clearSelection();
     }
 
     private String getIdFromTable(String table) {
-        if(table.equals("incomplete")) {
+        if (table.equals("incomplete")) {
             ObservableValue<Integer> id = RIPIdCol.getCellObservableValue(requestsInProgress.getSelectionModel().getFocusedIndex());
             return Integer.toString(id.getValue());
-        }
-        else{
+        } else {
             ObservableValue<Integer> id = RCIdCol.getCellObservableValue(requestsCompleted.getSelectionModel().getFocusedIndex());
             return Integer.toString(id.getValue());
         }
     }
 
-    private String getRequestFromTable(String table){
-        if(table.equals("incomplete")){
+    private String getRequestFromTable(String table) {
+        if (table.equals("incomplete")) {
             ObservableValue<String> id = RIPTypeCol.getCellObservableValue(requestsInProgress.getSelectionModel().getFocusedIndex());
             return id.getValue();
-        }
-        else{
+        } else {
             ObservableValue<String> id = RCTypeCol.getCellObservableValue(requestsCompleted.getSelectionModel().getFocusedIndex());
             return id.getValue();
         }
@@ -217,6 +242,7 @@ public class ServiceRequestsList {
 
     /**
      * The method that helps create the service request
+     *
      * @param event: Takes in the event of clicking the button
      * @throws IOException: Any errors that occur with the selection or other aspects
      */
@@ -227,28 +253,32 @@ public class ServiceRequestsList {
 
     /**
      * This method is linked to the button that allows the individuals to return to the home screen
+     *
      * @throws Exception: Any exception that arises as the person tries to go back to the screen
      */
     @FXML
-    private void navigateToHome() throws Exception{
+    private void navigateToHome() throws Exception {
         Main.setScene("home");
     }
 
     /**
      * This method is linked to the button that allows the individuals to return to the welcome screen
+     *
      * @throws Exception: Any exception that arises as the person tries to go back to the screen
      */
     @FXML
-    public void logout() throws Exception{
+    public void logout() throws Exception {
         Main.setScene("welcome");
     }
 
     /**
      * Method that is linked to button that allows individual to mark their service request as completed
+     *
      * @param event
      */
     @FXML
-    void markAsComplete(ActionEvent event) throws ClassNotFoundException{
+    void markAsComplete(ActionEvent event) throws ClassNotFoundException {
+        fulfill.setDisable(true);
         //move to complete table
         String query1 = "INSERT INTO REQUESTLOG (REQUESTID, TYPE, ROOM, SUBTYPE, DESCRIPTION, CHECKBOX, DATE, FINISHED_BY) SELECT REQUESTID, TYPE, ROOM, SUBTYPE, DESCRIPTION, CHECKBOX, DATE, FINISHED_BY from REQUESTINPROGRESS where REQUESTID = ?";
         String query2 = " UPDATE REQUESTLOG SET FINISHED_BY = ? WHERE REQUESTID = ?";
@@ -257,7 +287,7 @@ public class ServiceRequestsList {
         String nextPage = getRequestFromTable("incomplete");
         System.out.println("this is shit:" + getRequestFromTable("incomplete"));
 
-        if(requestsInProgress.getFocusModel().getFocusedIndex() == -1) return;
+        if (requestsInProgress.getFocusModel().getFocusedIndex() == -1) return;
 
         try {
             Connection conn = new DatabaseUtils().getConnection();
@@ -269,7 +299,7 @@ public class ServiceRequestsList {
 
             //add the name of the person that got it done
             PreparedStatement st = conn.prepareStatement(query2);
-            st.setString(1, User.getUsername());
+            st.setString(1, (String) usersDropDown.getSelectionModel().getSelectedItem());
             st.setString(2, this.getIdFromTable("incomplete"));
             st.executeUpdate();
             System.out.println("inserted into db");
@@ -282,36 +312,88 @@ public class ServiceRequestsList {
             //stmt.setString(6,FilledBy.getText());
             conn.close();
             this.initWithType(this.currentTab);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Error while trying to fetch all records");
             e.printStackTrace();
         }
-        if(nextPage.equals("interpreter")){
-            Main.setScene("languageReportTemplate");
+
+        if (nextPage.equals("interpreter")) {
+            Main.setScene("serviceRequestReports/languageReportTemplate");
         }
 
-        if(nextPage.equals("sanitation")) {
-            Main.setScene("sanitationReportTemplate");
+        if (nextPage.equals("sanitation")) {
+            Main.setScene("serviceRequestReports/sanitationReportTemplate");
         }
 
+        if(nextPage.equals("it")) {
+            Main.setScene("serviceRequestReports/ITReportTemplate");
+        }
 
+        if(nextPage.equals("prescriptions")) {
+            Main.setScene("serviceRequestReports/prescriptionReportTemplate");
+        }
+
+        if(nextPage.equals("internal")) {
+            Main.setScene("serviceRequestReports/IntTransportReportTemplate");
+        }
+
+        if(nextPage.equals("flowers")) {
+            Main.setScene("serviceRequestReports/flowersReportTemplate");
+        }
+        if(nextPage.equals("religion")) {
+            Main.setScene("serviceRequestReports/religiousReportTemplate");
+        }
+        if(nextPage.equals("security")) {
+            Main.setScene("serviceRequestReports/securityReportTemplate");
+        }
+        if(nextPage.equals("gift")) {
+            Main.setScene("serviceRequestReports/giftReportTemplate");
+        }
+        if(nextPage.equals("av")) {
+            Main.setScene("serviceRequestReports/aVReportTemplate");
+        }
+        if(nextPage.equals("external")) {
+            Main.setScene("serviceRequestReports/extTransportReportTemplate");
+        }
+        if(nextPage.equals("laboratory")) {
+            Main.setScene("serviceRequestReports/laboratoryReportTemplate");
+        }
     }
 
     private void goToProperReport(String nextPage) {
-        if(nextPage.equals("interpreter")){
+        if (nextPage.equals("interpreter")) {
             System.out.println(this.getRequestFromTable("incomplete"));
             Main.setScene("languageReportTemplate");
-        }
-        else if(nextPage.equals("sanitation")) {
+        } else if (nextPage.equals("sanitation")) {
             System.out.println(this.getRequestFromTable("incomplete"));
             Main.setScene("sanitationReportTemplate");
+        }
+        else if(nextPage.equals("prescription")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("prescriptionReportTemplate");
+        }
+        else if(nextPage.equals("flowers")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("flowersReportTemplate");
+        }
+        else if(nextPage.equals("religion")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("religiousReportTemplate");
+        }
+        else if(nextPage.equals("security")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("securityReportTemplate");
+        }
+        else if(nextPage.equals("gift")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("giftReportTemplate");
         }
         System.out.println("yo: " + this.getRequestFromTable("incomplete"));
     }
 
     /**
      * This method gets the current objects from the DatabaseUtils and returns it as an Observable List
+     *
      * @param rs: The corresponding result set
      * @return ObservableList<DisplayTable>: A list with displayable tables to view in the UI the database entries for the service requests
      * @throws SQLException: Any SQL errors that might occur while trying to get the service requests
@@ -342,16 +424,17 @@ public class ServiceRequestsList {
 
     /**
      * This method gets all the records from the database so that they can be added to the display on the screen
+     *
      * @return ObservableList<DisplayTable>: The List of records that we want to actually display on the screen from the service requests
      * @throws ClassNotFoundException: If classes are not found
-     * @throws SQLException: Any issues with the database
+     * @throws SQLException:           Any issues with the database
      */
     public ObservableList<DisplayTable> getAllRecords(String type, String table) throws ClassNotFoundException, SQLException {
         //Get the query from the database
-        String query = "SELECT * FROM "+table;
+        String query = "SELECT * FROM " + table;
 
-        if(type != "all"){
-            query += " WHERE TYPE='"+type+"'";
+        if (type != "all") {
+            query += " WHERE TYPE='" + type + "'";
         }
 
         try {
@@ -371,7 +454,7 @@ public class ServiceRequestsList {
     }
 
     @FXML
-    private void exportInProgress(ActionEvent event) throws SQLException,ClassNotFoundException{
+    private void exportInProgress(ActionEvent event) throws SQLException, ClassNotFoundException {
         System.out.println("in print");
         String filename = "RequestInProgress.csv";
         try {
@@ -409,12 +492,12 @@ public class ServiceRequestsList {
     }
 
     @FXML
-    private void navigateToReport() throws Exception{
+    private void navigateToReport() throws Exception {
         Main.setScene("generateReport");
     }
 
     @FXML
-    private void exportComplete(ActionEvent event) throws SQLException,ClassNotFoundException{
+    private void exportComplete(ActionEvent event) throws SQLException, ClassNotFoundException {
         System.out.println("in print");
         String filename = "CompletedRequestxs.csv";
         try {
@@ -452,10 +535,9 @@ public class ServiceRequestsList {
     }
 
 
+    private void initWithType(int index) {
 
-    private void initWithType(int index){
-
-        String identifiers[] = new String[] {"all","sanitation","interpreter","it", "av","gift", "flowers", "internal", "external", "religion", "security", "prescriptions","laboratory"};
+        String identifiers[] = new String[]{"all", "sanitation", "interpreter", "it", "av", "gift", "flowers", "internal", "external", "religion", "security", "prescriptions", "laboratory"};
         String identifier = identifiers[index];
 
         try {
@@ -466,12 +548,12 @@ public class ServiceRequestsList {
             requestsCompleted.setItems(completedItems);
 
 
-            if(index > 0){
+            if (index > 0) {
                 String subTypeLabel = "";
                 String descLabel = "";
                 String checkboxLabel = "";
 
-                switch(identifier){
+                switch (identifier) {
                     case "religion":
                         subTypeLabel = "Religion";
                         descLabel = "Request";
@@ -538,7 +620,6 @@ public class ServiceRequestsList {
 
                 }
 
-
                 RIPSubTypeCol.setText(subTypeLabel);
                 RIPDescCol.setText(descLabel);
                 RIPCheckboxCol.setText(checkboxLabel);
@@ -546,7 +627,7 @@ public class ServiceRequestsList {
                 RCSubTypeCol.setText(subTypeLabel);
                 RCDescCol.setText(descLabel);
                 RCCheckboxCol.setText(checkboxLabel);
-            }else{
+            } else {
                 RIPSubTypeCol.setText("");
                 RIPDescCol.setText("");
                 RIPCheckboxCol.setText("");
@@ -555,8 +636,7 @@ public class ServiceRequestsList {
                 RCDescCol.setText("");
                 RCCheckboxCol.setText("");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -567,6 +647,23 @@ public class ServiceRequestsList {
 
     @FXML
     void initialize() {
+
+
+        ObservableList<String> uDropDown = FXCollections.observableArrayList();
+        try {
+            Connection conn = new DatabaseUtils().getConnection();
+            String query = "SELECT * From USERS";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                uDropDown.add(rs.getString(1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        usersDropDown.setItems(uDropDown);
+
         requestsInProgress.getSelectionModel().clearSelection();
         requestsCompleted.getSelectionModel().clearSelection();
 
@@ -574,8 +671,9 @@ public class ServiceRequestsList {
 
         userText.setText(User.getUsername());
 
-        ObservableList<String> dropdownList = FXCollections.observableArrayList();;
-        dropdownList.setAll("All","Sanitation","Interpreter","IT Service", "AV Service","Gift Shop", "Florist", "Internal Transport", "External Transport", "Religious", "Security", "Prescriptions","Lab test");
+        ObservableList<String> dropdownList = FXCollections.observableArrayList();
+        ;
+        dropdownList.setAll("All", "Sanitation", "Interpreter", "IT Service", "AV Service", "Gift Shop", "Florist", "Internal Transport", "External Transport", "Religious", "Security", "Prescriptions", "Lab test");
 
         dropdown.setItems(dropdownList);
         dropdown.getSelectionModel().select("All");
@@ -605,14 +703,13 @@ public class ServiceRequestsList {
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
+     *
      * @throws Exception: Any exception that is encountered
      */
     @FXML
     private void navigateBack() throws Exception {
         Main.setScene("serviceRequests");
     }
-
-
 
 
 }

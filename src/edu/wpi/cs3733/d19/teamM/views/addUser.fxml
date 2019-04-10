@@ -17,17 +17,33 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" stylesheets="@/resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.AdminTools.addUser">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.AdminTools.addUser">
     <children>
+      <StackPane fx:id="pane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+                    <AnchorPane>
+               <children>
+                            <ImageView fx:id="image" fitHeight="500.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+                    </AnchorPane>
+            <Pane prefHeight="200.0" prefWidth="200.0" />
+         </children>
+      </StackPane>
+      <ImageView fx:id="tempPhoto" fitHeight="100.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../../../../../resources/bg.png" />
+         </image>
+      </ImageView>
           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" style="-fx-background-color: rgba(1,45,90,1);" VBox.vgrow="NEVER">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0" style="-fx-background-color: rgba(1,45,90,0.9);" VBox.vgrow="NEVER">
                       <children>
                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
                         <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true" styleClass="hoverIcon">
                            <image>
-                              <Image url="@../../../../../../resources/icons/icons8-home.png" />
+                              <Image url="@../../../../../../resources/icons/icons8-circled_left_2.png" />
                            </image>
                         </ImageView>
                                   <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
@@ -86,20 +102,28 @@
                           </HBox>
                       </children>
                       <VBox.margin>
-                          <Insets left="50.0" right="50.0" top="5.0" />
+                          <Insets />
                       </VBox.margin>
                <padding>
-                  <Insets bottom="20.0" />
+                  <Insets bottom="20.0" left="50.0" right="50.0" top="5.0" />
                </padding>
                   </HBox>
-                  <HBox fx:id="imageView" alignment="CENTER" VBox.vgrow="ALWAYS">
+                  <HBox fx:id="imageView" alignment="CENTER" style="-fx-background-color: rgba(1,45,90,0.9);" VBox.vgrow="ALWAYS">
                       <children>
-                          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: #001933;">
+                          <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" styleClass="pane" HBox.hgrow="ALWAYS">
                               <children>
-                                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Add/Modify User">
+                        <ImageView fitHeight="200.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../resources/icons/user.png" />
+                           </image>
+                        </ImageView>
+                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Add/Modify User">
                                       <font>
                                           <Font name="Open Sans Bold" size="42.0" />
                                       </font>
+                           <VBox.margin>
+                              <Insets bottom="20.0" top="50.0" />
+                           </VBox.margin>
                                   </Text>
                         <GridPane prefHeight="344.0" prefWidth="500.0">
                           <columnConstraints>
@@ -108,8 +132,8 @@
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="66.2235107421875" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="71.7764892578125" minHeight="10.0" prefHeight="71.7764892578125" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
@@ -117,20 +141,21 @@
                               <Insets />
                            </VBox.margin>
                            <children>
-                              <TextField fx:id="username" GridPane.columnIndex="1" />
-                              <TextField fx:id="newPassword" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="confirmPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <TextField fx:id="username" styleClass="lightInput" GridPane.columnIndex="1" />
+                              <TextField fx:id="newPassword" styleClass="lightInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="confirmPassword" styleClass="lightInput" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="userType" styleClass="lightInput" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Username" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="New Password" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Text>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm Password" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Confirm Password" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
@@ -139,40 +164,31 @@
                                  <font>
                                     <Font size="25.0" />
                                  </font></Text>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="User Type" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="User Type" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Text>
-                              <TextField fx:id="userType" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
+                           <padding>
+                              <Insets left="500.0" right="500.0" />
+                           </padding>
                         </GridPane>
-                        <HBox prefHeight="50.0" prefWidth="434.0" spacing="5.0" VBox.vgrow="NEVER">
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="434.0" spacing="5.0" VBox.vgrow="NEVER">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#addUser" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Add" />
-                              <Button mnemonicParsing="false" onAction="#removeUser" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Remove" />
+                              <Button mnemonicParsing="false" onAction="#addUser" prefHeight="50.0" prefWidth="400.0" styleClass="blackButton" text="ADD USER" />
+                              <Button mnemonicParsing="false" onAction="#removeUser" prefHeight="50.0" prefWidth="400.0" styleClass="blackButton" text="REMOVE USER" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="30.0" left="37.0" right="29.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="50.0" prefWidth="434.0" spacing="5.0">
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="434.0" spacing="5.0">
                            <VBox.margin>
                               <Insets bottom="30.0" left="37.0" right="29.0" />
                            </VBox.margin>
                            <children>
-                              <Button mnemonicParsing="false" onAction="#takePhoto" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Photo" />
-                              <Button mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Modify/Save" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Photo ">
-                                 <font>
-                                    <Font name="Open Sans Bold" size="42.0" />
-                                 </font>
-                              </Text>
-                              <ImageView fx:id="tempPhoto" fitHeight="100.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" />
+                              <Button mnemonicParsing="false" onAction="#save" prefHeight="50.0" prefWidth="400.0" styleClass="blackButton" text="Modify/Save" />
                            </children>
                         </HBox>
                               </children>
@@ -182,17 +198,10 @@
                               <padding>
                                   <Insets top="40.0" />
                               </padding>
+                     <HBox.margin>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                     </HBox.margin>
                           </VBox>
-                  <StackPane fx:id="pane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: black;" HBox.hgrow="ALWAYS">
-                     <children>
-                                <AnchorPane>
-                           <children>
-                                        <ImageView fx:id="image" fitHeight="500.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                                </AnchorPane>
-                        <Pane prefHeight="200.0" prefWidth="200.0" />
-                     </children>
-                  </StackPane>
                       </children>
                   </HBox>
               </children>

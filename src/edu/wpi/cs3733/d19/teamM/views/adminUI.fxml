@@ -43,7 +43,6 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                                   </Text>
-                        <Button mnemonicParsing="false" onAction="#newUser" text="Button" />
                               </children>
                               <padding>
                                   <Insets top="15.0" />
@@ -80,6 +79,10 @@
                           </HBox>
                           <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
+                        <Button mnemonicParsing="false" onAction="#newUser" styleClass="logoutButton" text="EDIT USERS">
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin></Button>
                                   <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT" HBox.hgrow="ALWAYS">
                                       <font>
                                           <Font name="Open Sans Bold" size="24.0" />

@@ -2,12 +2,14 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
 
 
@@ -30,6 +32,9 @@ public class AudioVisual implements Initializable {
     //Tesxt Field for audio/visual type input
     @FXML
     private TextField audioVisType;
+
+    @FXML
+    private Text userText;
 
     //Text field for room location input
     @FXML
@@ -91,5 +96,7 @@ public class AudioVisual implements Initializable {
         TextFields.bindAutoCompletion(audioVisType,audioVis);
 
         Clock clock = new Clock(lblClock, lblDate);
+
+        userText.setText(User.getUsername());
     }
 }

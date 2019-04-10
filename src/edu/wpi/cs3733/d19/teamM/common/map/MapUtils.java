@@ -50,10 +50,10 @@ public class MapUtils {
 
     private String[] images = {"00_thelowerlevel2.png", "00_thelowerlevel1.png", "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
     private String[] labels = {"Lower Level 2", "Lower Level 1", "Floor One", "Floor Two", "Floor Three"};
-    private String[] dbPrefixes = {"L2", "L1", "1", "2", "3"};
+    public String[] dbPrefixes = {"L2", "L1", "1", "2", "3"};
     private HashMap<Integer, Image> imageFiles = new HashMap<Integer, Image>();
 
-    int floor = 2;
+    public int floor = 2;
     int width;
     int height;
     double offSetX;
@@ -78,7 +78,8 @@ public class MapUtils {
         this.buttonPane = new Pane();
         buttonPane.setLayoutY(buttonContainer.getLayoutY());
         buttonPane.setLayoutX(buttonContainer.getLayoutX());
-        //buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
+        buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
+
         //buttonContainer.setStyle("-fx-border-color: blue;-fx-border-width: 5px");
         this.buttonContainer.setContent(buttonPane);
         this.image = image;
@@ -95,7 +96,7 @@ public class MapUtils {
      * @param pointY: The y coordinate
      * @return MapPoint: The point on the map that we have scaled
      */
-    private MapPoint scalePoints(int pointX, int pointY){
+    public MapPoint scalePoints(int pointX, int pointY){
         //The literal width and height of the image
         double rawWidth = 5000;
         double rawHeight = 3400;
@@ -205,39 +206,40 @@ public class MapUtils {
         double yBase = (image.getViewport().getMinY()+height)/2;
 
         buttonContainer.setTranslateX(xBase);
-        buttonContainer.setTranslateY(yBase);*
-
-       // buttonContainer.setTranslateX((image.getViewport().getMinX()-image.getViewport().getMinX())/(zoom/2));
-        //buttonContainer.setTranslateY((image.getViewport().getMinY()-image.getViewport().getMinY())/(zoom/2));
-
-
-
-
-        /*double xBase = ((image.getViewport().getMinX()/zoom)+image.getViewport().getMinX());
-        double yBase = ((image.getViewport().getMinY()/zoom)+image.getViewport().getMinY());
-
-        System.out.println(xBase+","+yBase);
-        buttonContainer.setTranslateX(xBase);
         buttonContainer.setTranslateY(yBase);*/
+
+     //   buttonContainer.setTranslateX((image.getViewport().getMinX()-image.getViewport().getMinX())/(zoom/2));
+      //  buttonContainer.setTranslateY((image.getViewport().getMinY()-image.getViewport().getMinY())/(zoom/2));
+
+
+
+
+    //    double xBase = ((image.getViewport().getMinX()/zoom)+image.getViewport().getMinX());
+     //   double yBase = ((image.getViewport().getMinY()/zoom)+image.getViewport().getMinY());
+
+       // System.out.println(xBase+","+yBase);
+     //   buttonContainer.setTranslateX(xBase);
+      //  buttonContainer.setTranslateY(yBase);
         //System.out.println("Changing position");
-        //Rectangle bounds = new Rectangle(image.getViewport().getMinX(), image.getViewport().getMinY(), image.getViewport().getWidth(), image.getViewport().getHeight());
+    //    Rectangle boundy = new Rectangle(image.getViewport().getMinX(), image.getViewport().getMinY(), image.getViewport().getWidth(), image.getViewport().getHeight());
         //System.out.println(bounds.toString());
-        //buttonContainer.setViewportBounds(bounds.);
 
-        Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+    //   Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
         //System.out.println(bounds.toString());
-        image.setViewport(bounds);
 
-        overlayImage.setViewport(image.getViewport());
+      //  buttonContainer.setViewportBounds(boundy.getLayoutBounds());
 
+   //     overlayImage.setViewport(bounds);
+
+  //      image.setViewport(bounds);
         //System.out.println(bounds);
-        Rectangle boundRect = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
+    //    Rectangle boundRect = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
         //System.out.println(boundRect.toString());
        // buttonContainer.setViewportBounds(boundRect.getLayoutBounds());*/
 
         //Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
-        image.setViewport(bounds);
-        overlayImage.setViewport(image.getViewport());
+       // image.setViewport(bounds);
+        //overlayImage.setViewport(image.getViewport());
     }
 
     /**
@@ -345,7 +347,7 @@ public class MapUtils {
             updatePosition(newValue);
         });
 
-        /*zoomSlider.valueProperty().addListener(e -> {
+        zoomSlider.valueProperty().addListener(e -> {
             zoom = zoomSlider.getValue();
             double newValue = (double) ((int) (zoom * 10)) / 10;
             if (offSetX < (width / newValue) / 2) {
@@ -376,45 +378,55 @@ public class MapUtils {
 
             buttonPane.setTranslateX(0);
             buttonPane.setTranslateY(0);
-            //buttonContainer.setViewportBounds(overlayImage.getLayoutBounds());
+            buttonContainer.setViewportBounds(overlayImage.getLayoutBounds());
 
             //System.out.println(minX+"/"+minY+"/"+bounds.getMinX()+"/"+bounds.getMinY());
 
 
-        });*/
-
-       // buttonPane.setCursor(Cursor.OPEN_HAND);
+        });
+     //   double yikes;
+       // double oof;
+        buttonPane.setCursor(Cursor.OPEN_HAND);
         buttonPane.setOnMousePressed(e -> {
-            //initx = e.getSceneX();
-            //inity = e.getSceneY();
-            //buttonPane.setCursor(Cursor.CLOSED_HAND);
+            initx = e.getSceneX();
+            inity = e.getSceneY();
+            buttonPane.setCursor(Cursor.CLOSED_HAND);
             clickCallback.handle(e);
         });
-       /* buttonPane.setOnMouseReleased(e -> {
+        buttonPane.setOnMouseReleased(e -> {
             buttonPane.setCursor(Cursor.OPEN_HAND);
-
-        });
-       buttonPane.setOnMouseDragged(e -> {
             double yikes = Hscroll.getValue() + (initx - e.getSceneX());
             double oof = Vscroll.getValue() - (inity - e.getSceneY());
 
+            double shiftx = (initx - e.getSceneX());
+            double shifty = (inity - e.getSceneY());
+
+
+            buttonPane.setTranslateY(shifty);
+            buttonPane.setTranslateX(shiftx);
+
+        //    Hscroll.setValue(yikes);
+          //  Vscroll.setValue(oof);
+
+        });
+       buttonPane.setOnMouseDragged(e -> {
+
+
+           double yikes = Hscroll.getValue() + (initx - e.getSceneX());
+           double oof = Vscroll.getValue() - (inity - e.getSceneY());
+           Hscroll.setValue(yikes);
+           Vscroll.setValue(oof);
             double newValue = (double) ((int) (zoom * 10)) / 10;
 
             //System.out.println((initx - e.getSceneX())+"/"+(inity - e.getSceneY()));
-           // buttonPane.setTranslateY(oof);
 
-            Hscroll.setValue(yikes);
-            Vscroll.setValue(oof);
 
             Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
-
-
-
 
             initx = e.getSceneX();
             inity = e.getSceneY();
 
-        });*/
+        });
 
         String query = "SELECT * FROM NODE WHERE FLOOR='"+this.getCurrentFloorID()+"'";
         try {
@@ -438,15 +450,21 @@ public class MapUtils {
 
         imageFiles.put(this.floor, new Image(Main.getResource("/resources/maps/"+this.images[this.floor])));
 
-        for(int i=0;i<images.length;i++){
-            if(i == this.floor) continue;
-            final int index = i;
-            new Thread(() -> {
-                imageFiles.put(index, new Image(Main.getResource("/resources/maps/"+this.images[index])));
-            }).start();
-        }
+        new Thread(() -> {
+            for (int i = 0; i < images.length; i++) {
+                if (i == this.floor) continue;
+                final int index = i;
+                new Thread(() -> {
+                    imageFiles.put(index, new Image(Main.getResource("/resources/maps/" + this.images[index])));
+                }).start();
+            }
 
-        this.getAllRecords(this.floor);
+            try{
+                this.getAllRecords(this.floor);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public void moveUp() throws Exception{
@@ -470,22 +488,37 @@ public class MapUtils {
     }
 
     public void setFloor(int floor) throws Exception{
+        System.out.println("Setting floor to "+floor);
         this.floor = floor;
         this.getAllRecords(floor);
     }
     public void setFloor(String floorId) throws Exception{
-        System.out.println(floorId);
+        System.out.println("Raw floor id: "+floorId);
         for(int i=0;i<dbPrefixes.length;i++){
+            System.out.println("Checking "+dbPrefixes[i]);
             if(dbPrefixes[i].equals(floorId)){
-                System.out.println(i);
+
+                System.out.println("F Setting floor to "+i);
                 this.floor = i;
                 this.getAllRecords(i);
             }
         }
     }
 
+    public int idToFloor(String id){
+        for(int i=0;i<dbPrefixes.length;i++){
+            if(dbPrefixes[i].equals(id)){
+                return i;
+            }
+        }
+        return -5;
+    }
+
     public String getFloorLabel(){
         return labels[this.floor];
+    }
+    public String getFloorLabel(int floor){
+        return labels[floor];
     }
 
     public String getCurrentFloorID(){
