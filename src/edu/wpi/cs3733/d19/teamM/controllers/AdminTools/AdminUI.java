@@ -355,7 +355,8 @@ public class AdminUI {
         gesturePane.setContent(mapStuff);
 
         new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
 
         edgeLabel.setVisible(false);
         nodeLabel.setVisible(false);

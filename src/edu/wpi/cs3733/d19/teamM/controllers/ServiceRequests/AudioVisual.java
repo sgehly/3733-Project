@@ -117,6 +117,7 @@ public class AudioVisual implements Initializable {
 
         Clock clock = new Clock(lblClock, lblDate);
 
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
     }
 }

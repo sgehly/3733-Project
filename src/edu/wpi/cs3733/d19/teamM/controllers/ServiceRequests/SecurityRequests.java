@@ -88,7 +88,8 @@ public class SecurityRequests {
     @FXML
     void initialize(){
         new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
     }
 
 }

@@ -86,7 +86,8 @@ public class PrescriptionRequestForm {
     void initialize(){
 
         new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
     }
 
 }

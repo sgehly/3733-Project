@@ -275,7 +275,8 @@ public class ServiceRequests {
     @FXML// This method is called by the FXMLLoader when initialization is complete
     void initialize(){
         new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
             //general asserts
             assert logoutButton != null : "fx:id=\"logoutButton\" was not injected: check your FXML file 'serviceRequests.fxml'.";
             //language asserts
