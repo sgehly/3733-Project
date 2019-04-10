@@ -22,6 +22,7 @@
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
+<?import javafx.scene.layout.Pane?>
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Pathfinding.Pathfinding">
     <children>
         <StackPane layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -103,7 +104,7 @@
                         </HBox>
                     </children>
                     <VBox.margin>
-                        <Insets left="50.0" right="50.0" top="40.0" />
+                        <Insets left="50.0" right="50.0" top="0.0" />
                     </VBox.margin>
                     <padding>
                         <Insets bottom="20.0" />
@@ -214,7 +215,7 @@
                                                                 <children>
                                                                     <ImageView fx:id="image" fitHeight="856.0" fitWidth="1420.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                     <ImageView fx:id="overlayImage" fitHeight="856.0" fitWidth="1420.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                                    <ScrollPane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                    <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                 </children>
                                                             </AnchorPane>
                                              </children>
@@ -337,7 +338,7 @@
                                                                 <Insets left="10.0" />
                                                             </padding>
                                                         </TextField>
-                                                        <Button maxHeight="50.0" mnemonicParsing="false" onAction="#sendMap" prefHeight="40.0" styleClass="blackButton" text="SEND MAP">
+                                                        <Button maxHeight="50.0" mnemonicParsing="false" onAction="#sendMap" prefHeight="40.0" styleClass="blackButton" text="SEND DIRECTIONS">
                                                             <HBox.margin>
                                                                 <Insets left="10.0" />
                                                             </HBox.margin>
