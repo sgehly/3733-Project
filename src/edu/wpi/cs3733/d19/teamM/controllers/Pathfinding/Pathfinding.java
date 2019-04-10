@@ -271,7 +271,7 @@ public class Pathfinding {
         path = graph.findPath(startNode, endNode);
         PathToString.getDirections(path);
         System.out.println(path+"/"+graph);
-        util.setFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
+        util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
 
         resetTextBox();
@@ -458,10 +458,10 @@ public class Pathfinding {
 
             //ELEV or STAI
 
-            String startNodeType = start.getNodeType();
+            String startNodeType = end.getNodeType();
             System.out.println("START NODE: "+start.getLongName()+" | STARTNODETYPE: "+startNodeType);
 
-            if((startNodeType.equals("ELEV") || startNodeType.equals("STAI")) && !start.getId().equals(path.getFinalPath().get(0)) && !start.getId().equals(path.getFinalPath().get(path.getFinalPath().size()-1))){
+            if((startNodeType.equals("ELEV") || startNodeType.equals("STAI")) && !end.getId().equals(path.getFinalPath().get(0)) && !end.getId().equals(path.getFinalPath().get(path.getFinalPath().size()-1))){
 
                 int nextFloor = util.floor;
 

@@ -1,10 +1,10 @@
 .button:hover {
     -fx-scale-x: 2;
     -fx-scale-y: 2;
-    -fx-scale-z: 2;
-    -fx-background-color: red;
+    -fx-background-color: #c0392b;
+    -fx-cursor:hand;
 }
 
 .button {
-    -fx-background-color: blue;
+    -fx-background-color: #012d5a;
 }
