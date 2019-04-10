@@ -25,10 +25,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.scene.shape.Line;
+import net.kurobako.gesturefx.GesturePane;
+
 import java.io.FileWriter;
 import java.sql.*;
 import java.util.ArrayList;
@@ -135,6 +138,12 @@ public class AdminUI {
 
     @FXML
     private RadioButton DStar;
+
+    @FXML
+    private VBox mapStuff;
+
+    @FXML
+    private GesturePane gesturePane;
 
     @FXML
     private void navigateToHome() throws Exception{
@@ -343,6 +352,8 @@ public class AdminUI {
 
     @FXML
     protected void initialize() throws Exception {
+        gesturePane.setContent(mapStuff);
+
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
