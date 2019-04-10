@@ -317,7 +317,6 @@ public class ServiceRequestsList {
         if(nextPage.equals("flowers")) {
             Main.setScene("serviceRequestReports/flowersReportTemplate");
         }
-
         if(nextPage.equals("religion")) {
             Main.setScene("serviceRequestReports/religiousReportTemplate");
         }
@@ -326,6 +325,15 @@ public class ServiceRequestsList {
         }
         if(nextPage.equals("gift")) {
             Main.setScene("serviceRequestReports/giftReportTemplate");
+        }
+        if(nextPage.equals("av")) {
+            Main.setScene("serviceRequestReports/aVReportTemplate");
+        }
+        if(nextPage.equals("external")) {
+            Main.setScene("serviceRequestReports/extTransportReportTemplate");
+        }
+        if(nextPage.equals("laboratory")) {
+            Main.setScene("serviceRequestReports/laboratoryReportTemplate");
         }
 
     }
