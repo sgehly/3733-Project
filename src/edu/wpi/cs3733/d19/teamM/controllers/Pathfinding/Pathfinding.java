@@ -456,6 +456,7 @@ public class Pathfinding {
             Node start = thePath.get(0);
             Node end = thePath.get(thePath.size()-1);
 
+            if(start.getId().equals(end.getId())) return;
             //ELEV or STAI
 
             String startNodeType = end.getNodeType();
@@ -482,7 +483,7 @@ public class Pathfinding {
                     System.out.println("Creating");
                     Button startChangeButton = new Button();
                     startChangeButton.setText("Take the "+(startNodeType == "ELEV" ? "elevator" : "stairs")+" to "+util.getFloorLabel(nextFloor));
-                    MapPoint mp = util.scalePoints(start.getX(), start.getY());
+                    MapPoint mp = util.scalePoints(end.getX(), end.getY());
                     startChangeButton.setLayoutX(mp.x+5);
                     startChangeButton.setLayoutY(mp.y+5);
                     startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-family: \"Open Sans Bold\"");
