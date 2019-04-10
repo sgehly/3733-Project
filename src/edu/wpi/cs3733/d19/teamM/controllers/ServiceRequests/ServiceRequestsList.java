@@ -324,7 +324,9 @@ public class ServiceRequestsList {
         if(nextPage.equals("security")) {
             Main.setScene("serviceRequestReports/securityReportTemplate");
         }
-
+        if(nextPage.equals("gift")) {
+            Main.setScene("serviceRequestReports/giftReportTemplate");
+        }
 
     }
 
@@ -348,6 +350,10 @@ public class ServiceRequestsList {
         else if(nextPage.equals("security")) {
             System.out.println(this.getRequestFromTable("incomplete"));
             Main.setScene("securityReportTemplate");
+        }
+        else if(nextPage.equals("gift")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("giftReportTemplate");
         }
         System.out.println("yo: " + this.getRequestFromTable("incomplete"));
     }
