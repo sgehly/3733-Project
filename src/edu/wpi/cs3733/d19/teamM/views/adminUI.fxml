@@ -208,6 +208,11 @@
                                           <Insets left="40.0" top="30.0" />
                                        </padding>
                                     </JFXRadioButton>
+                                    <JFXRadioButton fx:id="DStar" onAction="#changeAlgorithm" text="D*" toggleGroup="$algoButtons">
+                                       <padding>
+                                          <Insets left="40.0" top="30.0" />
+                                       </padding>
+                                    </JFXRadioButton>
                                  </children>
                               </VBox>
                            </children>

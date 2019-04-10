@@ -135,8 +135,6 @@ public class DatabaseUtils {
     }
 
     public void connect(){
-        Encrypt encrypt = new Encrypt();
-
         try {
             Connection conn = this.getConnection();
             String createTable1 = "CREATE TABLE node(NODEID varchar(20) PRIMARY KEY NOT NULL, XCOORD int, ycoord int, floor varchar(2), building varchar(15), nodetype varchar(4), longname varchar(100), shortname varchar(100))";
@@ -144,16 +142,16 @@ public class DatabaseUtils {
             String createTable8 = "create table Rooms(roomID varchar(20),capacity int,details varchar(100),roomType varchar(5), Constraint comRoom_PK Primary key (roomID),Constraint checkType CHECK (roomType in ('COMP', 'CLASS')))";
             String createTable9 = "create table BookedTimes(roomID varchar(20),startTime timestamp, endTime timestamp,Constraint room_FK Foreign Key (roomID) REFERENCES Rooms(roomID))";
             String createTable10 = "create table REQUESTINPROGRESS (REQUESTID   INTEGER not null constraint REQUESTINPROGRESS_REQUESTID_UINDEX unique, ROOM VARCHAR(200), SUBTYPE VARCHAR(200), DESCRIPTION VARCHAR(200), DATE TIMESTAMP, CHECKBOX INT, TYPE VARCHAR(200) default 'Sanitation', FINISHED_BY VARCHAR(30)  default 'NULL')";
-            String createTable11 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,isLoggedIn int,constraint adminBool check (accountInt = 100 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0),constraint loggedBool check (isLoggedIn = 0 or isLoggedIn = 1))";
+            //String createTable11 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,isLoggedIn int,constraint adminBool check (accountInt = 100 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0),constraint loggedBool check (isLoggedIn = 0 or isLoggedIn = 1))";
             String createTable20 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,pathtopic varchar(100), constraint adminBool check (accountInt = 100 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0))";
             String createTable13 = "DELETE FROM users";
-            String createTable12 = "insert into USERS values ('jeff', 100, '098f6bcd4621d373cade4e832627b4f6','src/resources/People_Pictures/Jeff.jpg'),('staff', 1, '1253208465b1efa876f982d8a9e73eef', '/resources/bwh-logo.png'),('Sam', 100, 'ba0e0cde1bf72c28d435c89a66afc61a','src/resources/People_Pictures/Sam.png')";//"('bridget', 0 '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Bridget.jpg'),('wong', 1, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Wong.jpg'), ('sam', 2, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Sam.jpg'),('ken', 100, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Ken.jpg')";
-            String insert1 = "insert into users (username, accountant, userpass) values (‘caitlin’, 1, ‘098f6bcd4621d373cade4e832627b4f6’)";
-            String insert2 = "insert into users (username, accountant, userpass) values (‘ken’, 1, ‘098f6bcd4621d373cade4e832627b4f6’)";
-            String insert3 = "insert into users (username, accountant, userpass) values (‘connor’, 1, ‘098f6bcd4621d373cade4e832627b4f6’)";
-            String insert4 = "insert into users (username, accountant, userpass) values (‘jack’, 2, ‘098f6bcd4621d373cade4e832627b4f6’)";
-            String insert5 = "insert into users (username, accountant, userpass) values (‘bridget’, 2, ‘098f6bcd4621d373cade4e832627b4f6’)";
-            String insert6 = "insert into users (username, accountant, userpass) values (‘joe’, 2, ‘098f6bcd4621d373cade4e832627b4f6’)";
+            String createTable12 = "insert into USERS values ('jeff', 100, '098f6bcd4621d373cade4e832627b4f6','src/resources/People_Pictures/Jeff.jpg'),('staff', 1, '1253208465b1efa876f982d8a9e73eef', '/resources/bwh-logo.png'),('Sam', 100, 'ba0e0cde1bf72c28d435c89a66afc61a','src/resources/People_Pictures/Sam.png'), ('caitlin', 1, '098f6bcd4621d373cade4e832627b4f6', 'src/resources/People_Pictures/Caitlin.jpg'), ('ken', 1, '098f6bcd4621d373cade4e832627b4f6', 'src/resources/People_Pictures/Ken.jpg'), ('connor', 1, '098f6bcd4621d373cade4e832627b4f6', 'src/resources/People_Pictures/Connor.jpg'), ('jack', 2, '098f6bcd4621d373cade4e832627b4f6', 'src/resources/People_Pictures/Jack.jpg'), ('bridget', 2, '098f6bcd4621d373cade4e832627b4f6', 'src/resources/People_Pictures/Bridget.jpg'), ('joe', 2, '098f6bcd4621d373cade4e832627b4f6', 'src/resources/People_Pictures/Joe.jpg')";
+//            String insert1 = "insert into users (username, accountant, userpass) values ";
+//            String insert2 = "insert into users (username, accountant, userpass) values ";
+//            String insert3 = "insert into users (username, accountant, userpass) values ";
+//            String insert4 = "insert into users (username, accountant, userpass) values ";
+//            String insert5 = "insert into users (username, accountant, userpass) values ";
+//            String insert6 = "insert into users (username, accountant, userpass) values ";
             try {
                 Statement stmt1 = conn.createStatement();
                 stmt1.executeUpdate(createTable1);
@@ -188,30 +186,30 @@ public class DatabaseUtils {
             }catch(Exception e){
                 e.printStackTrace();
             };
-            try {
-                Statement stmt30 = conn.createStatement();
-                stmt30.executeUpdate(insert1);
-            }catch(Exception e){};
-            try {
-                Statement stmt31 = conn.createStatement();
-                stmt31.executeUpdate(insert2);
-            }catch(Exception e){};
-            try {
-                Statement stmt32 = conn.createStatement();
-                stmt32.executeUpdate(insert3);
-            }catch(Exception e){};
-            try {
-                Statement stmt33 = conn.createStatement();
-                stmt33.executeUpdate(insert4);
-            }catch(Exception e){};
-            try {
-                Statement stmt34 = conn.createStatement();
-                stmt34.executeUpdate(insert5);
-            }catch(Exception e){};
-            try {
-                Statement stmt35 = conn.createStatement();
-                stmt35.executeUpdate(insert6);
-            }catch(Exception e){};
+//            try {
+//                Statement stmt30 = conn.createStatement();
+//                stmt30.executeUpdate(insert1);
+//            }catch(Exception e){};
+//            try {
+//                Statement stmt31 = conn.createStatement();
+//                stmt31.executeUpdate(insert2);
+//            }catch(Exception e){};
+//            try {
+//                Statement stmt32 = conn.createStatement();
+//                stmt32.executeUpdate(insert3);
+//            }catch(Exception e){};
+//            try {
+//                Statement stmt33 = conn.createStatement();
+//                stmt33.executeUpdate(insert4);
+//            }catch(Exception e){};
+//            try {
+//                Statement stmt34 = conn.createStatement();
+//                stmt34.executeUpdate(insert5);
+//            }catch(Exception e){};
+//            try {
+//                Statement stmt35 = conn.createStatement();
+//                stmt35.executeUpdate(insert6);
+//            }catch(Exception e){};
             conn.close();
         }catch(Exception e){e.printStackTrace();};
 
