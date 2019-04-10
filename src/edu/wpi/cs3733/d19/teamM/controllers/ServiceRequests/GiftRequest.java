@@ -37,6 +37,10 @@ public class GiftRequest {
 
     @FXML
     private JFXCheckBox packaged;
+
+    @FXML
+    private Text errorMessage;
+
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
      * @throws Exception: Any exception that is encountered
@@ -57,8 +61,22 @@ public class GiftRequest {
 
     @FXML
     public void makeGiftRequest() throws IOException {
-        new ServiceRequests().makeRequest("gift", room.getText(), giftTypes.getText(), requestText.getText(), packaged.isSelected());
 
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("You didn't answer all the required fields.");
+                throw e;
+            }
+            new ServiceRequests().makeRequest("gift", room.getText(), giftTypes.getText(), requestText.getText(), packaged.isSelected());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private boolean areFieldsEmpty() {
+        return room.getText().isEmpty() || giftTypes.getText().isEmpty();
     }
 
     @FXML

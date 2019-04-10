@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
@@ -18,18 +19,18 @@ import java.util.ResourceBundle;
 
 public class ITRequests implements Initializable {
 
-
-
+    @FXML
+    private Text errorMessage;
 
     @FXML
     private Text userText;
 
     @FXML
-    private TextField typeOfEquipment;
+    private JFXTextField typeOfEquipment;
 
     //Text field for room location input
     @FXML
-    private TextField room;
+    private JFXTextField room;
 
     @FXML
     private JFXCheckBox urgent;
@@ -59,7 +60,22 @@ public class ITRequests implements Initializable {
 
     @FXML
     public void makeItRequest() throws IOException {
-        new ServiceRequests().makeRequest("it", room.getText(), typeOfEquipment.getText(), notes.getText(), urgent.isSelected());
+
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("You didn't answer all the required fields.");
+                throw e;
+            }
+            new ServiceRequests().makeRequest("it", room.getText(), typeOfEquipment.getText(), notes.getText(), urgent.isSelected());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private boolean areFieldsEmpty() {
+        return room.getText().isEmpty() || typeOfEquipment.getText().isEmpty();
     }
 
     @FXML

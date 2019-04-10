@@ -128,7 +128,7 @@
                                     <Insets right="25.0" />
                                  </HBox.margin>
                               </Text>
-                              <JFXTextField prefHeight="27.0" prefWidth="325.0" styleClass="lightInput" HBox.hgrow="ALWAYS" />
+                              <JFXTextField fx:id="requested" prefHeight="27.0" prefWidth="325.0" styleClass="lightInput" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -138,7 +138,7 @@
                                     <Insets right="25.0" />
                                  </HBox.margin>
                               </Text>
-                              <JFXTextField prefHeight="27.0" prefWidth="459.0" styleClass="lightInput" HBox.hgrow="ALWAYS" />
+                              <JFXTextField fx:id="timeSpent" prefHeight="27.0" prefWidth="459.0" styleClass="lightInput" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -151,12 +151,17 @@
                               <JFXTextArea styleClass="lightInput" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
+                        <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Text>
                         <Button mnemonicParsing="false" onMouseClicked="#navigateToList" prefHeight="90.0" prefWidth="828.0" text="SUBMIT REPORT">
                            <font>
                               <Font size="57.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="50.0" />
+                              <Insets />
                            </VBox.margin>
                            <styleClass>
                               <String fx:value="blackButton" />

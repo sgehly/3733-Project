@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -22,9 +16,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.control.Label?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ITRequests">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ITRequests">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -156,6 +149,11 @@
                                                         </JFXCheckBox>
                                                     </children>
                                                 </HBox>
+                                    <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Text>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                                     <children>
                                                         <Button mnemonicParsing="false" onAction="#makeItRequest" text="SUBMIT REQUEST">
@@ -171,6 +169,9 @@
                                                             </styleClass>
                                                         </Button>
                                                     </children>
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin>
                                                 </HBox>
                                             </children>
                                         </VBox>

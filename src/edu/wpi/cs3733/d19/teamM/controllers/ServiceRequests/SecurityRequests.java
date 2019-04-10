@@ -34,15 +34,14 @@ public class SecurityRequests {
     @FXML
     private javafx.scene.control.TextArea notes;
 
-
-
     @FXML
     Label lblClock;
 
     @FXML
     private Label lblDate;
 
-
+    @FXML
+    private Text errorMessage;
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -63,8 +62,24 @@ public class SecurityRequests {
     }
 
     public void makeSecurityRequest() throws IOException {
-        new ServiceRequests().makeRequest("security", room.getText(), type.getText(), notes.getText(), emergency.isSelected());
+
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("You didn't answer all the required fields.");
+                throw e;
+            }
+            new ServiceRequests().makeRequest("security", room.getText(), type.getText(), notes.getText(), emergency.isSelected());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
+
+    private boolean areFieldsEmpty() {
+        return room.getText().isEmpty() || type.getText().isEmpty();
+    }
+
     @FXML
     private void goToList() throws Exception {
         Main.setScene("serviceRequestsList");
