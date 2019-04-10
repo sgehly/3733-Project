@@ -321,6 +321,9 @@ public class ServiceRequestsList {
         if(nextPage.equals("religion")) {
             Main.setScene("serviceRequestReports/religiousReportTemplate");
         }
+        if(nextPage.equals("security")) {
+            Main.setScene("serviceRequestReports/securityReportTemplate");
+        }
 
 
     }
@@ -341,6 +344,10 @@ public class ServiceRequestsList {
         else if(nextPage.equals("religion")) {
             System.out.println(this.getRequestFromTable("incomplete"));
             Main.setScene("religiousReportTemplate");
+        }
+        else if(nextPage.equals("security")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("securityReportTemplate");
         }
         System.out.println("yo: " + this.getRequestFromTable("incomplete"));
     }
