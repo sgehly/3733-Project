@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
@@ -26,6 +27,9 @@ public class FlowersRequest implements Initializable {
 
     @FXML
     private Text userText;
+
+    @FXML
+    private Text errorMessage;
 
     @FXML
     private javafx.scene.control.Label lblClock;
@@ -87,9 +91,24 @@ public class FlowersRequest implements Initializable {
 
     @FXML
     public void makeFlowersRequest() throws IOException {
-        new ServiceRequests().makeRequest("flowers", room.getText(), flowerType.getText(), notes.getText(), replace.isSelected());
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("You didn't answer all the required fields.");
+                throw e;
+            }
+            new ServiceRequests().makeRequest("flowers", room.getText(), flowerType.getText(), notes.getText(), replace.isSelected());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
+
+    private boolean areFieldsEmpty() {
+        return room.getText().isEmpty() || flowerType.getText().isEmpty();
+    }
+
     @FXML
     private void goToList() throws Exception {
         Main.setScene("serviceRequestsList");

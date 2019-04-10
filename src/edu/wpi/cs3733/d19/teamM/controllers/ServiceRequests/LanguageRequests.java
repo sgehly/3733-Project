@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.awt.*;
@@ -28,6 +30,8 @@ public class LanguageRequests implements Initializable {
     @FXML
     private javafx.scene.control.Label lblDate;
 
+    @FXML
+    private Text userText;
 
     ObservableList<String> languages = FXCollections.observableArrayList("Acholi",
             "Afrikaans", "Akan", "Albanian","Amharic","Arabic", "Ashante", "Asl", "Assyrian", "Azerbaijani", "Azeri", "Bajuni", "Basque",
@@ -128,6 +132,7 @@ public class LanguageRequests implements Initializable {
         }
 
         TextFields.bindAutoCompletion(Language,languages);
+        userText.setText(User.getUsername());
     }
 }
 
