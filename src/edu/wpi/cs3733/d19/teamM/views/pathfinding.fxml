@@ -352,7 +352,7 @@
                                                     <children>
                                                         <Text fx:id="floorLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="FLOOR 1">
                                                             <font>
-                                                                <Font name="Open Sans Bold" size="33.0" />
+                                                                <Font name="Open Sans Bold" size="18.0" />
                                                             </font>
                                                         </Text>
                                                         <Button maxHeight="50.0" mnemonicParsing="false" onAction="#moveDown" prefHeight="40.0" styleClass="blackButton" text="MOVE DOWN FLOOR">
