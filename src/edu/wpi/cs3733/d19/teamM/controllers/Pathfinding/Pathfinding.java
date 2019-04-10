@@ -528,7 +528,7 @@ public class Pathfinding {
                 }
 
                 if(nextFloor != util.idToFloor(end.getFloor())){
-                    System.out.println("Creating Previous");
+                    /*System.out.println("Creating Previous");
                     Button startChangeButton = new Button();
                     startChangeButton.setText("BACK ("+util.getFloorLabel(nextFloor)+")");
                     MapPoint mp = util.scalePoints(end.getX(), end.getY());
@@ -551,7 +551,7 @@ public class Pathfinding {
                         }catch(Exception e){e.printStackTrace();}
                     });
                     util.buttonPane.getChildren().add(startChangeButton);
-                    clearNodes.add(startChangeButton);
+                    clearNodes.add(startChangeButton);*/
                 }
             }
 
