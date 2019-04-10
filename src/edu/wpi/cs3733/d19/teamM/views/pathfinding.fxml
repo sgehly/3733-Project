@@ -103,7 +103,7 @@
                         </HBox>
                     </children>
                     <VBox.margin>
-                        <Insets left="50.0" right="50.0" top="40.0" />
+                        <Insets left="50.0" right="50.0" top="0.0" />
                     </VBox.margin>
                     <padding>
                         <Insets bottom="20.0" />
@@ -337,7 +337,7 @@
                                                                 <Insets left="10.0" />
                                                             </padding>
                                                         </TextField>
-                                                        <Button maxHeight="50.0" mnemonicParsing="false" onAction="#sendMap" prefHeight="40.0" styleClass="blackButton" text="SEND MAP">
+                                                        <Button maxHeight="50.0" mnemonicParsing="false" onAction="#sendMap" prefHeight="40.0" styleClass="blackButton" text="SEND DIRECTIONS">
                                                             <HBox.margin>
                                                                 <Insets left="10.0" />
                                                             </HBox.margin>
