@@ -40,6 +40,7 @@ dependencies {
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
     implementation 'com.jfoenix:jfoenix:8.0.8' // Java 8
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
+    compile group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'
 
     compile 'com.sendgrid:sendgrid-java:1.1.0'
     compile group: "com.twilio.sdk", name: "twilio", version: "7.37.0"
