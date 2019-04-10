@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
@@ -13,10 +14,13 @@ public class IntTransportRequestForm {
 
     //Text field for room location input
     @FXML
-    private TextField room;
+    private JFXTextField requested;
 
     @FXML
-    private TextField type;
+    private JFXTextField timeSpent;
+
+    @FXML
+    private Text errorMessage;
 
     @FXML
     private JFXCheckBox emergency;
@@ -34,8 +38,6 @@ public class IntTransportRequestForm {
 
     @FXML
     private Label lblDate;
-
-
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -57,7 +59,20 @@ public class IntTransportRequestForm {
 
     @FXML
     private void navigateToList() throws Exception {
-        Main.setScene("serviceRequestsList");
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("You didn't answer all the required fields.");
+                throw e;
+            }
+            Main.setScene("serviceRequestsList");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean areFieldsEmpty() {
+        return requested.getText().isEmpty() || timeSpent.getText().isEmpty();
     }
 
 

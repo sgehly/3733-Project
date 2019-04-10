@@ -36,12 +36,14 @@ public class PrescriptionRequest {
     @FXML
     private javafx.scene.control.TextArea notes;
 
-
     @FXML
     private JFXCheckBox urgent;
 
     @FXML
     private Button submitReuqest;
+
+    @FXML
+    private Text errorMessage;
 
     @FXML
     public void logout() throws Exception {
@@ -56,8 +58,22 @@ public class PrescriptionRequest {
 
     @FXML
     public void makePrescriptionReqeust() throws IOException {
-        new ServiceRequests().makeRequest("prescriptions", room.getText(), fillId.getText(), notes.getText(), urgent.isSelected());
 
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("You didn't answer all the required fields.");
+                throw e;
+            }
+            new ServiceRequests().makeRequest("prescriptions", room.getText(), fillId.getText(), notes.getText(), urgent.isSelected());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private boolean areFieldsEmpty() {
+        return room.getText().isEmpty() || fillId.getText().isEmpty();
     }
 
     @FXML

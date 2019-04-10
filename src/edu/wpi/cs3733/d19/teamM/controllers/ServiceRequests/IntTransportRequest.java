@@ -35,6 +35,9 @@ public class IntTransportRequest {
     private JFXCheckBox urgent;
 
     @FXML
+    private Text errorMessage;
+
+    @FXML
     Label lblClock;
 
     @FXML
@@ -61,8 +64,24 @@ public class IntTransportRequest {
 
     @FXML
     private void makeServiceRequest() throws Exception {
-        new ServiceRequests().makeRequest("internal", roomField.getText(), modeTransport.getText(), requestText.getText(), urgent.isSelected());
+
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("You didn't answer all the required fields.");
+                throw e;
+            }
+            new ServiceRequests().makeRequest("internal", roomField.getText(), modeTransport.getText(), requestText.getText(), urgent.isSelected());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
+
+    private boolean areFieldsEmpty() {
+        return roomField.getText().isEmpty() || modeTransport.getText().isEmpty();
+    }
+
     @FXML
     private void goToList() throws Exception {
         Main.setScene("serviceRequestsList");

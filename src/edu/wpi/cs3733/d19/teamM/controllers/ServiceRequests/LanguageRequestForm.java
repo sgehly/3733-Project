@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
@@ -29,14 +30,20 @@ public class LanguageRequestForm {
     @FXML
     private javafx.scene.control.TextArea notes;
 
-
-
     @FXML
     Label lblClock;
 
     @FXML
     private Label lblDate;
 
+    @FXML
+    private JFXTextField requested;
+
+    @FXML
+    private JFXTextField timeSpent;
+
+    @FXML
+    private Text errorMessage;
 
 
     /**
@@ -59,7 +66,20 @@ public class LanguageRequestForm {
 
     @FXML
     private void navigateToList() throws Exception {
-        Main.setScene("serviceRequestsList");
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("You didn't answer all the required fields.");
+                throw e;
+            }
+            Main.setScene("serviceRequestsList");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean areFieldsEmpty() {
+        return requested.getText().isEmpty() || timeSpent.getText().isEmpty();
     }
 
 

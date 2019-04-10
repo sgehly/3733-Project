@@ -33,6 +33,9 @@ public class LanguageRequests implements Initializable {
     @FXML
     private javafx.scene.control.Label lblDate;
 
+    @FXML
+    private Text errorMessage;
+
 
     ObservableList<String> languages = FXCollections.observableArrayList("Acholi",
             "Afrikaans", "Akan", "Albanian","Amharic","Arabic", "Ashante", "Asl", "Assyrian", "Azerbaijani", "Azeri", "Bajuni", "Basque",
@@ -103,8 +106,22 @@ public class LanguageRequests implements Initializable {
 
     @FXML
     public void makeLanguageRequest() throws IOException {
-        new ServiceRequests().makeRequest("interpreter", room.getText(), Language.getText(), notes.getText(), Urgent.isSelected());
 
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("You didn't answer all the required fields.");
+                throw e;
+            }
+            new ServiceRequests().makeRequest("interpreter", room.getText(), Language.getText(), notes.getText(), Urgent.isSelected());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private boolean areFieldsEmpty() {
+        return room.getText().isEmpty() || Language.getText().isEmpty();
     }
 
     @FXML

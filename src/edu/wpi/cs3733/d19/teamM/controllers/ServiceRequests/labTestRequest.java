@@ -23,7 +23,6 @@ public class labTestRequest implements Initializable {
      * @throws Exception: Any exception that is encountered
      */
 
-
     @FXML
     private Text userText;
 
@@ -46,6 +45,9 @@ public class labTestRequest implements Initializable {
     private Label lblDate;
 
     @FXML
+    private Text errorMessage;
+
+    @FXML
     public void logout() throws Exception {
         Main.setScene("welcome");
     }
@@ -66,7 +68,22 @@ public class labTestRequest implements Initializable {
 
     @FXML
     private void makeServiceRequest() throws Exception {
-        new ServiceRequests().makeRequest("laboratory", roomField.getText(), testType.getText(), requestText.getText(), urgent.isSelected());
+
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("You didn't answer all the required fields.");
+                throw e;
+            }
+            new ServiceRequests().makeRequest("laboratory", roomField.getText(), testType.getText(), requestText.getText(), urgent.isSelected());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private boolean areFieldsEmpty() {
+        return roomField.getText().isEmpty() || testType.getText().isEmpty();
     }
     @FXML
     private void goToList() throws Exception {
