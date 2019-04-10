@@ -148,6 +148,12 @@ public class DatabaseUtils {
             String createTable20 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,pathtopic varchar(100), constraint adminBool check (accountInt = 100 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0))";
             String createTable13 = "DELETE FROM users";
             String createTable12 = "insert into USERS values ('jeff', 100, '098f6bcd4621d373cade4e832627b4f6','src/resources/People_Pictures/Jeff.jpg'),('staff', 1, '1253208465b1efa876f982d8a9e73eef', '/resources/bwh-logo.png'),('Sam', 100, 'ba0e0cde1bf72c28d435c89a66afc61a','src/resources/People_Pictures/Sam.png')";//"('bridget', 0 '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Bridget.jpg'),('wong', 1, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Wong.jpg'), ('sam', 2, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Sam.jpg'),('ken', 100, '098f6bcd4621d373cade4e832627b4f6', '/resources/People_Pictures/Ken.jpg')";
+            String insert1 = "insert into users (username, accountant, userpass) values (‘caitlin’, 1, ‘098f6bcd4621d373cade4e832627b4f6’)";
+            String insert2 = "insert into users (username, accountant, userpass) values (‘ken’, 1, ‘098f6bcd4621d373cade4e832627b4f6’)";
+            String insert3 = "insert into users (username, accountant, userpass) values (‘connor’, 1, ‘098f6bcd4621d373cade4e832627b4f6’)";
+            String insert4 = "insert into users (username, accountant, userpass) values (‘jack’, 2, ‘098f6bcd4621d373cade4e832627b4f6’)";
+            String insert5 = "insert into users (username, accountant, userpass) values (‘bridget’, 2, ‘098f6bcd4621d373cade4e832627b4f6’)";
+            String insert6 = "insert into users (username, accountant, userpass) values (‘joe’, 2, ‘098f6bcd4621d373cade4e832627b4f6’)";
             try {
                 Statement stmt1 = conn.createStatement();
                 stmt1.executeUpdate(createTable1);
@@ -182,6 +188,30 @@ public class DatabaseUtils {
             }catch(Exception e){
                 e.printStackTrace();
             };
+            try {
+                Statement stmt30 = conn.createStatement();
+                stmt30.executeUpdate(insert1);
+            }catch(Exception e){};
+            try {
+                Statement stmt31 = conn.createStatement();
+                stmt31.executeUpdate(insert2);
+            }catch(Exception e){};
+            try {
+                Statement stmt32 = conn.createStatement();
+                stmt32.executeUpdate(insert3);
+            }catch(Exception e){};
+            try {
+                Statement stmt33 = conn.createStatement();
+                stmt33.executeUpdate(insert4);
+            }catch(Exception e){};
+            try {
+                Statement stmt34 = conn.createStatement();
+                stmt34.executeUpdate(insert5);
+            }catch(Exception e){};
+            try {
+                Statement stmt35 = conn.createStatement();
+                stmt35.executeUpdate(insert6);
+            }catch(Exception e){};
             conn.close();
         }catch(Exception e){e.printStackTrace();};
 
