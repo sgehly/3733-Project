@@ -192,7 +192,15 @@
                                                 <Insets />
                                             </opaqueInsets>
                                         </Button>
-                                        <Button mnemonicParsing="false" onAction="#findServiceDesk" prefWidth="400.0" styleClass="bigButton" text="Service Desk">
+                                        <Button mnemonicParsing="false" onAction="#findServiceDesk" prefWidth="400.0" styleClass="bigButton" text="Nearest Service Desk">
+                                            <font>
+                                                <Font size="36.0" />
+                                            </font>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                        </Button>
+                                        <Button mnemonicParsing="false" onAction="#findFood" prefWidth="400.0" styleClass="bigButton" text="Nearest Cafeteria">
                                             <font>
                                                 <Font size="36.0" />
                                             </font>
@@ -352,7 +360,7 @@
                                                     <children>
                                                         <Text fx:id="floorLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="FLOOR 1">
                                                             <font>
-                                                                <Font name="Open Sans Bold" size="33.0" />
+                                                                <Font name="Open Sans Bold" size="18.0" />
                                                             </font>
                                                         </Text>
                                                         <Button maxHeight="50.0" mnemonicParsing="false" onAction="#moveDown" prefHeight="40.0" styleClass="blackButton" text="MOVE DOWN FLOOR">
