@@ -18,7 +18,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'org.javafxports:jfxmobile-plugin:2.0.30'
+        classpath 'org.javafxports:jfxmobile-plugin:2.0.20'
     }
 }
 
@@ -30,12 +30,27 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
+tasks.withType(JavaExec) {
+    jvmArgs = ['-Xms25g', '-Xmx25g', '-Xss16g']
+}
+
+wrapper {
+    gradleVersion = '1.8'
+
+    def jvmOpts = "-Xmx8192m"
+    inputs.property("jvmOpts", jvmOpts)
+    doLast {
+        def optsEnvVar = "DEFAULT_JVM_OPTS"
+        scriptFile.write scriptFile.text.replace("$optsEnvVar=\"\"", "$optsEnvVar=\"$jvmOpts\"")
+        batchScript.write batchScript.text.replace("set $optsEnvVar=", "set $optsEnvVar=$jvmOpts")
+    }
+}
+
 dependencies {
     implementation 'com.google.guava:guava:27.0.1-jre'
     implementation "org.openjfx:javafx-plugin:0.0.7"
     implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
     implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
-    implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
     implementation 'com.jfoenix:jfoenix:8.0.8' // Java 8
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.0.5'
 
@@ -61,6 +76,16 @@ repositories {
     mavenCentral()
     maven {
         url 'http://nexus.gluonhq.com/nexus/content/repositories/releases'
+    }
+}
+
+compileJava {
+    options.warnings = false
+    options.deprecation = false
+    options.compilerArgs += ["-Xdoclint:none", "-Xlint:none", "-nowarn", "-XDstringConcat=inline", "-Xmx16000", "-Xms16000"]
+    options.fork = true
+    options.forkOptions.with {
+        memoryMaximumSize = 32000
     }
 }
 
@@ -131,6 +156,3 @@ jfxmobile {
         ]
     }
 }
-
-
-

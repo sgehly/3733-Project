@@ -6,7 +6,30 @@
     <content url="file://$MODULE_DIR$/../../src/desktop" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="edu.wpi.cs3733.d19.teamm.3733-Project.main" />
-    <orderEntry type="library" name="Gradle: org.controlsfx:controlsfx:8.0.5" level="project" />
+    <orderEntry type="module" module-name="edu.wpi.cs3733.d19.teamM.3733-Project.main" />
+    <orderEntry type="library" name="Gradle: org.controlsfx:controlsfx:8.40.14" level="project" />
+    <orderEntry type="library" name="Gradle: com.sendgrid:sendgrid-java:1.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.twilio.sdk:twilio:7.37.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.sarxos:webcam-capture-driver-jmf:0.3.11" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.sarxos:webcam-capture:0.3.11" level="project" />
+    <orderEntry type="library" name="Gradle: com.sendgrid:smtpapi-java:0.1.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.json:json:20140107" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpmime:4.3.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.5.6" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpcore:4.4.10" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:18.0" level="project" />
+    <orderEntry type="library" name="Gradle: joda-time:joda-time:2.5" level="project" />
+    <orderEntry type="library" name="Gradle: io.jsonwebtoken:jjwt:0.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.8" level="project" />
+    <orderEntry type="library" name="Gradle: javax.xml.bind:jaxb-api:2.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.nativelibs4java:bridj:0.7.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.6" level="project" />
+    <orderEntry type="library" name="Gradle: javax.media:jmf:2.1.1e" level="project" />
+    <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="Gradle: commons-codec:commons-codec:1.10" level="project" />
+    <orderEntry type="library" name="Gradle: javax.xml.stream:stax-api:1.0-2" level="project" />
+    <orderEntry type="library" name="Gradle: javax.activation:activation:1.1" level="project" />
   </component>
 </module>

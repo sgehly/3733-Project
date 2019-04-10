@@ -21,7 +21,9 @@
       <module name="edu.wpi.cs3733.d19.teamM.3733-Project.embedded" target="11" />
       <module name="edu.wpi.cs3733.d19.teamM.3733-Project.ios" target="11" />
       <module name="edu.wpi.cs3733.d19.teamm.3733-Project.main" target="11" />
+      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.main" target="11" />
       <module name="edu.wpi.cs3733.d19.teamm.3733-Project.test" target="11" />
+      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
