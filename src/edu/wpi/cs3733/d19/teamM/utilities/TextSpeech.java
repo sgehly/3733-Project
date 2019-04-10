@@ -35,7 +35,7 @@ public class TextSpeech
             voice = voiceManager.getVoice("kevin");
             voice.allocate();
 
-            File file = new File("C:\\Users\\Vishn\\IdeaProjects\\3733-Project\\src\\resources\\TextPath.txt");
+            File file = new File("resource.txt");
             Scanner scanner = new Scanner(file);
 
           while (scanner.hasNextLine())

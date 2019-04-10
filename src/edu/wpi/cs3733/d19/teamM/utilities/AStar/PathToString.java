@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Collections;
@@ -44,9 +45,10 @@ public class PathToString {
         }
 
         try {
-            PrintWriter writer = new PrintWriter("C:\\Users\\Vishn\\IdeaProjects\\3733-Project\\src\\resources\\TextPath.txt", "UTF-8");
-            writer.write(path.toString());
-            writer.close();
+            FileWriter fstream = new FileWriter("resource.txt", false);
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write(path.toString());
+            out.close();
         }
         catch (Exception e){
             e.printStackTrace();
