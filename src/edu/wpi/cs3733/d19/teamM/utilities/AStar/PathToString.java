@@ -44,7 +44,7 @@ public class PathToString {
         }
 
         try {
-            PrintWriter writer = new PrintWriter("C:\\Users\\kenne\\Desktop\\the-file-name.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("C:\\Users\\Vishn\\IdeaProjects\\3733-Project\\src\\resources\\TextPath.txt", "UTF-8");
             writer.write(path.toString());
             writer.close();
         }
