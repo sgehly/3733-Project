@@ -152,15 +152,22 @@ public class Pathfinding {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
-        graph = Floor.getFloor();
-        path = new Path();
-        util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues);
-        setUpListeners();
+        new Thread(() -> {
+            try{
+                graph = Floor.getFloor();
+                path = new Path();
+                util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues);
+                setUpListeners();
 
-        System.out.println("Init maputils");
-        util.initialize();
+                System.out.println("Init maputils");
+                util.initialize();
 
-        floorLabel.setText(util.getFloorLabel());
+                floorLabel.setText(util.getFloorLabel());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }).start();
 
         System.out.println("Finished pathfinding");
 
