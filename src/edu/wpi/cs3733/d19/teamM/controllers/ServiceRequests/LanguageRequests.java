@@ -3,16 +3,21 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 import com.jfoenix.controls.JFXCheckBox;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
+import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class LanguageRequests implements Initializable {
@@ -44,6 +49,8 @@ public class LanguageRequests implements Initializable {
     //Tesxt Field for flower type input
     @FXML
     private TextField Language;
+    @FXML
+    private ListView available;
 
 
     //Text field for room location input
@@ -97,8 +104,28 @@ public class LanguageRequests implements Initializable {
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-
+//TODO add user text
         new Clock(lblClock, lblDate);
+        ObservableList<String> list = FXCollections.observableArrayList();
+
+        String query = "select * FROM users Where ACCOUNTINT = ?";
+        Connection conn = new DatabaseUtils().getConnection();
+        try{
+            PreparedStatement s = conn.prepareStatement(query);
+            s.setInt(1, 2);
+            ResultSet rs = s.executeQuery();
+            while(rs.next()){
+                list.add(rs.getString(1));
+                System.out.println(rs.getString(1));
+            }
+            for(String s1 : list){
+                available.getItems().add(s1);
+            }
+            conn.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         TextFields.bindAutoCompletion(Language,languages);
     }
