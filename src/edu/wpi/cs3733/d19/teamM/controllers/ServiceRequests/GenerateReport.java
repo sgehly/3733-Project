@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.CheckBox;
+import javafx.scene.text.Text;
 
 import java.awt.*;
 import java.io.IOException;
@@ -24,6 +26,11 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class GenerateReport implements Initializable {
+
+
+
+    @FXML
+    private Text userText;
 
 
     @FXML
@@ -215,6 +222,7 @@ public class GenerateReport implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
 
     }
 }
