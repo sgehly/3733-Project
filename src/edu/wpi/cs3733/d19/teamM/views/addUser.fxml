@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -21,15 +20,9 @@
     <children>
       <StackPane fx:id="pane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-                    <AnchorPane>
-               <children>
-                            <ImageView fx:id="image" fitHeight="500.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-                    </AnchorPane>
-            <Pane prefHeight="200.0" prefWidth="200.0" />
+                    <AnchorPane />
          </children>
       </StackPane>
-      <ImageView fx:id="tempPhoto" fitHeight="100.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../../../../../../resources/bg.png" />
@@ -112,11 +105,17 @@
                       <children>
                           <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="500.0" styleClass="pane" HBox.hgrow="ALWAYS">
                               <children>
-                        <ImageView fitHeight="200.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../resources/icons/user.png" />
-                           </image>
-                        </ImageView>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="200.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../../../resources/icons/user.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fx:id="tempPhoto" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                        <ImageView fx:id="image" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
                                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Add/Modify User">
                                       <font>
                                           <Font name="Open Sans Bold" size="42.0" />

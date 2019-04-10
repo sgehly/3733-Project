@@ -65,6 +65,8 @@ public class addUser {
     private StackPane pane;
     @FXML
     private ImageView tempPhoto;
+    @FXML
+    private ImageView defaultImage;
 
     private void savePhoto(){
         File f = new File("src/resources/tempPhoto.png");
@@ -206,22 +208,35 @@ public class addUser {
     @FXML
     void initialize() {
         System.out.println("123");
-        /*try{
-            if (Webcam.getDefault() != null) {
-                System.out.println("Trying...");
-                webcam = Webcam.getDefault();
-                webcam.open();
-                webcamPanel = new WebcamPanel(webcam, false);
-                pane.getChildren().add(swingNode);
-                createSwingContent(swingNode);
-            } else {
-                errorMessage.setText("No Webcam Found, Resart");
-                errorMessage.setStyle("-fx-text-inner-color: red;");
+
+        String os = System.getProperty("os.name").toLowerCase();
+
+        if(os.indexOf("win") >= 0){
+            defaultImage.setFitHeight(0);
+            defaultImage.setFitWidth(0);
+            try{
+                if (Webcam.getDefault() != null) {
+                    System.out.println("Trying...");
+                    webcam = Webcam.getDefault();
+                    webcam.open();
+                    webcamPanel = new WebcamPanel(webcam, false);
+                    pane.getChildren().add(swingNode);
+                    createSwingContent(swingNode);
+                } else {
+                    errorMessage.setText("No Webcam Found, Resart");
+                    errorMessage.setStyle("-fx-text-inner-color: red;");
+                }
             }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }else{
+            tempPhoto.setFitHeight(0);
+            tempPhoto.setFitWidth(0);
+            image.setFitHeight(0);
+            image.setFitHeight(0);
         }
-        catch(Exception e){
-            e.printStackTrace();
-        }*/
+
 
         new Clock(lblClock, lblDate);
 
