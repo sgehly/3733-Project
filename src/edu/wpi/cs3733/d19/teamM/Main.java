@@ -106,7 +106,7 @@ public class Main extends Application {
         homePane = FXMLLoader.load(Main.getFXMLURL("home"));
         homeScene= new Scene(Main.homePane);
 
-        Runnable loadAdminThread = () -> {
+        //Runnable loadAdminThread = () -> {
             try {
                 System.out.println("Loading scenes");
                 adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
@@ -114,15 +114,15 @@ public class Main extends Application {
             }catch(Exception e){
                 e.printStackTrace();
             }
-        };
-        Runnable loadPathfindingThread = () -> {
+       // };
+       // Runnable loadPathfindingThread = () -> {
             try {
                 pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
                 pathFindingScene = new Scene(pathFindingPane);
             }catch(Exception e) {
                 e.printStackTrace();
             }
-        };
+       // };
         Runnable loadSchedulerThread = () -> {
             try {
                 schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
@@ -149,8 +149,8 @@ public class Main extends Application {
         };
 
 
-        new Thread(loadAdminThread).start();
-        new Thread(loadPathfindingThread).start();
+        //new Thread(loadAdminThread).start();
+        //new Thread(loadPathfindingThread).start();
         new Thread(loadSchedulerThread).start();
         new Thread(loadServiceRequestsThread).start();
         new Thread(loadSRListThread).start();

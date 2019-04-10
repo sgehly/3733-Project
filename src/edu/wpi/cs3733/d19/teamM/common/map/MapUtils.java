@@ -48,12 +48,12 @@ public class MapUtils {
     EventHandler<MouseEvent> clickCallback;
 
 
-    private String[] images = {"00_thelowerlevel2.png", "00_thelowerlevel1.png", "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
-    private String[] labels = {"Lower Level 2", "Lower Level 1", "Floor One", "Floor Two", "Floor Three"};
-    public String[] dbPrefixes = {"L2", "L1", "1", "2", "3"};
+    private String[] images = {"00_thegroundfloor.png", "00_thelowerlevel1.png", "00_thelowerlevel2.png",  "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
+    private String[] labels = {"Ground Floor",  "Lower Level 1", "Lower Level 2", "Floor One", "Floor Two", "Floor Three"};
+    public String[] dbPrefixes = {"G", "L1", "L2", "1", "2", "3"};
     private HashMap<Integer, Image> imageFiles = new HashMap<Integer, Image>();
 
-    public int floor = 2;
+    public int floor = 3;
     int width;
     int height;
     double offSetX;
@@ -452,9 +452,9 @@ public class MapUtils {
         for (int i = 0; i < images.length; i++) {
             if (i == this.floor) continue;
             final int index = i;
-            new Thread(() -> {
+            //new Thread(() -> {
                 imageFiles.put(index, new Image(Main.getResource("/resources/maps/" + this.images[index])));
-            }).start();
+           // }).start();
         }
 
         try{
