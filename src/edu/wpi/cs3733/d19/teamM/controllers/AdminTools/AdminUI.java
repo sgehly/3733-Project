@@ -407,6 +407,7 @@ public class AdminUI {
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);
             nodeLabel.setText("Node Added!");
+            util.getAllRecords(util.floor);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -428,6 +429,8 @@ public class AdminUI {
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);
             nodeLabel.setText("Node Removed!");
+            util.initialize();
+            util.getAllRecords(util.floor);
         }catch(Exception e){
             e.printStackTrace();
             nodeLabel.setTextFill(Color.RED);
@@ -447,6 +450,7 @@ public class AdminUI {
             edgeLabel.setTextFill(Color.GREEN);
             edgeLabel.setVisible(true);
             edgeLabel.setText("Edge Removed!");
+            util.getAllRecords(util.floor);
         }catch(Exception e){
             e.printStackTrace();
             edgeLabel.setTextFill(Color.RED);
@@ -469,6 +473,7 @@ public class AdminUI {
             edgeLabel.setTextFill(Color.GREEN);
             edgeLabel.setVisible(true);
             edgeLabel.setText("Edge Added!");
+            util.getAllRecords(util.floor);
         } catch(Exception e){
             e.printStackTrace();
             edgeLabel.setTextFill(Color.RED);
@@ -518,6 +523,7 @@ public class AdminUI {
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);
             nodeLabel.setText("Node Updated!");
+            util.getAllRecords(util.floor);
         }
         catch(Exception e){
             e.printStackTrace();
