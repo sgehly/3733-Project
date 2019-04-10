@@ -318,6 +318,10 @@ public class ServiceRequestsList {
             Main.setScene("serviceRequestReports/flowersReportTemplate");
         }
 
+        if(nextPage.equals("religion")) {
+            Main.setScene("serviceRequestReports/religiousReportTemplate");
+        }
+
 
     }
 
@@ -333,6 +337,10 @@ public class ServiceRequestsList {
         else if(nextPage.equals("flowers")) {
             System.out.println(this.getRequestFromTable("incomplete"));
             Main.setScene("flowersReportTemplate");
+        }
+        else if(nextPage.equals("religion")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("religiousReportTemplate");
         }
         System.out.println("yo: " + this.getRequestFromTable("incomplete"));
     }
