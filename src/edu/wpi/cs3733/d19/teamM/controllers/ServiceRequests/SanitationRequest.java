@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import java.awt.*;
 import java.io.IOException;
@@ -21,7 +23,8 @@ import java.util.ResourceBundle;
 
 public class SanitationRequest implements Initializable {
 
-
+    @FXML
+    private Text userText;
 
     @FXML
     private TextField typeofmess;
@@ -104,5 +107,6 @@ public class SanitationRequest implements Initializable {
             e.printStackTrace();
         }
         new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
     }
 }
