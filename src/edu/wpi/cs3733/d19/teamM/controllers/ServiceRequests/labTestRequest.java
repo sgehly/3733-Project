@@ -4,10 +4,12 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
@@ -20,6 +22,10 @@ public class labTestRequest implements Initializable {
      * This method is for the logout button which allows the user to go back to the welcome screen
      * @throws Exception: Any exception that is encountered
      */
+
+
+    @FXML
+    private Text userText;
 
     @FXML
     private JFXTextField roomField;
@@ -70,7 +76,7 @@ public class labTestRequest implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         new Clock(lblClock, lblDate);
-
+        userText.setText(User.getUsername());
     }
 
 }

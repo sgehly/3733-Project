@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import javax.imageio.ImageIO;
+
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Path;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.PathToString;
 import externalLibraries.ImgurUploader.*;
 
 import org.json.*;
@@ -29,14 +32,16 @@ public class SendEmail extends Thread {
 
     String type;
     String input;
+    Path p;
 
     /**
      * The constructor takes in the email of the individual we want to send the email to
      */
-    public SendEmail(String type, String input)
+    public SendEmail(String type, String input, Path p)
     {
         this.type = type;
         this.input = input;
+        this.p = p;
     }
 
     /**
@@ -61,20 +66,10 @@ public class SendEmail extends Thread {
         email.setFromName("Brigham & Women's");
         email.setReplyTo("mangomanticores@gehly.net");
         email.setSubject("Hospital Directions");
-        email.setText("Hello, \n\n Attached to this email is an image that outlines the path to the destination you requested. On behalf of everyone at Brigham and Women's Hospital, have a good day! \n \n Thank You,\n Staff at Brigham and Women's");
-
-        combineImages();
-
-        File file = new File("EmailOutput.png");
-        try{
-            email.addAttachment("directions.png", file);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        email.setHtml("Hello, \n\n" + PathToString.getDirections(p).replaceAll("\n","<br><br>") + "\n\n Thank You,\n Staff at Brigham and Women's");
 
         try {
             SendGrid.Response response = sendgrid.send(email);
-            System.out.println(response.getMessage());
         } catch (SendGridException e) {
             System.out.println(e);
         }
@@ -130,23 +125,22 @@ public class SendEmail extends Thread {
 
         try{
 
-            combineImages();
+            //combineImages();
 
-            String response = Uploader.upload(new File("EmailOutput.png"));
+            //String response = Uploader.upload(new File("EmailOutput.png"));
 
-            String encodedfile = new String(Base64.encodeBase64(Files.readAllBytes(new File("EmailOutput.png").toPath())), "UTF-8");
+            //String encodedfile = new String(Base64.encodeBase64(Files.readAllBytes(new File("EmailOutput.png").toPath())), "UTF-8");
 
-            JSONObject obj = new JSONObject(response);
-            System.out.println(response);
-            String link = obj.getJSONObject("data").getString("link").replace(".png","h.png");
+            //JSONObject obj = new JSONObject(response);
+            //System.out.println(response);
+            //String link = obj.getJSONObject("data").getString("link").replace(".png","h.png");
             Message message = Message
                     .creator(new PhoneNumber(phoneNumber), // to
                             new PhoneNumber("+15085383787"), // from
-                            "Here are your directions courtesy of Brigham & Women's: "+link)
-                    .setMediaUrl(link)
+                            PathToString.getDirections(p))
                     .create();
 
-            System.out.println(message.getSid());
+            //System.out.println(message.getSid());
         }catch(Exception e){
             e.printStackTrace();
         }

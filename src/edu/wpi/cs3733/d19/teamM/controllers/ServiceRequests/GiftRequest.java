@@ -4,9 +4,11 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
+import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.awt.*;
@@ -29,6 +31,9 @@ public class GiftRequest {
 
     @FXML
     Label lblDate;
+
+    @FXML
+    private Text userText;
 
     @FXML
     private JFXCheckBox packaged;
@@ -78,6 +83,8 @@ public class GiftRequest {
             TextFields.bindAutoCompletion(giftTypes,giftOptions);
 
         });
+
+        userText.setText(User.getUsername());
     }
 
 }

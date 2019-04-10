@@ -3,10 +3,12 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXRadioButton;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +18,9 @@ public class SecurityRequests {
 
 
     //Text field for room location input
+    @FXML
+    private Text userText;
+
     @FXML
     private TextField room;
 
@@ -68,6 +73,7 @@ public class SecurityRequests {
     @FXML
     void initialize(){
         new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
     }
 
 }

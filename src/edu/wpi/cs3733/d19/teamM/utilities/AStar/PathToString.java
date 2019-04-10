@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.Collections;
 
 public class PathToString {
 
@@ -19,27 +20,31 @@ public class PathToString {
         int oldY = -1;
         double angle = 0.0;
         double oldAngle = 0.0;
-        Node cur = null;
-        Node start = paths.getPath().get(0);
+        Collections.reverse(paths.getPath());
         //angle = calcAngle(oldX, oldY, n.getX(), n.getY());
         //step = getDirectionChange(angle, oldAngle);
         if (paths.getPath().size() < 3) return "Figure it out";
         for (Path p : paths.getFloorPaths()) {
             path.append("\n<<<Directions for floor " + p.getFloorID() + ">>>\n\n");
             path.append("Start at " + p.getPath().get(0).getLongName() + ", move towards " + p.getPath().get(1).getLongName() + "\n");
-            for (Node n : p.getPath().subList(1, p.getPath().size() - 1)) {
-                angle = calcAngle(oldX, oldY, n.getX(), n.getY());
+            oldAngle = calcAngle(p.getPath().get(0).getX(), p.getPath().get(0).getY(), p.getPath().get(1).getX(), p.getPath().get(1).getY());
+            oldX = p.getPath().get(1).getX();
+            oldY = p.getPath().get(1).getY();
+            for (int i = 1; i < p.getPath().size() - 2; i++) {
+                Node n = p.getPath().get(i);
+                Node next = p.getPath().get(i + 1);
+                angle = calcAngle(oldX, oldY, next.getX(), next.getY());
                 step = getDirectionChange(angle, oldAngle);
                 path.append("At " + n.getLongName() + ", " + step + "\n");
-                oldX = n.getX();
-                oldY = n.getY();
+                oldX = next.getX();
+                oldY = next.getY();
                 oldAngle = angle;
-                cur = n;
             }
+            path.append("Arrive at " + p.getPath().get(p.getPath().size() - 1).getLongName());
         }
-        path.append("Arrive at " + paths.getPath().get(paths.getPath().size() - 1).getLongName());
+
         try {
-            PrintWriter writer = new PrintWriter("C:\\Users\\Jack\\Desktop\\the-file-name.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter("C:\\Users\\kenne\\Desktop\\the-file-name.txt", "UTF-8");
             writer.write(path.toString());
             writer.close();
         }
@@ -76,7 +81,7 @@ public class PathToString {
             angle = 360 - angle; // normalize severity
         }
 
-        if (angle <= 10){
+        if (angle <= 20){
             return "remain straight";
         }
         else if (angle <= 40){

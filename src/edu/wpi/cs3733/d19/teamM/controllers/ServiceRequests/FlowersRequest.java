@@ -2,11 +2,13 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
 
 
@@ -21,6 +23,9 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 public class FlowersRequest implements Initializable {
+
+    @FXML
+    private Text userText;
 
     @FXML
     private javafx.scene.control.Label lblClock;
@@ -95,6 +100,8 @@ public class FlowersRequest implements Initializable {
 
         new Clock(lblClock, lblDate);
 
+
+        userText.setText(User.getUsername());
         TextFields.bindAutoCompletion(flowerType,flowers);
     }
 }
