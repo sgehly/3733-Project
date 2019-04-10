@@ -143,6 +143,7 @@ public class Pathfinding {
     @FXML
     protected void initialize() throws Exception {
 
+        System.out.println("Initializing pathfinding");
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
@@ -151,9 +152,12 @@ public class Pathfinding {
         util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues);
         setUpListeners();
 
+        System.out.println("Init maputils");
         util.initialize();
 
         floorLabel.setText(util.getFloorLabel());
+
+        System.out.println("Finished pathfinding");
 
     }
 
@@ -178,9 +182,9 @@ public class Pathfinding {
         Matcher mat = pattern.matcher(email);
 
         if(mat.matches()){
-            new SendEmail("email", email).start();
+            new SendEmail("email", email, path).start();
         }else{
-            new SendEmail("phone", email).start();
+            new SendEmail("phone", email, path).start();
         }
         sendMapTextBox.getText();
     }
@@ -225,7 +229,15 @@ public class Pathfinding {
     //TODO: fix with new graph class
     private void findPresetHelper(String type) throws Exception{
         String start = startText.getText();
-        path = graph.findPresetPath(graph.getNodes().get(start), type);
+        Node startNode = null;
+        for (Node n : graph.getNodes().values()){
+            if (n.getLongName().equals(start)){
+                startNode = n;
+            }
+        }
+        if (startNode != null) {
+            path = graph.findPresetPath(startNode, type, graph.getNodes());
+        }
 
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -282,28 +294,12 @@ public class Pathfinding {
         resetTextBox();
     }
 
-    /**
-     *
-     * @param s
-     */
-    private void filterNodes(String s) throws Exception, SQLException {
-        try {
-            //Floor floor = new Floor("1");
-            //Get the information that we want from the database
-            Connection conn = new DatabaseUtils().getConnection();
-            PreparedStatement stmt = conn.prepareStatement("select * from node where nodeType = ?");
-            stmt.setString(1, s);
-            ResultSet rs = stmt.executeQuery(); // execute where the node type is that specified in the database
+    private void filterNodes(String s) {
+        util.filterNodes(s);
+    }
 
-            //util.getEntryObjects(rs);
-
-            conn.close();
-
-        } catch (SQLException e) {
-            System.out.println("Error while trying to fetch all records");
-            e.printStackTrace();
-        }
-
+    private void unfilterNodes(String s) {
+        util.unfilterNodes(s);
     }
 
     /**
@@ -315,23 +311,45 @@ public class Pathfinding {
            filterNodes("REST");
            filterNodes("BATH");
        }
+       else {
+           unfilterNodes("REST");
+           unfilterNodes("BATH");
+       }
        if(stairs.isSelected()) {
            filterNodes("STAI");
+       }
+       else{
+           unfilterNodes("STAI");
        }
        if(elevators.isSelected()) {
            filterNodes("ELEV");
        }
+       else{
+           unfilterNodes("ELEV");
+       }
        if(labs.isSelected()) {
            filterNodes("LABS");
+       }
+       else {
+           unfilterNodes("LABS");
        }
        if(confs.isSelected()) {
            filterNodes("CONF");
        }
+       else {
+           unfilterNodes("CONF");
+       }
        if(food.isSelected()) {
            filterNodes("RETL");
        }
+       else {
+           unfilterNodes("RETL");
+       }
        if(exits.isSelected()) {
            filterNodes("EXIT");
+       }
+       else {
+           unfilterNodes("EXIT");
        }
     }
 

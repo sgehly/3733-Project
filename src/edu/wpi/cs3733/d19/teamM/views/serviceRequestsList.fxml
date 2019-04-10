@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
@@ -25,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequestsList">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequestsList">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -125,22 +118,22 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <JFXButton mnemonicParsing="false" onAction="#deleteRequest" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="DELETE">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton mnemonicParsing="false" onAction="#markAsComplete" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="FULFILL">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </JFXButton>
+                              <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                               <JFXComboBox fx:id="usersDropDown" prefHeight="50.0" prefWidth="300.0">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </JFXComboBox>
-                              <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <JFXButton fx:id="fulfill" disable="true" mnemonicParsing="false" onAction="#markAsComplete" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="FULFILL">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <JFXButton mnemonicParsing="false" onAction="#deleteRequest" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="DELETE">
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </JFXButton>
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

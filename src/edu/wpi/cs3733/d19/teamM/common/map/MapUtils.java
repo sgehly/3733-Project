@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamM.common.map;
 import com.jfoenix.controls.JFXSlider;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Orientation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
@@ -30,6 +32,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 public class MapUtils {
@@ -163,6 +166,30 @@ public class MapUtils {
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
+        }
+    }
+
+    public void filterNodes(String type){
+        Floor g = Floor.getFloor();
+        for (Node b : buttonPane.getChildren()){
+            for (edu.wpi.cs3733.d19.teamM.utilities.AStar.Node n : g.getNodes().values()) {
+                if (n.getLongName().equals(b.getId()) && n.getNodeType().equals(type)) {
+                    n.disable();
+                    b.setVisible(false);
+                }
+            }
+        }
+    }
+
+    public void unfilterNodes(String type){
+        Floor g = Floor.getFloor();
+        for (Node b : buttonPane.getChildren()){
+            for (edu.wpi.cs3733.d19.teamM.utilities.AStar.Node n : g.getNodes().values()) {
+                if (n.getLongName().equals(b.getId()) && n.getNodeType().equals(type)) {
+                    n.enable();
+                    b.setVisible(true);
+                }
+            }
         }
     }
 
@@ -412,15 +439,21 @@ public class MapUtils {
 
         imageFiles.put(this.floor, new Image(Main.getResource("/resources/maps/"+this.images[this.floor])));
 
-        for(int i=0;i<images.length;i++){
-            if(i == this.floor) continue;
-            final int index = i;
-            new Thread(() -> {
-                imageFiles.put(index, new Image(Main.getResource("/resources/maps/"+this.images[index])));
-            }).start();
-        }
+        new Thread(() -> {
+            for (int i = 0; i < images.length; i++) {
+                if (i == this.floor) continue;
+                final int index = i;
+                new Thread(() -> {
+                    imageFiles.put(index, new Image(Main.getResource("/resources/maps/" + this.images[index])));
+                }).start();
+            }
 
-        this.getAllRecords(this.floor);
+            try{
+                this.getAllRecords(this.floor);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public void moveUp() throws Exception{

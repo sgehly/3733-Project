@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXSlider?>
-<?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -10,7 +9,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -53,12 +51,12 @@
                                         <Font name="Open Sans Bold" size="36.0" />
                                     </font>
                                     <HBox.margin>
-                                        <Insets />
+                                        <Insets left="15.0" />
                                     </HBox.margin>
                                 </Text>
                             </children>
                             <HBox.margin>
-                                <Insets top="15.0" />
+                                <Insets top="20.0" />
                             </HBox.margin>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -104,7 +102,7 @@
                         </HBox>
                     </children>
                     <VBox.margin>
-                        <Insets left="50.0" right="50.0" top="20.0" />
+                        <Insets left="50.0" right="50.0" top="40.0" />
                     </VBox.margin>
                     <padding>
                         <Insets bottom="20.0" />
@@ -148,33 +146,10 @@
                                 <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
                             </padding>
                         </HBox>
-                        <HBox fx:id="imageView" alignment="CENTER" prefWidth="1920.0" VBox.vgrow="ALWAYS">
+                        <HBox fx:id="imageView" alignment="TOP_CENTER" prefWidth="1920.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="500.0" spacing="40.0" style="-fx-background-color: rgba(0,35,71,0.6);" HBox.hgrow="ALWAYS">
                                     <children>
-                              <VBox alignment="CENTER" prefHeight="134.0" prefWidth="500.0">
-                                 <children>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Algorithm">
-                                       <font>
-                                          <Font name="Open Sans Bold" size="42.0" />
-                                       </font>
-                                    </Text>
-                                    <HBox alignment="CENTER" prefHeight="80.0" prefWidth="500.0" spacing="40.0">
-                                       <children>
-                                          <JFXRadioButton selected="true" text="A*">
-                                             <toggleGroup>
-                                                <ToggleGroup fx:id="buttons" />
-                                             </toggleGroup>
-                                          </JFXRadioButton>
-                                          <JFXRadioButton text="BFS" toggleGroup="$buttons" />
-                                          <JFXRadioButton text="DFS" toggleGroup="$buttons" />
-                                       </children>
-                                       <padding>
-                                          <Insets top="-40.0" />
-                                       </padding>
-                                    </HBox>
-                                 </children>
-                              </VBox>
                                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Quick Navigation">
                                             <font>
                                                 <Font name="Open Sans Bold" size="42.0" />

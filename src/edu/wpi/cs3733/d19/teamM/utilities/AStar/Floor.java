@@ -69,13 +69,13 @@ public class Floor {
      */
     public Path findPath(Node start, Node end){
         Path p = selected.findPath(start, end);
-        //PathToString.getDirections(p);
+        PathToString.getDirections(p);
         //System.out.println(PathToString.getDirections(p));
         return p;
     }
 
-    public Path findPresetPath(Node start, String type){
-        return aStar.findPresetPath(start, type, this.nodes);
+    public Path findPresetPath(Node start, String type, Map<String, Node> n){
+        return aStar.findPresetPath(start, type, n);
     }
 
     /**
