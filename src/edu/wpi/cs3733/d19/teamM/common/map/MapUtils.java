@@ -420,7 +420,6 @@ public class MapUtils {
 
             //System.out.println((initx - e.getSceneX())+"/"+(inity - e.getSceneY()));
 
-
             Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
 
             initx = e.getSceneX();

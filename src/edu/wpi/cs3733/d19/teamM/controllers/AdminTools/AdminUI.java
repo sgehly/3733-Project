@@ -241,7 +241,7 @@ public class AdminUI {
 
         System.out.println(nodeId);
         //TODO: Can someone on database make this so SQL Injection can't happen
-        String query = "SELECT * FROM NODE WHERE LONGNAME = ?";
+        String query = "SELECT * FROM NODE WHERE NODEID = ?";
         Connection conn = new DatabaseUtils().getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, nodeId);
