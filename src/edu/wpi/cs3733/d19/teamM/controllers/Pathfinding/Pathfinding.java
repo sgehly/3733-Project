@@ -51,6 +51,7 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
 
 import javax.swing.*;
@@ -134,12 +135,19 @@ public class Pathfinding {
     @FXML
     private CheckBox exits;
 
+    @FXML
+    private GesturePane gesturePane;
+
+    @FXML
+    private VBox mappingStuff;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
      */
     @FXML
     protected void initialize() throws Exception {
+        gesturePane.setContent(mappingStuff);
 
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());

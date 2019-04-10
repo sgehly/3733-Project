@@ -191,19 +191,19 @@ public class MapUtils {
      //   buttonContainer.setTranslateX(xBase);
       //  buttonContainer.setTranslateY(yBase);
         //System.out.println("Changing position");
-        Rectangle boundy = new Rectangle(image.getViewport().getMinX(), image.getViewport().getMinY(), image.getViewport().getWidth(), image.getViewport().getHeight());
+    //    Rectangle boundy = new Rectangle(image.getViewport().getMinX(), image.getViewport().getMinY(), image.getViewport().getWidth(), image.getViewport().getHeight());
         //System.out.println(bounds.toString());
 
-       Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+    //   Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
         //System.out.println(bounds.toString());
 
-        buttonContainer.setViewportBounds(boundy.getLayoutBounds());
+      //  buttonContainer.setViewportBounds(boundy.getLayoutBounds());
 
-        overlayImage.setViewport(bounds);
+   //     overlayImage.setViewport(bounds);
 
-        image.setViewport(bounds);
+  //      image.setViewport(bounds);
         //System.out.println(bounds);
-        Rectangle boundRect = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
+    //    Rectangle boundRect = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
         //System.out.println(boundRect.toString());
        // buttonContainer.setViewportBounds(boundRect.getLayoutBounds());*/
 
