@@ -192,7 +192,15 @@
                                                 <Insets />
                                             </opaqueInsets>
                                         </Button>
-                                        <Button mnemonicParsing="false" onAction="#findServiceDesk" prefWidth="400.0" styleClass="bigButton" text="Service Desk">
+                                        <Button mnemonicParsing="false" onAction="#findServiceDesk" prefWidth="400.0" styleClass="bigButton" text="Nearest Service Desk">
+                                            <font>
+                                                <Font size="36.0" />
+                                            </font>
+                                            <opaqueInsets>
+                                                <Insets />
+                                            </opaqueInsets>
+                                        </Button>
+                                        <Button mnemonicParsing="false" onAction="#findFood" prefWidth="400.0" styleClass="bigButton" text="Nearest Cafeteria">
                                             <font>
                                                 <Font size="36.0" />
                                             </font>

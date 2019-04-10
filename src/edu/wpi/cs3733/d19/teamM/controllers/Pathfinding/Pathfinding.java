@@ -239,6 +239,13 @@ public class Pathfinding {
         }
     }
 
+   @FXML
+   private void findFood() throws Exception{
+        if(startText.getText() != null){
+            findPresetHelper("RETL");
+        }
+   }
+
     //TODO: fix with new graph class
     private void findPresetHelper(String type) throws Exception{
         String start = startText.getText();
