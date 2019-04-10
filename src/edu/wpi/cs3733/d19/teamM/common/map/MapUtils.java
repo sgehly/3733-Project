@@ -37,7 +37,7 @@ import java.util.concurrent.Callable;
 
 public class MapUtils {
 
-    ScrollPane buttonContainer;
+    Pane buttonContainer;
     public Pane buttonPane;
     ImageView image;
     Pane imageView;
@@ -73,7 +73,7 @@ public class MapUtils {
     double cachedScaledWidth = 0;
     double cachedScaledHeight = 0;
 
-    public MapUtils(ScrollPane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<ActionEvent> callback, EventHandler<MouseEvent> clickCallback) {
+    public MapUtils(Pane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<ActionEvent> callback, EventHandler<MouseEvent> clickCallback) {
         this.buttonContainer = buttonContainer;
         this.buttonPane = new Pane();
         buttonPane.setLayoutY(buttonContainer.getLayoutY());
@@ -81,7 +81,7 @@ public class MapUtils {
         buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
 
         //buttonContainer.setStyle("-fx-border-color: blue;-fx-border-width: 5px");
-        this.buttonContainer.setContent(buttonPane);
+        this.buttonContainer.getChildren().add(buttonPane);
         this.image = image;
         this.imageView = imageView;
         this.callback = callback;
@@ -136,6 +136,7 @@ public class MapUtils {
      */
     private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws Exception, SQLException {
         //The list we will populate
+        System.out.println("123123!");
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
         buttonPane.getChildren().clear();
         try {
@@ -250,7 +251,7 @@ public class MapUtils {
      */
     public ObservableList<DisplayTable> getAllRecords(int floor) throws ClassNotFoundException, SQLException, Exception {
         //Get the query from the database
-
+        System.out.println("123");
         Image source = imageFiles.get(floor);
         image.setImage(source);
         image.setFitWidth(primaryScreenBounds.getWidth());
@@ -305,16 +306,16 @@ public class MapUtils {
         Hscroll.setMax(width);
         Hscroll.setMaxWidth(image.getFitWidth());
         Hscroll.setMinWidth(image.getFitWidth());
-        Hscroll.setTranslateY(-999999);
+       // Hscroll.setTranslateY(-999999);
         Slider Vscroll = new Slider();
         Vscroll.setMin(0);
         Vscroll.setMax(height);
         Vscroll.setMaxHeight(image.getFitHeight());
         Vscroll.setMinHeight(image.getFitHeight());
         Vscroll.setOrientation(Orientation.VERTICAL);
-        Vscroll.setTranslateX(-9999);
+        //Vscroll.setTranslateX(-9999);
 
-        Hscroll.valueProperty().addListener(e -> {
+        /*Hscroll.valueProperty().addListener(e -> {
             offSetX = Hscroll.getValue();
             zoom = zoomSlider.getValue();
             double newValue = (double) ((int) (zoom * 10)) / 10;
@@ -345,9 +346,9 @@ public class MapUtils {
             System.out.println("VERTICAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity));
 
             updatePosition(newValue);
-        });
+        });*/
 
-        zoomSlider.valueProperty().addListener(e -> {
+        /*zoomSlider.valueProperty().addListener(e -> {
             zoom = zoomSlider.getValue();
             double newValue = (double) ((int) (zoom * 10)) / 10;
             if (offSetX < (width / newValue) / 2) {
@@ -383,10 +384,10 @@ public class MapUtils {
             //System.out.println(minX+"/"+minY+"/"+bounds.getMinX()+"/"+bounds.getMinY());
 
 
-        });
+        });*/
      //   double yikes;
        // double oof;
-        buttonPane.setCursor(Cursor.OPEN_HAND);
+       /* buttonPane.setCursor(Cursor.OPEN_HAND);
         buttonPane.setOnMousePressed(e -> {
             initx = e.getSceneX();
             inity = e.getSceneY();
@@ -425,7 +426,7 @@ public class MapUtils {
             initx = e.getSceneX();
             inity = e.getSceneY();
 
-        });
+        });*/
 
         String query = "SELECT * FROM NODE WHERE FLOOR='"+this.getCurrentFloorID()+"'";
         try {
