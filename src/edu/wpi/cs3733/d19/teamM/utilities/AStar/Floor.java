@@ -25,7 +25,7 @@ public class Floor {
     Map<String, Node> nodes;
 
     //Path finders
-    Searchable dfs, bfs, selected;
+    Searchable dfs, bfs, dStar, selected;
     AStar aStar;
 
     private Floor(){
@@ -35,6 +35,7 @@ public class Floor {
         aStar = new AStar();
         dfs = new DFS();
         bfs = new BFS();
+        dStar = new DStar();
         selected = aStar;
         try {
             this.populate();
@@ -44,7 +45,7 @@ public class Floor {
         }
     }
 
-    public static Floor getFloor(){
+    synchronized public static Floor getFloor(){
         if(thisFloor == null){
             thisFloor = new Floor();
         }
@@ -60,6 +61,7 @@ public class Floor {
     public void setDFS(){
         selected = dfs;
     }
+    public void setDStar() {selected = dStar;}
 
     /**
      * Find the path between a start and end node
@@ -69,7 +71,6 @@ public class Floor {
      */
     public Path findPath(Node start, Node end){
         Path p = selected.findPath(start, end);
-        PathToString.getDirections(p);
         //System.out.println(PathToString.getDirections(p));
         return p;
     }
@@ -82,7 +83,7 @@ public class Floor {
      * Get a map of all the nodes
      * @return Map of all the nodes
      */
-    public Map<String, Node> getNodes(){
+    synchronized public Map<String, Node> getNodes(){
         return nodes;
     }
 

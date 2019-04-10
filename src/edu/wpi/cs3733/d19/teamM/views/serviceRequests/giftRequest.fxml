@@ -104,7 +104,7 @@
                                                         <Image url="/resources/icons/gift.png" />
                                                     </image>
                                                 </ImageView>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Gift Shop Request">
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Gift Shop Request - Completed by Vishnu">
                                                     <VBox.margin>
                                                         <Insets top="20.0" />
                                                     </VBox.margin>

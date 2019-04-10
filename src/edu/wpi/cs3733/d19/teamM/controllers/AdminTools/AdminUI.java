@@ -80,7 +80,7 @@ public class AdminUI {
     private Text userText;
 
     @FXML
-    private ScrollPane buttonContainer;
+    private Pane buttonContainer;
 
     @FXML
     private JFXSlider zoomSlider;
@@ -134,6 +134,9 @@ public class AdminUI {
     private RadioButton DFS;
 
     @FXML
+    private RadioButton DStar;
+
+    @FXML
     private void navigateToHome() throws Exception{
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
@@ -169,6 +172,9 @@ public class AdminUI {
         }
         else if(BFS.isSelected()){
             graph.setBFS();
+        }
+        else if (DStar.isSelected()){
+            graph.setDStar();
         }
         else{
             graph.setAStar();
@@ -235,7 +241,7 @@ public class AdminUI {
 
         System.out.println(nodeId);
         //TODO: Can someone on database make this so SQL Injection can't happen
-        String query = "SELECT * FROM NODE WHERE LONGNAME = ?";
+        String query = "SELECT * FROM NODE WHERE NODEID = ?";
         Connection conn = new DatabaseUtils().getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, nodeId);
@@ -407,6 +413,7 @@ public class AdminUI {
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);
             nodeLabel.setText("Node Added!");
+            util.getAllRecords(util.floor);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -428,6 +435,8 @@ public class AdminUI {
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);
             nodeLabel.setText("Node Removed!");
+            util.initialize();
+            util.getAllRecords(util.floor);
         }catch(Exception e){
             e.printStackTrace();
             nodeLabel.setTextFill(Color.RED);
@@ -447,6 +456,7 @@ public class AdminUI {
             edgeLabel.setTextFill(Color.GREEN);
             edgeLabel.setVisible(true);
             edgeLabel.setText("Edge Removed!");
+            util.getAllRecords(util.floor);
         }catch(Exception e){
             e.printStackTrace();
             edgeLabel.setTextFill(Color.RED);
@@ -469,6 +479,7 @@ public class AdminUI {
             edgeLabel.setTextFill(Color.GREEN);
             edgeLabel.setVisible(true);
             edgeLabel.setText("Edge Added!");
+            util.getAllRecords(util.floor);
         } catch(Exception e){
             e.printStackTrace();
             edgeLabel.setTextFill(Color.RED);
@@ -518,6 +529,7 @@ public class AdminUI {
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);
             nodeLabel.setText("Node Updated!");
+            util.getAllRecords(util.floor);
         }
         catch(Exception e){
             e.printStackTrace();

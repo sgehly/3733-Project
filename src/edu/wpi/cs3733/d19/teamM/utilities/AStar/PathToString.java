@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Collections;
@@ -25,11 +26,13 @@ public class PathToString {
         //step = getDirectionChange(angle, oldAngle);
         if (paths.getPath().size() < 3) return "Figure it out";
         for (Path p : paths.getFloorPaths()) {
-            path.append("\n<<<Directions for floor " + p.getFloorID() + ">>>\n\n");
-            path.append("Start at " + p.getPath().get(0).getLongName() + ", move towards " + p.getPath().get(1).getLongName() + "\n");
-            oldAngle = calcAngle(p.getPath().get(0).getX(), p.getPath().get(0).getY(), p.getPath().get(1).getX(), p.getPath().get(1).getY());
-            oldX = p.getPath().get(1).getX();
-            oldY = p.getPath().get(1).getY();
+            if (p.getPath().size() > 1) {
+                path.append("\n<<<Directions for floor " + p.getFloorID() + ">>>\n\n");
+                path.append("Start at " + p.getPath().get(0).getLongName() + ", move towards " + p.getPath().get(1).getLongName() + "\n");
+                oldAngle = calcAngle(p.getPath().get(0).getX(), p.getPath().get(0).getY(), p.getPath().get(1).getX(), p.getPath().get(1).getY());
+                oldX = p.getPath().get(1).getX();
+                oldY = p.getPath().get(1).getY();
+            }
             for (int i = 1; i < p.getPath().size() - 2; i++) {
                 Node n = p.getPath().get(i);
                 Node next = p.getPath().get(i + 1);
@@ -44,9 +47,10 @@ public class PathToString {
         }
 
         try {
-            PrintWriter writer = new PrintWriter("C:\\Users\\kenne\\Desktop\\the-file-name.txt", "UTF-8");
-            writer.write(path.toString());
-            writer.close();
+            FileWriter fstream = new FileWriter("resource.txt", false);
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write(path.toString());
+            out.close();
         }
         catch (Exception e){
             e.printStackTrace();

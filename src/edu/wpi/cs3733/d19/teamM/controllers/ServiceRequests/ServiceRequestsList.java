@@ -203,10 +203,16 @@ public class ServiceRequestsList {
             while(rs.next()){
                 temp = rs.getInt("ACCOUNTINT");
             }
-            if (getRequestFromTable("incomplete").equals("sanitation") && temp != 1 && User.getPrivilege() != 100)
+            System.out.println(temp);
+            System.out.println((String) usersDropDown.getSelectionModel().getSelectedItem());
+            System.out.println(getRequestFromTable("incomplete"));
+            if (getRequestFromTable("incomplete").equals("sanitation") && temp == 2 || User.getPrivilege() != 100)
                 fulfill.setDisable(true);
-            else if (getRequestFromTable("incomplete").equals("language") && temp != 2 && User.getPrivilege() != 100)
+            else if (getRequestFromTable("incomplete").equals("interpreter") && temp == 1 || User.getPrivilege() != 100)
                 fulfill.setDisable(true);
+            else if (usersDropDown.getSelectionModel().getSelectedItem() == null){
+                fulfill.setDisable(true);
+            }
             else
                 fulfill.setDisable(false);
         } catch (Exception e) {
@@ -652,7 +658,7 @@ public class ServiceRequestsList {
     @FXML
     void initialize() {
 
-
+        fulfill.setDisable(true);
         ObservableList<String> uDropDown = FXCollections.observableArrayList();
         try {
             Connection conn = new DatabaseUtils().getConnection();

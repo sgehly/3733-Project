@@ -19,10 +19,15 @@ public class AStar implements Searchable {
     public Path findPresetPath(Node start, String destType, Map<String, Node> map){
         Iterator it = map.entrySet().iterator();
         Node closest = null;
+        start.setG(0);
         double lowestCost = 500000;
         while(it.hasNext()) {
             Map.Entry set = (Map.Entry) it.next();
             Node n = (Node) set.getValue();
+            n.setG(n.getDistance(start)); //set its g, h, f, and parent
+            n.setP(getDeltaFloor(n, start) * 500);
+            n.setB(getDeltaBuilding(n, start) * 1000);
+            n.setF(n.getG() + n.getP() + n.getB());
             if (n != null && n.getNodeType().equals(destType)) {
                 System.out.println("Checking Node "+   n.getId());
                 if(n.getDistance(start) < lowestCost){
@@ -111,9 +116,9 @@ public class AStar implements Searchable {
     }
 
     private double getFloorValue(String f){
-        if (f.equals("L2")) return  0;
+        if (f.equals("G")) return  0;
         else if (f.equals("L1")) return  1;
-        else if (f.equals("G")) return  2;
+        else if (f.equals("L2")) return  2;
         else if (f.equals("1")) return  3;
         else if (f.equals("2")) return  4;
         else if (f.equals("3")) return  5;

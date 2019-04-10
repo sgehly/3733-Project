@@ -17,17 +17,14 @@ import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.utilities.*;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
-import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.*;
-import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
-import edu.wpi.cs3733.d19.teamM.utilities.SendEmail;
 import edu.wpi.cs3733.d19.teamM.Main;
-import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -51,6 +48,7 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
 
 import javax.swing.*;
@@ -95,7 +93,7 @@ public class Pathfinding {
     private JFXSlider zoomSlider;
 
     @FXML
-    private ScrollPane buttonContainer;
+    private Pane buttonContainer;
 
     @FXML
     private Slider zoomLvl;
@@ -136,12 +134,19 @@ public class Pathfinding {
     @FXML
     private CheckBox exits;
 
+    @FXML
+    private GesturePane gesturePane;
+
+    @FXML
+    private VBox mappingStuff;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
      */
     @FXML
     protected void initialize() throws Exception {
+        gesturePane.setContent(mappingStuff);
 
         System.out.println("Initializing pathfinding");
         new Clock(lblClock, lblDate);
@@ -159,6 +164,14 @@ public class Pathfinding {
 
         System.out.println("Finished pathfinding");
 
+    }
+
+
+    @FXML
+    private void speakDirections()
+    {
+        TextSpeech textSpeech = new TextSpeech();
+        textSpeech.speakToUser();
     }
 
     private void clickValues(MouseEvent evt){}
@@ -231,7 +244,7 @@ public class Pathfinding {
         String start = startText.getText();
         Node startNode = null;
         for (Node n : graph.getNodes().values()){
-            if (n.getLongName().equals(start)){
+            if (n.getId().equals(start)){
                 startNode = n;
             }
         }
@@ -244,7 +257,7 @@ public class Pathfinding {
 
         util.setFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
         floorLabel.setText(util.getFloorLabel());
-
+        PathToString.getDirections(path);
         updateMap();
         resetTextBox();
     }
@@ -256,8 +269,9 @@ public class Pathfinding {
         Node startNode = graph.getNodes().get(start);
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
-
-        util.setFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
+        PathToString.getDirections(path);
+        System.out.println(path+"/"+graph);
+        util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
 
         resetTextBox();
@@ -282,6 +296,9 @@ public class Pathfinding {
 
         if (startNode != null && endNode != null) {
             path = graph.findPath(startNode, endNode);
+            PathToString.getDirections(path);
+           // Printing myPrinter = new Printing();
+            //myPrinter.printDirections("C:\\Users\\kenne\\Desktop\\the-file-name.txt");
         }
 
         int newFloorInt = util.idToFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
@@ -439,12 +456,13 @@ public class Pathfinding {
             Node start = thePath.get(0);
             Node end = thePath.get(thePath.size()-1);
 
+            if(start.getId().equals(end.getId())) return;
             //ELEV or STAI
 
-            String startNodeType = start.getNodeType();
+            String startNodeType = end.getNodeType();
             System.out.println("START NODE: "+start.getLongName()+" | STARTNODETYPE: "+startNodeType);
 
-            if(startNodeType.equals("ELEV") || startNodeType.equals("STAI")){
+            if((startNodeType.equals("ELEV") || startNodeType.equals("STAI")) && !end.getId().equals(path.getFinalPath().get(0)) && !end.getId().equals(path.getFinalPath().get(path.getFinalPath().size()-1))){
 
                 int nextFloor = util.floor;
 
@@ -465,7 +483,7 @@ public class Pathfinding {
                     System.out.println("Creating");
                     Button startChangeButton = new Button();
                     startChangeButton.setText("Take the "+(startNodeType == "ELEV" ? "elevator" : "stairs")+" to "+util.getFloorLabel(nextFloor));
-                    MapPoint mp = util.scalePoints(start.getX(), start.getY());
+                    MapPoint mp = util.scalePoints(end.getX(), end.getY());
                     startChangeButton.setLayoutX(mp.x+5);
                     startChangeButton.setLayoutY(mp.y+5);
                     startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-family: \"Open Sans Bold\"");
@@ -493,7 +511,7 @@ public class Pathfinding {
             String endNodeType = end.getNodeType();
             System.out.println("END NODE: "+end.getLongName()+" | ENDNODETYPE: "+endNodeType);
 
-            if(endNodeType.equals("ELEV") || endNodeType.equals("STAI")){
+            if((endNodeType.equals("ELEV") || endNodeType.equals("STAI")) && !end.getId().equals(path.getFinalPath().get(0)) && !end.getId().equals(path.getFinalPath().get(path.getFinalPath().size()-1))){
                 int nextFloor = util.floor;
                 System.out.print(allPaths.size());
                 for(int i=0;i<allPaths.size();i++){
@@ -511,7 +529,7 @@ public class Pathfinding {
                 }
 
                 if(nextFloor != util.idToFloor(end.getFloor())){
-                    System.out.println("Creating Previous");
+                    /*System.out.println("Creating Previous");
                     Button startChangeButton = new Button();
                     startChangeButton.setText("BACK ("+util.getFloorLabel(nextFloor)+")");
                     MapPoint mp = util.scalePoints(end.getX(), end.getY());
@@ -534,7 +552,7 @@ public class Pathfinding {
                         }catch(Exception e){e.printStackTrace();}
                     });
                     util.buttonPane.getChildren().add(startChangeButton);
-                    clearNodes.add(startChangeButton);
+                    clearNodes.add(startChangeButton);*/
                 }
             }
 

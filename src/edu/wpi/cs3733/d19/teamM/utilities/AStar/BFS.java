@@ -77,7 +77,7 @@ public class BFS implements Searchable {
     private void setHueristics(Node curNode, Node endNode){
         curNode.setH(curNode.getDistance(endNode));
         curNode.setG(curNode.getParent().getDistance(curNode) + curNode.getParent().getG());
-        curNode.setP(getDeltaFloor(curNode, endNode) * 10000);
+        curNode.setP(getDeltaFloor(curNode, endNode) * 500);
         curNode.setB(getDeltaBuilding(curNode, endNode) * 1000);
         curNode.setF(curNode.getG() + curNode.getP() + curNode.getH() + curNode.getB());
     }
@@ -97,9 +97,9 @@ public class BFS implements Searchable {
     }
 
     private double getFloorValue(String f){
-        if (f.equals("L2")) return  0;
+        if (f.equals("G")) return  0;
         else if (f.equals("L1")) return  1;
-        else if (f.equals("G")) return  2;
+        else if (f.equals("L2")) return  2;
         else if (f.equals("1")) return  3;
         else if (f.equals("2")) return  4;
         else if (f.equals("3")) return  5;
