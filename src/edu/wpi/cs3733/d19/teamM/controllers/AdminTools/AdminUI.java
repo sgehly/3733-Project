@@ -150,6 +150,9 @@ public class AdminUI {
         nodeLabel.setVisible(false);
         String edgeID = startNodeTextBox.getText() + "_" + endNodeTextBox.getText();
         addE(edgeID);
+
+        graph = Floor.getFloor();
+
         resetTextFields();
     }
 
@@ -158,6 +161,7 @@ public class AdminUI {
         nodeLabel.setVisible(false);
         String edgeID = startNodeTextBox.getText() + "_" + endNodeTextBox.getText();
         removeE(edgeID);
+        graph = Floor.getFloor();
         resetTextFields();
     }
 
@@ -191,6 +195,7 @@ public class AdminUI {
     private void addNode(){
         edgeLabel.setVisible(false);
         addN();
+        graph = Floor.getFloor();
         resetTextFields();
     }
 
@@ -198,6 +203,7 @@ public class AdminUI {
     private void removeNode(){
         edgeLabel.setVisible(false);
         removeN();
+        graph = Floor.getFloor();
         resetTextFields();
     }
 
@@ -205,6 +211,7 @@ public class AdminUI {
     private void updateNode(){
         edgeLabel.setVisible(false);
         updateN();
+        graph = Floor.getFloor();
         resetTextFields();
     }
 
@@ -271,7 +278,7 @@ public class AdminUI {
                 String otherNodeId = edges.getString("edgeID").replace("_","").replace(rs.getString("nodeID"),"");
                 Node one = graph.getNodes().get(otherNodeId);
                 Node two = graph.getNodes().get(rs.getString("nodeID"));
-
+                System.out.println(one+" / "+two);
                 System.out.println("Path from "+one.getLongName()+" to "+two.getLongName());
 
                 if(util.buttonMap.get(one.getLongName()) == null || util.buttonMap.get(two.getLongName()) == null){
@@ -413,6 +420,8 @@ public class AdminUI {
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);
             nodeLabel.setText("Node Added!");
+            Node newNode = new Node(nodeIdTextBox.getText(), Integer.parseInt(xCoordTextBox.getText()), Integer.parseInt(yCoordTextBox.getText()), floorTextBox.getText(), buildingTextBox.getText(), typeTextBox.getText(), longNameTextBox.getText(), shortNameTextBox.getText());
+            graph.getNodes().put(nodeIdTextBox.getText(), newNode);
             util.getAllRecords(util.floor);
         }
         catch(Exception e){
@@ -431,6 +440,8 @@ public class AdminUI {
             stmt2.setString(1, nodeIdTextBox.getText());
             stmt2.execute();
             conn.close();
+
+            graph.getNodes().remove(nodeIdTextBox.getText());
 
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);
@@ -456,6 +467,11 @@ public class AdminUI {
             edgeLabel.setTextFill(Color.GREEN);
             edgeLabel.setVisible(true);
             edgeLabel.setText("Edge Removed!");
+
+            String[] edgeNodes = edgeID.split("_");
+            graph.getNodes().get(edgeNodes[0]).removeEdge(graph.getNodes().get(edgeNodes[1]));
+            graph.getNodes().get(edgeNodes[1]).removeEdge(graph.getNodes().get(edgeNodes[0]));
+
             util.getAllRecords(util.floor);
         }catch(Exception e){
             e.printStackTrace();
@@ -479,6 +495,8 @@ public class AdminUI {
             edgeLabel.setTextFill(Color.GREEN);
             edgeLabel.setVisible(true);
             edgeLabel.setText("Edge Added!");
+            graph.getNodes().get(edgeNodes[0]).addEdge(graph.getNodes().get(edgeNodes[1]), edgeID);
+            graph.getNodes().get(edgeNodes[1]).addEdge(graph.getNodes().get(edgeNodes[0]), edgeID);
             util.getAllRecords(util.floor);
         } catch(Exception e){
             e.printStackTrace();
@@ -517,15 +535,27 @@ public class AdminUI {
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             Connection conn = DriverManager.getConnection(dbPath);
-            PreparedStatement stmt = conn.prepareStatement("update NODE set xcoord = ?, ycoord = ?, nodetype = ?,  longname = ?, shortname = ? where nodeid = ?");
-            stmt.setString(1, xCoordTextBox.getText());
+            PreparedStatement stmt = conn.prepareStatement("update NODE set xcoord = ?, ycoord = ?, nodetype = ?, floor = ?, building = ?, longname = ?, shortname = ? where nodeid = ?");
+            stmt.setInt(1, Integer.parseInt(xCoordTextBox.getText()));
             stmt.setInt(2, Integer.parseInt(yCoordTextBox.getText()));
-            stmt.setInt(3, Integer.parseInt(typeTextBox.getText()));
-            stmt.setString(4, longNameTextBox.getText());
-            stmt.setString(5, shortNameTextBox.getText());
-            stmt.setString(6, nodeIdTextBox.getText());
+            stmt.setString(3, typeTextBox.getText());
+            stmt.setString(4, floorTextBox.getText());
+            stmt.setString(5, buildingTextBox.getText());
+            stmt.setString(6, shortNameTextBox.getText());
+            stmt.setString(7, longNameTextBox.getText());
+            stmt.setString(8, nodeIdTextBox.getText());
             stmt.executeUpdate();
             conn.close();
+
+            Node nodeToModify = graph.getNodes().get(nodeIdTextBox.getText());
+            nodeToModify.setBuilding(buildingTextBox.getText());
+            nodeToModify.setLongName(longNameTextBox.getText());
+            nodeToModify.setShortName(shortNameTextBox.getText());
+            nodeToModify.setNodeType(typeTextBox.getText());
+            nodeToModify.setFloor(floorTextBox.getText());
+            nodeToModify.setX(Integer.parseInt(xCoordTextBox.getText()));
+            nodeToModify.setY(Integer.parseInt(yCoordTextBox.getText()));
+
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);
             nodeLabel.setText("Node Updated!");

@@ -215,6 +215,14 @@ public class Node implements Comparable{
         this.edgeList.add(new Edge(n, edgeID));
     }
 
+    public void removeEdge(Node n){
+        for (Edge e : this.getEdges()){
+            if (e.getEndNode().getId().equals(n.getId())){
+                this.getEdges().remove(e);
+            }
+        }
+    }
+
 
     @Override
     public int compareTo(Object o) {
