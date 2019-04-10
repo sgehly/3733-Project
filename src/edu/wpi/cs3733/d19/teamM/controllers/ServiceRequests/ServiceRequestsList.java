@@ -206,9 +206,9 @@ public class ServiceRequestsList {
             System.out.println(temp);
             System.out.println((String) usersDropDown.getSelectionModel().getSelectedItem());
             System.out.println(getRequestFromTable("incomplete"));
-            if (getRequestFromTable("incomplete").equals("sanitation") && temp != 1 && User.getPrivilege() != 100)
+            if (getRequestFromTable("incomplete").equals("sanitation") && temp == 2 || User.getPrivilege() != 100)
                 fulfill.setDisable(true);
-            else if (getRequestFromTable("incomplete").equals("interpreter") && temp != 2 && User.getPrivilege() != 100)
+            else if (getRequestFromTable("incomplete").equals("interpreter") && temp == 1 || User.getPrivilege() != 100)
                 fulfill.setDisable(true);
             else if (usersDropDown.getSelectionModel().getSelectedItem() == null){
                 fulfill.setDisable(true);
