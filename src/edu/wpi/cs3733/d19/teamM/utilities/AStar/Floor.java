@@ -45,7 +45,7 @@ public class Floor {
         }
     }
 
-    public static Floor getFloor(){
+    synchronized public static Floor getFloor(){
         if(thisFloor == null){
             thisFloor = new Floor();
         }
@@ -83,7 +83,7 @@ public class Floor {
      * Get a map of all the nodes
      * @return Map of all the nodes
      */
-    public Map<String, Node> getNodes(){
+    synchronized public Map<String, Node> getNodes(){
         return nodes;
     }
 
