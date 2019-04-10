@@ -111,7 +111,7 @@
                                           <Image url="@../../../../../../../resources/icons/internal.png" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Internal Transportation">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Internal Transportation - Completed by Jack">
                                        <VBox.margin>
                                           <Insets top="20.0" />
                                        </VBox.margin>
