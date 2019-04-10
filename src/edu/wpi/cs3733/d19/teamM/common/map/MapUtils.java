@@ -450,21 +450,19 @@ public class MapUtils {
 
         imageFiles.put(this.floor, new Image(Main.getResource("/resources/maps/"+this.images[this.floor])));
 
-        new Thread(() -> {
-            for (int i = 0; i < images.length; i++) {
-                if (i == this.floor) continue;
-                final int index = i;
-                new Thread(() -> {
-                    imageFiles.put(index, new Image(Main.getResource("/resources/maps/" + this.images[index])));
-                }).start();
-            }
+        for (int i = 0; i < images.length; i++) {
+            if (i == this.floor) continue;
+            final int index = i;
+            new Thread(() -> {
+                imageFiles.put(index, new Image(Main.getResource("/resources/maps/" + this.images[index])));
+            }).start();
+        }
 
-            try{
-                this.getAllRecords(this.floor);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }).start();
+        try{
+            this.getAllRecords(this.floor);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void moveUp() throws Exception{

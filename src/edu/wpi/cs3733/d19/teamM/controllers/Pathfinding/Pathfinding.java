@@ -270,6 +270,7 @@ public class Pathfinding {
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
 
+        System.out.println(path+"/"+graph);
         util.setFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
         floorLabel.setText(util.getFloorLabel());
 
@@ -460,7 +461,7 @@ public class Pathfinding {
             String startNodeType = start.getNodeType();
             System.out.println("START NODE: "+start.getLongName()+" | STARTNODETYPE: "+startNodeType);
 
-            if(startNodeType.equals("ELEV") || startNodeType.equals("STAI")){
+            if((startNodeType.equals("ELEV") || startNodeType.equals("STAI")) && !start.getId().equals(path.getFinalPath().get(0)) && !start.getId().equals(path.getFinalPath().get(path.getFinalPath().size()-1))){
 
                 int nextFloor = util.floor;
 
@@ -509,7 +510,7 @@ public class Pathfinding {
             String endNodeType = end.getNodeType();
             System.out.println("END NODE: "+end.getLongName()+" | ENDNODETYPE: "+endNodeType);
 
-            if(endNodeType.equals("ELEV") || endNodeType.equals("STAI")){
+            if((endNodeType.equals("ELEV") || endNodeType.equals("STAI")) && !end.getId().equals(path.getFinalPath().get(0)) && !end.getId().equals(path.getFinalPath().get(path.getFinalPath().size()-1))){
                 int nextFloor = util.floor;
                 System.out.print(allPaths.size());
                 for(int i=0;i<allPaths.size();i++){
