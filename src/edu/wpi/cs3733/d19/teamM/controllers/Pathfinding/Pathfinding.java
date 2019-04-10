@@ -145,9 +145,16 @@ public class Pathfinding {
         path = new Path();
         util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues);
         setUpListeners();
-
         util.initialize();
 
+    }
+
+
+    @FXML
+    private void speakDirections()
+    {
+        TextSpeech textSpeech = new TextSpeech();
+        textSpeech.speakToUser();
     }
 
     private void clickValues(MouseEvent evt){}

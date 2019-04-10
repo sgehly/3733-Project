@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -363,7 +363,7 @@
                                                 <Insets right="50.0" />
                                              </padding>
                                           </HBox>
-                                                      <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
+                                                      <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="50.0" prefWidth="700.0" spacing="20.0">
                                                           <children>
                                                               <Text fx:id="floorLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="FLOOR 1">
                                                                   <font>
@@ -381,6 +381,14 @@
                                                               <Insets bottom="20.0" right="50.0" />
                                                           </padding>
                                                       </HBox>
+                                          <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
+                                             <children>
+                                                <Button maxHeight="50.0" mnemonicParsing="false" onMouseClicked="#speakDirections" prefHeight="50.0" prefWidth="425.0" styleClass="blackButton" text="HEAR DIRECTIONS" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="20.0" right="50.0" />
+                                             </padding>
+                                          </HBox>
                                        </children>
                                        <StackPane.margin>
                                           <Insets bottom="40.0" />
