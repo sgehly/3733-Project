@@ -25,7 +25,7 @@ public class Floor {
     Map<String, Node> nodes;
 
     //Path finders
-    Searchable dfs, bfs, selected;
+    Searchable dfs, bfs, dStar, selected;
     AStar aStar;
 
     private Floor(){
@@ -35,7 +35,8 @@ public class Floor {
         aStar = new AStar();
         dfs = new DFS();
         bfs = new BFS();
-        selected = aStar;
+        dStar = new DStar();
+        selected = dStar;
         try {
             this.populate();
         }
