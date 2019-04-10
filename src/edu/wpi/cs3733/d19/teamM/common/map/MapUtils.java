@@ -453,9 +453,9 @@ public class MapUtils {
         for (int i = 0; i < images.length; i++) {
             if (i == this.floor) continue;
             final int index = i;
-            //new Thread(() -> {
+            new Thread(() -> {
                 imageFiles.put(index, new Image(Main.getResource("/resources/maps/" + this.images[index])));
-           // }).start();
+            }).start();
         }
 
         try{
