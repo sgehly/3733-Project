@@ -107,13 +107,13 @@
                               <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <ImageView fitHeight="200.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="defaultImage" fitHeight="200.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../../../../resources/icons/user.png" />
                                  </image>
                               </ImageView>
-                              <ImageView fx:id="tempPhoto" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                        <ImageView fx:id="image" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="tempPhoto" pickOnBounds="true" preserveRatio="true" />
+                                        <ImageView fx:id="image" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </HBox>
                                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Add/Modify User">

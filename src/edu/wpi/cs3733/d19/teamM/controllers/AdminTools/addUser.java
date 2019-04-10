@@ -211,7 +211,7 @@ public class addUser {
 
         String os = System.getProperty("os.name").toLowerCase();
 
-        if(os.indexOf("win") >= 0){
+        /*if(os.indexOf("win") >= 0){
             defaultImage.setFitHeight(0);
             defaultImage.setFitWidth(0);
             try{
@@ -233,9 +233,12 @@ public class addUser {
         }else{
             tempPhoto.setFitHeight(0);
             tempPhoto.setFitWidth(0);
+            tempPhoto.setVisible(false);
+
             image.setFitHeight(0);
             image.setFitHeight(0);
-        }
+            image.setVisible(false);
+        }*/
 
 
         new Clock(lblClock, lblDate);
