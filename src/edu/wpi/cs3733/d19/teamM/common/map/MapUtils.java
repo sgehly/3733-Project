@@ -151,7 +151,7 @@ public class MapUtils {
                 newButton.setMaxHeight(size);
 
                 //Set its id to the node that it will be representing
-                newButton.setId(rs.getString("longName"));
+                newButton.setId(rs.getString("nodeId"));
                 newButton.setOnAction(callback);
 
                 //Generate a map point out of the node button and place it on the screen and make it blue
@@ -173,7 +173,7 @@ public class MapUtils {
         Floor g = Floor.getFloor();
         for (Node b : buttonPane.getChildren()){
             for (edu.wpi.cs3733.d19.teamM.utilities.AStar.Node n : g.getNodes().values()) {
-                if (n.getLongName().equals(b.getId()) && n.getNodeType().equals(type)) {
+                if (n.getId().equals(b.getId()) && n.getNodeType().equals(type)) {
                     n.disable();
                     b.setVisible(false);
                 }
@@ -185,7 +185,7 @@ public class MapUtils {
         Floor g = Floor.getFloor();
         for (Node b : buttonPane.getChildren()){
             for (edu.wpi.cs3733.d19.teamM.utilities.AStar.Node n : g.getNodes().values()) {
-                if (n.getLongName().equals(b.getId()) && n.getNodeType().equals(type)) {
+                if (n.getId().equals(b.getId()) && n.getNodeType().equals(type)) {
                     n.enable();
                     b.setVisible(true);
                 }
