@@ -2,10 +2,12 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 public class LanguageRequestForm {
 
@@ -13,6 +15,9 @@ public class LanguageRequestForm {
     //Text field for room location input
     @FXML
     private TextField room;
+
+    @FXML
+    private Text userText;
 
     @FXML
     private TextField type;
@@ -61,6 +66,7 @@ public class LanguageRequestForm {
     @FXML
     void initialize(){
         new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
     }
 
 }

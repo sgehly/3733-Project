@@ -80,7 +80,7 @@ public class AdminUI {
     private Text userText;
 
     @FXML
-    private ScrollPane buttonContainer;
+    private Pane buttonContainer;
 
     @FXML
     private JFXSlider zoomSlider;
