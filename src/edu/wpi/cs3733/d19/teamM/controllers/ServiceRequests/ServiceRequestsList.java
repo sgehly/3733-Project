@@ -648,7 +648,7 @@ public class ServiceRequestsList {
     @FXML
     void initialize() {
 
-
+        fulfill.setDisable(true);
         ObservableList<String> uDropDown = FXCollections.observableArrayList();
         try {
             Connection conn = new DatabaseUtils().getConnection();
