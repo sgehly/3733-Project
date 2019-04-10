@@ -205,6 +205,7 @@ public class addUser {
 
     @FXML
     void initialize() {
+        System.out.println("123");
         if (Webcam.getDefault() != null) {
             webcam = Webcam.getDefault();
             webcam.open();

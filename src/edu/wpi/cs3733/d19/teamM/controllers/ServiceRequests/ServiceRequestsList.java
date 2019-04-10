@@ -317,7 +317,6 @@ public class ServiceRequestsList {
             e.printStackTrace();
         }
 
-
         if (nextPage.equals("interpreter")) {
             Main.setScene("serviceRequestReports/languageReportTemplate");
         }
@@ -338,7 +337,27 @@ public class ServiceRequestsList {
             Main.setScene("serviceRequestReports/IntTransportReportTemplate");
         }
 
-
+        if(nextPage.equals("flowers")) {
+            Main.setScene("serviceRequestReports/flowersReportTemplate");
+        }
+        if(nextPage.equals("religion")) {
+            Main.setScene("serviceRequestReports/religiousReportTemplate");
+        }
+        if(nextPage.equals("security")) {
+            Main.setScene("serviceRequestReports/securityReportTemplate");
+        }
+        if(nextPage.equals("gift")) {
+            Main.setScene("serviceRequestReports/giftReportTemplate");
+        }
+        if(nextPage.equals("av")) {
+            Main.setScene("serviceRequestReports/aVReportTemplate");
+        }
+        if(nextPage.equals("external")) {
+            Main.setScene("serviceRequestReports/extTransportReportTemplate");
+        }
+        if(nextPage.equals("laboratory")) {
+            Main.setScene("serviceRequestReports/laboratoryReportTemplate");
+        }
     }
 
     private void goToProperReport(String nextPage) {
@@ -352,6 +371,22 @@ public class ServiceRequestsList {
         else if(nextPage.equals("prescription")) {
             System.out.println(this.getRequestFromTable("incomplete"));
             Main.setScene("prescriptionReportTemplate");
+        }
+        else if(nextPage.equals("flowers")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("flowersReportTemplate");
+        }
+        else if(nextPage.equals("religion")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("religiousReportTemplate");
+        }
+        else if(nextPage.equals("security")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("securityReportTemplate");
+        }
+        else if(nextPage.equals("gift")) {
+            System.out.println(this.getRequestFromTable("incomplete"));
+            Main.setScene("giftReportTemplate");
         }
         System.out.println("yo: " + this.getRequestFromTable("incomplete"));
     }
