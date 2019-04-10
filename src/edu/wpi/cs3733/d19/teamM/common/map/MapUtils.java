@@ -78,7 +78,7 @@ public class MapUtils {
         this.buttonPane = new Pane();
         buttonPane.setLayoutY(buttonContainer.getLayoutY());
         buttonPane.setLayoutX(buttonContainer.getLayoutX());
-        buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
+        //buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
 
         //buttonContainer.setStyle("-fx-border-color: blue;-fx-border-width: 5px");
         this.buttonContainer.getChildren().add(buttonPane);
