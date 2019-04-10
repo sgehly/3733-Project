@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="3733-Project:desktop" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="edu.wpi.cs3733.d19.teamM" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/../../out/desktop/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../src/desktop" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="edu.wpi.cs3733.d19.teamM.3733-Project.main" />
     <orderEntry type="library" name="Gradle: org.controlsfx:controlsfx:8.40.14" level="project" />
+    <orderEntry type="module" module-name="edu.wpi.cs3733.d19.teamM.3733-Project.main" />
     <orderEntry type="library" name="Gradle: com.sendgrid:sendgrid-java:1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.twilio.sdk:twilio:7.37.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.sarxos:webcam-capture-driver-jmf:0.3.11" level="project" />

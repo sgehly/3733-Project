@@ -16,14 +16,12 @@
       <module name="3733-Project.test" target="1.8" />
       <module name="3733-Project_main" target="1.8" />
       <module name="3733-Project_test" target="1.8" />
-      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.android" target="11" />
-      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.desktop" target="11" />
-      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.embedded" target="11" />
-      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.ios" target="11" />
-      <module name="edu.wpi.cs3733.d19.teamm.3733-Project.main" target="11" />
-      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.main" target="11" />
-      <module name="edu.wpi.cs3733.d19.teamm.3733-Project.test" target="11" />
-      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.test" target="11" />
+      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.android" target="1.8" />
+      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.desktop" target="1.8" />
+      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.embedded" target="1.8" />
+      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.ios" target="1.8" />
+      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.main" target="1.8" />
+      <module name="edu.wpi.cs3733.d19.teamM.3733-Project.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
