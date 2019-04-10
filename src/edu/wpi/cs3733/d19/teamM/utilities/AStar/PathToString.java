@@ -24,7 +24,18 @@ public class PathToString {
         Collections.reverse(paths.getPath());
         //angle = calcAngle(oldX, oldY, n.getX(), n.getY());
         //step = getDirectionChange(angle, oldAngle);
-        if (paths.getPath().size() < 3) return "Figure it out";
+        if (paths.getPath().size() < 3) {
+            try {
+                FileWriter fstream = new FileWriter("resource.txt", false);
+                BufferedWriter out = new BufferedWriter(fstream);
+                out.write("Figure it out, it's literally next to you. Have a good day");
+                out.close();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            return "Figure it out";
+        }
         for (Path p : paths.getFloorPaths()) {
             if (p.getPath().size() > 1) {
                 path.append("\n<<<Directions for floor " + p.getFloorID() + ">>>\n\n");
