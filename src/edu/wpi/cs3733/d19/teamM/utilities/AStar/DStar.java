@@ -30,6 +30,7 @@ public class DStar implements Searchable{
                     p.add(current);
                     current = current.getParent();
                 }
+                p.add(start);
                 return p;
             }
             visited.put(current.getId(), current);
@@ -42,7 +43,7 @@ public class DStar implements Searchable{
                 }
             }
         }
-        return p;
+        return null;
     }
 
 

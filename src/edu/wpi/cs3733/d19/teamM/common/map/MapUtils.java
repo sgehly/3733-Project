@@ -172,7 +172,7 @@ public class MapUtils {
         Floor g = Floor.getFloor();
         for (Node b : buttonPane.getChildren()){
             for (edu.wpi.cs3733.d19.teamM.utilities.AStar.Node n : g.getNodes().values()) {
-                if (n.getLongName().equals(b.getId()) && n.getNodeType().equals(type)) {
+                if (n.getId().equals(b.getId()) && n.getNodeType().equals(type)) {
                     n.disable();
                     b.setVisible(false);
                 }
@@ -184,7 +184,7 @@ public class MapUtils {
         Floor g = Floor.getFloor();
         for (Node b : buttonPane.getChildren()){
             for (edu.wpi.cs3733.d19.teamM.utilities.AStar.Node n : g.getNodes().values()) {
-                if (n.getLongName().equals(b.getId()) && n.getNodeType().equals(type)) {
+                if (n.getId().equals(b.getId()) && n.getNodeType().equals(type)) {
                     n.enable();
                     b.setVisible(true);
                 }

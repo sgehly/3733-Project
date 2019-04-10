@@ -17,17 +17,14 @@ import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.utilities.*;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.AStar;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
-import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.*;
-import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
-import edu.wpi.cs3733.d19.teamM.utilities.SendEmail;
 import edu.wpi.cs3733.d19.teamM.Main;
-import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -267,6 +264,9 @@ public class Pathfinding {
 
         if (startNode != null && endNode != null) {
             path = graph.findPath(startNode, endNode);
+            PathToString.getDirections(path);
+            Printing myPrinter = new Printing();
+            myPrinter.printDirections("C:\\Users\\kenne\\Desktop\\the-file-name.txt");
         }
 
         updateMap();
