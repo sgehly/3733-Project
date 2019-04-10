@@ -33,8 +33,6 @@ public class LanguageRequests implements Initializable {
     @FXML
     private javafx.scene.control.Label lblDate;
 
-    @FXML
-    private Text userText;
 
     ObservableList<String> languages = FXCollections.observableArrayList("Acholi",
             "Afrikaans", "Akan", "Albanian","Amharic","Arabic", "Ashante", "Asl", "Assyrian", "Azerbaijani", "Azeri", "Bajuni", "Basque",
