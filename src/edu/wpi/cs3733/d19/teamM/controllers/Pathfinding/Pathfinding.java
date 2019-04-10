@@ -257,7 +257,7 @@ public class Pathfinding {
 
         util.setFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
         floorLabel.setText(util.getFloorLabel());
-
+        PathToString.getDirections(path);
         updateMap();
         resetTextBox();
     }
@@ -269,7 +269,7 @@ public class Pathfinding {
         Node startNode = graph.getNodes().get(start);
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
-
+        PathToString.getDirections(path);
         System.out.println(path+"/"+graph);
         util.setFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
         floorLabel.setText(util.getFloorLabel());
