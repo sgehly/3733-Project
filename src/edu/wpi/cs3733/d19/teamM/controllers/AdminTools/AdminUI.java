@@ -134,6 +134,9 @@ public class AdminUI {
     private RadioButton DFS;
 
     @FXML
+    private RadioButton DStar;
+
+    @FXML
     private void navigateToHome() throws Exception{
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
@@ -169,6 +172,9 @@ public class AdminUI {
         }
         else if(BFS.isSelected()){
             graph.setBFS();
+        }
+        else if (DStar.isSelected()){
+            graph.setDStar();
         }
         else{
             graph.setAStar();
