@@ -78,7 +78,7 @@ public class DFS implements Searchable {
     private void setHueristics(Node curNode, Node endNode){
         curNode.setH(curNode.getDistance(endNode));
         curNode.setG(curNode.getParent().getDistance(curNode) + curNode.getParent().getG());
-        curNode.setP(getDeltaFloor(curNode, endNode) * 10000);
+        curNode.setP(getDeltaFloor(curNode, endNode) * 500);
         curNode.setB(getDeltaBuilding(curNode, endNode) * 1000);
         curNode.setF(curNode.getG() + curNode.getP() + curNode.getH() + curNode.getB());
     }

@@ -244,7 +244,7 @@ public class Pathfinding {
         String start = startText.getText();
         Node startNode = null;
         for (Node n : graph.getNodes().values()){
-            if (n.getLongName().equals(start)){
+            if (n.getId().equals(start)){
                 startNode = n;
             }
         }

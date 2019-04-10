@@ -36,7 +36,7 @@ public class Floor {
         dfs = new DFS();
         bfs = new BFS();
         dStar = new DStar();
-        selected = dStar;
+        selected = aStar;
         try {
             this.populate();
         }
