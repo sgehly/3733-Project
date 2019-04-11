@@ -21,6 +21,9 @@ import java.net.URL;
 public class Main extends Application {
 
     //Create the primary stage and set it to null
+
+    static boolean isLoaded = false;
+
     private static Stage primaryStage = null;
 
     private static Parent homePane;
@@ -102,16 +105,17 @@ public class Main extends Application {
         return Main.class.getClassLoader().getResourceAsStream(path);
     }
 
-    public static void loadScenes() throws Exception{
+    public static void loadScenes() throws Exception {
         homePane = FXMLLoader.load(Main.getFXMLURL("home"));
-        homeScene= new Scene(Main.homePane);
+        homeScene = new Scene(Main.homePane);
 
+        if(!isLoaded) {
         Runnable loadAdminThread = () -> {
             try {
                 System.out.println("Loading scenes");
                 adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
                 adminScene = new Scene(adminPane);
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         };
@@ -119,7 +123,7 @@ public class Main extends Application {
             try {
                 pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
                 pathFindingScene = new Scene(pathFindingPane);
-            }catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         };
@@ -142,8 +146,8 @@ public class Main extends Application {
         Runnable loadSRListThread = () -> {
             try {
                 serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-                serviceRequestListScene= new Scene(serviceRequestListPane);
-            }catch(Exception e){
+                serviceRequestListScene = new Scene(serviceRequestListPane);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         };
@@ -154,8 +158,13 @@ public class Main extends Application {
         new Thread(loadSchedulerThread).start();
         new Thread(loadServiceRequestsThread).start();
         new Thread(loadSRListThread).start();
+        isLoaded = true;
 
     }
+        else{
+            System.out.println("already loaded");
+        }
+    };
 
     public static void loadAddUsers() throws Exception{
         addUserPane = FXMLLoader.load(Main.getFXMLURL("addUser"));

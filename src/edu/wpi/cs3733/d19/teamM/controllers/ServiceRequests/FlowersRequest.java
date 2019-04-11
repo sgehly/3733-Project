@@ -120,7 +120,8 @@ public class FlowersRequest implements Initializable {
         new Clock(lblClock, lblDate);
 
 
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
         TextFields.bindAutoCompletion(flowerType,flowers);
     }
 }

@@ -103,7 +103,7 @@ public class MapUtils {
 
         //The scaled width and height of the image
         if(cachedScaledHeight == 0){
-            cachedScaledHeight = imageView.getBoundsInParent().getHeight()-50;
+            cachedScaledHeight = imageView.getBoundsInParent().getHeight()-45;
             buttonPane.setPrefHeight(cachedScaledHeight);
         }
         if(cachedScaledWidth == 0){
@@ -143,7 +143,7 @@ public class MapUtils {
             while (rs.next()) {
                 //Create a button and set its size
                 javafx.scene.control.Button newButton = new Button();
-                double size = 5;
+                double size = 6;
                 newButton.setMinWidth(size);
                 newButton.setMaxWidth(size);
                 newButton.setMinHeight(size);

@@ -73,6 +73,7 @@ public class ReligiousRequestForm {
     void initialize(){
 
         new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
     }
 }
