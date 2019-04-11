@@ -87,6 +87,7 @@ public class ITRequests implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         Clock clock = new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
     }
 }

@@ -89,7 +89,8 @@ public class IntTransportRequest {
     @FXML
     private void initialize(){
         new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
     }
 
 

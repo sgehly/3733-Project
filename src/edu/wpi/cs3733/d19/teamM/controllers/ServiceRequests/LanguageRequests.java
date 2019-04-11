@@ -149,9 +149,9 @@ public class LanguageRequests implements Initializable {
             e.printStackTrace();
         }
 
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
         TextFields.bindAutoCompletion(Language,languages);
-        userText.setText(User.getUsername());
     }
 }
 

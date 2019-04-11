@@ -150,7 +150,8 @@ public class Pathfinding {
 
         System.out.println("Initializing pathfinding");
         new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
 
         new Thread(() -> {
             try{

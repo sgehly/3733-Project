@@ -243,7 +243,8 @@ public class addUser {
 
         new Clock(lblClock, lblDate);
 
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
 
         assert userText != null : "fx:id=\"userText\" was not injected: check your FXML file 'addUser.fxml'.";
         assert lblDate != null : "fx:id=\"lblDate\" was not injected: check your FXML file 'addUser.fxml'.";
