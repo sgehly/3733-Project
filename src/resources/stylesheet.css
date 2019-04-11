@@ -1,16 +1,17 @@
 
 /*buttons*/
 .blackButton {
-    -fx-background-color: white;
-    -fx-border-width: .2em;
-    -fx-border-color:  black;
-    -fx-text-fill: black;
+    -fx-background-color: #012d5a;
+    -fx-border-width: 5px;
+    -fx-border-color:  #00172f;
+    -fx-text-fill: white;
     -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+    -fx-background-radius: 10px;
+    -fx-underline: none;
     -fx-font-family: "Open Sans Bold"
 }
 .blackButton:hover{
-    -fx-background-color: #012D5A;
+    -fx-background-color: #00172f;
     -fx-text-fill: white;
     -fx-cursor: hand;
 }

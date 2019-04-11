@@ -98,7 +98,7 @@ public class Floor {
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         File f;
         Graphics2D g2d = img.createGraphics();
-        g2d.setColor(Color.RED);
+        g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(15.0f));
         List<Node> allNodes = new ArrayList<>();
         for (Path p : paths) {
@@ -113,8 +113,8 @@ public class Floor {
         }
         //use the nodes to create points for each of the nodes (black points)
         for (Node node : allNodes) {
-            int diameter = 7; //Diameter of the circle
-            g2d.setColor(Color.YELLOW);
+            int diameter = 2; //Diameter of the circle
+            g2d.setColor(Color.BLACK);
             Shape circle = new Ellipse2D.Double(node.getXCoord() - diameter / 2.0, node.getYCoord() - diameter / 2.0, diameter, diameter); //Draw the circle
             g2d.draw(circle);
         }
