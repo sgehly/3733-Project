@@ -34,14 +34,14 @@ public class Welcome {
     protected void initialize() throws Exception{
 
         //Gets the video resources and stores it as a media file
-        Media media = new Media(getClass().getResource("/resources/Pressure.mp4").toExternalForm());
+        /*Media media = new Media(getClass().getResource("/resources/Pressure.mp4").toExternalForm());
 
         //Creates the media player to play the video
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
         //Sets the video on infinite loop and passes it to the mediaView to display on the screen
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaView.setMediaPlayer(mediaPlayer);
+        mediaView.setMediaPlayer(mediaPlayer);*/
     }
 
     /**

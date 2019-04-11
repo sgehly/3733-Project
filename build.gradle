@@ -130,6 +130,7 @@ jfxmobile {
         manifest = 'src/android/AndroidManifest.xml'
     }
     ios {
+        //iosProvisioningProfile = '3733_Provisioning'
         infoPList = file('src/ios/Default-Info.plist')
         forceLinkClasses = [
                 'com.gluonhq.**.*',
@@ -137,7 +138,8 @@ jfxmobile {
                 'javax.inject.**.*',
                 'javax.json.**.*',
                 'javafx.**.*',
-                'org.glassfish.json.**.*'
+                'org.glassfish.json.**.*',
+                'edu.wpi.cs3733.d19.teamM.**.*'
         ]
     }
 }

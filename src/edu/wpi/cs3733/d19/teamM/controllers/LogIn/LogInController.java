@@ -109,14 +109,14 @@ public class LogInController {
         // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         //Gets the video resources and stores it as a media file
-        Media media = new Media(getClass().getResource("/resources/Pressure.mp4").toExternalForm());
+        /*Media media = new Media(getClass().getResource("/resources/Pressure.mp4").toExternalForm());
 
         //Creates the media player to play the video
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
         //Sets the video on infinite loop and passes it to the mediaView to display on the screen
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaView.setMediaPlayer(mediaPlayer);
+        mediaView.setMediaPlayer(mediaPlayer);*/
 
         assert mainContent != null : "fx:id=\"mainContent\" was not injected: check your FXML file 'login.fxml'.";
         assert mediaView != null : "fx:id=\"mediaView\" was not injected: check your FXML file 'login.fxml'.";
