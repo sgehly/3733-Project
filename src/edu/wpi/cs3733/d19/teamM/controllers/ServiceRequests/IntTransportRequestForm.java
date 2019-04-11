@@ -80,7 +80,8 @@ public class IntTransportRequestForm {
     void initialize(){
 
         new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
     }
 
 }

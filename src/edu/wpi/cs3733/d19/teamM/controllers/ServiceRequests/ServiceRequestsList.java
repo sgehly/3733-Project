@@ -679,7 +679,8 @@ public class ServiceRequestsList {
 
         new Clock(lblClock, lblDate);
 
-        userText.setText(User.getUsername());
+       // userText.setText(User.getUsername());
+        userText.setText("");
 
         ObservableList<String> dropdownList = FXCollections.observableArrayList();
         ;

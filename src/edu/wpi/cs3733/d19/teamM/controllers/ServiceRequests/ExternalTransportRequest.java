@@ -87,7 +87,8 @@ public class ExternalTransportRequest {
     @FXML
     private void initialize(){
 
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
         new Clock(lblClock, lblDate);
     }
 
