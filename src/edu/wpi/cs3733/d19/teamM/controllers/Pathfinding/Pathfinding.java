@@ -395,7 +395,10 @@ public class Pathfinding {
 
         for(Node node: floorMap.values())
         {
-            longNames.add(node.getLongName());
+            if(!node.getNodeType().equals("HALL"))
+            {
+                longNames.add(node.getLongName());
+            }
         }
         startText.textProperty().addListener((ov, oldValue, newValue) -> {
             TextFields.bindAutoCompletion(startText,longNames);
