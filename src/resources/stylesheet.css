@@ -74,7 +74,7 @@
     -fx-font-family: "Open Sans Bold";
     -fx-cursor:hand;
     -fx-opacity:0.8;
-    -fx-translate-y: -7;
+    -fx-background-insets: 5px;
 }
 .pane{
     -fx-background-color: white;
