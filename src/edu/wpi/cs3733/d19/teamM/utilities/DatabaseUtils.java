@@ -83,7 +83,7 @@ public class DatabaseUtils {
     }
 
     public void nodeParse(){
-        InputStream file = Main.getResource("/resources/nodesv4.csv");
+        InputStream file = Main.getResource("/resources/nodesv5.csv");
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
 
@@ -143,7 +143,7 @@ public class DatabaseUtils {
             String createTable9 = "create table BookedTimes(roomID varchar(20),startTime timestamp, endTime timestamp,Constraint room_FK Foreign Key (roomID) REFERENCES Rooms(roomID))";
             String createTable10 = "create table REQUESTINPROGRESS (REQUESTID   INTEGER not null constraint REQUESTINPROGRESS_REQUESTID_UINDEX unique, ROOM VARCHAR(200), SUBTYPE VARCHAR(200), DESCRIPTION VARCHAR(200), DATE TIMESTAMP, CHECKBOX INT, TYPE VARCHAR(200) default 'Sanitation', FINISHED_BY VARCHAR(30)  default 'NULL')";
             //String createTable11 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,isLoggedIn int,constraint adminBool check (accountInt = 100 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0),constraint loggedBool check (isLoggedIn = 0 or isLoggedIn = 1))";
-            String createTable20 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,pathtopic varchar(100), constraint adminBool check (accountInt = 100 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0))";
+            String createTable20 = "create table users(username varchar(100) primary key not null, accountInt int not null,userPass varchar(100) not null,pathtopic varchar(100), constraint adminBool check (accountInt = 100 or accountInt = 11 or accountInt = 10 or accountInt = 9 or accountInt = 8 or accountInt = 7 or accountInt = 6 or accountInt = 5 or accountInt = 4 or accountInt = 3 or accountInt = 2 or accountInt = 1 or accountInt = 0))";
             String createTable13 = "DELETE FROM users";
             String createTable12 = "insert into USERS values ('jeff', 100, '098f6bcd4621d373cade4e832627b4f6','src/resources/People_Pictures/Jeff.jpg'),('staff', 100, '1253208465b1efa876f982d8a9e73eef', '/resources/bwh-logo.png'),('Sam', 100, 'ba0e0cde1bf72c28d435c89a66afc61a','src/resources/People_Pictures/Sam.png'), ('caitlin', 1, '098f6bcd4621d373cade4e832627b4f6', 'src/resources/People_Pictures/Caitlin.jpg'), ('ken', 1, '098f6bcd4621d373cade4e832627b4f6', 'src/resources/People_Pictures/Ken.jpg'), ('connor', 1, '098f6bcd4621d373cade4e832627b4f6', 'src/resources/People_Pictures/Connor.jpg'), ('jack', 2, '098f6bcd4621d373cade4e832627b4f6', 'src/resources/People_Pictures/Jack.jpg'), ('bridget', 2, '098f6bcd4621d373cade4e832627b4f6', 'src/resources/People_Pictures/Bridget.jpg'), ('joe', 2, '098f6bcd4621d373cade4e832627b4f6', 'src/resources/People_Pictures/Joe.jpg')";
 //            String insert1 = "insert into users (username, accountant, userpass) values ";
