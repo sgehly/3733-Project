@@ -2,15 +2,11 @@ package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import sun.reflect.annotation.ExceptionProxy;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -37,8 +33,7 @@ public class Floor {
         aStar = new AStar();
         dfs = new DFS();
         bfs = new BFS();
-        dijkstra = new DStar();
-        //dstar = new DStar();
+        dijkstra = new Dijkstra();
         selected = aStar;
         try {
             this.populate();

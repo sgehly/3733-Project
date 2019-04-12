@@ -2,13 +2,13 @@ package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 import java.util.*;
 
 
-public class DStar extends SearchAlgorithm{
+public class Dijkstra extends SearchAlgorithm{
 
     private Map<String, Node> visited;
     private Path p;
 
 
-    public DStar(){}
+    public Dijkstra(){}
 
     @Override
     public Path findPath(Node start, Node end) {
