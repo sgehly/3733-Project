@@ -34,6 +34,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
@@ -273,7 +274,8 @@ public class Pathfinding {
         util.setFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
         floorLabel.setText(util.getFloorLabel());
         PathToString.getDirections(path);
-        updateMap();
+
+        updateMap(null, null);
         resetTextBox();
     }
 
@@ -290,7 +292,7 @@ public class Pathfinding {
         floorLabel.setText(util.getFloorLabel());
 
         resetTextBox();
-        updateMap();
+        updateMap(null,null);
     }
 
     private void findPathWithLongNames() throws Exception{
@@ -322,7 +324,8 @@ public class Pathfinding {
         floorLabel.setText(util.getFloorLabel());
 
         System.out.println("Seeing util floor as "+util.floor);
-        updateMap();
+
+        updateMap(null,null);
         resetTextBox();
     }
 
@@ -442,21 +445,21 @@ public class Pathfinding {
         util.moveUp();
         floorLabel.setText(util.getFloorLabel());
 
-        updateMap();
+        updateMap(null,null);
     }
 
     public void moveDown(ActionEvent value) throws Exception{
         util.moveDown();
         floorLabel.setText(util.getFloorLabel());
 
-        updateMap();
+        updateMap(null,null);
     }
 
     private Button generateButton(String text, double x, double y){
         return new Button();
     }
 
-    private void updateMap() throws Exception{
+    private void updateMap(Node startNode, Node endNode) throws Exception{
         clearNodes.forEach(node -> {
             util.buttonPane.getChildren().remove(node);
         });
@@ -472,16 +475,32 @@ public class Pathfinding {
             overlayImage.setImage(null);
         }
 
+        if(startNode != null && endNode != null){
+            //We zoomin boys
+
+            double startX = startNode.getX();
+            double startY = startNode.getY();
+
+            double endX = endNode.getX();
+            double endY = endNode.getY();
+
+            int newXRaw = startNode.getX()+(Math.abs(startNode.getX()-endNode.getX())/2);
+            int newYRaw = startNode.getY()+(Math.abs(startNode.getY()-endNode.getY())/2);
+
+            MapPoint scale = util.scalePoints((int)startX,(int)startY);
+            gesturePane.zoomTo(5, new Point2D(scale.x, scale.y));
+
+        }
+
         floorPaths.forEach(floorPath -> {
             //Path is each path on a specific floor.
             List<Node> thePath = floorPath.getPath();
             Node start = thePath.get(0);
             Node end = thePath.get(thePath.size()-1);
 
-            System.out.println(end.getId()+"/"+floorPath.getFinalPath().get(0).getId()+" - "+start.getId()+"/"+floorPath.getFinalPath().get(floorPath.getFinalPath().size()-1).getId());
             if(start.getId().equals(this.path.getFinalPath().get(0).getId())){
                 Button startChangeButton = new Button();
-                startChangeButton.setText("START\n"+start.getLongName());
+                startChangeButton.setText("YOU ARE HERE: "+start.getLongName());
                 MapPoint mp = util.scalePoints(start.getX(), start.getY());
                 startChangeButton.setLayoutX(mp.x);
                 startChangeButton.setLayoutY(mp.y);
@@ -496,7 +515,7 @@ public class Pathfinding {
             }
             if(end.getId().equals(this.path.getFinalPath().get(this.path.getFinalPath().size()-1).getId())){
                 Button startChangeButton = new Button();
-                startChangeButton.setText("YOUR DESTINATION\n"+end.getLongName());
+                startChangeButton.setText("YOUR DESTINATION: "+end.getLongName());
                 MapPoint mp = util.scalePoints(end.getX(), end.getY());
                 startChangeButton.setLayoutX(mp.x);
                 startChangeButton.setLayoutY(mp.y);
@@ -520,14 +539,19 @@ public class Pathfinding {
 
                 int nextFloor = util.floor;
 
+                Node nextFloorStart = null;
+                Node nextFloorEnd = null;
+
                 for(int i=0;i<allPaths.size();i++){
 
                     if(util.idToFloor(allPaths.get(i).getFloorID()) != util.idToFloor(floorPaths.get(0).getFloorID())){
                         if(i < allPaths.size()){
                             System.out.println("Looking at next floor");
-                            for(int j=0;j<util.dbPrefixes.length;j++){
-                                nextFloor = util.idToFloor(allPaths.get(i).getPath().get(0).getFloor());
-                            }
+                            List<Node> nextPath = allPaths.get(i).getPath();
+
+                            nextFloor = util.idToFloor(nextPath.get(0).getFloor());
+                            nextFloorStart = nextPath.get(0);
+                            nextFloorEnd = nextPath.get(nextPath.size()-1);
                         }
                     }
                 }
@@ -547,12 +571,13 @@ public class Pathfinding {
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
                     final int nf = nextFloor;
-
+                    final Node ns = nextFloorStart;
+                    final Node ne = nextFloorEnd;
                     startChangeButton.setOnAction(evt -> {
                         try{
                             util.setFloor(nf);
                             floorLabel.setText(util.getFloorLabel());
-                            this.updateMap();
+                            this.updateMap(ns, ne);
                         }catch(Exception e){e.printStackTrace();}
                     });
                     util.buttonPane.getChildren().add(startChangeButton);
@@ -599,7 +624,7 @@ public class Pathfinding {
                         try{
                             util.setFloor(nf);
                             floorLabel.setText(util.getFloorLabel());
-                            this.updateMap();
+                            this.updateMap(null, null);
                         }catch(Exception e){e.printStackTrace();}
                     });
                    //util.buttonPane.getChildren().add(startChangeButton);
