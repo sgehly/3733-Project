@@ -484,8 +484,9 @@ public class Pathfinding {
             int newXRaw = startNode.getX()+(Math.abs(startNode.getX()-endNode.getX())/2);
             int newYRaw = startNode.getY()+(Math.abs(startNode.getY()-endNode.getY())/2);
 
-            MapPoint scale = util.scalePoints(newXRaw,newYRaw);
-            gesturePane.zoomBy(1, new Point2D(scale.x,scale.y));
+            MapPoint scale = util.scalePoints((int)startX,(int)startY);
+            gesturePane.zoomTo(5, new Point2D(scale.x, scale.y));
+
         }
 
         floorPaths.forEach(floorPath -> {
