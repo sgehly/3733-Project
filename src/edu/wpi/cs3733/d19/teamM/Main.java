@@ -4,11 +4,16 @@ import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.IdleMonitor;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.SavedState;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -16,6 +21,9 @@ import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 
+//import java.awt.event.MouseEvent;
+import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -59,9 +67,7 @@ public class Main extends Application {
     }
 
     public static void startIdleCheck(){
-        idleMonitor = new IdleMonitor(Duration.seconds(120),
-                () -> Main.setScene("welcome"), true);
-        idleMonitor.register(homeScene, Event.ANY);
+
     }
 
     public static void setScene(String scene){
@@ -210,6 +216,15 @@ public class Main extends Application {
         welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         welcomeScene= new Scene(welcomePane);
 
+        //create the idle detection system
+        ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));
+        Timer timer = new Timer(10000,uiReset);
+        EventHandler<MouseEvent> idleReset = e -> timer.restart();
+        //EventHandler<MouseEvent> idleReset = e -> System.out.println("mouse moved");
+        primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);
+        timer.start();
+
+
         //Set the color and the title and the screen
         mainScene.setFill(Color.web("#012d5a"));
         primaryStage.setTitle("Brigham and Women's Hospital");
@@ -224,8 +239,6 @@ public class Main extends Application {
         primaryStage.setHeight(bounds.getHeight());
         primaryStage.setFullScreen(false);
         primaryStage.show();
-
-
     }
 
     /**
