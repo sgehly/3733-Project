@@ -501,9 +501,9 @@ public class Pathfinding {
                 MapPoint mp = util.scalePoints(start.getX(), start.getY());
                 startChangeButton.setLayoutX(mp.x);
                 startChangeButton.setLayoutY(mp.y);
-                startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:10px; -fx-font-family: \"Open Sans Bold\"");
-                startChangeButton.setMinWidth(100);
-                startChangeButton.setMinHeight(15);
+                startChangeButton.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:8px; -fx-font-family: \"Open Sans Bold\"");
+                startChangeButton.setMinWidth(75);
+                startChangeButton.setMinHeight(10);
                 startChangeButton.setOpacity(0.5);
                 startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                 startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
@@ -516,9 +516,9 @@ public class Pathfinding {
                 MapPoint mp = util.scalePoints(end.getX(), end.getY());
                 startChangeButton.setLayoutX(mp.x);
                 startChangeButton.setLayoutY(mp.y);
-                startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:10px; -fx-font-family: \"Open Sans Bold\"");
-                startChangeButton.setMinWidth(100);
-                startChangeButton.setMinHeight(15);
+                startChangeButton.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:8px; -fx-font-family: \"Open Sans Bold\"");
+                startChangeButton.setMinWidth(75);
+                startChangeButton.setMinHeight(10);
                 startChangeButton.setOpacity(0.5);
                 startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                 startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
@@ -556,13 +556,13 @@ public class Pathfinding {
                 if(nextFloor != util.idToFloor(start.getFloor())){
                     System.out.println("Creating");
                     Button startChangeButton = new Button();
-                    startChangeButton.setText("TAKE THE "+(startNodeType.equals("ELEV") ? "ELEVATOR" : "STAIRS")+" TO "+util.getFloorLabel(nextFloor).toUpperCase());
+                    startChangeButton.setText((nextFloor > util.floor ? "↑" : "↓")+" TAKE THE "+(startNodeType.equals("ELEV") ? "ELEVATOR" : "STAIRS")+" "+(nextFloor > util.floor ? "UP" : "DOWN")+" TO "+util.getFloorLabel(nextFloor).toUpperCase());
                     MapPoint mp = util.scalePoints(end.getX(), end.getY());
                     startChangeButton.setLayoutX(mp.x);
                     startChangeButton.setLayoutY(mp.y);
-                    startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:10px; -fx-font-family: \"Open Sans Bold\"");
-                    startChangeButton.setMinWidth(100);
-                    startChangeButton.setMinHeight(15);
+                    startChangeButton.setStyle("-fx-background-color: #012d5a; -fx-border-width: 1px; -fx-border-color:  #00172f; -fx-text-fill: white; -fx-border-radius: 5px; -fx-background-radius: 7px;-fx-cursor: hand; -fx-font-family: \"Open Sans Bold\"; -fx-font-size:6px;");
+                    startChangeButton.setMinWidth(75);
+                    startChangeButton.setMinHeight(10);
                     startChangeButton.setOpacity(0.5);
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
@@ -608,9 +608,9 @@ public class Pathfinding {
                     MapPoint mp = util.scalePoints(start.getX(), start.getY());
                     startChangeButton.setLayoutX(mp.x);
                     startChangeButton.setLayoutY(mp.y);
-                    startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:10px; -fx-font-family: \"Open Sans Bold\"");
-                    startChangeButton.setMinWidth(100);
-                    startChangeButton.setMinHeight(15);
+                    startChangeButton.setStyle("-fx-background-color: #012d5a; -fx-border-width: 1px; -fx-border-color:  #00172f; -fx-text-fill: white; -fx-border-radius: 5px; -fx-background-radius: 7px;-fx-cursor: hand; -fx-font-family: \"Open Sans Bold\"; -fx-font-size:6px;");
+                    startChangeButton.setMinWidth(75);
+                    startChangeButton.setMinHeight(10);
                     startChangeButton.setOpacity(0.5);
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
