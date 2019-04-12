@@ -368,7 +368,7 @@ public class AdminUI {
 
         graph = Floor.getFloor();
         path = new Path();
-        util = new MapUtils(buttonContainer, imageView, image, new ImageView(), new JFXSlider(), this::setValues, this::clickValues);
+        util = new MapUtils(buttonContainer, imageView, image, new ImageView(), new JFXSlider(), this::setValues, this::clickValues, true);
         util.initialize();
 
     }
