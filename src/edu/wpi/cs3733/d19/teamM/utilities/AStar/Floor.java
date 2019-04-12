@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
 public class Floor {
     private static Floor thisFloor;
     Map<String, Node> nodes;
@@ -87,6 +89,14 @@ public class Floor {
         return nodes;
     }
 
+
+    public static Color hex2Rgb(String colorStr) {
+        return new Color(
+                Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),
+                Integer.valueOf( colorStr.substring( 3, 5 ), 16 ),
+                Integer.valueOf( colorStr.substring( 5, 7 ), 16 ) );
+    }
+
     /**
      * This method will take in the list of Nodes and Produce a transparent image with the nodes and path.
      * This version of the method will the locally store the image, while the other will actually transfer the image itself
@@ -98,9 +108,16 @@ public class Floor {
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         File f;
         Graphics2D g2d = img.createGraphics();
-        g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(15.0f));
         List<Node> allNodes = new ArrayList<>();
+        //use the nodes to create points for each of the nodes (black points)
+        for (Node node : allNodes) {
+            int diameter = 0; //Diameter of the circle
+            g2d.setColor(Color.BLACK);
+            Shape circle = new Ellipse2D.Double(node.getXCoord() - diameter / 2.0, node.getYCoord() - diameter / 2.0, diameter, diameter); //Draw the circle
+            g2d.draw(circle);
+        }
+
         for (Path p : paths) {
             List<Node> nodes = p.getPath();
             for (int i = 0; i < nodes.size() - 1; i++) //For every node except the last one
@@ -108,16 +125,57 @@ public class Floor {
                 allNodes.add(nodes.get(i));
                 Node firstNode = nodes.get(i);
                 Node secondNode = nodes.get(i + 1);
+                g2d.setColor(hex2Rgb("#002041"));
                 g2d.drawLine(firstNode.getXCoord(), firstNode.getYCoord(), secondNode.getXCoord(), secondNode.getYCoord()); //Draw a line from it to the next node
+
+                System.out.println("-=-=-=-==-");
+                System.out.println(secondNode.getYCoord() - firstNode.getYCoord());
+                System.out.println(secondNode.getXCoord() - firstNode.getXCoord());
+                System.out.println("-=-=-=-==-");
+
+                g2d.setColor(hex2Rgb("#f6bd38"));
+                if (secondNode.getYCoord() - firstNode.getYCoord() > 10 && Math.abs(secondNode.getXCoord() - firstNode.getXCoord()) < 20) {
+                    //Line is moving down.
+                    System.out.println("Moving down");
+                    g2d.drawString("⬇", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2) - 5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2));
+                }
+                else if (secondNode.getYCoord() - firstNode.getYCoord() < -10 && Math.abs(secondNode.getXCoord() - firstNode.getXCoord()) < 20) {
+                    //Line is moving down.
+                    System.out.println("Moving up");
+                    g2d.drawString("⬆", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2) - 5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2));
+                }
+
+                else if (secondNode.getXCoord() - firstNode.getXCoord() > 10 && Math.abs(secondNode.getYCoord() - firstNode.getYCoord()) < 20) {
+                    //Line is moving down.
+                    System.out.println("Moving right");
+                    g2d.drawString("➡", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2), firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                }
+                else if (secondNode.getXCoord() - firstNode.getXCoord() < -10 && Math.abs(secondNode.getYCoord() - firstNode.getYCoord()) < 20) {
+                    //Line is moving down.
+                    System.out.println("Moving left");
+                    g2d.drawString("⬅", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2), firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                }
+                else if(secondNode.getXCoord() - firstNode.getXCoord() < -10 && secondNode.getYCoord() - firstNode.getYCoord() > 10){
+                    System.out.println("Bottom Left");
+                    g2d.drawString("↙", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                }
+                else if(secondNode.getXCoord() - firstNode.getXCoord() > 10 && secondNode.getYCoord() - firstNode.getYCoord() > 10){
+                    System.out.println("Top Left");
+                    g2d.drawString("↖", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                }
+                else if(secondNode.getXCoord() - firstNode.getXCoord() < -10 && secondNode.getYCoord() - firstNode.getYCoord() < -10){
+                    System.out.println("Bottom Right");
+                    g2d.drawString("↘", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                }
+                else if(secondNode.getXCoord() - firstNode.getXCoord() > 10 && secondNode.getYCoord() - firstNode.getYCoord() < -10){
+                    System.out.println("Top Right");
+                    g2d.drawString("↗", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                }
+
+
             }
         }
-        //use the nodes to create points for each of the nodes (black points)
-        for (Node node : allNodes) {
-            int diameter = 2; //Diameter of the circle
-            g2d.setColor(Color.BLACK);
-            Shape circle = new Ellipse2D.Double(node.getXCoord() - diameter / 2.0, node.getYCoord() - diameter / 2.0, diameter, diameter); //Draw the circle
-            g2d.draw(circle);
-        }
+
         return SwingFXUtils.toFXImage(img, null);
     }
 
