@@ -33,15 +33,12 @@ public class PrescriptionRequest {
     @FXML
     private Label lblDate;
 
-    //Tesxt Field for flower type input
     @FXML
     private TextField fillId;
-
 
     //Text field for room location input
     @FXML
     private TextField room;
-
 
     @FXML
     private javafx.scene.control.TextArea notes;

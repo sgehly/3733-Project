@@ -115,7 +115,7 @@
                                           <Image url="@../../../../../../../resources/icons/scientist.png" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Lab Test Request">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Lab Test Request - Completed by Phil">
                                        <VBox.margin>
                                           <Insets top="20.0" />
                                        </VBox.margin>
@@ -123,7 +123,7 @@
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Room:" />
-                                          <JFXTextField fx:id="room" styleClass="lightInput">
+                                          <JFXTextField fx:id="roomField" styleClass="lightInput">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin>
@@ -132,8 +132,8 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Type of Test:" />
-                                          <JFXTextField fx:id="typeofmess" styleClass="lightInput">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Test Type:" />
+                                          <JFXTextField fx:id="testType" styleClass="lightInput">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin>
@@ -142,8 +142,8 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Notes:" />
-                                          <JFXTextArea fx:id="notes" styleClass="lightInput">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Reason for Test:" />
+                                          <JFXTextArea fx:id="requestText" styleClass="lightInput">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin>
@@ -152,8 +152,8 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Urgent?" />
-                                          <JFXCheckBox fx:id="hazard" text=" " />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Urgent? " />
+                                          <JFXCheckBox fx:id="urgent" text=" " />
                                        </children>
                                     </HBox>
                                     <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0">

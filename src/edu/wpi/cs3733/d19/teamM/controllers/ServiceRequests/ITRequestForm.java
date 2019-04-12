@@ -61,6 +61,15 @@ public class ITRequestForm {
      */
     @FXML
     private void navigateBack() throws Exception {
+        Main.setScene("serviceRequestsList");
+    }
+
+    private boolean areFieldsEmpty() {
+        return requested.getText().isEmpty() || timeSpent.getText().isEmpty();
+    }
+
+    @FXML
+    private void navigateToList() throws Exception {
         try {
             Exception e = new Exception();
             if (areFieldsEmpty()) {
@@ -71,15 +80,6 @@ public class ITRequestForm {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private boolean areFieldsEmpty() {
-        return requested.getText().isEmpty() || timeSpent.getText().isEmpty();
-    }
-
-    @FXML
-    private void navigateToList() throws Exception {
-        Main.setScene("serviceRequestsList");
     }
 
 
