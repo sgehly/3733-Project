@@ -71,8 +71,8 @@ public class MapUtils {
     public HashMap<String, Button> buttonMap = new HashMap<String,Button>();
 
     //Create needed object instances
-    double cachedScaledWidth = 0;
-    double cachedScaledHeight = 0;
+    public double cachedScaledWidth = 0;
+    public double cachedScaledHeight = 0;
 
     public MapUtils(Pane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<ActionEvent> callback, EventHandler<MouseEvent> clickCallback, boolean showHallways) {
         this.buttonContainer = buttonContainer;
