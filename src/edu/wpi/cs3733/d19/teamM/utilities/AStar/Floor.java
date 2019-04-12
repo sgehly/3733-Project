@@ -19,11 +19,8 @@ import java.util.Map;
 public class Floor {
     private static Floor thisFloor;
     Map<String, Node> nodes;
-
-    //Path finders
-    //Searchable dfs, bfs, selected;
-    //AStar aStar;
-    SearchAlgorithm dijkstra, dfs, bfs, selected, aStar;
+    SearchAlgorithm dijkstra, aStar, selected;
+    Searchable bfs, dfs, selected2;
 
 
     private Floor(){
@@ -35,6 +32,7 @@ public class Floor {
         bfs = new BFS();
         dijkstra = new Dijkstra();
         selected = aStar;
+        selected2 = null;
         try {
             this.populate();
         }
@@ -52,14 +50,20 @@ public class Floor {
 
     public void setAStar(){
         selected = aStar;
+        selected2 = null;
     }
     public void setBFS(){
-        selected = bfs;
+        selected2 = bfs;
+        selected = null;
     }
     public void setDFS(){
-        selected = dfs;
+        selected2 = dfs;
+        selected = null;
     }
-    public void setDijkstra() {selected = dijkstra;}
+    public void setDijkstra() {
+        selected = dijkstra;
+        selected2 = null;
+    }
 
     /**
      * Find the path between a start and end node
@@ -68,13 +72,23 @@ public class Floor {
      * @return A Path
      */
     public Path findPath(Node start, Node end){
-        Path p = selected.runSearch(start, end);
-        //System.out.println(PathToString.getDirections(p));
+        Path p = null;
+        if(selected != null){
+            p = selected.findPath(start, end);
+            return p;
+        }
+        p = selected2.findPath(start,end);
         return p;
     }
 
     public Path findPresetPath(Node start, String type,Map<String, Node> n){
-        return selected.findPresetPath(start, type, n);
+        Path p = null;
+        if(selected != null){
+            p = selected.findPresetPath(start,type,n);
+            return p;
+        }
+        p = selected2.findPresetPath(start,type,n);
+        return p;
     }
 
 

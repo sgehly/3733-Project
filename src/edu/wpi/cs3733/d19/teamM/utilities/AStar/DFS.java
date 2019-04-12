@@ -2,7 +2,7 @@ package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
 import java.util.*;
 
-public class DFS extends SearchAlgorithm{
+public class DFS implements Searchable{
 
     private Stack<Node> stack;
     private Map<String, Node> visited;

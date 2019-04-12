@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Breadth first search, doesn't account for path weights
  */
-public class BFS extends SearchAlgorithm{
+public class BFS implements Searchable{
 
     private PriorityQueue<Node> queue;
     private Map<String, Node> visited;
