@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -137,7 +138,18 @@ public class WelcomeAndLogin {
     }
 
     @FXML
-    void logIn(ActionEvent event) {
+    void onEnterPressed(){
+        password.setOnKeyPressed(
+                event -> {
+                    if(event.getCode().equals(KeyCode.ENTER)){
+                        this.logIn();
+                    }
+                }
+        );
+    }
+
+    @FXML
+    void logIn() {
         /*
         TODO add username to pages: scheduler, service requests, sr list
          */

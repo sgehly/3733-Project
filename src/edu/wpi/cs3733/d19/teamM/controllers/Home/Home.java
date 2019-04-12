@@ -98,7 +98,7 @@ public class Home{
         myImg.setStyle("-fx-background-radius: 1000; -fx-border-radius:1000");
         myImg.setImage(image);
         myImg.setClip(new Circle(24.5,24.5,24));
-        welcomeMessage.setText("WelcomeAndLogin to Brigham and Women's, " + User.getUsername());
+        welcomeMessage.setText("Welcome to Brigham and Women's, " + User.getUsername());
         if(User.getPrivilege() != 100){
             admin.setVisible(false);
         }

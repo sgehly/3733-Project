@@ -27,7 +27,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-       <AnchorPane fx:id="mainContent" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+       <AnchorPane fx:id="mainContent" onKeyPressed="#onEnterPressed" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
               <MediaView fx:id="mediaView" opacity="0.13" />
@@ -69,7 +69,7 @@
                                           <Insets bottom="10.0" top="50.0" />
                                        </VBox.margin>
                                     </TextField>
-                                    <PasswordField fx:id="password" promptText="Password" styleClass="darkInput">
+                                    <PasswordField fx:id="password" onKeyPressed="#onEnterPressed" promptText="Password" styleClass="darkInput">
                                        <VBox.margin>
                                           <Insets bottom="8.0" top="30.0" />
                                        </VBox.margin>
