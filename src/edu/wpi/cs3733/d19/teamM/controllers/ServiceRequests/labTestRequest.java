@@ -6,13 +6,20 @@ import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
+import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class labTestRequest implements Initializable {
@@ -37,6 +44,9 @@ public class labTestRequest implements Initializable {
 
     @FXML
     private JFXCheckBox urgent;
+
+    @FXML
+    private ListView listEmployees;
 
     @FXML
     Label lblClock;
@@ -67,7 +77,7 @@ public class labTestRequest implements Initializable {
     }
 
     @FXML
-    private void makeServiceRequest() throws Exception {
+    private void makeLabServiceRequest() throws Exception {
 
         try {
             Exception e = new Exception();
@@ -91,6 +101,28 @@ public class labTestRequest implements Initializable {
     }
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+
+
+        ObservableList<String> list = FXCollections.observableArrayList();
+
+        String query = "select * FROM users Where ACCOUNTINT = ?";
+        Connection conn = new DatabaseUtils().getConnection();
+        try{
+            PreparedStatement s = conn.prepareStatement(query);
+            s.setInt(1, 1);
+            ResultSet rs = s.executeQuery();
+            while(rs.next()){
+                list.add(rs.getString(1));
+                System.out.println(rs.getString(1));
+            }
+            for(String s1 : list){
+                listEmployees.getItems().add(s1);
+            }
+            conn.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         new Clock(lblClock, lblDate);
         //userText.setText(User.getUsername());
