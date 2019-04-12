@@ -125,7 +125,7 @@ public class AudioVisual implements Initializable {
         Connection conn = new DatabaseUtils().getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 1);
+            s.setInt(1, 11);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));
