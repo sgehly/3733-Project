@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/resources/stylesheet.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Welcome.Welcome">
+<GridPane fx:id="root" alignment="center" hgap="10" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/resources/stylesheet.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.WelcomeAndLogin.WelcomeAndLogin">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -24,35 +28,74 @@
    </rowConstraints>
    <children>
        <AnchorPane fx:id="mainContent" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-       <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-           <MediaView fx:id="mediaView" opacity="0.13" />
-           <VBox alignment="CENTER" onMouseClicked="#navigateToHome" style="-fx-cursor: hand;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-             <ImageView fitHeight="275.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                   <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
-                </image>
-             </ImageView>
-            <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
-               <font>
-                  <Font name="Palatino" size="64.0" />
-               </font>
-                  <VBox.margin>
-                     <Insets top="40.0" />
-                  </VBox.margin>
-            </Text>
-               <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Tap the Screen to Get Started" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
-                  <font>
-                      <Font name="Palatino" size="42.0" />
-                  </font>
-                  <VBox.margin>
-                     <Insets top="50.0" />
-                  </VBox.margin>
-               </Text>
-               <HBox alignment="CENTER">
-                   <Pane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
-               </HBox>
-           </VBox>
-       </StackPane>
+         <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+              <MediaView fx:id="mediaView" opacity="0.13" />
+               <VBox alignment="CENTER" onMouseClicked="#fadeToLogin" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
+                  <children>
+                     <ImageView fitHeight="359.0" fitWidth="344.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                        <image>
+                           <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
+                        </image>
+                     </ImageView>
+                   <StackPane>
+                       <VBox fx:id="welcomeField" alignment="CENTER" style="-fx-cursor: hand;">
+                        <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
+                           <font>
+                              <Font name="Palatino" size="64.0" />
+                           </font>
+                              <VBox.margin>
+                                 <Insets top="40.0" />
+                              </VBox.margin>
+                        </Text>
+                           <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Tap the Screen to Get Started" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
+                              <font>
+                                  <Font name="Palatino" size="42.0" />
+                              </font>
+                              <VBox.margin>
+                                 <Insets top="50.0" />
+                              </VBox.margin>
+                           </Text>
+                           <HBox alignment="CENTER">
+                               <Pane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+                           </HBox>
+                       </VBox>
+                        <VBox fx:id="loginField" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0">
+                           <children>
+                              <VBox alignment="CENTER" maxWidth="306.0" prefHeight="583.0" prefWidth="306.0">
+                                 <children>
+                                    <TextField fx:id="username" promptText="Username" styleClass="darkInput">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="50.0" />
+                                       </VBox.margin>
+                                    </TextField>
+                                    <PasswordField fx:id="password" promptText="Password" styleClass="darkInput">
+                                       <VBox.margin>
+                                          <Insets bottom="8.0" top="30.0" />
+                                       </VBox.margin>
+                                    </PasswordField>
+                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logIn" styleClass="logoutButton" text="LOG IN">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="50.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Label fx:id="errorMessage" textFill="RED">
+                                       <font>
+                                          <Font name="Open Sans" size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="54.0" />
+                                 </VBox.margin>
+                              </VBox>
+                           </children>
+                        </VBox>
+                   </StackPane>
+                  </children>
+               </VBox>
+            </children>
+         </StackPane>
        </AnchorPane>
    </children>
 </GridPane>

@@ -24,7 +24,6 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import edu.wpi.cs3733.d19.teamM.User.User;
-import edu.wpi.cs3733.d19.teamM.controllers.LogIn.LogInController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
@@ -99,7 +98,7 @@ public class Home{
         myImg.setStyle("-fx-background-radius: 1000; -fx-border-radius:1000");
         myImg.setImage(image);
         myImg.setClip(new Circle(24.5,24.5,24));
-        welcomeMessage.setText("Welcome to Brigham and Women's, " + User.getUsername());
+        welcomeMessage.setText("WelcomeAndLogin to Brigham and Women's, " + User.getUsername());
         if(User.getPrivilege() != 100){
             admin.setVisible(false);
         }
