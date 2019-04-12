@@ -2,7 +2,7 @@ package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
 import java.util.*;
 
-public class DFS implements Searchable {
+public class DFS extends SearchAlgorithm{
 
     private Stack<Node> stack;
     private Map<String, Node> visited;
@@ -49,6 +49,34 @@ public class DFS implements Searchable {
         return p;
     }
 
+    public Path findPresetPath(Node start, String destType,Map<String, Node> map){
+        Iterator it = map.entrySet().iterator();
+        Node closest = null;
+        start.setG(0);
+        double lowestCost = 500000;
+        while(it.hasNext()) {
+            Map.Entry set = (Map.Entry) it.next();
+            Node n = (Node) set.getValue();
+            n.setG(n.getDistance(start)); //set its g, h, f, and parent
+            n.setP(getDeltaFloor(n, start) * 1000);
+            n.setB(getDeltaBuilding(n, start) * 5000);
+            n.setF(n.getG() + n.getP() + n.getB());
+            if (n != null && (n.getNodeType().equals(destType))) {
+                System.out.println("Checking Node "+   n.getId());
+                if(n.getF() < lowestCost){
+                    closest = n;
+                    lowestCost = n.getF();
+                }
+            }
+        }
+        if(closest != null){
+            return findPath(start, closest);
+        }
+        else{
+            return null;
+        }
+    }
+
     /**
      * Get next node
      *
@@ -78,8 +106,8 @@ public class DFS implements Searchable {
     private void setHueristics(Node curNode, Node endNode){
         curNode.setH(curNode.getDistance(endNode));
         curNode.setG(curNode.getParent().getDistance(curNode) + curNode.getParent().getG());
-        curNode.setP(getDeltaFloor(curNode, endNode) * 500);
-        curNode.setB(getDeltaBuilding(curNode, endNode) * 1000);
+        curNode.setP(getDeltaFloor(curNode, endNode) * 1000);
+        curNode.setB(getDeltaBuilding(curNode, endNode) * 5000);
         curNode.setF(curNode.getG() + curNode.getP() + curNode.getH() + curNode.getB());
     }
 

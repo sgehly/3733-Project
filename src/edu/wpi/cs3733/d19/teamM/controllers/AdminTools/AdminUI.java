@@ -137,7 +137,7 @@ public class AdminUI {
     private RadioButton DFS;
 
     @FXML
-    private RadioButton DStar;
+    private RadioButton Dijkstra;
 
     @FXML
     private VBox mapStuff;
@@ -186,8 +186,8 @@ public class AdminUI {
         else if(BFS.isSelected()){
             graph.setBFS();
         }
-        else if (DStar.isSelected()){
-            graph.setDStar();
+        else if (Dijkstra.isSelected()){
+            graph.setDijkstra();
         }
         else{
             graph.setAStar();

@@ -25,8 +25,10 @@ public class Floor {
     Map<String, Node> nodes;
 
     //Path finders
-    Searchable dfs, bfs, dStar, selected;
-    AStar aStar;
+    //Searchable dfs, bfs, selected;
+    //AStar aStar;
+    SearchAlgorithm dijkstra, dfs, bfs, selected, aStar;
+
 
     private Floor(){
         nodes = new HashMap<>();
@@ -35,7 +37,8 @@ public class Floor {
         aStar = new AStar();
         dfs = new DFS();
         bfs = new BFS();
-        dStar = new DStar();
+        dijkstra = new DStar();
+        //dstar = new DStar();
         selected = aStar;
         try {
             this.populate();
@@ -61,7 +64,7 @@ public class Floor {
     public void setDFS(){
         selected = dfs;
     }
-    public void setDStar() {selected = dStar;}
+    public void setDijkstra() {selected = dijkstra;}
 
     /**
      * Find the path between a start and end node
@@ -70,14 +73,15 @@ public class Floor {
      * @return A Path
      */
     public Path findPath(Node start, Node end){
-        Path p = selected.findPath(start, end);
+        Path p = selected.runSearch(start, end);
         //System.out.println(PathToString.getDirections(p));
         return p;
     }
 
-    public Path findPresetPath(Node start, String type, Map<String, Node> n){
-        return aStar.findPresetPath(start, type, n);
+    public Path findPresetPath(Node start, String type,Map<String, Node> n){
+        return selected.findPresetPath(start, type, n);
     }
+
 
     /**
      * Get a map of all the nodes

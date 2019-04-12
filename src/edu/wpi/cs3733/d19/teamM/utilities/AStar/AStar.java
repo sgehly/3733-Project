@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * This class is to run the A* algorithm and to also handle any other methods associated with the path-finding
  */
-public class AStar implements Searchable {
+public class AStar extends SearchAlgorithm{
     /**
      * some stuff
      * @param start
@@ -25,14 +25,14 @@ public class AStar implements Searchable {
             Map.Entry set = (Map.Entry) it.next();
             Node n = (Node) set.getValue();
             n.setG(n.getDistance(start)); //set its g, h, f, and parent
-            n.setP(getDeltaFloor(n, start) * 500);
-            n.setB(getDeltaBuilding(n, start) * 1000);
+            n.setP(getDeltaFloor(n, start) * 1000);
+            n.setB(getDeltaBuilding(n, start) * 5000);
             n.setF(n.getG() + n.getP() + n.getB());
-            if (n != null && n.getNodeType().equals(destType)) {
+            if (n != null && (n.getNodeType().equals(destType))) {
                 System.out.println("Checking Node "+   n.getId());
-                if(n.getDistance(start) < lowestCost){
+                if(n.getF() < lowestCost){
                     closest = n;
-                    lowestCost = n.getDistance(start);
+                    lowestCost = n.getF();
                 }
             }
         }
@@ -43,6 +43,8 @@ public class AStar implements Searchable {
             return null;
         }
     }
+
+
 
     /**
      * Find the path between a start and end node

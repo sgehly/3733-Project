@@ -210,9 +210,12 @@ public class Pathfinding {
         sendMapTextBox.getText();
     }
 
+
+
     @FXML
     private void findBathroom() throws Exception{
         if(startText.getText() != null){
+
             findPresetHelper("REST");
         }
     }
@@ -276,6 +279,11 @@ public class Pathfinding {
         updateMap();
         resetTextBox();
     }
+
+
+
+
+
 
     private void findPath() throws Exception{
         //Get path
