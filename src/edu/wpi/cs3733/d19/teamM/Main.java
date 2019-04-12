@@ -59,7 +59,7 @@ public class Main extends Application {
     }
 
     public static void startIdleCheck(){
-        idleMonitor = new IdleMonitor(Duration.seconds(15),
+        idleMonitor = new IdleMonitor(Duration.seconds(120),
                 () -> Main.setScene("welcome"), true);
         idleMonitor.register(homeScene, Event.ANY);
     }
@@ -192,7 +192,6 @@ public class Main extends Application {
         //TODO on login, login to memento saved state DONE
         //TODO change memento based on visited pages DONE
         savedState = new SavedState();
-        savedState.setState("home");
 
         //Set the reference to the primary stage
         this.primaryStage = primaryStage;

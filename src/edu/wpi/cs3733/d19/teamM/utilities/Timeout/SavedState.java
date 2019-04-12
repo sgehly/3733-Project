@@ -3,8 +3,9 @@ package edu.wpi.cs3733.d19.teamM.utilities.Timeout;
 public class SavedState {
     private String state;
     private String userName;
-    public SavedState(){
-
+    public SavedState() {
+        state = "home";
+        userName = "";
     }
     public String getState() {
         return state;

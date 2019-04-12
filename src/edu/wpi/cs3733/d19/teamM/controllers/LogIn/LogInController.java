@@ -90,11 +90,15 @@ public class LogInController {
                 User.setPrivilege(rs.getInt("ACCOUNTINT"));
                 System.out.println("Logged in " + User.getUsername() + " with privilege " + User.getPrivilege());
                 Main.loadScenes();
-                Main.startIdleCheck();
-                if(User.getUsername() != Main.savedState.getUserName()){
-                    Main.savedState.setState("home");
+                //Main.startIdleCheck();
+                //uncomment this line to start using idle check
+                if(User.getUsername().compareTo(Main.savedState.getUserName()) != 0){
                     Main.savedState.setUserName(User.getUsername());
+                    Main.savedState.setState("home");
                 }
+                System.out.println(User.getUsername());
+                System.out.println(Main.savedState.getUserName());
+                System.out.println(Main.savedState.getState());
                 Main.setScene(Main.savedState.getState());
             } else {
                System.out.println("user not found");
