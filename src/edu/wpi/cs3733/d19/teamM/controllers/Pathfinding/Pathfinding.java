@@ -157,7 +157,7 @@ public class Pathfinding {
             try{
                 graph = Floor.getFloor();
                 path = new Path();
-                util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues);
+                util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues, false);
                 setUpListeners();
 
                 System.out.println("Init maputils");
@@ -481,7 +481,7 @@ public class Pathfinding {
             System.out.println(end.getId()+"/"+floorPath.getFinalPath().get(0).getId()+" - "+start.getId()+"/"+floorPath.getFinalPath().get(floorPath.getFinalPath().size()-1).getId());
             if(start.getId().equals(this.path.getFinalPath().get(0).getId())){
                 Button startChangeButton = new Button();
-                startChangeButton.setText("START");
+                startChangeButton.setText("START\n"+start.getLongName());
                 MapPoint mp = util.scalePoints(start.getX(), start.getY());
                 startChangeButton.setLayoutX(mp.x);
                 startChangeButton.setLayoutY(mp.y);
@@ -496,7 +496,7 @@ public class Pathfinding {
             }
             if(end.getId().equals(this.path.getFinalPath().get(this.path.getFinalPath().size()-1).getId())){
                 Button startChangeButton = new Button();
-                startChangeButton.setText("YOUR DESTINATION");
+                startChangeButton.setText("YOUR DESTINATION\n"+end.getLongName());
                 MapPoint mp = util.scalePoints(end.getX(), end.getY());
                 startChangeButton.setLayoutX(mp.x);
                 startChangeButton.setLayoutY(mp.y);

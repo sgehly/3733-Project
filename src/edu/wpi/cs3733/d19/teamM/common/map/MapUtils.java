@@ -46,6 +46,7 @@ public class MapUtils {
     Rectangle2D primaryScreenBounds;
     EventHandler<ActionEvent> callback;
     EventHandler<MouseEvent> clickCallback;
+    boolean showHallways = false;
 
 
     private String[] images = {"00_thegroundfloor.png", "00_thelowerlevel1.png", "00_thelowerlevel2.png",  "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
@@ -73,7 +74,7 @@ public class MapUtils {
     double cachedScaledWidth = 0;
     double cachedScaledHeight = 0;
 
-    public MapUtils(Pane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<ActionEvent> callback, EventHandler<MouseEvent> clickCallback) {
+    public MapUtils(Pane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<ActionEvent> callback, EventHandler<MouseEvent> clickCallback, boolean showHallways) {
         this.buttonContainer = buttonContainer;
         this.buttonPane = new Pane();
         buttonPane.setLayoutY(buttonContainer.getLayoutY());
@@ -88,6 +89,7 @@ public class MapUtils {
         this.overlayImage = overlayImage;
         this.zoomSlider = zoomSlider;
         this.clickCallback = clickCallback;
+        this.showHallways = showHallways;
     }
 
     /**
@@ -136,12 +138,17 @@ public class MapUtils {
      */
     private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws Exception, SQLException {
         //The list we will populate
-        System.out.println("123123!");
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
         buttonPane.getChildren().clear();
         try {
             while (rs.next()) {
                 //Create a button and set its size
+                if(!showHallways){
+                    if(rs.getString("nodeType").equals("HALL")){
+                        continue;
+                    }
+                }
+
                 javafx.scene.control.Button newButton = new Button();
                 double size = 6;
                 newButton.setMinWidth(size);
