@@ -157,7 +157,7 @@ public class Pathfinding {
             try{
                 graph = Floor.getFloor();
                 path = new Path();
-                util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues, false);
+                util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues, false, null, null);
                 setUpListeners();
 
                 System.out.println("Init maputils");
@@ -425,7 +425,7 @@ public class Pathfinding {
      * Set the values of the nodeID and other relevant text for each of the buttons that act as the nodes on the map to display for pathfinding options
      * @param value: The action event associated with the method
      */
-    private void setValues(ActionEvent value) {
+    private void setValues(MouseEvent value) {
         //Get the id of the node
         String nodeId = ((Button)value.getSource()).getId();
 
