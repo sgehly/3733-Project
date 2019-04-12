@@ -34,6 +34,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
@@ -150,13 +151,14 @@ public class Pathfinding {
 
         System.out.println("Initializing pathfinding");
         new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
 
         new Thread(() -> {
             try{
                 graph = Floor.getFloor();
                 path = new Path();
-                util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues);
+                util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues, false, null, null);
                 setUpListeners();
 
                 System.out.println("Init maputils");
@@ -272,7 +274,8 @@ public class Pathfinding {
         util.setFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
         floorLabel.setText(util.getFloorLabel());
         PathToString.getDirections(path);
-        updateMap();
+
+        updateMap(null, null);
         resetTextBox();
     }
 
@@ -289,7 +292,7 @@ public class Pathfinding {
         floorLabel.setText(util.getFloorLabel());
 
         resetTextBox();
-        updateMap();
+        updateMap(null,null);
     }
 
     private void findPathWithLongNames() throws Exception{
@@ -321,7 +324,8 @@ public class Pathfinding {
         floorLabel.setText(util.getFloorLabel());
 
         System.out.println("Seeing util floor as "+util.floor);
-        updateMap();
+
+        updateMap(null,null);
         resetTextBox();
     }
 
@@ -394,7 +398,10 @@ public class Pathfinding {
 
         for(Node node: floorMap.values())
         {
-            longNames.add(node.getLongName());
+            if(!node.getNodeType().equals("HALL"))
+            {
+                longNames.add(node.getLongName());
+            }
         }
         startText.textProperty().addListener((ov, oldValue, newValue) -> {
             TextFields.bindAutoCompletion(startText,longNames);
@@ -421,7 +428,7 @@ public class Pathfinding {
      * Set the values of the nodeID and other relevant text for each of the buttons that act as the nodes on the map to display for pathfinding options
      * @param value: The action event associated with the method
      */
-    private void setValues(ActionEvent value) {
+    private void setValues(MouseEvent value) {
         //Get the id of the node
         String nodeId = ((Button)value.getSource()).getId();
 
@@ -438,37 +445,89 @@ public class Pathfinding {
         util.moveUp();
         floorLabel.setText(util.getFloorLabel());
 
-        updateMap();
+        updateMap(null,null);
     }
 
     public void moveDown(ActionEvent value) throws Exception{
         util.moveDown();
         floorLabel.setText(util.getFloorLabel());
 
-        updateMap();
+        updateMap(null,null);
     }
 
-    private void updateMap() throws Exception{
+    private Button generateButton(String text, double x, double y){
+        return new Button();
+    }
+
+    private void updateMap(Node startNode, Node endNode) throws Exception{
         clearNodes.forEach(node -> {
             util.buttonPane.getChildren().remove(node);
         });
         System.out.println("-=-=-=-=INITIALIZING UPDATEMAP-=-=-=-=-=");
         System.out.println("current floor id: "+util.getCurrentFloorID());
-        List<Path> floorPath = path.getSpecificPath(util.getCurrentFloorID());
+        List<Path> floorPaths = path.getSpecificPath(util.getCurrentFloorID());
         List<Path> allPaths = path.getFloorPaths();
 
-        if (floorPath != null){
-            overlayImage.setImage(graph.drawPath(floorPath));
+        if (floorPaths != null){
+            overlayImage.setImage(graph.drawPath(floorPaths));
         }
         else {
             overlayImage.setImage(null);
         }
 
-        floorPath.forEach(path -> {
+        if(startNode != null && endNode != null){
+            //We zoomin boys
+
+            double startX = startNode.getX();
+            double startY = startNode.getY();
+
+            double endX = endNode.getX();
+            double endY = endNode.getY();
+
+            int newXRaw = startNode.getX()+(Math.abs(startNode.getX()-endNode.getX())/2);
+            int newYRaw = startNode.getY()+(Math.abs(startNode.getY()-endNode.getY())/2);
+
+            MapPoint scale = util.scalePoints((int)startX,(int)startY);
+            gesturePane.zoomTo(5, new Point2D(scale.x, scale.y));
+
+        }
+
+        floorPaths.forEach(floorPath -> {
             //Path is each path on a specific floor.
-            List<Node> thePath = path.getPath();
+            List<Node> thePath = floorPath.getPath();
             Node start = thePath.get(0);
             Node end = thePath.get(thePath.size()-1);
+
+            if(start.getId().equals(this.path.getFinalPath().get(0).getId())){
+                Button startChangeButton = new Button();
+                startChangeButton.setText("YOU ARE HERE: "+start.getLongName());
+                MapPoint mp = util.scalePoints(start.getX(), start.getY());
+                startChangeButton.setLayoutX(mp.x);
+                startChangeButton.setLayoutY(mp.y);
+                startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:10px; -fx-font-family: \"Open Sans Bold\"");
+                startChangeButton.setMinWidth(100);
+                startChangeButton.setMinHeight(15);
+                startChangeButton.setOpacity(0.5);
+                startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
+                startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
+                util.buttonPane.getChildren().add(startChangeButton);
+                clearNodes.add(startChangeButton);
+            }
+            if(end.getId().equals(this.path.getFinalPath().get(this.path.getFinalPath().size()-1).getId())){
+                Button startChangeButton = new Button();
+                startChangeButton.setText("YOUR DESTINATION: "+end.getLongName());
+                MapPoint mp = util.scalePoints(end.getX(), end.getY());
+                startChangeButton.setLayoutX(mp.x);
+                startChangeButton.setLayoutY(mp.y);
+                startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:10px; -fx-font-family: \"Open Sans Bold\"");
+                startChangeButton.setMinWidth(100);
+                startChangeButton.setMinHeight(15);
+                startChangeButton.setOpacity(0.5);
+                startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
+                startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
+                util.buttonPane.getChildren().add(startChangeButton);
+                clearNodes.add(startChangeButton);
+            }
 
             if(start.getId().equals(end.getId())) return;
             //ELEV or STAI
@@ -480,40 +539,45 @@ public class Pathfinding {
 
                 int nextFloor = util.floor;
 
-                for(int i=0;i<allPaths.size();i++){
-                    if(util.idToFloor(allPaths.get(i).getFloorID()) != util.idToFloor(floorPath.get(0).getFloorID())){
+                Node nextFloorStart = null;
+                Node nextFloorEnd = null;
 
+                for(int i=0;i<allPaths.size();i++){
+
+                    if(util.idToFloor(allPaths.get(i).getFloorID()) != util.idToFloor(floorPaths.get(0).getFloorID())){
                         if(i < allPaths.size()){
                             System.out.println("Looking at next floor");
-                            for(int j=0;j<util.dbPrefixes.length;j++){
-                                nextFloor = util.idToFloor(allPaths.get(i).getPath().get(0).getFloor());
-                            }
-                        }
+                            List<Node> nextPath = allPaths.get(i).getPath();
 
+                            nextFloor = util.idToFloor(nextPath.get(0).getFloor());
+                            nextFloorStart = nextPath.get(0);
+                            nextFloorEnd = nextPath.get(nextPath.size()-1);
+                        }
                     }
                 }
 
                 if(nextFloor != util.idToFloor(start.getFloor())){
                     System.out.println("Creating");
                     Button startChangeButton = new Button();
-                    startChangeButton.setText("Take the "+(startNodeType == "ELEV" ? "elevator" : "stairs")+" to "+util.getFloorLabel(nextFloor));
+                    startChangeButton.setText("TAKE THE "+(startNodeType.equals("ELEV") ? "ELEVATOR" : "STAIRS")+" TO "+util.getFloorLabel(nextFloor).toUpperCase());
                     MapPoint mp = util.scalePoints(end.getX(), end.getY());
-                    startChangeButton.setLayoutX(mp.x+5);
-                    startChangeButton.setLayoutY(mp.y+5);
-                    startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-family: \"Open Sans Bold\"");
-                    startChangeButton.setMinWidth(200);
+                    startChangeButton.setLayoutX(mp.x);
+                    startChangeButton.setLayoutY(mp.y);
+                    startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:10px; -fx-font-family: \"Open Sans Bold\"");
+                    startChangeButton.setMinWidth(100);
                     startChangeButton.setMinHeight(15);
                     startChangeButton.setOpacity(0.5);
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
                     final int nf = nextFloor;
-
+                    final Node ns = nextFloorStart;
+                    final Node ne = nextFloorEnd;
                     startChangeButton.setOnAction(evt -> {
                         try{
                             util.setFloor(nf);
                             floorLabel.setText(util.getFloorLabel());
-                            this.updateMap();
+                            this.updateMap(ns, ne);
                         }catch(Exception e){e.printStackTrace();}
                     });
                     util.buttonPane.getChildren().add(startChangeButton);
@@ -522,15 +586,14 @@ public class Pathfinding {
 
             }
 
-            String endNodeType = end.getNodeType();
+            String endNodeType = start.getNodeType();
             System.out.println("END NODE: "+end.getLongName()+" | ENDNODETYPE: "+endNodeType);
 
-            if((endNodeType.equals("ELEV") || endNodeType.equals("STAI")) && !end.getId().equals(path.getFinalPath().get(0)) && !end.getId().equals(path.getFinalPath().get(path.getFinalPath().size()-1))){
+            if((endNodeType.equals("ELEV") || endNodeType.equals("STAI")) && !start.getId().equals(path.getFinalPath().get(0)) && !start.getId().equals(path.getFinalPath().get(path.getFinalPath().size()-1))){
                 int nextFloor = util.floor;
                 System.out.print(allPaths.size());
                 for(int i=0;i<allPaths.size();i++){
-                    System.out.println(util.idToFloor(allPaths.get(i).getFloorID())+" <> "+util.idToFloor(floorPath.get(0).getFloorID()));
-                    if(util.idToFloor(allPaths.get(i).getFloorID()) != util.idToFloor(floorPath.get(0).getFloorID())){
+                    if(util.idToFloor(allPaths.get(i).getFloorID()) != util.idToFloor(floorPaths.get(0).getFloorID())){
 
                         if(i >= 0){
                             System.out.println("Looking at previous floor");
@@ -538,19 +601,18 @@ public class Pathfinding {
                                 nextFloor = util.idToFloor(allPaths.get(i).getPath().get(0).getFloor());
                             }
                         }
-
                     }
                 }
 
-                if(nextFloor != util.idToFloor(end.getFloor())){
-                    /*System.out.println("Creating Previous");
+                if(nextFloor != util.idToFloor(start.getFloor())){
+                    System.out.println("Creating Previous");
                     Button startChangeButton = new Button();
-                    startChangeButton.setText("BACK ("+util.getFloorLabel(nextFloor)+")");
-                    MapPoint mp = util.scalePoints(end.getX(), end.getY());
-                    startChangeButton.setLayoutX(mp.x+5);
-                    startChangeButton.setLayoutY(mp.y+5);
-                    startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-family: \"Open Sans Bold\"");
-                    startChangeButton.setMinWidth(200);
+                    startChangeButton.setText("BACK (TO "+util.getFloorLabel(nextFloor)+")");
+                    MapPoint mp = util.scalePoints(start.getX(), start.getY());
+                    startChangeButton.setLayoutX(mp.x);
+                    startChangeButton.setLayoutY(mp.y);
+                    startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:10px; -fx-font-family: \"Open Sans Bold\"");
+                    startChangeButton.setMinWidth(100);
                     startChangeButton.setMinHeight(15);
                     startChangeButton.setOpacity(0.5);
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
@@ -562,11 +624,11 @@ public class Pathfinding {
                         try{
                             util.setFloor(nf);
                             floorLabel.setText(util.getFloorLabel());
-                            this.updateMap();
+                            this.updateMap(null, null);
                         }catch(Exception e){e.printStackTrace();}
                     });
-                    util.buttonPane.getChildren().add(startChangeButton);
-                    clearNodes.add(startChangeButton);*/
+                   //util.buttonPane.getChildren().add(startChangeButton);
+                    //clearNodes.add(startChangeButton);
                 }
             }
 
