@@ -53,6 +53,10 @@ public class WelcomeAndLogin {
     private PasswordField password; //password text field
 
 
+    private SequentialTransition sequentialTransition; //used to make transition between welcome and login
+    private boolean hasNotBeenClicked; //trigger to indicate whether the screen has been clicked or not
+
+
 
     /**
      * This method is used to initialize the application by loading all necessary aspects and displaying them
@@ -60,6 +64,11 @@ public class WelcomeAndLogin {
     @FXML
     protected void initialize(){
         loginField.setOpacity(0); //initially needs to be invisible
+        hasNotBeenClicked = true; //stating that the screen hasn't been clicked as the transition should happen exactly once per login
+
+        //setting up the transition between fields
+        sequentialTransition = new SequentialTransition();
+        sequentialTransition.getChildren().addAll(this.fadeOut(welcomeField, 1000), this.fadeCusion(welcomeField, 500), this.fadeIn(loginField, 1000));
 
         //sets media to specified video
         Media media = new Media(getClass().getResource("/resources/Pressure.mp4").toExternalForm());
@@ -74,9 +83,11 @@ public class WelcomeAndLogin {
      */
     @FXML
     public void fadeToLogin(){
-        SequentialTransition sequentialTransition = new SequentialTransition();
-        sequentialTransition.getChildren().addAll(this.fadeOut(welcomeField, 1000), this.fadeCusion(welcomeField, 500), this.fadeIn(loginField, 1000));
-        sequentialTransition.play();
+        //this if statement ensures that the transition will only appear once every time it is loaded
+        if(hasNotBeenClicked) {
+            sequentialTransition.play();
+            hasNotBeenClicked = false;
+        }
     }
 
     private FadeTransition fadeCusion(Node anyNode, int duration) {
@@ -128,6 +139,7 @@ public class WelcomeAndLogin {
                 User.setPrivilege(rs.getInt("ACCOUNTINT"));
                 System.out.println("Logged in " + User.getUsername() + " with privilege " + User.getPrivilege());
                 Main.loadScenes();
+                this.resetScene();
                 Main.setScene("home");
             } else {
                 System.out.println("user not found");
@@ -142,6 +154,12 @@ public class WelcomeAndLogin {
         }
     }
 
+    //resets the scene for the next time it is called
+    private void resetScene() {
+        welcomeField.setOpacity(1);
+        loginField.setOpacity(0);
+        hasNotBeenClicked = true;
+    }
 
 
     //OLD CODE - used for guest login when we had it implemented in iteration one
