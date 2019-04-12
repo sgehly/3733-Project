@@ -15,6 +15,7 @@ import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -52,6 +53,9 @@ public class WelcomeAndLogin {
     @FXML
     private PasswordField password; //password text field
 
+    @FXML
+    private Button logInButton;
+
 
     private SequentialTransition sequentialTransition; //used to make transition between welcome and login
     private boolean hasNotBeenClicked; //trigger to indicate whether the screen has been clicked or not
@@ -64,7 +68,9 @@ public class WelcomeAndLogin {
     @FXML
     protected void initialize(){
         loginField.setOpacity(0); //initially needs to be invisible
+        this.setLoginDisable();
         hasNotBeenClicked = true; //stating that the screen hasn't been clicked as the transition should happen exactly once per login
+
 
         //setting up the transition between fields
         sequentialTransition = new SequentialTransition();
@@ -85,9 +91,22 @@ public class WelcomeAndLogin {
     public void fadeToLogin(){
         //this if statement ensures that the transition will only appear once every time it is loaded
         if(hasNotBeenClicked) {
+            this.setLoginEnable();
             sequentialTransition.play();
             hasNotBeenClicked = false;
         }
+    }
+
+    private void setLoginEnable() {
+        username.setDisable(false);
+        password.setDisable(false);
+        logInButton.setDisable(false);
+    }
+
+    private void setLoginDisable() {
+        username.setDisable(true);
+        password.setDisable(true);
+        logInButton.setDisable(true);
     }
 
     private FadeTransition fadeCusion(Node anyNode, int duration) {
@@ -159,6 +178,7 @@ public class WelcomeAndLogin {
         welcomeField.setOpacity(1);
         loginField.setOpacity(0);
         hasNotBeenClicked = true;
+        this.setLoginDisable();
     }
 
 
