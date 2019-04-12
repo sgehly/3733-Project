@@ -2,7 +2,10 @@ package edu.wpi.cs3733.d19.teamM;
 
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
+import edu.wpi.cs3733.d19.teamM.utilities.Timeout.IdleMonitor;
+import edu.wpi.cs3733.d19.teamM.utilities.Timeout.SavedState;
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
+import javafx.util.Duration;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -43,6 +47,8 @@ public class Main extends Application {
     private static Scene loginScene;
     private static Scene addUserScene;
 
+    private static IdleMonitor idleMonitor;
+    public static SavedState savedState;
 
     /**
      * This method is to return the current stage we are working on for referencing the stage
@@ -52,24 +58,36 @@ public class Main extends Application {
         return Main.primaryStage;
     }
 
+    public static void startIdleCheck(){
+        idleMonitor = new IdleMonitor(Duration.seconds(15),
+                () -> Main.setScene("welcome"), true);
+        idleMonitor.register(homeScene, Event.ANY);
+    }
+
     public static void setScene(String scene){
         if(scene == "addUser"){
             primaryStage.setScene(addUserScene);
+            savedState.setState("addUser");
         }
         else if(scene == "admin"){
             primaryStage.setScene(adminScene);
+            savedState.setState("admin");
         }
         else if(scene == "pathfinding"){
             primaryStage.setScene(pathFindingScene);
+            savedState.setState("pathfinding");
         }
         else if(scene == "scheduling"){
             primaryStage.setScene(schedulerScene);
+            savedState.setState("scheduling");
         }
         else if(scene == "serviceRequest"){
             primaryStage.setScene(serviceRequestScene);
+            savedState.setState("serviceRequests");
         }
         else if(scene == "serviceRequestList"){
             primaryStage.setScene(serviceRequestListScene);
+            savedState.setState("serviceRequestList");
         }
         else if(scene == "welcome"){
             primaryStage.setScene(welcomeScene);
@@ -169,6 +187,12 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        //TODO on logout, set memento to home DONE
+        //TODO on login, login to memento saved state DONE
+        //TODO change memento based on visited pages DONE
+        savedState = new SavedState();
+        savedState.setState("home");
 
         //Set the reference to the primary stage
         this.primaryStage = primaryStage;
