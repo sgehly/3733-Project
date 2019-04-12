@@ -43,7 +43,7 @@ public class BFS implements Searchable{
                 eN = e.getEndNode();
                 if (!beenVisited(eN) && eN.isEnabled()){ // if hasn't been visited
                     eN.setParent(cur); // set parent to current
-                    setHueristics(eN, end);
+                    setHeuristics(eN, end);
                     toAdd.add(eN);
                     visited.put(eN.getId(), eN);
 
@@ -102,7 +102,7 @@ public class BFS implements Searchable{
         }
     }
 
-    private void setHueristics(Node curNode, Node endNode){
+    private void setHeuristics(Node curNode, Node endNode){
         curNode.setH(curNode.getDistance(endNode));
         curNode.setG(curNode.getParent().getDistance(curNode) + curNode.getParent().getG());
         curNode.setP(getDeltaFloor(curNode, endNode) * 1000);

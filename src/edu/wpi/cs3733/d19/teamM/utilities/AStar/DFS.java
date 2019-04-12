@@ -91,7 +91,7 @@ public class DFS implements Searchable{
             if (!beenVisited(e.getEndNode()) && e.getEndNode().isEnabled()){ // If haven't been visited and enabled
                 visited.put(e.getEndNode().getId(), e.getEndNode()); // add to visited
                 e.getEndNode().setParent(n);
-                setHueristics(e.getEndNode(), end);
+                setHeuristics(e.getEndNode(), end);
                 adjNodes.add(e.getEndNode());
             }
         }
@@ -103,7 +103,7 @@ public class DFS implements Searchable{
         return stack.pop();
     }
 
-    private void setHueristics(Node curNode, Node endNode){
+    void setHeuristics(Node curNode, Node endNode){
         curNode.setH(curNode.getDistance(endNode));
         curNode.setG(curNode.getParent().getDistance(curNode) + curNode.getParent().getG());
         curNode.setP(getDeltaFloor(curNode, endNode) * 1000);
