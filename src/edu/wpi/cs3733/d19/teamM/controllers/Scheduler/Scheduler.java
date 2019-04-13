@@ -267,6 +267,13 @@ public class Scheduler {
         Main.setScene("home");
     }
 
+    @FXML
+    private void navigateToDetails() throws Exception{
+        Main.setScene("schedulerList");
+    }
+
+
+
     private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws SQLException {
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
         try {
@@ -439,7 +446,6 @@ public class Scheduler {
            // initWithType();
            // ObservableList<DisplayTable> entList = getAllRecords2();
             roomidCol.setCellValueFactory(new PropertyValueFactory<>("Room"));
-            System.out.println(" the fucking printed room is " + new PropertyValueFactory<>("Room"));
             starttimeCol.setCellValueFactory(new PropertyValueFactory<>("starttime"));
             endtimeCol.setCellValueFactory(new PropertyValueFactory<>("endtime"));
             //tableView2.setItems(entList);

@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
 import java.sql.*;
@@ -51,6 +52,13 @@ public class SchedulerList {
     private TableColumn<DisplayTable,String> roomType;
 
 
+    /**
+     *
+     * @return
+     * @throws SQLException
+     */
+
+
     public ObservableList<String> getDatesForDropDown() throws SQLException {
 
         ObservableList<String> list = FXCollections.observableArrayList();
@@ -65,7 +73,6 @@ public class SchedulerList {
             while(rs.next()){
                 list.add(rs.getString(1));
             }
-            System.out.println(rs.getString(1));
 
             return list;
         } catch (SQLException e) {
@@ -115,7 +122,7 @@ public class SchedulerList {
         try {
         Connection conn = new DatabaseUtils().getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, roomDropDown.getSelectionModel().getSelectedItem());
+        stmt.setString(1,roomDropDown.getSelectionModel().getSelectedItem());
         stmt.setString(2,dateDropDown.getSelectionModel().getSelectedItem());
         ResultSet rs = stmt.executeQuery();
         ObservableList<DisplayTable> entryList = getEntryObjects2(rs);
@@ -160,11 +167,15 @@ public class SchedulerList {
     @FXML
     void initialize() throws SQLException {
 
-
         roomDropDown.setValue("CR_1");
         roomDropDown.setItems(rooms);
         dateDropDown.setValue("Date");
         dateDropDown.setItems(this.getDatesForDropDown());
+
+
+
+        roomName.setCellValueFactory(new PropertyValueFactory<>("room"));
+        date.setCellValueFactory(new PropertyValueFactory<>("startime"));
 
 
         new Clock(lblClock, lblDate);
@@ -180,7 +191,7 @@ public class SchedulerList {
      */
     @FXML
     private void navigateBack() throws Exception {
-        Main.setScene("serviceRequests");
+        Main.setScene("scheduler");
     }
 
 

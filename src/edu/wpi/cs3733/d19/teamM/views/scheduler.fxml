@@ -88,13 +88,6 @@
                             </HBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                            <children>
-                                <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
-                                    <font>
-                                        <Font name="Open Sans Bold" size="24.0" />
-                                    </font>
-                                </Button>
-                            </children>
                             <padding>
                                 <Insets top="15.0" />
                             </padding>
@@ -102,6 +95,22 @@
                         <Insets />
                      </HBox.margin>
                         </HBox>
+                          <Button mnemonicParsing="false" onMouseClicked="#navigateToDetails" prefHeight="55.0" prefWidth="183.0" styleClass="logoutButton" text="GO TO LIST">
+                              <font>
+                                  <Font name="Open Sans Bold" size="24.0" />
+                              </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                          </Button>
+                  <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
+                     <font>
+                        <Font name="Open Sans Bold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
                     </children>
                     <VBox.margin>
                         <Insets left="50.0" right="50.0" top="40.0" />

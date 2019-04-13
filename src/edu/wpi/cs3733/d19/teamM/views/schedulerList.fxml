@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
@@ -25,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequestsList">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Scheduler.SchedulerList">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -112,7 +105,7 @@
                                  </HBox.margin>
                               </JFXComboBox>
                               <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <JFXButton mnemonicParsing="false" onAction="#deleteRequest" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="DELETE">
+                              <JFXButton mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="DELETE">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
@@ -125,7 +118,7 @@
                               <Insets top="15.0" />
                            </VBox.margin>
                         </HBox>
-                        <TableView fx:id="BookedRooms" onMouseClicked="#disengageComplete" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="BookedRooms" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                           <columns>
                               <TableColumn fx:id="roomName" maxWidth="752.8181056976318" minWidth="50.0" prefWidth="626.0" text="ROOM NAME" />
                                 <TableColumn fx:id="roomType" minWidth="0.0" prefWidth="626.0" text="TYPE" />
