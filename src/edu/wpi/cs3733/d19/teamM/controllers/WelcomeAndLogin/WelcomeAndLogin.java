@@ -115,7 +115,7 @@ public class WelcomeAndLogin {
 
         //setting up the transition between login and 2FA
         loginTo2FATransition = new SequentialTransition();
-        loginTo2FATransition.getChildren().addAll(this.dropFade(loginField, 500,100), this.drop(field2FA, 10, 100), this.raiseFade(field2FA, 500, 100));
+        loginTo2FATransition.getChildren().addAll(this.dropFade(loginField, 1000,100), this.drop(field2FA, 10, 100), this.raiseFade(field2FA, 1000, 100));
 
         //setting up the transition between welcome and login
         welcomeToLoginTransition = new SequentialTransition();
