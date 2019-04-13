@@ -161,11 +161,11 @@ public class Floor {
                 }
                 else if(secondNode.getXCoord() - firstNode.getXCoord() > 10 && secondNode.getYCoord() - firstNode.getYCoord() > 10){
                     System.out.println("Top Left");
-                    g2d.drawString("↖", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                    g2d.drawString("↘", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
                 }
                 else if(secondNode.getXCoord() - firstNode.getXCoord() < -10 && secondNode.getYCoord() - firstNode.getYCoord() < -10){
                     System.out.println("Bottom Right");
-                    g2d.drawString("↘", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                    g2d.drawString("↖", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
                 }
                 else if(secondNode.getXCoord() - firstNode.getXCoord() > 10 && secondNode.getYCoord() - firstNode.getYCoord() < -10){
                     System.out.println("Top Right");
