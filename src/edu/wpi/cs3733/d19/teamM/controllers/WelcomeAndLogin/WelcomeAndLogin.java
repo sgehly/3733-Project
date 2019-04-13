@@ -2,6 +2,11 @@
 package edu.wpi.cs3733.d19.teamM.controllers.WelcomeAndLogin;
 
 //imports
+import com.sendgrid.SendGrid;
+import com.sendgrid.SendGridException;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import edu.wpi.cs3733.d19.teamM.Main;
 
 //necessary package importations
@@ -11,7 +16,9 @@ import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 
 //FXML packages
 import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -24,6 +31,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 //SQL imports
@@ -43,6 +51,9 @@ public class WelcomeAndLogin {
     private VBox loginField; //area that cofntains all of the login objects
 
     @FXML
+    private VBox field2FA;
+
+    @FXML
     private MediaView mediaView; //object for playing background video
 
     @FXML
@@ -57,9 +68,32 @@ public class WelcomeAndLogin {
     @FXML
     private Button logInButton;
 
+    @FXML
+    private  TextField verifyCode1;
 
-    private SequentialTransition sequentialTransition; //used to make transition between welcome and login
+    @FXML
+    private Button verifyButton;
+
+    @FXML
+    private Button resendButton;
+
+    @FXML
+    private Button loginButton2;
+
+    @FXML
+    private TextField emailNumber;
+
+    @FXML
+    private Label sent;
+
+    @FXML
+    private Label wrong;
+
+
+    private SequentialTransition welcomeToLoginTransition; //used to make transition between welcome and login
+    private SequentialTransition loginTo2FATransition;
     private boolean hasNotBeenClicked; //trigger to indicate whether the screen has been clicked or not
+    private boolean hasNotBeenClicked2; //trigger to indicate whether the login button has been pressed yet
 
 
 
@@ -69,13 +103,23 @@ public class WelcomeAndLogin {
     @FXML
     protected void initialize(){
         loginField.setOpacity(0); //initially needs to be invisible
-        this.setLoginDisable();
+        loginField.setDisable(true);
         hasNotBeenClicked = true; //stating that the screen hasn't been clicked as the transition should happen exactly once per login
 
+        field2FA.setOpacity(0);
+        field2FA.setDisable(true);
+        hasNotBeenClicked2 = true;
 
-        //setting up the transition between fields
-        sequentialTransition = new SequentialTransition();
-        sequentialTransition.getChildren().addAll(this.fadeOut(welcomeField, 1000), this.fadeCusion(welcomeField, 500), this.fadeIn(loginField, 1000));
+        sent.setVisible(false);
+        wrong.setVisible(false);
+
+        //setting up the transition between login and 2FA
+        loginTo2FATransition = new SequentialTransition();
+        loginTo2FATransition.getChildren().addAll(this.dropFade(loginField, 500,100),this.raiseFade(field2FA, 1000, 200));
+
+        //setting up the transition between welcome and login
+        welcomeToLoginTransition = new SequentialTransition();
+        welcomeToLoginTransition.getChildren().addAll(this.fadeOut(welcomeField, 1000), this.fadeCusion(welcomeField, 500), this.fadeIn(loginField, 1000));
 
         //sets media to specified video
         Media media = new Media(getClass().getResource("/resources/Pressure.mp4").toExternalForm());
@@ -90,24 +134,57 @@ public class WelcomeAndLogin {
      */
     @FXML
     public void fadeToLogin(){
+        System.out.println("fading to login");
         //this if statement ensures that the transition will only appear once every time it is loaded
         if(hasNotBeenClicked) {
-            this.setLoginEnable();
-            sequentialTransition.play();
+            welcomeField.setDisable(true);
+            loginField.setDisable(false);
+            System.out.println("the login stuff is enabled");
+            welcomeToLoginTransition.play();
             hasNotBeenClicked = false;
         }
     }
 
-    private void setLoginEnable() {
-        username.setDisable(false);
-        password.setDisable(false);
-        logInButton.setDisable(false);
+    @FXML
+    public void transitionTo2FA(){
+        //this if statement ensures that the transition will only appear once everytime it is loaded
+        if(hasNotBeenClicked2){
+            loginField.setDisable(true);
+            field2FA.setDisable(false);
+            loginTo2FATransition.play();
+            hasNotBeenClicked2 = false;
+        }
     }
 
-    private void setLoginDisable() {
-        username.setDisable(true);
-        password.setDisable(true);
-        logInButton.setDisable(true);
+
+    private ParallelTransition dropFade(Node anyNode, int duration, int distance) {
+        ParallelTransition dropFade = new ParallelTransition();
+
+        TranslateTransition drop = new TranslateTransition();
+        drop.setDuration(Duration.millis(duration));
+        drop.setNode(anyNode);
+        drop.setByY(distance);
+
+        FadeTransition fade = this.fadeOut(anyNode, duration);
+
+        dropFade.getChildren().addAll(drop,fade);
+
+        return dropFade;
+    }
+
+    private ParallelTransition raiseFade(Node anyNode, int duration, int distance) {
+        ParallelTransition raiseFade = new ParallelTransition();
+
+        TranslateTransition raise = new TranslateTransition();
+        raise.setDuration(Duration.millis(duration));
+        raise.setNode(anyNode);
+        raise.setByY(0-distance);
+
+        FadeTransition fade = this.fadeIn(anyNode, duration);
+
+        raiseFade.getChildren().addAll(raise,fade);
+
+        return raiseFade;
     }
 
     private FadeTransition fadeCusion(Node anyNode, int duration) {
@@ -142,7 +219,7 @@ public class WelcomeAndLogin {
         password.setOnKeyPressed(
                 event -> {
                     if(event.getCode().equals(KeyCode.ENTER)){
-                        this.logIn();
+                        this.transitionTo2FA();
                     }
                 }
         );
@@ -190,7 +267,94 @@ public class WelcomeAndLogin {
         welcomeField.setOpacity(1);
         loginField.setOpacity(0);
         hasNotBeenClicked = true;
-        this.setLoginDisable();
+        loginField.setDisable(true);
+        field2FA.setDisable(true);
+        welcomeField.setDisable(false);
+    }
+
+    @FXML
+    public void sendVerify() {
+        String numberEmail = emailNumber.getText();
+        if(numberEmail.compareTo("") == 1){
+            sent.setTextFill(Color.web("#ff0000"));
+            sent.setText("Please enter an email or phone number");
+            sent.setVisible(true);
+            System.out.println("Nothing");
+
+        }
+        int myCode = (int)generateCode();
+        Twilio.init("ACbfbd0226f179ee74597c887298cbda10", "eeb459634d5a8407d077635504386d44");
+        if (!numberEmail.contains("@")) {
+            try {
+                Message message = Message.creator(new PhoneNumber(numberEmail), new PhoneNumber("+15085383787"), "Hello from Brigham & Women's! Your authentication code is " + myCode).create();
+                TwoFactor myFactor = TwoFactor.getTwoFactor();
+                myFactor.setTheCode(myCode);
+                sent.setTextFill(Color.web("#009933"));
+                sent.setText("Code sent");
+                sent.setVisible(true);
+                System.out.println("sent");
+            } catch (Exception e) {
+                e.printStackTrace();
+                sent.setTextFill(Color.web("#ff0000"));
+                sent.setText("Could not send your code");
+                sent.setVisible(true);
+                System.out.println("failed");
+            }
+        }
+        else{
+            String sendgrid_username  = "sgehlywpi";
+            String sendgrid_password  = "MangoManticores1!";
+            String to = numberEmail;
+            SendGrid sendgrid = new SendGrid(sendgrid_username, sendgrid_password);
+            SendGrid.Email email = new SendGrid.Email();
+
+            email.addTo(numberEmail);
+            email.setFrom(numberEmail);
+            email.setFromName("Brigham & Women's");
+            email.setReplyTo("mangomanticores@gehly.net");
+            email.setSubject("Authentication Code");
+            email.setHtml(" from Brigham & Women's! Your authentication code is " + myCode);
+            try {
+                SendGrid.Response response = sendgrid.send(email);
+                TwoFactor myFactor = TwoFactor.getTwoFactor();
+                myFactor.setTheCode(myCode);
+                sent.setTextFill(Color.web("#009933"));
+                sent.setText("Code sent");
+                sent.setVisible(true);
+                System.out.println("sent");
+            } catch (SendGridException e) {
+                System.out.println(e);
+                sent.setTextFill(Color.web("#ff0000"));
+                sent.setText("Could not send your code");
+                sent.setVisible(true);
+                System.out.println("failed");
+            }
+        }
+    }
+
+    @FXML
+    private void checkCode(){
+        TwoFactor myFactor = TwoFactor.getTwoFactor();
+        if(myFactor.getTheCode() == Integer.parseInt(verifyCode1.getText())){
+            System.out.println("Yay");
+        }
+        else{
+            wrong.setTextFill(Color.web("#ff0000"));
+            wrong.setText("Code is incorrect");
+            wrong.setVisible(true);
+        }
+    }
+
+    private double generateCode(){
+        double one = Math.random();
+        double two = Math.random();
+        double three = Math.random();
+        double four = Math.random();
+        double five = Math.random();
+        double six = Math.random();
+        double seven = Math.random();
+        double combind = one + two * 10 + three * 100 + four * 1000 + five * 10000 + six * 100000 + seven * 10000000;
+        return combind;
     }
 
 

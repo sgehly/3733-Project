@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamM.controllers.LogIn;
+package edu.wpi.cs3733.d19.teamM.controllers.WelcomeAndLogin;
 
 public class TwoFactor {
     private static TwoFactor newFactor;

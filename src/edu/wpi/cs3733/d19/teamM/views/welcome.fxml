@@ -74,7 +74,7 @@
                                           <Insets bottom="8.0" top="30.0" />
                                        </VBox.margin>
                                     </PasswordField>
-                                    <Button fx:id="logInButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logIn" styleClass="logoutButton" text="LOG IN">
+                                    <Button fx:id="logInButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#transitionTo2FA" styleClass="logoutButton" text="LOG IN">
                                        <VBox.margin>
                                           <Insets bottom="10.0" top="50.0" />
                                        </VBox.margin>
@@ -87,6 +87,36 @@
                                  </children>
                                  <VBox.margin>
                                     <Insets top="54.0" />
+                                 </VBox.margin>
+                              </VBox>
+                           </children>
+                        </VBox>
+                        <VBox fx:id="field2FA" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="462.0" prefWidth="1529.0">
+                           <children>
+                              <VBox maxWidth="306.0" prefHeight="326.0" prefWidth="1920.0" spacing="30.0">
+                                 <children>
+                                    <TextField fx:id="emailNumber" promptText="emailNumber" styleClass="darkInput" />
+                                    <TextField fx:id="verifyCode1" promptText="Enter code" styleClass="darkInput" />
+                                    <Button fx:id="verifyButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sendVerify" styleClass="logoutButton" text="VERIFY" />
+                                    <Button fx:id="resendButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#checkCode" styleClass="logoutButton" text="resendBtn" />
+                                    <Button fx:id="loginButton2" mnemonicParsing="false" onAction="#logIn" text="Button" />
+                                    <HBox prefHeight="190.0" prefWidth="300.0">
+                                       <children>
+                                          <Label fx:id="sent" text="Label" textFill="WHITE">
+                                             <HBox.margin>
+                                                <Insets top="70.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="wrong" text="Label" textFill="WHITE">
+                                             <HBox.margin>
+                                                <Insets top="70.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
                                  </VBox.margin>
                               </VBox>
                            </children>
