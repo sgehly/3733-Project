@@ -2,15 +2,11 @@ package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import sun.reflect.annotation.ExceptionProxy;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,10 +21,9 @@ import java.util.Map;
 public class Floor {
     private static Floor thisFloor;
     Map<String, Node> nodes;
+    SearchAlgorithm dijkstra, aStar, selected;
+    Searchable bfs, dfs, selected2;
 
-    //Path finders
-    Searchable dfs, bfs, dStar, selected;
-    AStar aStar;
 
     private Floor(){
         nodes = new HashMap<>();
@@ -37,8 +32,9 @@ public class Floor {
         aStar = new AStar();
         dfs = new DFS();
         bfs = new BFS();
-        dStar = new DStar();
+        dijkstra = new Dijkstra();
         selected = aStar;
+        selected2 = null;
         try {
             this.populate();
         }
@@ -56,14 +52,20 @@ public class Floor {
 
     public void setAStar(){
         selected = aStar;
+        selected2 = null;
     }
     public void setBFS(){
-        selected = bfs;
+        selected2 = bfs;
+        selected = null;
     }
     public void setDFS(){
-        selected = dfs;
+        selected2 = dfs;
+        selected = null;
     }
-    public void setDStar() {selected = dStar;}
+    public void setDijkstra() {
+        selected = dijkstra;
+        selected2 = null;
+    }
 
     /**
      * Find the path between a start and end node
@@ -72,14 +74,25 @@ public class Floor {
      * @return A Path
      */
     public Path findPath(Node start, Node end){
-        Path p = selected.findPath(start, end);
-        //System.out.println(PathToString.getDirections(p));
+        Path p = null;
+        if(selected != null){
+            p = selected.findPath(start, end);
+            return p;
+        }
+        p = selected2.findPath(start,end);
         return p;
     }
 
-    public Path findPresetPath(Node start, String type, Map<String, Node> n){
-        return aStar.findPresetPath(start, type, n);
+    public Path findPresetPath(Node start, String type,Map<String, Node> n){
+        Path p = null;
+        if(selected != null){
+            p = selected.findPresetPath(start,type,n);
+            return p;
+        }
+        p = selected2.findPresetPath(start,type,n);
+        return p;
     }
+
 
     /**
      * Get a map of all the nodes
