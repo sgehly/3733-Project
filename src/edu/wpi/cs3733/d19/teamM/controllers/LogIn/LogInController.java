@@ -11,6 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
+import com.sendgrid.SendGrid;
+import com.sendgrid.SendGridException;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.PathToString;
 import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,6 +32,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 
 public class LogInController {
 
@@ -45,6 +52,12 @@ public class LogInController {
     @FXML
     private PasswordField password;
 
+    @FXML
+    private TextField verifyCode;
+
+    @FXML
+    private TextField emailNumber;
+
     @FXML // fx:id="mainContent"
     private AnchorPane mainContent; // Value injected by FXMLLoader
 
@@ -52,20 +65,48 @@ public class LogInController {
     private MediaView mediaView; // Value injected by FXMLLoader
 
     @FXML
-    void guestLogIn(ActionEvent event) {
-        try {
-            User.getUser();
-            User.setUsername("Guest");
-            username.setText("");
-            password.setText("");
-            errorMessage.setText("");
-            User.setPrivilege(0);
-            System.out.println("Logged in Guest");
-            Main.loadScenes();
-            Main.setScene("home");
+    public void sendVerify() {
+        String numberEmail = emailNumber.getText();
+        int myCode = (int)generateCode();
+        Twilio.init("ACbfbd0226f179ee74597c887298cbda10", "eeb459634d5a8407d077635504386d44");
+        if (!numberEmail.contains("@")) {
+            try {
+                Message message = Message.creator(new PhoneNumber(numberEmail), new PhoneNumber("+15085383787"), "Hello from Brigham & Women's! Your authentication code is " + myCode).create();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        catch (Exception e){
-            e.printStackTrace();
+        else{
+            String sendgrid_username  = "sgehlywpi";
+            String sendgrid_password  = "MangoManticores1!";
+            String to = numberEmail;
+            SendGrid sendgrid = new SendGrid(sendgrid_username, sendgrid_password);
+            SendGrid.Email email = new SendGrid.Email();
+
+            email.addTo(numberEmail);
+            email.setFrom(numberEmail);
+            email.setFromName("Brigham & Women's");
+            email.setReplyTo("mangomanticores@gehly.net");
+            email.setSubject("Authentication Code");
+            email.setHtml(" from Brigham & Women's! Your authentication code is " + myCode);
+            try {
+                SendGrid.Response response = sendgrid.send(email);
+            } catch (SendGridException e) {
+                System.out.println(e);
+            }
+        }
+        TwoFactor myFactor = TwoFactor.getTwoFactor();
+        myFactor.setTheCode(myCode);
+    }
+
+    @FXML
+    private void checkCode(){
+        TwoFactor myFactor = TwoFactor.getTwoFactor();
+        if(myFactor.getTheCode() == Integer.parseInt(verifyCode.getText())){
+            System.out.println("Yay");
+        }
+        else{
+            System.out.println("no");
         }
     }
 
@@ -121,6 +162,16 @@ public class LogInController {
 
         assert mainContent != null : "fx:id=\"mainContent\" was not injected: check your FXML file 'login.fxml'.";
         assert mediaView != null : "fx:id=\"mediaView\" was not injected: check your FXML file 'login.fxml'.";
+    }
 
+    private double generateCode(){
+        double one = Math.random();
+        double two = Math.random();
+        double three = Math.random();
+        double four = Math.random();
+        double five = Math.random();
+        double six = Math.random();
+        double combind = one + two * 10 + three * 100 + four * 1000 + five * 10000 + six * 100000;
+        return combind;
     }
 }
