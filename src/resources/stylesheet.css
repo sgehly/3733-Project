@@ -190,6 +190,7 @@
 .table-view .column-header,
 .table-view .column-header-background .filler {
     -fx-background-color: #012d5a;
+    -fx-text-fill: white;
     -fx-font-family:"Open Sans Bold";
     -fx-text-size:22px;
     -fx-text-alignment: center;
@@ -199,6 +200,11 @@
     -fx-text-fill: white;
     -fx-font-size: 12pt;
     -fx-font-weight: bold;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: white;
+
 }
 
 .table-view .cell{

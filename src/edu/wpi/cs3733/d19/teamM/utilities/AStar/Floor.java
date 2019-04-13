@@ -141,47 +141,34 @@ public class Floor {
                 g2d.setColor(hex2Rgb("#002041"));
                 g2d.drawLine(firstNode.getXCoord(), firstNode.getYCoord(), secondNode.getXCoord(), secondNode.getYCoord()); //Draw a line from it to the next node
 
-                System.out.println("-=-=-=-==-");
-                System.out.println(secondNode.getYCoord() - firstNode.getYCoord());
-                System.out.println(secondNode.getXCoord() - firstNode.getXCoord());
-                System.out.println("-=-=-=-==-");
-
                 g2d.setColor(hex2Rgb("#f6bd38"));
                 if (secondNode.getYCoord() - firstNode.getYCoord() > 10 && Math.abs(secondNode.getXCoord() - firstNode.getXCoord()) < 20) {
                     //Line is moving down.
-                    System.out.println("Moving down");
                     g2d.drawString("⬇", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2) - 5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2));
                 }
                 else if (secondNode.getYCoord() - firstNode.getYCoord() < -10 && Math.abs(secondNode.getXCoord() - firstNode.getXCoord()) < 20) {
                     //Line is moving down.
-                    System.out.println("Moving up");
                     g2d.drawString("⬆", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2) - 5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2));
                 }
 
                 else if (secondNode.getXCoord() - firstNode.getXCoord() > 10 && Math.abs(secondNode.getYCoord() - firstNode.getYCoord()) < 20) {
                     //Line is moving down.
-                    System.out.println("Moving right");
                     g2d.drawString("➡", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2), firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
                 }
                 else if (secondNode.getXCoord() - firstNode.getXCoord() < -10 && Math.abs(secondNode.getYCoord() - firstNode.getYCoord()) < 20) {
                     //Line is moving down.
-                    System.out.println("Moving left");
                     g2d.drawString("⬅", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2), firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
                 }
                 else if(secondNode.getXCoord() - firstNode.getXCoord() < -10 && secondNode.getYCoord() - firstNode.getYCoord() > 10){
-                    System.out.println("Bottom Left");
                     g2d.drawString("↙", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
                 }
                 else if(secondNode.getXCoord() - firstNode.getXCoord() > 10 && secondNode.getYCoord() - firstNode.getYCoord() > 10){
-                    System.out.println("Top Left");
                     g2d.drawString("↘", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
                 }
                 else if(secondNode.getXCoord() - firstNode.getXCoord() < -10 && secondNode.getYCoord() - firstNode.getYCoord() < -10){
-                    System.out.println("Bottom Right");
                     g2d.drawString("↖", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
                 }
                 else if(secondNode.getXCoord() - firstNode.getXCoord() > 10 && secondNode.getYCoord() - firstNode.getYCoord() < -10){
-                    System.out.println("Top Right");
                     g2d.drawString("↗", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
                 }
 

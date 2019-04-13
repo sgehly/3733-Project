@@ -28,6 +28,8 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -141,6 +143,21 @@ public class Pathfinding {
     @FXML
     private VBox mappingStuff;
 
+    @FXML
+    private ListView directoryList;
+
+    @FXML
+    private VBox directoryPane;
+
+    @FXML
+    private VBox navPane;
+
+    @FXML
+    private Button dirButton;
+
+    @FXML
+    private Button navButton;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
@@ -149,7 +166,6 @@ public class Pathfinding {
     protected void initialize() throws Exception {
         gesturePane.setContent(mappingStuff);
 
-        System.out.println("Initializing pathfinding");
         new Clock(lblClock, lblDate);
         //userText.setText(User.getUsername());
         userText.setText("");
@@ -160,11 +176,12 @@ public class Pathfinding {
                 path = new Path();
                 util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues, false, null, null);
                 setUpListeners();
-
-                System.out.println("Init maputils");
                 util.initialize();
-
                 floorLabel.setText(util.getFloorLabel());
+
+                loadDirectory();
+
+                chooseNav();
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -175,10 +192,64 @@ public class Pathfinding {
 
     }
 
+    private void loadDirectory(){
+        ObservableList<String> nodeList = FXCollections.observableArrayList();
+
+        for (Node n : graph.getNodes().values()){
+            if(!n.getNodeType().equals("HALL")){
+                nodeList.add(n.getLongName());
+            }
+        }
+
+        directoryList.setItems(nodeList);
+        directoryList.setEditable(false);
+        directoryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                // Your action here
+                String nodeId = null;
+                for (Node n : graph.getNodes().values()){
+                    if(n.getLongName().equals(newValue)){
+                        nodeId = n.getId();
+                    }
+                }
+
+                if(nodeId != null){
+                    if(startText.getText().length() == 0){
+                        startText.setText(nodeId);
+                        endText.requestFocus();
+                    }else{
+                        endText.setText(nodeId);
+                    }
+                }
+            }
+        });
+    }
 
     @FXML
-    private void speakDirections()
-    {
+    private void chooseNav(){
+        directoryPane.setMouseTransparent(true);
+        directoryPane.setOpacity(0);
+        navPane.setMouseTransparent(false);
+        navPane.setOpacity(1);
+        dirButton.setStyle("");
+        navButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
+    }
+
+    @FXML
+    private void chooseDirectory(){
+        directoryPane.setMouseTransparent(false);
+        directoryPane.setOpacity(1);
+        navPane.setMouseTransparent(true);
+        navPane.setOpacity(0);
+        navButton.setStyle("");
+        dirButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
+    }
+
+
+    @FXML
+    private void speakDirections(){
         TextSpeech textSpeech = new TextSpeech();
         textSpeech.speakToUser();
     }
@@ -295,7 +366,6 @@ public class Pathfinding {
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
         PathToString.getDirections(path);
-        System.out.println(path+"/"+graph);
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
 
@@ -471,8 +541,6 @@ public class Pathfinding {
         clearNodes.forEach(node -> {
             util.buttonPane.getChildren().remove(node);
         });
-        System.out.println("-=-=-=-=INITIALIZING UPDATEMAP-=-=-=-=-=");
-        System.out.println("current floor id: "+util.getCurrentFloorID());
         List<Path> floorPaths = path.getSpecificPath(util.getCurrentFloorID());
         List<Path> allPaths = path.getFloorPaths();
 
