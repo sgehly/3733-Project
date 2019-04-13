@@ -91,7 +91,7 @@ public class Home{
     @FXML
     void initialize() throws IOException {
         new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
+        userText.setText(User.getUsername());
         userText.setText("");
         File f = new File(User.getPathToPic());
         Image image = new Image(f.toURI().toString());

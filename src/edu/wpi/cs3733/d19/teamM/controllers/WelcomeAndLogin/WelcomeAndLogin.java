@@ -69,7 +69,7 @@ public class WelcomeAndLogin {
     private Button logInButton;
 
     @FXML
-    private  TextField verifyCode1;
+    private  TextField verifyCode;
 
     @FXML
     private Button verifyButton;
@@ -115,11 +115,11 @@ public class WelcomeAndLogin {
 
         //setting up the transition between login and 2FA
         loginTo2FATransition = new SequentialTransition();
-        loginTo2FATransition.getChildren().addAll(this.dropFade(loginField, 500,100),this.raiseFade(field2FA, 1000, 200));
+        loginTo2FATransition.getChildren().addAll(this.dropFade(loginField, 500,100), this.drop(field2FA, 10, 100), this.raiseFade(field2FA, 500, 100));
 
         //setting up the transition between welcome and login
         welcomeToLoginTransition = new SequentialTransition();
-        welcomeToLoginTransition.getChildren().addAll(this.fadeOut(welcomeField, 1000), this.fadeCusion(welcomeField, 500), this.fadeIn(loginField, 1000));
+        welcomeToLoginTransition.getChildren().addAll(this.fadeOut(welcomeField, 1000), this.fadeCusion(welcomeField, 100), this.fadeIn(loginField, 1000));
 
         //sets media to specified video
         Media media = new Media(getClass().getResource("/resources/Pressure.mp4").toExternalForm());
@@ -159,32 +159,31 @@ public class WelcomeAndLogin {
 
     private ParallelTransition dropFade(Node anyNode, int duration, int distance) {
         ParallelTransition dropFade = new ParallelTransition();
-
-        TranslateTransition drop = new TranslateTransition();
-        drop.setDuration(Duration.millis(duration));
-        drop.setNode(anyNode);
-        drop.setByY(distance);
-
-        FadeTransition fade = this.fadeOut(anyNode, duration);
-
-        dropFade.getChildren().addAll(drop,fade);
-
+        dropFade.getChildren().addAll(this.drop(anyNode,duration,distance),this.fadeOut(anyNode, duration));
         return dropFade;
     }
 
     private ParallelTransition raiseFade(Node anyNode, int duration, int distance) {
         ParallelTransition raiseFade = new ParallelTransition();
+        raiseFade.getChildren().addAll(this.raise(anyNode,duration,distance),this.fadeIn(anyNode, duration));
+        return raiseFade;
+    }
 
+    private TranslateTransition drop(Node anyNode, int duration, int distance){
+        TranslateTransition drop = new TranslateTransition();
+        drop.setDuration(Duration.millis(duration));
+        drop.setNode(anyNode);
+        drop.setByY(distance);
+
+        return drop;
+    }
+
+    private TranslateTransition raise(Node anyNode, int duration, int distance){
         TranslateTransition raise = new TranslateTransition();
         raise.setDuration(Duration.millis(duration));
         raise.setNode(anyNode);
         raise.setByY(0-distance);
-
-        FadeTransition fade = this.fadeIn(anyNode, duration);
-
-        raiseFade.getChildren().addAll(raise,fade);
-
-        return raiseFade;
+        return raise;
     }
 
     private FadeTransition fadeCusion(Node anyNode, int duration) {
@@ -335,8 +334,9 @@ public class WelcomeAndLogin {
     @FXML
     private void checkCode(){
         TwoFactor myFactor = TwoFactor.getTwoFactor();
-        if(myFactor.getTheCode() == Integer.parseInt(verifyCode1.getText())){
+        if(myFactor.getTheCode() == Integer.parseInt(verifyCode.getText())){
             System.out.println("Yay");
+            this.logIn();
         }
         else{
             wrong.setTextFill(Color.web("#ff0000"));
