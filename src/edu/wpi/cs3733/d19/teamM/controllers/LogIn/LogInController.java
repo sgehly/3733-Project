@@ -92,6 +92,7 @@ public class LogInController {
                 System.out.println("Logged in " + User.getUsername() + " with privilege " + User.getPrivilege());
                 Main.loadScenes();
                 Main.setScene("home");
+                conn.close();
             } else {
                System.out.println("user not found");
                errorMessage.setText("Incorrect Credentials");
