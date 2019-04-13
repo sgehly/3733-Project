@@ -6,8 +6,11 @@ import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
@@ -28,6 +31,9 @@ public class AudioVisual implements Initializable {
 
 
     String[] audioVis = {"Headphones", "Speakers", "Radio", "TV", "Camera"};
+
+    @FXML
+    private ListView listEmployees;
 
     @FXML
     private Text errorMessage;
@@ -112,6 +118,27 @@ public class AudioVisual implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        ObservableList<String> list = FXCollections.observableArrayList();
+
+        String query = "select * FROM users Where ACCOUNTINT = ?";
+        Connection conn = new DatabaseUtils().getConnection();
+        try{
+            PreparedStatement s = conn.prepareStatement(query);
+            s.setInt(1, 1);
+            ResultSet rs = s.executeQuery();
+            while(rs.next()){
+                list.add(rs.getString(1));
+                System.out.println(rs.getString(1));
+            }
+            for(String s1 : list){
+                listEmployees.getItems().add(s1);
+            }
+            conn.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         TextFields.bindAutoCompletion(audioVisType, audioVis);
 
