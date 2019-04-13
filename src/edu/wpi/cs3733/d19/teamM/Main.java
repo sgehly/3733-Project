@@ -226,12 +226,12 @@ public class Main extends Application {
         welcomeScene= new Scene(welcomePane);
 
         //create the idle detection system
-        ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));
-        Timer timer = new Timer(10000,uiReset);
-        EventHandler<MouseEvent> idleReset = e -> timer.restart();
-        //EventHandler<MouseEvent> idleReset = e -> System.out.println("mouse moved");
-        primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);
-        timer.start();
+//        ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));
+//        Timer timer = new Timer(10000,uiReset);
+//        EventHandler<MouseEvent> idleReset = e -> timer.restart();
+//        //EventHandler<MouseEvent> idleReset = e -> System.out.println("mouse moved");
+//        primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);
+//        timer.start();
 
 
         //Set the color and the title and the screen
