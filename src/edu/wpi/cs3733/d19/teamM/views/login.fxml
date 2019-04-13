@@ -53,11 +53,21 @@
                         </Label>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <HBox prefHeight="214.0" prefWidth="300.0">
+                              <HBox prefHeight="190.0" prefWidth="300.0">
                                  <children>
                                     <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sendVerify" styleClass="logoutButton" text="VERIFY" />
+                                    <Label fx:id="sent" text="Label" textFill="WHITE">
+                                       <HBox.margin>
+                                          <Insets top="70.0" />
+                                       </HBox.margin>
+                                    </Label>
                                     <TextField fx:id="emailNumber" promptText="emailNumber" styleClass="darkInput" />
                                     <TextField fx:id="verifyCode" promptText="Enter code" styleClass="darkInput" />
+                                    <Label fx:id="wrong" text="Label" textFill="WHITE">
+                                       <HBox.margin>
+                                          <Insets top="70.0" />
+                                       </HBox.margin>
+                                    </Label>
                                     <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#checkCode" styleClass="logoutButton" text="resendBtn" />
                                  </children>
                               </HBox>
@@ -66,6 +76,7 @@
                         </VBox>
                      </children>
                   </VBox>
+                  <Button mnemonicParsing="false" onAction="#logIn" text="Button" />
                </children>
             </VBox>
          </children>

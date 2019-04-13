@@ -33,6 +33,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
 
 public class LogInController {
 
@@ -58,6 +59,13 @@ public class LogInController {
     @FXML
     private TextField emailNumber;
 
+    @FXML
+    private Label sent;
+
+    @FXML
+    private Label wrong;
+
+
     @FXML // fx:id="mainContent"
     private AnchorPane mainContent; // Value injected by FXMLLoader
 
@@ -67,13 +75,30 @@ public class LogInController {
     @FXML
     public void sendVerify() {
         String numberEmail = emailNumber.getText();
+        if(numberEmail.compareTo("") == 1){
+            sent.setTextFill(Color.web("#ff0000"));
+            sent.setText("Please enter an email or phone number");
+            sent.setVisible(true);
+            System.out.println("Nothing");
+
+        }
         int myCode = (int)generateCode();
         Twilio.init("ACbfbd0226f179ee74597c887298cbda10", "eeb459634d5a8407d077635504386d44");
         if (!numberEmail.contains("@")) {
             try {
                 Message message = Message.creator(new PhoneNumber(numberEmail), new PhoneNumber("+15085383787"), "Hello from Brigham & Women's! Your authentication code is " + myCode).create();
+                TwoFactor myFactor = TwoFactor.getTwoFactor();
+                myFactor.setTheCode(myCode);
+                sent.setTextFill(Color.web("#009933"));
+                sent.setText("Code sent");
+                sent.setVisible(true);
+                System.out.println("sent");
             } catch (Exception e) {
                 e.printStackTrace();
+                sent.setTextFill(Color.web("#ff0000"));
+                sent.setText("Could not send your code");
+                sent.setVisible(true);
+                System.out.println("failed");
             }
         }
         else{
@@ -91,12 +116,20 @@ public class LogInController {
             email.setHtml(" from Brigham & Women's! Your authentication code is " + myCode);
             try {
                 SendGrid.Response response = sendgrid.send(email);
+                TwoFactor myFactor = TwoFactor.getTwoFactor();
+                myFactor.setTheCode(myCode);
+                sent.setTextFill(Color.web("#009933"));
+                sent.setText("Code sent");
+                sent.setVisible(true);
+                System.out.println("sent");
             } catch (SendGridException e) {
                 System.out.println(e);
+                sent.setTextFill(Color.web("#ff0000"));
+                sent.setText("Could not send your code");
+                sent.setVisible(true);
+                System.out.println("failed");
             }
         }
-        TwoFactor myFactor = TwoFactor.getTwoFactor();
-        myFactor.setTheCode(myCode);
     }
 
     @FXML
@@ -106,7 +139,9 @@ public class LogInController {
             System.out.println("Yay");
         }
         else{
-            System.out.println("no");
+             wrong.setTextFill(Color.web("#ff0000"));
+            wrong.setText("Code is incorrect");
+            wrong.setVisible(true);
         }
     }
 
@@ -150,6 +185,9 @@ public class LogInController {
     @FXML
         // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
+        sent.setVisible(false);
+        wrong.setVisible(false);
+
         //Gets the video resources and stores it as a media file
         Media media = new Media(getClass().getResource("/resources/Pressure.mp4").toExternalForm());
 
@@ -171,7 +209,8 @@ public class LogInController {
         double four = Math.random();
         double five = Math.random();
         double six = Math.random();
-        double combind = one + two * 10 + three * 100 + four * 1000 + five * 10000 + six * 100000;
+        double seven = Math.random();
+        double combind = one + two * 10 + three * 100 + four * 1000 + five * 10000 + six * 100000 + seven * 10000000;
         return combind;
     }
 }
