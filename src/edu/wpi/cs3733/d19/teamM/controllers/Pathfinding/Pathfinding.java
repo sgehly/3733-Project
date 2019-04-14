@@ -28,12 +28,15 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
@@ -140,6 +143,21 @@ public class Pathfinding {
     @FXML
     private VBox mappingStuff;
 
+    @FXML
+    private ListView directoryList;
+
+    @FXML
+    private VBox directoryPane;
+
+    @FXML
+    private VBox navPane;
+
+    @FXML
+    private Button dirButton;
+
+    @FXML
+    private Button navButton;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
@@ -148,7 +166,6 @@ public class Pathfinding {
     protected void initialize() throws Exception {
         gesturePane.setContent(mappingStuff);
 
-        System.out.println("Initializing pathfinding");
         new Clock(lblClock, lblDate);
         //userText.setText(User.getUsername());
         userText.setText("");
@@ -157,13 +174,14 @@ public class Pathfinding {
             try{
                 graph = Floor.getFloor();
                 path = new Path();
-                util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues, false);
+                util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues, false, null, null);
                 setUpListeners();
-
-                System.out.println("Init maputils");
                 util.initialize();
-
                 floorLabel.setText(util.getFloorLabel());
+
+                loadDirectory();
+
+                chooseNav();
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -174,10 +192,64 @@ public class Pathfinding {
 
     }
 
+    private void loadDirectory(){
+        ObservableList<String> nodeList = FXCollections.observableArrayList();
+
+        for (Node n : graph.getNodes().values()){
+            if(!n.getNodeType().equals("HALL")){
+                nodeList.add(n.getLongName());
+            }
+        }
+
+        directoryList.setItems(nodeList);
+        directoryList.setEditable(false);
+        directoryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                // Your action here
+                String nodeId = null;
+                for (Node n : graph.getNodes().values()){
+                    if(n.getLongName().equals(newValue)){
+                        nodeId = n.getId();
+                    }
+                }
+
+                if(nodeId != null){
+                    if(startText.getText().length() == 0){
+                        startText.setText(nodeId);
+                        endText.requestFocus();
+                    }else{
+                        endText.setText(nodeId);
+                    }
+                }
+            }
+        });
+    }
 
     @FXML
-    private void speakDirections()
-    {
+    private void chooseNav(){
+        directoryPane.setMouseTransparent(true);
+        directoryPane.setOpacity(0);
+        navPane.setMouseTransparent(false);
+        navPane.setOpacity(1);
+        dirButton.setStyle("");
+        navButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
+    }
+
+    @FXML
+    private void chooseDirectory(){
+        directoryPane.setMouseTransparent(false);
+        directoryPane.setOpacity(1);
+        navPane.setMouseTransparent(true);
+        navPane.setOpacity(0);
+        navButton.setStyle("");
+        dirButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
+    }
+
+
+    @FXML
+    private void speakDirections(){
         TextSpeech textSpeech = new TextSpeech();
         textSpeech.speakToUser();
     }
@@ -210,9 +282,12 @@ public class Pathfinding {
         sendMapTextBox.getText();
     }
 
+
+
     @FXML
     private void findBathroom() throws Exception{
         if(startText.getText() != null){
+
             findPresetHelper("REST");
         }
     }
@@ -273,9 +348,15 @@ public class Pathfinding {
         util.setFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
         floorLabel.setText(util.getFloorLabel());
         PathToString.getDirections(path);
-        updateMap();
+
+        updateMap(null, null);
         resetTextBox();
     }
+
+
+
+
+
 
     private void findPath() throws Exception{
         //Get path
@@ -285,12 +366,11 @@ public class Pathfinding {
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
         PathToString.getDirections(path);
-        System.out.println(path+"/"+graph);
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
 
         resetTextBox();
-        updateMap();
+        updateMap(null,null);
     }
 
     private void findPathWithLongNames() throws Exception{
@@ -322,7 +402,8 @@ public class Pathfinding {
         floorLabel.setText(util.getFloorLabel());
 
         System.out.println("Seeing util floor as "+util.floor);
-        updateMap();
+
+        updateMap(null,null);
         resetTextBox();
     }
 
@@ -425,7 +506,7 @@ public class Pathfinding {
      * Set the values of the nodeID and other relevant text for each of the buttons that act as the nodes on the map to display for pathfinding options
      * @param value: The action event associated with the method
      */
-    private void setValues(ActionEvent value) {
+    private void setValues(MouseEvent value) {
         //Get the id of the node
         String nodeId = ((Button)value.getSource()).getId();
 
@@ -442,26 +523,24 @@ public class Pathfinding {
         util.moveUp();
         floorLabel.setText(util.getFloorLabel());
 
-        updateMap();
+        updateMap(null,null);
     }
 
     public void moveDown(ActionEvent value) throws Exception{
         util.moveDown();
         floorLabel.setText(util.getFloorLabel());
 
-        updateMap();
+        updateMap(null,null);
     }
 
     private Button generateButton(String text, double x, double y){
         return new Button();
     }
 
-    private void updateMap() throws Exception{
+    private void updateMap(Node startNode, Node endNode) throws Exception{
         clearNodes.forEach(node -> {
             util.buttonPane.getChildren().remove(node);
         });
-        System.out.println("-=-=-=-=INITIALIZING UPDATEMAP-=-=-=-=-=");
-        System.out.println("current floor id: "+util.getCurrentFloorID());
         List<Path> floorPaths = path.getSpecificPath(util.getCurrentFloorID());
         List<Path> allPaths = path.getFloorPaths();
 
@@ -472,22 +551,38 @@ public class Pathfinding {
             overlayImage.setImage(null);
         }
 
+        if(startNode != null && endNode != null){
+            //We zoomin boys
+
+            double startX = startNode.getX();
+            double startY = startNode.getY();
+
+            double endX = endNode.getX();
+            double endY = endNode.getY();
+
+            int newXRaw = startNode.getX()+(Math.abs(startNode.getX()-endNode.getX())/2);
+            int newYRaw = startNode.getY()+(Math.abs(startNode.getY()-endNode.getY())/2);
+
+            MapPoint scale = util.scalePoints((int)startX,(int)startY);
+            gesturePane.zoomTo(5, new Point2D(scale.x, scale.y));
+
+        }
+
         floorPaths.forEach(floorPath -> {
             //Path is each path on a specific floor.
             List<Node> thePath = floorPath.getPath();
             Node start = thePath.get(0);
             Node end = thePath.get(thePath.size()-1);
 
-            System.out.println(end.getId()+"/"+floorPath.getFinalPath().get(0).getId()+" - "+start.getId()+"/"+floorPath.getFinalPath().get(floorPath.getFinalPath().size()-1).getId());
             if(start.getId().equals(this.path.getFinalPath().get(0).getId())){
                 Button startChangeButton = new Button();
-                startChangeButton.setText("START\n"+start.getLongName());
+                startChangeButton.setText("YOU ARE HERE: "+start.getLongName());
                 MapPoint mp = util.scalePoints(start.getX(), start.getY());
                 startChangeButton.setLayoutX(mp.x);
                 startChangeButton.setLayoutY(mp.y);
-                startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:10px; -fx-font-family: \"Open Sans Bold\"");
-                startChangeButton.setMinWidth(100);
-                startChangeButton.setMinHeight(15);
+                startChangeButton.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:8px; -fx-font-family: \"Open Sans Bold\"");
+                startChangeButton.setMinWidth(75);
+                startChangeButton.setMinHeight(10);
                 startChangeButton.setOpacity(0.5);
                 startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                 startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
@@ -496,13 +591,13 @@ public class Pathfinding {
             }
             if(end.getId().equals(this.path.getFinalPath().get(this.path.getFinalPath().size()-1).getId())){
                 Button startChangeButton = new Button();
-                startChangeButton.setText("YOUR DESTINATION\n"+end.getLongName());
+                startChangeButton.setText("YOUR DESTINATION: "+end.getLongName());
                 MapPoint mp = util.scalePoints(end.getX(), end.getY());
                 startChangeButton.setLayoutX(mp.x);
                 startChangeButton.setLayoutY(mp.y);
-                startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:10px; -fx-font-family: \"Open Sans Bold\"");
-                startChangeButton.setMinWidth(100);
-                startChangeButton.setMinHeight(15);
+                startChangeButton.setStyle("-fx-background-color: white; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:8px; -fx-font-family: \"Open Sans Bold\"");
+                startChangeButton.setMinWidth(75);
+                startChangeButton.setMinHeight(10);
                 startChangeButton.setOpacity(0.5);
                 startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                 startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
@@ -520,14 +615,19 @@ public class Pathfinding {
 
                 int nextFloor = util.floor;
 
+                Node nextFloorStart = null;
+                Node nextFloorEnd = null;
+
                 for(int i=0;i<allPaths.size();i++){
 
                     if(util.idToFloor(allPaths.get(i).getFloorID()) != util.idToFloor(floorPaths.get(0).getFloorID())){
                         if(i < allPaths.size()){
                             System.out.println("Looking at next floor");
-                            for(int j=0;j<util.dbPrefixes.length;j++){
-                                nextFloor = util.idToFloor(allPaths.get(i).getPath().get(0).getFloor());
-                            }
+                            List<Node> nextPath = allPaths.get(i).getPath();
+
+                            nextFloor = util.idToFloor(nextPath.get(0).getFloor());
+                            nextFloorStart = nextPath.get(0);
+                            nextFloorEnd = nextPath.get(nextPath.size()-1);
                         }
                     }
                 }
@@ -535,24 +635,25 @@ public class Pathfinding {
                 if(nextFloor != util.idToFloor(start.getFloor())){
                     System.out.println("Creating");
                     Button startChangeButton = new Button();
-                    startChangeButton.setText("TAKE THE "+(startNodeType.equals("ELEV") ? "ELEVATOR" : "STAIRS")+" TO "+util.getFloorLabel(nextFloor).toUpperCase());
+                    startChangeButton.setText((nextFloor > util.floor ? "↑" : "↓")+" TAKE THE "+(startNodeType.equals("ELEV") ? "ELEVATOR" : "STAIRS")+" "+(nextFloor > util.floor ? "UP" : "DOWN")+" TO "+util.getFloorLabel(nextFloor).toUpperCase());
                     MapPoint mp = util.scalePoints(end.getX(), end.getY());
                     startChangeButton.setLayoutX(mp.x);
                     startChangeButton.setLayoutY(mp.y);
-                    startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:10px; -fx-font-family: \"Open Sans Bold\"");
-                    startChangeButton.setMinWidth(100);
-                    startChangeButton.setMinHeight(15);
+                    startChangeButton.setStyle("-fx-background-color: #012d5a; -fx-border-width: 1px; -fx-border-color:  #00172f; -fx-text-fill: white; -fx-border-radius: 5px; -fx-background-radius: 7px;-fx-cursor: hand; -fx-font-family: \"Open Sans Bold\"; -fx-font-size:6px;");
+                    startChangeButton.setMinWidth(75);
+                    startChangeButton.setMinHeight(10);
                     startChangeButton.setOpacity(0.5);
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
                     final int nf = nextFloor;
-
+                    final Node ns = nextFloorStart;
+                    final Node ne = nextFloorEnd;
                     startChangeButton.setOnAction(evt -> {
                         try{
                             util.setFloor(nf);
                             floorLabel.setText(util.getFloorLabel());
-                            this.updateMap();
+                            this.updateMap(ns, ne);
                         }catch(Exception e){e.printStackTrace();}
                     });
                     util.buttonPane.getChildren().add(startChangeButton);
@@ -586,9 +687,9 @@ public class Pathfinding {
                     MapPoint mp = util.scalePoints(start.getX(), start.getY());
                     startChangeButton.setLayoutX(mp.x);
                     startChangeButton.setLayoutY(mp.y);
-                    startChangeButton.setStyle("-fx-background-color: white; -fx-border-width: .2em; -fx-border-color:  black; -fx-text-fill: black; -fx-border-radius: 5px; -fx-background-radius: 5px;-fx-cursor: hand;-fx-font-size:10px; -fx-font-family: \"Open Sans Bold\"");
-                    startChangeButton.setMinWidth(100);
-                    startChangeButton.setMinHeight(15);
+                    startChangeButton.setStyle("-fx-background-color: #012d5a; -fx-border-width: 1px; -fx-border-color:  #00172f; -fx-text-fill: white; -fx-border-radius: 5px; -fx-background-radius: 7px;-fx-cursor: hand; -fx-font-family: \"Open Sans Bold\"; -fx-font-size:6px;");
+                    startChangeButton.setMinWidth(75);
+                    startChangeButton.setMinHeight(10);
                     startChangeButton.setOpacity(0.5);
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
@@ -599,7 +700,7 @@ public class Pathfinding {
                         try{
                             util.setFloor(nf);
                             floorLabel.setText(util.getFloorLabel());
-                            this.updateMap();
+                            this.updateMap(null, null);
                         }catch(Exception e){e.printStackTrace();}
                     });
                    //util.buttonPane.getChildren().add(startChangeButton);
@@ -621,7 +722,7 @@ public class Pathfinding {
      */
     @FXML
     public void logout() throws Exception{
-        Main.setScene("welcome");
+        Main.logOut();
     }
 
     private boolean checkValidLongNameInput(){

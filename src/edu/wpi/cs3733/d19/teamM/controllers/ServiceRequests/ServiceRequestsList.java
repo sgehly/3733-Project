@@ -215,6 +215,7 @@ public class ServiceRequestsList {
             }
             else
                 fulfill.setDisable(false);
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -668,6 +669,7 @@ public class ServiceRequestsList {
             while (rs.next()) {
                 uDropDown.add(rs.getString(1));
             }
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
