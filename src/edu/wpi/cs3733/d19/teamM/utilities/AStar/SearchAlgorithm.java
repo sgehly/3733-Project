@@ -46,6 +46,7 @@ public abstract class SearchAlgorithm {
         1  - 3
         2  - 4
         3  - 5
+        4  - 6
         */
         double floor1 = getFloorValue(n1.getFloor());
         double floor2 = getFloorValue(n2.getFloor());
@@ -54,11 +55,12 @@ public abstract class SearchAlgorithm {
 
     final protected double getFloorValue(String f){
         if (f.equals("G")) return  0;
-        else if (f.equals("L1")) return  1;
-        else if (f.equals("L2")) return  2;
-        else if (f.equals("1")) return  3;
-        else if (f.equals("2")) return  4;
-        else if (f.equals("3")) return  5;
+        else if (f.equals("L1")) return 1;
+        else if (f.equals("L2")) return 2;
+        else if (f.equals("1")) return 3;
+        else if (f.equals("2")) return 4;
+        else if (f.equals("3")) return 5;
+        else if (f.equals("4")) return 6;
         return -1;
     }
 
@@ -66,8 +68,8 @@ public abstract class SearchAlgorithm {
         if(build.equals("BTM")) return 0;
         else if(build.equals("Shapiro")) return 1;
         else if (build.equals("Tower")) return 2;
-        else if(build.equals("45 Francis")) return 3;
-        else if(build.equals("15 Francis")) return 4;
+        else if(build.equals("45 Francis")) return 2;
+        else if(build.equals("15 Francis")) return 2;
         return -1;
     }
 
@@ -89,8 +91,13 @@ public abstract class SearchAlgorithm {
     final protected void setHeuristics(Node curNode, Node endNode){
         curNode.setH(curNode.getDistance(endNode));
         curNode.setG(curNode.getParent().getDistance(curNode) + curNode.getParent().getG());
-        curNode.setP(getDeltaFloor(curNode, endNode) * 1000);
         curNode.setB(getDeltaBuilding(curNode, endNode) * 5000);
+        if (curNode.getB() == 0) {
+            curNode.setP(getDeltaFloor(curNode, endNode) * 1000);
+        }
+        else {
+            curNode.setF(getDeltaFloor(curNode, new Node("", 0, 0, "2", "", "", "", "")) * 1000);
+        }
         curNode.setF(curNode.getG() + curNode.getP() + curNode.getH() + curNode.getB());
     }
 

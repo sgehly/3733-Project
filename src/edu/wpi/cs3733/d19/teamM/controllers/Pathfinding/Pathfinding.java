@@ -618,17 +618,14 @@ public class Pathfinding {
                 Node nextFloorStart = null;
                 Node nextFloorEnd = null;
 
-                for(int i=0;i<allPaths.size();i++){
-
-                    if(util.idToFloor(allPaths.get(i).getFloorID()) != util.idToFloor(floorPaths.get(0).getFloorID())){
-                        if(i < allPaths.size()){
-                            System.out.println("Looking at next floor");
-                            List<Node> nextPath = allPaths.get(i).getPath();
-
-                            nextFloor = util.idToFloor(nextPath.get(0).getFloor());
-                            nextFloorStart = nextPath.get(0);
-                            nextFloorEnd = nextPath.get(nextPath.size()-1);
+                for (int i = 0; i <= allPaths.size() - 2; i++){
+                    if (allPaths.get(i).getPath().get(0).getId().equals(start.getId())){
+                        while (allPaths.get(i + 1).getPath().size() < 2 && i < allPaths.size() - 1) {
+                            i++;
                         }
+                        nextFloorStart = allPaths.get(i + 1).getPath().get(0);
+                        nextFloorEnd = allPaths.get(i + 1).getPath().get(allPaths.get(i + 1).getPath().size() - 1);
+                        nextFloor = util.idToFloor(nextFloorStart.getFloor());
                     }
                 }
 
@@ -646,6 +643,7 @@ public class Pathfinding {
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
+                    if (nextFloor == 6) nextFloor = 4;
                     final int nf = nextFloor;
                     final Node ns = nextFloorStart;
                     final Node ne = nextFloorEnd;
@@ -694,6 +692,7 @@ public class Pathfinding {
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
+                    if (nextFloor == 6) nextFloor = 4;
                     final int nf = nextFloor;
 
                     startChangeButton.setOnAction(evt -> {
