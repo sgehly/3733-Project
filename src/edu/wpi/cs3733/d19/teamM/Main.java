@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -19,7 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
-import javafx.util.Duration;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -75,35 +75,55 @@ public class Main extends Application {
     public static void setScene(String scene){
         if(scene == "addUser"){
             primaryStage.setScene(addUserScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
             savedState.setState("addUser");
         }
         else if(scene == "admin"){
             primaryStage.setScene(adminScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
             savedState.setState("admin");
         }
         else if(scene == "pathfinding"){
             primaryStage.setScene(pathFindingScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
             savedState.setState("pathfinding");
         }
         else if(scene == "scheduling"){
             primaryStage.setScene(schedulerScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
             savedState.setState("scheduling");
         }
         else if(scene == "serviceRequest"){
             primaryStage.setScene(serviceRequestScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
             savedState.setState("serviceRequests");
         }
         else if(scene == "serviceRequestList"){
             primaryStage.setScene(serviceRequestListScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
             savedState.setState("serviceRequestList");
         }
         else if(scene == "welcome"){
             primaryStage.setScene(welcomeScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
         }
         else if(scene == "login"){
             primaryStage.setScene(loginScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
         }else{
-            try{primaryStage.setScene(new Scene(FXMLLoader.load(Main.getFXMLURL(scene))));}catch(Exception e){e.printStackTrace();}
+            try{
+                primaryStage.setScene(new Scene(FXMLLoader.load(Main.getFXMLURL(scene))));
+                primaryStage.sizeToScene();
+                primaryStage.setMaximized(true);
+            }catch(Exception e){e.printStackTrace();}
        }
     }
 
@@ -249,6 +269,8 @@ public class Main extends Application {
         primaryStage.setHeight(bounds.getHeight());
         primaryStage.setFullScreen(false);
         primaryStage.show();
+
+
     }
 
     /**

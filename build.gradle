@@ -59,6 +59,9 @@ dependencies {
     compile group: 'com.jfoenix',name:'jfoenix',version:'8.0.8'
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
 
+    //compile(files('/Users/JeffHarnois/Desktop/theJar-all.jar'))
+    compile(files('Team-G-Food-Request.jar'))
+
     configurations.compile.extendsFrom(configurations.extraLibs)
 }
 

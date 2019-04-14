@@ -59,6 +59,9 @@ public class Home{
     @FXML
     private Button admin;
 
+    @FXML
+    private Button about;
+
     /**
      * This method
      * @throws Exception
@@ -87,6 +90,9 @@ public class Home{
     public void navigateToAdmin(){
         Main.setScene("admin");
     }
+
+    @FXML
+    public void navigateToAbout(){Main.setScene("about");}
 
     @FXML
     void initialize() throws IOException {
