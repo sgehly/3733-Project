@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
+import java.awt.*;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -46,8 +48,6 @@ public class addUser {
     @FXML
     private Text errorMessage;
     @FXML
-    private TextField userType;
-    @FXML
     private TextField username;
     @FXML
     private TextField newPassword;
@@ -67,6 +67,33 @@ public class addUser {
     private ImageView tempPhoto;
     @FXML
     private ImageView defaultImage;
+    @FXML
+    private Checkbox religousButton;
+    @FXML
+    private Checkbox sanitationButton;
+    @FXML
+    private Checkbox languageButton;
+    @FXML
+    private Checkbox externalButton;
+    @FXML
+    private Checkbox securityButton;
+    @FXML
+    private Checkbox flowersButton;
+    @FXML
+    private Checkbox giftButton;
+    @FXML
+    private Checkbox internalButton;
+    @FXML
+    private Checkbox itButton;
+    @FXML
+    private Checkbox perscriptionButton;
+    @FXML
+    private Checkbox labTestButton;
+    @FXML
+    private Checkbox avButton;
+    @FXML
+    private Checkbox adminButton;
+
 
     private void savePhoto(){
         File f = new File("src/resources/tempPhoto.png");
@@ -77,8 +104,72 @@ public class addUser {
     private boolean areFieldsEmpty() {
         return username.getText() == null || username.getText().isEmpty() ||
                 newPassword.getText() == null || newPassword.getText().isEmpty() ||
-                newPassword.getText().compareTo(confirmPassword.getText()) != 0 ||
-                userType.getText() == null || userType.getText().isEmpty();
+                newPassword.getText().compareTo(confirmPassword.getText()) != 0;
+    }
+
+    /**
+     * 0-Religious
+     * 1-Sanitation
+     * 2-language
+     * 3-External Transport
+     * 4-Security
+     * 5-Flowers
+     * 6-Gift
+     * 7-Internal Transport
+     * 8-IT
+     * 9-Lab Test
+     * 10-Perscription
+     * 11-AV
+     *
+     * 100-Admin
+     *
+     * @param type String representation of user type
+     * @return corresponding integer
+     */
+
+    private int convertUserTypeInt(String type){
+        if(type.compareTo("Religious") == 0){
+            return 0;
+        }
+        else if(type.compareTo("Sanitation") == 0){
+            return 1;
+        }
+        else if(type.compareTo("Language") == 0){
+            return 2;
+        }
+        else if(type.compareTo("External Transport") == 0){
+            return 3;
+        }
+        else if(type.compareTo("Security") == 0){
+            return 4;
+        }
+        else if(type.compareTo("Flowers") == 0){
+            return 5;
+        }
+        else if(type.compareTo("Gift") == 0){
+            return 6;
+        }
+        else if(type.compareTo("Internal Transport") == 0){
+            return 7;
+        }
+        else if(type.compareTo("IT") == 0){
+            return 8;
+        }
+        else if(type.compareTo("Lab Test") == 0){
+            return 9;
+        }
+        else if(type.compareTo("Prescription") == 0){
+            return 10;
+        }
+        else if(type.compareTo("AV") == 0){
+            return 11;
+        }
+        else
+            return 100;
+    }
+
+    private void test(){
+        religousButton.getState();
     }
 
     @FXML
@@ -92,7 +183,7 @@ public class addUser {
             }
             String tempName = username.getText();
             String tempPass = Encrypt.getMd5(newPassword.getText());
-            int tempType = Integer.parseInt(userType.getText());
+            //int tempType = convertUserTypeInt((String)userType.getValue());
             Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt1 = conn.prepareStatement("SELECT * FROM USERS WHERE USERNAME = ?");
             stmt1.setString(1,tempName);
@@ -170,7 +261,7 @@ public class addUser {
             Connection conn = new DatabaseUtils().getConnection();
             String query = "UPDATE USERS SET ACCOUNTINT = ?, USERPASS = ?, PATHTOPIC =  ? WHERE USERNAME = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, Integer.parseInt(userType.getText()));
+            stmt.setInt(1, convertUserTypeInt((String)userType.getValue()));
             stmt.setString(2, Encrypt.getMd5(newPassword.getText()));
             if(tempPhoto != null){
                 savePhoto();
@@ -210,7 +301,6 @@ public class addUser {
         System.out.println("123");
 
         String os = System.getProperty("os.name").toLowerCase();
-
         /*if(os.indexOf("win") >= 0){
             defaultImage.setFitHeight(0);
             defaultImage.setFitWidth(0);
