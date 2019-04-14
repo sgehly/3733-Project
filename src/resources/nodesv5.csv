@@ -604,3 +604,36 @@ WHALL00702,1740,1500,2,Tower,HALL,Hallway Connector 7 Floor 2,Hallway W0702
 WHALL00802,1720,1745,2,Shapiro,HALL,Hallway Connector 8 Floor 2,Hallway W0802
 WHALL00902,1690,2240,2,Shapiro,HALL,Hallway Connector 9 Floor 2,Hallway W0902
 WHALL01002,1690,2455,2,BTM,HALL,Hallway Connector 10 Floor 2,Hallway W1002
+ZELEV00001,4020,2018,2,45 Francis,ELEV,Flexible Workspace Elevator,Flex Elevator
+ZHALL00001,4057,2050,2,45 Francis,HALL,Flexible Hallway Node 1,Flex Hall 1
+ZHALL00002,4044,2093,2,45 Francis,HALL,Flexible Hallway Node 2,Flex Hall 2
+ZHALL00003,4050,2136,2,45 Francis,HALL,Flexible Hallway Node 3,Flex Hall 3
+ZAUDT00001,4107,2098,2,45 Francis,AUDT,Flexible Workspace Auditorium,Flex Auditorium
+ZHALL00004,4090,2032,2,45 Francis,HALL,Flexible Hallway Node 4,Flex Hall 4
+ZHALL00005,4072,1974,2,45 Francis,HALL,Flexible Hallway Node 5,Flex Hall 5
+ZCLSS00002,4118,2014,2,45 Francis,CLSS,Flexible Workspace Classroom 2, Flex Class 2
+ZCLSS00003,4101,1963,2,45 Francis,CLSS,Flexible Workspace Classroom 3, Flex Class 3
+ZHALL00006,4001,1830,2,45 Francis,HALL,Flexible Hallway Node 6,Flex Hall 6
+ZHALL00007,3919,1830,2,45 Francis,HALL,Flexible Hallway Node 7,Flex Hall 7
+ZHALL00008,3848,1830,2,45 Francis,HALL,Flexible Hallway Node 8,Flex Hall 8
+ZCLSS00004,3987,1764,2,45 Francis,CLSS,Flexible Workspace Classroom 4,Flex Class 4
+ZCLSS00006,3919,1764,2,45 Francis,CLSS,Flexible Workspace Classroom 6,Flex Class 6
+ZCLSS00008,3848,1764,2,45 Francis,CLSS,Flexible Workspace Classroom 8,Flex Class 8
+ZCLSS00001,3975,2089,2,45 Francis,CLSS,Flexible Workspace Classroom 1,Flex Class 1
+ZHALL00009,3805,1830,2,45 Francis,HALL,Flexible Workspace Hallway Node 9,Flex Hall 9
+ZCLSS00005,3958,1904,2,45 Francis,CLSS,Flexible Workspace Classroom 5,Flex Class 5
+ZCLSS00007,3858,1904,2,45 Francis,CLSS,Flexible Workspace Classroom 7,Flex Class 7
+ZHALL00010,3690,1830,2,45 Francis,HALL,Flexible Hallway Node 10,Flex Hall 10
+ZHALL00011,3521,1830,2,45 Francis,HALL,Flexible Hallway Node 11,Flex Hall 11
+ZWORK00002,3739,1764,2,45 Francis,WORK,Flexible Work Zone 2,Flex Work 2
+ZWORK00003,3596,1764,2,45 Francis,WORK,Flexible Work Zone 3,Flex Work 3
+ZHALL00012,3599,1830,2,45 Francis,HALL,Flexible Workspace Hallway Node 12,Flex Hall 12
+ZWORK00004,3596,1935,2,45 Francis,WORK,Flexible Work Zone 4,Flex Work 4
+ZHALL00013,3938,1935,2,45 Francis,HALL,Flexible Workspace Hallway Node 13,Flex Hall 13
+ZHALL00014,3818,1935,2,45 Francis,HALL,Flexible Workspace Hallway Node 14,Flex Hall 14
+ZHALL00015,3684,1935,2,45 Francis,HALL,Flexible Workspace Hallway Node 15,Flex Hall 15
+ZCONF00001,3963,2146,2,45 Francis,CONF,Mission Hill Conference Hall,Flex Conf Hall
+ZPTRY00001,4018,2200,2,45 Francis,PTRY,Flexible WorkSpace Pantry,Flex Pantry
+ZHALL00016,3982,2179,2,45 Francis,HALL,Flexible Workspace Hallway Node 16,Flex Hall 16
+ZWORK00006,3882,2179,2,45 Francis,WORK,Flexible Work Zone 6,Flex Work 6
+ZHALL00017,4015,1935,2,45 Francis,HALL,Flexible Workspace Hallway Node 17,Flex Hall 17
