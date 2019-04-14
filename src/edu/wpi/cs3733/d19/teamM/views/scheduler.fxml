@@ -88,13 +88,6 @@
                             </HBox.margin>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                            <children>
-                                <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
-                                    <font>
-                                        <Font name="Open Sans Bold" size="24.0" />
-                                    </font>
-                                </Button>
-                            </children>
                             <padding>
                                 <Insets top="15.0" />
                             </padding>
@@ -102,6 +95,22 @@
                         <Insets />
                      </HBox.margin>
                         </HBox>
+                          <Button mnemonicParsing="false" onMouseClicked="#navigateToDetails" prefHeight="55.0" prefWidth="183.0" styleClass="logoutButton" text="GO TO LIST">
+                              <font>
+                                  <Font name="Open Sans Bold" size="24.0" />
+                              </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                          </Button>
+                  <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
+                     <font>
+                        <Font name="Open Sans Bold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
                     </children>
                     <VBox.margin>
                         <Insets left="50.0" right="50.0" top="40.0" />
@@ -196,7 +205,7 @@
                      <children>
                                         <ImageView fx:id="image" fitHeight="830.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
                                             <image>
-                                                <Image url="@../../../../../../resources/maps/scheduler.png" />
+                                                <Image url="@../../../../../../resources/maps/schedulerrawbw.png" />
                                             </image>
                                         </ImageView>
                         <Pane maxHeight="117.0" maxWidth="109.0" onMouseClicked="#switchToRoom1" prefHeight="150.0" prefWidth="0.0" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
@@ -302,7 +311,7 @@
                             <children>
                                 <ImageView fx:id="room9" fitHeight="80.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../../../../resources/maps/room10a.png" />
+                                        <Image url="@../../../../../../resources/maps/room9a.png" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -314,10 +323,120 @@
                             <children>
                                 <ImageView fx:id="room10" fitHeight="200.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../../../../resources/maps/room9a.png" />
+                                        <Image url="@../../../../../../resources/maps/room10a.png" />
                                     </image>
                                 </ImageView>
                             </children>
+                        </Pane>
+                        <Pane maxHeight="117.0" maxWidth="40.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #118b56;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="475.0" top="25.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="105.0" maxWidth="35.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="530.0" top="345.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="122.0" maxWidth="95.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #118b56;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="320.0" top="350.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="145.0" maxWidth="27.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="250.0" top="175.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="40.0" maxWidth="20.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="90.0" top="40.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="40.0" maxWidth="20.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #118b56;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="90.0" top="100.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="50.0" maxWidth="20.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="90.0" top="157.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="40.0" maxWidth="85.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="120.0" top="40.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="40.0" maxWidth="85.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="120.0" top="87.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="50.0" maxWidth="70.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: 118b56;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="150.0" top="145.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="25.0" maxWidth="25.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #118b56;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="105.0" top="380.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="40.0" maxWidth="25.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="225.0" top="390.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="35.0" maxWidth="60.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="440.0" top="460.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="35.0" maxWidth="60.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #118b56;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="520.0" top="460.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="15.0" maxWidth="20.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="465.0" top="625.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="60.0" maxWidth="80.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #118b56;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="680.0" top="510.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="85.0" maxWidth="35.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="650.0" top="570.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="85.0" maxWidth="35.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="700.0" top="570.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="50.0" maxWidth="20.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #118b56;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="609.0" top="680.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="50.0" maxWidth="20.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="600.0" top="750.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="135.0" maxWidth="25.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="755.0" top="675.0" />
+                           </StackPane.margin>
+                        </Pane>
+                        <Pane maxHeight="50.0" maxWidth="70.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #118b56;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                           <StackPane.margin>
+                              <Insets left="150.0" top="145.0" />
+                           </StackPane.margin>
                         </Pane>
                      </children>
                   </StackPane>

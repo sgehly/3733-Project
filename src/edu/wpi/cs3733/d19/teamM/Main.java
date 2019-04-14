@@ -2,18 +2,27 @@ package edu.wpi.cs3733.d19.teamM;
 
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
+import edu.wpi.cs3733.d19.teamM.utilities.Timeout.IdleMonitor;
+import edu.wpi.cs3733.d19.teamM.utilities.Timeout.SavedState;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
-//import edu.wpi.cs3733.d19.teamMService.Main.*;
+import javafx.geometry.Rectangle2D;
 
-
+import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -48,6 +57,8 @@ public class Main extends Application {
     private static Scene loginScene;
     private static Scene addUserScene;
 
+    private static IdleMonitor idleMonitor;
+    public static SavedState savedState;
 
     /**
      * This method is to return the current stage we are working on for referencing the stage
@@ -57,36 +68,46 @@ public class Main extends Application {
         return Main.primaryStage;
     }
 
+    public static void startIdleCheck(){
+
+    }
+
     public static void setScene(String scene){
         if(scene == "addUser"){
             primaryStage.setScene(addUserScene);
             primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
+            savedState.setState("addUser");
         }
         else if(scene == "admin"){
             primaryStage.setScene(adminScene);
             primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
+            savedState.setState("admin");
         }
         else if(scene == "pathfinding"){
             primaryStage.setScene(pathFindingScene);
             primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
+            savedState.setState("pathfinding");
         }
         else if(scene == "scheduling"){
             primaryStage.setScene(schedulerScene);
             primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
+            savedState.setState("scheduling");
         }
         else if(scene == "serviceRequest"){
             primaryStage.setScene(serviceRequestScene);
             primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
+            savedState.setState("serviceRequests");
         }
         else if(scene == "serviceRequestList"){
             primaryStage.setScene(serviceRequestListScene);
             primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
+            savedState.setState("serviceRequestList");
         }
         else if(scene == "welcome"){
             primaryStage.setScene(welcomeScene);
@@ -114,8 +135,6 @@ public class Main extends Application {
     public static URL getFXMLURL(String name){
         return Main.class.getResource("views/"+name+".fxml");
     }
-
-
 
     public static InputStream getResource(String path){
         System.out.println("Fetching Resource: "+path);
@@ -193,6 +212,11 @@ public class Main extends Application {
         addUserScene = new Scene(addUserPane);
     }
 
+    public static void logOut(){
+        Main.savedState.setState("home");
+        Main.setScene("welcome");
+    }
+
     /**
      * This method creates and sets the stage of the viewable JavaFX screen
      * @param primaryStage: The stage to display on start
@@ -200,6 +224,11 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        //TODO on logout, set memento to home DONE
+        //TODO on login, login to memento saved state DONE
+        //TODO change memento based on visited pages DONE
+        savedState = new SavedState();
 
         //Set the reference to the primary stage
         this.primaryStage = primaryStage;
@@ -213,10 +242,18 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene mainScene = new Scene(root);
 
-        loginPane = FXMLLoader.load(Main.getFXMLURL("login"));
-        loginScene = new Scene(loginPane);
+//        loginPane = FXMLLoader.load(Main.getFXMLURL("login"));
+//        loginScene = new Scene(loginPane);
         welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         welcomeScene= new Scene(welcomePane);
+
+        //create the idle detection system
+        ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));  //resets ui on timer trigger
+        Timer timer = new Timer(45000,uiReset); //creates the timer, attach to ui reset
+        EventHandler<MouseEvent> idleReset = e -> timer.restart(); //event handler to reset the timer
+        primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);  //add event handler to the application
+        timer.start();
+
 
         //Set the color and the title and the screen
         mainScene.setFill(Color.web("#012d5a"));
@@ -234,12 +271,6 @@ public class Main extends Application {
         primaryStage.show();
 
 
-//        try{
-//            new edu.wpi.cs3733.d19.teamMService.Main().run(300,400,100,50,"/resources/stylesheet.css", "123");
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
     }
 
     /**
@@ -247,12 +278,21 @@ public class Main extends Application {
      * @param args: The arguments for the application, if any (none in this case)
      */
     public static void main(String[] args) {
+
+
+        //CSVParser parse = new CSVParser("C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\nodes.csv", "C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\edges.csv");
+        //AStar aS = new AStar();
+        //Map<String, Node> mappedNodes = parse.getNodes();
+//        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
+        //aS.drawPath(path);
         DatabaseUtils parser = new DatabaseUtils();
         parser.connect();
         parser.nodeParse();
         parser.edgeParse();
 
-       launch(args);
+       /* Floor myFloor = new Floor("1");
+        myFloor.populateFloor();*/
+        launch(args);
     }
 
 }

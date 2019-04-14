@@ -192,7 +192,7 @@ public class Scheduler {
 
     @FXML
     public void logout() throws Exception{
-        Main.setScene("welcome");
+        Main.logOut();
     }
 
     @FXML
@@ -227,6 +227,7 @@ public class Scheduler {
             stmt.setTimestamp(2, start);
             stmt.setTimestamp(3, end);
             stmt.execute();
+            conn.close();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -267,6 +268,13 @@ public class Scheduler {
         Main.setScene("home");
     }
 
+    @FXML
+    private void navigateToDetails() throws Exception{
+        Main.setScene("schedulerList");
+    }
+
+
+
     private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws SQLException {
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
         try {
@@ -294,6 +302,7 @@ public class Scheduler {
             ResultSet rs = stmt.executeQuery(query);
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
             tableView2.setItems(entryList);
+            conn.close();
             return entryList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
@@ -381,6 +390,7 @@ public class Scheduler {
             }
 
             this.switchToRoom(this.selectedRoom);
+            conn.close();
 
             } catch (Exception e) {
             e.printStackTrace();
@@ -411,17 +421,59 @@ public class Scheduler {
 
         Connection conn = new DatabaseUtils().getConnection();
 
-        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(strd);}catch(Exception e){}
-        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str1);}catch(Exception e){}
-        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str2);}catch(Exception e){}
-        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str3);}catch(Exception e){}
-        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str4);}catch(Exception e){}
-        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str5);}catch(Exception e){}
-        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str6);}catch(Exception e){}
-        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str7);}catch(Exception e){}
-        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str8);}catch(Exception e){}
-        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str9);}catch(Exception e){}
-        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str10);}catch(Exception e){}
+//        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(strd);}catch(Exception e){}
+//        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str1);}catch(Exception e){}
+//        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str2);}catch(Exception e){}
+//        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str3);}catch(Exception e){}
+//        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str4);conn.close();}catch(Exception e){}
+//        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str5);conn.close();}catch(Exception e){}
+//        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str6);conn.close();}catch(Exception e){}
+//        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str7);conn.close();}catch(Exception e){}
+//        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str8);conn.close();}catch(Exception e){}
+//        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str9);conn.close();}catch(Exception e){}
+//        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str10);conn.close();}catch(Exception e){}
+
+        try{
+            Statement stmt1 = conn.createStatement();
+            stmt1.executeUpdate(strd);
+
+            Statement stmt2 = conn.createStatement();
+            stmt2.executeUpdate(str1);
+
+            Statement stmt3 = conn.createStatement();
+            stmt3.executeUpdate(str2);
+
+            Statement stmt4 = conn.createStatement();
+            stmt4.executeUpdate(str3);
+
+            Statement stmt5 = conn.createStatement();
+            stmt5.executeUpdate(str4);
+
+            Statement stmt6 = conn.createStatement();
+            stmt6.executeUpdate(str5);
+
+            Statement stmt7 = conn.createStatement();
+            stmt7.executeUpdate(str6);
+
+            Statement stmt8 = conn.createStatement();
+            stmt8.executeUpdate(str7);
+
+            Statement stmt9 = conn.createStatement();
+            stmt9.executeUpdate(str8);
+
+            Statement stmt10 = conn.createStatement();
+            stmt10.executeUpdate(str9);
+
+            Statement stmt11 = conn.createStatement();
+            stmt11.executeUpdate(str10);
+
+
+            conn.close();
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
 
         new Clock(lblClock, lblDate);
 
@@ -439,7 +491,6 @@ public class Scheduler {
            // initWithType();
            // ObservableList<DisplayTable> entList = getAllRecords2();
             roomidCol.setCellValueFactory(new PropertyValueFactory<>("Room"));
-            System.out.println(" the fucking printed room is " + new PropertyValueFactory<>("Room"));
             starttimeCol.setCellValueFactory(new PropertyValueFactory<>("starttime"));
             endtimeCol.setCellValueFactory(new PropertyValueFactory<>("endtime"));
             //tableView2.setItems(entList);
@@ -573,7 +624,7 @@ public class Scheduler {
             ResultSet rs = stmt.executeQuery();
             ObservableList<DisplayTable> entryList = getEntryObjects2(rs);
             tableView2.setItems(entryList);
-
+            conn.close();
             return entryList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");

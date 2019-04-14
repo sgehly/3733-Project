@@ -24,7 +24,6 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import edu.wpi.cs3733.d19.teamM.User.User;
-import edu.wpi.cs3733.d19.teamM.controllers.LogIn.LogInController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
@@ -98,7 +97,7 @@ public class Home{
     @FXML
     void initialize() throws IOException {
         new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
+        userText.setText(User.getUsername());
         userText.setText("");
         File f = new File(User.getPathToPic());
         Image image = new Image(f.toURI().toString());

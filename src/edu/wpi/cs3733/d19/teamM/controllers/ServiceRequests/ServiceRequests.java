@@ -127,7 +127,7 @@ public class ServiceRequests {
      */
     @FXML
     public void logout() throws Exception {
-        Main.setScene("welcome");
+        Main.logOut();
     }
 
     /**
@@ -267,6 +267,7 @@ public class ServiceRequests {
 
             stmt.executeUpdate();
             stmt.close();
+            conn.close();
 
             this.goToList();
 

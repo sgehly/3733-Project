@@ -292,7 +292,7 @@ public class addUser {
     void logout(MouseEvent event) {
         if (webcam != null)
             webcam.close();
-        Main.setScene("welcome");
+        Main.logOut();
 
     }
 

@@ -44,13 +44,16 @@ public class MapUtils {
     ImageView overlayImage;
     JFXSlider zoomSlider;
     Rectangle2D primaryScreenBounds;
-    EventHandler<ActionEvent> callback;
+    EventHandler<MouseEvent> callback;
     EventHandler<MouseEvent> clickCallback;
+    EventHandler<MouseEvent> dragCallback;
+    EventHandler<MouseEvent> hoverCallback;
     boolean showHallways = false;
 
 
+
     private String[] images = {"00_thegroundfloor.png", "00_thelowerlevel1.png", "00_thelowerlevel2.png",  "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
-    private String[] labels = {"Ground Floor",  "Lower Level 1", "Lower Level 2", "Floor One", "Floor Two", "Floor Three"};
+    private String[] labels = {"Ground Floor",  "Lower Level 1", "Lower Level 2", "Floor One", "Floor Two", "Floor Three", "Floor Four"};
     public String[] dbPrefixes = {"G", "L1", "L2", "1", "2", "3"};
     private HashMap<Integer, Image> imageFiles = new HashMap<Integer, Image>();
 
@@ -71,10 +74,10 @@ public class MapUtils {
     public HashMap<String, Button> buttonMap = new HashMap<String,Button>();
 
     //Create needed object instances
-    double cachedScaledWidth = 0;
-    double cachedScaledHeight = 0;
+    public double cachedScaledWidth = 0;
+    public double cachedScaledHeight = 0;
 
-    public MapUtils(Pane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<ActionEvent> callback, EventHandler<MouseEvent> clickCallback, boolean showHallways) {
+    public MapUtils(Pane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<MouseEvent> callback, EventHandler<MouseEvent> clickCallback, boolean showHallways, EventHandler<MouseEvent> dragCallback, EventHandler<MouseEvent> hoverCallback) {
         this.buttonContainer = buttonContainer;
         this.buttonPane = new Pane();
         buttonPane.setLayoutY(buttonContainer.getLayoutY());
@@ -90,6 +93,8 @@ public class MapUtils {
         this.zoomSlider = zoomSlider;
         this.clickCallback = clickCallback;
         this.showHallways = showHallways;
+        this.dragCallback = dragCallback;
+        this.hoverCallback = hoverCallback;
     }
 
     /**
@@ -160,7 +165,8 @@ public class MapUtils {
 
                 //Set its id to the node that it will be representing
                 newButton.setId(rs.getString("nodeId"));
-                newButton.setOnAction(callback);
+                newButton.setOnMouseClicked(callback);
+                newButton.setOnMouseDragged(this.dragCallback);
 
                 //Generate a map point out of the node button and place it on the screen and make it blue
                 MapPoint generated = scalePoints(rs.getInt("xcoord"), rs.getInt("ycoord"));
@@ -320,122 +326,16 @@ public class MapUtils {
         Vscroll.setMaxHeight(image.getFitHeight());
         Vscroll.setMinHeight(image.getFitHeight());
         Vscroll.setOrientation(Orientation.VERTICAL);
-        //Vscroll.setTranslateX(-9999);
 
-        /*Hscroll.valueProperty().addListener(e -> {
-            offSetX = Hscroll.getValue();
-            zoom = zoomSlider.getValue();
-            double newValue = (double) ((int) (zoom * 10)) / 10;
-            if (offSetX < (width / newValue) / 2) {
-                offSetX = (width / newValue) / 2;
-            }
-            if (offSetX > width - ((width / newValue) / 2)) {
-                offSetX = width - ((width / newValue) / 2);
-            }
-
-            System.out.println("HORIZONTAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity));
-
-            updatePosition(newValue);
-
-        });
-
-        Vscroll.valueProperty().addListener(e -> {
-            offSetY = height - Vscroll.getValue();
-            zoom = zoomSlider.getValue();
-            double newValue = (double) ((int) (zoom * 10)) / 10;
-            if (offSetY < (height / newValue) / 2) {
-                offSetY = (height / newValue) / 2;
-            }
-            if (offSetY > height - ((height / newValue) / 2)) {
-                offSetY = height - ((height / newValue) / 2);
-            }
-
-            System.out.println("VERTICAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity));
-
-            updatePosition(newValue);
-        });*/
-
-        /*zoomSlider.valueProperty().addListener(e -> {
-            zoom = zoomSlider.getValue();
-            double newValue = (double) ((int) (zoom * 10)) / 10;
-            if (offSetX < (width / newValue) / 2) {
-                offSetX = (width / newValue) / 2;
-            }
-            if (offSetX > width - ((width / newValue) / 2)) {
-                offSetX = width - ((width / newValue) / 2);
-            }
-            if (offSetY < (height / newValue) / 2) {
-                offSetY = (height / newValue) / 2;
-            }
-            if (offSetY > height - ((height / newValue) / 2)) {
-                offSetY = height - ((height / newValue) / 2);
-            }
-
-            double minX = offSetX - ((width / newValue) / 2);
-            double minY = offSetY - ((height / newValue) / 2);
-
-            Hscroll.setValue(width-offSetX);
-            Vscroll.setValue(height-offSetY);
-
-            buttonPane.setScaleX(newValue);
-            buttonPane.setScaleY(newValue);
-
-            Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
-            image.setViewport(bounds);
-            overlayImage.setViewport(image.getViewport());
-
-            buttonPane.setTranslateX(0);
-            buttonPane.setTranslateY(0);
-            buttonContainer.setViewportBounds(overlayImage.getLayoutBounds());
-
-            //System.out.println(minX+"/"+minY+"/"+bounds.getMinX()+"/"+bounds.getMinY());
-
-
-        });*/
-     //   double yikes;
-       // double oof;
-       //buttonPane.setCursor(Cursor.OPEN_HAND);
-        buttonPane.setOnMousePressed(e -> {
-          //  initx = e.getSceneX();
-           /// inity = e.getSceneY();
-            //buttonPane.setCursor(Cursor.CLOSED_HAND);
-            clickCallback.handle(e);
-        });
-        /*buttonPane.setOnMouseReleased(e -> {
-            buttonPane.setCursor(Cursor.OPEN_HAND);
-            double yikes = Hscroll.getValue() + (initx - e.getSceneX());
-            double oof = Vscroll.getValue() - (inity - e.getSceneY());
-
-            double shiftx = (initx - e.getSceneX());
-            double shifty = (inity - e.getSceneY());
-
-
-            buttonPane.setTranslateY(shifty);
-            buttonPane.setTranslateX(shiftx);
-
-        //    Hscroll.setValue(yikes);
-          //  Vscroll.setValue(oof);
-
-        });
-       buttonPane.setOnMouseDragged(e -> {
-
-
-           double yikes = Hscroll.getValue() + (initx - e.getSceneX());
-           double oof = Vscroll.getValue() - (inity - e.getSceneY());
-           Hscroll.setValue(yikes);
-           Vscroll.setValue(oof);
-            double newValue = (double) ((int) (zoom * 10)) / 10;
-
-            //System.out.println((initx - e.getSceneX())+"/"+(inity - e.getSceneY()));
-
-            Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
-
-            initx = e.getSceneX();
-            inity = e.getSceneY();
-
-        });*/
+        buttonPane.setOnMousePressed(this.clickCallback);
+        buttonPane.setOnMouseMoved(this.hoverCallback);
 
         String query = "SELECT * FROM NODE WHERE FLOOR='"+this.getCurrentFloorID()+"'";
+
+        if(this.getCurrentFloorID() == "2"){
+            query += " OR FLOOR='4'";
+        }
+
         try {
             //Get the information that we want from the database
             Connection conn = new DatabaseUtils().getConnection();
@@ -511,6 +411,7 @@ public class MapUtils {
     }
 
     public int idToFloor(String id){
+       if (id.equals("4")) return 6;
         for(int i=0;i<dbPrefixes.length;i++){
             if(dbPrefixes[i].equals(id)){
                 return i;
