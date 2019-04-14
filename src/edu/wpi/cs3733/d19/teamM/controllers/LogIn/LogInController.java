@@ -91,6 +91,8 @@ public class LogInController {
                 User.setPrivilege(rs.getInt("ACCOUNTINT"));
                 System.out.println("Logged in " + User.getUsername() + " with privilege " + User.getPrivilege());
                 Main.loadScenes();
+                Main.setScene("home");
+                conn.close();
                 //Main.startIdleCheck();
                 //uncomment this line to start using idle check
                 if(User.getUsername().compareTo(Main.savedState.getUserName()) != 0){
