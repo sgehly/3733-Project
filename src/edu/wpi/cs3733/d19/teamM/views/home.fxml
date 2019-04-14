@@ -74,6 +74,14 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
+                              <Button fx:id="about" mnemonicParsing="false" onAction="#navigateToAbout" onMouseClicked="#navigateToAbout" styleClass="logoutButton" text="ABOUT">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </Button>
                               <Button fx:id="admin" mnemonicParsing="false" onAction="#navigateToAdmin" onMouseClicked="#logout" styleClass="logoutButton" text="ADMIN">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
@@ -82,7 +90,7 @@
                                     <Insets right="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
+                              <Button mnemonicParsing="false" onAction="#logout" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
