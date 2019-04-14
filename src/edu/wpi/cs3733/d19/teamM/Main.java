@@ -4,13 +4,15 @@ import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
-import javafx.geometry.Rectangle2D;
+import edu.wpi.cs3733.d19.teamMService.Main.*;
+
 
 import java.io.InputStream;
 import java.net.URL;
@@ -212,6 +214,12 @@ public class Main extends Application {
         primaryStage.show();
 
 
+        try{
+            new edu.wpi.cs3733.d19.teamMService.Main().run(300,400,100,50,"/resources/stylesheet.css", "123");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -219,21 +227,12 @@ public class Main extends Application {
      * @param args: The arguments for the application, if any (none in this case)
      */
     public static void main(String[] args) {
-
-
-        //CSVParser parse = new CSVParser("C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\nodes.csv", "C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\edges.csv");
-        //AStar aS = new AStar();
-        //Map<String, Node> mappedNodes = parse.getNodes();
-//        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
-        //aS.drawPath(path);
         DatabaseUtils parser = new DatabaseUtils();
         parser.connect();
         parser.nodeParse();
         parser.edgeParse();
 
-       /* Floor myFloor = new Floor("1");
-        myFloor.populateFloor();*/
-        launch(args);
+       launch(args);
     }
 
 }
