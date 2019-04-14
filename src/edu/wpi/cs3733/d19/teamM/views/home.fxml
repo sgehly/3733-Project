@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@/resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Home.Home">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@/resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Home.Home">
    <children>
       <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <children>
@@ -74,6 +74,14 @@
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                            <children>
+                              <Button fx:id="about" mnemonicParsing="false" onAction="#navigateToAbout" onMouseClicked="#navigateToAbout" styleClass="logoutButton" text="ABOUT">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </Button>
                               <Button fx:id="admin" mnemonicParsing="false" onAction="#navigateToAdmin" onMouseClicked="#logout" styleClass="logoutButton" text="ADMIN">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
@@ -83,11 +91,6 @@
                                  </HBox.margin>
                               </Button>
                               <Button mnemonicParsing="false" onAction="#logout" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
-                                 <font>
-                                    <Font name="Open Sans Bold" size="24.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="about" layoutX="482.0" layoutY="38.0" mnemonicParsing="false" onAction="#navigateToAbout" onMouseClicked="#navigateToAbout" styleClass="logoutButton" text="ABOUT">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
