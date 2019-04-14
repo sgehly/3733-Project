@@ -117,8 +117,6 @@ public class Main extends Application {
         return Main.class.getResource("views/"+name+".fxml");
     }
 
-
-
     public static InputStream getResource(String path){
         System.out.println("Fetching Resource: "+path);
         return Main.class.getResourceAsStream(path);
@@ -220,8 +218,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene mainScene = new Scene(root);
 
-        loginPane = FXMLLoader.load(Main.getFXMLURL("login"));
-        loginScene = new Scene(loginPane);
+//        loginPane = FXMLLoader.load(Main.getFXMLURL("login"));
+//        loginScene = new Scene(loginPane);
         welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         welcomeScene= new Scene(welcomePane);
 
