@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -98,18 +97,13 @@
                             <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <JFXComboBox fx:id="roomDropDown" prefHeight="50.0" prefWidth="300.0" promptText="Select Room " />
-                              <JFXComboBox fx:id="dateDropDown" prefHeight="50.0" prefWidth="300.0" promptText="Select Date ">
+                              <JFXComboBox fx:id="roomDropDown" onAction="#updateTable" prefHeight="50.0" prefWidth="300.0" promptText="Select Room " />
+                              <JFXComboBox fx:id="dateDropDown" onAction="#updateTable" prefHeight="50.0" prefWidth="300.0" promptText="Select Date ">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </JFXComboBox>
                               <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <JFXButton mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="DELETE">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </JFXButton>
                            </children>
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -120,9 +114,10 @@
                         </HBox>
                         <TableView fx:id="BookedRooms" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                           <columns>
-                              <TableColumn fx:id="roomName" maxWidth="752.8181056976318" minWidth="50.0" prefWidth="626.0" text="ROOM NAME" />
-                                <TableColumn fx:id="roomType" minWidth="0.0" prefWidth="626.0" text="TYPE" />
-                                <TableColumn fx:id="date" minWidth="0.0" prefWidth="626.0" text="DATE" />
+                              <TableColumn fx:id="roomName" maxWidth="752.8181056976318" minWidth="50.0" prefWidth="469.0" text="ROOM NAME" />
+                                <TableColumn fx:id="roomType" minWidth="0.0" prefWidth="469.0" text="TYPE" />
+                              <TableColumn fx:id="startTime" minWidth="200.0" prefWidth="469.0" text="START TIME" />
+                                <TableColumn fx:id="endTime" minWidth="0.0" prefWidth="469.0" text="END TIME" />
                           </columns>
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" />

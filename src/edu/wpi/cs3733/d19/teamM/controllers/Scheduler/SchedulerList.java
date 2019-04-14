@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 
 /**
  * This class is the controller for all the ServiceRequestPage related UI elements
@@ -23,7 +24,7 @@ import java.sql.*;
 public class SchedulerList {
 
     @FXML
-    private TableColumn<DisplayTable,String> date;
+    private TableColumn<DisplayTable,String> startTime;
 
     @FXML
     private JFXComboBox<String> dateDropDown;
@@ -37,7 +38,7 @@ public class SchedulerList {
     @FXML
     private JFXComboBox<String> roomDropDown;
 
-    ObservableList<String> rooms = FXCollections.observableArrayList("CR_1","CR_2","CR_3","CR_4","CR_5","CR_6","CR_7","CR_8");
+    ObservableList<String> rooms = FXCollections.observableArrayList("CR_1","CR_2","CR_3","CR_4","CR_5","CR_6","CR_7","CR_8","CR_9","CR_10");
 
     @FXML
     private TableView BookedRooms = new TableView();
@@ -50,6 +51,8 @@ public class SchedulerList {
 
     @FXML
     private TableColumn<DisplayTable,String> roomType;
+    @FXML
+    private TableColumn<DisplayTable,String> endTime;
 
 
     /**
@@ -63,16 +66,21 @@ public class SchedulerList {
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query ="SELECT STARTTIME FROM BOOKEDTIMES";
+        String query ="SELECT STARTTIME FROM BOOKEDTIMES where ROOMID = ?";
 
         try {
 
             Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1,roomDropDown.getSelectionModel().getSelectedItem());
             ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
-                list.add(rs.getString(1));
+            while(rs.next()) {
+                        if (!list.contains(rs.getDate(1).toString())){
+                            list.add(rs.getDate(1).toString());
+                        }
+
             }
+            conn.close();
 
             return list;
         } catch (SQLException e) {
@@ -82,9 +90,8 @@ public class SchedulerList {
             throw e;
         }
 
+
     }
-
-
 
 
     /**
@@ -101,43 +108,58 @@ public class SchedulerList {
                 //Get the correct entries from the text fields and add to the list so that we can add it to the database
                 DisplayTable ent = new DisplayTable();
                 ent.setRoom(rs.getString("ROOMID"));
-                ent.setStartTime(rs.getString("StartDate"));
+                ent.setStartTime(rs.getString("Starttime"));
+                ent.setEndTime(rs.getString("endtime"));
+
+
+                if(rs.getString("Roomid").equals("CR_1")  ||rs.getString("Roomid").equals("CR_2")  || rs.getString("Roomid").equals("CR_3") ||
+                        rs.getString("Roomid").equals("CR_5")  || rs.getString("Roomid").equals("CR_7") ){
+                    ent.setType("COMP");
+                }
+
+                else{ent.setType("CLASS");}
+
                 entList.add(ent);
             }
             return entList;
+
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
             e.printStackTrace();
             throw e;
         }
+
     }
 
 
-
-    public ObservableList<DisplayTable> getAllRecords2() throws ClassNotFoundException, SQLException {
+    public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
         //Get the query from the database
-        String query = "SELECT * from BOOKEDTIMES WHERE ROOMID = ? and STARTTIME = ?";
+
+        String query = "SELECT * from BOOKEDTIMES WHERE ROOMID = ? AND STARTTIME > ? AND STARTTIME  < ?";
 
 
         try {
         Connection conn = new DatabaseUtils().getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
+
+
+        System.out.println(dateDropDown.getSelectionModel().getSelectedItem()+" 00:00:00.000000000");
         stmt.setString(1,roomDropDown.getSelectionModel().getSelectedItem());
-        stmt.setString(2,dateDropDown.getSelectionModel().getSelectedItem());
+        stmt.setString(2,dateDropDown.getSelectionModel().getSelectedItem()+" 00:00:00.000000000");
+        stmt.setString(3,dateDropDown.getSelectionModel().getSelectedItem()+" 23:59:59.000000000");
+        System.out.println(dateDropDown.getSelectionModel().getSelectedItem()+" 23:59:59.000000000");
+
         ResultSet rs = stmt.executeQuery();
         ObservableList<DisplayTable> entryList = getEntryObjects2(rs);
         BookedRooms.setItems(entryList);
         initialize();
+        conn.close();
         return entryList;
     } catch (SQLException e) {
-        System.out.println("Error while trying to fetch all records");
         e.printStackTrace();
         throw e;
     }
 }
-
-
-
 
     /**
      * This method is linked to the button that allows the individuals to return to the home screen
@@ -160,6 +182,36 @@ public class SchedulerList {
     }
 
 
+    @FXML
+    public void updateTable()throws SQLException{
+
+        System.out.println("in update");
+        BookedRooms.refresh();
+        roomDropDown.setItems(rooms);
+        dateDropDown.setItems(this.getDatesForDropDown());
+
+        if(getDatesForDropDown().size() == 0){
+            BookedRooms.getItems().clear();
+        }
+
+
+        try {
+            getAllRecords();
+            roomName.setCellValueFactory(new PropertyValueFactory<>("room"));
+            startTime.setCellValueFactory(new PropertyValueFactory<>("starttime"));
+            endTime.setCellValueFactory(new PropertyValueFactory<>("endtime"));
+            roomType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        }
+        catch (Exception e) {
+            System.out.println("Error while trying to fetch all records");
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+
     /**
      * This method is meant to initialize the controller for use
      */
@@ -167,16 +219,25 @@ public class SchedulerList {
     @FXML
     void initialize() throws SQLException {
 
-        roomDropDown.setValue("CR_1");
+
         roomDropDown.setItems(rooms);
-        dateDropDown.setValue("Date");
-        dateDropDown.setItems(this.getDatesForDropDown());
+
+        dateDropDown.setItems(getDatesForDropDown());
 
 
 
-        roomName.setCellValueFactory(new PropertyValueFactory<>("room"));
-        date.setCellValueFactory(new PropertyValueFactory<>("startime"));
-
+//
+//        try {
+//
+//            roomName.setCellValueFactory(new PropertyValueFactory<>("room"));
+//            startTime.setCellValueFactory(new PropertyValueFactory<>("starttime"));
+//            endTime.setCellValueFactory(new PropertyValueFactory<>("endtime"));
+//            roomType.setCellValueFactory(new PropertyValueFactory<>("type"));
+//        }
+//        catch (Exception e) {
+//            System.out.println("Error while trying to fetch all records");
+//            e.printStackTrace();
+//        }
 
         new Clock(lblClock, lblDate);
 

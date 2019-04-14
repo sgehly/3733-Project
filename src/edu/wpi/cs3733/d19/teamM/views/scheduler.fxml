@@ -311,7 +311,7 @@
                             <children>
                                 <ImageView fx:id="room9" fitHeight="80.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../../../../resources/maps/room10a.png" />
+                                        <Image url="@../../../../../../resources/maps/room9a.png" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -323,7 +323,7 @@
                             <children>
                                 <ImageView fx:id="room10" fitHeight="200.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../../../../resources/maps/room9a.png" />
+                                        <Image url="@../../../../../../resources/maps/room10a.png" />
                                     </image>
                                 </ImageView>
                             </children>

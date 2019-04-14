@@ -261,6 +261,7 @@ public class ServiceRequests {
 
             stmt.executeUpdate();
             stmt.close();
+            conn.close();
 
             this.goToList();
 
