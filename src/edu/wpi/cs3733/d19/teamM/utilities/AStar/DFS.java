@@ -103,11 +103,16 @@ public class DFS implements Searchable{
         return stack.pop();
     }
 
-    void setHeuristics(Node curNode, Node endNode){
+    protected void setHeuristics(Node curNode, Node endNode){
         curNode.setH(curNode.getDistance(endNode));
         curNode.setG(curNode.getParent().getDistance(curNode) + curNode.getParent().getG());
-        curNode.setP(getDeltaFloor(curNode, endNode) * 1000);
         curNode.setB(getDeltaBuilding(curNode, endNode) * 5000);
+        if (curNode.getB() == 0) {
+            curNode.setP(getDeltaFloor(curNode, endNode) * 1000);
+        }
+        else {
+            curNode.setF(getDeltaFloor(curNode, new Node("", 0, 0, "2", "", "", "", "")) * 1000);
+        }
         curNode.setF(curNode.getG() + curNode.getP() + curNode.getH() + curNode.getB());
     }
 
@@ -132,6 +137,7 @@ public class DFS implements Searchable{
         else if (f.equals("1")) return  3;
         else if (f.equals("2")) return  4;
         else if (f.equals("3")) return  5;
+        else if (f.equals("4")) return  6;
         return -1;
     }
 
@@ -139,8 +145,8 @@ public class DFS implements Searchable{
         if(build.equals("BTM")) return 0;
         else if(build.equals("Shapiro")) return 1;
         else if (build.equals("Tower")) return 2;
-        else if(build.equals("45 Francis")) return 3;
-        else if(build.equals("15 Francis")) return 4;
+        else if(build.equals("45 Francis")) return 2;
+        else if(build.equals("15 Francis")) return 2;
         return -1;
     }
 
