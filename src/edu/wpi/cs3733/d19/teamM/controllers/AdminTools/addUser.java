@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
-import java.awt.*;
+
+//import java.awt.*;
+import javafx.scene.control.CheckBox;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +10,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.github.sarxos.webcam.Webcam;
@@ -20,7 +23,6 @@ import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -68,31 +70,31 @@ public class addUser {
     @FXML
     private ImageView defaultImage;
     @FXML
-    private Checkbox religousButton;
+    private CheckBox religousButton;
     @FXML
-    private Checkbox sanitationButton;
+    private CheckBox sanitationButton;
     @FXML
-    private Checkbox languageButton;
+    private CheckBox languageButton;
     @FXML
-    private Checkbox externalButton;
+    private CheckBox externalButton;
     @FXML
-    private Checkbox securityButton;
+    private CheckBox securityButton;
     @FXML
-    private Checkbox flowersButton;
+    private CheckBox flowersButton;
     @FXML
-    private Checkbox giftButton;
+    private CheckBox giftButton;
     @FXML
-    private Checkbox internalButton;
+    private CheckBox internalButton;
     @FXML
-    private Checkbox itButton;
+    private CheckBox itButton;
     @FXML
-    private Checkbox perscriptionButton;
+    private CheckBox perscriptionButton;
     @FXML
-    private Checkbox labTestButton;
+    private CheckBox labTestButton;
     @FXML
-    private Checkbox avButton;
+    private CheckBox avButton;
     @FXML
-    private Checkbox adminButton;
+    private CheckBox adminButton;
 
 
     private void savePhoto(){
@@ -168,8 +170,28 @@ public class addUser {
             return 100;
     }
 
-    private void test(){
-        religousButton.getState();
+    private ArrayList<Integer> buildBuffer(){
+        ArrayList<Integer> buffer =new ArrayList<Integer>();
+        buffer.add(buttonVal(sanitationButton.isSelected()));
+        buffer.add(buttonVal(languageButton.isSelected()));
+        buffer.add(buttonVal(itButton.isSelected()));
+        buffer.add(buttonVal(avButton.isSelected()));
+        buffer.add(buttonVal(giftButton.isSelected()));
+        buffer.add(buttonVal(flowersButton.isSelected()));
+        buffer.add(buttonVal(internalButton.isSelected()));
+        buffer.add(buttonVal(externalButton.isSelected()));
+        buffer.add(buttonVal(securityButton.isSelected()));
+        buffer.add(buttonVal(religousButton.isSelected()));
+        buffer.add(buttonVal(perscriptionButton.isSelected()));
+        buffer.add(buttonVal(labTestButton.isSelected()));
+        buffer.add(buttonVal(adminButton.isSelected()));
+        return buffer;
+    }
+
+    private int buttonVal(boolean state){
+        if(state)
+            return 1;
+        return 0;
     }
 
     @FXML
@@ -183,7 +205,6 @@ public class addUser {
             }
             String tempName = username.getText();
             String tempPass = Encrypt.getMd5(newPassword.getText());
-            //int tempType = convertUserTypeInt((String)userType.getValue());
             Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt1 = conn.prepareStatement("SELECT * FROM USERS WHERE USERNAME = ?");
             stmt1.setString(1,tempName);
@@ -192,22 +213,79 @@ public class addUser {
                 errorMessage.setText("User Already Exists");
                 throw e;
             }
-            String query = "INSERT INTO USERS (USERNAME, ACCOUNTINT, USERPASS, PATHTOPIC) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO USERS (USERNAME, isSan, isInterp, isIT, isAV, isGift, isFlor, isExt, isInt, isRel, isSec, isPer, isLab, ACCOUNTINT, USERPASS, PATHTOPIC) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            //isSan int, isInterp int, isIT int, isAV int, isGift int, isFlor int, isInt int, isExt int, isRel int, isSec int, isPer int, isLab int, accountInt int, userPass varchar(100) not null,pathtopic varchar(100)
             PreparedStatement stmt = conn.prepareStatement(query);
+            ArrayList<Integer> buffer = buildBuffer();
             stmt.setString(1, tempName);
-            stmt.setInt(2, tempType);
-            stmt.setString(3, tempPass);
-            stmt.setString(4, "src/resources/People_Pictures/" + tempName + ".png");
+            stmt.setInt(2, buffer.get(0));
+            stmt.setInt(3, buffer.get(1));
+            stmt.setInt(4, buffer.get(2));
+            stmt.setInt(5, buffer.get(3));
+            stmt.setInt(6, buffer.get(4));
+            stmt.setInt(7, buffer.get(5));
+            stmt.setInt(8, buffer.get(6));
+            stmt.setInt(9, buffer.get(7));
+            stmt.setInt(10, buffer.get(8));
+            stmt.setInt(11, buffer.get(9));
+            stmt.setInt(12, buffer.get(10));
+            stmt.setInt(13, buffer.get(11));
+            stmt.setInt(14, buffer.get(12));
+            stmt.setString(15, tempPass);
+            stmt.setString(16, "src/resources/People_Pictures/" + tempName + ".png");
             savePhoto();
-            System.out.println(tempType);
             stmt.execute();
+            conn.close();
             errorMessage.setStyle("-fx-text-fill: green;");
             errorMessage.setText("User Added");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
+    }
+    @FXML
+    void save(ActionEvent event) {
+        try {
+            Exception e = new Exception();
+            if (areFieldsEmpty()) {
+                errorMessage.setText("Missing Fields");
+                throw e;
+            }
+            if(User.getUsername().compareTo(username.getText()) == 0){
+                errorMessage.setText("Cannot edit current user");
+                throw e;
+            }
+            String tempName = username.getText();
+            Connection conn = new DatabaseUtils().getConnection();
+            String query = "UPDATE USERS SET isSan = ?, isInterp= ?, isIT= ?, isAV= ?, isGift= ?, isFlor= ?, isExt= ?, isInt= ?, isRel= ?, isSec= ?, isPer= ?, isLab= ?, ACCOUNTINT= ?, USERPASS= ?, PATHTOPIC= ? WHERE USERNAME = ?";
+            String tempPass = Encrypt.getMd5(newPassword.getText());
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ArrayList<Integer> buffer = buildBuffer();
+            stmt.setString(16, tempName);
+            stmt.setInt(1, buffer.get(0));
+            stmt.setInt(2, buffer.get(1));
+            stmt.setInt(3, buffer.get(2));
+            stmt.setInt(4, buffer.get(3));
+            stmt.setInt(5, buffer.get(4));
+            stmt.setInt(6, buffer.get(5));
+            stmt.setInt(7, buffer.get(6));
+            stmt.setInt(8, buffer.get(7));
+            stmt.setInt(9, buffer.get(8));
+            stmt.setInt(10, buffer.get(9));
+            stmt.setInt(11, buffer.get(10));
+            stmt.setInt(12, buffer.get(11));
+            stmt.setInt(13, buffer.get(12));
+            stmt.setString(14, tempPass);
+            stmt.setString(15, "src/resources/People_Pictures/" + tempName + ".png");
+            if(tempPhoto != null){
+                savePhoto();
+            }
+            stmt.executeUpdate();
+            conn.close();
+            errorMessage.setStyle("-fx-text-fill: green");
+            errorMessage.setText("User Updated");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -241,38 +319,6 @@ public class addUser {
             errorMessage.setText("User Deleted");
         }
         catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void save(ActionEvent event) {
-        try {
-            Exception e = new Exception();
-            if (areFieldsEmpty()) {
-                errorMessage.setText("Missing Fields");
-                throw e;
-            }
-            if(User.getUsername().compareTo(username.getText()) == 0){
-                errorMessage.setText("Cannot edit current user");
-                throw e;
-            }
-            String tempName = username.getText();
-            Connection conn = new DatabaseUtils().getConnection();
-            String query = "UPDATE USERS SET ACCOUNTINT = ?, USERPASS = ?, PATHTOPIC =  ? WHERE USERNAME = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, convertUserTypeInt((String)userType.getValue()));
-            stmt.setString(2, Encrypt.getMd5(newPassword.getText()));
-            if(tempPhoto != null){
-                savePhoto();
-            }
-            stmt.setString(3, "src/resources/People_Pictures" + tempName + ".png");
-            stmt.setString(4,username.getText());
-            stmt.executeUpdate();
-            conn.close();
-            errorMessage.setStyle("-fx-text-fill: green");
-            errorMessage.setText("User Updated");
-        } catch (Exception e) {
             e.printStackTrace();
         }
     }
