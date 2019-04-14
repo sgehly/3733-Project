@@ -126,7 +126,7 @@ public class ServiceRequests {
      */
     @FXML
     public void logout() throws Exception {
-        Main.setScene("welcome");
+        Main.logOut();
     }
 
     /**

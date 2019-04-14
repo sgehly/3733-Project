@@ -21,7 +21,6 @@ import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
 import javafx.util.Duration;
 
-//import java.awt.event.MouseEvent;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.InputStream;
@@ -117,8 +116,6 @@ public class Main extends Application {
         return Main.class.getResource("views/"+name+".fxml");
     }
 
-
-
     public static InputStream getResource(String path){
         System.out.println("Fetching Resource: "+path);
         return Main.class.getResourceAsStream(path);
@@ -195,6 +192,11 @@ public class Main extends Application {
         addUserScene = new Scene(addUserPane);
     }
 
+    public static void logOut(){
+        Main.savedState.setState("home");
+        Main.setScene("welcome");
+    }
+
     /**
      * This method creates and sets the stage of the viewable JavaFX screen
      * @param primaryStage: The stage to display on start
@@ -226,12 +228,11 @@ public class Main extends Application {
         welcomeScene= new Scene(welcomePane);
 
         //create the idle detection system
-//        ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));
-//        Timer timer = new Timer(10000,uiReset);
-//        EventHandler<MouseEvent> idleReset = e -> timer.restart();
-//        //EventHandler<MouseEvent> idleReset = e -> System.out.println("mouse moved");
-//        primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);
-//        timer.start();
+        ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));  //resets ui on timer trigger
+        Timer timer = new Timer(45000,uiReset); //creates the timer, attach to ui reset
+        EventHandler<MouseEvent> idleReset = e -> timer.restart(); //event handler to reset the timer
+        primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);  //add event handler to the application
+        timer.start();
 
 
         //Set the color and the title and the screen
