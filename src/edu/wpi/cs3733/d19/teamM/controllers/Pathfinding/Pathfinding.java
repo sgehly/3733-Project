@@ -722,8 +722,7 @@ public class Pathfinding {
      */
     @FXML
     public void logout() throws Exception{
-        Main.savedState.setState("home");
-        Main.setScene("welcome");
+        Main.logOut();
     }
 
     private boolean checkValidLongNameInput(){
