@@ -455,7 +455,7 @@ public class ServiceRequestsList {
             //Store the results we get in the entry list display table
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
             requestsInProgress.setItems(entryList);
-
+            conn.close();
             return entryList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");

@@ -118,6 +118,7 @@ public class GenerateReport implements Initializable {
 
                 }
                 set1.getData().add(new XYChart.Data("IT", size));
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -139,6 +140,7 @@ public class GenerateReport implements Initializable {
 
                 }
                 set1.getData().add(new XYChart.Data("SANITATION", s));
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -160,6 +162,7 @@ public class GenerateReport implements Initializable {
 
                 }
                 set1.getData().add(new XYChart.Data("SECURITY", s));
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -181,6 +184,7 @@ public class GenerateReport implements Initializable {
 
                 }
                 set1.getData().add(new XYChart.Data("LANGUAGE", s));
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -202,6 +206,7 @@ public class GenerateReport implements Initializable {
 
                 }
                 set1.getData().add(new XYChart.Data("FLOWERS", s));
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
