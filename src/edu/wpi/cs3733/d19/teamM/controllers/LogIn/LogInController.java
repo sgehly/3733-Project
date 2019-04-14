@@ -29,6 +29,7 @@ import javafx.scene.control.TextField;
 
 public class LogInController {
 
+
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
@@ -91,6 +92,17 @@ public class LogInController {
                 System.out.println("Logged in " + User.getUsername() + " with privilege " + User.getPrivilege());
                 Main.loadScenes();
                 Main.setScene("home");
+                conn.close();
+                //Main.startIdleCheck();
+                //uncomment this line to start using idle check
+                if(User.getUsername().compareTo(Main.savedState.getUserName()) != 0){
+                    Main.savedState.setUserName(User.getUsername());
+                    Main.savedState.setState("home");
+                }
+                System.out.println(User.getUsername());
+                System.out.println(Main.savedState.getUserName());
+                System.out.println(Main.savedState.getState());
+                Main.setScene(Main.savedState.getState());
             } else {
                System.out.println("user not found");
                errorMessage.setText("Incorrect Credentials");

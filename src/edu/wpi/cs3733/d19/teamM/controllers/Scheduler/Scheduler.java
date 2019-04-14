@@ -425,7 +425,8 @@ public class Scheduler {
 
         new Clock(lblClock, lblDate);
 
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
 
         startDate.setStyle("-jfx-unfocus-color: WHITE;");
         startTime.setStyle("-jfx-unfocus-color: WHITE;");

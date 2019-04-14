@@ -482,9 +482,9 @@ GSTAI00903,1685,2052,3,Shapiro,STAI,Staircase Node 9 Floor 3,Floor 3 Stairs
 GSTAI01301,1750,2014,1,Shapiro,STAI,Staircase MapNode 13 Floor 1,Southbound Stairs Floor 1
 GSTAI02602,1686,1931,2,Shapiro,STAI,Stairs Node 26 Floor 2,Floor 2 Stairs Upper
 GSTAI02802,1685,2041,2,Shapiro,STAI,Stairs Node 28 Floor 2,Floor 2 Stairs Lower
-HBATH00102,1605,1008,2,Tower,BATH,Bathroom 1 Tower Floor 2,Bathroom 0102
-HBATH00103,1785,830,3,Tower,BATH,Bathroom 1 Tower Floor 3,Bathroom 0103
-HBATH00203,1750,985,3,Tower,BATH,Bathroom 2 Tower Floor 3,Bathroom 0203
+HBATH00102,1605,1008,2,Tower,REST,Bathroom 1 Tower Floor 2,Bathroom 0102
+HBATH00103,1785,830,3,Tower,REST,Bathroom 1 Tower Floor 3,Bathroom 0103
+HBATH00203,1750,985,3,Tower,REST,Bathroom 2 Tower Floor 3,Bathroom 0203
 HDEPT00102,2055,1330,2,Tower,DEPT,Endoscopy,Endoscopy
 HDEPT00103,1725,900,3,Tower,DEPT,Dialysis Waiting Room,Dialysis WR
 HDEPT00203,1690,830,3,Tower,DEPT,MICU 3BC Waiting Room,MICU 3BC WR
@@ -515,7 +515,7 @@ HHALL01403,1735,1030,3,Tower,HALL,Hallway Connector 14 Floor 3,Hallway H01403
 HHALL01503,1735,985,3,Tower,HALL,Hallway Connector 15 Floor 3,Hallway H01503
 HLABS00103,1235,865,3,Tower,LABS,Reproductive Endocrine Labs,Reproductive Endocrine Labs
 HRETL00102,1935,860,2,Tower,RETL,Garden Cafe,Garden Cafe
-HRETL00202,1615,1025,2,Tower,RETL,Vending Machine Floor 2?,Vending Machine
+HRETL00202,1615,1025,2,Tower,RETL,Vending Machine Floor 2,Vending Machine
 HRETL00302,1825,1080,2,Tower,RETL,Gift Shop Tower Floor 2,Gift Shop
 HSERV00103,1750,865,3,Tower,SERV,Nursing Room,Nursing Room
 HSTAI00102,2060,880,2,Tower,STAI,Stairwell 1 Floor 2,Stairwell 0102

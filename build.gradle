@@ -6,98 +6,69 @@
  * User Manual available at https://docs.gradle.org/5.3.1/userguide/tutorial_java_projects.html
  */
 
-
-
-buildscript {
-    repositories {
-        google()
-        jcenter()
-        mavenCentral()
-        maven {
-            url 'http://nexus.gluonhq.com/nexus/content/repositories/releases'
-        }
-    }
-    dependencies {
-        classpath 'org.javafxports:jfxmobile-plugin:1.3.16'
-    }
-}
-
 plugins {
     // Apply the java plugin to add support for Java
     id 'java'
+
     // Apply the application plugin to add support for building an application
     id 'application'
-    //id 'org.openjfx.javafxplugin' version '0.0.7'
+
 }
 
+group 'edu.wpi.cs3733.d19.teamm'
+
+repositories {
+    // Use jcenter for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
+
+configurations {
+    extraLibs
+}
+
+sourceSets.main.java.srcDirs = ['src']
+sourceSets.main.resources.srcDirs = ['src']
+
 dependencies {
+    // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.google.guava:guava:27.0.1-jre'
+
     implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
     implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
+    implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
     implementation 'com.jfoenix:jfoenix:8.0.8' // Java 8
-    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.0.5'
-
-    implementation 'com.gluonhq:charm:5.0.2'
-    implementation 'com.sendgrid:sendgrid-java:1.1.0'
-    implementation group: 'com.twilio.sdk', name: 'twilio', version: '7.37.0'
-
+    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
+    compile group: 'net.sf.sociaal', name: 'freetts', version: '1.2.2'
+    compile group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'
+//its on you jeff
     compile 'com.sendgrid:sendgrid-java:1.1.0'
     compile group: "com.twilio.sdk", name: "twilio", version: "7.37.0"
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
 // https://mvnrepository.com/artifact/com.github.sarxos/webcam-capture
     compile group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.4'
     compile group: 'com.github.sarxos', name: 'webcam-capture-driver-jmf', version: '0.3.11'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
 
     // Use JUnit test framework
-    //testImplementation 'junit:junit:4.12'
-    //configurations.compile.extendsFrom(configurations.extraLibs)
+    testImplementation 'junit:junit:4.12'
+
+    compile group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
+    compile group: 'org.apache.derby', name: 'derbytools', version: '10.14.1.0'
+    compile group: 'com.jfoenix',name:'jfoenix',version:'8.0.8'
+    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
+
+    configurations.compile.extendsFrom(configurations.extraLibs)
 }
-
-repositories {
-    google()
-    jcenter()
-    mavenCentral()
-    maven {
-        url 'http://nexus.gluonhq.com/nexus/content/repositories/releases'
-    }
-}
-
-compileJava {
-    options.warnings = false
-    options.deprecation = false
-    options.compilerArgs += ["-Xdoclint:none", "-Xlint:none", "-nowarn", "-XDstringConcat=inline"]
-    //options.bootClasspath = "$System.env.JDK8_HOME/jre/lib/rt.jar"
-    //options.bootClasspath += "$File.pathSeparator$System.env.JDK8_HOME/jre/lib/jsse.jar"
-    options.fork = true
-    options.forkOptions.with {
-        memoryMaximumSize = 34359738368
-    }
-}
-
-//apply plugin: "org.openjfx.javafxplugin"
-apply plugin: 'org.javafxports.jfxmobile'
-
-group 'edu.wpi.cs3733.d19.teamM'
-
-/*javafx {
-    modules = [ 'javafx.base', 'javafx.fxml', 'javafx.graphics', 'javafx.media','javafx.swing','javafx.web','javafx.controls' ]
-}*/
-
-/*configurations {
-    extraLibs
-}*/
-
-
-sourceSets.main.java.srcDirs = ['src']
-sourceSets.main.resources.srcDirs = ['src']
 
 // Define the main class for the application
-//mainClassName = 'edu.wpi.cs3733.d19.teamM.Main'
+mainClassName = 'edu.wpi.cs3733.d19.teamM.Main'
 
 //create a single Jar with all dependencies
 task fatJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': "edu.wpi.cs3733.d19.teamM.Main"
+        attributes 'Main-Class': mainClassName
     }
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -108,38 +79,11 @@ task fatJar(type: Jar) {
 jar {
     manifest {
         attributes(
-                //'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-                'Main-Class': "edu.wpi.cs3733.d19.teamM.Main"
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': mainClassName
         )
     }
-    /*from {
+    from {
         configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
-    }*/
-}
-
-mainClassName = 'edu.wpi.cs3733.d19.teamM.Main'
-
-
-jfxmobile {
-    downConfig {
-        version = '3.6.0'
-        // Do not edit the line below. Use Gluon Mobile Settings in your project context menu instead
-        //plugins 'display', 'lifecycle', 'statusbar', 'storage'
-    }
-    android {
-        manifest = 'src/android/AndroidManifest.xml'
-    }
-    ios {
-        //iosProvisioningProfile = '3733_Provisioning'
-        infoPList = file('src/ios/Default-Info.plist')
-        forceLinkClasses = [
-                'com.gluonhq.**.*',
-                'javax.annotations.**.*',
-                'javax.inject.**.*',
-                'javax.json.**.*',
-                'javafx.**.*',
-                'org.glassfish.json.**.*',
-                'edu.wpi.cs3733.d19.teamM.**.*'
-        ]
     }
 }

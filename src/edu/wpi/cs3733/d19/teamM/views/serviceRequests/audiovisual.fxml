@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.AudioVisual">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.AudioVisual">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -46,7 +41,7 @@
                                                 <Image url="@/resources/icons/icons8-circled_left_2.png" />
                                             </image>
                                         </ImageView>
-                                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="SGEHLY">
+                                        <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
                                             <font>
                                                 <Font name="Open Sans Bold" size="36.0" />
                                             </font>
@@ -58,35 +53,38 @@
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                     <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@/resources/icons/icons8-clock_8.png" />
-                                       </image>
-                                       <HBox.margin>
-                                          <Insets right="10.0" />
-                                       </HBox.margin>
-                                    </ImageView>
-                                    <VBox alignment="CENTER" prefHeight="300.0" prefWidth="150.0">
-                                       <children>
-                                          <Label fx:id="lblDate" alignment="CENTER" maxHeight="24.0" prefHeight="50.0" prefWidth="200.0" styleClass="dateLabel" text="04/06/2019" textFill="WHITE">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                          <Label fx:id="lblClock" alignment="CENTER" maxHeight="24.0" prefHeight="47.8828125" prefWidth="132.046875" styleClass="clockLabel" text="12:24:36" textFill="WHITE">
-                                             <font>
-                                                <Font size="24.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                                 <padding>
-                                    <Insets top="15.0" />
-                                 </padding>
-                              </HBox>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="659.0">
+                                            <children>
+                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@/resources/icons/icons8-clock_8.png" />
+                                                    </image>
+                                                    <HBox.margin>
+                                                        <Insets right="10.0" />
+                                                    </HBox.margin>
+                                                </ImageView>
+                                                <VBox alignment="CENTER" prefHeight="300.0" prefWidth="150.0">
+                                                    <children>
+                                                        <Label fx:id="lblDate" alignment="CENTER" maxHeight="24.0" prefHeight="50.0" prefWidth="200.0" styleClass="dateLabel" text="04/06/2019" textFill="WHITE">
+                                                            <font>
+                                                                <Font size="24.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="lblClock" alignment="CENTER" maxHeight="24.0" prefHeight="47.8828125" prefWidth="132.046875" styleClass="clockLabel" text="12:24:36" textFill="WHITE">
+                                                            <font>
+                                                                <Font size="24.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                            <padding>
+                                                <Insets right="300.0" top="15.0" />
+                                            </padding>
+                                            <HBox.margin>
+                                                <Insets left="270.0" />
+                                            </HBox.margin>
+                                        </HBox>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -103,21 +101,21 @@
                                 <Insets left="50.0" right="50.0" top="20.0" />
                             </VBox.margin>
                         </HBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="1910.0" scaleX="0.9" scaleY="0.9" VBox.vgrow="ALWAYS">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="1910.0" scaleX="0.9" scaleY="0.9" styleClass="pane" VBox.vgrow="ALWAYS">
                             <VBox.margin>
                                 <Insets />
                             </VBox.margin>
                             <children>
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="pane" VBox.vgrow="ALWAYS">
+                                <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: WHITE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                                             <children>
                                                 <ImageView fitHeight="250.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
                                                         <Image url="@../../../../../../../resources/icons/av.png" />
                                                     </image>
                                                 </ImageView>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Audio Visual">
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Audio Visual - Completed by Caitlin">
                                                     <VBox.margin>
                                                         <Insets top="20.0" />
                                                     </VBox.margin>
@@ -132,7 +130,7 @@
                                                         </JFXTextField>
                                                     </children>
                                                 </HBox>
-                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
                                                     <children>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Type of Audio/Visual:" />
                                                         <JFXTextField fx:id="audioVisType" styleClass="lightInput">
@@ -144,7 +142,7 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
-                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Additional specifications:" />
+                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Additional Specifications:" />
                                                         <JFXTextArea fx:id="notes" styleClass="lightInput">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" />
@@ -153,13 +151,19 @@
                                                     </children>
                                                 </HBox>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Pick Up" />
-                                          <JFXCheckBox fx:id="pickUp" text=" " />
-                                       </children></HBox>
+                                                    <children>
+                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Pick Up " />
+                                                        <JFXCheckBox fx:id="pickUp" text=" " />
+                                                    </children>
+                                                </HBox>
+                                                <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0">
+                                                    <font>
+                                                        <Font size="24.0" />
+                                                    </font>
+                                                </Text>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                                     <children>
-                                                        <Button fx:id="submitRequest" mnemonicParsing="false" onAction="#makeAudioVisRequest" text="SUBMIT REQUEST">
+                                                        <Button fx:id="submitRequest" mnemonicParsing="false" onMouseClicked="#makeAudioVisRequest" text="SUBMIT REQUEST">
                                                             <styleClass>
                                                                 <String fx:value="blackButton" />
                                                                 <String fx:value="requestButton" />
@@ -172,11 +176,23 @@
                                                             </styleClass>
                                                         </Button>
                                                     </children>
+                                                    <VBox.margin>
+                                                        <Insets top="20.0" />
+                                                    </VBox.margin>
                                                 </HBox>
                                             </children>
                                         </VBox>
+                                        <VBox alignment="CENTER" prefHeight="961.0" prefWidth="442.0">
+                                            <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Available: " />
+                                                <ListView fx:id="listEmployees" prefHeight="908.0" prefWidth="442.0" />
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                            </padding>
+                                        </VBox>
                                     </children>
-                                </AnchorPane>
+                                </HBox>
                             </children>
                         </VBox>
                     </children>

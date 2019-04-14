@@ -65,6 +65,8 @@ public class addUser {
     private StackPane pane;
     @FXML
     private ImageView tempPhoto;
+    @FXML
+    private ImageView defaultImage;
 
     private void savePhoto(){
         File f = new File("src/resources/tempPhoto.png");
@@ -129,7 +131,7 @@ public class addUser {
     void navigateToHome(MouseEvent event) {
         if (webcam != null)
             webcam.close();
-        Main.setScene("home");
+        Main.setScene("adminUI");
     }
 
     @FXML
@@ -205,19 +207,44 @@ public class addUser {
 
     @FXML
     void initialize() {
-        if (Webcam.getDefault() != null) {
-            webcam = Webcam.getDefault();
-            webcam.open();
-            webcamPanel = new WebcamPanel(webcam, false);
-            pane.getChildren().add(swingNode);
-            createSwingContent(swingNode);
-        } else {
-            errorMessage.setText("No Webcam Found, Resart");
-            errorMessage.setStyle("-fx-text-inner-color: red;");
-        }
+        System.out.println("123");
+
+        String os = System.getProperty("os.name").toLowerCase();
+
+        /*if(os.indexOf("win") >= 0){
+            defaultImage.setFitHeight(0);
+            defaultImage.setFitWidth(0);
+            try{
+                if (Webcam.getDefault() != null) {
+                    System.out.println("Trying...");
+                    webcam = Webcam.getDefault();
+                    webcam.open();
+                    webcamPanel = new WebcamPanel(webcam, false);
+                    pane.getChildren().add(swingNode);
+                    createSwingContent(swingNode);
+                } else {
+                    errorMessage.setText("No Webcam Found, Resart");
+                    errorMessage.setStyle("-fx-text-inner-color: red;");
+                }
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }else{
+            tempPhoto.setFitHeight(0);
+            tempPhoto.setFitWidth(0);
+            tempPhoto.setVisible(false);
+
+            image.setFitHeight(0);
+            image.setFitHeight(0);
+            image.setVisible(false);
+        }*/
+
+
         new Clock(lblClock, lblDate);
 
-        userText.setText(User.getUsername());
+        //userText.setText(User.getUsername());
+        userText.setText("");
 
         assert userText != null : "fx:id=\"userText\" was not injected: check your FXML file 'addUser.fxml'.";
         assert lblDate != null : "fx:id=\"lblDate\" was not injected: check your FXML file 'addUser.fxml'.";

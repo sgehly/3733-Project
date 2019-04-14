@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamM.common.map;
 import com.jfoenix.controls.JFXSlider;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.MapPoint;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Orientation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
@@ -30,27 +32,32 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 public class MapUtils {
 
-    ScrollPane buttonContainer;
+    Pane buttonContainer;
     public Pane buttonPane;
     ImageView image;
     Pane imageView;
     ImageView overlayImage;
     JFXSlider zoomSlider;
     Rectangle2D primaryScreenBounds;
-    EventHandler<ActionEvent> callback;
+    EventHandler<MouseEvent> callback;
     EventHandler<MouseEvent> clickCallback;
+    EventHandler<MouseEvent> dragCallback;
+    EventHandler<MouseEvent> hoverCallback;
+    boolean showHallways = false;
 
 
-    private String[] images = {"00_thelowerlevel2.png", "00_thelowerlevel1.png", "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
-    private String[] labels = {"Lower Level 2", "Lower Level 1", "Floor One", "Floor Two", "Floor Three"};
-    public String[] dbPrefixes = {"L2", "L1", "1", "2", "3"};
+
+    private String[] images = {"00_thegroundfloor.png", "00_thelowerlevel1.png", "00_thelowerlevel2.png",  "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
+    private String[] labels = {"Ground Floor",  "Lower Level 1", "Lower Level 2", "Floor One", "Floor Two", "Floor Three"};
+    public String[] dbPrefixes = {"G", "L1", "L2", "1", "2", "3"};
     private HashMap<Integer, Image> imageFiles = new HashMap<Integer, Image>();
 
-    public int floor = 2;
+    public int floor = 3;
     int width;
     int height;
     double offSetX;
@@ -67,24 +74,27 @@ public class MapUtils {
     public HashMap<String, Button> buttonMap = new HashMap<String,Button>();
 
     //Create needed object instances
-    double cachedScaledWidth = 0;
-    double cachedScaledHeight = 0;
+    public double cachedScaledWidth = 0;
+    public double cachedScaledHeight = 0;
 
-    public MapUtils(ScrollPane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<ActionEvent> callback, EventHandler<MouseEvent> clickCallback) {
+    public MapUtils(Pane buttonContainer, Pane imageView, ImageView image, ImageView overlayImage, JFXSlider zoomSlider, EventHandler<MouseEvent> callback, EventHandler<MouseEvent> clickCallback, boolean showHallways, EventHandler<MouseEvent> dragCallback, EventHandler<MouseEvent> hoverCallback) {
         this.buttonContainer = buttonContainer;
         this.buttonPane = new Pane();
         buttonPane.setLayoutY(buttonContainer.getLayoutY());
         buttonPane.setLayoutX(buttonContainer.getLayoutX());
-        buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
+        //buttonPane.setStyle("-fx-border-color: red;-fx-border-width: 3px");
 
         //buttonContainer.setStyle("-fx-border-color: blue;-fx-border-width: 5px");
-        this.buttonContainer.setContent(buttonPane);
+        this.buttonContainer.getChildren().add(buttonPane);
         this.image = image;
         this.imageView = imageView;
         this.callback = callback;
         this.overlayImage = overlayImage;
         this.zoomSlider = zoomSlider;
         this.clickCallback = clickCallback;
+        this.showHallways = showHallways;
+        this.dragCallback = dragCallback;
+        this.hoverCallback = hoverCallback;
     }
 
     /**
@@ -100,7 +110,7 @@ public class MapUtils {
 
         //The scaled width and height of the image
         if(cachedScaledHeight == 0){
-            cachedScaledHeight = imageView.getBoundsInParent().getHeight()-50;
+            cachedScaledHeight = imageView.getBoundsInParent().getHeight()-45;
             buttonPane.setPrefHeight(cachedScaledHeight);
         }
         if(cachedScaledWidth == 0){
@@ -138,8 +148,14 @@ public class MapUtils {
         try {
             while (rs.next()) {
                 //Create a button and set its size
+                if(!showHallways){
+                    if(rs.getString("nodeType").equals("HALL")){
+                        continue;
+                    }
+                }
+
                 javafx.scene.control.Button newButton = new Button();
-                double size = 5;
+                double size = 6;
                 newButton.setMinWidth(size);
                 newButton.setMaxWidth(size);
                 newButton.setMinHeight(size);
@@ -148,8 +164,9 @@ public class MapUtils {
                 newButton.setMaxHeight(size);
 
                 //Set its id to the node that it will be representing
-                newButton.setId(rs.getString("longName"));
-                newButton.setOnAction(callback);
+                newButton.setId(rs.getString("nodeId"));
+                newButton.setOnMouseClicked(callback);
+                newButton.setOnMouseDragged(this.dragCallback);
 
                 //Generate a map point out of the node button and place it on the screen and make it blue
                 MapPoint generated = scalePoints(rs.getInt("xcoord"), rs.getInt("ycoord"));
@@ -166,6 +183,30 @@ public class MapUtils {
         }
     }
 
+    public void filterNodes(String type){
+        Floor g = Floor.getFloor();
+        for (Node b : buttonPane.getChildren()){
+            for (edu.wpi.cs3733.d19.teamM.utilities.AStar.Node n : g.getNodes().values()) {
+                if (n.getId().equals(b.getId()) && n.getNodeType().equals(type)) {
+                    n.disable();
+                    b.setVisible(false);
+                }
+            }
+        }
+    }
+
+    public void unfilterNodes(String type){
+        Floor g = Floor.getFloor();
+        for (Node b : buttonPane.getChildren()){
+            for (edu.wpi.cs3733.d19.teamM.utilities.AStar.Node n : g.getNodes().values()) {
+                if (n.getId().equals(b.getId()) && n.getNodeType().equals(type)) {
+                    n.enable();
+                    b.setVisible(true);
+                }
+            }
+        }
+    }
+
     public void updatePosition(double newValue){
         /*System.out.println("MINVALS: ("+image.getViewport().getMinX()+","+image.getViewport().getMinY()+")");
         System.out.println("LAYOUTS: "+image.getFitWidth()+"x"+image.getFitHeight());
@@ -179,39 +220,40 @@ public class MapUtils {
         double yBase = (image.getViewport().getMinY()+height)/2;
 
         buttonContainer.setTranslateX(xBase);
-        buttonContainer.setTranslateY(yBase);*
-
-       // buttonContainer.setTranslateX((image.getViewport().getMinX()-image.getViewport().getMinX())/(zoom/2));
-        //buttonContainer.setTranslateY((image.getViewport().getMinY()-image.getViewport().getMinY())/(zoom/2));
-
-
-
-
-        /*double xBase = ((image.getViewport().getMinX()/zoom)+image.getViewport().getMinX());
-        double yBase = ((image.getViewport().getMinY()/zoom)+image.getViewport().getMinY());
-
-        System.out.println(xBase+","+yBase);
-        buttonContainer.setTranslateX(xBase);
         buttonContainer.setTranslateY(yBase);*/
+
+     //   buttonContainer.setTranslateX((image.getViewport().getMinX()-image.getViewport().getMinX())/(zoom/2));
+      //  buttonContainer.setTranslateY((image.getViewport().getMinY()-image.getViewport().getMinY())/(zoom/2));
+
+
+
+
+    //    double xBase = ((image.getViewport().getMinX()/zoom)+image.getViewport().getMinX());
+     //   double yBase = ((image.getViewport().getMinY()/zoom)+image.getViewport().getMinY());
+
+       // System.out.println(xBase+","+yBase);
+     //   buttonContainer.setTranslateX(xBase);
+      //  buttonContainer.setTranslateY(yBase);
         //System.out.println("Changing position");
-        //Rectangle bounds = new Rectangle(image.getViewport().getMinX(), image.getViewport().getMinY(), image.getViewport().getWidth(), image.getViewport().getHeight());
+    //    Rectangle boundy = new Rectangle(image.getViewport().getMinX(), image.getViewport().getMinY(), image.getViewport().getWidth(), image.getViewport().getHeight());
         //System.out.println(bounds.toString());
-        //buttonContainer.setViewportBounds(bounds.);
 
-        Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
+    //   Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
         //System.out.println(bounds.toString());
-        image.setViewport(bounds);
 
-        overlayImage.setViewport(image.getViewport());
+      //  buttonContainer.setViewportBounds(boundy.getLayoutBounds());
 
+   //     overlayImage.setViewport(bounds);
+
+  //      image.setViewport(bounds);
         //System.out.println(bounds);
-        Rectangle boundRect = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
+    //    Rectangle boundRect = new Rectangle(bounds.getMinX(), bounds.getMinY(), bounds.getWidth(), bounds.getHeight());
         //System.out.println(boundRect.toString());
        // buttonContainer.setViewportBounds(boundRect.getLayoutBounds());*/
 
         //Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
-        image.setViewport(bounds);
-        overlayImage.setViewport(image.getViewport());
+       // image.setViewport(bounds);
+        //overlayImage.setViewport(image.getViewport());
     }
 
     /**
@@ -222,7 +264,7 @@ public class MapUtils {
      */
     public ObservableList<DisplayTable> getAllRecords(int floor) throws ClassNotFoundException, SQLException, Exception {
         //Get the query from the database
-
+        System.out.println("123");
         Image source = imageFiles.get(floor);
         image.setImage(source);
         image.setFitWidth(primaryScreenBounds.getWidth());
@@ -277,118 +319,16 @@ public class MapUtils {
         Hscroll.setMax(width);
         Hscroll.setMaxWidth(image.getFitWidth());
         Hscroll.setMinWidth(image.getFitWidth());
-        Hscroll.setTranslateY(-999999);
+       // Hscroll.setTranslateY(-999999);
         Slider Vscroll = new Slider();
         Vscroll.setMin(0);
         Vscroll.setMax(height);
         Vscroll.setMaxHeight(image.getFitHeight());
         Vscroll.setMinHeight(image.getFitHeight());
         Vscroll.setOrientation(Orientation.VERTICAL);
-        Vscroll.setTranslateX(-9999);
 
-        Hscroll.valueProperty().addListener(e -> {
-            offSetX = Hscroll.getValue();
-            zoom = zoomSlider.getValue();
-            double newValue = (double) ((int) (zoom * 10)) / 10;
-            if (offSetX < (width / newValue) / 2) {
-                offSetX = (width / newValue) / 2;
-            }
-            if (offSetX > width - ((width / newValue) / 2)) {
-                offSetX = width - ((width / newValue) / 2);
-            }
-
-            System.out.println("HORIZONTAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity));
-
-            updatePosition(newValue);
-
-        });
-
-        Vscroll.valueProperty().addListener(e -> {
-            offSetY = height - Vscroll.getValue();
-            zoom = zoomSlider.getValue();
-            double newValue = (double) ((int) (zoom * 10)) / 10;
-            if (offSetY < (height / newValue) / 2) {
-                offSetY = (height / newValue) / 2;
-            }
-            if (offSetY > height - ((height / newValue) / 2)) {
-                offSetY = height - ((height / newValue) / 2);
-            }
-
-            System.out.println("VERTICAL SCROLL:"+offSetY+" - "+inity+" = "+(offSetY-inity));
-
-            updatePosition(newValue);
-        });
-
-        /*zoomSlider.valueProperty().addListener(e -> {
-            zoom = zoomSlider.getValue();
-            double newValue = (double) ((int) (zoom * 10)) / 10;
-            if (offSetX < (width / newValue) / 2) {
-                offSetX = (width / newValue) / 2;
-            }
-            if (offSetX > width - ((width / newValue) / 2)) {
-                offSetX = width - ((width / newValue) / 2);
-            }
-            if (offSetY < (height / newValue) / 2) {
-                offSetY = (height / newValue) / 2;
-            }
-            if (offSetY > height - ((height / newValue) / 2)) {
-                offSetY = height - ((height / newValue) / 2);
-            }
-
-            double minX = offSetX - ((width / newValue) / 2);
-            double minY = offSetY - ((height / newValue) / 2);
-
-            Hscroll.setValue(width-offSetX);
-            Vscroll.setValue(height-offSetY);
-
-            buttonPane.setScaleX(newValue);
-            buttonPane.setScaleY(newValue);
-
-            Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
-            image.setViewport(bounds);
-            overlayImage.setViewport(image.getViewport());
-
-            buttonPane.setTranslateX(0);
-            buttonPane.setTranslateY(0);
-            //buttonContainer.setViewportBounds(overlayImage.getLayoutBounds());
-
-            //System.out.println(minX+"/"+minY+"/"+bounds.getMinX()+"/"+bounds.getMinY());
-
-
-        });*/
-
-       // buttonPane.setCursor(Cursor.OPEN_HAND);
-        buttonPane.setOnMousePressed(e -> {
-            //initx = e.getSceneX();
-            //inity = e.getSceneY();
-            //buttonPane.setCursor(Cursor.CLOSED_HAND);
-            clickCallback.handle(e);
-        });
-       /* buttonPane.setOnMouseReleased(e -> {
-            buttonPane.setCursor(Cursor.OPEN_HAND);
-
-        });
-       buttonPane.setOnMouseDragged(e -> {
-            double yikes = Hscroll.getValue() + (initx - e.getSceneX());
-            double oof = Vscroll.getValue() - (inity - e.getSceneY());
-
-            double newValue = (double) ((int) (zoom * 10)) / 10;
-
-            //System.out.println((initx - e.getSceneX())+"/"+(inity - e.getSceneY()));
-           // buttonPane.setTranslateY(oof);
-
-            Hscroll.setValue(yikes);
-            Vscroll.setValue(oof);
-
-            Rectangle2D bounds = new Rectangle2D(offSetX - ((width / newValue) / 2), offSetY - ((height / newValue) / 2), width / newValue, height / newValue);
-
-
-
-
-            initx = e.getSceneX();
-            inity = e.getSceneY();
-
-        });*/
+        buttonPane.setOnMousePressed(this.clickCallback);
+        buttonPane.setOnMouseMoved(this.hoverCallback);
 
         String query = "SELECT * FROM NODE WHERE FLOOR='"+this.getCurrentFloorID()+"'";
         try {
@@ -412,21 +352,19 @@ public class MapUtils {
 
         imageFiles.put(this.floor, new Image(Main.getResource("/resources/maps/"+this.images[this.floor])));
 
-        new Thread(() -> {
-            for (int i = 0; i < images.length; i++) {
-                if (i == this.floor) continue;
-                final int index = i;
-                new Thread(() -> {
-                    imageFiles.put(index, new Image(Main.getResource("/resources/maps/" + this.images[index])));
-                }).start();
-            }
+        for (int i = 0; i < images.length; i++) {
+            if (i == this.floor) continue;
+            final int index = i;
+            new Thread(() -> {
+                imageFiles.put(index, new Image(Main.getResource("/resources/maps/" + this.images[index])));
+            }).start();
+        }
 
-            try{
-                this.getAllRecords(this.floor);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-        }).start();
+        try{
+            this.getAllRecords(this.floor);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void moveUp() throws Exception{
