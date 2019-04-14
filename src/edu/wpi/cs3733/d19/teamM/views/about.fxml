@@ -120,7 +120,10 @@
                                     </Text>
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Worcester Polytechnic Institute" textAlignment="CENTER" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Worcester Polytechnic Institute" textAlignment="CENTER">
+                                             <VBox.margin>
+                                                <Insets top="20.0" />
+                                             </VBox.margin></Text>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Computer Science Department">
                                              <VBox.margin>
                                                 <Insets top="10.0" />
@@ -136,6 +139,16 @@
                                                 <Insets top="10.0" />
                                              </VBox.margin>
                                           </Text>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Coach:" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Matt Lemay">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Text>
+                                             </children>
+                                          </HBox>
                                        </children>
                                     </VBox>
                                     <HBox alignment="CENTER" prefHeight="191.0" prefWidth="1873.0">
@@ -198,7 +211,7 @@
                                           </VBox>
                                        </children>
                                        <VBox.margin>
-                                          <Insets />
+                                          <Insets top="20.0" />
                                        </VBox.margin></HBox>
                                     <HBox alignment="CENTER" prefHeight="121.0" prefWidth="1873.0" spacing="20.0">
                                        <VBox.margin>
