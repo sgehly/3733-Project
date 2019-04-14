@@ -218,11 +218,11 @@ public class DatabaseUtils {
 
             String createTable11 = "create table REQUESTLOG (REQUESTID INTEGER constraint REQUESTLOG_REQUESTID_UINDEX unique, ROOM VARCHAR(100), TYPE VARCHAR(50), SUBTYPE VARCHAR(50), DESCRIPTION VARCHAR(200), CHECKBOX INT, DATE TIMESTAMP, FINISHED_BY VARCHAR(30))";
 
-            String createTable12 = "CREATE TABLE ROOMS (ROOMID VARCHAR(50),CAPACITY INTEGER,DETAILS VARCHAR(200),ROOMTYPE VARCHAR(200));";
+            //String createTable12 = "CREATE TABLE ROOMS (ROOMID VARCHAR(50),CAPACITY INTEGER,DETAILS VARCHAR(200),ROOMTYPE VARCHAR(200));";
 
             String createTable13 = "CREATE TABLE BOOKEDTIMES (ROOMID VARCHAR(50),STARTTIME TIMESTAMP,ENDTIME TIMESTAMP)";
 
-            String clearRooms = "DELETE FROM ROOMS";
+           // String clearRooms = "DELETE FROM ROOMS";
 
             String populateRooms = "insert into ROOMS values('CR_1', 19, 'TBD', 'COMP'),('CR_2', 17, 'TBD', 'COMP'),('CR_3', 17, 'TBD', 'COMP'),('CR_4', 19, 'TBD', 'CLASS'),('CR_5', 25, 'TBD', 'COMP'),('CR_6', 19, 'TBD', 'CLASS'),('CR_7', 17, 'TBD', 'COMP'),('CR_8', 15, 'TBD', 'CLASS')";
             try{
@@ -240,10 +240,10 @@ public class DatabaseUtils {
                 stmt13.executeUpdate(createTable13);
             }catch(Exception e){};
 
-            try{
-                Statement stmt15 = conn2.createStatement();
-                stmt15.executeUpdate(clearRooms);
-            }catch(Exception e){e.printStackTrace();};
+//            try{
+//                Statement stmt15 = conn2.createStatement();
+//                stmt15.executeUpdate(clearRooms);
+//            }catch(Exception e){e.printStackTrace();};
 
             try{
                 Statement stmt14 = conn2.createStatement();

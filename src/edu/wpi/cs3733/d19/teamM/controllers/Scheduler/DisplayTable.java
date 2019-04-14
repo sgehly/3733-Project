@@ -32,7 +32,7 @@ public class DisplayTable {
         this.roomType = new SimpleStringProperty();
         this.type = new SimpleStringProperty();
         this.requestid = new SimpleIntegerProperty();
-        //this.date = new SimpleStringProperty();
+        this.date = new SimpleStringProperty();
         this.filledBy = new SimpleStringProperty();
         this.starttime = new  SimpleStringProperty();
         this.endtime = new  SimpleStringProperty();
