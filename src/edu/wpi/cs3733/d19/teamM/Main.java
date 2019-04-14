@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
 
+import java.awt.*;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -58,30 +59,55 @@ public class Main extends Application {
     public static void setScene(String scene){
         if(scene == "addUser"){
             primaryStage.setScene(addUserScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
         }
         else if(scene == "admin"){
             primaryStage.setScene(adminScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
         }
         else if(scene == "pathfinding"){
             primaryStage.setScene(pathFindingScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
         }
         else if(scene == "scheduling"){
             primaryStage.setScene(schedulerScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
         }
         else if(scene == "serviceRequest"){
             primaryStage.setScene(serviceRequestScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
         }
         else if(scene == "serviceRequestList"){
             primaryStage.setScene(serviceRequestListScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
         }
         else if(scene == "welcome"){
             primaryStage.setScene(welcomeScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
         }
         else if(scene == "login"){
             primaryStage.setScene(loginScene);
+            primaryStage.sizeToScene();
+            primaryStage.setMaximized(true);
+
         }else{
-            try{primaryStage.setScene(new Scene(FXMLLoader.load(Main.getFXMLURL(scene))));}catch(Exception e){e.printStackTrace();}
+            System.out.println("here");
+            try{
+                Scene newScene = new Scene(FXMLLoader.load(Main.getFXMLURL(scene)));
+                primaryStage.setScene(newScene);
+                primaryStage.sizeToScene();
+                primaryStage.setMaximized(true);
+
+            }catch(Exception e){e.printStackTrace();}
        }
+
     }
 
     /**
@@ -193,6 +219,8 @@ public class Main extends Application {
 
         loginPane = FXMLLoader.load(Main.getFXMLURL("login"));
         loginScene = new Scene(loginPane);
+        loginScene.setRoot(loginPane);
+
         welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         welcomeScene= new Scene(welcomePane);
 
@@ -206,11 +234,12 @@ public class Main extends Application {
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setX(bounds.getMinX());
         primaryStage.setY(bounds.getMinY());
+
         primaryStage.setWidth(bounds.getWidth());
         primaryStage.setHeight(bounds.getHeight());
         primaryStage.setFullScreen(false);
+        primaryStage.hide();
         primaryStage.show();
-
 
     }
 
