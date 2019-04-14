@@ -13,15 +13,15 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainContent" minHeight="1080.0" minWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.LogIn.LogInController">
-   <children>
+<AnchorPane fx:id="mainContent" minHeight="1080.0" minWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@/resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.LogIn.LogInController">
+    <children>
       <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
+          <children>
             <MediaView fx:id="mediaView" opacity="0.2" />
             <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0">
-               <children>
+                <children>
                   <VBox alignment="CENTER" maxWidth="300.0">
-                     <children>
+                      <children>
                         <ImageView fitHeight="250.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                            <image>
                               <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
@@ -50,11 +50,11 @@
                               <Font name="Open Sans" size="25.0" />
                            </font>
                         </Label>
-                     </children>
+                      </children>
                   </VBox>
-               </children>
+                </children>
             </VBox>
-         </children>
+          </children>
       </StackPane>
-   </children>
+    </children>
 </AnchorPane>
