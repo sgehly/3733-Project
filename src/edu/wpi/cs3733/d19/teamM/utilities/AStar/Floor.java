@@ -2,15 +2,11 @@ package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import sun.reflect.annotation.ExceptionProxy;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -20,13 +16,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
 public class Floor {
     private static Floor thisFloor;
     Map<String, Node> nodes;
+    SearchAlgorithm dijkstra, aStar, selected;
+    Searchable bfs, dfs, selected2;
 
-    //Path finders
-    Searchable dfs, bfs, dStar, selected;
-    AStar aStar;
 
     private Floor(){
         nodes = new HashMap<>();
@@ -35,8 +32,9 @@ public class Floor {
         aStar = new AStar();
         dfs = new DFS();
         bfs = new BFS();
-        dStar = new DStar();
+        dijkstra = new Dijkstra();
         selected = aStar;
+        selected2 = null;
         try {
             this.populate();
         }
@@ -54,14 +52,20 @@ public class Floor {
 
     public void setAStar(){
         selected = aStar;
+        selected2 = null;
     }
     public void setBFS(){
-        selected = bfs;
+        selected2 = bfs;
+        selected = null;
     }
     public void setDFS(){
-        selected = dfs;
+        selected2 = dfs;
+        selected = null;
     }
-    public void setDStar() {selected = dStar;}
+    public void setDijkstra() {
+        selected = dijkstra;
+        selected2 = null;
+    }
 
     /**
      * Find the path between a start and end node
@@ -70,14 +74,25 @@ public class Floor {
      * @return A Path
      */
     public Path findPath(Node start, Node end){
-        Path p = selected.findPath(start, end);
-        //System.out.println(PathToString.getDirections(p));
+        Path p = null;
+        if(selected != null){
+            p = selected.findPath(start, end);
+            return p;
+        }
+        p = selected2.findPath(start,end);
         return p;
     }
 
-    public Path findPresetPath(Node start, String type, Map<String, Node> n){
-        return aStar.findPresetPath(start, type, n);
+    public Path findPresetPath(Node start, String type,Map<String, Node> n){
+        Path p = null;
+        if(selected != null){
+            p = selected.findPresetPath(start,type,n);
+            return p;
+        }
+        p = selected2.findPresetPath(start,type,n);
+        return p;
     }
+
 
     /**
      * Get a map of all the nodes
@@ -85,6 +100,14 @@ public class Floor {
      */
     synchronized public Map<String, Node> getNodes(){
         return nodes;
+    }
+
+
+    public static Color hex2Rgb(String colorStr) {
+        return new Color(
+                Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),
+                Integer.valueOf( colorStr.substring( 3, 5 ), 16 ),
+                Integer.valueOf( colorStr.substring( 5, 7 ), 16 ) );
     }
 
     /**
@@ -98,9 +121,16 @@ public class Floor {
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         File f;
         Graphics2D g2d = img.createGraphics();
-        g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(15.0f));
         List<Node> allNodes = new ArrayList<>();
+        //use the nodes to create points for each of the nodes (black points)
+        for (Node node : allNodes) {
+            int diameter = 0; //Diameter of the circle
+            g2d.setColor(Color.BLACK);
+            Shape circle = new Ellipse2D.Double(node.getXCoord() - diameter / 2.0, node.getYCoord() - diameter / 2.0, diameter, diameter); //Draw the circle
+            g2d.draw(circle);
+        }
+
         for (Path p : paths) {
             List<Node> nodes = p.getPath();
             for (int i = 0; i < nodes.size() - 1; i++) //For every node except the last one
@@ -108,16 +138,44 @@ public class Floor {
                 allNodes.add(nodes.get(i));
                 Node firstNode = nodes.get(i);
                 Node secondNode = nodes.get(i + 1);
+                g2d.setColor(hex2Rgb("#002041"));
                 g2d.drawLine(firstNode.getXCoord(), firstNode.getYCoord(), secondNode.getXCoord(), secondNode.getYCoord()); //Draw a line from it to the next node
+
+                g2d.setColor(hex2Rgb("#f6bd38"));
+                if (secondNode.getYCoord() - firstNode.getYCoord() > 10 && Math.abs(secondNode.getXCoord() - firstNode.getXCoord()) < 20) {
+                    //Line is moving down.
+                    g2d.drawString("⬇", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2) - 5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2));
+                }
+                else if (secondNode.getYCoord() - firstNode.getYCoord() < -10 && Math.abs(secondNode.getXCoord() - firstNode.getXCoord()) < 20) {
+                    //Line is moving down.
+                    g2d.drawString("⬆", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2) - 5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2));
+                }
+
+                else if (secondNode.getXCoord() - firstNode.getXCoord() > 10 && Math.abs(secondNode.getYCoord() - firstNode.getYCoord()) < 20) {
+                    //Line is moving down.
+                    g2d.drawString("➡", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2), firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                }
+                else if (secondNode.getXCoord() - firstNode.getXCoord() < -10 && Math.abs(secondNode.getYCoord() - firstNode.getYCoord()) < 20) {
+                    //Line is moving down.
+                    g2d.drawString("⬅", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2), firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                }
+                else if(secondNode.getXCoord() - firstNode.getXCoord() < -10 && secondNode.getYCoord() - firstNode.getYCoord() > 10){
+                    g2d.drawString("↙", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                }
+                else if(secondNode.getXCoord() - firstNode.getXCoord() > 10 && secondNode.getYCoord() - firstNode.getYCoord() > 10){
+                    g2d.drawString("↘", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                }
+                else if(secondNode.getXCoord() - firstNode.getXCoord() < -10 && secondNode.getYCoord() - firstNode.getYCoord() < -10){
+                    g2d.drawString("↖", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                }
+                else if(secondNode.getXCoord() - firstNode.getXCoord() > 10 && secondNode.getYCoord() - firstNode.getYCoord() < -10){
+                    g2d.drawString("↗", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                }
+
+
             }
         }
-        //use the nodes to create points for each of the nodes (black points)
-        for (Node node : allNodes) {
-            int diameter = 2; //Diameter of the circle
-            g2d.setColor(Color.BLACK);
-            Shape circle = new Ellipse2D.Double(node.getXCoord() - diameter / 2.0, node.getYCoord() - diameter / 2.0, diameter, diameter); //Draw the circle
-            g2d.draw(circle);
-        }
+
         return SwingFXUtils.toFXImage(img, null);
     }
 

@@ -2,7 +2,7 @@ package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
 import java.util.*;
 
-public class DFS implements Searchable {
+public class DFS implements Searchable{
 
     private Stack<Node> stack;
     private Map<String, Node> visited;
@@ -49,6 +49,34 @@ public class DFS implements Searchable {
         return p;
     }
 
+    public Path findPresetPath(Node start, String destType,Map<String, Node> map){
+        Iterator it = map.entrySet().iterator();
+        Node closest = null;
+        start.setG(0);
+        double lowestCost = 500000;
+        while(it.hasNext()) {
+            Map.Entry set = (Map.Entry) it.next();
+            Node n = (Node) set.getValue();
+            n.setG(n.getDistance(start)); //set its g, h, f, and parent
+            n.setP(getDeltaFloor(n, start) * 1000);
+            n.setB(getDeltaBuilding(n, start) * 5000);
+            n.setF(n.getG() + n.getP() + n.getB());
+            if (n != null && (n.getNodeType().equals(destType))) {
+                System.out.println("Checking Node "+   n.getId());
+                if(n.getF() < lowestCost){
+                    closest = n;
+                    lowestCost = n.getF();
+                }
+            }
+        }
+        if(closest != null){
+            return findPath(start, closest);
+        }
+        else{
+            return null;
+        }
+    }
+
     /**
      * Get next node
      *
@@ -63,7 +91,7 @@ public class DFS implements Searchable {
             if (!beenVisited(e.getEndNode()) && e.getEndNode().isEnabled()){ // If haven't been visited and enabled
                 visited.put(e.getEndNode().getId(), e.getEndNode()); // add to visited
                 e.getEndNode().setParent(n);
-                setHueristics(e.getEndNode(), end);
+                setHeuristics(e.getEndNode(), end);
                 adjNodes.add(e.getEndNode());
             }
         }
@@ -75,11 +103,16 @@ public class DFS implements Searchable {
         return stack.pop();
     }
 
-    private void setHueristics(Node curNode, Node endNode){
+    protected void setHeuristics(Node curNode, Node endNode){
         curNode.setH(curNode.getDistance(endNode));
         curNode.setG(curNode.getParent().getDistance(curNode) + curNode.getParent().getG());
-        curNode.setP(getDeltaFloor(curNode, endNode) * 500);
-        curNode.setB(getDeltaBuilding(curNode, endNode) * 1000);
+        curNode.setB(getDeltaBuilding(curNode, endNode) * 5000);
+        if (curNode.getB() == 0) {
+            curNode.setP(getDeltaFloor(curNode, endNode) * 1000);
+        }
+        else {
+            curNode.setF(getDeltaFloor(curNode, new Node("", 0, 0, "2", "", "", "", "")) * 1000);
+        }
         curNode.setF(curNode.getG() + curNode.getP() + curNode.getH() + curNode.getB());
     }
 
@@ -104,6 +137,7 @@ public class DFS implements Searchable {
         else if (f.equals("1")) return  3;
         else if (f.equals("2")) return  4;
         else if (f.equals("3")) return  5;
+        else if (f.equals("4")) return  6;
         return -1;
     }
 
@@ -111,8 +145,8 @@ public class DFS implements Searchable {
         if(build.equals("BTM")) return 0;
         else if(build.equals("Shapiro")) return 1;
         else if (build.equals("Tower")) return 2;
-        else if(build.equals("45 Francis")) return 3;
-        else if(build.equals("15 Francis")) return 4;
+        else if(build.equals("45 Francis")) return 2;
+        else if(build.equals("15 Francis")) return 2;
         return -1;
     }
 

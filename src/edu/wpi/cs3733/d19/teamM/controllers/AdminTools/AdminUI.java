@@ -137,7 +137,7 @@ public class AdminUI {
     private RadioButton DFS;
 
     @FXML
-    private RadioButton DStar;
+    private RadioButton Dijkstra;
 
     @FXML
     private VBox mapStuff;
@@ -186,8 +186,8 @@ public class AdminUI {
         else if(BFS.isSelected()){
             graph.setBFS();
         }
-        else if (DStar.isSelected()){
-            graph.setDStar();
+        else if (Dijkstra.isSelected()){
+            graph.setDijkstra();
         }
         else{
             graph.setAStar();
@@ -245,17 +245,29 @@ public class AdminUI {
 
     }
 
-    public void updateValues(String nodeId) throws Exception{
+    Line edgeCreationLine;
+    Node edgeCreationStorage;
+    boolean isDrag;
+
+    public void updateValues(String nodeId, boolean shiftDown) throws Exception{
 
         if(storedYellowButton != null){
             storedYellowButton.setStyle("");
+        }
+
+        if(isDrag){
+            isDrag = false;
+            return;
         }
 
         routeArr.forEach(route -> {
             util.buttonPane.getChildren().remove(route);
         });
 
-        System.out.println(nodeId);
+
+
+
+        System.out.println("Updating values...");
         //TODO: Can someone on database make this so SQL Injection can't happen
         String query = "SELECT * FROM NODE WHERE NODEID = ?";
         Connection conn = new DatabaseUtils().getConnection();
@@ -275,6 +287,34 @@ public class AdminUI {
             typeTextBox.setText(rs.getString("nodeType"));
             longNameTextBox.setText(rs.getString("longName"));
             shortNameTextBox.setText(rs.getString("shortName"));
+
+            if(shiftDown){
+                if(edgeCreationStorage != null){
+                    addE(edgeCreationStorage.getId()+"_"+rs.getString("nodeID"));
+                    edgeCreationStorage = null;
+                    edgeCreationLine = null;
+                    startNodeTextBox.setText("");
+                    endNodeTextBox.setText("");
+                }else{
+                    edgeCreationStorage = graph.getNodes().get(rs.getString("nodeID"));
+                    double oX = util.buttonMap.get(edgeCreationStorage.getLongName()).getLayoutX();
+                    double oY = util.buttonMap.get(edgeCreationStorage.getLongName()).getLayoutY();
+
+                    startNodeTextBox.setText(rs.getString("nodeID"));
+
+                    Line pathObj = new Line();
+                    pathObj.setStartX(oX+3);
+                    pathObj.setStartY(oY+3);
+                    pathObj.setEndX(oX+3);
+                    pathObj.setEndY(oY+3);
+                    pathObj.setStrokeWidth(3);
+                    pathObj.setMouseTransparent(true);
+                    pathObj.setStroke(Color.web("#012d5a"));
+                    edgeCreationLine = pathObj;
+                    util.buttonPane.getChildren().add(pathObj);
+                }
+            }
+
 
             String edgeQuery = "SELECT * FROM EDGE WHERE STARTNODE = ? OR ENDNODE = ?";
             PreparedStatement edgeStatement = conn.prepareStatement(edgeQuery);
@@ -308,12 +348,15 @@ public class AdminUI {
                 double twoX = util.buttonMap.get(two.getLongName()).getLayoutX();
                 double twoY = util.buttonMap.get(two.getLongName()).getLayoutY();
 
+
                 Line pathObj = new Line();
-                pathObj.setStartX(oneX+2.5);
-                pathObj.setStartY(oneY+2.5);
-                pathObj.setEndX(twoX+2.5);
-                pathObj.setEndY(twoY+2.5);
-                pathObj.setStyle("-fx-background-color: red");
+                pathObj.setStartX(oneX+3);
+                pathObj.setStartY(oneY+3);
+                pathObj.setEndX(twoX+3);
+                pathObj.setEndY(twoY+3);
+                pathObj.setStrokeWidth(3);
+                pathObj.setMouseTransparent(true);
+                pathObj.setStroke(Color.web("#012d5a"));
                 routeArr.add(pathObj);
                 util.buttonPane.getChildren().add(pathObj);
             }
@@ -322,10 +365,12 @@ public class AdminUI {
         conn.close();
     }
 
-    private void setValues(ActionEvent value){
+
+    private void setValues(MouseEvent value){
         try {
             String nodeId = ((Button)value.getSource()).getId();
-            this.updateValues(nodeId);
+            System.out.println(1);
+            this.updateValues(nodeId, value.isShiftDown());
         }
         catch (Exception e) {
             System.out.println("Error while trying to fetch all records");
@@ -350,6 +395,50 @@ public class AdminUI {
 
     }
 
+    private void hoverCallback(MouseEvent value){
+        System.out.println(value.isShiftDown()+"/"+edgeCreationLine);
+        if(value.isShiftDown() && edgeCreationLine != null){
+            edgeCreationLine.setEndX(edgeCreationLine.getLayoutX()+value.getX()-2.5);
+            edgeCreationLine.setEndY(edgeCreationLine.getLayoutY()+value.getY()-2.5);
+        }else{
+            startNodeTextBox.setText("");
+            endNodeTextBox.setText("");
+            edgeCreationStorage = null;
+            util.buttonPane.getChildren().remove(edgeCreationLine);
+            edgeCreationLine = null;
+        }
+    }
+
+    private void dragCallback(MouseEvent value){
+
+        isDrag = true;
+
+        Button toMove = (Button)value.getSource();
+
+        if(!nodeIdTextBox.getText().equals(toMove.getId())){
+            try{
+                System.out.println(2);
+                this.updateValues(toMove.getId(), value.isShiftDown());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("("+value.getX()+","+value.getY()+")");
+        toMove.setLayoutX(toMove.getLayoutX()+value.getX()-2.5);
+        toMove.setLayoutY(toMove.getLayoutY()+value.getY()-2.5);
+
+        MapPoint original = util.scalePointReversed(toMove.getLayoutX()+value.getX()-2.5, toMove.getLayoutY()+value.getY()-2.5);
+        xCoordTextBox.setText(String.valueOf((int)original.x));
+        yCoordTextBox.setText(String.valueOf((int)original.y));
+
+        routeArr.forEach(route -> {
+            route.setEndX(toMove.getLayoutX()+2.5);
+            route.setEndY(toMove.getLayoutY()+2.5);
+        });
+
+    }
+
     @FXML
     protected void initialize() throws Exception {
         gesturePane.setContent(mapStuff);
@@ -368,14 +457,14 @@ public class AdminUI {
 
         graph = Floor.getFloor();
         path = new Path();
-        util = new MapUtils(buttonContainer, imageView, image, new ImageView(), new JFXSlider(), this::setValues, this::clickValues);
+        util = new MapUtils(buttonContainer, imageView, image, new ImageView(), new JFXSlider(), this::setValues, this::clickValues, true, this::dragCallback, this::hoverCallback);
         util.initialize();
 
     }
 
     @FXML
     public void logout() throws Exception{
-        Main.setScene("welcome");
+        Main.logOut();
     }
 
     @FXML
