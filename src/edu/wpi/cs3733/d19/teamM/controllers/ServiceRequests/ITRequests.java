@@ -100,11 +100,11 @@ public class ITRequests implements Initializable {
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query = "select * FROM users Where ACCOUNTINT = ?";
+        String query = "select * FROM users Where isIT = ?";
         Connection conn = new DatabaseUtils().getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 8); //CHANGE THIS FOR IT EMPLOYEES ???
+            s.setInt(1, 1); //CHANGE THIS FOR IT EMPLOYEES ???
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));
