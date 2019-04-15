@@ -292,7 +292,6 @@ public class ServiceRequestsList {
         String query3 = " DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
 
         String nextPage = getRequestFromTable("incomplete");
-        System.out.println("this is shit:" + getRequestFromTable("incomplete"));
 
         if (requestsInProgress.getFocusModel().getFocusedIndex() == -1) return;
 
@@ -455,7 +454,7 @@ public class ServiceRequestsList {
             //Store the results we get in the entry list display table
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
             requestsInProgress.setItems(entryList);
-
+            conn.close();
             return entryList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
@@ -510,7 +509,7 @@ public class ServiceRequestsList {
     @FXML
     private void exportComplete(ActionEvent event) throws SQLException, ClassNotFoundException {
         System.out.println("in print");
-        String filename = "CompletedRequestxs.csv";
+        String filename = "CompletedRequests.csv";
         try {
             FileWriter file = new FileWriter(filename);
             Connection conn = new DatabaseUtils().getConnection();
@@ -675,6 +674,9 @@ public class ServiceRequestsList {
         }
 
         usersDropDown.setItems(uDropDown);
+        usersDropDown.setOnAction((e) -> {
+            this.disengageComplete();
+        });
 
         requestsInProgress.getSelectionModel().clearSelection();
         requestsCompleted.getSelectionModel().clearSelection();

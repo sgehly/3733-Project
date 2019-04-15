@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.media.MediaView?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+        <?import com.jfoenix.controls.JFXButton?>
+        <?import javafx.geometry.Insets?>
+        <?import javafx.scene.control.Button?>
+        <?import javafx.scene.control.Label?>
+        <?import javafx.scene.control.PasswordField?>
+        <?import javafx.scene.control.TextField?>
+        <?import javafx.scene.image.Image?>
+        <?import javafx.scene.image.ImageView?>
+        <?import javafx.scene.layout.AnchorPane?>
+        <?import javafx.scene.layout.ColumnConstraints?>
+        <?import javafx.scene.layout.GridPane?>
+        <?import javafx.scene.layout.HBox?>
+        <?import javafx.scene.layout.Pane?>
+        <?import javafx.scene.layout.RowConstraints?>
+        <?import javafx.scene.layout.StackPane?>
+        <?import javafx.scene.layout.VBox?>
+        <?import javafx.scene.media.MediaView?>
+        <?import javafx.scene.text.Font?>
+        <?import javafx.scene.text.Text?>
 
 <GridPane fx:id="root" alignment="center" hgap="10" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/resources/stylesheet.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.WelcomeAndLogin.WelcomeAndLogin">
    <columnConstraints>
@@ -30,7 +30,7 @@
        <AnchorPane fx:id="mainContent" onKeyPressed="#onKeyPressed" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-              <MediaView fx:id="mediaView" opacity="0.13" />
+               <MediaView fx:id="mediaView" opacity="0.13" />
                <VBox alignment="CENTER" onMouseClicked="#fadeToLogin" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
                   <children>
                      <Button fx:id="loginButton2" mnemonicParsing="false" onAction="#logIn" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="OVERRIDE LOGIN" VBox.vgrow="SOMETIMES">
@@ -60,17 +60,17 @@
                               <VBox.margin>
                                  <Insets top="40.0" />
                               </VBox.margin>
-                        </Text>
+                           </Text>
                            <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Tap the Screen to Get Started" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
                               <font>
-                                  <Font name="Palatino" size="42.0" />
+                                 <Font name="Palatino" size="42.0" />
                               </font>
                               <VBox.margin>
                                  <Insets top="50.0" />
                               </VBox.margin>
                            </Text>
                            <HBox alignment="CENTER">
-                               <Pane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+                              <Pane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                            </HBox>
                        </VBox>
                         <VBox fx:id="field2FA" maxWidth="499.0" prefHeight="574.0" prefWidth="499.0" spacing="30.0">
@@ -197,7 +197,7 @@
                         <VBox.margin>
                            <Insets />
                         </VBox.margin>
-                   </StackPane>
+                     </StackPane>
                   </children>
                   <StackPane.margin>
                      <Insets />
@@ -205,6 +205,6 @@
                </VBox>
             </children>
          </StackPane>
-       </AnchorPane>
+      </AnchorPane>
    </children>
 </GridPane>
