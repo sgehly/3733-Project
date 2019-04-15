@@ -122,6 +122,7 @@ public class Main extends Application {
             savedState.setState("serviceRequestList");
         }
         else if(scene == "welcome"){
+            try{dmChannel.detach();}catch(Exception e){}
             primaryStage.setScene(welcomeScene);
         }
         else if(scene == "login"){
