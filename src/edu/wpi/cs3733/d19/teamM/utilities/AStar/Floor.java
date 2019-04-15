@@ -116,7 +116,8 @@ public class Floor {
      * @param paths - A Path
      */
     public Image drawPath(List<Path> paths) {
-        int width = 5000; //The given width and height of the image
+        return null;
+        /*int width = 5000; //The given width and height of the image
         int height = 3400;
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         File f;
@@ -139,25 +140,27 @@ public class Floor {
                 Node firstNode = nodes.get(i);
                 Node secondNode = nodes.get(i + 1);
                 g2d.setColor(hex2Rgb("#002041"));
+                g2d.rotate(0);
                 g2d.drawLine(firstNode.getXCoord(), firstNode.getYCoord(), secondNode.getXCoord(), secondNode.getYCoord()); //Draw a line from it to the next node
 
+                g2d.setFont(new Font("Open Sans", Font.PLAIN, 14));
                 g2d.setColor(hex2Rgb("#f6bd38"));
                 if (secondNode.getYCoord() - firstNode.getYCoord() > 10 && Math.abs(secondNode.getXCoord() - firstNode.getXCoord()) < 20) {
                     //Line is moving down.
-                    g2d.drawString("⬇", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2) - 5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2));
+                    g2d.drawString("", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2) - 5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2));
                 }
                 else if (secondNode.getYCoord() - firstNode.getYCoord() < -10 && Math.abs(secondNode.getXCoord() - firstNode.getXCoord()) < 20) {
                     //Line is moving down.
-                    g2d.drawString("⬆", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2) - 5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2));
+                    g2d.drawString("↑", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2) - 5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2));
                 }
 
                 else if (secondNode.getXCoord() - firstNode.getXCoord() > 10 && Math.abs(secondNode.getYCoord() - firstNode.getYCoord()) < 20) {
                     //Line is moving down.
-                    g2d.drawString("➡", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2), firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                    g2d.drawString("→", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2), firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
                 }
                 else if (secondNode.getXCoord() - firstNode.getXCoord() < -10 && Math.abs(secondNode.getYCoord() - firstNode.getYCoord()) < 20) {
                     //Line is moving down.
-                    g2d.drawString("⬅", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2), firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
+                    g2d.drawString("←", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2), firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
                 }
                 else if(secondNode.getXCoord() - firstNode.getXCoord() < -10 && secondNode.getYCoord() - firstNode.getYCoord() > 10){
                     g2d.drawString("↙", firstNode.getXCoord() + ((secondNode.getXCoord() - firstNode.getXCoord()) / 2)-5, firstNode.getYCoord() + ((secondNode.getYCoord() - firstNode.getYCoord()) / 2)+5);
@@ -176,7 +179,7 @@ public class Floor {
             }
         }
 
-        return SwingFXUtils.toFXImage(img, null);
+        return SwingFXUtils.toFXImage(img, null);*/
     }
 
     public void rePopulate(){
