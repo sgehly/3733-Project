@@ -42,7 +42,7 @@ public class AStar extends SearchAlgorithm{
                 Node neighbor = e.getEndNode();
                 if (!closedList.containsKey(neighbor.getId())) { //if its in the closed list, ignore it
                     neighbor.setParent(current);
-                    setHeuristics(neighbor, end);
+                    setHeuristics(neighbor, current);
                     for (Node n : openList.getQueue()) {
                         if (neighbor == n) { //if its in the open list
                             if (neighbor.getG() < n.getG()) { //if the cost of the node cannot be lowered, continue
