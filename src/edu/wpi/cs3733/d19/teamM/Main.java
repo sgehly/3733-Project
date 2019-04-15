@@ -1,13 +1,22 @@
 package edu.wpi.cs3733.d19.teamM;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.IdleMonitor;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.SavedState;
+import io.ably.lib.realtime.AblyRealtime;
+import io.ably.lib.realtime.Channel;
+import io.ably.lib.types.Message;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +24,10 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -60,6 +73,8 @@ public class Main extends Application {
     private static IdleMonitor idleMonitor;
     public static SavedState savedState;
 
+    Channel channel;
+
     /**
      * This method is to return the current stage we are working on for referencing the stage
      * @return Stage: The current stage we are using
@@ -75,56 +90,44 @@ public class Main extends Application {
     public static void setScene(String scene){
         if(scene == "addUser"){
             primaryStage.setScene(addUserScene);
-            //primaryStage.sizeToScene();
-            primaryStage.setMaximized(true);
             savedState.setState("addUser");
         }
         else if(scene == "admin"){
             primaryStage.setScene(adminScene);
-           // primaryStage.sizeToScene();
-            primaryStage.setMaximized(true);
             savedState.setState("admin");
         }
         else if(scene == "pathfinding"){
             primaryStage.setScene(pathFindingScene);
-            //primaryStage.sizeToScene();
-            primaryStage.setMaximized(true);
             savedState.setState("pathfinding");
         }
         else if(scene == "scheduling"){
             primaryStage.setScene(schedulerScene);
-            //primaryStage.sizeToScene();
-            primaryStage.setMaximized(true);
             savedState.setState("scheduling");
         }
         else if(scene == "serviceRequest"){
             primaryStage.setScene(serviceRequestScene);
-            //primaryStage.sizeToScene();
-            primaryStage.setMaximized(true);
             savedState.setState("serviceRequests");
         }
         else if(scene == "serviceRequestList"){
             primaryStage.setScene(serviceRequestListScene);
-           // primaryStage.sizeToScene();
-            primaryStage.setMaximized(true);
             savedState.setState("serviceRequestList");
         }
         else if(scene == "welcome"){
             primaryStage.setScene(welcomeScene);
-           // primaryStage.sizeToScene();
-            primaryStage.setMaximized(true);
         }
         else if(scene == "login"){
             primaryStage.setScene(loginScene);
-            //primaryStage.sizeToScene();
-            primaryStage.setMaximized(true);
         }else{
             try{
                 primaryStage.setScene(new Scene(FXMLLoader.load(Main.getFXMLURL(scene))));
                 //primaryStage.sizeToScene();
-                primaryStage.setMaximized(true);
+                //primaryStage.setMaximized(true);
             }catch(Exception e){e.printStackTrace();}
        }
+
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setMaxWidth(primaryScreenBounds.getWidth());
+        primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
     }
 
     /**
@@ -269,6 +272,44 @@ public class Main extends Application {
         primaryStage.setHeight(bounds.getHeight());
         primaryStage.setFullScreen(false);
         primaryStage.show();
+
+        AblyRealtime ably = new AblyRealtime("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
+
+        channel = ably.channels.get("notifications");
+
+        channel.subscribe(message -> {
+            System.out.println("New message! "+message.name+" - "+message.data.toString());
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    StackPane stackPane = new StackPane();
+                    stackPane.autosize();
+                    JFXDialogLayout content = new JFXDialogLayout();
+                    content.setHeading(new Text(message.name));
+                    content.setBody(new Text(message.data.toString()));
+                    JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
+                    JFXButton button = new JFXButton("Okay");
+                    button.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            dialog.close();
+
+                        }
+                    });
+                    content.setActions(button);
+                    Pane imInPane = (Pane)primaryStage.getScene().getRoot();
+                    imInPane.getChildren().add(stackPane);
+
+                    Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+                    System.out.println(content.getLayoutBounds().getWidth()+"/"+content.getLayoutBounds().getHeight());
+                    AnchorPane.setTopAnchor(stackPane, (primaryScreenBounds.getHeight()/2.5));
+                    AnchorPane.setLeftAnchor(stackPane, (primaryScreenBounds.getHeight()/1.6));
+                    dialog.show();
+                }
+            });
+
+        });
 
 
     }

@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.controllers.Chat;
 
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
@@ -20,7 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Chat {
+public class Notifications {
 
     @FXML
     private Label lblClock;
@@ -32,19 +34,12 @@ public class Chat {
     private Text userText;
 
     @FXML
-    private ListView listEmployees;
+    private JFXTextArea message;
 
     @FXML
-    private ListView messages;
-
-    @FXML
-    private TextField messageBox;
+    private JFXTextField title;
 
     Channel channel;
-
-    ArrayList<String> online = new ArrayList<String>();
-
-    ArrayList<String> messagesArr = new ArrayList<String>();
 
     @FXML
     public void logout() throws Exception {
@@ -58,14 +53,14 @@ public class Chat {
      */
     @FXML
     private void navigateBack() throws Exception {
-        channel.publish(new Message("leave", User.getUsername()));
-        Main.setScene("serviceRequests");
+        Main.setScene("home");
     }
 
     @FXML
     private void sendMessage() throws Exception {
-        channel.publish("message", User.getUsername()+": "+messageBox.getText());
-        messageBox.setText("");
+        channel.publish(title.getText(), message.getText());
+        title.setText("");
+        message.setText("");
     }
 
     @FXML
@@ -76,31 +71,7 @@ public class Chat {
 
         try {
             AblyRealtime ably = new AblyRealtime("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
-
-            channel = ably.channels.get("chat");
-
-            online.add(User.getUsername());
-            channel.subscribe(message -> {
-
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(message.name.equals("join")){
-                            online.add(message.data.toString());
-                            listEmployees.setItems(FXCollections.observableArrayList(online));
-                        }
-                        else if(message.name.equals("leave")){
-                            online.remove(message.data.toString());
-                        }
-                        else{
-                            messagesArr.add(message.data.toString());
-                            messages.setItems(FXCollections.observableArrayList(messagesArr));
-                        }
-                    }
-                });
-
-            });
-            channel.publish(new Message("join", User.getUsername()));
+            channel = ably.channels.get("notifications");
 
         }catch(Exception e){
             e.printStackTrace();

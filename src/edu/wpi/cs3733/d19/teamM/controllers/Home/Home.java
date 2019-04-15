@@ -83,6 +83,11 @@ public class Home{
     }
 
     @FXML
+    public void navigateToNotifications(){
+        Main.setScene("notifications");
+    }
+
+    @FXML
     public void navigateToServiceRequests(){
         Main.setScene("serviceRequest");
     }
