@@ -203,6 +203,8 @@ public class Pathfinding {
             }
         }
 
+        FXCollections.sort(nodeList); // sorted directory alphabetically
+
         directoryList.setItems(nodeList);
         directoryList.setEditable(false);
         directoryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
