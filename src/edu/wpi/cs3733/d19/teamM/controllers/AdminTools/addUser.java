@@ -50,6 +50,8 @@ public class addUser {
     @FXML
     private TextField username;
     @FXML
+    private TextField phoneField;
+    @FXML
     private TextField newPassword;
     @FXML
     private Text userText;
@@ -91,6 +93,7 @@ public class addUser {
                 throw e;
             }
             String tempName = username.getText();
+            String tempPhone = phoneField.getText();
             String tempPass = Encrypt.getMd5(newPassword.getText());
             int tempType = Integer.parseInt(userType.getText());
             Connection conn = new DatabaseUtils().getConnection();
@@ -101,12 +104,12 @@ public class addUser {
                 errorMessage.setText("User Already Exists");
                 throw e;
             }
-            String query = "INSERT INTO USERS (USERNAME, ACCOUNTINT, USERPASS, PATHTOPIC) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO USERS (USERNAME, ACCOUNTINT, USERPASS, PHONEEMAIL) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, tempName);
             stmt.setInt(2, tempType);
             stmt.setString(3, tempPass);
-            stmt.setString(4, "src/resources/People_Pictures/" + tempName + ".png");
+            stmt.setString(4, tempPhone);
             savePhoto();
             System.out.println(tempType);
             stmt.execute();
