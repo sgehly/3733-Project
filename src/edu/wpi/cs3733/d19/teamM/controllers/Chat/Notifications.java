@@ -43,7 +43,6 @@ public class Notifications {
 
     @FXML
     public void logout() throws Exception {
-        channel.publish(new Message("leave", User.getUsername()));
         Main.setScene("welcome");
     }
 
