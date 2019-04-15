@@ -118,7 +118,7 @@ public class ITRequests implements Initializable {
         }
 
         Clock clock = new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+        userText.setText(User.getUsername());
+        //userText.setText("");
     }
 }

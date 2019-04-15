@@ -125,7 +125,7 @@ public class SanitationRequest implements Initializable {
             e.printStackTrace();
         }
         new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+        userText.setText(User.getUsername());
+        //userText.setText("");
     }
 }

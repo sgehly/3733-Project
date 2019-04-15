@@ -121,8 +121,8 @@ public class IntTransportRequest {
             e.printStackTrace();
         }
         new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+        userText.setText(User.getUsername());
+        //userText.setText("");
     }
 
 

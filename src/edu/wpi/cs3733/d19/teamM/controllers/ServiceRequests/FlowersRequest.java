@@ -146,8 +146,8 @@ public class FlowersRequest implements Initializable {
             e.printStackTrace();
         }
 
-        //userText.setText(User.getUsername());
-        userText.setText("");
+        userText.setText(User.getUsername());
+        //userText.setText("");
         TextFields.bindAutoCompletion(flowerType,flowers);
     }
 }

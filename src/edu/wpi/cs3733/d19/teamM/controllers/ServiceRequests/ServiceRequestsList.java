@@ -659,6 +659,9 @@ public class ServiceRequestsList {
     @FXML
     void initialize() {
 
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+
         fulfill.setDisable(true);
         ObservableList<String> uDropDown = FXCollections.observableArrayList();
         try {
@@ -679,10 +682,8 @@ public class ServiceRequestsList {
         requestsInProgress.getSelectionModel().clearSelection();
         requestsCompleted.getSelectionModel().clearSelection();
 
-        new Clock(lblClock, lblDate);
 
-       // userText.setText(User.getUsername());
-        userText.setText("");
+        //userText.setText("");
 
         ObservableList<String> dropdownList = FXCollections.observableArrayList();
         ;

@@ -134,8 +134,8 @@ public class GiftRequest {
 
         });
 
-        //userText.setText(User.getUsername());
-        userText.setText("");
+        userText.setText(User.getUsername());
+        //userText.setText("");
     }
 
 }

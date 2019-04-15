@@ -345,6 +345,9 @@ public class addUser {
     @FXML
     void initialize() {
         System.out.println("123");
+        new Clock(lblClock, lblDate);
+
+        userText.setText(User.getUsername());
 
         String os = System.getProperty("os.name").toLowerCase();
         /*if(os.indexOf("win") >= 0){
@@ -377,10 +380,8 @@ public class addUser {
         }*/
 
 
-        new Clock(lblClock, lblDate);
 
-        //userText.setText(User.getUsername());
-        userText.setText("");
+        //userText.setText("");
 
         assert userText != null : "fx:id=\"userText\" was not injected: check your FXML file 'addUser.fxml'.";
         assert lblDate != null : "fx:id=\"lblDate\" was not injected: check your FXML file 'addUser.fxml'.";
