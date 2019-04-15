@@ -91,6 +91,9 @@ public class PrescriptionRequest {
     @FXML
     private void initialize(){
 
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+
         ObservableList<String> list = FXCollections.observableArrayList();
 
         String query = "select * FROM users Where ACCOUNTINT = ?";
@@ -113,8 +116,7 @@ public class PrescriptionRequest {
         }
 
 
-        new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+
         //userText.setText("");
     }
 }

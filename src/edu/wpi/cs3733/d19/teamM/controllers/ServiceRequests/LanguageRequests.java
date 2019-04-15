@@ -128,6 +128,7 @@ public class LanguageRequests implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 //TODO add user text
         new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
         ObservableList<String> list = FXCollections.observableArrayList();
 
         String query = "select * FROM users Where ACCOUNTINT = ?";
@@ -149,7 +150,7 @@ public class LanguageRequests implements Initializable {
             e.printStackTrace();
         }
 
-        userText.setText(User.getUsername());
+
         //userText.setText("");
         TextFields.bindAutoCompletion(Language,languages);
     }

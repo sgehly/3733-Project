@@ -99,6 +99,8 @@ public class IntTransportRequest {
     }
     @FXML
     private void initialize(){
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
@@ -120,8 +122,7 @@ public class IntTransportRequest {
         catch (Exception e){
             e.printStackTrace();
         }
-        new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+
         //userText.setText("");
     }
 

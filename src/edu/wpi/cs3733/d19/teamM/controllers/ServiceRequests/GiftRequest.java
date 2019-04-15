@@ -98,6 +98,7 @@ public class GiftRequest {
     void initialize()
     {
         new Clock(lblClock,lblDate); //initialize the clock
+        userText.setText(User.getUsername());
         //Create the listener for the text with a few options
 
         ObservableList<String> list = FXCollections.observableArrayList();
@@ -134,7 +135,7 @@ public class GiftRequest {
 
         });
 
-        userText.setText(User.getUsername());
+
         //userText.setText("");
     }
 
