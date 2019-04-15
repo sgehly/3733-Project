@@ -407,6 +407,9 @@ public class Scheduler {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize(){
 
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+
         String strd = "DELETE FROM ROOMS";
         String str1 = "INSERT INTO Rooms VALUES('CR_1', 19, 'TBD', 'COMP')";
         String str2 = "insert into Rooms values('CR_2', 17, 'TBD', 'COMP')";
@@ -475,10 +478,8 @@ public class Scheduler {
             e.printStackTrace();
         }
 
-        new Clock(lblClock, lblDate);
 
-        //userText.setText(User.getUsername());
-        userText.setText("");
+        //userText.setText("");
 
         startDate.setStyle("-jfx-unfocus-color: WHITE;");
         startTime.setStyle("-jfx-unfocus-color: WHITE;");

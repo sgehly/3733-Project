@@ -2,10 +2,14 @@ package edu.wpi.cs3733.d19.teamM.controllers.Scheduler;
 
 
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 public class About {
     @FXML
@@ -15,6 +19,15 @@ public class About {
     private ImageView back;
 
     @FXML
+    private Text userText;
+
+    @FXML
+    Label lblClock;
+
+    @FXML
+    private Label lblDate;
+
+    @FXML
     private void navigateToHome() throws Exception{
         Main.setScene("home");
     }
@@ -22,5 +35,11 @@ public class About {
     @FXML
     private void navigateToWelcome() throws Exception{
         Main.setScene("welcome");
+    }
+
+    @FXML
+    void initialize() {
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
     }
 }

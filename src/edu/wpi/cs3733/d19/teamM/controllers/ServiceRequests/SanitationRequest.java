@@ -104,6 +104,9 @@ public class SanitationRequest implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+
         ObservableList<String> list = FXCollections.observableArrayList();
 
         String query = "select * FROM users Where ACCOUNTINT = ?";
@@ -124,8 +127,7 @@ public class SanitationRequest implements Initializable {
         catch (Exception e){
             e.printStackTrace();
         }
-        new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+
+        //userText.setText("");
     }
 }

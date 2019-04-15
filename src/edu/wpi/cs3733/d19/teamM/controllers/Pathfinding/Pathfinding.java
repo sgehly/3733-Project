@@ -170,11 +170,13 @@ public class Pathfinding {
      */
     @FXML
     protected void initialize() throws Exception {
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+
         gesturePane.setContent(mappingStuff);
 
-        new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+
+        //userText.setText("");
 
         new Thread(() -> {
             try{
@@ -206,6 +208,8 @@ public class Pathfinding {
                 nodeList.add(n.getLongName());
             }
         }
+
+        FXCollections.sort(nodeList); // sorted directory alphabetically
 
         directoryList.setItems(nodeList);
         directoryList.setEditable(false);

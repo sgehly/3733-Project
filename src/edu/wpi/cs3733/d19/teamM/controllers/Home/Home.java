@@ -127,16 +127,12 @@ public class Home{
     void initialize() throws IOException, AblyException {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
-        userText.setText("");
-        try{
-            File f = new File(User.getPathToPic());
-            Image image = new Image(f.toURI().toString());
-            myImg.setStyle("-fx-background-radius: 1000; -fx-border-radius:1000");
-            myImg.setImage(image);
-            myImg.setClip(new Circle(24.5,24.5,24));
-        }
-        catch(Exception e){e.printStackTrace();}
-
+        //userText.setText("");
+        File f = new File(User.getPathToPic());
+        Image image = new Image(f.toURI().toString());
+        myImg.setStyle("-fx-background-radius: 1000; -fx-border-radius:1000");
+        myImg.setImage(image);
+        myImg.setClip(new Circle(24.5,24.5,24));
         welcomeMessage.setText("Welcome to Brigham and Women's, " + User.getUsername());
 
 
