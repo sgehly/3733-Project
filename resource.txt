@@ -1,0 +1,26 @@
+
+<<<Directions for floor 1>>>
+
+Start at Asthma Research Floor 1, move towards Staircase MapNode 13 Floor 1
+At Staircase MapNode 13 Floor 1, take a slight right turn
+Arrive at Stairway MapNode 5 Floor 1
+<<<Directions for floor 2>>>
+
+Start at Stairs Node 28 Floor 2, move towards Hall Node 32 Floor 2
+At Hall Node 32 Floor 2, remain straight
+At Hall Node 33 Floor 2, remain straight
+At Hall Node 37 Floor 2, remain straight
+At Hallway Connector 9 Floor 2, remain straight
+At Hallway Connector 10 Floor 2, remain straight
+At Hall, take a right turn
+At Hall, take a left turn
+Arrive at Stairs Floor 2
+<<<Directions for floor 1>>>
+
+Start at Cafe Stairs, move towards Hall
+At Hall, take a left turn
+At Hall, take a right turn
+At Hall, remain straight
+At Hall, take a left turn
+At Hall, take a left turn
+Arrive at MS Waiting

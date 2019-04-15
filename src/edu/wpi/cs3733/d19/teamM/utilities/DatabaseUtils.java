@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.utilities;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.sql.*;
 
+import com.gluonhq.charm.down.common.PlatformFactory;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 
@@ -20,6 +23,17 @@ public class DatabaseUtils {
     public Connection getConnection(){
         try{
             Class.forName("SQLite.JDBCDriver");
+
+            File dir;
+
+            try {
+                dir = PlatformFactory.getPlatform().getPrivateStorage();
+                File db = new File (dir, "myDB");
+                dbPath = dbPath + db.getAbsolutePath();
+            } catch (IOException ex) {
+                System.out.println("Error " + ex);
+            }
+
             return DriverManager.getConnection(dbPath);
         }catch(Exception e){
             e.printStackTrace();

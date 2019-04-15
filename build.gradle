@@ -34,6 +34,8 @@ configurations {
     extraLibs
 }
 
+
+
 dependencies {
     implementation 'com.google.guava:guava:27.0.1-jre'
     //implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
@@ -53,6 +55,10 @@ dependencies {
     compile group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.4'
     compile group: 'com.github.sarxos', name: 'webcam-capture-driver-jmf', version: '0.3.11'
     compile group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'
+
+    compile "com.gluonhq:charm-down-common:2.0.1"
+    compile 'com.gluonhq:charm-down-ios:2.0.1'
+    compile group: 'com.gluonhq', name: 'charm-down-core-ios', version: '3.8.6'
 
     compile(files('Team-G-Food-Request.jar'))
     compile 'io.ably:ably-java:1.1.0'
@@ -137,6 +143,7 @@ jfxmobile {
         infoPList = file('src/ios/Default-Info.plist')
         forceLinkClasses = [
                 'com.gluonhq.**.*',
+
                 'javax.annotations.**.*',
                 'javax.inject.**.*',
                 'javax.json.**.*',
@@ -152,7 +159,10 @@ jfxmobile {
                 'javax.naming.directory.*',
                 'javax.transaction.xa.*',
                 'java.awt.**.*',
-                'io.ably.**.*'
+                'io.ably.**.*',
+                'org.jfxtras.**.*',
+                'nl.softwork.**.*',
+                'org.msgpack.**.*',
         ]
     }
 }

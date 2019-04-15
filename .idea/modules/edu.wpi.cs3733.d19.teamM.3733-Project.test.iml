@@ -23,6 +23,8 @@
     <orderEntry type="library" name="Gradle: com.github.sarxos:webcam-capture-driver-jmf:0.3.11" level="project" />
     <orderEntry type="library" name="Gradle: com.github.sarxos:webcam-capture:0.3.11" level="project" />
     <orderEntry type="library" name="Gradle: net.kurobako:gesturefx:0.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.gluonhq:charm-down-common:2.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.gluonhq:charm-down-core-ios:3.8.6" level="project" />
     <orderEntry type="library" name="Gradle: io.ably:ably-java:1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:guava:27.0.1-jre" level="project" />
     <orderEntry type="library" name="Gradle: com.jfoenix:jfoenix:8.0.8" level="project" />
