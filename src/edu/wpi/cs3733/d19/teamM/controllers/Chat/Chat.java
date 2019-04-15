@@ -78,8 +78,6 @@ public class Chat {
             AblyRealtime ably = new AblyRealtime("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
 
             channel = ably.channels.get("chat");
-
-            online.add(User.getUsername());
             channel.subscribe(message -> {
 
                 Platform.runLater(new Runnable() {
@@ -100,6 +98,7 @@ public class Chat {
                 });
 
             });
+
             channel.publish(new Message("join", User.getUsername()));
 
         }catch(Exception e){
