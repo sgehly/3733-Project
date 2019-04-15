@@ -89,11 +89,13 @@ public class DMs {
             listChannel = ably.channels.get("notifications");
 
             userBox.setOnAction((e) -> {
-                if(((String)userBox.getSelectionModel().getSelectedItem()).equals("")){
-                    return;
-                }
-                System.out.println("Setting user channel to "+(String)userBox.getSelectionModel().getSelectedItem());
-                userChannel = ably.channels.get("usernotify-"+(String)userBox.getSelectionModel().getSelectedItem());
+                Platform.runLater(() -> {
+                    if(((String)userBox.getSelectionModel().getSelectedItem()).equals("")){
+                        return;
+                    }
+                    System.out.println("Setting user channel to "+(String)userBox.getSelectionModel().getSelectedItem());
+                    userChannel = ably.channels.get("usernotify-"+(String)userBox.getSelectionModel().getSelectedItem());
+                });
             });
 
             PresenceMessage[] members = listChannel.presence.get();

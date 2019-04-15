@@ -10,8 +10,10 @@ import edu.wpi.cs3733.d19.teamM.utilities.Timeout.IdleMonitor;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.SavedState;
 import io.ably.lib.realtime.AblyRealtime;
 import io.ably.lib.realtime.Channel;
+import io.ably.lib.realtime.CompletionListener;
 import io.ably.lib.types.ChannelOptions;
 import io.ably.lib.types.ClientOptions;
+import io.ably.lib.types.ErrorInfo;
 import io.ably.lib.types.Message;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -358,6 +360,18 @@ public class Main extends Application {
                 }
             });
 
+        });
+
+        channel.presence.enter("fjklsdnfjkdf", new CompletionListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(ErrorInfo reason) {
+
+            }
         });
     }
 
