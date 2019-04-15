@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 
+import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
@@ -198,8 +199,7 @@ public class Floor {
      */
     private void populateNodes() throws Exception{
         String cmd = "select * from node";
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-        Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+        Connection conn = new DatabaseUtils().getConnection();
         Statement stmt = conn.createStatement();
         ResultSet set = stmt.executeQuery(cmd);
         while (set.next()) {
@@ -223,8 +223,7 @@ public class Floor {
      */
     private void populateEdges() throws Exception{
         String cmd = "select * from edge";
-        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-        Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+        Connection conn = new DatabaseUtils().getConnection();
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(cmd);
         Node n1, n2;

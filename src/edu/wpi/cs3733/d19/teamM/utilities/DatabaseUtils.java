@@ -149,7 +149,7 @@ public class DatabaseUtils {
     }
 
     public void connect(){
-        try {
+       // try {
             Connection conn = this.getConnection();
             String createTable1 = "CREATE TABLE node(NODEID varchar(20) PRIMARY KEY NOT NULL, XCOORD int, ycoord int, floor varchar(2), building varchar(15), nodetype varchar(4), longname varchar(100), shortname varchar(100))";
             String createTable14 = "CREATE TABLE edge(edgeid varchar(21) PRIMARY KEY NOT NULL, startnode varchar(10), endnode varchar(10))";
@@ -169,27 +169,39 @@ public class DatabaseUtils {
             try {
                 Statement stmt1 = conn.createStatement();
                 stmt1.executeUpdate(createTable1);
-            }catch(Exception e){};
+                System.out.println("Node created!");
+            }catch(Exception e){
+                e.printStackTrace();
+            };
             try{
                 Statement stmt14 = conn.createStatement();
                 stmt14.executeUpdate(createTable14);
-            }catch(Exception e){}
+                System.out.println("Edge created!");
+            }catch(Exception e){e.printStackTrace();}
             try {
                 Statement stmt8 = conn.createStatement();
                 stmt8.executeUpdate(createTable8);
-            }catch(Exception e){};
+                System.out.println("Rooms created!");
+            }catch(Exception e){e.printStackTrace();};
             try {
                 Statement stmt9 = conn.createStatement();
                 stmt9.executeUpdate(createTable9);
-            }catch(Exception e){};
+                System.out.println("BookedTimes created!");
+            }catch(Exception e){e.printStackTrace();};
             try {
                 Statement stmt10 = conn.createStatement();
                 stmt10.executeUpdate(createTable10);
-            }catch(Exception e){};
+                System.out.println("RIP created!");
+            }catch(Exception e){
+                e.printStackTrace();
+            };
             try {
                 Statement stmt20 = conn.createStatement();
                 stmt20.executeUpdate(createTable20);
-            }catch(Exception e){};
+                System.out.println("Users created!");
+            }catch(Exception e){
+                e.printStackTrace();
+            };
             try {
                 Statement stmt13 = conn.createStatement();
                 stmt13.executeUpdate(createTable13);
@@ -224,17 +236,17 @@ public class DatabaseUtils {
 //                Statement stmt35 = conn.createStatement();
 //                stmt35.executeUpdate(insert6);
 //            }catch(Exception e){};
-            conn.close();
-        }catch(Exception e){e.printStackTrace();};
+            try{conn.close();}catch(Exception e){e.printStackTrace();}
+        //}catch(Exception e){e.printStackTrace();};
 
-        try{
+        //try{
             Connection conn2 = this.getConnection();
 
             String createTable11 = "create table REQUESTLOG (REQUESTID INTEGER constraint REQUESTLOG_REQUESTID_UINDEX unique, ROOM VARCHAR(100), TYPE VARCHAR(50), SUBTYPE VARCHAR(50), DESCRIPTION VARCHAR(200), CHECKBOX INT, DATE TIMESTAMP, FINISHED_BY VARCHAR(30))";
 
             //String createTable12 = "CREATE TABLE ROOMS (ROOMID VARCHAR(50),CAPACITY INTEGER,DETAILS VARCHAR(200),ROOMTYPE VARCHAR(200));";
 
-            String createTable13 = "CREATE TABLE BOOKEDTIMES (ROOMID VARCHAR(50),STARTTIME TIMESTAMP,ENDTIME TIMESTAMP)";
+            String createTable131 = "CREATE TABLE BOOKEDTIMES (ROOMID VARCHAR(50),STARTTIME TIMESTAMP,ENDTIME TIMESTAMP)";
 
            // String clearRooms = "DELETE FROM ROOMS";
 
@@ -250,8 +262,8 @@ public class DatabaseUtils {
             }catch(Exception e){};
 
             try{
-                Statement stmt13 = conn2.createStatement();
-                stmt13.executeUpdate(createTable13);
+                Statement stmt131 = conn2.createStatement();
+                stmt131.executeUpdate(createTable131);
             }catch(Exception e){};
 
 //            try{
@@ -264,9 +276,9 @@ public class DatabaseUtils {
                 stmt14.executeUpdate(populateRooms);
             }catch(Exception e){e.printStackTrace();};
 
-            conn2.close();
+            try{conn2.close();}catch(Exception e){e.printStackTrace();}
 
-        }catch(Exception e){e.printStackTrace();};
+        //}catch(Exception e){e.printStackTrace();};
 
     }
 

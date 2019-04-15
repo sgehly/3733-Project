@@ -261,6 +261,12 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        DatabaseUtils parser = new DatabaseUtils();
+        parser.connect();
+        parser.nodeParse();
+        parser.edgeParse();
+
         Runnable loadPathfindingThread = () -> {
             try {
                 pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
