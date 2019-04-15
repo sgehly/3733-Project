@@ -113,6 +113,14 @@ public class WelcomeAndLogin {
     @FXML
     private Label loginError;
 
+    @FXML
+    private HBox codeBox;
+
+    @FXML
+    private Label codeLabel;
+
+
+
 
     private SequentialTransition welcomeToLoginTransition; //used to make transition between welcome and login
     private SequentialTransition loginToPhoneTransition;
@@ -121,6 +129,7 @@ public class WelcomeAndLogin {
     private boolean hasNotBeenClicked; //trigger to indicate whether the screen has been clicked or not
     private boolean hasNotBeenClicked2; //trigger to indicate whether the login button has been pressed yet
     private boolean hasNotBeenClicked3; //trigger to indicate whether the phone code has been sent
+    private boolean hasBeenAdjusted; //triggers when the code boxes move
 
 
 
@@ -145,9 +154,8 @@ public class WelcomeAndLogin {
         loginBox.setOpacity(0);
         loginBox.setDisable(true);
 
-        sent.setVisible(false);
-        wrong.setVisible(false);
         tabTrigger = false;
+        hasBeenAdjusted = false;
 
         //setting up the transition between welcome and login
         welcomeToLoginTransition = new SequentialTransition();
@@ -159,10 +167,11 @@ public class WelcomeAndLogin {
 
         //setting up the transition between phone and code
         phoneToCodeTransition = new SequentialTransition();
-        phoneToCodeTransition.getChildren().addAll(this.fadeIn(codeField, 500),this.fadeOut(phoneField, 250), this.fadeCusion(welcomeField, 50), this.raise(codeField, 250, 85));
+        phoneToCodeTransition.getChildren().addAll(this.fadeIn(codeField, 500),this.fadeOut(phoneField, 100), this.fadeCusion(welcomeField, 50), this.raise(codeField, 100, 85));
 
         titleLabel.setOpacity(0);
         loginError.setOpacity(0);
+        wrong.setOpacity(0);
 
 
 
@@ -217,7 +226,15 @@ public class WelcomeAndLogin {
     @FXML
     public void displayLogin(){
         loginBox.setDisable(false);
-        this.fadeIn(loginBox,1000).play();
+        SequentialTransition loginAppear = new SequentialTransition();
+        if(!hasBeenAdjusted) {
+            loginAppear.getChildren().addAll(this.fadeOut(codeLabel, 250), this.left(codeBox, 750, 200), this.fadeIn(loginBox, 500));
+            loginAppear.play();
+            hasBeenAdjusted = true;
+        }
+        else{
+
+        }
     }
 
 
@@ -248,6 +265,22 @@ public class WelcomeAndLogin {
         raise.setNode(anyNode);
         raise.setByY(0-distance);
         return raise;
+    }
+
+    private TranslateTransition left(Node anyNode, int duration, int distance){
+        TranslateTransition raise = new TranslateTransition();
+        raise.setDuration(Duration.millis(duration));
+        raise.setNode(anyNode);
+        raise.setByX(0-distance);
+        return raise;
+    }
+
+    private TranslateTransition right(Node anyNode, int duration, int distance){
+        TranslateTransition right = new TranslateTransition();
+        right.setDuration(Duration.millis(duration));
+        right.setNode(anyNode);
+        right.setByX(distance);
+        return right;
     }
 
     private FadeTransition fadeCusion(Node anyNode, int duration) {
@@ -401,12 +434,14 @@ public class WelcomeAndLogin {
         hasNotBeenClicked = true;
         hasNotBeenClicked2 = true;
         hasNotBeenClicked3 = true;
+        hasBeenAdjusted = false;
         loginField.setDisable(true);
         phoneField.setDisable(true);
         welcomeField.setDisable(false);
         codeField.setDisable(false);
         loginBox.setDisable(false);
         this.clearFields();
+        this.right(codeBox,10,200);
 
         tabTrigger = false;
         this.drop(codeField,10,85).play();
@@ -434,12 +469,6 @@ public class WelcomeAndLogin {
             System.out.println(phoneNumber.getText());
             if(emailNumber1.equals(phoneNumber.getText())){
                 String numberEmail = phoneNumber.getText();
-                if(numberEmail.compareTo("") == 1){
-                    sent.setTextFill(Color.web("#ff0000"));
-                    sent.setText("Please enter an email or phone number");
-                    sent.setVisible(true);
-                    System.out.println("Nothing");
-                }
                 int myCode = (int)generateCode();
                 Twilio.init("ACbfbd0226f179ee74597c887298cbda10", "eeb459634d5a8407d077635504386d44");
                 if (!numberEmail.contains("@")) {
@@ -447,16 +476,16 @@ public class WelcomeAndLogin {
                         Message message = Message.creator(new PhoneNumber(numberEmail), new PhoneNumber("+15085383787"), "Hello from Brigham & Women's! Your authentication code is " + myCode).create();
                         TwoFactor myFactor = TwoFactor.getTwoFactor();
                         myFactor.setTheCode(myCode);
-                        sent.setTextFill(Color.web("#009933"));
-                        sent.setText("Code sent");
-                        sent.setVisible(true);
+                        wrong.setTextFill(Color.web("#009933"));
+                        wrong.setText("Code sent");
+                        this.fadeIn(wrong,1000);
                         System.out.println("sent");
                         this.transitionToCode();
                     } catch (Exception e) {
                         e.printStackTrace();
-                        sent.setTextFill(Color.web("#ff0000"));
-                        sent.setText("Could not send your code");
-                        sent.setVisible(true);
+                        wrong.setTextFill(Color.web("#ff0000"));
+                        wrong.setText("Could not send your code");
+                        this.fadeIn(wrong,1000);
                         System.out.println("failed");
                     }
                 }
@@ -504,9 +533,10 @@ public class WelcomeAndLogin {
             this.logIn();
         }
         else{
+            this.fadeIn(wrong, 750);
             wrong.setTextFill(Color.web("#ff0000"));
             wrong.setText("Code is incorrect");
-            wrong.setVisible(true);
+
         }
     }
 
