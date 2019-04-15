@@ -51,6 +51,8 @@ dependencies {
     compile group: 'com.github.sarxos', name: 'webcam-capture-driver-jmf', version: '0.3.11'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
 
+    compile 'io.ably:ably-java:1.1.0'
+
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 

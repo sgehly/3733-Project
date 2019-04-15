@@ -75,53 +75,53 @@ public class Main extends Application {
     public static void setScene(String scene){
         if(scene == "addUser"){
             primaryStage.setScene(addUserScene);
-            primaryStage.sizeToScene();
+            //primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
             savedState.setState("addUser");
         }
         else if(scene == "admin"){
             primaryStage.setScene(adminScene);
-            primaryStage.sizeToScene();
+           // primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
             savedState.setState("admin");
         }
         else if(scene == "pathfinding"){
             primaryStage.setScene(pathFindingScene);
-            primaryStage.sizeToScene();
+            //primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
             savedState.setState("pathfinding");
         }
         else if(scene == "scheduling"){
             primaryStage.setScene(schedulerScene);
-            primaryStage.sizeToScene();
+            //primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
             savedState.setState("scheduling");
         }
         else if(scene == "serviceRequest"){
             primaryStage.setScene(serviceRequestScene);
-            primaryStage.sizeToScene();
+            //primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
             savedState.setState("serviceRequests");
         }
         else if(scene == "serviceRequestList"){
             primaryStage.setScene(serviceRequestListScene);
-            primaryStage.sizeToScene();
+           // primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
             savedState.setState("serviceRequestList");
         }
         else if(scene == "welcome"){
             primaryStage.setScene(welcomeScene);
-            primaryStage.sizeToScene();
+           // primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
         }
         else if(scene == "login"){
             primaryStage.setScene(loginScene);
-            primaryStage.sizeToScene();
+            //primaryStage.sizeToScene();
             primaryStage.setMaximized(true);
         }else{
             try{
                 primaryStage.setScene(new Scene(FXMLLoader.load(Main.getFXMLURL(scene))));
-                primaryStage.sizeToScene();
+                //primaryStage.sizeToScene();
                 primaryStage.setMaximized(true);
             }catch(Exception e){e.printStackTrace();}
        }
