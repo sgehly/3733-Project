@@ -10,6 +10,7 @@ public class User {
     private static String pathToPic;
 
     public static String getUsername() {
+        if(username == null) return "Guest";
         return username.substring(0, 1).toUpperCase() + username.substring(1);
     }
     public static void setUsername(String username) {
