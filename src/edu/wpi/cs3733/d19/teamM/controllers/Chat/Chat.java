@@ -5,7 +5,12 @@ import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import io.ably.lib.realtime.AblyRealtime;
 import io.ably.lib.realtime.Channel;
+import io.ably.lib.realtime.CompletionListener;
+import io.ably.lib.realtime.Presence;
+import io.ably.lib.types.ClientOptions;
+import io.ably.lib.types.ErrorInfo;
 import io.ably.lib.types.Message;
+import io.ably.lib.types.PresenceMessage;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -75,7 +80,9 @@ public class Chat {
         userText.setText("");
 
         try {
-            AblyRealtime ably = new AblyRealtime("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
+            ClientOptions options = new ClientOptions("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
+            options.clientId = User.getUsername();
+            AblyRealtime ably = new AblyRealtime(options);
 
             channel = ably.channels.get("chat");
             channel.subscribe(message -> {
@@ -83,23 +90,42 @@ public class Chat {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        if(message.name.equals("join")){
-                            online.add(message.data.toString());
-                            listEmployees.setItems(FXCollections.observableArrayList(online));
-                        }
-                        else if(message.name.equals("leave")){
-                            online.remove(message.data.toString());
-                        }
-                        else{
-                            messagesArr.add(message.data.toString());
-                            messages.setItems(FXCollections.observableArrayList(messagesArr));
-                        }
+                        messagesArr.add(message.data.toString());
+                        messages.setItems(FXCollections.observableArrayList(messagesArr));
                     }
                 });
 
             });
 
-            channel.publish(new Message("join", User.getUsername()));
+            PresenceMessage[] members = channel.presence.get();
+            for(int i=0;i<members.length;i++){
+                online.add(members[i].clientId);
+                listEmployees.setItems(FXCollections.observableArrayList(online));
+            }
+
+            channel.presence.subscribe(new Presence.PresenceListener() {
+                @Override
+                public void onPresenceMessage(PresenceMessage member) {
+                    if(member.action == PresenceMessage.Action.enter){
+                        online.add(member.clientId);
+                    }
+                    if(member.action == PresenceMessage.Action.leave){
+                        online.remove(member.clientId);
+                    }
+                    listEmployees.setItems(FXCollections.observableArrayList(online));
+                }
+            });
+
+            channel.presence.enter("iskrattar du förlorar du", new CompletionListener() {
+                @Override
+                public void onSuccess() {
+
+                }
+                @Override
+                public void onError(ErrorInfo info) {
+
+                }
+            });
 
         }catch(Exception e){
             e.printStackTrace();
