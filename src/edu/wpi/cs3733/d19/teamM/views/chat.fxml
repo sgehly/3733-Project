@@ -35,7 +35,7 @@
                                                 <Insets right="10.0" />
                                             </HBox.margin>
                                             <image>
-                                                <Image url="@/resources/icons/icons8-circled_left_2.png" />
+                                                <Image url="@/resources/icons/icons8-home.png" />
                                             </image>
                                         </ImageView>
                                         <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
@@ -110,7 +110,7 @@
                                     <ListView fx:id="messages" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: rgba(0,0,0,.1);">
                                        <children>
-                                          <TextField fx:id="messageBox" minHeight="75.0" HBox.hgrow="ALWAYS">
+                                          <TextField onKeyPressed="#onEnterPressed" fx:id="messageBox" minHeight="75.0" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
                                                 <Insets />
                                              </HBox.margin>

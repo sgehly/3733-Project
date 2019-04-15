@@ -58,7 +58,7 @@ public class Notifications {
 
     @FXML
     private void sendMessage() throws Exception {
-        channel.publish(title.getText(), message.getText());
+        channel.publish(title.getText(), message.getText()+" \n\nSent by "+User.getUsername());
         title.setText("");
         message.setText("");
     }

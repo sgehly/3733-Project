@@ -175,7 +175,7 @@
                            <children>
                               <JFXButton onMouseClicked="#navigateToChat" maxWidth="9999.0" styleClass="logoutButton" text="INTERNAL CHAT" HBox.hgrow="ALWAYS" />
                               <JFXButton onMouseClicked="#navigateToNotifications" maxWidth="550.0" styleClass="logoutButton" text="SEND NOTIFICATION" HBox.hgrow="ALWAYS" />
-                              <JFXButton maxWidth="99999.0" styleClass="logoutButton" text="SEND MESSAGE" HBox.hgrow="ALWAYS" />
+                              <JFXButton onMouseClicked="#navigateToDMs" maxWidth="99999.0" styleClass="logoutButton" text="SEND MESSAGE" HBox.hgrow="ALWAYS" />
                               <JFXButton maxWidth="99999.0" onAction="#navigateToAbout" styleClass="logoutButton" text="ABOUT" HBox.hgrow="ALWAYS" />
                            </children>
                            <VBox.margin>

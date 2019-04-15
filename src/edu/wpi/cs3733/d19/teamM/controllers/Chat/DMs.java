@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d19.teamM.controllers.Chat;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
@@ -17,7 +20,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -26,7 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Chat {
+public class DMs {
 
     @FXML
     private Label lblClock;
@@ -38,33 +40,22 @@ public class Chat {
     private Text userText;
 
     @FXML
-    private ListView listEmployees;
+    private JFXTextArea message;
 
     @FXML
-    private ListView messages;
+    private JFXComboBox userBox;
 
     @FXML
-    private TextField messageBox;
+    private JFXTextField title;
 
-    Channel channel;
+    Channel listChannel;
+    Channel userChannel;
 
-    ArrayList<String> online = new ArrayList<String>();
-
-    ArrayList<String> messagesArr = new ArrayList<String>();
+    ArrayList<String> onlineUsers = new ArrayList<String>();
 
     @FXML
     public void logout() throws Exception {
-        channel.presence.leave(new CompletionListener() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onError(ErrorInfo reason) {
-
-            }
-        });
+        listChannel.publish(new Message("leave", User.getUsername()));
         Main.setScene("welcome");
     }
 
@@ -74,35 +65,14 @@ public class Chat {
      */
     @FXML
     private void navigateBack() throws Exception {
-        channel.presence.leave(new CompletionListener() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onError(ErrorInfo reason) {
-
-            }
-        });
         Main.setScene("home");
     }
 
     @FXML
-    void onEnterPressed(){
-        messageBox.setOnKeyPressed(
-                event -> {
-                    if(event.getCode().equals(KeyCode.ENTER)){
-                        try{this.sendMessage();}catch(Exception e){e.printStackTrace();}
-                    }
-                }
-        );
-    }
-
-    @FXML
     private void sendMessage() throws Exception {
-        channel.publish("message", User.getUsername()+": "+messageBox.getText());
-        messageBox.setText("");
+        userChannel.publish(title.getText(), message.getText()+" \n\nSent by "+User.getUsername());
+        title.setText("");
+        message.setText("");
     }
 
     @FXML
@@ -116,39 +86,36 @@ public class Chat {
             options.clientId = User.getUsername();
             AblyRealtime ably = new AblyRealtime(options);
 
-            channel = ably.channels.get("chat");
-            channel.subscribe(message -> {
+            listChannel = ably.channels.get("notifications");
 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        messagesArr.add(message.data.toString());
-                        messages.setItems(FXCollections.observableArrayList(messagesArr));
-                    }
-                });
-
+            userBox.setOnAction((e) -> {
+                if(((String)userBox.getSelectionModel().getSelectedItem()).equals("")){
+                    return;
+                }
+                System.out.println("Setting user channel to "+(String)userBox.getSelectionModel().getSelectedItem());
+                userChannel = ably.channels.get("usernotify-"+(String)userBox.getSelectionModel().getSelectedItem());
             });
 
-            PresenceMessage[] members = channel.presence.get();
+            PresenceMessage[] members = listChannel.presence.get();
             for(int i=0;i<members.length;i++){
-                online.add(members[i].clientId);
-                listEmployees.setItems(FXCollections.observableArrayList(online));
+                onlineUsers.add(members[i].clientId);
+                userBox.setItems(FXCollections.observableArrayList(onlineUsers));
             }
 
-            channel.presence.subscribe(new Presence.PresenceListener() {
+            listChannel.presence.subscribe(new Presence.PresenceListener() {
                 @Override
                 public void onPresenceMessage(PresenceMessage member) {
                     if(member.action == PresenceMessage.Action.enter){
-                        online.add(member.clientId);
+                        onlineUsers.add(member.clientId);
                     }
                     if(member.action == PresenceMessage.Action.leave){
-                        online.remove(member.clientId);
+                        onlineUsers.remove(member.clientId);
                     }
-                    listEmployees.setItems(FXCollections.observableArrayList(online));
+                    userBox.setItems(FXCollections.observableArrayList(onlineUsers));
                 }
             });
 
-            channel.presence.enter("iskrattar du förlorar du", new CompletionListener() {
+            listChannel.presence.enter("iskrattar du förlorar du", new CompletionListener() {
                 @Override
                 public void onSuccess() {
 
