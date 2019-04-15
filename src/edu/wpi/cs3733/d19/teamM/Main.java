@@ -352,7 +352,7 @@ public class Main extends Application {
                 @Override
                 public void run() {
                     StackPane stackPane = new StackPane();
-                    stackPane.autosize();
+                    //stackPane.autosize();
                     JFXDialogLayout content = new JFXDialogLayout();
                     content.setHeading(new Text(message.name));
                     content.setBody(new Text(message.data.toString()));
@@ -360,7 +360,7 @@ public class Main extends Application {
                     Pane imInPane = (Pane) primaryStage.getScene().getRoot();
                     imInPane.getChildren().add(stackPane);
 
-                    Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+                   // Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
                     //System.out.println(content.getLayoutBounds().getWidth()+"/"+content.getLayoutBounds().getHeight());
                     AnchorPane.setBottomAnchor(stackPane, 10.0);
@@ -372,10 +372,13 @@ public class Main extends Application {
                         public void run() {
                             try {
                                 this.sleep(5000);
+                                Platform.runLater(() -> {
+                                    dialog.close();
+                                    imInPane.getChildren().remove(stackPane);
+                                });
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            dialog.close();
                         }
                     }.start();
                 }
