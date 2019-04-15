@@ -105,7 +105,7 @@
                                 <Insets />
                             </VBox.margin>
                      <children>
-                        <ImageView fitHeight="305.0" fitWidth="427.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="250.0" fitWidth="427.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../../../resources/icons/marketing.png" />
                            </image>
@@ -138,6 +138,9 @@
                               </Text>
                               <JFXTextField fx:id="title" maxWidth="500.0" prefHeight="27.0" prefWidth="325.0" styleClass="lightInput" HBox.hgrow="ALWAYS" />
                            </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" top="20.0" />
+                           </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
@@ -159,7 +162,7 @@
                               <Font size="57.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="50.0" />
+                              <Insets top="10.0" />
                            </VBox.margin>
                            <styleClass>
                               <String fx:value="blackButton" />

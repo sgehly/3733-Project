@@ -117,17 +117,6 @@ public class DMs {
                 }
             });
 
-            listChannel.presence.enter("iskrattar du förlorar du", new CompletionListener() {
-                @Override
-                public void onSuccess() {
-
-                }
-                @Override
-                public void onError(ErrorInfo info) {
-
-                }
-            });
-
         }catch(Exception e){
             e.printStackTrace();
         }

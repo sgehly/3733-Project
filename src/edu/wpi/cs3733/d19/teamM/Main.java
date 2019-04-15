@@ -212,9 +212,19 @@ public class Main extends Application {
             new Thread(loadServiceRequestsThread).start();
             new Thread(loadSRListThread).start();
 
-            if(ably != null){
-                ably.close();
-            }
+            channel.presence.leave("", new CompletionListener() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(ErrorInfo reason) {
+
+                }
+            });
+            channel.detach();
+
 
             ClientOptions options = new ClientOptions("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
             options.clientId = User.getUsername();
