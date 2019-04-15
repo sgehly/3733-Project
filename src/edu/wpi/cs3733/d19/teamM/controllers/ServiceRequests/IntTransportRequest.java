@@ -106,7 +106,7 @@ public class IntTransportRequest {
         Connection conn = new DatabaseUtils().getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 1);
+            s.setInt(1, 7);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));

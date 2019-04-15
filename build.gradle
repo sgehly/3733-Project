@@ -36,8 +36,8 @@ configurations {
 
 dependencies {
     implementation 'com.google.guava:guava:27.0.1-jre'
-    implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
-    implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
+    //implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
+    //implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
     implementation 'com.jfoenix:jfoenix:8.0.8' // Java 8
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.0.5'
 
@@ -48,9 +48,14 @@ dependencies {
     compile 'com.sendgrid:sendgrid-java:1.1.0'
     compile group: "com.twilio.sdk", name: "twilio", version: "7.37.0"
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
+    compile group: 'net.sf.sociaal', name: 'freetts', version: '1.2.2'
 // https://mvnrepository.com/artifact/com.github.sarxos/webcam-capture
     compile group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.4'
     compile group: 'com.github.sarxos', name: 'webcam-capture-driver-jmf', version: '0.3.11'
+    compile group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'
+
+    compile(files('Team-G-Food-Request.jar'))
+    compile 'io.ably:ably-java:1.1.0'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
@@ -115,5 +120,39 @@ jar {
     }
     from {
         configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+jfxmobile {
+    downConfig {
+        version = '3.6.0'
+        // Do not edit the line below. Use Gluon Mobile Settings in your project context menu instead
+        //plugins 'display', 'lifecycle', 'statusbar', 'storage'
+    }
+    android {
+        manifest = 'src/android/AndroidManifest.xml'
+    }
+    ios {
+        //iosProvisioningProfile = '3733_Provisioning'
+        infoPList = file('src/ios/Default-Info.plist')
+        forceLinkClasses = [
+                'com.gluonhq.**.*',
+                'javax.annotations.**.*',
+                'javax.inject.**.*',
+                'javax.json.**.*',
+                'javafx.**.*',
+                'org.glassfish.json.**.*',
+                'edu.wpi.cs3733.d19.teamM.**.*',
+                'SQLite.**.*',
+                //'org.apache.derby.**.*',
+                //'org.apache.derby.loc.*',
+                'javax.**.*',
+                'com.sun.**.*',
+                'javax.xml.stream.FactoryFinder$ClassLoaderFinderConcrete',
+                'javax.naming.directory.*',
+                'javax.transaction.xa.*',
+                'java.awt.**.*',
+                'io.ably.**.*'
+        ]
     }
 }

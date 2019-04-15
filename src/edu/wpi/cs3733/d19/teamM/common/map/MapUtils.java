@@ -53,7 +53,7 @@ public class MapUtils {
 
 
     private String[] images = {"00_thegroundfloor.png", "00_thelowerlevel1.png", "00_thelowerlevel2.png",  "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
-    private String[] labels = {"Ground Floor",  "Lower Level 1", "Lower Level 2", "Floor One", "Floor Two", "Floor Three"};
+    private String[] labels = {"Ground Floor",  "Lower Level 1", "Lower Level 2", "Floor One", "Floor Two", "Floor Three", "Floor Four"};
     public String[] dbPrefixes = {"G", "L1", "L2", "1", "2", "3"};
     private HashMap<Integer, Image> imageFiles = new HashMap<Integer, Image>();
 
@@ -331,6 +331,11 @@ public class MapUtils {
         buttonPane.setOnMouseMoved(this.hoverCallback);
 
         String query = "SELECT * FROM NODE WHERE FLOOR='"+this.getCurrentFloorID()+"'";
+
+        if(this.getCurrentFloorID() == "2"){
+            query += " OR FLOOR='4'";
+        }
+
         try {
             //Get the information that we want from the database
             Connection conn = new DatabaseUtils().getConnection();
@@ -338,6 +343,7 @@ public class MapUtils {
             ResultSet rs = stmt.executeQuery(query);
             //Store the results we get in the entry list display table
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
+            conn.close();
             return entryList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
@@ -406,6 +412,7 @@ public class MapUtils {
     }
 
     public int idToFloor(String id){
+       if (id.equals("4")) return 6;
         for(int i=0;i<dbPrefixes.length;i++){
             if(dbPrefixes[i].equals(id)){
                 return i;

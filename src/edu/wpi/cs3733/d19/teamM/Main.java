@@ -1,27 +1,44 @@
 package edu.wpi.cs3733.d19.teamM;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.IdleMonitor;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.SavedState;
+import io.ably.lib.realtime.AblyRealtime;
+import io.ably.lib.realtime.Channel;
+import io.ably.lib.realtime.CompletionListener;
+import io.ably.lib.types.ChannelOptions;
+import io.ably.lib.types.ClientOptions;
+import io.ably.lib.types.ErrorInfo;
+import io.ably.lib.types.Message;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
-import javafx.util.Duration;
+import javafx.stage.WindowEvent;
 
-//import java.awt.event.MouseEvent;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.InputStream;
@@ -60,6 +77,12 @@ public class Main extends Application {
 
     private static IdleMonitor idleMonitor;
     public static SavedState savedState;
+
+    private static Channel channel;
+
+    private static Channel dmChannel;
+
+    private static AblyRealtime ably;
 
     /**
      * This method is to return the current stage we are working on for referencing the stage
@@ -104,8 +127,16 @@ public class Main extends Application {
         else if(scene == "login"){
             primaryStage.setScene(loginScene);
         }else{
-            try{primaryStage.setScene(new Scene(FXMLLoader.load(Main.getFXMLURL(scene))));}catch(Exception e){e.printStackTrace();}
+            try{
+                primaryStage.setScene(new Scene(FXMLLoader.load(Main.getFXMLURL(scene))));
+                //primaryStage.sizeToScene();
+                //primaryStage.setMaximized(true);
+            }catch(Exception e){e.printStackTrace();}
        }
+
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        primaryStage.setMaxWidth(primaryScreenBounds.getWidth());
+        primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
     }
 
     /**
@@ -116,8 +147,6 @@ public class Main extends Application {
     public static URL getFXMLURL(String name){
         return Main.class.getResource("views/"+name+".fxml");
     }
-
-
 
     public static InputStream getResource(String path){
         System.out.println("Fetching Resource: "+path);
@@ -134,65 +163,95 @@ public class Main extends Application {
         homeScene = new Scene(Main.homePane);
 
         if(!isLoaded) {
-        Runnable loadAdminThread = () -> {
-            try {
-                System.out.println("Loading scenes");
-                adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
-                adminScene = new Scene(adminPane);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        };
-        Runnable loadPathfindingThread = () -> {
-            try {
-                pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
-                pathFindingScene = new Scene(pathFindingPane);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        };
-        Runnable loadSchedulerThread = () -> {
-            try {
-                schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
-                schedulerScene = new Scene(schedulerPane);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        };
-        Runnable loadServiceRequestsThread = () -> {
-            try {
-                serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
-                serviceRequestScene = new Scene(serviceRequestPane);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        };
-        Runnable loadSRListThread = () -> {
-            try {
-                serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-                serviceRequestListScene = new Scene(serviceRequestListPane);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        };
+            Runnable loadAdminThread = () -> {
+                try {
+                    System.out.println("Loading scenes");
+                    adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
+                    adminScene = new Scene(adminPane);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            };
+            Runnable loadPathfindingThread = () -> {
+                try {
+                    pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
+                    pathFindingScene = new Scene(pathFindingPane);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            };
+            Runnable loadSchedulerThread = () -> {
+                try {
+                    schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
+                    schedulerScene = new Scene(schedulerPane);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            };
+            Runnable loadServiceRequestsThread = () -> {
+                try {
+                    serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
+                    serviceRequestScene = new Scene(serviceRequestPane);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            };
+            Runnable loadSRListThread = () -> {
+                try {
+                    serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+                    serviceRequestListScene = new Scene(serviceRequestListPane);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            };
 
 
-        new Thread(loadAdminThread).start();
-        new Thread(loadPathfindingThread).start();
-        new Thread(loadSchedulerThread).start();
-        new Thread(loadServiceRequestsThread).start();
-        new Thread(loadSRListThread).start();
-        isLoaded = true;
+            new Thread(loadAdminThread).start();
+            new Thread(loadPathfindingThread).start();
+            new Thread(loadSchedulerThread).start();
+            new Thread(loadServiceRequestsThread).start();
+            new Thread(loadSRListThread).start();
 
-    }
+            channel.presence.leave("", new CompletionListener() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(ErrorInfo reason) {
+
+                }
+            });
+            channel.detach();
+
+
+            ClientOptions options = new ClientOptions("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
+            options.clientId = User.getUsername();
+            ably = new AblyRealtime(options);
+
+            dmChannel = ably.channels.get("usernotify-"+User.getUsername());
+            channel = ably.channels.get("notifications");
+
+            Main.notificationSubscribe(dmChannel);
+            Main.notificationSubscribe(channel);
+
+            isLoaded = true;
+
+        }
         else{
-            System.out.println("already loaded");
+
         }
     };
 
     public static void loadAddUsers() throws Exception{
         addUserPane = FXMLLoader.load(Main.getFXMLURL("addUser"));
         addUserScene = new Scene(addUserPane);
+    }
+
+    public static void logOut(){
+        Main.savedState.setState("home");
+        Main.setScene("welcome");
     }
 
     /**
@@ -202,6 +261,16 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
+        Runnable loadPathfindingThread = () -> {
+            try {
+                pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
+                pathFindingScene = new Scene(pathFindingPane);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+        new Thread(loadPathfindingThread).start();
+
 
         //TODO on logout, set memento to home DONE
         //TODO on login, login to memento saved state DONE
@@ -220,18 +289,17 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene mainScene = new Scene(root);
 
-        loginPane = FXMLLoader.load(Main.getFXMLURL("login"));
-        loginScene = new Scene(loginPane);
+//        loginPane = FXMLLoader.load(Main.getFXMLURL("login"));
+//        loginScene = new Scene(loginPane);
         welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         welcomeScene= new Scene(welcomePane);
 
         //create the idle detection system
-//        ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));
-//        Timer timer = new Timer(10000,uiReset);
-//        EventHandler<MouseEvent> idleReset = e -> timer.restart();
-//        //EventHandler<MouseEvent> idleReset = e -> System.out.println("mouse moved");
-//        primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);
-//        timer.start();
+        /*ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));  //resets ui on timer trigger
+        Timer timer = new Timer(45000,uiReset); //creates the timer, attach to ui reset
+        EventHandler<MouseEvent> idleReset = e -> timer.restart(); //event handler to reset the timer
+        primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);  //add event handler to the application
+        timer.start();*/
 
 
         //Set the color and the title and the screen
@@ -248,6 +316,83 @@ public class Main extends Application {
         primaryStage.setHeight(bounds.getHeight());
         primaryStage.setFullScreen(false);
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+
+                try{
+                    ably.close();
+                }catch(Exception e){}
+
+                Platform.exit();
+
+                Thread start = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //TODO Auto-generated method stub
+                        System.exit(0);
+                    }
+                });
+
+                start.start();
+            }
+        });
+
+        ably = new AblyRealtime("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
+        channel = ably.channels.get("notifications");
+        Main.notificationSubscribe(channel);
+    }
+
+    public static void notificationSubscribe(Channel channel) throws Exception {
+        channel.subscribe(message -> {
+            System.out.println("New message! " + message.name + " - " + message.data.toString());
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    StackPane stackPane = new StackPane();
+                    stackPane.autosize();
+                    JFXDialogLayout content = new JFXDialogLayout();
+                    content.setHeading(new Text(message.name));
+                    content.setBody(new Text(message.data.toString()));
+                    JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
+                    Pane imInPane = (Pane) primaryStage.getScene().getRoot();
+                    imInPane.getChildren().add(stackPane);
+
+                    Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+                    //System.out.println(content.getLayoutBounds().getWidth()+"/"+content.getLayoutBounds().getHeight());
+                    AnchorPane.setBottomAnchor(stackPane, 10.0);
+                    AnchorPane.setRightAnchor(stackPane, 10.0);
+                    dialog.show();
+
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                this.sleep(5000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            dialog.close();
+                        }
+                    }.start();
+                }
+            });
+
+        });
+
+        channel.presence.enter("fjklsdnfjkdf", new CompletionListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(ErrorInfo reason) {
+
+            }
+        });
     }
 
     /**

@@ -31,6 +31,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.scene.shape.Line;
 import net.kurobako.gesturefx.GesturePane;
+import org.apache.derby.iapi.db.Database;
 
 import java.io.FileWriter;
 import java.sql.*;
@@ -45,7 +46,6 @@ public class AdminUI {
     static int height;
     static int width;
     static double offSetX,offSetY,zoomlvl;
-    String dbPath = "jdbc:derby:myDB";
 
     double scaledWidth;
     double scaledHeight;
@@ -464,7 +464,7 @@ public class AdminUI {
 
     @FXML
     public void logout() throws Exception{
-        Main.setScene("welcome");
+        Main.logOut();
     }
 
     @FXML
@@ -505,8 +505,7 @@ public class AdminUI {
 
     private void addN(){
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement("insert into NODE values (?,?,?,?,?,?,?,?)");
             stmt.setString(1, nodeIdTextBox.getText());
             stmt.setInt(2, Integer.parseInt(xCoordTextBox.getText()));
@@ -535,8 +534,7 @@ public class AdminUI {
 
     public void removeN(){
         try{
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt2 = conn.prepareStatement("delete from node where nodeID = ?");
             stmt2.setString(1, nodeIdTextBox.getText());
             stmt2.execute();
@@ -559,8 +557,7 @@ public class AdminUI {
 
     public void removeE(String edgeID){
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement("delete from edge where edgeID = ?");
             stmt.setString(1, edgeID);
             stmt.execute();
@@ -584,9 +581,8 @@ public class AdminUI {
 
     public void addE(String edgeID){
         try{
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             String[] edgeNodes = edgeID.split("_");
-            Connection conn = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement("insert into edge values(?,?,?)");
             stmt.setString(1, edgeID);
             stmt.setString(2, edgeNodes[0]);
@@ -634,8 +630,7 @@ public class AdminUI {
 
     private void updateN(){
         try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
+            Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt = conn.prepareStatement("update NODE set xcoord = ?, ycoord = ?, nodetype = ?, floor = ?, building = ?, longname = ?, shortname = ? where nodeid = ?");
             stmt.setInt(1, Integer.parseInt(xCoordTextBox.getText()));
             stmt.setInt(2, Integer.parseInt(yCoordTextBox.getText()));

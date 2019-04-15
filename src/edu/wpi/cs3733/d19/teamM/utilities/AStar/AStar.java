@@ -41,12 +41,8 @@ public class AStar extends SearchAlgorithm{
             for(Edge e : current.getEdges()){ //for every neighbor of the current node
                 Node neighbor = e.getEndNode();
                 if (!closedList.containsKey(neighbor.getId())) { //if its in the closed list, ignore it
-                    neighbor.setG(neighbor.getDistance(current) + current.getG()); //set its g, h, f, and parent
-                    neighbor.setP(getDeltaFloor(neighbor, end) * 500);
-                    neighbor.setB(getDeltaBuilding(neighbor, end) * 1000);
-                    neighbor.setH(neighbor.getDistance(end));
-                    neighbor.setF(neighbor.getG() + neighbor.getH() + neighbor.getP() + neighbor.getB());
                     neighbor.setParent(current);
+                    setHeuristics(neighbor, end);
                     for (Node n : openList.getQueue()) {
                         if (neighbor == n) { //if its in the open list
                             if (neighbor.getG() < n.getG()) { //if the cost of the node cannot be lowered, continue
