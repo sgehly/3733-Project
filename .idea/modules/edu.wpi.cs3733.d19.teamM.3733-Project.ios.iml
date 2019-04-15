@@ -7,7 +7,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.controlsfx:controlsfx:8.40.14" level="project" />
-    <orderEntry type="module" module-name="edu.wpi.cs3733.d19.teamM.3733-Project.main" />
     <orderEntry type="library" name="Gradle: com.sendgrid:sendgrid-java:1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.twilio.sdk:twilio:7.37.0" level="project" />
     <orderEntry type="library" name="Gradle: com.github.sarxos:webcam-capture-driver-jmf:0.3.11" level="project" />
