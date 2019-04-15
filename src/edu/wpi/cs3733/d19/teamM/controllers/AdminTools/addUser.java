@@ -52,6 +52,8 @@ public class addUser {
     @FXML
     private TextField username;
     @FXML
+    private TextField phoneField;
+    @FXML
     private TextField newPassword;
     @FXML
     private Text userText;
@@ -204,6 +206,7 @@ public class addUser {
                 throw e;
             }
             String tempName = username.getText();
+            String tempPhone = phoneField.getText();
             String tempPass = Encrypt.getMd5(newPassword.getText());
             Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement stmt1 = conn.prepareStatement("SELECT * FROM USERS WHERE USERNAME = ?");
@@ -213,6 +216,7 @@ public class addUser {
                 errorMessage.setText("User Already Exists");
                 throw e;
             }
+
             String query = "INSERT INTO USERS (USERNAME, isSan, isInterp, isIT, isAV, isGift, isFlor, isExt, isInt, isRel, isSec, isPer, isLab, ACCOUNTINT, USERPASS, PATHTOPIC) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             //isSan int, isInterp int, isIT int, isAV int, isGift int, isFlor int, isInt int, isExt int, isRel int, isSec int, isPer int, isLab int, accountInt int, userPass varchar(100) not null,pathtopic varchar(100)
             PreparedStatement stmt = conn.prepareStatement(query);
