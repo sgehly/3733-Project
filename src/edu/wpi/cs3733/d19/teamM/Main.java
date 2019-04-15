@@ -261,6 +261,16 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
+        Runnable loadPathfindingThread = () -> {
+            try {
+                pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
+                pathFindingScene = new Scene(pathFindingPane);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+        new Thread(loadPathfindingThread).start();
+
 
         //TODO on logout, set memento to home DONE
         //TODO on login, login to memento saved state DONE
