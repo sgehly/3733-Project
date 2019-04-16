@@ -441,11 +441,12 @@ public class AdminUI {
 
     @FXML
     protected void initialize() throws Exception {
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
         gesturePane.setContent(mapStuff);
 
-        new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+
+        //userText.setText("");
 
         edgeLabel.setVisible(false);
         nodeLabel.setVisible(false);

@@ -60,6 +60,8 @@ dependencies {
     compile 'com.gluonhq:charm-down-ios:2.0.1'
     compile group: 'com.gluonhq', name: 'charm-down-core-ios', version: '3.8.6'
 
+    compile group: 'com.github.goxr3plus', name: 'java-google-speech-api', version: '8.0.0'
+
     compile(files('Team-G-Food-Request.jar'))
     compile 'io.ably:ably-java:1.1.0'
 
@@ -72,6 +74,7 @@ repositories {
     google()
     jcenter()
     mavenCentral()
+    maven { url "https://jitpack.io" }
     maven {
         url 'http://nexus.gluonhq.com/nexus/content/repositories/releases'
     }

@@ -102,6 +102,8 @@ public class labTestRequest implements Initializable {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
 
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
@@ -124,9 +126,8 @@ public class labTestRequest implements Initializable {
             e.printStackTrace();
         }
 
-        new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+
+        //userText.setText("");
     }
 
 }

@@ -26,17 +26,20 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 //SQL imports
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * This class is the controller for the primary welcome screen
@@ -50,13 +53,32 @@ public class WelcomeAndLogin {
     private VBox loginField; //area that cofntains all of the login objects
 
     @FXML
-    private VBox field2FA;
+    private HBox phoneField;
+
+    @FXML
+    private VBox codeField;
+
+    @FXML
+    private HBox loginBox;
+
+
+    @FXML
+    private TextField code1;
+
+    @FXML
+    private TextField code2;
+
+    @FXML
+    private TextField code3;
+
+    @FXML
+    private TextField code4;
+
+    private boolean tabTrigger;
+
 
     @FXML
     private MediaView mediaView; //object for playing background video
-
-    @FXML
-    private Label errorMessage; //label for handeling errors in login
 
     @FXML
     private TextField username; //username text field
@@ -64,11 +86,7 @@ public class WelcomeAndLogin {
     @FXML
     private PasswordField password; //password text field
 
-    @FXML
-    private Button logInButton;
 
-    @FXML
-    private  TextField verifyCode;
 
     @FXML
     private Button verifyButton;
@@ -80,7 +98,7 @@ public class WelcomeAndLogin {
     private Button loginButton2;
 
     @FXML
-    private TextField emailNumber;
+    private TextField phoneNumber;
 
     @FXML
     private Label sent;
@@ -88,11 +106,30 @@ public class WelcomeAndLogin {
     @FXML
     private Label wrong;
 
+    @FXML
+    private Label titleLabel;
+
+    @FXML
+    private Label loginError;
+
+    @FXML
+    private HBox codeBox;
+
+    @FXML
+    private Label codeLabel;
+
+
+
 
     private SequentialTransition welcomeToLoginTransition; //used to make transition between welcome and login
-    private SequentialTransition loginTo2FATransition;
+    private SequentialTransition loginToPhoneTransition;
+    private SequentialTransition phoneToCodeTransition;
+
     private boolean hasNotBeenClicked; //trigger to indicate whether the screen has been clicked or not
     private boolean hasNotBeenClicked2; //trigger to indicate whether the login button has been pressed yet
+    private boolean hasNotBeenClicked3; //trigger to indicate whether the phone code has been sent
+    private boolean hasBeenAdjusted; //triggers when the code boxes move
+
 
 
 
@@ -105,20 +142,38 @@ public class WelcomeAndLogin {
         loginField.setDisable(true);
         hasNotBeenClicked = true; //stating that the screen hasn't been clicked as the transition should happen exactly once per login
 
-        field2FA.setOpacity(0);
-        field2FA.setDisable(true);
+        phoneField.setOpacity(0);
+        phoneField.setDisable(true);
         hasNotBeenClicked2 = true;
 
-        sent.setVisible(false);
-        wrong.setVisible(false);
+        codeField.setOpacity(0);
+        codeField.setDisable(true);
+        hasNotBeenClicked3 = true;
 
-        //setting up the transition between login and 2FA
-        loginTo2FATransition = new SequentialTransition();
-        loginTo2FATransition.getChildren().addAll(this.dropFade(loginField, 1000,100), this.drop(field2FA, 10, 100), this.raiseFade(field2FA, 1000, 100));
+        loginBox.setOpacity(0);
+        loginBox.setDisable(true);
+
+        tabTrigger = false;
+        hasBeenAdjusted = false;
 
         //setting up the transition between welcome and login
         welcomeToLoginTransition = new SequentialTransition();
-        welcomeToLoginTransition.getChildren().addAll(this.fadeOut(welcomeField, 1000), this.fadeCusion(welcomeField, 100), this.fadeIn(loginField, 1000));
+        welcomeToLoginTransition.getChildren().addAll(this.fadeOut(welcomeField, 500), this.fadeCusion(welcomeField, 100), this.fadeIn(loginField, 500));
+
+        //setting up the transition between login and phone
+        loginToPhoneTransition = new SequentialTransition();
+        loginToPhoneTransition.getChildren().addAll(this.fadeOut(loginField, 500), this.fadeCusion(welcomeField, 100), this.fadeIn(phoneField, 500));
+
+        //setting up the transition between phone and code
+        phoneToCodeTransition = new SequentialTransition();
+        phoneToCodeTransition.getChildren().addAll(this.fadeIn(codeField, 500),this.fadeOut(phoneField, 100), this.fadeCusion(welcomeField, 50), this.raise(codeField, 100, 85));
+
+        titleLabel.setOpacity(0);
+        loginError.setOpacity(0);
+        wrong.setOpacity(0);
+
+
+
 
         //sets media to specified video
         /* media = new Media(getClass().getResource("/resources/Pressure.mp4").toExternalForm());
@@ -140,18 +195,44 @@ public class WelcomeAndLogin {
             loginField.setDisable(false);
             System.out.println("the login stuff is enabled");
             welcomeToLoginTransition.play();
+            username.requestFocus();
             hasNotBeenClicked = false;
         }
     }
 
     @FXML
-    public void transitionTo2FA(){
+    public void transitionToPhone(){
         //this if statement ensures that the transition will only appear once everytime it is loaded
         if(hasNotBeenClicked2){
             loginField.setDisable(true);
-            field2FA.setDisable(false);
-            loginTo2FATransition.play();
+            phoneField.setDisable(false);
+            loginToPhoneTransition.play();
+            phoneNumber.requestFocus();
             hasNotBeenClicked2 = false;
+        }
+    }
+
+    @FXML
+    public void transitionToCode(){
+        if(hasNotBeenClicked3){
+            codeField.setDisable(false);
+            phoneToCodeTransition.play();
+            code1.requestFocus();
+            hasNotBeenClicked3 = false;
+        }
+    }
+
+    @FXML
+    public void displayLogin(){
+        loginBox.setDisable(false);
+        SequentialTransition loginAppear = new SequentialTransition();
+        if(!hasBeenAdjusted) {
+            loginAppear.getChildren().addAll(this.fadeOut(codeLabel, 250), this.left(codeBox, 750, 200), this.fadeIn(loginBox, 500));
+            loginAppear.play();
+            hasBeenAdjusted = true;
+        }
+        else{
+
         }
     }
 
@@ -185,6 +266,22 @@ public class WelcomeAndLogin {
         return raise;
     }
 
+    private TranslateTransition left(Node anyNode, int duration, int distance){
+        TranslateTransition raise = new TranslateTransition();
+        raise.setDuration(Duration.millis(duration));
+        raise.setNode(anyNode);
+        raise.setByX(0-distance);
+        return raise;
+    }
+
+    private TranslateTransition right(Node anyNode, int duration, int distance){
+        TranslateTransition right = new TranslateTransition();
+        right.setDuration(Duration.millis(duration));
+        right.setNode(anyNode);
+        right.setByX(distance);
+        return right;
+    }
+
     private FadeTransition fadeCusion(Node anyNode, int duration) {
         FadeTransition fadeCusion = new FadeTransition();
         fadeCusion.setDuration(Duration.millis(duration));
@@ -213,15 +310,76 @@ public class WelcomeAndLogin {
     }
 
     @FXML
-    void onEnterPressed(){
+    void onKeyPressed(){
         password.setOnKeyPressed(
                 event -> {
                     if(event.getCode().equals(KeyCode.ENTER)){
-                        this.transitionTo2FA();
+                        try {
+                            if(this.isValidLogin()) {
+                                this.transitionToPhone();
+                            }
+                            else{
+                                System.out.println("Incorrect username or password");
+                                loginError.setText("Incorrect username or password");
+                                this.fadeIn(loginError,500).play();
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        );
+        phoneNumber.setOnKeyPressed(
+                event -> {
+                    if(event.getCode().equals(KeyCode.ENTER)){
+                        this.sendVerify();
+                    }
+                }
+        );
+        code4.setOnKeyPressed(
+                event -> {
+                    if(event.getCode().equals(KeyCode.ENTER)){
+                        this.checkCode();
                     }
                 }
         );
     }
+
+    private boolean isValidLogin() throws SQLException {
+        String query = "SELECT * from USERS where USERNAME = ?";
+        Connection conn = new DatabaseUtils().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, username.getText());
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        if (Encrypt.getMd5(password.getText()).compareTo(rs.getString("USERPASS")) == 0) {
+            conn.close();
+            return true;
+        }
+        conn.close();
+        return false;
+    }
+
+    @FXML
+    void tabTo2(){
+        if(!tabTrigger) {
+            System.out.println("real deal!");
+            code1.requestFocus();
+            tabTrigger = true;
+        }
+        else{
+            code2.requestFocus();
+        }
+    }
+    @FXML
+    void tabTo3(){
+        code3.requestFocus();
+    }
+    @FXML
+    void tabTo4(){
+        code4.requestFocus();
+    }
+
 
     @FXML
     void logIn() {
@@ -235,36 +393,29 @@ public class WelcomeAndLogin {
             stmt.setString(1, username.getText());
             ResultSet rs = stmt.executeQuery();
             rs.next();
-            if (Encrypt.getMd5(password.getText()).compareTo(rs.getString("USERPASS")) == 0) {
-                User.getUser();
-                User.setUsername(rs.getString("USERNAME"));
-                User.setPathToPic(rs.getString("pathtopic"));
-                username.setText("");
-                password.setText("");
-                errorMessage.setText("");
-                User.setPrivilege(rs.getInt("ACCOUNTINT"));
-                System.out.println("Logged in " + User.getUsername() + " with privilege " + User.getPrivilege());
-                Main.loadScenes();
-                Main.setScene("home");
-                conn.close();
-                //Main.startIdleCheck();
-                //uncomment this line to start using idle check
-                if(User.getUsername().compareTo(Main.savedState.getUserName()) != 0){
-                    Main.savedState.setUserName(User.getUsername());
-                    Main.savedState.setState("home");
-                }
-                System.out.println(User.getUsername());
-                System.out.println(Main.savedState.getUserName());
-                System.out.println(Main.savedState.getState());
-                Main.setScene(Main.savedState.getState());
-            } else {
-                System.out.println("user not found");
-                errorMessage.setText("Incorrect Credentials");
-                conn.close();
+            User.getUser();
+            User.setUsername(rs.getString("USERNAME"));
+            User.setPathToPic(rs.getString("pathtopic"));
+            username.setText("");
+            password.setText("");
+            User.setPrivilege(rs.getInt("ACCOUNTINT"));
+            System.out.println("Logged in " + User.getUsername() + " with privilege " + User.getPrivilege());
+            Main.loadScenes();
+            this.resetScene();
+            Main.setScene("home");
+            conn.close();
+            //Main.startIdleCheck();
+            //uncomment this line to start using idle check
+            if(User.getUsername().compareTo(Main.savedState.getUserName()) != 0){
+                Main.savedState.setUserName(User.getUsername());
+                Main.savedState.setState("home");
             }
-        } catch (Exception e) {
+            System.out.println(User.getUsername());
+            System.out.println(Main.savedState.getUserName());
+            System.out.println(Main.savedState.getState());
+            Main.setScene(Main.savedState.getState());
+        }catch (Exception e) {
             e.printStackTrace();
-            errorMessage.setText("User " + username.getText() + " Not Found");
             username.setText("");
             password.setText("");
         }
@@ -275,95 +426,138 @@ public class WelcomeAndLogin {
     private void resetScene() {
         welcomeField.setOpacity(1);
         loginField.setOpacity(0);
+        phoneField.setOpacity(0);
+        codeField.setOpacity(0);
+        loginBox.setOpacity(0);
+        loginError.setOpacity(0);
         hasNotBeenClicked = true;
+        hasNotBeenClicked2 = true;
+        hasNotBeenClicked3 = true;
+        hasBeenAdjusted = false;
         loginField.setDisable(true);
-        field2FA.setDisable(true);
+        phoneField.setDisable(true);
         welcomeField.setDisable(false);
+        codeField.setDisable(false);
+        loginBox.setDisable(false);
+        this.clearFields();
+        this.right(codeBox,10,200);
+
+        tabTrigger = false;
+        this.drop(codeField,10,85).play();
+    }
+
+    private void clearFields() {
+        phoneNumber.clear();
+        code1.clear();
+        code2.clear();
+        code3.clear();
+        code4.clear();
     }
 
     @FXML
     public void sendVerify() {
-        String numberEmail = emailNumber.getText();
-        if(numberEmail.compareTo("") == 1){
-            sent.setTextFill(Color.web("#ff0000"));
-            sent.setText("Please enter an email or phone number");
-            sent.setVisible(true);
-            System.out.println("Nothing");
+        Connection conn = new DatabaseUtils().getConnection();
+        String query = "select PHONEEMAIL from USERS where USERNAME = ?";
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1,username.getText());
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            String emailNumber1 = rs.getString("PHONEEMAIL");
+            System.out.println(emailNumber1);
+            System.out.println(phoneNumber.getText());
+            if(emailNumber1.equals(phoneNumber.getText())){
+                String numberEmail = phoneNumber.getText();
+                int myCode = (int)generateCode();
+                Twilio.init("ACbfbd0226f179ee74597c887298cbda10", "eeb459634d5a8407d077635504386d44");
+                if (!numberEmail.contains("@")) {
+                    try {
+                        Message message = Message.creator(new PhoneNumber(numberEmail), new PhoneNumber("+15085383787"), "Hello from Brigham & Women's! Your authentication code is " + myCode).create();
+                        TwoFactor myFactor = TwoFactor.getTwoFactor();
+                        myFactor.setTheCode(myCode);
+                        wrong.setTextFill(Color.web("#009933"));
+                        wrong.setText("Code sent");
+                        this.fadeIn(wrong,1000);
+                        System.out.println("sent");
+                        this.transitionToCode();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        wrong.setTextFill(Color.web("#ff0000"));
+                        wrong.setText("Could not send your code");
+                        this.fadeIn(wrong,1000);
+                        System.out.println("failed");
+                    }
+                }
+                else{
+                    String sendgrid_username  = "sgehlywpi";
+                    String sendgrid_password  = "MangoManticores1!";
+                    String to = numberEmail;
+                    SendGrid sendgrid = new SendGrid(sendgrid_username, sendgrid_password);
+                    SendGrid.Email email = new SendGrid.Email();
 
-        }
-        int myCode = (int)generateCode();
-        Twilio.init("ACbfbd0226f179ee74597c887298cbda10", "eeb459634d5a8407d077635504386d44");
-        if (!numberEmail.contains("@")) {
-            try {
-                Message message = Message.creator(new PhoneNumber(numberEmail), new PhoneNumber("+15085383787"), "Hello from Brigham & Women's! Your authentication code is " + myCode).create();
-                TwoFactor myFactor = TwoFactor.getTwoFactor();
-                myFactor.setTheCode(myCode);
-                sent.setTextFill(Color.web("#009933"));
-                sent.setText("Code sent");
-                sent.setVisible(true);
-                System.out.println("sent");
-            } catch (Exception e) {
-                e.printStackTrace();
-                sent.setTextFill(Color.web("#ff0000"));
-                sent.setText("Could not send your code");
-                sent.setVisible(true);
-                System.out.println("failed");
+                    email.addTo(numberEmail);
+                    email.setFrom(numberEmail);
+                    email.setFromName("Brigham & Women's");
+                    email.setReplyTo("mangomanticores@gehly.net");
+                    email.setSubject("Authentication Code");
+                    email.setHtml(" from Brigham & Women's! Your authentication code is " + myCode);
+                    try {
+                        SendGrid.Response response = sendgrid.send(email);
+                        TwoFactor myFactor = TwoFactor.getTwoFactor();
+                        myFactor.setTheCode(myCode);
+                        sent.setTextFill(Color.web("#009933"));
+                        sent.setText("Code sent");
+                        sent.setVisible(true);
+                        System.out.println("sent");
+                    } catch (SendGridException e) {
+                        System.out.println(e);
+                        sent.setTextFill(Color.web("#ff0000"));
+                        sent.setText("Could not send your code");
+                        sent.setVisible(true);
+                        System.out.println("failed");
+                    }
+                }
             }
-        }
-        else{
-            String sendgrid_username  = "sgehlywpi";
-            String sendgrid_password  = "MangoManticores1!";
-            String to = numberEmail;
-            SendGrid sendgrid = new SendGrid(sendgrid_username, sendgrid_password);
-            SendGrid.Email email = new SendGrid.Email();
-
-            email.addTo(numberEmail);
-            email.setFrom(numberEmail);
-            email.setFromName("Brigham & Women's");
-            email.setReplyTo("mangomanticores@gehly.net");
-            email.setSubject("Authentication Code");
-            email.setHtml(" from Brigham & Women's! Your authentication code is " + myCode);
-            try {
-                SendGrid.Response response = sendgrid.send(email);
-                TwoFactor myFactor = TwoFactor.getTwoFactor();
-                myFactor.setTheCode(myCode);
-                sent.setTextFill(Color.web("#009933"));
-                sent.setText("Code sent");
-                sent.setVisible(true);
-                System.out.println("sent");
-            } catch (SendGridException e) {
-                System.out.println(e);
-                sent.setTextFill(Color.web("#ff0000"));
-                sent.setText("Could not send your code");
-                sent.setVisible(true);
-                System.out.println("failed");
-            }
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @FXML
     private void checkCode(){
         TwoFactor myFactor = TwoFactor.getTwoFactor();
-        if(myFactor.getTheCode() == Integer.parseInt(verifyCode.getText())){
+        if(myFactor.getTheCode() == this.getCode()){
             System.out.println("Yay");
             this.logIn();
         }
         else{
+            this.fadeIn(wrong, 750);
             wrong.setTextFill(Color.web("#ff0000"));
             wrong.setText("Code is incorrect");
-            wrong.setVisible(true);
+
         }
     }
 
+    private int getCode() {
+        String code = "";
+        code += code1.getText();
+        code += code2.getText();
+        code += code3.getText();
+        code += code4.getText();
+        System.out.println(code);
+        return Integer.parseInt(code);
+    }
+
     private double generateCode(){
-        double one = Math.random();
-        double two = Math.random();
-        double three = Math.random();
-        double four = Math.random();
-        double five = Math.random();
-        double six = Math.random();
-        double seven = Math.random();
-        double combind = one + two * 10 + three * 100 + four * 1000 + five * 10000 + six * 100000 + seven * 10000000;
+        double combind = 0;
+        while(combind < 1000 || combind >= 10000) {
+            double one = Math.random();
+            double two = Math.random();
+            double three = Math.random();
+            double four = Math.random();
+            combind = one * 10 + two * 100 + three * 1000 + four * 10000;
+        }
         return combind;
     }
 
@@ -376,7 +570,6 @@ public class WelcomeAndLogin {
             User.setUsername("Guest");
             username.setText("");
             password.setText("");
-            errorMessage.setText("");
             User.setPrivilege(0);
             System.out.println("Logged in Guest");
             Main.loadScenes();

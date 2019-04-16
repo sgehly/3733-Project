@@ -70,6 +70,9 @@ public class ReligiousRequests {
     @FXML
     private void initialize(){
 
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+
         ObservableList<String> list = FXCollections.observableArrayList();
 
         String query = "select * FROM users Where ACCOUNTINT = ?";
@@ -91,9 +94,8 @@ public class ReligiousRequests {
             e.printStackTrace();
         }
 
-        new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+
+        //userText.setText("");
     }
 
     @FXML

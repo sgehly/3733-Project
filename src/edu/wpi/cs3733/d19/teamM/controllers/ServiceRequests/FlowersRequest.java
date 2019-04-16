@@ -124,6 +124,7 @@ public class FlowersRequest implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
@@ -146,8 +147,8 @@ public class FlowersRequest implements Initializable {
             e.printStackTrace();
         }
 
-        //userText.setText(User.getUsername());
-        userText.setText("");
+
+        //userText.setText("");
         TextFields.bindAutoCompletion(flowerType,flowers);
     }
 }

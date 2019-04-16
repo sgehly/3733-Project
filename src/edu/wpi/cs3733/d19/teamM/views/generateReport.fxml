@@ -106,9 +106,9 @@
                                           <Font name="Open Sans Bold" size="42.0" />
                                       </font>
                                   </Text>
-                        <HBox prefHeight="237.0" prefWidth="500.0">
+                        <HBox prefHeight="505.0" prefWidth="500.0">
                            <children>
-                              <VBox prefHeight="237.0" prefWidth="365.0" spacing="13.0" HBox.hgrow="NEVER">
+                              <VBox prefHeight="331.0" prefWidth="365.0" spacing="13.0" HBox.hgrow="NEVER">
                                  <HBox.margin>
                                     <Insets left="40.0" />
                                  </HBox.margin>
@@ -138,7 +138,37 @@
                                           <Font size="20.0" />
                                        </font>
                                     </CheckBox>
+                                    <CheckBox fx:id="religous" mnemonicParsing="false" prefHeight="18.0" prefWidth="149.0" text="RELIGOUS" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="internal" mnemonicParsing="false" prefHeight="28.0" prefWidth="275.0" text="INTERNAL TRANS" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="external" mnemonicParsing="false" prefHeight="28.0" prefWidth="292.0" text="EXTERNAL TRANS" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="prescription" mnemonicParsing="false" prefHeight="28.0" prefWidth="257.0" text="PRESCRIPTION" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="av" mnemonicParsing="false" prefHeight="18.0" prefWidth="149.0" text="AV" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </CheckBox>
                                     <CheckBox fx:id="gift" mnemonicParsing="false" prefHeight="18.0" prefWidth="149.0" text="GIFT SHOP" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="labtest" mnemonicParsing="false" prefHeight="18.0" prefWidth="149.0" text="LAB TEST" textFill="WHITE">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
@@ -150,7 +180,7 @@
                               <Insets bottom="49.0" top="50.0" />
                            </VBox.margin>
                         </HBox>
-                        <Button fx:id="generateButton" mnemonicParsing="false" onMouseClicked="#generateReport" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="GENERATE REPORT">
+                        <Button fx:id="generateButton" mnemonicParsing="false" onAction="#generateReport" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="GENERATE REPORT">
                            <font>
                               <Font size="26.0" />
                            </font>
@@ -172,7 +202,7 @@
                                 </AnchorPane>
                         <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
                            <children>
-                              <BarChart fx:id="chart" prefHeight="944.0" prefWidth="1418.0" title="Request Report">
+                              <BarChart fx:id="chart" barGap="30.0" blendMode="MULTIPLY" categoryGap="30.0" layoutX="59.0" layoutY="66.0" mouseTransparent="true" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: 00000;" title="Request Report">
                                 <xAxis>
                                   <CategoryAxis fx:id="X" label="Type" />
                                 </xAxis>

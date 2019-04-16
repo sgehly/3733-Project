@@ -74,17 +74,6 @@ public class Chat {
      */
     @FXML
     private void navigateBack() throws Exception {
-        channel.presence.leave(new CompletionListener() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onError(ErrorInfo reason) {
-
-            }
-        });
         Main.setScene("home");
     }
 

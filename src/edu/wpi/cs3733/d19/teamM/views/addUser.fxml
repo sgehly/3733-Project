@@ -103,7 +103,7 @@
                <padding>
                   <Insets bottom="20.0" left="50.0" right="50.0" top="5.0" />
                </padding>
-                  </HBox>
+            </HBox>
             <VBox alignment="TOP_CENTER" prefHeight="931.0" prefWidth="1348.0" styleClass="pane">
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -157,6 +157,17 @@
                                     <Font size="25.0" />
                                  </font>
                               </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="User Type" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Phone" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="phoneField" styleClass="lightInput" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <Text fx:id="errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                            </children>
                            <HBox.margin>

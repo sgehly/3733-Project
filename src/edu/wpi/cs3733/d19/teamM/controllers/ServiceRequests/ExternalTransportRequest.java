@@ -97,6 +97,9 @@ public class ExternalTransportRequest {
 
     @FXML
     private void initialize(){
+        userText.setText(User.getUsername());
+        //userText.setText("");
+        new Clock(lblClock, lblDate);
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
@@ -119,9 +122,7 @@ public class ExternalTransportRequest {
             e.printStackTrace();
         }
 
-        //userText.setText(User.getUsername());
-        userText.setText("");
-        new Clock(lblClock, lblDate);
+
     }
 
 }

@@ -46,6 +46,8 @@ import javafx.scene.layout.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -53,6 +55,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
+
+import externalLibraries.Arrow.*;
 
 import javax.swing.*;
 
@@ -72,6 +76,8 @@ public class Pathfinding {
     ArrayList<String> longNames;
 
     ArrayList<Button> clearNodes = new ArrayList<Button>();
+    ArrayList<Line> lines = new ArrayList<Line>();
+    ArrayList<Arrow> arrows = new ArrayList<Arrow>();
 
     //Get the FXML objects to be linked
     @FXML
@@ -164,11 +170,13 @@ public class Pathfinding {
      */
     @FXML
     protected void initialize() throws Exception {
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+
         gesturePane.setContent(mappingStuff);
 
-        new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+
+        //userText.setText("");
 
         new Thread(() -> {
             try{
@@ -200,6 +208,8 @@ public class Pathfinding {
                 nodeList.add(n.getLongName());
             }
         }
+
+        FXCollections.sort(nodeList); // sorted directory alphabetically
 
         directoryList.setItems(nodeList);
         directoryList.setEditable(false);
@@ -538,18 +548,54 @@ public class Pathfinding {
     }
 
     private void updateMap(Node startNode, Node endNode) throws Exception{
-        clearNodes.forEach(node -> {
-            util.buttonPane.getChildren().remove(node);
-        });
+        clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
+        lines.forEach(node -> util.buttonPane.getChildren().remove(node));
+        arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
+
         List<Path> floorPaths = path.getSpecificPath(util.getCurrentFloorID());
         List<Path> allPaths = path.getFloorPaths();
 
         if (floorPaths != null){
-            overlayImage.setImage(graph.drawPath(floorPaths));
+            floorPaths.forEach(path -> {
+                List<Node> nodes = path.getPath();
+
+                for(int i=0;i<nodes.size()-1;i++){
+                    MapPoint start = util.scalePoints(nodes.get(i).getX(), nodes.get(i).getY());
+                    MapPoint end = util.scalePoints(nodes.get(i+1).getX(), nodes.get(i+1).getY());
+                    Line line = new Line();
+                    line.setStartX(start.x);
+                    line.setStartY(start.y);
+
+                    line.setEndX(end.x);
+                    line.setEndY(end.y);
+                    line.setStrokeWidth(4);
+
+                    line.setStroke(Color.valueOf("#012d5a"));
+
+                    double midX = start.x+(Math.abs(end.x-start.x)/2);
+                    double midY = start.y+(Math.abs(end.y-start.y)/2);
+
+                    Arrow arrow = new Arrow(start.x, start.y, end.x, end.y, 4);
+                    arrow.setFill(Color.valueOf("#f6bd38"));
+                    util.buttonPane.getChildren().add(line);
+                    util.buttonPane.getChildren().add(arrow);
+                    arrow.setScaleX(0.5);
+                    arrow.setScaleY(0.5);
+                    line.setStyle("-fx-border-radius:5px");
+                    lines.add(line);
+                    arrows.add(arrow);
+                }
+            });
         }
         else {
             overlayImage.setImage(null);
         }
+
+        arrows.forEach(node -> node.toFront());
+        util.nodes.forEach(node -> {
+            System.out.println(node.getId());
+            node.toFront();
+        });
 
         if(startNode != null && endNode != null){
             //We zoomin boys
@@ -632,7 +678,7 @@ public class Pathfinding {
                 if(nextFloor != util.idToFloor(start.getFloor())){
                     System.out.println("Creating");
                     Button startChangeButton = new Button();
-                    startChangeButton.setText((nextFloor > util.floor ? "↑" : "↓")+" TAKE THE "+(startNodeType.equals("ELEV") ? "ELEVATOR" : "STAIRS")+" "+(nextFloor > util.floor ? "UP" : "DOWN")+" TO "+util.getFloorLabel(nextFloor).toUpperCase());
+                    startChangeButton.setText("TAKE THE "+(startNodeType.equals("ELEV") ? "ELEVATOR" : "STAIRS")+" "+(nextFloor > util.floor ? "UP" : "DOWN")+" TO "+util.getFloorLabel(nextFloor).toUpperCase());
                     MapPoint mp = util.scalePoints(end.getX(), end.getY());
                     startChangeButton.setLayoutX(mp.x);
                     startChangeButton.setLayoutY(mp.y);
