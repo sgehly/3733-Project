@@ -84,16 +84,8 @@
                                 </VBox>
                             </children>
                             <HBox.margin>
-                                <Insets top="15.0" />
+                                <Insets right="200.0" top="15.0" />
                             </HBox.margin>
-                        </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                            <padding>
-                                <Insets top="15.0" />
-                            </padding>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
                         </HBox>
                           <Button mnemonicParsing="false" onMouseClicked="#navigateToDetails" prefHeight="55.0" prefWidth="183.0" styleClass="logoutButton" text="GO TO LIST">
                               <font>
