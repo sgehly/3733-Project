@@ -55,7 +55,6 @@ public class DMs {
 
     @FXML
     public void logout() throws Exception {
-        listChannel.publish(new Message("leave", User.getUsername()));
         Main.setScene("welcome");
     }
 

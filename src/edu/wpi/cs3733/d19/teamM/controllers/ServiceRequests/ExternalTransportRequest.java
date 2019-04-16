@@ -97,14 +97,17 @@ public class ExternalTransportRequest {
 
     @FXML
     private void initialize(){
+        userText.setText(User.getUsername());
+        //userText.setText("");
+        new Clock(lblClock, lblDate);
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query = "select * FROM users Where ACCOUNTINT = ?";
+        String query = "select * FROM users Where isExt = ?";
         Connection conn = new DatabaseUtils().getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 3);
+            s.setInt(1, 1);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));
@@ -119,9 +122,7 @@ public class ExternalTransportRequest {
             e.printStackTrace();
         }
 
-        //userText.setText(User.getUsername());
-        userText.setText("");
-        new Clock(lblClock, lblDate);
+
     }
 
 }

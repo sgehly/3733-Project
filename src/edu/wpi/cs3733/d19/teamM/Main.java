@@ -82,7 +82,7 @@ public class Main extends Application {
 
     private static Channel dmChannel;
 
-    private static AblyRealtime ably;
+    public static AblyRealtime ably;
 
     /**
      * This method is to return the current stage we are working on for referencing the stage
@@ -122,6 +122,7 @@ public class Main extends Application {
             savedState.setState("serviceRequestList");
         }
         else if(scene == "welcome"){
+            try{dmChannel.detach();}catch(Exception e){}
             primaryStage.setScene(welcomeScene);
         }
         else if(scene == "login"){
@@ -296,7 +297,7 @@ public class Main extends Application {
 
         //create the idle detection system
         ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));  //resets ui on timer trigger
-        Timer timer = new Timer(45000,uiReset); //creates the timer, attach to ui reset
+        Timer timer = new Timer(600000,uiReset); //creates the timer, attach to ui reset
         EventHandler<MouseEvent> idleReset = e -> timer.restart(); //event handler to reset the timer
         primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);  //add event handler to the application
         timer.start();
@@ -351,7 +352,7 @@ public class Main extends Application {
                 @Override
                 public void run() {
                     StackPane stackPane = new StackPane();
-                    stackPane.autosize();
+                    //stackPane.autosize();
                     JFXDialogLayout content = new JFXDialogLayout();
                     content.setHeading(new Text(message.name));
                     content.setBody(new Text(message.data.toString()));
@@ -359,7 +360,7 @@ public class Main extends Application {
                     Pane imInPane = (Pane) primaryStage.getScene().getRoot();
                     imInPane.getChildren().add(stackPane);
 
-                    Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+                   // Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
                     //System.out.println(content.getLayoutBounds().getWidth()+"/"+content.getLayoutBounds().getHeight());
                     AnchorPane.setBottomAnchor(stackPane, 10.0);
@@ -371,10 +372,13 @@ public class Main extends Application {
                         public void run() {
                             try {
                                 this.sleep(5000);
+                                Platform.runLater(() -> {
+                                    dialog.close();
+                                    imInPane.getChildren().remove(stackPane);
+                                });
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-                            dialog.close();
                         }
                     }.start();
                 }

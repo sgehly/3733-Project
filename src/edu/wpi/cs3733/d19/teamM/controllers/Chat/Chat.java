@@ -112,11 +112,8 @@ public class Chat {
         userText.setText("");
 
         try {
-            ClientOptions options = new ClientOptions("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
-            options.clientId = User.getUsername();
-            AblyRealtime ably = new AblyRealtime(options);
 
-            channel = ably.channels.get("chat");
+            channel = Main.ably.channels.get("chat");
             channel.subscribe(message -> {
 
                 Platform.runLater(new Runnable() {
@@ -144,7 +141,10 @@ public class Chat {
                     if(member.action == PresenceMessage.Action.leave){
                         online.remove(member.clientId);
                     }
-                    listEmployees.setItems(FXCollections.observableArrayList(online));
+
+                    Platform.runLater(() -> {
+                        listEmployees.setItems(FXCollections.observableArrayList(online));
+                    });
                 }
             });
 
