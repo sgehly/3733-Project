@@ -164,6 +164,23 @@
                                     </Text>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
+                                          <Button mnemonicParsing="false" onMouseClicked="#quickTranslateToEnglish" text="TRANSLATE TO ENGLISH">
+                                             <styleClass>
+                                                <String fx:value="blackButton" />
+                                                <String fx:value="requestButton" />
+                                             </styleClass>
+                                          </Button>
+                                          <JFXTextField fx:id="translateText" alignment="CENTER" prefHeight="76.0" prefWidth="547.0" promptText="TYPE TEXT HERE TO TRANSLATE" styleClass="lightInput" />
+                                          <Button mnemonicParsing="false" onMouseClicked="#quickTranslateToTarget" text="TRANSLATE TO TARGET">
+                                             <styleClass>
+                                                <String fx:value="blackButton" />
+                                                <String fx:value="requestButton" />
+                                             </styleClass>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
                                           <Button fx:id="submitRequest" mnemonicParsing="false" onMouseClicked="#makeLanguageRequest" text="SUBMIT REQUEST">
                                              <styleClass>
                                                 <String fx:value="blackButton" />
