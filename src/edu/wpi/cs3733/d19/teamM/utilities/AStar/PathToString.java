@@ -79,11 +79,12 @@ public class PathToString {
      *
      * @return A 2D array of instructions
      *         - The first element of each array is the angle to take
+     *              > [0][0] is the angle to take if robot is facing east
      *         - The second element of each array is the distance to travel for
      */
     public static List<List<Double>> pathToInstructions(Path paths){
         List<List<Double>> instructions = new ArrayList<>();
-        double angle, oldAngle, distance = 0;
+        double angle, oldAngle=0, distance = 0;
         int oldX =0, oldY = 0;
         if (paths.getPath().size() < 3) return null;
 
@@ -100,7 +101,7 @@ public class PathToString {
                 Node next = p.getPath().get(i + 1);
                 angle = calcAngle(oldX, oldY, next.getX(), next.getY(), distance);
                 distance = (getDistance(oldX, oldY, next.getX(), next.getY()) * 0.34);
-                instructions.add(Arrays.asList(angle, distance));
+                instructions.add(Arrays.asList((angle - oldAngle), distance));
                 oldX = next.getX();
                 oldY = next.getY();
                 oldAngle = angle;
