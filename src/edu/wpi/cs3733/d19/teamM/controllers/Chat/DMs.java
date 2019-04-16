@@ -78,7 +78,7 @@ public class DMs {
     void initialize() throws IOException {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
-        userText.setText("");
+
 
         try {
             ClientOptions options = new ClientOptions("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");

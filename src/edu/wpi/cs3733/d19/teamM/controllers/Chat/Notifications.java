@@ -65,8 +65,10 @@ public class Notifications {
     @FXML
     void initialize() throws IOException {
         new Clock(lblClock, lblDate);
+
+        System.out.println(User.getUsername());
         userText.setText(User.getUsername());
-        userText.setText("");
+
 
         try {
             AblyRealtime ably = new AblyRealtime("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
