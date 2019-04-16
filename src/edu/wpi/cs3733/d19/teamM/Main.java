@@ -163,7 +163,7 @@ public class Main extends Application {
         homePane = FXMLLoader.load(Main.getFXMLURL("home"));
         homeScene = new Scene(Main.homePane);
 
-        if(!isLoaded) {
+        if(true) {
             Runnable loadAdminThread = () -> {
                 try {
                     System.out.println("Loading scenes");
@@ -225,6 +225,11 @@ public class Main extends Application {
                 }
             });
             channel.detach();
+
+            if(ably.connection != null && ably.connection.id != null){
+                ably.close();
+                ably = null;
+            }
 
 
             ClientOptions options = new ClientOptions("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
