@@ -118,14 +118,16 @@ public class AudioVisual implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Clock clock = new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query = "select * FROM users Where ACCOUNTINT = ?";
+        String query = "select * FROM users Where isAV = ?";
         Connection conn = new DatabaseUtils().getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 11);
+            s.setInt(1, 1);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));
@@ -142,9 +144,7 @@ public class AudioVisual implements Initializable {
 
         TextFields.bindAutoCompletion(audioVisType, audioVis);
 
-        Clock clock = new Clock(lblClock, lblDate);
 
-        //userText.setText(User.getUsername());
-        userText.setText("");
+        //userText.setText("");
     }
 }

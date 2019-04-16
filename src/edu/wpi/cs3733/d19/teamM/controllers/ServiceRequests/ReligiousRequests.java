@@ -70,13 +70,16 @@ public class ReligiousRequests {
     @FXML
     private void initialize(){
 
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query = "select * FROM users Where ACCOUNTINT = ?";
+        String query = "select * FROM users Where isRel = ?";
         Connection conn = new DatabaseUtils().getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 0);
+            s.setInt(1, 1);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));
@@ -91,9 +94,8 @@ public class ReligiousRequests {
             e.printStackTrace();
         }
 
-        new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+
+        //userText.setText("");
     }
 
     @FXML

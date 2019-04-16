@@ -170,11 +170,13 @@ public class Pathfinding {
      */
     @FXML
     protected void initialize() throws Exception {
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+
         gesturePane.setContent(mappingStuff);
 
-        new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+
+        //userText.setText("");
 
         new Thread(() -> {
             try{
@@ -206,6 +208,8 @@ public class Pathfinding {
                 nodeList.add(n.getLongName());
             }
         }
+
+        FXCollections.sort(nodeList); // sorted directory alphabetically
 
         directoryList.setItems(nodeList);
         directoryList.setEditable(false);
@@ -268,6 +272,9 @@ public class Pathfinding {
      */
     @FXML
     private void navigateToHome() throws Exception{
+        lines.forEach(node -> util.buttonPane.getChildren().remove(node));
+        arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
+        clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
         Main.setScene("home");
     }
 

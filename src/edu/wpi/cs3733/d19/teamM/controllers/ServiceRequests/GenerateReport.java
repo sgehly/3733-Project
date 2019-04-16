@@ -128,7 +128,7 @@ public class GenerateReport implements Initializable {
             int s = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'presciption'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'presciption'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -151,7 +151,7 @@ public class GenerateReport implements Initializable {
             int size = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'it'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'it'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -174,7 +174,7 @@ public class GenerateReport implements Initializable {
             int s = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'sanitation'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'sanitation'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -196,7 +196,7 @@ public class GenerateReport implements Initializable {
             int s = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'security'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'security'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -218,7 +218,7 @@ public class GenerateReport implements Initializable {
             int s = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'interpreter'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'interpreter'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -240,7 +240,7 @@ public class GenerateReport implements Initializable {
             int s = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'flowers'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'flowers'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -262,7 +262,7 @@ public class GenerateReport implements Initializable {
                 int s = 0;
                 try {
                     Connection conn = new DatabaseUtils().getConnection();
-                    String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'av'";
+                    String query = "select count(*) from REQUESTLOG where TYPE = 'av'";
 
                     PreparedStatement stmt = conn.prepareStatement(query);
                     ResultSet rs = stmt.executeQuery();
@@ -285,7 +285,7 @@ public class GenerateReport implements Initializable {
             int s = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'internal'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'internal'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -328,7 +328,7 @@ public class GenerateReport implements Initializable {
             int s = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'religion'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'religion'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -349,7 +349,7 @@ public class GenerateReport implements Initializable {
             int s = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'laboratory'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'laboratory'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -370,7 +370,7 @@ public class GenerateReport implements Initializable {
                 int s = 0;
                 try {
                     Connection conn = new DatabaseUtils().getConnection();
-                    String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'gift'";
+                    String query = "select count(*) from REQUESTLOG where TYPE = 'gift'";
 
                     PreparedStatement stmt = conn.prepareStatement(query);
                     ResultSet rs = stmt.executeQuery();
@@ -411,8 +411,8 @@ public class GenerateReport implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+        userText.setText(User.getUsername());
+        //userText.setText("");
     }
 }
 

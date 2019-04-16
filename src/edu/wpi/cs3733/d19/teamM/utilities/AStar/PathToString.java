@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.d19.teamM.utilities.AStar;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.PrintWriter;
 import java.util.Collections;
 
 public class PathToString {
@@ -19,6 +17,7 @@ public class PathToString {
         String step = "";
         int oldX = -1;
         int oldY = -1;
+        int distance = 0;
         double angle = 0.0;
         double oldAngle = 0.0;
         Collections.reverse(paths.getPath());
@@ -40,16 +39,17 @@ public class PathToString {
             if (p.getPath().size() > 1) {
                 path.append("\n<<<Directions for floor " + p.getFloorID() + ">>>\n\n");
                 path.append("Start at " + p.getPath().get(0).getLongName() + ", move towards " + p.getPath().get(1).getLongName() + "\n");
-                oldAngle = calcAngle(p.getPath().get(0).getX(), p.getPath().get(0).getY(), p.getPath().get(1).getX(), p.getPath().get(1).getY());
+                oldAngle = calcAngle(p.getPath().get(0).getX(), p.getPath().get(0).getY(), p.getPath().get(1).getX(), p.getPath().get(1).getY(), distance);
                 oldX = p.getPath().get(1).getX();
                 oldY = p.getPath().get(1).getY();
             }
             for (int i = 1; i < p.getPath().size() - 2; i++) {
                 Node n = p.getPath().get(i);
                 Node next = p.getPath().get(i + 1);
-                angle = calcAngle(oldX, oldY, next.getX(), next.getY());
+                angle = calcAngle(oldX, oldY, next.getX(), next.getY(), distance);
                 step = getDirectionChange(angle, oldAngle);
-                path.append("At " + n.getLongName() + ", " + step + "\n");
+                distance = (int)(getDistance(oldX, oldY, next.getX(), next.getY()) * 0.34);
+                path.append("In " + distance + " feet, at " + n.getLongName() + ", " + step + "\n");
                 oldX = next.getX();
                 oldY = next.getY();
                 oldAngle = angle;
@@ -70,7 +70,14 @@ public class PathToString {
         return path.toString();
     }
 
-    private static double calcAngle(double oldX, double oldY, double x, double y){
+    private static double getDistance(int x, int y, int x1, int y1){
+        double deltaX = x - x1;
+        double deltaY = y - y1;
+
+        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    }
+
+    private static double calcAngle(double oldX, double oldY, double x, double y, double distance){
         double changeX = x - oldX;
         double changeY = oldY - y;
         return Math.toDegrees(Math.atan2(changeY, changeX));

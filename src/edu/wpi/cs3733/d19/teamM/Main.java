@@ -82,7 +82,7 @@ public class Main extends Application {
 
     private static Channel dmChannel;
 
-    private static AblyRealtime ably;
+    public static AblyRealtime ably;
 
     /**
      * This method is to return the current stage we are working on for referencing the stage
@@ -297,7 +297,7 @@ public class Main extends Application {
 
         //create the idle detection system
         ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));  //resets ui on timer trigger
-        Timer timer = new Timer(45000,uiReset); //creates the timer, attach to ui reset
+        Timer timer = new Timer(600000,uiReset); //creates the timer, attach to ui reset
         EventHandler<MouseEvent> idleReset = e -> timer.restart(); //event handler to reset the timer
         primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);  //add event handler to the application
         timer.start();
