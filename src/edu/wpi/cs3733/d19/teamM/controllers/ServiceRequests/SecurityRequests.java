@@ -102,11 +102,11 @@ public class SecurityRequests {
         userText.setText(User.getUsername());
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query = "select * FROM users Where ACCOUNTINT = ?";
+        String query = "select * FROM users Where isSec = ?";
         Connection conn = new DatabaseUtils().getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 4);
+            s.setInt(1, 1);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));

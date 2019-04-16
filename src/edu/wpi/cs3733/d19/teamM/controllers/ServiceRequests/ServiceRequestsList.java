@@ -194,21 +194,65 @@ public class ServiceRequestsList {
     @FXML
     void disengageComplete() {
         try {
-            int temp = 0;
+            //int temp = 0;
+            int san = 0;
+            int interp = 0;
+            int it = 0;
+            int av = 0;
+            int gift = 0;
+            int flor = 0;
+            int ext = 0;
+            int internal = 0;
+            int rel = 0;
+            int sec = 0;
+            int pre = 0;
+            int lab = 0;
             String query = "SELECT * FROM USERS Where USERNAME = ?";
             Connection conn = new DatabaseUtils().getConnection();
             PreparedStatement s = conn.prepareStatement(query);
             s.setString(1, (String) usersDropDown.getSelectionModel().getSelectedItem());
             ResultSet rs = s.executeQuery();
             while(rs.next()){
-                temp = rs.getInt("ACCOUNTINT");
+                //temp = rs.getInt("ACCOUNTINT");
+                san = rs.getInt("isSan");
+                interp = rs.getInt("isInterp");
+                it = rs.getInt("isIT");
+                av = rs.getInt("isAV");
+                gift = rs.getInt("isGift");
+                flor = rs.getInt("isFlor");
+                ext = rs.getInt("isExt");
+                internal = rs.getInt("isInt");
+                rel = rs.getInt("isRel");
+                sec = rs.getInt("isSec");
+                pre = rs.getInt("isPer");
+                lab = rs.getInt("isLab");
             }
-            System.out.println(temp);
+            //System.out.println(temp);
             System.out.println((String) usersDropDown.getSelectionModel().getSelectedItem());
             System.out.println(getRequestFromTable("incomplete"));
-            if (getRequestFromTable("incomplete").equals("sanitation") && temp == 2 || User.getPrivilege() != 100)
+            if (getRequestFromTable("incomplete").equals("sanitation") && san == 0 /*|| User.getPrivilege() != 100*/)
                 fulfill.setDisable(true);
-            else if (getRequestFromTable("incomplete").equals("interpreter") && temp == 1 || User.getPrivilege() != 100)
+            else if (getRequestFromTable("incomplete").equals("interpreter") && interp == 0 /*|| User.getPrivilege() != 100*/)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("it") && it == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("av") && av == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("gift") && gift == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("flowers") && flor == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("external") && ext == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("internal") && internal == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("religion") && rel == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("security") && sec == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("prescriptions") && pre == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("laboratory") && lab == 0)
                 fulfill.setDisable(true);
             else if (usersDropDown.getSelectionModel().getSelectedItem() == null){
                 fulfill.setDisable(true);
@@ -675,6 +719,8 @@ public class ServiceRequestsList {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        FXCollections.sort(uDropDown); // sorts the dropdown list of users alphabetically
 
         usersDropDown.setItems(uDropDown);
         usersDropDown.setOnAction((e) -> {
