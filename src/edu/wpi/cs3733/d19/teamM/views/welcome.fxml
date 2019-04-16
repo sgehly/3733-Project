@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-        <?import com.jfoenix.controls.JFXButton?>
-        <?import javafx.geometry.Insets?>
-        <?import javafx.scene.control.Button?>
-        <?import javafx.scene.control.Label?>
-        <?import javafx.scene.control.PasswordField?>
-        <?import javafx.scene.control.TextField?>
-        <?import javafx.scene.image.Image?>
-        <?import javafx.scene.image.ImageView?>
-        <?import javafx.scene.layout.AnchorPane?>
-        <?import javafx.scene.layout.ColumnConstraints?>
-        <?import javafx.scene.layout.GridPane?>
-        <?import javafx.scene.layout.HBox?>
-        <?import javafx.scene.layout.Pane?>
-        <?import javafx.scene.layout.RowConstraints?>
-        <?import javafx.scene.layout.StackPane?>
-        <?import javafx.scene.layout.VBox?>
-        <?import javafx.scene.media.MediaView?>
-        <?import javafx.scene.text.Font?>
-        <?import javafx.scene.text.Text?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <GridPane fx:id="root" alignment="center" hgap="10" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/resources/stylesheet.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.WelcomeAndLogin.WelcomeAndLogin">
    <columnConstraints>
@@ -27,36 +27,43 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-       <AnchorPane fx:id="mainContent" onKeyPressed="#onKeyPressed" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+      <AnchorPane fx:id="mainContent" onKeyPressed="#onKeyPressed" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                <MediaView fx:id="mediaView" opacity="0.13" />
                <VBox alignment="CENTER" onMouseClicked="#fadeToLogin" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
                   <children>
-                     <Button fx:id="loginButton2" mnemonicParsing="false" onAction="#logIn" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="OVERRIDE LOGIN" VBox.vgrow="SOMETIMES">
+                     <VBox prefHeight="200.0" prefWidth="100.0">
+                        <children>
+                           <Button fx:id="loginButton2" mnemonicParsing="false" onAction="#logIn" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="OVERRIDE LOGIN" VBox.vgrow="SOMETIMES">
+                              <VBox.margin>
+                                 <Insets left="30.0" right="1593.0" top="45.0" />
+                              </VBox.margin>
+                           </Button>
+                           <ImageView fitHeight="248.0" fitWidth="214.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="SOMETIMES">
+                              <image>
+                                 <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
+                              </image>
+                              <VBox.margin>
+                                 <Insets bottom="100.0" left="910.0" top="175.0" />
+                              </VBox.margin>
+                           </ImageView>
+                        </children>
                         <VBox.margin>
-                           <Insets right="1593.0" top="35.0" />
+                           <Insets bottom="50.0" />
                         </VBox.margin>
-                     </Button>
-                     <ImageView fitHeight="359.0" fitWidth="344.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="SOMETIMES">
-                        <image>
-                           <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
-                        </image>
-                        <VBox.margin>
-                           <Insets bottom="100.0" />
-                        </VBox.margin>
-                     </ImageView>
+                     </VBox>
                      <Label fx:id="titleLabel" alignment="TOP_CENTER" prefHeight="43.0" prefWidth="451.0" textAlignment="CENTER" textFill="WHITE">
                         <font>
                            <Font size="29.0" />
                         </font>
                      </Label>
-                   <StackPane prefHeight="417.0" prefWidth="1920.0" VBox.vgrow="SOMETIMES">
-                       <VBox fx:id="welcomeField" alignment="TOP_CENTER" style="-fx-cursor: hand;">
-                        <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
-                           <font>
-                              <Font name="Palatino" size="64.0" />
-                           </font>
+                     <StackPane prefHeight="417.0" prefWidth="1920.0" VBox.vgrow="SOMETIMES">
+                        <VBox fx:id="welcomeField" alignment="TOP_CENTER" style="-fx-cursor: hand;">
+                           <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
+                              <font>
+                                 <Font name="Palatino" size="64.0" />
+                              </font>
                               <VBox.margin>
                                  <Insets top="40.0" />
                               </VBox.margin>
@@ -72,7 +79,7 @@
                            <HBox alignment="CENTER">
                               <Pane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                            </HBox>
-                       </VBox>
+                        </VBox>
                         <VBox fx:id="field2FA" maxWidth="499.0" prefHeight="574.0" prefWidth="499.0" spacing="30.0">
                            <children>
                               <HBox fx:id="phoneField" alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="306.0" VBox.vgrow="NEVER">
