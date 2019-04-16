@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -28,63 +27,170 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-       <AnchorPane fx:id="mainContent" onKeyPressed="#onEnterPressed" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+      <AnchorPane fx:id="mainContent" onKeyPressed="#onKeyPressed" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-              <MediaView fx:id="mediaView" opacity="0.13" />
+               <MediaView fx:id="mediaView" opacity="0.13" />
                <VBox alignment="CENTER" onMouseClicked="#fadeToLogin" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
                   <children>
-                     <ImageView fitHeight="359.0" fitWidth="344.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
-                        </image>
-                     </ImageView>
-                   <StackPane VBox.vgrow="NEVER">
-                       <VBox fx:id="welcomeField" alignment="TOP_CENTER" style="-fx-cursor: hand;">
-                        <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
-                           <font>
-                              <Font name="Palatino" size="64.0" />
-                           </font>
+                     <VBox prefHeight="200.0" prefWidth="100.0">
+                        <children>
+                           <Button fx:id="loginButton2" mnemonicParsing="false" onAction="#logIn" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="OVERRIDE LOGIN" VBox.vgrow="SOMETIMES">
+                              <VBox.margin>
+                                 <Insets left="30.0" right="1593.0" top="45.0" />
+                              </VBox.margin>
+                           </Button>
+                           <ImageView fitHeight="248.0" fitWidth="214.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="SOMETIMES">
+                              <image>
+                                 <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
+                              </image>
+                              <VBox.margin>
+                                 <Insets bottom="100.0" left="910.0" top="175.0" />
+                              </VBox.margin>
+                           </ImageView>
+                        </children>
+                        <VBox.margin>
+                           <Insets bottom="50.0" />
+                        </VBox.margin>
+                     </VBox>
+                     <Label fx:id="titleLabel" alignment="TOP_CENTER" prefHeight="43.0" prefWidth="451.0" textAlignment="CENTER" textFill="WHITE">
+                        <font>
+                           <Font size="29.0" />
+                        </font>
+                     </Label>
+                     <StackPane prefHeight="417.0" prefWidth="1920.0" VBox.vgrow="SOMETIMES">
+                        <VBox fx:id="welcomeField" alignment="TOP_CENTER" style="-fx-cursor: hand;">
+                           <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
+                              <font>
+                                 <Font name="Palatino" size="64.0" />
+                              </font>
                               <VBox.margin>
                                  <Insets top="40.0" />
                               </VBox.margin>
-                        </Text>
+                           </Text>
                            <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Tap the Screen to Get Started" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
                               <font>
-                                  <Font name="Palatino" size="42.0" />
+                                 <Font name="Palatino" size="42.0" />
                               </font>
                               <VBox.margin>
                                  <Insets top="50.0" />
                               </VBox.margin>
                            </Text>
                            <HBox alignment="CENTER">
-                               <Pane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+                              <Pane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                            </HBox>
-                       </VBox>
-                        <VBox fx:id="loginField" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" StackPane.alignment="TOP_CENTER">
+                        </VBox>
+                        <VBox fx:id="field2FA" maxWidth="499.0" prefHeight="574.0" prefWidth="499.0" spacing="30.0">
                            <children>
-                              <VBox alignment="TOP_CENTER" maxWidth="306.0" prefHeight="583.0" prefWidth="306.0" spacing="30.0">
+                              <HBox fx:id="phoneField" alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="306.0" VBox.vgrow="NEVER">
                                  <children>
-                                    <TextField fx:id="username" promptText="Username" styleClass="darkInput">
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <PasswordField fx:id="password" onKeyPressed="#onEnterPressed" promptText="Password" styleClass="darkInput">
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </PasswordField>
-                                    <Button fx:id="logInButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#transitionTo2FA" styleClass="logoutButton" text="LOG IN">
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Label fx:id="errorMessage" textFill="RED">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone #">
                                        <font>
-                                          <Font name="Open Sans" size="25.0" />
+                                          <Font size="34.0" />
                                        </font>
-                                    </Label>
+                                       <HBox.margin>
+                                          <Insets right="15.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <TextField fx:id="phoneNumber" prefHeight="61.0" prefWidth="283.0" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" HBox.hgrow="ALWAYS" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets right="17.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <VBox fx:id="codeField" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" VBox.vgrow="SOMETIMES">
+                                 <children>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="61.0" prefWidth="451.0" spacing="10.0">
+                                       <children>
+                                          <StackPane alignment="TOP_RIGHT" prefHeight="61.0" prefWidth="482.0">
+                                             <children>
+                                                <Label fx:id="codeLabel" text="Label" StackPane.alignment="CENTER_LEFT">
+                                                   <graphic>
+                                                      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Code">
+                                                         <font>
+                                                            <Font size="34.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </graphic>
+                                                </Label>
+                                                <HBox fx:id="codeBox" prefHeight="61.0" prefWidth="391.0" spacing="20.0">
+                                                   <children>
+                                                      <TextField fx:id="code1" alignment="CENTER" maxHeight="1.7976931348623157E308" onKeyTyped="#tabTo2" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
+                                                      <TextField fx:id="code2" alignment="CENTER" maxHeight="1.7976931348623157E308" onKeyTyped="#tabTo3" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
+                                                      <TextField fx:id="code3" alignment="CENTER" maxHeight="1.7976931348623157E308" onKeyTyped="#tabTo4" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
+                                                      <TextField fx:id="code4" alignment="CENTER" maxHeight="1.7976931348623157E308" onAction="#onKeyPressed" onKeyTyped="#displayLogin" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" HBox.hgrow="SOMETIMES" />
+                                                   </children>
+                                                   <StackPane.margin>
+                                                      <Insets left="142.0" />
+                                                   </StackPane.margin>
+                                                </HBox>
+                                                <HBox fx:id="loginBox" alignment="CENTER_RIGHT" prefHeight="101.0" prefWidth="211.0">
+                                                   <children>
+                                                      <Button fx:id="loginButton" mnemonicParsing="false" onAction="#checkCode" prefHeight="61.0" prefWidth="182.0" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="LOGIN" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets right="18.0" />
+                                             </HBox.margin>
+                                          </StackPane>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="TOP_CENTER" prefHeight="143.0" prefWidth="499.0" VBox.vgrow="SOMETIMES">
+                                       <children>
+                                          <Label fx:id="wrong" text="Label" textFill="RED">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="34.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <StackPane.margin>
+                              <Insets top="50.0" />
+                           </StackPane.margin>
+                        </VBox>
+                        <VBox fx:id="loginField" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="366.0" prefWidth="1920.0" StackPane.alignment="CENTER">
+                           <children>
+                              <VBox alignment="TOP_CENTER" maxWidth="509.0" prefHeight="465.0" prefWidth="509.0" spacing="30.0" VBox.vgrow="SOMETIMES">
+                                 <children>
+                                    <HBox prefHeight="0.0" prefWidth="509.0" VBox.vgrow="SOMETIMES">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="168.803466796875" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font size="34.0" />
+                                             </font>
+                                          </Text>
+                                          <TextField fx:id="username" prefHeight="52.0" prefWidth="315.0" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="119.0" prefWidth="509.0" VBox.vgrow="SOMETIMES">
+                                       <children>
+                                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="168.803466796875">
+                                             <font>
+                                                <Font size="34.0" />
+                                             </font>
+                                          </Text>
+                                          <PasswordField fx:id="password" onKeyPressed="#onKeyPressed" prefHeight="52.0" prefWidth="341.0" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="TOP_CENTER" prefHeight="344.0" prefWidth="509.0" VBox.vgrow="SOMETIMES">
+                                       <children>
+                                          <Label fx:id="loginError" alignment="TOP_CENTER" prefHeight="56.0" prefWidth="451.0" textAlignment="CENTER" textFill="RED" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font size="30.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
                                  </children>
                                  <VBox.margin>
                                     <Insets />
@@ -95,48 +201,17 @@
                               <Insets top="50.0" />
                            </StackPane.margin>
                         </VBox>
-                        <VBox fx:id="field2FA" maxWidth="499.0" prefHeight="400.0" prefWidth="499.0" spacing="30.0">
-                           <children>
-                              <HBox prefHeight="38.0" prefWidth="306.0" VBox.vgrow="NEVER">
-                                 <children>
-                                    <TextField fx:id="emailNumber" prefHeight="61.0" prefWidth="283.0" promptText="emailNumber" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
-                                    <JFXButton fx:id="verifyButton" onAction="#sendVerify" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="SEND CODE">
-                                       <HBox.margin>
-                                          <Insets left="45.0" />
-                                       </HBox.margin>
-                                    </JFXButton>
-                                 </children>
-                              </HBox>
-                              <TextField fx:id="verifyCode" promptText="Enter code" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
-                              <Button fx:id="resendButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#checkCode" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="LOGIN" />
-                              <Button fx:id="loginButton2" mnemonicParsing="false" onAction="#logIn" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="OVERRIDE LOGIN" />
-                              <HBox prefHeight="190.0" prefWidth="300.0">
-                                 <children>
-                                    <Label fx:id="sent" text="Label" textFill="WHITE">
-                                       <HBox.margin>
-                                          <Insets top="70.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label fx:id="wrong" text="Label" textFill="WHITE">
-                                       <HBox.margin>
-                                          <Insets top="70.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <StackPane.margin>
-                              <Insets top="50.0" />
-                           </StackPane.margin>
-                        </VBox>
                         <VBox.margin>
-                           <Insets top="100.0" />
+                           <Insets />
                         </VBox.margin>
-                   </StackPane>
+                     </StackPane>
                   </children>
+                  <StackPane.margin>
+                     <Insets />
+                  </StackPane.margin>
                </VBox>
             </children>
          </StackPane>
-       </AnchorPane>
+      </AnchorPane>
    </children>
 </GridPane>

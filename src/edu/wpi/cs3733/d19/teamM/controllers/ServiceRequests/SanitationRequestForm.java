@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -42,6 +43,9 @@ public class SanitationRequestForm {
 
     @FXML
     private Text errorMessage;
+
+    @FXML
+    private Text userText;
 
 
     /**
@@ -83,6 +87,7 @@ public class SanitationRequestForm {
 
     @FXML
     void initialize(){
+        userText.setText(User.getUsername());
         new Clock(lblClock, lblDate);
     }
 

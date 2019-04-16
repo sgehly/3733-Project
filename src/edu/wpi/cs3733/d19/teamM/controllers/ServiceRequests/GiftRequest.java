@@ -98,11 +98,12 @@ public class GiftRequest {
     void initialize()
     {
         new Clock(lblClock,lblDate); //initialize the clock
+        userText.setText(User.getUsername());
         //Create the listener for the text with a few options
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query = "select * FROM users Where ACCOUNTINT = ?";
+        String query = "select * FROM users Where isGift = ?";
         Connection conn = new DatabaseUtils().getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
@@ -134,8 +135,8 @@ public class GiftRequest {
 
         });
 
-        //userText.setText(User.getUsername());
-        userText.setText("");
+
+        //userText.setText("");
     }
 
 }

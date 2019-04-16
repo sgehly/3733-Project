@@ -48,6 +48,7 @@ public class MapUtils {
     EventHandler<MouseEvent> clickCallback;
     EventHandler<MouseEvent> dragCallback;
     EventHandler<MouseEvent> hoverCallback;
+    public ArrayList<Button> nodes = new ArrayList<Button>();
     boolean showHallways = false;
 
 
@@ -174,6 +175,7 @@ public class MapUtils {
                 newButton.setLayoutY(generated.y-(size/2));
                 newButton.getStylesheets().add("resources/mapNode.css");
                 buttonPane.getChildren().add(newButton); //Add it to the button container
+                nodes.add(newButton);
                 buttonMap.put(rs.getString("longName"), newButton);
             }
             return entList; //Return this list
@@ -343,6 +345,7 @@ public class MapUtils {
             ResultSet rs = stmt.executeQuery(query);
             //Store the results we get in the entry list display table
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
+            conn.close();
             return entryList;
         } catch (SQLException e) {
             System.out.println("Error while trying to fetch all records");
