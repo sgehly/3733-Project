@@ -33,7 +33,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 //SQL imports
@@ -117,7 +116,10 @@ public class WelcomeAndLogin {
     private HBox codeBox;
 
     @FXML
-    private Label codeLabel;
+    private Label loginLabel;
+
+    @FXML
+    private Label secondFactorLabel;
 
 
 
@@ -125,6 +127,7 @@ public class WelcomeAndLogin {
     private SequentialTransition welcomeToLoginTransition; //used to make transition between welcome and login
     private SequentialTransition loginToPhoneTransition;
     private SequentialTransition phoneToCodeTransition;
+    private SequentialTransition fadeOutFadeIn;
 
     private boolean hasNotBeenClicked; //trigger to indicate whether the screen has been clicked or not
     private boolean hasNotBeenClicked2; //trigger to indicate whether the login button has been pressed yet
@@ -163,15 +166,19 @@ public class WelcomeAndLogin {
 
         //setting up the transition between login and phone
         loginToPhoneTransition = new SequentialTransition();
-        loginToPhoneTransition.getChildren().addAll(this.fadeOut(loginField, 500), this.fadeCusion(welcomeField, 100), this.fadeIn(phoneField, 500));
+        loginToPhoneTransition.getChildren().addAll(this.fadeOut(loginLabel, 500),this.fadeOut(loginField, 500), this.fadeCusion(welcomeField, 100), this.fadeIn(secondFactorLabel, 500), this.fadeIn(phoneField, 500));
 
         //setting up the transition between phone and code
         phoneToCodeTransition = new SequentialTransition();
         phoneToCodeTransition.getChildren().addAll(this.fadeIn(codeField, 500),this.fadeOut(phoneField, 100), this.fadeCusion(welcomeField, 50), this.raise(codeField, 100, 85));
 
-        titleLabel.setOpacity(0);
+        fadeOutFadeIn = new SequentialTransition();
+        fadeOutFadeIn.getChildren().addAll(this.fadeOut(secondFactorLabel, 500), this.fadeCusion(secondFactorLabel, 250), this.fadeIn(secondFactorLabel, 500));
+
+//        titleLabel.setOpacity(0);
         loginError.setOpacity(0);
         wrong.setOpacity(0);
+        secondFactorLabel.setOpacity(0);
 
 
 
@@ -196,7 +203,7 @@ public class WelcomeAndLogin {
             loginField.setDisable(false);
             System.out.println("the login stuff is enabled");
             welcomeToLoginTransition.play();
-            username.requestFocus();
+            //username.requestFocus();
             hasNotBeenClicked = false;
         }
     }
@@ -205,10 +212,11 @@ public class WelcomeAndLogin {
     public void transitionToPhone(){
         //this if statement ensures that the transition will only appear once everytime it is loaded
         if(hasNotBeenClicked2){
+            secondFactorLabel.setOpacity(1);
             loginField.setDisable(true);
             phoneField.setDisable(false);
             loginToPhoneTransition.play();
-            phoneNumber.requestFocus();
+            //phoneNumber.requestFocus();
             hasNotBeenClicked2 = false;
         }
     }
@@ -216,6 +224,10 @@ public class WelcomeAndLogin {
     @FXML
     public void transitionToCode(){
         if(hasNotBeenClicked3){
+            this.fadeOut(secondFactorLabel, 1000).play();
+            secondFactorLabel.setText("Enter Sent Code");
+            this.fadeCusion(secondFactorLabel, 500).play();
+            this.fadeIn(secondFactorLabel, 1000).play();
             codeField.setDisable(false);
             phoneToCodeTransition.play();
             code1.requestFocus();
@@ -228,8 +240,7 @@ public class WelcomeAndLogin {
         loginBox.setDisable(false);
         SequentialTransition loginAppear = new SequentialTransition();
         if(!hasBeenAdjusted) {
-            loginAppear.getChildren().addAll(this.fadeOut(codeLabel, 250), this.left(codeBox, 750, 200), this.fadeIn(loginBox, 500));
-            loginAppear.play();
+            this.fadeIn(loginBox, 500).play();
             hasBeenAdjusted = true;
         }
         else{
@@ -431,6 +442,8 @@ public class WelcomeAndLogin {
         codeField.setOpacity(0);
         loginBox.setOpacity(0);
         loginError.setOpacity(0);
+        secondFactorLabel.setOpacity(0);
+        secondFactorLabel.setText("Second Factor");
         hasNotBeenClicked = true;
         hasNotBeenClicked2 = true;
         hasNotBeenClicked3 = true;
