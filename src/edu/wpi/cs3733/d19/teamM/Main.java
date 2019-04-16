@@ -82,7 +82,7 @@ public class Main extends Application {
 
     private static Channel dmChannel;
 
-    private static AblyRealtime ably;
+    public static AblyRealtime ably;
 
     /**
      * This method is to return the current stage we are working on for referencing the stage
