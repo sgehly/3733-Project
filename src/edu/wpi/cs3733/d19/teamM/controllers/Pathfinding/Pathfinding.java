@@ -272,6 +272,9 @@ public class Pathfinding {
      */
     @FXML
     private void navigateToHome() throws Exception{
+        lines.forEach(node -> util.buttonPane.getChildren().remove(node));
+        arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
+        clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
         Main.setScene("home");
     }
 
