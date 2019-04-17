@@ -181,37 +181,47 @@ public class Main extends Application {
 
         if(true) {
             Runnable loadAdminThread = () -> {
-                try {
-                    System.out.println("Loading scenes");
-                    adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
-                    adminScene = new Scene(adminPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        System.out.println("Loading scenes");
+                        adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
+                        System.out.println(adminPane);
+                        adminScene = new Scene(adminPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
             };
             Runnable loadSchedulerThread = () -> {
-                try {
-                    schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
-                    schedulerScene = new Scene(schedulerPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
+                        schedulerScene = new Scene(schedulerPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             };
             Runnable loadServiceRequestsThread = () -> {
-                try {
-                    serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
-                    serviceRequestScene = new Scene(serviceRequestPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
+                        serviceRequestScene = new Scene(serviceRequestPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             };
             Runnable loadSRListThread = () -> {
-                try {
-                    serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-                    serviceRequestListScene = new Scene(serviceRequestListPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+                        serviceRequestListScene = new Scene(serviceRequestListPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             };
 
 
