@@ -404,7 +404,8 @@
                                                 </HBox>
                                     <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
                                        <children>
-                                          <Button maxHeight="53.0" mnemonicParsing="false" onMouseClicked="#speakDirections" prefHeight="53.0" prefWidth="425.0" styleClass="blackButton" text="HEAR DIRECTIONS" HBox.hgrow="ALWAYS" />
+                                          <Button maxHeight="53.0" mnemonicParsing="false" onMouseClicked="#speakDirections" prefHeight="53.0" prefWidth="425.0" styleClass="blackButton" text="HEAR DIRECTIONS" />
+                                          <Button maxHeight="53.0" mnemonicParsing="false" onMouseClicked="#cancelDirections" prefHeight="53.0" prefWidth="425.0" styleClass="blackButton" text="CANCEL DIRECTIONS" HBox.hgrow="ALWAYS" />
                                        </children>
                                        <padding>
                                           <Insets bottom="50.0" right="50.0" />
