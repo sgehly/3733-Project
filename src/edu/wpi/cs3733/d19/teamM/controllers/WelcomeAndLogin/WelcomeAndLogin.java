@@ -62,8 +62,6 @@ public class WelcomeAndLogin {
     private VBox codeField; //area that contains the objects where you enter code
     @FXML
     private HBox loginBox; //areea that contains the login button object
-    @FXML
-    private HBox overrideLoginButtonBox;
 
 
     //the text fields that the 2 factor auth code will be entered into
@@ -96,8 +94,6 @@ public class WelcomeAndLogin {
     //object that is for the two factor section
     @FXML
     private Label secondFactorLabel;
-    @FXML
-    private Button overrideLoginButton;
 
 
 
@@ -140,14 +136,14 @@ public class WelcomeAndLogin {
      */
     private void setInitialOpacities() {
         welcomeField.setOpacity(1);
-        overrideLoginButtonBox.setOpacity(0);
+        //overrideLoginButtonBox.setOpacity(0);
         loginField.setOpacity(0);
         codeField.setOpacity(0);
         loginBox.setOpacity(0);
         loginError.setOpacity(0);
         secondFactorLabel.setOpacity(0);
         codeErrorLabel.setOpacity(0);
-        overrideLoginButton.setOpacity(0);
+        //overrideLoginButton.setOpacity(0);
     }
 
     private void setInitialDisabled() {
@@ -155,8 +151,8 @@ public class WelcomeAndLogin {
         loginField.setDisable(true);
         codeField.setDisable(true);
         loginBox.setDisable(true);
-        overrideLoginButton.setDisable(true);
-        overrideLoginButtonBox.setDisable(true);
+        //overrideLoginButton.setDisable(true);
+        //overrideLoginButtonBox.setDisable(true);
     }
 
     private void setInitialTriggers() {
@@ -181,7 +177,7 @@ public class WelcomeAndLogin {
         first = new ParallelTransition();
         first.getChildren().addAll(transitions.fadeCusion(secondFactorLabel, 500), transitions.fadeIn(secondFactorLabel, 500));
         loginToPhoneTransition = new ParallelTransition();
-        phoneToCodeTransition.getChildren().addAll(transitions.fadeOut(loginField, 500), transitions.fadeIn(codeField, 500), transitions.fadeCusion(welcomeField, 50), transitions.fadeIn(codeField, 250), transitions.fadeIn(loginBox, 500));
+        phoneToCodeTransition.getChildren().addAll(transitions.fadeOut(loginField, 500), transitions.fadeIn(codeField, 500), transitions.fadeCusion(welcomeField, 50), transitions.fadeIn(loginBox, 500));
         loginToPhoneTransition.getChildren().addAll(first, phoneToCodeTransition);
 
         fadeOutFadeIn = new SequentialTransition();
@@ -236,7 +232,6 @@ public class WelcomeAndLogin {
     @FXML
     public void transitionToCode(){
         if(hasNotBeenClicked3){
-            transitions.fadeOut(overrideLoginButtonBox, 1000).play();
             secondFactorLabel.setText("Enter Sent Code");
             codeField.setDisable(false);
             loginToPhoneTransition.play();
@@ -258,7 +253,6 @@ public class WelcomeAndLogin {
         transitions.fadeOut(loginBox, 500).play();
         transitions.fadeOut(codeField, 500).play();
         SequentialTransition transitionBackToLogin = new SequentialTransition();
-        transitions.fadeOut(overrideLoginButtonBox, 1000).play();
         transitionBackToLogin.getChildren().addAll(transitions.fadeIn(loginField,1000));
         transitionBackToLogin.play();
         hasNotBeenClicked2 = true;
