@@ -111,6 +111,9 @@
                                        <image>
                                           <Image url="@../../../../../../../resources/icons/interpreter.png" />
                                        </image>
+                                        <VBox.margin>
+                                            <Insets top="40.0" />
+                                        </VBox.margin>
                                     </ImageView>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Interpreter Request ">
                                        <VBox.margin>
@@ -195,7 +198,7 @@
                                           </Button>
                                        </children>
                                        <VBox.margin>
-                                          <Insets top="20.0" />
+                                          <Insets bottom="40.0" top="20.0" />
                                        </VBox.margin>
                                     </HBox>
                                  </children>

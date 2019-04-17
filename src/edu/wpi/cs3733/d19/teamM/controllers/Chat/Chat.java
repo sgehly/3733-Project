@@ -110,7 +110,7 @@ public class Chat {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
         userText.setText("");
-
+        messages.setStyle("-fx-font-size: 36px ;");
         try {
 
             channel = Main.ably.channels.get("chat");
