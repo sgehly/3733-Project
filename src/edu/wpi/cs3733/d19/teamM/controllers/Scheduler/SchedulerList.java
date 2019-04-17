@@ -1,5 +1,7 @@
 /**
  * Sample Skeleton for 'serviceRequests.fxml' Controller Class
+ *//**
+ * Sample Skeleton for 'serviceRequests.fxml' Controller Class
  */
 
 package edu.wpi.cs3733.d19.teamM.controllers.Scheduler;
@@ -174,7 +176,7 @@ public class SchedulerList {
         System.out.println(roomDropDown.getSelectionModel().getSelectedItem());
         //Get the query from the database
 
-         if(roomDropDown.getSelectionModel().getSelectedItem() == "ALL"){
+        if(roomDropDown.getSelectionModel().getSelectedItem() == "ALL"){
 
             String query = "SELECT * FROM BOOKEDTIMES";
 
@@ -197,7 +199,7 @@ public class SchedulerList {
 
 
 ///////////////specific room
-         if(dateDropDown.getSelectionModel().getSelectedItem() == "ALL" || dateDropDown.getSelectionModel().getSelectedItem() == null){
+        if(dateDropDown.getSelectionModel().getSelectedItem() == "ALL" || dateDropDown.getSelectionModel().getSelectedItem() == null){
 
             String query = "SELECT * FROM BOOKEDTIMES WHERE ROOMID=?";
 
@@ -221,62 +223,62 @@ public class SchedulerList {
         }
 
 
-         if(roomDropDown.getSelectionModel().getSelectedItem() == "NONE"){
+        if(roomDropDown.getSelectionModel().getSelectedItem() == "NONE"){
 
-             String query = "SELECT * from BOOKEDTIMES WHERE  STARTTIME > ? AND STARTTIME  < ?";
-
-
-             try {
-                 Connection conn = new DatabaseUtils().getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(query);
+            String query = "SELECT * from BOOKEDTIMES WHERE  STARTTIME > ? AND STARTTIME  < ?";
 
 
-                 System.out.println(dateDropDown.getSelectionModel().getSelectedItem() + " 00:00:00.000000000");
-                 stmt.setString(1, dateDropDown.getSelectionModel().getSelectedItem() + " 00:00:00.000000000");
-                 stmt.setString(2, dateDropDown.getSelectionModel().getSelectedItem() + " 23:59:59.000000000");
-                 System.out.println(dateDropDown.getSelectionModel().getSelectedItem() + " 23:59:59.000000000");
-
-                 ResultSet rs = stmt.executeQuery();
-                 ObservableList<DisplayTable> entryList = getEntryObjects2(rs);
-                 BookedRooms.setItems(entryList);
-                 initialize();
-                 conn.close();
-                 return entryList;
-             } catch (SQLException e) {
-                 e.printStackTrace();
-                 throw e;
-             }
-
-         }
-
-        else  {
-             String query = "SELECT * from BOOKEDTIMES WHERE ROOMID = ? AND STARTTIME > ? AND STARTTIME  < ?";
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query);
 
 
-             try {
-                 Connection conn = new DatabaseUtils().getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(query);
+                System.out.println(dateDropDown.getSelectionModel().getSelectedItem() + " 00:00:00.000000000");
+                stmt.setString(1, dateDropDown.getSelectionModel().getSelectedItem() + " 00:00:00.000000000");
+                stmt.setString(2, dateDropDown.getSelectionModel().getSelectedItem() + " 23:59:59.000000000");
+                System.out.println(dateDropDown.getSelectionModel().getSelectedItem() + " 23:59:59.000000000");
 
-
-                 System.out.println(dateDropDown.getSelectionModel().getSelectedItem() + " 00:00:00.000000000");
-                 stmt.setString(1, roomDropDown.getSelectionModel().getSelectedItem());
-                 stmt.setString(2, dateDropDown.getSelectionModel().getSelectedItem() + " 00:00:00.000000000");
-                 stmt.setString(3, dateDropDown.getSelectionModel().getSelectedItem() + " 23:59:59.000000000");
-                 System.out.println(dateDropDown.getSelectionModel().getSelectedItem() + " 23:59:59.000000000");
-
-                 ResultSet rs = stmt.executeQuery();
-                 ObservableList<DisplayTable> entryList = getEntryObjects2(rs);
-                 BookedRooms.setItems(entryList);
-                 initialize();
-                 conn.close();
-                 return entryList;
-             } catch (SQLException e) {
-                 e.printStackTrace();
-                 throw e;
-             }
+                ResultSet rs = stmt.executeQuery();
+                ObservableList<DisplayTable> entryList = getEntryObjects2(rs);
+                BookedRooms.setItems(entryList);
+                initialize();
+                conn.close();
+                return entryList;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw e;
+            }
 
         }
-}
+
+        else  {
+            String query = "SELECT * from BOOKEDTIMES WHERE ROOMID = ? AND STARTTIME > ? AND STARTTIME  < ?";
+
+
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query);
+
+
+                System.out.println(dateDropDown.getSelectionModel().getSelectedItem() + " 00:00:00.000000000");
+                stmt.setString(1, roomDropDown.getSelectionModel().getSelectedItem());
+                stmt.setString(2, dateDropDown.getSelectionModel().getSelectedItem() + " 00:00:00.000000000");
+                stmt.setString(3, dateDropDown.getSelectionModel().getSelectedItem() + " 23:59:59.000000000");
+                System.out.println(dateDropDown.getSelectionModel().getSelectedItem() + " 23:59:59.000000000");
+
+                ResultSet rs = stmt.executeQuery();
+                ObservableList<DisplayTable> entryList = getEntryObjects2(rs);
+                BookedRooms.setItems(entryList);
+                initialize();
+                conn.close();
+                return entryList;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw e;
+            }
+
+        }
+    }
 
     /**
      * This method is linked to the button that allows the individuals to return to the home screen
