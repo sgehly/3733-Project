@@ -39,7 +39,7 @@ public class SchedulerList {
     @FXML
     private JFXComboBox<String> roomDropDown;
 
-    ObservableList<String> rooms = FXCollections.observableArrayList("ALL","CR_1","CR_2","CR_3","CR_4","CR_5","CR_6","CR_7","CR_8","CR_9","CR_10");
+    ObservableList<String> rooms = FXCollections.observableArrayList("ALL","CR_1","CR_2","CR_3","CR_4","CR_5","CR_6","CR_7","CR_8","CR_9","CR_10","NONE");
 
     @FXML
     private TableView BookedRooms = new TableView();
@@ -67,8 +67,9 @@ public class SchedulerList {
 
 
         ObservableList<String> list = FXCollections.observableArrayList();
+        list.add("ALL");
 
-        if(roomDropDown.getSelectionModel().getSelectedItem() == null){
+        if(roomDropDown.getSelectionModel().getSelectedItem() == "NONE"){
 
             String query ="SELECT STARTTIME FROM BOOKEDTIMES";
 
@@ -196,7 +197,7 @@ public class SchedulerList {
 
 
 ///////////////specific room
-         if(dateDropDown.getSelectionModel().getSelectedItem() == null){
+         if(dateDropDown.getSelectionModel().getSelectedItem() == "ALL" || dateDropDown.getSelectionModel().getSelectedItem() == null){
 
             String query = "SELECT * FROM BOOKEDTIMES WHERE ROOMID=?";
 
@@ -220,7 +221,7 @@ public class SchedulerList {
         }
 
 
-         if(roomDropDown.getSelectionModel().getSelectedItem() == null){
+         if(roomDropDown.getSelectionModel().getSelectedItem() == "NONE"){
 
              String query = "SELECT * from BOOKEDTIMES WHERE  STARTTIME > ? AND STARTTIME  < ?";
 
