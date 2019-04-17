@@ -344,7 +344,6 @@ public class WelcomeAndLogin {
         ResultSet rs = stmt.executeQuery();
         rs.next();
         System.out.println("hey check me out: " + rs.getString("PHONEEMAIL"));
-        System.out.println(rs.getString( rs.getString("PHONEEMAIL").length()));
         if (rs.getString("PHONEEMAIL") == null || rs.getString("PHONEEMAIL").length() == 0) {
             conn.close();
             return false;
