@@ -266,7 +266,6 @@ public class Scheduler {
 
         this.addBookedTime(roomID, ts, te);
         this.checkAvailability();
-        initialize();
     }
 
     private void addBookedTime(String roomID, Timestamp start, Timestamp end){

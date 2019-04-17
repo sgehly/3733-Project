@@ -57,16 +57,16 @@ public abstract class SearchAlgorithm {
         if (f.equals("G")) return  0;
         else if (f.equals("L1")) return 1;
         else if (f.equals("L2")) return 2;
-        else if (f.equals("1")) return 3;
-        else if (f.equals("2")) return 4;
-        else if (f.equals("3")) return 5;
-        else if (f.equals("4")) return 4;
+        else if (f.equals("1")) return 4;
+        else if (f.equals("2")) return 5;
+        else if (f.equals("3")) return 6;
+        else if (f.equals("4")) return 5;
         return -1;
     }
 
     final protected double getBuildingValue(String build){
         if(build.equals("BTM")) return 0;
-        else if(build.equals("Shapiro")) return 1;
+        else if(build.equals("Shapiro")) return 2;
         else if (build.equals("Tower")) return 2;
         else if(build.equals("45 Francis")) return 2;
         else if(build.equals("15 Francis")) return 2;
@@ -96,7 +96,7 @@ public abstract class SearchAlgorithm {
             curNode.setP(getDeltaFloor(curNode, endNode) * 1000);
         }
         else {
-            curNode.setF(getDeltaFloor(curNode, new Node("", 0, 0, "2", "", "", "", "")) * 1000);
+            curNode.setP(getDeltaFloor(curNode, new Node("", 0, 0, "2", "", "", "", "")) * 2000);
         }
         curNode.setF(curNode.getG() + curNode.getP() + curNode.getH() + curNode.getB());
     }
