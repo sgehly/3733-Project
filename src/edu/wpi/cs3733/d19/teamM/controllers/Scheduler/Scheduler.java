@@ -364,7 +364,6 @@ public class Scheduler {
 
     private void processImage(String roomId, boolean available){
 
-        this.randomizeRandomRoomColors();
         char fileSuffix = available ? 'a' : 't';
         String file = "/resources/maps/room"+roomId.split("_")[1]+fileSuffix+".png";
         Image imageFile = new Image(Main.getResource(file));
@@ -554,10 +553,10 @@ public class Scheduler {
             startTime.setValue(LocalTime.now());
             endTime.setValue(LocalTime.now().plus(1, ChronoUnit.HOURS));
 
-            startDate.valueProperty().addListener((ov, oldValue, newValue) -> {try{this.checkAvailability();}catch(Exception e){} });
-            startTime.valueProperty().addListener((ov, oldValue, newValue) -> {try{this.checkAvailability();}catch(Exception e){} });
-            endDate.valueProperty().addListener((ov, oldValue, newValue) -> {try{this.checkAvailability();}catch(Exception e){} });
-            endTime.valueProperty().addListener((ov, oldValue, newValue) -> {try{this.checkAvailability();}catch(Exception e){} });
+            startDate.valueProperty().addListener((ov, oldValue, newValue) -> {try{this.checkAvailability();this.randomizeRandomRoomColors();}catch(Exception e){} });
+            startTime.valueProperty().addListener((ov, oldValue, newValue) -> {try{this.checkAvailability();this.randomizeRandomRoomColors();}catch(Exception e){} });
+            endDate.valueProperty().addListener((ov, oldValue, newValue) -> {try{this.checkAvailability();this.randomizeRandomRoomColors();}catch(Exception e){} });
+            endTime.valueProperty().addListener((ov, oldValue, newValue) -> {try{this.checkAvailability();this.randomizeRandomRoomColors();}catch(Exception e){} });
 
 
             this.checkAvailability();
