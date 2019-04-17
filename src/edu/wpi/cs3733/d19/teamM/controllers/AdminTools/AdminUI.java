@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.controls.JFXSlider;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
@@ -25,6 +27,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
@@ -146,6 +149,18 @@ public class AdminUI {
     private GesturePane gesturePane;
 
     @FXML
+    private JFXButton searchAlgorithmButton;
+    @FXML
+    private JFXButton AStarButton;
+    @FXML
+    private JFXButton BFSButton;
+    @FXML
+    private JFXButton DFSButton;
+    @FXML
+    private JFXButton DStarButton;
+
+
+    @FXML
     private void navigateToHome() throws Exception{
         Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
         Scene scene = new Scene(pane);
@@ -263,8 +278,6 @@ public class AdminUI {
         routeArr.forEach(route -> {
             util.buttonPane.getChildren().remove(route);
         });
-
-
 
 
         System.out.println("Updating values...");
@@ -396,7 +409,6 @@ public class AdminUI {
     }
 
     private void hoverCallback(MouseEvent value){
-        System.out.println(value.isShiftDown()+"/"+edgeCreationLine);
         if(value.isShiftDown() && edgeCreationLine != null){
             edgeCreationLine.setEndX(edgeCreationLine.getLayoutX()+value.getX()-2.5);
             edgeCreationLine.setEndY(edgeCreationLine.getLayoutY()+value.getY()-2.5);
@@ -415,20 +427,23 @@ public class AdminUI {
 
         Button toMove = (Button)value.getSource();
 
-        if(!nodeIdTextBox.getText().equals(toMove.getId())){
-            try{
-                System.out.println(2);
-                this.updateValues(toMove.getId(), value.isShiftDown());
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+        try{
+            this.updateValues(toMove.getId(), false);
+        }catch(Exception e){
+            e.printStackTrace();
         }
+
+        /*routeArr.forEach(node -> {
+            route.setStartX(toMove.getLayoutX()+2.5);
+            route.setStartY(toMove.getLayoutY()+2.5);
+        });*/
 
         System.out.println("("+value.getX()+","+value.getY()+")");
         toMove.setLayoutX(toMove.getLayoutX()+value.getX()-2.5);
         toMove.setLayoutY(toMove.getLayoutY()+value.getY()-2.5);
 
         MapPoint original = util.scalePointReversed(toMove.getLayoutX()+value.getX()-2.5, toMove.getLayoutY()+value.getY()-2.5);
+
         xCoordTextBox.setText(String.valueOf((int)original.x));
         yCoordTextBox.setText(String.valueOf((int)original.y));
 
@@ -441,6 +456,7 @@ public class AdminUI {
 
     @FXML
     protected void initialize() throws Exception {
+        this.setupAlgorithmsButton();
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
         gesturePane.setContent(mapStuff);
@@ -460,6 +476,11 @@ public class AdminUI {
         path = new Path();
         util = new MapUtils(buttonContainer, imageView, image, new ImageView(), new JFXSlider(), this::setValues, this::clickValues, true, this::dragCallback, this::hoverCallback);
         util.initialize();
+
+    }
+
+    private void setupAlgorithmsButton() {
+
 
     }
 
