@@ -339,11 +339,13 @@
 }
 
 .requestBox{
-     -fx-font-size:36px;
+    -fx-font-size:36px;
+    -fx-font-family: "Open Sans Bold";
  }
 
 .requestBox.small{
     -fx-font-size:24px;
+    -fx-font-family: "Open Sans Bold";
 }
 
 .jfx-radio-button{
