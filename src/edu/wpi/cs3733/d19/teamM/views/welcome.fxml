@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:id="root" alignment="center" hgap="10" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@/resources/stylesheet.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.WelcomeAndLogin.WelcomeAndLogin">
+<GridPane fx:id="root" alignment="center" hgap="10" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../../../resources/stylesheet.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.WelcomeAndLogin.WelcomeAndLogin">
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
@@ -49,12 +49,12 @@
                            <Insets top="30.0" />
                         </VBox.margin>
                      </HBox>
-                     <ImageView fitHeight="359.0" fitWidth="344.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="SOMETIMES">
+                     <ImageView fitHeight="250.0" fitWidth="344.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="SOMETIMES">
                         <image>
                            <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
                         </image>
                         <VBox.margin>
-                           <Insets bottom="100.0" />
+                           <Insets bottom="25.0" top="100.0" />
                         </VBox.margin>
                      </ImageView>
                    <StackPane prefHeight="417.0" prefWidth="1920.0" VBox.vgrow="ALWAYS">
@@ -81,31 +81,15 @@
                        </VBox>
                         <VBox fx:id="field2FA" alignment="TOP_CENTER" maxWidth="499.0" prefHeight="432.0" prefWidth="346.0" spacing="30.0">
                            <children>
-                              <Label fx:id="secondFactorLabel" alignment="TOP_CENTER" prefHeight="68.0" prefWidth="451.0" text="Second Factor" textAlignment="CENTER" textFill="WHITE">
-                                 <font>
-                                    <Font size="46.0" />
-                                 </font>
-                              </Label>
-                              <HBox fx:id="phoneField" alignment="CENTER_RIGHT" prefHeight="104.0" prefWidth="499.0" VBox.vgrow="SOMETIMES">
+                              <HBox alignment="TOP_CENTER" minWidth="900.0" prefHeight="82.0" prefWidth="499.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <TextField fx:id="phoneNumber" prefHeight="69.0" prefWidth="399.0" promptText="phone number" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" HBox.hgrow="ALWAYS">
-                                       <HBox.margin>
-                                          <Insets left="50.0" right="50.0" />
-                                       </HBox.margin></TextField>
-                                 </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </HBox>
-                              <Label fx:id="phoneNumberErrorLabel" alignment="TOP_CENTER" prefHeight="56.0" prefWidth="355.0" text="Phone number is incorrect" textAlignment="CENTER" textFill="RED">
-                                 <font>
-                                    <Font size="19.0" />
-                                 </font>
-                              </Label>
-                              <HBox alignment="TOP_CENTER" prefHeight="82.0" prefWidth="499.0">
-                                 <children>
-                                    <VBox fx:id="codeField" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+                                    <VBox fx:id="codeField" alignment="CENTER" minWidth="900.0" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
                                        <children>
+                                          <Label fx:id="secondFactorLabel" alignment="TOP_CENTER" minWidth="900.0" prefHeight="68.0" prefWidth="451.0" styleClass="bigtitle" text="Security Check" textAlignment="CENTER" textFill="WHITE">
+                                             <font>
+                                                <Font size="46.0" />
+                                             </font>
+                                          </Label>
                                           <HBox fx:id="codeBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="399.0" spacing="20.0">
                                              <children>
                                                 <TextField fx:id="code1" alignment="CENTER" maxHeight="1.7976931348623157E308" onKeyTyped="#tabTo2" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
@@ -117,19 +101,23 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </HBox>
+                                          <HBox fx:id="loginBox" alignment="CENTER" prefHeight="101.0" prefWidth="211.0" spacing="30.0">
+                                             <children>
+                                                <Button fx:id="backButton" mnemonicParsing="false" onAction="#goBack" prefHeight="61.0" prefWidth="182.0" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="BACK" />
+                                                <Button fx:id="loginButton" mnemonicParsing="false" onAction="#checkCode" prefHeight="61.0" prefWidth="182.0" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="CONTINUE" />
+                                             </children>
+                                          </HBox>
                                           <Label fx:id="codeErrorLabel" alignment="TOP_CENTER" prefHeight="56.0" prefWidth="355.0" text="Code is incorrect" textAlignment="CENTER" textFill="RED">
                                              <font>
                                                 <Font size="19.0" />
                                              </font>
                                           </Label>
-                                          <HBox fx:id="loginBox" alignment="CENTER" prefHeight="101.0" prefWidth="211.0">
-                                             <children>
-                                                <Button fx:id="loginButton" mnemonicParsing="false" onAction="#checkCode" prefHeight="61.0" prefWidth="182.0" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="LOGIN" />
-                                             </children>
-                                          </HBox>
                                        </children>
                                     </VBox>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
                               </HBox>
                            </children>
                            <StackPane.margin>
@@ -138,11 +126,11 @@
                         </VBox>
                         <VBox fx:id="loginField" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="432.0" prefWidth="1681.0" StackPane.alignment="CENTER">
                            <children>
-                              <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="509.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="398.0" spacing="30.0">
+                              <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="900.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="398.0" spacing="30.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <HBox fx:id="loginLabelBox" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                                    <HBox fx:id="loginLabelBox" alignment="TOP_CENTER" minWidth="900.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Label fx:id="loginLabel" alignment="TOP_CENTER" prefHeight="68.0" prefWidth="451.0" text="Log in" textAlignment="CENTER" textFill="WHITE">
+                                          <Label fx:id="loginLabel" alignment="TOP_CENTER" prefHeight="68.0" prefWidth="451.0" styleClass="bigtitle" text="Log in" textAlignment="CENTER" textFill="WHITE">
                                              <font>
                                                 <Font size="46.0" />
                                              </font>
@@ -159,6 +147,7 @@
                                           <PasswordField fx:id="password" onKeyPressed="#onKeyPressed" prefHeight="52.0" prefWidth="354.0" promptText="password" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
                                        </children>
                                     </HBox>
+                                    <Button fx:id="loginButton1" mnemonicParsing="false" onAction="#checkButtonManual" prefHeight="61.0" prefWidth="182.0" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="LOGIN" />
                                     <HBox alignment="TOP_CENTER" prefHeight="218.0" prefWidth="445.0">
                                        <children>
                                           <Label fx:id="loginError" alignment="TOP_CENTER" prefHeight="56.0" prefWidth="355.0" text="Username or password is incorrect" textAlignment="CENTER" textFill="RED" HBox.hgrow="SOMETIMES">
