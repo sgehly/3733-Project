@@ -139,11 +139,17 @@ public class Home{
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
         //userText.setText("");
-        File f = new File(User.getPathToPic());
-        Image image = new Image(f.toURI().toString());
-        myImg.setStyle("-fx-background-radius: 1000; -fx-border-radius:1000");
-        myImg.setImage(image);
-        myImg.setClip(new Circle(24.5,24.5,24));
+        try{
+            System.out.println(User.getPathToPic());
+            Image image = new Image(Main.getResource("/resources/pics/"+User.getPathToPic()));
+            myImg.setStyle("-fx-background-radius: 1000; -fx-border-radius:1000");
+            myImg.setImage(image);
+            myImg.setClip(new Circle(24.5,24.5,24));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
         welcomeMessage.setText("Welcome to Brigham and Women's, " + User.getUsername());
 
 
