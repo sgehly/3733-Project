@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.controls.JFXSlider;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
@@ -25,6 +27,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
@@ -144,6 +147,18 @@ public class AdminUI {
 
     @FXML
     private GesturePane gesturePane;
+
+    @FXML
+    private JFXButton searchAlgorithmButton;
+    @FXML
+    private JFXButton AStarButton;
+    @FXML
+    private JFXButton BFSButton;
+    @FXML
+    private JFXButton DFSButton;
+    @FXML
+    private JFXButton DStarButton;
+
 
     @FXML
     private void navigateToHome() throws Exception{
@@ -441,6 +456,7 @@ public class AdminUI {
 
     @FXML
     protected void initialize() throws Exception {
+        this.setupAlgorithmsButton();
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
         gesturePane.setContent(mapStuff);
@@ -460,6 +476,11 @@ public class AdminUI {
         path = new Path();
         util = new MapUtils(buttonContainer, imageView, image, new ImageView(), new JFXSlider(), this::setValues, this::clickValues, true, this::dragCallback, this::hoverCallback);
         util.initialize();
+
+    }
+
+    private void setupAlgorithmsButton() {
+
 
     }
 
