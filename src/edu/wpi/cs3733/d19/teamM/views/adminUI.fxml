@@ -129,7 +129,7 @@
                            <children>
                               <VBox prefWidth="100.0" spacing="25.0">
                                  <children>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID:" />
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="XCoord:" />
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="YCoord:" />
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Floor:" />
