@@ -98,7 +98,7 @@
                                  <children>
                                     <VBox alignment="CENTER" onMouseClicked="#navigateToSanitaton" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../../../resources/icons/sanitation.png" />
                                              </image>
@@ -121,7 +121,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER" onMouseClicked="#navigateToLanguage" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../../../resources/icons/interpreter.png" />
                                              </image>
@@ -141,7 +141,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER" onMouseClicked="#navigateToIT" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../../../resources/icons/it.png" />
                                              </image>
@@ -164,7 +164,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER" onMouseClicked="#navigateToAudioVis" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../../../resources/icons/av.png" />
                                              </image>
@@ -194,7 +194,7 @@
                                  <children>
                                     <VBox alignment="CENTER" onMouseClicked="#navigateToGifts" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../../../resources/icons/gift.png" />
                                              </image>
@@ -214,7 +214,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER" onMouseClicked="#navigateToFLowers" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../../../resources/icons/florist.png" />
                                              </image>
@@ -234,7 +234,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER" onMouseClicked="#navigateToIntTransport" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../../../resources/icons/internal.png" />
                                              </image>
@@ -257,7 +257,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER" onMouseClicked="#naviagateToExternal" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../../../resources/icons/external.png" />
                                              </image>
@@ -287,7 +287,7 @@
                                  <children>
                                     <VBox alignment="CENTER" onMouseClicked="#navigateToReligious" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../../../resources/icons/religious.png" />
                                              </image>
@@ -307,7 +307,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER" onMouseClicked="#navigateToSecurity" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../../../resources/icons/security.png" />
                                              </image>
@@ -327,7 +327,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER" onMouseClicked="#navigateToPrescription" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                                          <ImageView fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                                              <image>
                                                 <Image url="@../../../../../../resources/icons/doctor.png" />
                                              </image>
@@ -350,7 +350,7 @@
                                     </VBox>
                                     <VBox alignment="CENTER" onMouseClicked="#navigateToLab" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
                                        <children>
-                                          <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../../../../../resources/icons/LabTest.png" />
                                              </image>
