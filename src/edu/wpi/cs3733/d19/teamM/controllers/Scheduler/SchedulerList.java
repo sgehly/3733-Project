@@ -299,19 +299,7 @@ public class SchedulerList {
     public void logout() throws Exception {
         Main.setScene("welcome");
     }
-
-    @FXML
-
-    public void clear(){
-
-        roomDropDown.setValue(null);
-        dateDropDown.setValue(null);
-
-    }
-
-
-
-
+    
 
     @FXML
     public void updateTable()throws SQLException{
