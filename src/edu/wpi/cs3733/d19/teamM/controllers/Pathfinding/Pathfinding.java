@@ -46,6 +46,8 @@ import javafx.scene.layout.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -53,6 +55,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
+
+import externalLibraries.Arrow.*;
 
 import javax.swing.*;
 
@@ -72,6 +76,8 @@ public class Pathfinding {
     ArrayList<String> longNames;
 
     ArrayList<Button> clearNodes = new ArrayList<Button>();
+    ArrayList<Line> lines = new ArrayList<Line>();
+    ArrayList<Arrow> arrows = new ArrayList<Arrow>();
 
     //Get the FXML objects to be linked
     @FXML
@@ -164,11 +170,13 @@ public class Pathfinding {
      */
     @FXML
     protected void initialize() throws Exception {
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
+
         gesturePane.setContent(mappingStuff);
 
-        new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+
+        //userText.setText("");
 
         new Thread(() -> {
             try{
@@ -200,6 +208,8 @@ public class Pathfinding {
                 nodeList.add(n.getLongName());
             }
         }
+
+        FXCollections.sort(nodeList); // sorted directory alphabetically
 
         directoryList.setItems(nodeList);
         directoryList.setEditable(false);
@@ -247,12 +257,24 @@ public class Pathfinding {
         dirButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
     }
 
-
+    //A global int to keep track of whether the thing is speaking or not
+    TextSpeech textSpeech = new TextSpeech();
     @FXML
     private void speakDirections(){
-        TextSpeech textSpeech = new TextSpeech();
-        textSpeech.speakToUser();
+
+            textSpeech.speakToUser();
+        System.out.println("Hit Start");
+
+
     }
+
+    @FXML
+    private void cancelDirections()
+    {
+        textSpeech.quitSpeaking();
+        System.out.println("Hit Cancel");
+    }
+
 
     private void clickValues(MouseEvent evt){}
 
@@ -262,7 +284,11 @@ public class Pathfinding {
      */
     @FXML
     private void navigateToHome() throws Exception{
+        lines.forEach(node -> util.buttonPane.getChildren().remove(node));
+        arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
+        clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
         Main.setScene("home");
+        cancelDirections();
     }
 
     @FXML
@@ -355,10 +381,8 @@ public class Pathfinding {
 
 
 
-
-
-
     private void findPath() throws Exception{
+        //SocketClient s = new SocketClient();
         //Get path
         String start = startText.getText();
         String end = endText.getText();
@@ -366,6 +390,7 @@ public class Pathfinding {
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
         PathToString.getDirections(path);
+        //s.toConnString(PathToString.pathToInstructions(path));
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
 
@@ -537,34 +562,79 @@ public class Pathfinding {
         return new Button();
     }
 
+    private void zoomToPath(Node startN, Node endN){
+        double startX = startN.getX();
+        double startY = startN.getY();
+
+        double endX = endN.getX();
+        double endY = endN.getY();
+
+        double newXRaw = startN.getX() - ((startN.getX()-endN.getX()) / 2);
+        double newYRaw = startN.getY() - ((startN.getY()-endN.getY()) / 2);
+
+        double deltaX = Math.abs((startN.getX()-endN.getX()) / 2);
+        double deltaY = Math.abs((startN.getY()-endN.getY()) / 2);
+
+        gesturePane.reset();
+        double scale = deltaX > deltaY ? gesturePane.getWidth() / deltaX : gesturePane.getHeight() / deltaY;
+        MapPoint p = util.scalePoints((int)newXRaw,(int)newYRaw);
+        gesturePane.zoomBy(scale * 0.8, new Point2D(p.x, p.y));
+    }
+
     private void updateMap(Node startNode, Node endNode) throws Exception{
-        clearNodes.forEach(node -> {
-            util.buttonPane.getChildren().remove(node);
-        });
+        clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
+        lines.forEach(node -> util.buttonPane.getChildren().remove(node));
+        arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
+
         List<Path> floorPaths = path.getSpecificPath(util.getCurrentFloorID());
         List<Path> allPaths = path.getFloorPaths();
 
         if (floorPaths != null){
-            overlayImage.setImage(graph.drawPath(floorPaths));
+            floorPaths.forEach(path -> {
+                List<Node> nodes = path.getPath();
+
+                for(int i=0;i<nodes.size()-1;i++){
+                    MapPoint start = util.scalePoints(nodes.get(i).getX(), nodes.get(i).getY());
+                    MapPoint end = util.scalePoints(nodes.get(i+1).getX(), nodes.get(i+1).getY());
+                    Line line = new Line();
+                    line.setStartX(start.x);
+                    line.setStartY(start.y);
+
+                    line.setEndX(end.x);
+                    line.setEndY(end.y);
+                    line.setStrokeWidth(4);
+
+                    line.setStroke(Color.valueOf("#012d5a"));
+
+                    double midX = start.x+(Math.abs(end.x-start.x)/2);
+                    double midY = start.y+(Math.abs(end.y-start.y)/2);
+
+                    Arrow arrow = new Arrow(start.x, start.y, end.x, end.y, 4);
+                    arrow.setFill(Color.valueOf("#f6bd38"));
+                    util.buttonPane.getChildren().add(line);
+                    util.buttonPane.getChildren().add(arrow);
+                    arrow.setScaleX(0.5);
+                    arrow.setScaleY(0.5);
+                    line.setStyle("-fx-border-radius:5px");
+                    lines.add(line);
+                    arrows.add(arrow);
+                }
+            });
         }
         else {
             overlayImage.setImage(null);
         }
 
+        arrows.forEach(node -> node.toFront());
+        util.nodes.forEach(node -> {
+            System.out.println(node.getId());
+            node.toFront();
+        });
+
         if(startNode != null && endNode != null){
             //We zoomin boys
 
-            double startX = startNode.getX();
-            double startY = startNode.getY();
-
-            double endX = endNode.getX();
-            double endY = endNode.getY();
-
-            int newXRaw = startNode.getX()+(Math.abs(startNode.getX()-endNode.getX())/2);
-            int newYRaw = startNode.getY()+(Math.abs(startNode.getY()-endNode.getY())/2);
-
-            MapPoint scale = util.scalePoints((int)startX,(int)startY);
-            gesturePane.zoomTo(5, new Point2D(scale.x, scale.y));
+            zoomToPath(startNode, endNode);
 
         }
 
@@ -632,7 +702,7 @@ public class Pathfinding {
                 if(nextFloor != util.idToFloor(start.getFloor())){
                     System.out.println("Creating");
                     Button startChangeButton = new Button();
-                    startChangeButton.setText((nextFloor > util.floor ? "↑" : "↓")+" TAKE THE "+(startNodeType.equals("ELEV") ? "ELEVATOR" : "STAIRS")+" "+(nextFloor > util.floor ? "UP" : "DOWN")+" TO "+util.getFloorLabel(nextFloor).toUpperCase());
+                    startChangeButton.setText("TAKE THE "+(startNodeType.equals("ELEV") ? "ELEVATOR" : "STAIRS")+" "+(nextFloor > util.floor ? "UP" : "DOWN")+" TO "+util.getFloorLabel(nextFloor).toUpperCase());
                     MapPoint mp = util.scalePoints(end.getX(), end.getY());
                     startChangeButton.setLayoutX(mp.x);
                     startChangeButton.setLayoutY(mp.y);
@@ -722,6 +792,7 @@ public class Pathfinding {
     @FXML
     public void logout() throws Exception{
         Main.logOut();
+        cancelDirections();
     }
 
     private boolean checkValidLongNameInput(){

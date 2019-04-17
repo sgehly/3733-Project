@@ -108,7 +108,7 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#exportComplete" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="EXPORT COMPLETE">
+                              <Button mnemonicParsing="false" onAction="#exportComplete" prefHeight="50.0" prefWidth="174.0" styleClass="blackButton" text="EXPORT COMPLETE">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>

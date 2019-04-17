@@ -137,7 +137,7 @@ public class DFS implements Searchable{
         else if (f.equals("1")) return  3;
         else if (f.equals("2")) return  4;
         else if (f.equals("3")) return  5;
-        else if (f.equals("4")) return  6;
+        else if (f.equals("4")) return  4;
         return -1;
     }
 

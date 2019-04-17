@@ -6,6 +6,7 @@ package edu.wpi.cs3733.d19.teamM.controllers.Scheduler;
 
 import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
@@ -346,6 +347,9 @@ public class SchedulerList {
     @FXML
     void initialize() throws SQLException {
 
+        new Clock(lblClock, lblDate);
+
+        userText.setText(User.getUsername());
 
         roomDropDown.setItems(rooms);
 
@@ -366,9 +370,7 @@ public class SchedulerList {
 //            e.printStackTrace();
 //        }
 
-        new Clock(lblClock, lblDate);
 
-       // userText.setText(User.getUsername());
 
     }
 

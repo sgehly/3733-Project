@@ -73,7 +73,7 @@ public class GiftRequestForm {
     void initialize(){
 
         new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+        userText.setText(User.getUsername());
+        //userText.setText("");
     }
 }

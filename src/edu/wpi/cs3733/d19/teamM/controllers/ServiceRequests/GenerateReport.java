@@ -62,10 +62,26 @@ public class GenerateReport implements Initializable {
 
     @FXML
     private CheckBox flowers;
+    @FXML
+    private CheckBox prescription;
+    @FXML
+    private CheckBox internal;
+    @FXML
+    private CheckBox external;
+    @FXML
+    private CheckBox religous;
+    @FXML
+    private CheckBox av;
+    @FXML
+    private CheckBox labtest;
+
+    @FXML
+    private CheckBox gift;
+
 
 
     @FXML
-    private BarChart<?, ?> chart;
+    private BarChart<Integer,String> chart;
 
 
     @FXML
@@ -73,6 +89,9 @@ public class GenerateReport implements Initializable {
 
     @FXML
     private javafx.scene.control.Label lblDate;
+
+
+
 
 
     /**
@@ -99,14 +118,40 @@ public class GenerateReport implements Initializable {
     @FXML
     private void generateReport() {
         System.out.println("Trying to make request");
+
+        chart.getData().clear();
         XYChart.Series set1 = new XYChart.Series<>();
-        set1.getData().clear();
+
+
+
+        if (prescription.isSelected()) {
+            int s = 0;
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                String query = "select count(*) from REQUESTLOG where TYPE = 'presciption'";
+
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+
+                    s = rs.getInt(1);
+
+
+                }
+                set1.getData().add(new XYChart.Data("PRESCRIPTION", s));
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
         //for it services
         if (it.isSelected()) {
             int size = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'it'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'it'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -118,6 +163,7 @@ public class GenerateReport implements Initializable {
 
                 }
                 set1.getData().add(new XYChart.Data("IT", size));
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -128,7 +174,7 @@ public class GenerateReport implements Initializable {
             int s = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'sanitation'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'sanitation'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -139,6 +185,7 @@ public class GenerateReport implements Initializable {
 
                 }
                 set1.getData().add(new XYChart.Data("SANITATION", s));
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -149,7 +196,7 @@ public class GenerateReport implements Initializable {
             int s = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'security'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'security'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -160,6 +207,7 @@ public class GenerateReport implements Initializable {
 
                 }
                 set1.getData().add(new XYChart.Data("SECURITY", s));
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -170,7 +218,7 @@ public class GenerateReport implements Initializable {
             int s = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'interpreter'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'interpreter'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -181,6 +229,7 @@ public class GenerateReport implements Initializable {
 
                 }
                 set1.getData().add(new XYChart.Data("LANGUAGE", s));
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -191,7 +240,7 @@ public class GenerateReport implements Initializable {
             int s = 0;
             try {
                 Connection conn = new DatabaseUtils().getConnection();
-                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'flowers'";
+                String query = "select count(*) from REQUESTLOG where TYPE = 'flowers'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
@@ -202,17 +251,157 @@ public class GenerateReport implements Initializable {
 
                 }
                 set1.getData().add(new XYChart.Data("FLOWERS", s));
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        ////// av services print in graph
+            if (av.isSelected()) {
+                int s = 0;
+                try {
+                    Connection conn = new DatabaseUtils().getConnection();
+                    String query = "select count(*) from REQUESTLOG where TYPE = 'av'";
+
+                    PreparedStatement stmt = conn.prepareStatement(query);
+                    ResultSet rs = stmt.executeQuery();
+                    while (rs.next()) {
+
+                        s = rs.getInt(1);
+
+
+                    }
+                    set1.getData().add(new XYChart.Data("AV", s));
+                    conn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+        if (internal.isSelected()) {
+            int s = 0;
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                String query = "select count(*) from REQUESTLOG where TYPE = 'internal'";
+
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+
+                    s = rs.getInt(1);
+
+
+                }
+                set1.getData().add(new XYChart.Data("INTERNAL", s));
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (external.isSelected()) {
+            int s = 0;
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'external'";
+
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+
+                    s = rs.getInt(1);
+
+
+                }
+                set1.getData().add(new XYChart.Data("EXTERNAL", s));
+                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
+        }
+
+        if (religous.isSelected()) {
+            int s = 0;
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                String query = "select count(*) from REQUESTLOG where TYPE = 'religion'";
+
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+
+                    s = rs.getInt(1);
+
+
+                }
+                set1.getData().add(new XYChart.Data("RELIGOUS", s));
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
+        if (labtest.isSelected()) {
+            int s = 0;
+            try {
+                Connection conn = new DatabaseUtils().getConnection();
+                String query = "select count(*) from REQUESTLOG where TYPE = 'laboratory'";
+
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+
+                    s = rs.getInt(1);
+
+
+                }
+                set1.getData().add(new XYChart.Data("LAB TEST", s));
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+            if (gift.isSelected()) {
+                int s = 0;
+                try {
+                    Connection conn = new DatabaseUtils().getConnection();
+                    String query = "select count(*) from REQUESTLOG where TYPE = 'gift'";
+
+                    PreparedStatement stmt = conn.prepareStatement(query);
+                    ResultSet rs = stmt.executeQuery();
+                    while (rs.next()) {
+
+                        s = rs.getInt(1);
+
+
+                    }
+                    set1.getData().add(new XYChart.Data("GIFT", s));
+                    conn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+        }
+
+
+
+
+        chart.setBarGap(10);
+
+            X.setAnimated(false);
+            Y.setAnimated(false);
 
         chart.getData().addAll(set1);
 
 
     }
+
 
 
     //"SELECT cnt as count(TYPE)from REQUESTLOG where (SELECT * from REQUESTLOG where TYPE = 'it')";
@@ -222,8 +411,8 @@ public class GenerateReport implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
-        userText.setText("");
+        userText.setText(User.getUsername());
+        //userText.setText("");
     }
 }
 

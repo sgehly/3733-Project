@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -28,18 +27,37 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-       <AnchorPane fx:id="mainContent" onKeyPressed="#onEnterPressed" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+       <AnchorPane fx:id="mainContent" onKeyPressed="#onKeyPressed" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-              <MediaView fx:id="mediaView" opacity="0.13" />
+               <MediaView fx:id="mediaView" opacity="0.13" />
                <VBox alignment="CENTER" onMouseClicked="#fadeToLogin" prefHeight="200.0" prefWidth="100.0" StackPane.alignment="CENTER">
                   <children>
-                     <ImageView fitHeight="359.0" fitWidth="344.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox fx:id="overrideLoginButtonBox" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                           <ImageView fitHeight="65.0" fitWidth="66.0" onMouseClicked="#transitionBackToLogin" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../../../../../../resources/icons/back.png" />
+                              </image>
+                              <HBox.margin>
+                                 <Insets left="30.0" right="30.0" />
+                              </HBox.margin>
+                           </ImageView>
+                           <Button fx:id="overrideLoginButton" mnemonicParsing="false" onAction="#logIn" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="OVERRIDE LOGIN" />
+                        </children>
+                        <VBox.margin>
+                           <Insets top="30.0" />
+                        </VBox.margin>
+                     </HBox>
+                     <ImageView fitHeight="359.0" fitWidth="344.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="SOMETIMES">
                         <image>
                            <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
                         </image>
+                        <VBox.margin>
+                           <Insets bottom="100.0" />
+                        </VBox.margin>
                      </ImageView>
-                   <StackPane VBox.vgrow="NEVER">
+                   <StackPane prefHeight="417.0" prefWidth="1920.0" VBox.vgrow="ALWAYS">
                        <VBox fx:id="welcomeField" alignment="TOP_CENTER" style="-fx-cursor: hand;">
                         <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
                            <font>
@@ -48,43 +66,111 @@
                               <VBox.margin>
                                  <Insets top="40.0" />
                               </VBox.margin>
-                        </Text>
+                           </Text>
                            <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Tap the Screen to Get Started" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
                               <font>
-                                  <Font name="Palatino" size="42.0" />
+                                 <Font name="Palatino" size="42.0" />
                               </font>
                               <VBox.margin>
                                  <Insets top="50.0" />
                               </VBox.margin>
                            </Text>
                            <HBox alignment="CENTER">
-                               <Pane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+                              <Pane GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
                            </HBox>
                        </VBox>
-                        <VBox fx:id="loginField" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" StackPane.alignment="TOP_CENTER">
+                        <VBox fx:id="field2FA" alignment="TOP_CENTER" maxWidth="499.0" prefHeight="432.0" prefWidth="346.0" spacing="30.0">
                            <children>
-                              <VBox alignment="TOP_CENTER" maxWidth="306.0" prefHeight="583.0" prefWidth="306.0" spacing="30.0">
+                              <Label fx:id="secondFactorLabel" alignment="TOP_CENTER" prefHeight="68.0" prefWidth="451.0" text="Second Factor" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font size="46.0" />
+                                 </font>
+                              </Label>
+                              <HBox fx:id="phoneField" alignment="CENTER_RIGHT" prefHeight="104.0" prefWidth="499.0" VBox.vgrow="SOMETIMES">
                                  <children>
-                                    <TextField fx:id="username" promptText="Username" styleClass="darkInput">
+                                    <TextField fx:id="phoneNumber" prefHeight="69.0" prefWidth="399.0" promptText="phone number" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="50.0" right="50.0" />
+                                       </HBox.margin></TextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <Label fx:id="phoneNumberErrorLabel" alignment="TOP_CENTER" prefHeight="56.0" prefWidth="355.0" text="Phone number is incorrect" textAlignment="CENTER" textFill="RED">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="TOP_CENTER" prefHeight="82.0" prefWidth="499.0">
+                                 <children>
+                                    <VBox fx:id="codeField" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+                                       <children>
+                                          <HBox fx:id="codeBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="399.0" spacing="20.0">
+                                             <children>
+                                                <TextField fx:id="code1" alignment="CENTER" maxHeight="1.7976931348623157E308" onKeyTyped="#tabTo2" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
+                                                <TextField fx:id="code2" alignment="CENTER" maxHeight="1.7976931348623157E308" onKeyTyped="#tabTo3" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
+                                                <TextField fx:id="code3" alignment="CENTER" maxHeight="1.7976931348623157E308" onKeyTyped="#tabTo4" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
+                                                <TextField fx:id="code4" alignment="CENTER" maxHeight="1.7976931348623157E308" onAction="#onKeyPressed" onKeyTyped="#displayLogin" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" HBox.hgrow="SOMETIMES" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <Label fx:id="codeErrorLabel" alignment="TOP_CENTER" prefHeight="56.0" prefWidth="355.0" text="Code is incorrect" textAlignment="CENTER" textFill="RED">
+                                             <font>
+                                                <Font size="19.0" />
+                                             </font>
+                                          </Label>
+                                          <HBox fx:id="loginBox" alignment="CENTER" prefHeight="101.0" prefWidth="211.0">
+                                             <children>
+                                                <Button fx:id="loginButton" mnemonicParsing="false" onAction="#checkCode" prefHeight="61.0" prefWidth="182.0" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="LOGIN" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <StackPane.margin>
+                              <Insets />
+                           </StackPane.margin>
+                        </VBox>
+                        <VBox fx:id="loginField" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="432.0" prefWidth="1681.0" StackPane.alignment="CENTER">
+                           <children>
+                              <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="509.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="398.0" spacing="30.0">
+                                 <children>
+                                    <HBox fx:id="loginLabelBox" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label fx:id="loginLabel" alignment="TOP_CENTER" prefHeight="68.0" prefWidth="451.0" text="Log in" textAlignment="CENTER" textFill="WHITE">
+                                             <font>
+                                                <Font size="46.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="TOP_CENTER" prefHeight="52.0" prefWidth="405.0">
+                                       <children>
+                                          <TextField fx:id="username" alignment="TOP_LEFT" prefHeight="52.0" prefWidth="354.0" promptText="username" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="TOP_CENTER" prefHeight="119.0" prefWidth="509.0">
+                                       <children>
+                                          <PasswordField fx:id="password" onKeyPressed="#onKeyPressed" prefHeight="52.0" prefWidth="354.0" promptText="password" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="TOP_CENTER" prefHeight="218.0" prefWidth="445.0">
+                                       <children>
+                                          <Label fx:id="loginError" alignment="TOP_CENTER" prefHeight="56.0" prefWidth="355.0" text="Username or password is incorrect" textAlignment="CENTER" textFill="RED" HBox.hgrow="SOMETIMES">
+                                             <font>
+                                                <Font size="19.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
-                                    </TextField>
-                                    <PasswordField fx:id="password" onKeyPressed="#onEnterPressed" promptText="Password" styleClass="darkInput">
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </PasswordField>
-                                    <Button fx:id="logInButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#transitionTo2FA" styleClass="logoutButton" text="LOG IN">
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Label fx:id="errorMessage" textFill="RED">
-                                       <font>
-                                          <Font name="Open Sans" size="25.0" />
-                                       </font>
-                                    </Label>
+                                    </HBox>
                                  </children>
                                  <VBox.margin>
                                     <Insets />
@@ -92,51 +178,20 @@
                               </VBox>
                            </children>
                            <StackPane.margin>
-                              <Insets top="50.0" />
-                           </StackPane.margin>
-                        </VBox>
-                        <VBox fx:id="field2FA" maxWidth="499.0" prefHeight="400.0" prefWidth="499.0" spacing="30.0">
-                           <children>
-                              <HBox prefHeight="38.0" prefWidth="306.0" VBox.vgrow="NEVER">
-                                 <children>
-                                    <TextField fx:id="emailNumber" prefHeight="61.0" prefWidth="283.0" promptText="emailNumber" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
-                                    <JFXButton fx:id="verifyButton" onAction="#sendVerify" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="SEND CODE">
-                                       <HBox.margin>
-                                          <Insets left="45.0" />
-                                       </HBox.margin>
-                                    </JFXButton>
-                                 </children>
-                              </HBox>
-                              <TextField fx:id="verifyCode" promptText="Enter code" styleClass="darkInput" stylesheets="@../../../../../../resources/stylesheet.css" />
-                              <Button fx:id="resendButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#checkCode" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="LOGIN" />
-                              <Button fx:id="loginButton2" mnemonicParsing="false" onAction="#logIn" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="OVERRIDE LOGIN" />
-                              <HBox prefHeight="190.0" prefWidth="300.0">
-                                 <children>
-                                    <Label fx:id="sent" text="Label" textFill="WHITE">
-                                       <HBox.margin>
-                                          <Insets top="70.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label fx:id="wrong" text="Label" textFill="WHITE">
-                                       <HBox.margin>
-                                          <Insets top="70.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <StackPane.margin>
-                              <Insets top="50.0" />
+                              <Insets />
                            </StackPane.margin>
                         </VBox>
                         <VBox.margin>
-                           <Insets top="100.0" />
+                           <Insets />
                         </VBox.margin>
-                   </StackPane>
+                     </StackPane>
                   </children>
+                  <StackPane.margin>
+                     <Insets />
+                  </StackPane.margin>
                </VBox>
             </children>
          </StackPane>
-       </AnchorPane>
+      </AnchorPane>
    </children>
 </GridPane>
