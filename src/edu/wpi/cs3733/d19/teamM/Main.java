@@ -27,7 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -54,6 +54,8 @@ public class Main extends Application {
     static boolean isLoaded = false;
 
     private static Stage primaryStage = null;
+
+    final static KeyCombination keyShiftTab = new KeyCodeCombination(KeyCode.TAB, KeyCombination.SHIFT_ANY);
 
     private static Parent homePane;
     private static Parent adminPane;
@@ -133,6 +135,25 @@ public class Main extends Application {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setMaxWidth(primaryScreenBounds.getWidth());
         primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
+
+        if(scene != "welcome"){
+
+            EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>(){
+                @Override
+                public void handle(KeyEvent e)
+                {
+                    if (keyShiftTab.match(e))
+                    {
+                        Main.setScene("welcome");
+                        e.consume();
+                    }
+                }
+            };
+
+            primaryStage.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, handler);
+            primaryStage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, handler);
+        }
+
     }
 
     /**
