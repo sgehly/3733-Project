@@ -136,7 +136,7 @@ public class Main extends Application {
         primaryStage.setMaxWidth(primaryScreenBounds.getWidth());
         primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
 
-        if(scene != "welcome"){
+        /*if(scene != "welcome"){
 
             EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>(){
                 @Override
@@ -152,7 +152,7 @@ public class Main extends Application {
 
             primaryStage.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, handler);
             primaryStage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, handler);
-        }
+        }*/
 
     }
 
