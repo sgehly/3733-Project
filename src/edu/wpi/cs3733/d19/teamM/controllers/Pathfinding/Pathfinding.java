@@ -167,9 +167,6 @@ public class Pathfinding {
     @FXML
     private Button showDir;
 
-    @FXML
-    private Button hearDir;
-
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
@@ -188,9 +185,8 @@ public class Pathfinding {
         util.initialize();
         floorLabel.setText(util.getFloorLabel());
 
-        hearDir.setDisable(true);
+//        hearDir.setDisable(true);
         showDir.setDisable(true);
-        hearDir.setText("NO DIRECTIONS");
         showDir.setText("NO DIRECTIONS");
 
         loadDirectory();
@@ -390,8 +386,6 @@ public class Pathfinding {
         PathToString.getDirections(path);
 
         if (path != null){
-            hearDir.setDisable(false);
-            hearDir.setText("HEAR DIRECTION");
             showDir.setDisable(false);
             showDir.setText("TEXT DIRECTIONS");
         }
@@ -415,8 +409,6 @@ public class Pathfinding {
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
         if (path != null){
-            hearDir.setDisable(false);
-            hearDir.setText("HEAR DIRECTION");
             showDir.setDisable(false);
             showDir.setText("TEXT DIRECTIONS");
         }
@@ -455,8 +447,6 @@ public class Pathfinding {
         System.out.println("Seeing util floor as "+util.floor);
 
         if (path != null){
-            hearDir.setDisable(false);
-            hearDir.setText("HEAR DIRECTION");
             showDir.setDisable(false);
             showDir.setText("TEXT DIRECTIONS");
         }
