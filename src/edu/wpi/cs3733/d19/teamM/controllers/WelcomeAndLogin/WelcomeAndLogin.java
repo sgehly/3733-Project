@@ -487,7 +487,7 @@ public class WelcomeAndLogin {
             int myCode = (int)generateCode();
             Twilio.init("ACbfbd0226f179ee74597c887298cbda10", "eeb459634d5a8407d077635504386d44");
             try {
-                //Message message = Message.creator(new PhoneNumber(emailNumber1), new PhoneNumber("+15085383787"), "Hello from Brigham & Women's! Your authentication code is " + myCode).create();
+                Message message = Message.creator(new PhoneNumber(emailNumber1), new PhoneNumber("+15085383787"), "Hello from Brigham & Women's! Your authentication code is " + myCode).create();
                 TwoFactor myFactor = TwoFactor.getTwoFactor();
                 myFactor.setTheCode(myCode);
                 System.out.println("sent");
@@ -511,6 +511,11 @@ public class WelcomeAndLogin {
             this.logIn();
         }
         else{
+            code1.clear();
+            code2.clear();
+            code3.clear();
+            code4.clear();
+            code1.requestFocus();
             codeErrorLabel.setOpacity(1);
         }
     }
