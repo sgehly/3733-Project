@@ -103,9 +103,9 @@
                                                 <Image url="@../../../../../../resources/icons/sanitation.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="SANITATION">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="SANITATION">
                                              <font>
-                                                <Font name="Open Sans Bold" size="56.0" />
+                                                <Font name="Open Sans Bold" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -126,9 +126,9 @@
                                                 <Image url="@../../../../../../resources/icons/interpreter.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="INTERPRETER">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="INTERPRETER">
                                              <font>
-                                                <Font name="Open Sans Bold" size="56.0" />
+                                                <Font name="Open Sans Bold" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -149,9 +149,9 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="IT SERVICE">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="IT SERVICE">
                                              <font>
-                                                <Font name="Open Sans Bold" size="56.0" />
+                                                <Font name="Open Sans Bold" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -172,9 +172,9 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="AV SERVICE">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="AV SERVICE">
                                              <font>
-                                                <Font name="Open Sans Bold" size="56.0" />
+                                                <Font name="Open Sans Bold" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -199,9 +199,9 @@
                                                 <Image url="@../../../../../../resources/icons/gift.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="GIFT SHOP">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="GIFT SHOP">
                                              <font>
-                                                <Font name="Open Sans Bold" size="56.0" />
+                                                <Font name="Open Sans Bold" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -219,9 +219,9 @@
                                                 <Image url="@../../../../../../resources/icons/florist.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="FLORIST">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="FLORIST">
                                              <font>
-                                                <Font name="Open Sans Bold" size="56.0" />
+                                                <Font name="Open Sans Bold" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -292,9 +292,9 @@
                                                 <Image url="@../../../../../../resources/icons/religious.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="RELIGIOUS">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="RELIGIOUS">
                                              <font>
-                                                <Font name="Open Sans Bold" size="56.0" />
+                                                <Font name="Open Sans Bold" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -312,9 +312,9 @@
                                                 <Image url="@../../../../../../resources/icons/security.png" />
                                              </image>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="SECURITY">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="SECURITY">
                                              <font>
-                                                <Font name="Open Sans Bold" size="56.0" />
+                                                <Font name="Open Sans Bold" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -335,7 +335,7 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="PRESCRIPTIONS">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="PRESCRIPTIONS">
                                              <font>
                                                 <Font name="Open Sans Bold" size="36.0" />
                                              </font>
@@ -358,9 +358,9 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="LAB TEST" textAlignment="CENTER" wrappingWidth="280.4765625">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="LAB TEST" textAlignment="CENTER" wrappingWidth="280.4765625">
                                              <font>
-                                                <Font name="Open Sans Bold" size="56.0" />
+                                                <Font name="Open Sans Bold" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -377,7 +377,7 @@
                         </VBox>
                         <VBox minWidth="400.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <VBox alignment="CENTER" onMouseClicked="#navigateToFood" prefHeight="758.0" prefWidth="400.0" style="-fx-background-color: white;" styleClass="mainBlock">
+                              <VBox alignment="CENTER" onMouseClicked="#navigateToFood" prefHeight="758.0" prefWidth="400.0" style="-fx-background-color: white;" styleClass="requestBox small">
                                  <padding>
                                     <Insets left="15.0" right="15.0" />
                                  </padding>
@@ -390,7 +390,14 @@
                                           <Image url="@../../../../../../resources/icons/lunch_break.png" />
                                        </image>
                                     </ImageView>
-                                    <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox" text="FOOD SERVICES" />
+                                    <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="FOOD SERVICES">
+                                       <font>
+                                          <Font name="Open Sans Bold" size="36.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Text>
                                  </children>
                               </VBox>
                            </children>
