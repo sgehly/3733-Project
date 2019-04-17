@@ -30,7 +30,7 @@ public class DatabaseUtils {
 
     public void edgeParse() {
 
-        InputStream file = Main.getResource("edgesv5.csv");
+        InputStream file = Main.getResource("/resources/edgesv5.csv");
 
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
@@ -84,7 +84,7 @@ public class DatabaseUtils {
     }
 
     public void nodeParse(){
-        InputStream file = Main.getResource("nodesv5.csv");
+        InputStream file = Main.getResource("/resources/nodesv5.csv");
         List<List<String>> lines = new ArrayList<>();
         Scanner inputStream;
 
