@@ -382,7 +382,20 @@ public class AdminUI {
     private void setValues(MouseEvent value){
         try {
             String nodeId = ((Button)value.getSource()).getId();
-            System.out.println(1);
+
+            if(nodeId.equals(nodeIdTextBox.getText())){
+                routeArr.forEach(node -> {
+                    util.buttonPane.getChildren().remove(node);
+                });
+                nodeIdTextBox.setText("");
+                longNameTextBox.setText("");
+                shortNameTextBox.setText("");
+                floorTextBox.setText("");
+                buildingTextBox.setText("");
+                typeTextBox.setText("");
+                return;
+            }
+
             this.updateValues(nodeId, value.isShiftDown());
         }
         catch (Exception e) {
