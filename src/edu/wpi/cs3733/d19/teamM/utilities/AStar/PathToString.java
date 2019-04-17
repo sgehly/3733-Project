@@ -1,7 +1,10 @@
 package edu.wpi.cs3733.d19.teamM.utilities.AStar;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class PathToString {
 
@@ -68,6 +71,43 @@ public class PathToString {
         }
 
         return path.toString();
+    }
+
+    /***
+     * Get instuctions for the robot
+     * @param paths - The path to get instructions for
+     *
+     * @return A 2D array of instructions
+     *         - The first element of each array is the angle to take
+     *              > [0][0] is the angle to take if robot is facing east
+     *         - The second element of each array is the distance to travel for
+     */
+    public static List<List<Double>> pathToInstructions(Path paths){
+        List<List<Double>> instructions = new ArrayList<>();
+        double angle, oldAngle=0, distance = 0;
+        int oldX =0, oldY = 0;
+        if (paths.getPath().size() < 3) return null;
+
+        for (Path p : paths.getFloorPaths()) {
+            if (p.getPath().size() > 1) {
+                oldAngle = calcAngle(p.getPath().get(0).getX(), p.getPath().get(0).getY(), p.getPath().get(1).getX(), p.getPath().get(1).getY(), distance);
+                distance = (getDistance(p.getPath().get(0).getX(), p.getPath().get(0).getY(), p.getPath().get(1).getX(), p.getPath().get(1).getY()) * 0.34);
+                oldX = p.getPath().get(1).getX();
+                oldY = p.getPath().get(1).getY();
+                instructions.add(Arrays.asList(oldAngle, distance));
+            }
+            for (int i = 1; i < p.getPath().size() - 2; i++) {
+                Node n = p.getPath().get(i);
+                Node next = p.getPath().get(i + 1);
+                angle = calcAngle(oldX, oldY, next.getX(), next.getY(), distance);
+                distance = (getDistance(oldX, oldY, next.getX(), next.getY()) * 0.34);
+                instructions.add(Arrays.asList((angle - oldAngle), distance));
+                oldX = next.getX();
+                oldY = next.getY();
+                oldAngle = angle;
+            }
+        }
+        return instructions;
     }
 
     private static double getDistance(int x, int y, int x1, int y1){

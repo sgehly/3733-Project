@@ -368,10 +368,8 @@ public class Pathfinding {
 
 
 
-
-
-
     private void findPath() throws Exception{
+        //SocketClient s = new SocketClient();
         //Get path
         String start = startText.getText();
         String end = endText.getText();
@@ -379,6 +377,7 @@ public class Pathfinding {
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
         PathToString.getDirections(path);
+        //s.toConnString(PathToString.pathToInstructions(path));
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
 
@@ -550,6 +549,25 @@ public class Pathfinding {
         return new Button();
     }
 
+    private void zoomToPath(Node startN, Node endN){
+        double startX = startN.getX();
+        double startY = startN.getY();
+
+        double endX = endN.getX();
+        double endY = endN.getY();
+
+        double newXRaw = startN.getX() - ((startN.getX()-endN.getX()) / 2);
+        double newYRaw = startN.getY() - ((startN.getY()-endN.getY()) / 2);
+
+        double deltaX = Math.abs((startN.getX()-endN.getX()) / 2);
+        double deltaY = Math.abs((startN.getY()-endN.getY()) / 2);
+
+        gesturePane.reset();
+        double scale = deltaX > deltaY ? gesturePane.getWidth() / deltaX : gesturePane.getHeight() / deltaY;
+        MapPoint p = util.scalePoints((int)newXRaw,(int)newYRaw);
+        gesturePane.zoomBy(scale * 0.8, new Point2D(p.x, p.y));
+    }
+
     private void updateMap(Node startNode, Node endNode) throws Exception{
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
@@ -603,17 +621,7 @@ public class Pathfinding {
         if(startNode != null && endNode != null){
             //We zoomin boys
 
-            double startX = startNode.getX();
-            double startY = startNode.getY();
-
-            double endX = endNode.getX();
-            double endY = endNode.getY();
-
-            int newXRaw = startNode.getX()+(Math.abs(startNode.getX()-endNode.getX())/2);
-            int newYRaw = startNode.getY()+(Math.abs(startNode.getY()-endNode.getY())/2);
-
-            MapPoint scale = util.scalePoints((int)startX,(int)startY);
-            gesturePane.zoomTo(5, new Point2D(scale.x, scale.y));
+            zoomToPath(startNode, endNode);
 
         }
 
