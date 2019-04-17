@@ -521,5 +521,6 @@ public class addUser {
             e.printStackTrace();
             throw e;
         }
+        conn.close();
     }
 }
