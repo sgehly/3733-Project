@@ -474,7 +474,8 @@ public class AdminUI {
         userText.setText(User.getUsername());
         gesturePane.setContent(mapStuff);
 
-
+        nodeIdTextBox.setOpacity(0);
+        nodeIdTextBox.setDisable(true);
         //userText.setText("");
 
         edgeLabel.setVisible(false);

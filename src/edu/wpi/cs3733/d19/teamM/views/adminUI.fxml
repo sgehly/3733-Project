@@ -11,15 +11,18 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.AdminTools.AdminUI">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.AdminTools.AdminUI">
     <children>
       <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -126,7 +129,7 @@
                            <children>
                               <VBox prefWidth="100.0" spacing="25.0">
                                  <children>
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID:" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" />
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="XCoord:" />
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="YCoord:" />
                                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Floor:" />
@@ -190,12 +193,36 @@
                               <Insets bottom="49.0" left="30.0" right="30.0" top="50.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="712.0" spacing="30.0" VBox.vgrow="NEVER">
+                        <HBox alignment="CENTER" prefHeight="186.0" prefWidth="655.0" spacing="30.0" VBox.vgrow="NEVER">
                            <children>
-                              <JFXButton onAction="#addNode" prefHeight="74.0" prefWidth="157.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Add" HBox.hgrow="ALWAYS" />
-                              <JFXButton onAction="#removeNode" prefHeight="86.0" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Remove" HBox.hgrow="ALWAYS" />
-                              <JFXButton onAction="#updateNode" prefHeight="103.0" prefWidth="165.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Modify/Save" HBox.hgrow="ALWAYS" />
-                              <JFXButton onAction="#exportToCsv" prefHeight="96.0" prefWidth="135.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Export" HBox.hgrow="ALWAYS" />
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints vgrow="SOMETIMES" />
+                                  <RowConstraints vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <JFXButton onAction="#addNode" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Add" GridPane.halignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </GridPane.margin></JFXButton>
+                                    <JFXButton onAction="#removeNode" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Remove" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                                       <GridPane.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </GridPane.margin></JFXButton>
+                                    <JFXButton onAction="#updateNode" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Modify/Save" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                       <GridPane.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </GridPane.margin></JFXButton>
+                                    <JFXButton onAction="#exportToCsv" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Export" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                       <GridPane.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </GridPane.margin></JFXButton>
+                                 </children>
+                              </GridPane>
                            </children>
                            <VBox.margin>
                               <Insets left="60.0" right="60.0" />
