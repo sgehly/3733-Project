@@ -23,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -58,13 +59,9 @@ public class WelcomeAndLogin {
     @FXML
     private VBox loginField; //area that contains all of the login objects
     @FXML
-    private HBox phoneField; //area that contains the phone number prompt objects
-    @FXML
     private VBox codeField; //area that contains the objects where you enter code
     @FXML
     private HBox loginBox; //areea that contains the login button object
-    @FXML
-    private HBox overrideLoginButtonBox;
 
 
     //the text fields that the 2 factor auth code will be entered into
@@ -96,13 +93,7 @@ public class WelcomeAndLogin {
 
     //object that is for the two factor section
     @FXML
-    private TextField phoneNumber;
-    @FXML
     private Label secondFactorLabel;
-    @FXML
-    private Label phoneNumberErrorLabel;
-    @FXML
-    private Button overrideLoginButton;
 
 
 
@@ -145,26 +136,23 @@ public class WelcomeAndLogin {
      */
     private void setInitialOpacities() {
         welcomeField.setOpacity(1);
-        overrideLoginButtonBox.setOpacity(0);
+        //overrideLoginButtonBox.setOpacity(0);
         loginField.setOpacity(0);
-        phoneField.setOpacity(0);
         codeField.setOpacity(0);
         loginBox.setOpacity(0);
         loginError.setOpacity(0);
         secondFactorLabel.setOpacity(0);
-        phoneNumberErrorLabel.setOpacity(0);
         codeErrorLabel.setOpacity(0);
-        overrideLoginButton.setOpacity(0);
+        //overrideLoginButton.setOpacity(0);
     }
 
     private void setInitialDisabled() {
         welcomeField.setDisable(false);
         loginField.setDisable(true);
-        phoneField.setDisable(true);
         codeField.setDisable(true);
         loginBox.setDisable(true);
-        overrideLoginButton.setDisable(true);
-        overrideLoginButtonBox.setDisable(true);
+        //overrideLoginButton.setDisable(true);
+        //overrideLoginButtonBox.setDisable(true);
     }
 
     private void setInitialTriggers() {
@@ -182,14 +170,14 @@ public class WelcomeAndLogin {
 
         //setting up the transition between login and phone
         second = new SequentialTransition();
-        second.getChildren().addAll(transitions.fadeOut(loginField, 500), transitions.fadeCusion(welcomeField, 100), transitions.fadeIn(secondFactorLabel, 500), transitions.fadeIn(phoneField, 500));
+        second.getChildren().addAll(transitions.fadeOut(loginField, 500), transitions.fadeCusion(welcomeField, 100), transitions.fadeIn(secondFactorLabel, 500));
 
         //setting up the transition between phone and code
         phoneToCodeTransition = new SequentialTransition();
         first = new ParallelTransition();
         first.getChildren().addAll(transitions.fadeCusion(secondFactorLabel, 500), transitions.fadeIn(secondFactorLabel, 500));
         loginToPhoneTransition = new ParallelTransition();
-        phoneToCodeTransition.getChildren().addAll(transitions.fadeIn(codeField, 500),transitions.fadeOut(phoneField, 100), transitions.fadeCusion(welcomeField, 50), transitions.raise(codeField, 250, 150));
+        phoneToCodeTransition.getChildren().addAll(transitions.fadeOut(loginField, 500), transitions.fadeIn(codeField, 500), transitions.fadeCusion(welcomeField, 50), transitions.fadeIn(loginBox, 500));
         loginToPhoneTransition.getChildren().addAll(first, phoneToCodeTransition);
 
         fadeOutFadeIn = new SequentialTransition();
@@ -212,64 +200,78 @@ public class WelcomeAndLogin {
     @FXML
     public void fadeToLogin(){
         System.out.println("fading to login");
+
         //this if statement ensures that the transition will only appear once every time it is loaded
         if(hasNotBeenClicked) {
+            transitions.fadeOut(codeField, 500);
+
+            loginBox.setDisable(true);
             welcomeField.setDisable(true);
             loginField.setDisable(false);
             System.out.println("the login stuff is enabled");
+
             welcomeToLoginTransition.play();
-            //username.requestFocus();
-            hasNotBeenClicked = false;
+            username.requestFocus();
         }
+        hasNotBeenClicked = false;
     }
     //this is called when you press enter or the button on login and you are transitioned to the phone input section
     @FXML
     public void transitionToPhone(){
         //this if statement ensures that the transition will only appear once everytime it is loaded
-        if(hasNotBeenClicked2){
-            this.overrideLoginButtonBox.setDisable(false);
-            transitions.fadeIn(overrideLoginButtonBox, 1000).play();
-            loginField.setDisable(true);
-            phoneField.setDisable(false);
-            second.play();
-            hasNotBeenClicked2 = false;
-            overrideLoginButton.setDisable(false);
-            transitions.fadeIn(overrideLoginButton, 1000).play();
-        }
+       this.transitionToCode();
+    }
+
+    @FXML
+    public void goBack(){
+        //hasNotBeenClicked = true;
+        hasNotBeenClicked3 = true;
+        this.transitionBackToLogin();
     }
     //this is called when you enter your phone number and press enter or the send code button and you are transitioned to the code section
     @FXML
     public void transitionToCode(){
         if(hasNotBeenClicked3){
-            transitions.fadeOut(overrideLoginButtonBox, 1000).play();
-            phoneNumberErrorLabel.setOpacity(0);
             secondFactorLabel.setText("Enter Sent Code");
             codeField.setDisable(false);
             loginToPhoneTransition.play();
             code1.requestFocus();
             hasNotBeenClicked3 = false;
             loginError.setOpacity(0);
+            loginField.setDisable(true);
+            loginBox.setDisable(false);
+            new Thread(() -> {
+                this.sendVerify();
+            }).start();
         }
     }
     //this is called when you have completed filling in the code and you are shown the login button
     @FXML
     public void transitionBackToLogin(){
-        phoneField.setDisable(true);
         loginField.setDisable(false);
         transitions.fadeOut(secondFactorLabel, 500).play();
+        transitions.fadeOut(loginBox, 500).play();
+        transitions.fadeOut(codeField, 500).play();
         SequentialTransition transitionBackToLogin = new SequentialTransition();
-        transitions.fadeOut(overrideLoginButtonBox, 1000).play();
-        transitionBackToLogin.getChildren().addAll(transitions.fadeOut(phoneField, 1000), transitions.fadeCusion(phoneField,500), transitions.fadeIn(loginField,1000));
+        transitionBackToLogin.getChildren().addAll(transitions.fadeIn(loginField,1000));
         transitionBackToLogin.play();
         hasNotBeenClicked2 = true;
 
     }
     @FXML
-    public void displayLogin(){
+    public void displayLogin(KeyEvent e){
+
+        if (e.getCharacter().equals("")) {
+            code4.setText("");
+            code3.requestFocus();
+            code3.setText("");
+            return;
+        }
+
         loginBox.setDisable(false);
         SequentialTransition loginAppear = new SequentialTransition();
         if(!hasBeenAdjusted) {
-            transitions.fadeIn(loginBox, 500).play();
+            //transitions.fadeIn(loginBox, 500).play();
             hasBeenAdjusted = true;
         }
         else{
@@ -277,7 +279,25 @@ public class WelcomeAndLogin {
         }
     }
 
-
+    @FXML
+    private void checkButtonManual(){
+        try {
+            if(this.isValidLogin()) {
+                if(this.hasPhoneNumber()) {
+                    this.transitionToPhone();
+                }
+                else{
+                    this.logIn();
+                }
+            }
+            else{
+                System.out.println("Incorrect username or password");
+                loginError.setOpacity(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * This function is a handler for all times you may feel it necessary to press enter instead of a button
      */
@@ -303,14 +323,6 @@ public class WelcomeAndLogin {
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
-                    }
-                }
-        );
-        //handles when you press enter when typing in the phone number; alternatively you can press the "send code" button
-        phoneNumber.setOnKeyPressed(
-                event -> {
-                    if(event.getCode().equals(KeyCode.ENTER)){
-                        this.sendVerify();
                     }
                 }
         );
@@ -364,22 +376,39 @@ public class WelcomeAndLogin {
      * FXML calls from the code boxees that automatically allow them to tab to the next box once something is typed
      */
     @FXML
-    void tabTo2(){
+    void tabTo2(KeyEvent e){
+        System.out.println("Char /"+e.getCharacter()+"/"+e.getCode());
+        if (e.getCharacter().equals("")) {
+            return;
+        }
+
         if(!tabTrigger) {
             System.out.println("real deal!");
-            code1.requestFocus();
             tabTrigger = true;
         }
         else{
             code2.requestFocus();
+            code2.setText("");
         }
     }
     @FXML
-    void tabTo3(){
+    void tabTo3(KeyEvent e){
+        if (e.getCharacter().equals("")) {
+            code2.setText("");
+            code1.requestFocus();
+            code1.setText("");
+            return;
+        }
         code3.requestFocus();
     }
     @FXML
-    void tabTo4(){
+    void tabTo4(KeyEvent e){
+        if (e.getCharacter().equals("")) {
+            code3.setText("");
+            code2.requestFocus();
+            code2.setText("");
+            return;
+        }
         code4.requestFocus();
     }
 
@@ -438,7 +467,6 @@ public class WelcomeAndLogin {
     }
 
     private void clearAllTextfields() {
-        phoneNumber.clear();
         code1.clear();
         code2.clear();
         code3.clear();
@@ -455,52 +483,20 @@ public class WelcomeAndLogin {
             ResultSet rs = stmt.executeQuery();
             rs.next();
             String emailNumber1 = rs.getString("PHONEEMAIL");
-            System.out.println(emailNumber1);
-            System.out.println(phoneNumber.getText());
-            if(emailNumber1.equals(phoneNumber.getText())){
-                String numberEmail = phoneNumber.getText();
-                int myCode = (int)generateCode();
-                Twilio.init("ACbfbd0226f179ee74597c887298cbda10", "eeb459634d5a8407d077635504386d44");
-                if (!numberEmail.contains("@")) {
-                    try {
-                        Message message = Message.creator(new PhoneNumber(numberEmail), new PhoneNumber("+15085383787"), "Hello from Brigham & Women's! Your authentication code is " + myCode).create();
-                        TwoFactor myFactor = TwoFactor.getTwoFactor();
-                        myFactor.setTheCode(myCode);
-                        System.out.println("sent");
-                        this.transitionToCode();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println("failed");
-                    }
-                }
-                else{
-                    String sendgrid_username  = "sgehlywpi";
-                    String sendgrid_password  = "MangoManticores1!";
-                    String to = numberEmail;
-                    SendGrid sendgrid = new SendGrid(sendgrid_username, sendgrid_password);
-                    SendGrid.Email email = new SendGrid.Email();
 
-                    email.addTo(numberEmail);
-                    email.setFrom(numberEmail);
-                    email.setFromName("Brigham & Women's");
-                    email.setReplyTo("mangomanticores@gehly.net");
-                    email.setSubject("Authentication Code");
-                    email.setHtml(" from Brigham & Women's! Your authentication code is " + myCode);
-                    try {
-                        SendGrid.Response response = sendgrid.send(email);
-                        TwoFactor myFactor = TwoFactor.getTwoFactor();
-                        myFactor.setTheCode(myCode);
-                        System.out.println("sent");
-                    } catch (SendGridException e) {
-                        System.out.println(e);
-                        System.out.println("failed");
-                    }
-                }
+            int myCode = (int)generateCode();
+            Twilio.init("ACbfbd0226f179ee74597c887298cbda10", "eeb459634d5a8407d077635504386d44");
+            try {
+                //Message message = Message.creator(new PhoneNumber(emailNumber1), new PhoneNumber("+15085383787"), "Hello from Brigham & Women's! Your authentication code is " + myCode).create();
+                TwoFactor myFactor = TwoFactor.getTwoFactor();
+                myFactor.setTheCode(myCode);
+                System.out.println("sent");
+                //this.transitionToCode();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("failed");
             }
-            else{
-                System.out.println("showing phone error");
-                phoneNumberErrorLabel.setOpacity(1);
-            }
+
             stmt.close();
         } catch (Exception e) {
             e.printStackTrace();
