@@ -257,12 +257,24 @@ public class Pathfinding {
         dirButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
     }
 
-
+    //A global int to keep track of whether the thing is speaking or not
+    TextSpeech textSpeech = new TextSpeech();
     @FXML
     private void speakDirections(){
-        TextSpeech textSpeech = new TextSpeech();
-        textSpeech.speakToUser();
+
+            textSpeech.speakToUser();
+        System.out.println("Hit Start");
+
+
     }
+
+    @FXML
+    private void cancelDirections()
+    {
+        textSpeech.quitSpeaking();
+        System.out.println("Hit Cancel");
+    }
+
 
     private void clickValues(MouseEvent evt){}
 
@@ -276,6 +288,7 @@ public class Pathfinding {
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
         Main.setScene("home");
+        cancelDirections();
     }
 
     @FXML
@@ -771,6 +784,7 @@ public class Pathfinding {
     @FXML
     public void logout() throws Exception{
         Main.logOut();
+        cancelDirections();
     }
 
     private boolean checkValidLongNameInput(){
