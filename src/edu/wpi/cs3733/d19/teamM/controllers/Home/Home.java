@@ -13,8 +13,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
@@ -82,7 +85,15 @@ public class Home{
      */
     @FXML
     public void navigateToPathfinding(){
-        Main.setScene("pathfinding");
+        Parent pathFindingPane;
+        Scene pathFindingScene;
+        try {
+            pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
+            pathFindingScene = new Scene(pathFindingPane);
+            Main.getStage().setScene(pathFindingScene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
