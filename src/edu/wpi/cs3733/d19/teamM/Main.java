@@ -319,7 +319,6 @@ public class Main extends Application {
         primaryStage.setWidth(bounds.getWidth());
         primaryStage.setHeight(bounds.getHeight());
         primaryStage.setFullScreen(false);
-        primaryStage.setResizable(false);
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
