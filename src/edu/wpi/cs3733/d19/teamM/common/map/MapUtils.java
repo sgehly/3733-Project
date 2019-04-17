@@ -166,7 +166,7 @@ public class MapUtils {
 
                 //Set its id to the node that it will be representing
                 newButton.setId(rs.getString("nodeId"));
-                newButton.setOnMouseClicked(callback);
+                newButton.setOnMousePressed(callback);
                 newButton.setOnMouseDragged(this.dragCallback);
 
                 //Generate a map point out of the node button and place it on the screen and make it blue

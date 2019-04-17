@@ -265,8 +265,6 @@ public class AdminUI {
         });
 
 
-
-
         System.out.println("Updating values...");
         //TODO: Can someone on database make this so SQL Injection can't happen
         String query = "SELECT * FROM NODE WHERE NODEID = ?";
@@ -396,7 +394,6 @@ public class AdminUI {
     }
 
     private void hoverCallback(MouseEvent value){
-        System.out.println(value.isShiftDown()+"/"+edgeCreationLine);
         if(value.isShiftDown() && edgeCreationLine != null){
             edgeCreationLine.setEndX(edgeCreationLine.getLayoutX()+value.getX()-2.5);
             edgeCreationLine.setEndY(edgeCreationLine.getLayoutY()+value.getY()-2.5);
@@ -415,20 +412,23 @@ public class AdminUI {
 
         Button toMove = (Button)value.getSource();
 
-        if(!nodeIdTextBox.getText().equals(toMove.getId())){
-            try{
-                System.out.println(2);
-                this.updateValues(toMove.getId(), value.isShiftDown());
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+        try{
+            this.updateValues(toMove.getId(), false);
+        }catch(Exception e){
+            e.printStackTrace();
         }
+
+        /*routeArr.forEach(node -> {
+            route.setStartX(toMove.getLayoutX()+2.5);
+            route.setStartY(toMove.getLayoutY()+2.5);
+        });*/
 
         System.out.println("("+value.getX()+","+value.getY()+")");
         toMove.setLayoutX(toMove.getLayoutX()+value.getX()-2.5);
         toMove.setLayoutY(toMove.getLayoutY()+value.getY()-2.5);
 
         MapPoint original = util.scalePointReversed(toMove.getLayoutX()+value.getX()-2.5, toMove.getLayoutY()+value.getY()-2.5);
+
         xCoordTextBox.setText(String.valueOf((int)original.x));
         yCoordTextBox.setText(String.valueOf((int)original.y));
 
