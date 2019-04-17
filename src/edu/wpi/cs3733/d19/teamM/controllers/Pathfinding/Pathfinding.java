@@ -175,29 +175,16 @@ public class Pathfinding {
 
         gesturePane.setContent(mappingStuff);
 
+        graph = Floor.getFloor();
+        path = new Path();
+        util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues, false, null, null);
+        setUpListeners();
+        util.initialize();
+        floorLabel.setText(util.getFloorLabel());
 
-        //userText.setText("");
+        loadDirectory();
 
-        new Thread(() -> {
-            try{
-                graph = Floor.getFloor();
-                path = new Path();
-                util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues, false, null, null);
-                setUpListeners();
-                util.initialize();
-                floorLabel.setText(util.getFloorLabel());
-
-                loadDirectory();
-
-                chooseNav();
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-
-        }).start();
-
-        System.out.println("Finished pathfinding");
-
+        chooseNav();
     }
 
     private void loadDirectory(){
