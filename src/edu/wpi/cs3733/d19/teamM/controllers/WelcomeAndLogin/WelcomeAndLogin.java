@@ -463,7 +463,6 @@ public class WelcomeAndLogin {
         this.clearAllTextfields();
 
         secondFactorLabel.setText("Second Factor");
-        transitions.drop(codeField,10,150).play();
     }
 
     private void clearAllTextfields() {
