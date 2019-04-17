@@ -23,20 +23,20 @@ public class PathToString {
         int distance = 0;
         double angle = 0.0;
         double oldAngle = 0.0;
-        //Collections.reverse(paths.getPath());
+        Collections.reverse(paths.getPath());
         //angle = calcAngle(oldX, oldY, n.getX(), n.getY());
         //step = getDirectionChange(angle, oldAngle);
         if (paths.getPath().size() < 3) {
             try {
                 FileWriter fstream = new FileWriter("resource.txt", false);
                 BufferedWriter out = new BufferedWriter(fstream);
-                out.write("It's should be right next to you.");
+                out.write("It should be next to you. Have a good day");
                 out.close();
             }
             catch (Exception e){
                 e.printStackTrace();
             }
-            return "It's should be right next to you.";
+            return "It should be next to you. Have a good day";
         }
         for (Path p : paths.getFloorPaths()) {
             if (p.getPath().size() > 1) {
