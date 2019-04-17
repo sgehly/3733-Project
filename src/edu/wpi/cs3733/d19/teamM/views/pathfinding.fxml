@@ -260,9 +260,9 @@
                                               </StackPane>
                                           </children>
                                       </VBox>
-                              <TitledPane animated="false" maxHeight="200.0" maxWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
+                              <TitledPane animated="false" maxHeight="425.0" maxWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="245.0" prefWidth="278.0">
                                               <children>
                                                   <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                       <content>
