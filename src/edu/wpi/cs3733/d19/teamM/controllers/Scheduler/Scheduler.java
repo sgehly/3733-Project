@@ -6,9 +6,7 @@ import java.net.URL;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
@@ -32,6 +30,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -47,6 +46,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 /**
  * The controller class associated with the scheduler
@@ -162,6 +162,57 @@ public class Scheduler {
     private ImageView room10 = new ImageView();
 
 
+
+    //random rooms that are not bookable but will change color with rng on every update of time and date
+    @FXML
+    private Pane randomRoom1;
+    @FXML
+    private Pane randomRoom2;
+    @FXML
+    private Pane randomRoom3;
+    @FXML
+    private Pane randomRoom4;
+    @FXML
+    private Pane randomRoom5;
+    @FXML
+    private Pane randomRoom6;
+    @FXML
+    private Pane randomRoom7;
+    @FXML
+    private Pane randomRoom8;
+    @FXML
+    private Pane randomRoom9;
+    @FXML
+    private Pane randomRoom10;
+    @FXML
+    private Pane randomRoom11;
+    @FXML
+    private Pane randomRoom12;
+    @FXML
+    private Pane randomRoom13;
+    @FXML
+    private Pane randomRoom14;
+    @FXML
+    private Pane randomRoom15;
+    @FXML
+    private Pane randomRoom16;
+    @FXML
+    private Pane randomRoom17;
+    @FXML
+    private Pane randomRoom18;
+    @FXML
+    private Pane randomRoom19;
+    @FXML
+    private Pane randomRoom20;
+    @FXML
+    private Pane randomRoom21;
+    @FXML
+    private Pane randomRoom22;
+
+    ArrayList<Pane> randomPanes;
+
+
+
     Node[] focusable = new Node[] {startTime, startDate, endTime, endDate};
 
     boolean[] available = new boolean[10];
@@ -215,7 +266,6 @@ public class Scheduler {
 
         this.addBookedTime(roomID, ts, te);
         this.checkAvailability();
-        initialize();
     }
 
     private void addBookedTime(String roomID, Timestamp start, Timestamp end){
@@ -314,7 +364,7 @@ public class Scheduler {
 
     private void processImage(String roomId, boolean available){
 
-
+        this.randomizeRandomRoomColors();
         char fileSuffix = available ? 'a' : 't';
         String file = "/resources/maps/room"+roomId.split("_")[1]+fileSuffix+".png";
         Image imageFile = new Image(Main.getResource(file));
@@ -406,7 +456,8 @@ public class Scheduler {
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize(){
-
+        this.initializePaneList();
+        this.randomizeRandomRoomColors();
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
@@ -522,6 +573,48 @@ public class Scheduler {
         assert imageView != null : "fx:id=\"imageView\" was not injected: check your FXML file 'scheduler.fxml'.";
         assert image != null : "fx:id=\"image\" was not injected: check your FXML file 'scheduler.fxml'.";
 
+    }
+
+    private void initializePaneList() {
+        randomPanes = new ArrayList<>();
+        randomPanes.add(randomRoom1);
+        randomPanes.add(randomRoom2);
+        randomPanes.add(randomRoom3);
+        randomPanes.add(randomRoom4);
+        randomPanes.add(randomRoom5);
+        randomPanes.add(randomRoom6);
+        randomPanes.add(randomRoom7);
+        randomPanes.add(randomRoom8);
+        randomPanes.add(randomRoom9);
+        randomPanes.add(randomRoom10);
+        randomPanes.add(randomRoom11);
+        randomPanes.add(randomRoom12);
+        randomPanes.add(randomRoom13);
+        randomPanes.add(randomRoom14);
+        randomPanes.add(randomRoom15);
+        randomPanes.add(randomRoom16);
+        randomPanes.add(randomRoom17);
+        randomPanes.add(randomRoom18);
+        randomPanes.add(randomRoom19);
+        randomPanes.add(randomRoom20);
+        randomPanes.add(randomRoom21);
+        randomPanes.add(randomRoom22);
+    }
+
+    private void randomizeRandomRoomColors() {
+        Random random = new Random();
+        double randomFloat = 0;
+        for(int i = 0; i < randomPanes.size(); i++){
+            randomFloat = random.nextDouble();
+            System.out.println(randomFloat);
+            if(randomFloat > .5){
+                randomPanes.get(i).setStyle("-fx-background-color:  #8b1111");
+            }
+            else{
+                randomPanes.get(i).setStyle("-fx-background-color: #118b56");
+            }
+
+        }
     }
 
     private void switchToRoom(int id){

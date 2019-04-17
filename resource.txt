@@ -1,0 +1,22 @@
+
+<<<Directions for floor 2>>>
+
+Start at Watkins B Node 35 Floor 2, move towards Hall Node 30 Floor 2
+In 16 feet, at Hall Node 30 Floor 2, take a right turn
+Arrive at Elevator Q Node 31a Floor 2
+<<<Directions for floor L2>>>
+
+Start at Elevator Q MapNode 6 Floor L2, move towards Hallway MapNode 5 Floor L2
+In 12 feet, at Hallway MapNode 5 Floor L2, remain straight
+In 16 feet, at Restroom MapNode 4 Floor L2, remain straight
+In 171 feet, at Cardiovascular Imaging Center Floor L2, take a left turn
+In 16 feet, at Hallway MapNode 1 Floor L2, remain straight
+In 5 feet, at Hallway Connector 2 Floor L2, remain straight
+In 82 feet, at Hallway Connector 1 Floor L2, remain straight
+Arrive at Elevator M Floor L2
+<<<Directions for floor 2>>>
+
+Start at Elevator M Floor 2, move towards Hallway Connector 9 Floor 2
+In 17 feet, at Hallway Connector 9 Floor 2, take a right turn
+In 22 feet, at Hallway Connector 8 Floor 2, remain straight
+Arrive at Stairwell 2 Tower Floor 2

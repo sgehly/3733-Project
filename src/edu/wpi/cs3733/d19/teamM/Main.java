@@ -57,7 +57,6 @@ public class Main extends Application {
 
     private static Parent homePane;
     private static Parent adminPane;
-    private static Parent pathFindingPane;
     private static Parent schedulerPane;
     private static Parent serviceRequestPane;
     private static Parent serviceRequestListPane;
@@ -67,7 +66,7 @@ public class Main extends Application {
 
     private static Scene homeScene;
     private static Scene adminScene;
-    private static Scene pathFindingScene;
+
     private static Scene schedulerScene;
     private static Scene serviceRequestScene;
     private static Scene serviceRequestListScene;
@@ -104,10 +103,6 @@ public class Main extends Application {
         else if(scene == "admin"){
             primaryStage.setScene(adminScene);
             savedState.setState("admin");
-        }
-        else if(scene == "pathfinding"){
-            primaryStage.setScene(pathFindingScene);
-            savedState.setState("pathfinding");
         }
         else if(scene == "scheduling"){
             primaryStage.setScene(schedulerScene);
@@ -163,20 +158,12 @@ public class Main extends Application {
         homePane = FXMLLoader.load(Main.getFXMLURL("home"));
         homeScene = new Scene(Main.homePane);
 
-        if(!isLoaded) {
+        if(true) {
             Runnable loadAdminThread = () -> {
                 try {
                     System.out.println("Loading scenes");
                     adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
                     adminScene = new Scene(adminPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            };
-            Runnable loadPathfindingThread = () -> {
-                try {
-                    pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
-                    pathFindingScene = new Scene(pathFindingPane);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -208,7 +195,6 @@ public class Main extends Application {
 
 
             new Thread(loadAdminThread).start();
-            new Thread(loadPathfindingThread).start();
             new Thread(loadSchedulerThread).start();
             new Thread(loadServiceRequestsThread).start();
             new Thread(loadSRListThread).start();
@@ -225,6 +211,11 @@ public class Main extends Application {
                 }
             });
             channel.detach();
+
+            if(ably.connection != null && ably.connection.id != null){
+                ably.close();
+                ably = null;
+            }
 
 
             ClientOptions options = new ClientOptions("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
@@ -262,15 +253,6 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Runnable loadPathfindingThread = () -> {
-            try {
-                pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
-                pathFindingScene = new Scene(pathFindingPane);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        };
-        new Thread(loadPathfindingThread).start();
 
 
         //TODO on logout, set memento to home DONE
@@ -316,6 +298,7 @@ public class Main extends Application {
         primaryStage.setWidth(bounds.getWidth());
         primaryStage.setHeight(bounds.getHeight());
         primaryStage.setFullScreen(false);
+        primaryStage.setResizable(false);
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

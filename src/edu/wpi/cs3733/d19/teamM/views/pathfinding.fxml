@@ -24,7 +24,7 @@
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Pathfinding.Pathfinding">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: E4E5E5;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Pathfinding.Pathfinding">
     <children>
         <StackPane layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -260,9 +260,9 @@
                                               </StackPane>
                                           </children>
                                       </VBox>
-                              <TitledPane animated="false" maxHeight="200.0" maxWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
+                              <TitledPane animated="false" maxHeight="425.0" maxWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="245.0" prefWidth="278.0">
                                               <children>
                                                   <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                       <content>
@@ -404,7 +404,8 @@
                                                 </HBox>
                                     <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
                                        <children>
-                                          <Button maxHeight="53.0" mnemonicParsing="false" onMouseClicked="#speakDirections" prefHeight="53.0" prefWidth="425.0" styleClass="blackButton" text="HEAR DIRECTIONS" HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="hearDir" maxHeight="53.0" mnemonicParsing="false" onMouseClicked="#speakDirections" prefHeight="53.0" prefWidth="425.0" styleClass="blackButton" text="HEAR DIRECTIONS" HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="showDir" mnemonicParsing="false" onAction="#showText" prefWidth="425.0" styleClass="blackButton" text="SHOW DIRECTIONS" />
                                        </children>
                                        <padding>
                                           <Insets bottom="50.0" right="50.0" />

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
@@ -117,6 +118,9 @@
                                  </HBox.margin>
                                         </Text>
                            </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </HBox>
                         <HBox prefHeight="237.0" prefWidth="500.0">
                            <children>
@@ -138,7 +142,7 @@
                                     <Insets left="40.0" right="30.0" />
                                  </HBox.margin>
                               </VBox>
-                              <VBox prefHeight="334.0" prefWidth="300.0" spacing="13.0" HBox.hgrow="NEVER">
+                              <VBox alignment="CENTER" prefHeight="334.0" prefWidth="300.0" spacing="13.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <TextField fx:id="nodeIdTextBox" prefHeight="10.0" prefWidth="355.0" />
                                     <TextField fx:id="xCoordTextBox" />
@@ -168,7 +172,7 @@
                                           <Insets top="-1.0" />
                                        </VBox.margin>
                                     </TextField>
-                                    <Label fx:id="nodeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="245.0" text="Label" textFill="WHITE">
+                                    <Label fx:id="nodeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="245.0" text="Label" textAlignment="CENTER" textFill="WHITE">
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
@@ -181,58 +185,23 @@
                                     <Insets right="30.0" />
                                  </HBox.margin>
                               </VBox>
-                              <VBox prefHeight="331.0" prefWidth="227.0">
-                                 <children>
-                                    <Label alignment="CENTER" style="-fx-underline: true;" text="Search Algorithm Type" textFill="WHITE">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <padding>
-                                          <Insets left="22.0" />
-                                       </padding>
-                                    </Label>
-                                    <JFXRadioButton fx:id="AStar" onAction="#changeAlgorithm" selected="true" text="A*">
-                                       <padding>
-                                          <Insets left="40.0" top="30.0" />
-                                       </padding>
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="algoButtons" />
-                                       </toggleGroup>
-                                    </JFXRadioButton>
-                                    <JFXRadioButton fx:id="DFS" onAction="#changeAlgorithm" text="DFS" toggleGroup="$algoButtons">
-                                       <padding>
-                                          <Insets left="40.0" top="30.0" />
-                                       </padding>
-                                    </JFXRadioButton>
-                                    <JFXRadioButton fx:id="BFS" onAction="#changeAlgorithm" text="BFS" toggleGroup="$algoButtons">
-                                       <padding>
-                                          <Insets left="40.0" top="30.0" />
-                                       </padding>
-                                    </JFXRadioButton>
-                                    <JFXRadioButton fx:id="Dijkstra" onAction="#changeAlgorithm" text="Dijkstra" toggleGroup="$algoButtons">
-                                       <padding>
-                                          <Insets left="40.0" top="30.0" />
-                                       </padding>
-                                    </JFXRadioButton>
-                                 </children>
-                              </VBox>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="49.0" top="50.0" />
+                              <Insets bottom="49.0" left="30.0" right="30.0" top="50.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="50.0" prefWidth="434.0" spacing="5.0" VBox.vgrow="NEVER">
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="712.0" spacing="30.0" VBox.vgrow="NEVER">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#addNode" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Add" />
-                              <Button mnemonicParsing="false" onAction="#removeNode" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Remove" />
-                              <Button mnemonicParsing="false" onAction="#updateNode" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Modify/Save" />
-                              <Button mnemonicParsing="false" onAction="#exportToCsv" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Export" />
+                              <JFXButton onAction="#addNode" prefHeight="74.0" prefWidth="157.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Add" HBox.hgrow="ALWAYS" />
+                              <JFXButton onAction="#removeNode" prefHeight="86.0" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Remove" HBox.hgrow="ALWAYS" />
+                              <JFXButton onAction="#updateNode" prefHeight="103.0" prefWidth="165.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Modify/Save" HBox.hgrow="ALWAYS" />
+                              <JFXButton onAction="#exportToCsv" prefHeight="96.0" prefWidth="135.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Export" HBox.hgrow="ALWAYS" />
                            </children>
                            <VBox.margin>
-                              <Insets left="37.0" right="29.0" />
+                              <Insets left="60.0" right="60.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="50.0">
                                  <children>
@@ -243,7 +212,7 @@
                                     <Insets left="40.0" right="30.0" />
                                  </HBox.margin>
                               </VBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <TextField fx:id="startNodeTextBox">
                                        <VBox.margin>
@@ -255,7 +224,7 @@
                                           <Insets top="3.0" />
                                        </VBox.margin>
                                     </TextField>
-                                    <Label fx:id="edgeLabel" alignment="BASELINE_LEFT" prefHeight="17.0" prefWidth="192.0" text="Label" textFill="WHITE">
+                                    <Label fx:id="edgeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="192.0" text="Label" textAlignment="CENTER" textFill="WHITE">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
@@ -267,89 +236,126 @@
                               </VBox>
                            </children>
                            <VBox.margin>
-                              <Insets top="50.0" />
+                              <Insets left="30.0" right="30.0" top="50.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox prefHeight="50.0" prefWidth="432.0" spacing="5.0">
+                        <HBox prefHeight="50.0" prefWidth="432.0" spacing="30.0">
                            <children>
                               <Button mnemonicParsing="false" onAction="#addEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Add Edge" />
                               <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Remove Edge" />
                            </children>
                            <VBox.margin>
-                              <Insets bottom="30.0" left="39.0" right="29.0" top="50.0" />
+                              <Insets bottom="30.0" left="60.0" right="60.0" top="50.0" />
                            </VBox.margin>
                         </HBox>
                               </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                           </VBox>
-                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0">
+                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: rgba(0,35,71,0.6);">
                      <children>
-                        <GesturePane fx:id="gesturePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" />
-                        <VBox fx:id="mapStuff" maxHeight="700.0" maxWidth="1100.0" prefHeight="200.0" prefWidth="100.0">
+                        <HBox alignment="CENTER" prefHeight="132.0" prefWidth="1100.0" spacing="66.0">
+                           <VBox.margin>
+                              <Insets right="30.0" />
+                           </VBox.margin>
                            <children>
-                                        <StackPane maxHeight="700.0" maxWidth="1100.0" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                                            <children>
-                                                <AnchorPane maxWidth="1100.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
-                                                    <children>
-                                                        <ImageView fx:id="image" fitHeight="700.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                        <ImageView fx:id="overlayImage" fitHeight="700.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                        <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                    </children>
-                                                    <StackPane.margin>
-                                                        <Insets />
-                                                    </StackPane.margin>
-                                                </AnchorPane>
-                                            </children>
-                                        </StackPane>
+                              <Label alignment="CENTER" style="-fx-underline: true;" text="Search Algorithm:" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="22.0" />
+                                 </padding>
+                              </Label>
+                              <JFXRadioButton fx:id="AStar" onAction="#changeAlgorithm" selected="true" text="A*">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="algoButtons" />
+                                 </toggleGroup>
+                              </JFXRadioButton>
+                              <JFXRadioButton fx:id="DFS" onAction="#changeAlgorithm" text="DFS" toggleGroup="$algoButtons" />
+                              <JFXRadioButton fx:id="BFS" onAction="#changeAlgorithm" text="BFS" toggleGroup="$algoButtons" />
+                              <JFXRadioButton fx:id="Dijkstra" onAction="#changeAlgorithm" text="Dijkstra" toggleGroup="$algoButtons" />
                            </children>
-                        </VBox>
-                                    <VBox alignment="TOP_RIGHT" maxHeight="100.0" maxWidth="700.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" StackPane.alignment="BOTTOM_RIGHT">
-                                        <children>
-                                            <HBox maxWidth="430.0" opacity="0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
-                                                <children>
-                                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                        <image>
-                                                            <Image url="@../../../../../../resources/icons/icons8-minus2.png" />
-                                                        </image>
-                                                    </ImageView>
-                                                    <JFXSlider fx:id="zoomSlider" maxHeight="500.0" maxWidth="500.0" prefHeight="24.0" prefWidth="490.0" />
-                                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                                        <image>
-                                                            <Image url="@../../../../../../resources/icons/icons8-plus.png" />
-                                                        </image>
-                                                    </ImageView>
-                                                </children>
-                                                <VBox.margin>
-                                                    <Insets right="50.0" />
-                                                </VBox.margin>
-                                                <padding>
-                                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                                </padding>
-                                            </HBox>
-                                            <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
-                                                <children>
-                                                    <Text fx:id="floorLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="FLOOR 1">
-                                                        <font>
-                                                            <Font name="Open Sans Bold" size="33.0" />
-                                                        </font>
-                                                    </Text>
-                                                    <Button maxHeight="50.0" mnemonicParsing="false" onAction="#moveDown" prefHeight="40.0" styleClass="blackButton" text="MOVE DOWN FLOOR">
-                                                        <HBox.margin>
-                                                            <Insets left="10.0" />
-                                                        </HBox.margin>
-                                                    </Button>
-                                                    <Button maxHeight="50.0" mnemonicParsing="false" onAction="#moveUp" prefHeight="40.0" styleClass="blackButton" text="MOVE UP FLOOR" />
-                                                </children>
-                                                <padding>
-                                                    <Insets bottom="20.0" right="50.0" />
-                                                </padding>
-                                            </HBox>
-                                        </children>
-                           <StackPane.margin>
-                              <Insets bottom="40.0" />
-                           </StackPane.margin>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0">
+                                 <children>
+                                    <GesturePane fx:id="gesturePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" />
+                                    <VBox fx:id="mapStuff" maxHeight="700.0" maxWidth="1100.0" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                                    <StackPane maxHeight="700.0" maxWidth="1100.0" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                        <children>
+                                                            <AnchorPane maxWidth="1100.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
+                                                                <children>
+                                                                    <ImageView fx:id="image" fitHeight="700.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                    <ImageView fx:id="overlayImage" fitHeight="700.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                    <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                </children>
+                                                                <StackPane.margin>
+                                                                    <Insets />
+                                                                </StackPane.margin>
+                                                            </AnchorPane>
+                                                        </children>
+                                                    </StackPane>
+                                       </children>
                                     </VBox>
+                                                <VBox alignment="TOP_RIGHT" maxHeight="100.0" maxWidth="700.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" StackPane.alignment="BOTTOM_RIGHT">
+                                                    <children>
+                                                        <HBox maxWidth="430.0" opacity="0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                                                            <children>
+                                                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                    <image>
+                                                                        <Image url="@../../../../../../resources/icons/icons8-minus2.png" />
+                                                                    </image>
+                                                                </ImageView>
+                                                                <JFXSlider fx:id="zoomSlider" maxHeight="500.0" maxWidth="500.0" prefHeight="24.0" prefWidth="490.0" />
+                                                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                                    <image>
+                                                                        <Image url="@../../../../../../resources/icons/icons8-plus.png" />
+                                                                    </image>
+                                                                </ImageView>
+                                                            </children>
+                                                            <VBox.margin>
+                                                                <Insets right="50.0" />
+                                                            </VBox.margin>
+                                                            <padding>
+                                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                            </padding>
+                                                        </HBox>
+                                                        <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
+                                                            <children>
+                                                                <Text fx:id="floorLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="FLOOR 1">
+                                                                    <font>
+                                                                        <Font name="Open Sans Bold" size="33.0" />
+                                                                    </font>
+                                                                </Text>
+                                                                <Button maxHeight="50.0" mnemonicParsing="false" onAction="#moveDown" prefHeight="40.0" styleClass="blackButton" text="MOVE DOWN FLOOR">
+                                                                    <HBox.margin>
+                                                                        <Insets left="10.0" />
+                                                                    </HBox.margin>
+                                                                </Button>
+                                                                <Button maxHeight="50.0" mnemonicParsing="false" onAction="#moveUp" prefHeight="40.0" styleClass="blackButton" text="MOVE UP FLOOR" />
+                                                            </children>
+                                                            <padding>
+                                                                <Insets bottom="20.0" right="50.0" />
+                                                            </padding>
+                                                        </HBox>
+                                                    </children>
+                                       <StackPane.margin>
+                                          <Insets bottom="40.0" />
+                                       </StackPane.margin>
+                                                </VBox>
+                                 </children>
+                              </StackPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="15.0" right="30.0" />
+                           </VBox.margin>
+                        </HBox>
                      </children>
-                  </StackPane>
+                  </VBox>
                       </children>
                   </HBox>
               </children>

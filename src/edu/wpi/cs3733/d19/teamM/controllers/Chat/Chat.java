@@ -109,7 +109,8 @@ public class Chat {
     void initialize() throws IOException {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
-        userText.setText("");
+
+
         try {
 
             channel = Main.ably.channels.get("chat");
