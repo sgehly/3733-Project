@@ -101,6 +101,7 @@ public class PathToString {
                 Node next = p.getPath().get(i + 1);
                 angle = calcAngle(oldX, oldY, next.getX(), next.getY(), distance);
                 distance = (getDistance(oldX, oldY, next.getX(), next.getY()) * 0.34);
+
                 instructions.add(Arrays.asList((angle - oldAngle), distance));
                 oldX = next.getX();
                 oldY = next.getY();
