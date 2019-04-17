@@ -164,6 +164,12 @@ public class Pathfinding {
     @FXML
     private Button navButton;
 
+    @FXML
+    private Button showDir;
+
+    @FXML
+    private Button hearDir;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
@@ -182,9 +188,30 @@ public class Pathfinding {
         util.initialize();
         floorLabel.setText(util.getFloorLabel());
 
+        hearDir.setDisable(true);
+        showDir.setDisable(true);
+        hearDir.setText("NO DIRECTIONS");
+        showDir.setText("NO DIRECTIONS");
+
         loadDirectory();
 
         chooseNav();
+    }
+
+    @FXML
+    private void showText(){
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(Main.getStage());
+
+        VBox dialogVbox = new VBox(20);
+        TextArea tf = new TextArea();
+        tf.setText(PathToString.getDirections(path));
+        tf.setPrefSize(400,300);
+        dialogVbox.getChildren().add(tf);
+        Scene dialogScene = new Scene(dialogVbox, 400, 300);
+        dialog.setScene(dialogScene);
+        dialog.show();
     }
 
     private void loadDirectory(){
@@ -362,6 +389,13 @@ public class Pathfinding {
         floorLabel.setText(util.getFloorLabel());
         PathToString.getDirections(path);
 
+        if (path != null){
+            hearDir.setDisable(false);
+            hearDir.setText("HEAR DIRECTION");
+            showDir.setDisable(false);
+            showDir.setText("TEXT DIRECTIONS");
+        }
+
         updateMap(null, null);
         resetTextBox();
     }
@@ -380,7 +414,12 @@ public class Pathfinding {
         //s.toConnString(PathToString.pathToInstructions(path));
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
-
+        if (path != null){
+            hearDir.setDisable(false);
+            hearDir.setText("HEAR DIRECTION");
+            showDir.setDisable(false);
+            showDir.setText("TEXT DIRECTIONS");
+        }
         resetTextBox();
         updateMap(null,null);
     }
@@ -414,6 +453,13 @@ public class Pathfinding {
         floorLabel.setText(util.getFloorLabel());
 
         System.out.println("Seeing util floor as "+util.floor);
+
+        if (path != null){
+            hearDir.setDisable(false);
+            hearDir.setText("HEAR DIRECTION");
+            showDir.setDisable(false);
+            showDir.setText("TEXT DIRECTIONS");
+        }
 
         updateMap(null,null);
         resetTextBox();
