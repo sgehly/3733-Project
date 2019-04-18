@@ -285,9 +285,11 @@ public class addUser {
     @FXML
     void addUser(ActionEvent event) throws SQLException {
         try {
+            Exception e = new Exception();
             if (areFieldsEmpty2()) {
- //               errorMessage.setStyle("-fx-text-inner-color: red;");
- //               errorMessage.setText("Incorrect Fields/Photo");
+                errorMessage.setStyle("-fx-text-inner-color: red;");
+                errorMessage.setText("Incorrect Fields/Photo");
+                throw e;
             }
             String tempName = username.getText();
             String tempPhone = phoneField.getText();
@@ -297,8 +299,8 @@ public class addUser {
             stmt1.setString(1,tempName);
             ResultSet rs = stmt1.executeQuery();
             if(rs.next()){
-//                errorMessage.setText("User Already Exists");
-
+                errorMessage.setText("User Already Exists");
+                throw e;
             }
 
             String query = "INSERT INTO USERS (USERNAME, isSan, isInterp, isIT, isAV, isGift, isFlor, isExt, isInt, isRel, isSec, isPer, isLab, ACCOUNTINT, USERPASS, PATHTOPIC, PHONEEMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

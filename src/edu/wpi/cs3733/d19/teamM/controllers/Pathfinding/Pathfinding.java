@@ -164,9 +164,6 @@ public class Pathfinding {
     @FXML
     private Button navButton;
 
-    @FXML
-    private Button showDir;
-
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
@@ -178,7 +175,7 @@ public class Pathfinding {
 
         gesturePane.setContent(mappingStuff);
 
-//Comment on stuff
+
         //userText.setText("");
 
         new Thread(() -> {
@@ -189,36 +186,18 @@ public class Pathfinding {
                 setUpListeners();
                 util.initialize();
                 floorLabel.setText(util.getFloorLabel());
-        graph = Floor.getFloor();
-        path = new Path();
-        util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues, false, null, null);
-        setUpListeners();
-        util.initialize();
-        floorLabel.setText(util.getFloorLabel());
 
-//        hearDir.setDisable(true);
-        showDir.setDisable(true);
-        showDir.setText("NO DIRECTIONS");
+                loadDirectory();
 
-        loadDirectory();
+                chooseNav();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
 
-        chooseNav();
-    }
+        }).start();
 
-    @FXML
-    private void showText(){
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(Main.getStage());
+        System.out.println("Finished pathfinding");
 
-        VBox dialogVbox = new VBox(20);
-        TextArea tf = new TextArea();
-        tf.setText(PathToString.getDirections(path));
-        tf.setPrefSize(400,300);
-        dialogVbox.getChildren().add(tf);
-        Scene dialogScene = new Scene(dialogVbox, 400, 300);
-        dialog.setScene(dialogScene);
-        dialog.show();
     }
 
     private void loadDirectory(){
@@ -396,19 +375,16 @@ public class Pathfinding {
         floorLabel.setText(util.getFloorLabel());
         PathToString.getDirections(path);
 
-        if (path != null){
-            showDir.setDisable(false);
-            showDir.setText("TEXT DIRECTIONS");
-        }
-
         updateMap(null, null);
         resetTextBox();
     }
 
 
 
+
+
+
     private void findPath() throws Exception{
-        //SocketClient s = new SocketClient();
         //Get path
         String start = startText.getText();
         String end = endText.getText();
@@ -416,13 +392,9 @@ public class Pathfinding {
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
         PathToString.getDirections(path);
-        //s.toConnString(PathToString.pathToInstructions(path));
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
-        if (path != null){
-            showDir.setDisable(false);
-            showDir.setText("TEXT DIRECTIONS");
-        }
+
         resetTextBox();
         updateMap(null,null);
     }
@@ -456,11 +428,6 @@ public class Pathfinding {
         floorLabel.setText(util.getFloorLabel());
 
         System.out.println("Seeing util floor as "+util.floor);
-
-        if (path != null){
-            showDir.setDisable(false);
-            showDir.setText("TEXT DIRECTIONS");
-        }
 
         updateMap(null,null);
         resetTextBox();
@@ -596,25 +563,6 @@ public class Pathfinding {
         return new Button();
     }
 
-    private void zoomToPath(Node startN, Node endN){
-        double startX = startN.getX();
-        double startY = startN.getY();
-
-        double endX = endN.getX();
-        double endY = endN.getY();
-
-        double newXRaw = startN.getX() - ((startN.getX()-endN.getX()) / 2);
-        double newYRaw = startN.getY() - ((startN.getY()-endN.getY()) / 2);
-
-        double deltaX = Math.abs((startN.getX()-endN.getX()) / 2);
-        double deltaY = Math.abs((startN.getY()-endN.getY()) / 2);
-
-        gesturePane.reset();
-        double scale = deltaX > deltaY ? gesturePane.getWidth() / deltaX : gesturePane.getHeight() / deltaY;
-        MapPoint p = util.scalePoints((int)newXRaw,(int)newYRaw);
-        gesturePane.zoomBy(scale * 0.8, new Point2D(p.x, p.y));
-    }
-
     private void updateMap(Node startNode, Node endNode) throws Exception{
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
@@ -668,7 +616,17 @@ public class Pathfinding {
         if(startNode != null && endNode != null){
             //We zoomin boys
 
-            zoomToPath(startNode, endNode);
+            double startX = startNode.getX();
+            double startY = startNode.getY();
+
+            double endX = endNode.getX();
+            double endY = endNode.getY();
+
+            int newXRaw = startNode.getX()+(Math.abs(startNode.getX()-endNode.getX())/2);
+            int newYRaw = startNode.getY()+(Math.abs(startNode.getY()-endNode.getY())/2);
+
+            MapPoint scale = util.scalePoints((int)startX,(int)startY);
+            gesturePane.zoomTo(5, new Point2D(scale.x, scale.y));
 
         }
 
