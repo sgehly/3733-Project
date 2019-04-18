@@ -405,7 +405,7 @@ public class Pathfinding {
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
         PathToString.getDirections(path);
-        //s.toConnString(PathToString.pathToInstructions(path));
+
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
         if (path != null){
@@ -414,6 +414,12 @@ public class Pathfinding {
         }
         resetTextBox();
         updateMap(null,null);
+    }
+
+    @FXML
+    void sendRobot(){
+        SocketClient s = new SocketClient();
+        s.toConnString(PathToString.pathToInstructions(path));
     }
 
     private void findPathWithLongNames() throws Exception{

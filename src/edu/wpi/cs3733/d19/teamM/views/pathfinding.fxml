@@ -404,6 +404,7 @@
                                                 </HBox>
                                     <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
                                        <children>
+                                          <Button fx:id="sendRobotButton" mnemonicParsing="false" onAction="#sendRobot" prefHeight="41.0" prefWidth="420.0" styleClass="blackButton" text="SEND ROBOT" />
                                           <Button fx:id="showDir" mnemonicParsing="false" onAction="#showText" prefWidth="425.0" styleClass="blackButton" text="SHOW DIRECTIONS" />
                                        </children>
                                        <padding>
