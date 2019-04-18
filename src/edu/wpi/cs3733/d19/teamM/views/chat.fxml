@@ -46,6 +46,11 @@
                                                 <Insets />
                                             </HBox.margin>
                                         </Text>
+                              <Text fx:id="userText1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="14.396690368652344">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="36.0" />
+                                 </font>
+                              </Text>
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
@@ -110,7 +115,7 @@
                                     <ListView fx:id="messages" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: rgba(0,0,0,.1);">
                                        <children>
-                                          <TextField onKeyPressed="#onEnterPressed" fx:id="messageBox" minHeight="75.0" HBox.hgrow="ALWAYS">
+                                          <TextField fx:id="messageBox" minHeight="75.0" onKeyPressed="#onEnterPressed" HBox.hgrow="ALWAYS">
                                              <HBox.margin>
                                                 <Insets />
                                              </HBox.margin>

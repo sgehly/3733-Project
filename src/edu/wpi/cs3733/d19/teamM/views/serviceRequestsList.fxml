@@ -103,23 +103,23 @@
                                     <Insets top="5.0" />
                                  </HBox.margin>
                               </JFXComboBox>
-                              <Button mnemonicParsing="false" onAction="#exportInProgress" prefHeight="50.0" prefWidth="150.0" styleClass="blackButton" text="EXPORT PENDING">
+                              <Button mnemonicParsing="false" onAction="#exportInProgress" prefHeight="50.0" prefWidth="250.0" styleClass="blackButton" text="EXPORT PENDING">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onAction="#exportComplete" prefHeight="50.0" prefWidth="174.0" styleClass="blackButton" text="EXPORT COMPLETE">
+                              <Button mnemonicParsing="false" onAction="#exportComplete" prefHeight="50.0" prefWidth="250.0" styleClass="blackButton" text="EXPORT COMPLETE">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" onMouseClicked="#navigateToReport" prefHeight="50.0" prefWidth="172.0" styleClass="blackButton" text=" GENERATE REPORT">
+                              <Button mnemonicParsing="false" onMouseClicked="#navigateToReport" prefHeight="50.0" prefWidth="250.0" styleClass="blackButton" text=" GENERATE REPORT">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Button>
                               <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <JFXComboBox fx:id="usersDropDown" prefHeight="50.0" prefWidth="300.0">
+                              <JFXComboBox fx:id="usersDropDown" prefHeight="50.0" prefWidth="300.0" promptText="Fulfiller">
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>

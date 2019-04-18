@@ -27,7 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -55,9 +55,10 @@ public class Main extends Application {
 
     private static Stage primaryStage = null;
 
+    final static KeyCombination keyShiftTab = new KeyCodeCombination(KeyCode.TAB, KeyCombination.SHIFT_ANY);
+
     private static Parent homePane;
     private static Parent adminPane;
-    private static Parent pathFindingPane;
     private static Parent schedulerPane;
     private static Parent serviceRequestPane;
     private static Parent serviceRequestListPane;
@@ -67,7 +68,7 @@ public class Main extends Application {
 
     private static Scene homeScene;
     private static Scene adminScene;
-    private static Scene pathFindingScene;
+
     private static Scene schedulerScene;
     private static Scene serviceRequestScene;
     private static Scene serviceRequestListScene;
@@ -105,10 +106,6 @@ public class Main extends Application {
             primaryStage.setScene(adminScene);
             savedState.setState("admin");
         }
-        else if(scene == "pathfinding"){
-            primaryStage.setScene(pathFindingScene);
-            savedState.setState("pathfinding");
-        }
         else if(scene == "scheduling"){
             primaryStage.setScene(schedulerScene);
             savedState.setState("scheduling");
@@ -138,6 +135,25 @@ public class Main extends Application {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setMaxWidth(primaryScreenBounds.getWidth());
         primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
+
+        /*if(scene != "welcome"){
+
+            EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>(){
+                @Override
+                public void handle(KeyEvent e)
+                {
+                    if (keyShiftTab.match(e))
+                    {
+                        Main.setScene("welcome");
+                        e.consume();
+                    }
+                }
+            };
+
+            primaryStage.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, handler);
+            primaryStage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, handler);
+        }*/
+
     }
 
     /**
@@ -163,52 +179,53 @@ public class Main extends Application {
         homePane = FXMLLoader.load(Main.getFXMLURL("home"));
         homeScene = new Scene(Main.homePane);
 
-        if(!isLoaded) {
+        if(true) {
             Runnable loadAdminThread = () -> {
-                try {
-                    System.out.println("Loading scenes");
-                    adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
-                    adminScene = new Scene(adminPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            };
-            Runnable loadPathfindingThread = () -> {
-                try {
-                    pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
-                    pathFindingScene = new Scene(pathFindingPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        System.out.println("Loading scenes");
+                        adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
+                        System.out.println(adminPane);
+                        adminScene = new Scene(adminPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
             };
             Runnable loadSchedulerThread = () -> {
-                try {
-                    schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
-                    schedulerScene = new Scene(schedulerPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
+                        schedulerScene = new Scene(schedulerPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             };
             Runnable loadServiceRequestsThread = () -> {
-                try {
-                    serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
-                    serviceRequestScene = new Scene(serviceRequestPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
+                        serviceRequestScene = new Scene(serviceRequestPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             };
             Runnable loadSRListThread = () -> {
-                try {
-                    serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-                    serviceRequestListScene = new Scene(serviceRequestListPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+                        serviceRequestListScene = new Scene(serviceRequestListPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             };
 
 
             new Thread(loadAdminThread).start();
-            new Thread(loadPathfindingThread).start();
             new Thread(loadSchedulerThread).start();
             new Thread(loadServiceRequestsThread).start();
             new Thread(loadSRListThread).start();
@@ -225,6 +242,11 @@ public class Main extends Application {
                 }
             });
             channel.detach();
+
+            if(ably.connection != null && ably.connection.id != null){
+                ably.close();
+                ably = null;
+            }
 
 
             ClientOptions options = new ClientOptions("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
@@ -262,15 +284,6 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Runnable loadPathfindingThread = () -> {
-            try {
-                pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
-                pathFindingScene = new Scene(pathFindingPane);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        };
-        new Thread(loadPathfindingThread).start();
 
 
         //TODO on logout, set memento to home DONE

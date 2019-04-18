@@ -78,7 +78,7 @@ public class DMs {
     void initialize() throws IOException {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
-        userText.setText("");
+
 
         try {
             ClientOptions options = new ClientOptions("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
@@ -97,11 +97,18 @@ public class DMs {
                 });
             });
 
-            PresenceMessage[] members = listChannel.presence.get();
-            for(int i=0;i<members.length;i++){
-                onlineUsers.add(members[i].clientId);
-                userBox.setItems(FXCollections.observableArrayList(onlineUsers));
-            }
+            new Thread(() -> {
+                try{
+                    PresenceMessage[] members = listChannel.presence.get();
+                    for(int i=0;i<members.length;i++){
+                        onlineUsers.add(members[i].clientId);
+                        userBox.setItems(FXCollections.observableArrayList(onlineUsers));
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }).start();
+
 
             listChannel.presence.subscribe(new Presence.PresenceListener() {
                 @Override

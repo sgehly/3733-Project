@@ -13,8 +13,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
@@ -82,7 +85,15 @@ public class Home{
      */
     @FXML
     public void navigateToPathfinding(){
-        Main.setScene("pathfinding");
+        Parent pathFindingPane;
+        Scene pathFindingScene;
+        try {
+            pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
+            pathFindingScene = new Scene(pathFindingPane);
+            Main.getStage().setScene(pathFindingScene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -128,11 +139,17 @@ public class Home{
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
         //userText.setText("");
-        File f = new File(User.getPathToPic());
-        Image image = new Image(f.toURI().toString());
-        myImg.setStyle("-fx-background-radius: 1000; -fx-border-radius:1000");
-        myImg.setImage(image);
-        myImg.setClip(new Circle(24.5,24.5,24));
+        try{
+            System.out.println(User.getPathToPic());
+            Image image = new Image(Main.getResource("/resources/pics/"+User.getPathToPic()));
+            myImg.setStyle("-fx-background-radius: 1000; -fx-border-radius:1000");
+            myImg.setImage(image);
+            myImg.setClip(new Circle(24.5,24.5,24));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
         welcomeMessage.setText("Welcome to Brigham and Women's, " + User.getUsername());
 
 

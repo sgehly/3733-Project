@@ -1,0 +1,29 @@
+
+<<<Directions for floor 3>>>
+
+Start at BTM Conference Center, move towards Hall
+In 30 feet, at Hall, remain straight
+In 11 feet, at Hall, remain straight
+In 17 feet, at Hall, take a left turn
+In 22 feet, at Hall, remain straight
+Arrive at Elevator S Floor 3
+<<<Directions for floor 2>>>
+
+Start at Elevator S 02, move towards Hall
+In 21 feet, at Hall, take a sharp right turn
+In 47 feet, at Hall, take a left turn
+In 14 feet, at Hall, remain straight
+In 31 feet, at Hall, take a right turn
+In 30 feet, at Hall, take a left turn
+In 73 feet, at Hallway Connector 10 Floor 2, remain straight
+In 9 feet, at Hallway Connector 9 Floor 2, remain straight
+In 29 feet, at Hall Node 37 Floor 2, remain straight
+In 11 feet, at Hall Node 33 Floor 2, remain straight
+In 19 feet, at Hall Node 32 Floor 2, take a left turn
+Arrive at Elevator Q Node 31a Floor 2
+<<<Directions for floor 3>>>
+
+Start at Elevator Q Node 5 Floor 3, move towards Brigham Circle Medical Associates Node 4 Floor 3
+In 24 feet, at Brigham Circle Medical Associates Node 4 Floor 3, take a right turn
+In 16 feet, at Hallway Node 10 Floor 3, take a right turn
+Arrive at Restroom Node 12 Floor 3

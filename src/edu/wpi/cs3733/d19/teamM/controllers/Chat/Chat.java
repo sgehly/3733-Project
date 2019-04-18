@@ -109,8 +109,7 @@ public class Chat {
     void initialize() throws IOException {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
-        userText.setText("");
-
+        messages.setStyle("-fx-font-size: 32px;");
         try {
 
             channel = Main.ably.channels.get("chat");
@@ -126,38 +125,57 @@ public class Chat {
 
             });
 
-            PresenceMessage[] members = channel.presence.get();
-            for(int i=0;i<members.length;i++){
-                online.add(members[i].clientId);
-                listEmployees.setItems(FXCollections.observableArrayList(online));
-            }
 
-            channel.presence.subscribe(new Presence.PresenceListener() {
-                @Override
-                public void onPresenceMessage(PresenceMessage member) {
-                    if(member.action == PresenceMessage.Action.enter){
-                        online.add(member.clientId);
-                    }
-                    if(member.action == PresenceMessage.Action.leave){
-                        online.remove(member.clientId);
-                    }
+            new Thread(() -> {
+
+                try{
+                    PresenceMessage[] members = channel.presence.get();
 
                     Platform.runLater(() -> {
-                        listEmployees.setItems(FXCollections.observableArrayList(online));
+                        for(int i=0;i<members.length;i++) {
+                            online.add(members[i].clientId);
+                            listEmployees.setItems(FXCollections.observableArrayList(online));
+                        }
                     });
-                }
-            });
 
-            channel.presence.enter("iskrattar du förlorar du", new CompletionListener() {
-                @Override
-                public void onSuccess() {
+                    channel.presence.subscribe(new Presence.PresenceListener() {
+                        @Override
+                        public void onPresenceMessage(PresenceMessage member) {
 
-                }
-                @Override
-                public void onError(ErrorInfo info) {
+                            Platform.runLater(() -> {
+                                if(member.action == PresenceMessage.Action.enter){
+                                    online.add(member.clientId);
+                                }
+                                if(member.action == PresenceMessage.Action.leave){
+                                    online.remove(member.clientId);
+                                }
 
+                                Platform.runLater(() -> {
+                                    listEmployees.setItems(FXCollections.observableArrayList(online));
+                                });
+                            });
+
+                        }
+                    });
+
+                    channel.presence.enter("iskrattar du förlorar du", new CompletionListener() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+                        @Override
+                        public void onError(ErrorInfo info) {
+
+                        }
+                    });
+
+                }catch(Exception e){
+                    e.printStackTrace();;
                 }
-            });
+
+            }).start();
+
+
 
         }catch(Exception e){
             e.printStackTrace();

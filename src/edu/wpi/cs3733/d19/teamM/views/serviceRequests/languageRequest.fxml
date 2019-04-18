@@ -111,6 +111,9 @@
                                        <image>
                                           <Image url="@../../../../../../../resources/icons/interpreter.png" />
                                        </image>
+                                        <VBox.margin>
+                                            <Insets top="40.0" />
+                                        </VBox.margin>
                                     </ImageView>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Interpreter Request ">
                                        <VBox.margin>
@@ -164,14 +167,14 @@
                                     </Text>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onMouseClicked="#quickTranslateToEnglish" text="TRANSLATE TO ENGLISH">
+                                          <Button mnemonicParsing="false" onMouseClicked="#quickTranslateToEnglish" text="TO ENGLISH">
                                              <styleClass>
                                                 <String fx:value="blackButton" />
                                                 <String fx:value="requestButton" />
                                              </styleClass>
                                           </Button>
                                           <JFXTextField fx:id="translateText" alignment="CENTER" prefHeight="76.0" prefWidth="547.0" promptText="TYPE TEXT HERE TO TRANSLATE" styleClass="lightInput" />
-                                          <Button mnemonicParsing="false" onMouseClicked="#quickTranslateToTarget" text="TRANSLATE TO TARGET">
+                                          <Button mnemonicParsing="false" onMouseClicked="#quickTranslateToTarget" text="TO SELECTED">
                                              <styleClass>
                                                 <String fx:value="blackButton" />
                                                 <String fx:value="requestButton" />
@@ -195,7 +198,7 @@
                                           </Button>
                                        </children>
                                        <VBox.margin>
-                                          <Insets top="20.0" />
+                                          <Insets bottom="40.0" top="20.0" />
                                        </VBox.margin>
                                     </HBox>
                                  </children>
