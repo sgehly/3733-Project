@@ -175,7 +175,7 @@ public class Pathfinding {
 
         gesturePane.setContent(mappingStuff);
 
-
+//Comment on stuff
         //userText.setText("");
 
         new Thread(() -> {
