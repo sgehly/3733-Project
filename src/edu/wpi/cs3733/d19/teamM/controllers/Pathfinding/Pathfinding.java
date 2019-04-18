@@ -215,7 +215,14 @@ public class Pathfinding {
 
         for (Node n : graph.getNodes().values()){
             if(!n.getNodeType().equals("HALL")){
-                nodeList.add(n.getLongName());
+                String nodeName = n.getLongName();
+                if(nodeName.toUpperCase().contains("FLOOR"))
+                {
+                    nodeList.add(n.getLongName());
+                }
+                else {
+                    nodeList.add(n.getLongName() + " Floor " +n.getFloor());
+                }
             }
         }
 
@@ -399,7 +406,7 @@ public class Pathfinding {
     private void findPath() throws Exception{
         //SocketClient s = new SocketClient();
         //Get path
-        String start = startText.getText();
+        String start = startText.getText();//start.indexOf(" on Floor: ")
         String end = endText.getText();
         Node startNode = graph.getNodes().get(start);
         Node endNode = graph.getNodes().get(end);
@@ -418,8 +425,11 @@ public class Pathfinding {
 
     private void findPathWithLongNames() throws Exception{
 
-        String start = startText.getText();
-        String end = endText.getText();
+        String startPre = startText.getText();
+        String start = startPre.substring(0,startPre.indexOf(" on Floor: "));
+        String endPre = endText.getText();
+        String end = endPre.substring(0,endPre.indexOf(" on Floor: "));
+
         Node startNode = null;
         Node endNode = null;
 
@@ -526,7 +536,7 @@ public class Pathfinding {
         {
             if(!node.getNodeType().equals("HALL"))
             {
-                longNames.add(node.getLongName());
+                longNames.add(node.getLongName() + " on Floor: " + node.getFloor());
             }
         }
         startText.textProperty().addListener((ov, oldValue, newValue) -> {
