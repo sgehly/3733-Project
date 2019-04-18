@@ -175,9 +175,8 @@
                                  <children>
                                     <TableView fx:id="tableView2" prefHeight="480.0" style="-fx-background-color: ffffff;">
                                       <columns>
-                                        <TableColumn fx:id="roomidCol" maxWidth="0.0" minWidth="0.0" prefWidth="0.0" text="Room#" />
-                                        <TableColumn fx:id="starttimeCol" minWidth="0.0" prefWidth="220.0" text="Start Time" />
-                                          <TableColumn fx:id="endtimeCol" minWidth="0.0" prefWidth="220.0" text="End Time" />
+                                        <TableColumn fx:id="starttimeCol" minWidth="0.0" prefWidth="350.0" style="-fx-alignment: CENTER;" text="Start Time" />
+                                          <TableColumn fx:id="endtimeCol" minWidth="0.0" prefWidth="350.0" style="-fx-alignment: CENTER;" text="End Time" />
                                       </columns>
                                     </TableView>
                                  </children>
