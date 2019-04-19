@@ -55,6 +55,9 @@ public class Scheduler {
    //Instances of necessary objects
     public static String path;
 
+    //for the randomization purposes of the rooms
+    int secondsPassed = 0;
+
 
     @FXML
     private AnchorPane root;
@@ -455,6 +458,8 @@ public class Scheduler {
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize(){
+        this.startRandomization();
+
         this.initializePaneList();
         this.randomizeRandomRoomColors();
         new Clock(lblClock, lblDate);
@@ -574,6 +579,12 @@ public class Scheduler {
 
     }
 
+    private void startRandomization() {
+        Timer timer = new Timer();
+        TimerTask task = new Helper(this);
+        timer.schedule(task, 2000, 5000);
+    }
+
     private void initializePaneList() {
         randomPanes = new ArrayList<>();
         randomPanes.add(randomRoom1);
@@ -600,7 +611,7 @@ public class Scheduler {
         randomPanes.add(randomRoom22);
     }
 
-    private void randomizeRandomRoomColors() {
+    public void randomizeRandomRoomColors() {
         Random random = new Random();
         double randomFloat = 0;
         for(int i = 0; i < randomPanes.size(); i++){

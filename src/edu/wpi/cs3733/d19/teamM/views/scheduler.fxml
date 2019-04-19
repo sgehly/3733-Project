@@ -429,6 +429,11 @@
                               <Insets left="150.0" top="145.0" />
                            </StackPane.margin>
                         </Pane>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Note: the workspaces are simulated timer based changes. These changes don't accurately represent the availability of the rooms" wrappingWidth="213.3333396911621" StackPane.alignment="BOTTOM_LEFT">
+                           <StackPane.margin>
+                              <Insets bottom="124.0" left="200.0" />
+                           </StackPane.margin>
+                        </Text>
                      </children>
                   </StackPane>
                             </children>
