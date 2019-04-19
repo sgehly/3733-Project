@@ -46,7 +46,7 @@ public class TwitterFeed {
 
         int pageno = 1;
         String user = "cnn";
-        List statuses = new ArrayList();
+        List<Status> statuses = new ArrayList<Status>();
 
         while (true) {
 
@@ -54,7 +54,9 @@ public class TwitterFeed {
 
                 int size = statuses.size();
                 Paging page = new Paging(pageno++, 100);
+
                 statuses.addAll(twitter.getUserTimeline(user, page));
+
                 if (statuses.size() == size)
                     break;
             }
@@ -62,8 +64,13 @@ public class TwitterFeed {
 
                 e.printStackTrace();
             }
+
         }
 
+        System.out.println("Showing @" + user + "'s user timeline.");
+        for (Status status : statuses) {
+            System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+        }
         System.out.println("Total: "+statuses.size());
     }
 
