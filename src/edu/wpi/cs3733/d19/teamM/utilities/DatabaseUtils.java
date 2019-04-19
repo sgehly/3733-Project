@@ -16,6 +16,16 @@ import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 
 public class DatabaseUtils {
 
+    private static DatabaseUtils DBUtils;
+
+
+    synchronized public static DatabaseUtils getDBUtils(){
+        if(DBUtils == null){
+            DBUtils = new DatabaseUtils();
+        }
+        return DBUtils;
+    }
+
     String dbPath = "jdbc:derby:myDB;create=true";
 
     public Connection getConnection(){

@@ -90,6 +90,7 @@ public class PrescriptionRequest {
 
     @FXML
     private void initialize(){
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
 
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
@@ -97,7 +98,7 @@ public class PrescriptionRequest {
         ObservableList<String> list = FXCollections.observableArrayList();
 
         String query = "select * FROM users Where isPer = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        Connection conn = DBUtils.getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
             s.setInt(1, 1);
