@@ -698,7 +698,7 @@ public class Pathfinding {
                 clearNodes.add(startChangeButton);
             }
 
-            if(start.getId().equals(end.getId())) return;
+            //if(start.getId().equals(end.getId())) return;
             //ELEV or STAI
 
             String startNodeType = end.getNodeType();
