@@ -424,7 +424,7 @@ public class Main extends Application {
         //Map<String, Node> mappedNodes = parse.getNodes();
 //        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
         //aS.drawPath(path);
-        DatabaseUtils parser = new DatabaseUtils();
+        DatabaseUtils parser = DatabaseUtils.getDBUtils();
         parser.connect();
         parser.nodeParse();
         parser.edgeParse();

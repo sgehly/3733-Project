@@ -104,7 +104,8 @@ public class ExternalTransportRequest {
         ObservableList<String> list = FXCollections.observableArrayList();
 
         String query = "select * FROM users Where isExt = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+        Connection conn = DBUtils.getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
             s.setInt(1, 1);

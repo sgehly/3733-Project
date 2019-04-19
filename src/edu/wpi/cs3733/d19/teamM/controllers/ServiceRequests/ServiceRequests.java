@@ -100,7 +100,8 @@ public class ServiceRequests {
         int id = rand.nextInt(10000);
         try {
             String query = "SELECT REQUESTID FROM REQUESTINPROGRESS";
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()){
@@ -253,7 +254,8 @@ public class ServiceRequests {
     public void makeRequest(String type, String room, String subtype, String description, boolean checkbox){
         System.out.println("Trying to make request");
         try {
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             String query = "insert into APP.REQUESTINPROGRESS  (REQUESTID, TYPE, ROOM, SUBTYPE, DESCRIPTION, DATE, CHECKBOX) values (?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(query);
 
