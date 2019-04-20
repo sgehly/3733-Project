@@ -211,6 +211,7 @@ public class Pathfinding {
     Button buttonBox;
     File pathFile = new File("resource.txt");
     Scanner directionsScanner;
+     Stage dialogBox;
 
 
 
@@ -224,6 +225,7 @@ public class Pathfinding {
                 e.printStackTrace();
             }
         }
+         dialogBox = new Stage();
         tf.setTextAlignment(TextAlignment.CENTER);
         Font myFont = new Font("Open Sans",20);
 
@@ -233,13 +235,12 @@ public class Pathfinding {
         //TODO: Get the text directions
         //TODO: For each set of text directions
             //TODO: Set the image and the text and the next button
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(Main.getStage());
+        dialogBox.initModality(Modality.APPLICATION_MODAL);
+        dialogBox.initOwner(Main.getStage());
 
         dialogBoxVbox = new VBox(20);
         buttonBox = new Button();
-        buttonBox.setText("Next Directions");
+        buttonBox.setText("NEXT DIRECTION");
         imageBox = new Image("resources/icons/street_view.png");
         imageBoxView = new ImageView();
         imageBoxView.setImage(imageBox);
@@ -257,13 +258,14 @@ public class Pathfinding {
             }
         });
         Scene dialogScene = new Scene(dialogBoxVbox, 450, 600);
-        dialog.setScene(dialogScene);
-        dialog.setTitle("Text Directions");
-        dialog.show();
+        dialogBox.setScene(dialogScene);
+        dialogBox.setTitle("Text Directions");
+        dialogBox.show();
     }
 
     private void updateBox()
     {
+
         String line = directionsScanner.nextLine();
         if(line.isEmpty())
         {
@@ -300,7 +302,13 @@ public class Pathfinding {
             if(line.toUpperCase().contains("ARRIVE"))
             {
                 imageBoxView.setImage(new Image("resources/icons/arrived.png"));
-                buttonBox.setText("No More Directions");
+                buttonBox.setText("CLOSE");
+                buttonBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        dialogBox.close();
+                    }
+                });
             }
         }
     }
