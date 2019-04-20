@@ -53,9 +53,9 @@ public class MapUtils {
 
 
 
-    private String[] images = {"00_thegroundfloor.png", "00_thelowerlevel1.png", "00_thelowerlevel2.png",  "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
+    private String[] images = {"00_thegroundfloor.png", "00_thelowerlevel1.png", "00_thelowerlevel2.png",  "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png","04_thefourthfloor.png"};
     private String[] labels = {"Ground Floor",  "Lower Level 1", "Lower Level 2", "Floor One", "Floor Two", "Floor Three", "Floor Four"};
-    public String[] dbPrefixes = {"G", "L1", "L2", "1", "2", "3"};
+    public String[] dbPrefixes = {"G", "L1", "L2", "1", "2", "3","4"};
     private HashMap<Integer, Image> imageFiles = new HashMap<Integer, Image>();
 
     public int floor = 3;
