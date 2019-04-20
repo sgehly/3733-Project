@@ -260,7 +260,7 @@
                                               </StackPane>
                                           </children>
                                       </VBox>
-                              <TitledPane animated="false" maxHeight="425.0" maxWidth="300.0" pickOnBounds="false" prefHeight="420.0" prefWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
+                              <TitledPane fx:id="filters" animated="false" maxHeight="425.0" maxWidth="300.0" pickOnBounds="false" prefHeight="420.0" prefWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
                                       <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" pickOnBounds="false" prefHeight="245.0" prefWidth="278.0">
                                               <children>

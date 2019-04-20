@@ -167,12 +167,16 @@ public class Pathfinding {
     @FXML
     private Button showDir;
 
+    @FXML
+    private TitledPane filters;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
      */
     @FXML
     protected void initialize() throws Exception {
+        filters.setExpanded(false);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
@@ -301,6 +305,7 @@ public class Pathfinding {
      */
     @FXML
     private void navigateToHome() throws Exception{
+        filters.setExpanded(false);
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
@@ -708,7 +713,7 @@ public class Pathfinding {
                 clearNodes.add(startChangeButton);
             }
 
-            if(start.getId().equals(end.getId())) return;
+            //if(start.getId().equals(end.getId())) return;
             //ELEV or STAI
 
             String startNodeType = end.getNodeType();
