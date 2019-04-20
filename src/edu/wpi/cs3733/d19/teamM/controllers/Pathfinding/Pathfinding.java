@@ -299,7 +299,7 @@ public class Pathfinding {
 
             tf.setText(line);
 
-            if(line.toUpperCase().contains("ARRIVE"))
+            if(line.toUpperCase().contains("ARRIVE") && !line.toUpperCase().contains("ELEVATOR") && !line.toUpperCase().contains("STAIR"))
             {
                 imageBoxView.setImage(new Image("resources/icons/arrived.png"));
                 buttonBox.setText("CLOSE");
