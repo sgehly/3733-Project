@@ -97,6 +97,7 @@ public class GiftRequest {
     @FXML
     void initialize()
     {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         new Clock(lblClock,lblDate); //initialize the clock
         userText.setText(User.getUsername());
         //Create the listener for the text with a few options
@@ -104,7 +105,7 @@ public class GiftRequest {
         ObservableList<String> list = FXCollections.observableArrayList();
 
         String query = "select * FROM users Where isGift = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        Connection conn = DBUtils.getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
             s.setInt(1, 1);

@@ -101,7 +101,8 @@ public class ITRequests implements Initializable {
         ObservableList<String> list = FXCollections.observableArrayList();
 
         String query = "select * FROM users Where isIT = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+        Connection conn = DBUtils.getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
             s.setInt(1, 1); //CHANGE THIS FOR IT EMPLOYEES ???

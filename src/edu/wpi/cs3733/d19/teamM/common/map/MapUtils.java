@@ -265,6 +265,7 @@ public class MapUtils {
      * @throws SQLException: Any issues with the database
      */
     public ObservableList<DisplayTable> getAllRecords(int floor) throws ClassNotFoundException, SQLException, Exception {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         //Get the query from the database
         System.out.println("123");
         Image source = imageFiles.get(floor);
@@ -340,7 +341,7 @@ public class MapUtils {
 
         try {
             //Get the information that we want from the database
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             //Store the results we get in the entry list display table

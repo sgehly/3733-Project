@@ -167,12 +167,16 @@ public class Pathfinding {
     @FXML
     private Button showDir;
 
+    @FXML
+    private TitledPane filters;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
      */
     @FXML
     protected void initialize() throws Exception {
+        filters.setExpanded(false);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
@@ -215,7 +219,14 @@ public class Pathfinding {
 
         for (Node n : graph.getNodes().values()){
             if(!n.getNodeType().equals("HALL")){
-                nodeList.add(n.getLongName());
+                String nodeName = n.getLongName();
+                if(nodeName.toUpperCase().contains("FLOOR"))
+                {
+                    nodeList.add(n.getLongName());
+                }
+                else {
+                    nodeList.add(n.getLongName() + " Floor " +n.getFloor());
+                }
             }
         }
 
@@ -294,6 +305,7 @@ public class Pathfinding {
      */
     @FXML
     private void navigateToHome() throws Exception{
+        filters.setExpanded(false);
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
@@ -399,7 +411,7 @@ public class Pathfinding {
     private void findPath() throws Exception{
         //SocketClient s = new SocketClient();
         //Get path
-        String start = startText.getText();
+        String start = startText.getText();//start.indexOf(" on Floor: ")
         String end = endText.getText();
         Node startNode = graph.getNodes().get(start);
         Node endNode = graph.getNodes().get(end);
@@ -424,8 +436,11 @@ public class Pathfinding {
 
     private void findPathWithLongNames() throws Exception{
 
-        String start = startText.getText();
-        String end = endText.getText();
+        String startPre = startText.getText();
+        String start = startPre.substring(0,startPre.indexOf(" on Floor: "));
+        String endPre = endText.getText();
+        String end = endPre.substring(0,endPre.indexOf(" on Floor: "));
+
         Node startNode = null;
         Node endNode = null;
 
@@ -532,7 +547,7 @@ public class Pathfinding {
         {
             if(!node.getNodeType().equals("HALL"))
             {
-                longNames.add(node.getLongName());
+                longNames.add(node.getLongName() + " on Floor: " + node.getFloor());
             }
         }
         startText.textProperty().addListener((ov, oldValue, newValue) -> {
@@ -704,7 +719,7 @@ public class Pathfinding {
                 clearNodes.add(startChangeButton);
             }
 
-            if(start.getId().equals(end.getId())) return;
+            //if(start.getId().equals(end.getId())) return;
             //ELEV or STAI
 
             String startNodeType = end.getNodeType();
