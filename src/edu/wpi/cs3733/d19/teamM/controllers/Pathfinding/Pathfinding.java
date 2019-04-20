@@ -230,12 +230,13 @@ public class Pathfinding {
         dialog.initOwner(Main.getStage());
 
         dialogBoxVbox = new VBox(20);
-         tf = new TextArea();
+        tf = new TextArea();
         buttonBox = new Button();
         buttonBox.setText("Next Directions");
         imageBox = new Image("resources/icons/bell.png");
         imageBoxView = new ImageView();
         imageBoxView.setImage(imageBox);
+        tf.setEditable(false);
         tf.setText(directionsScanner.nextLine());
         tf.setPrefSize(400,300);
         dialogBoxVbox.getChildren().add(imageBoxView);
@@ -263,7 +264,33 @@ public class Pathfinding {
         }
         else
         {
+            if(line.toLowerCase().contains("stairs"))
+            {
+                imageBoxView.setImage(new Image(""));
+            }
+            else if(line.toLowerCase().contains("elevator"))
+            {
+
+            }
+            else if(line.toLowerCase().contains("right"))
+            {
+
+            }
+            else if(line.toLowerCase().contains("left"))
+            {
+
+            }
+            else if(line.toLowerCase().contains("straight"))
+            {
+
+            }
+
             tf.setText(line);
+
+            if(line.toUpperCase().contains("ARRIVE"))
+            {
+                buttonBox.setText("No More Directions");
+            }
         }
     }
 
