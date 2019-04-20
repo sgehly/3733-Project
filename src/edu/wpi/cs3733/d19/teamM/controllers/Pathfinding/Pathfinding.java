@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamM.controllers.Pathfinding;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.*;
 import java.text.DateFormat;
@@ -36,7 +37,9 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
@@ -197,21 +200,71 @@ public class Pathfinding {
 
         chooseNav();
     }
+    Image imageBox;
+    ImageView imageBoxView;
+    VBox dialogBoxVbox;
+    TextArea tf;
+    Button buttonBox;
+    File pathFile = new File("resource.txt");
+    Scanner directionsScanner;
+
+
 
     @FXML
     private void showText(){
+
+        {
+            try {
+                directionsScanner = new Scanner(pathFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        directionsScanner.nextLine();
+        //TODO: Create the VBOX
+        //TODO: Get the text directions
+        //TODO: For each set of text directions
+            //TODO: Set the image and the text and the next button
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(Main.getStage());
 
-        VBox dialogVbox = new VBox(20);
-        TextArea tf = new TextArea();
-        tf.setText(PathToString.getDirections(path));
+        dialogBoxVbox = new VBox(20);
+         tf = new TextArea();
+        buttonBox = new Button();
+        buttonBox.setText("Next Directions");
+        imageBox = new Image("resources/icons/bell.png");
+        imageBoxView = new ImageView();
+        imageBoxView.setImage(imageBox);
+        tf.setText(directionsScanner.nextLine());
         tf.setPrefSize(400,300);
-        dialogVbox.getChildren().add(tf);
-        Scene dialogScene = new Scene(dialogVbox, 400, 300);
+        dialogBoxVbox.getChildren().add(imageBoxView);
+        dialogBoxVbox.setAlignment(Pos.CENTER);
+        dialogBoxVbox.getChildren().add(tf);
+        dialogBoxVbox.getChildren().add(buttonBox);
+        buttonBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                updateBox();
+            }
+        });
+        Scene dialogScene = new Scene(dialogBoxVbox, 400, 300);
         dialog.setScene(dialogScene);
+        dialog.setTitle("Text Directions");
         dialog.show();
+    }
+
+    private void updateBox()
+    {
+        String line = directionsScanner.nextLine();
+        if(line.isEmpty())
+        {
+            updateBox();
+        }
+        else
+        {
+            tf.setText(line);
+        }
     }
 
     private void loadDirectory(){
