@@ -751,7 +751,7 @@ public class Pathfinding {
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
-                    if (nextFloor == 6) nextFloor = 4;
+                    //if (nextFloor == 6) nextFloor = 4;
                     final int nf = nextFloor;
                     final Node ns = nextFloorStart;
                     final Node ne = nextFloorEnd;
@@ -800,7 +800,7 @@ public class Pathfinding {
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
-                    if (nextFloor == 6) nextFloor = 4;
+                    //if (nextFloor == 6) nextFloor = 4;
                     final int nf = nextFloor;
 
                     startChangeButton.setOnAction(evt -> {
