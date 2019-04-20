@@ -139,7 +139,7 @@ public class Main extends Application {
         primaryStage.setMaxWidth(primaryScreenBounds.getWidth());
         primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
 
-        if(scene != "welcome"){
+        /*if(scene != "welcome"){
 
             EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>(){
                 @Override
@@ -155,7 +155,7 @@ public class Main extends Application {
 
             primaryStage.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, handler);
             primaryStage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, handler);
-        }
+        }*/
 
     }
 
@@ -184,37 +184,47 @@ public class Main extends Application {
 
         if(true) {
             Runnable loadAdminThread = () -> {
-                try {
-                    System.out.println("Loading scenes");
-                    adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
-                    adminScene = new Scene(adminPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        System.out.println("Loading scenes");
+                        adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
+                        System.out.println(adminPane);
+                        adminScene = new Scene(adminPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
             };
             Runnable loadSchedulerThread = () -> {
-                try {
-                    schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
-                    schedulerScene = new Scene(schedulerPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
+                        schedulerScene = new Scene(schedulerPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             };
             Runnable loadServiceRequestsThread = () -> {
-                try {
-                    serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
-                    serviceRequestScene = new Scene(serviceRequestPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
+                        serviceRequestScene = new Scene(serviceRequestPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             };
             Runnable loadSRListThread = () -> {
-                try {
-                    serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-                    serviceRequestListScene = new Scene(serviceRequestListPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+                        serviceRequestListScene = new Scene(serviceRequestListPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             };
 
 
@@ -424,7 +434,7 @@ public class Main extends Application {
         //Map<String, Node> mappedNodes = parse.getNodes();
 //        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
         //aS.drawPath(path);
-        DatabaseUtils parser = new DatabaseUtils();
+        DatabaseUtils parser = DatabaseUtils.getDBUtils();
         parser.connect();
         parser.nodeParse();
         parser.edgeParse();

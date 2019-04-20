@@ -105,7 +105,8 @@ public class IntTransportRequest {
         ObservableList<String> list = FXCollections.observableArrayList();
 
         String query = "select * FROM users Where isInt = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+        Connection conn = DBUtils.getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
             s.setInt(1, 1);

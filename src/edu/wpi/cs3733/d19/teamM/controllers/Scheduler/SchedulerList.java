@@ -66,6 +66,7 @@ public class SchedulerList {
 
 
     public ObservableList<String> getDatesForDropDown() throws SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
 
 
         ObservableList<String> list = FXCollections.observableArrayList();
@@ -77,7 +78,7 @@ public class SchedulerList {
 
             try {
 
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
                 while(rs.next()) {
@@ -106,7 +107,7 @@ public class SchedulerList {
 
             try {
 
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query);
                 stmt.setString(1, roomDropDown.getSelectionModel().getSelectedItem());
                 ResultSet rs = stmt.executeQuery();
@@ -138,6 +139,7 @@ public class SchedulerList {
      * @throws SQLException
      */
     private static ObservableList<DisplayTable> getEntryObjects2(ResultSet rs) throws SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         //The list we will populate
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
         try {
@@ -170,6 +172,7 @@ public class SchedulerList {
 
 
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
 
 
 
@@ -181,7 +184,7 @@ public class SchedulerList {
             String query = "SELECT * FROM BOOKEDTIMES";
 
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query);
 
                 ResultSet resultSet = stmt.executeQuery();
@@ -204,7 +207,7 @@ public class SchedulerList {
             String query = "SELECT * FROM BOOKEDTIMES WHERE ROOMID=?";
 
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query);
 
                 stmt.setString(1,roomDropDown.getSelectionModel().getSelectedItem());
@@ -229,7 +232,7 @@ public class SchedulerList {
 
 
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query);
 
 
@@ -256,7 +259,7 @@ public class SchedulerList {
 
 
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query);
 
 

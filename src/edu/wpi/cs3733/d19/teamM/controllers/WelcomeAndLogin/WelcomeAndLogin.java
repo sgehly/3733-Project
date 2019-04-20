@@ -337,14 +337,15 @@ public class WelcomeAndLogin {
     }
     //helper function for onKeyPressed() to figure out if the user has a phone number connected to the account
     private boolean hasPhoneNumber() throws SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         String query = "SELECT * from USERS where USERNAME = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        Connection conn = DBUtils.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, username.getText());
         ResultSet rs = stmt.executeQuery();
         rs.next();
         System.out.println("hey check me out: " + rs.getString("PHONEEMAIL"));
-        if (rs.getString("PHONEEMAIL") == null) {
+        if (rs.getString("PHONEEMAIL") == null || rs.getString("PHONEEMAIL").length() == 0) {
             conn.close();
             return false;
         }
@@ -353,8 +354,9 @@ public class WelcomeAndLogin {
     }
     //helper function for onKeyPressed() to figure out if the inputted username and password is a valid one
     private boolean isValidLogin() throws SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         String query = "SELECT * from USERS where USERNAME = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        Connection conn = DBUtils.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, username.getText());
         ResultSet rs = stmt.executeQuery();
@@ -416,12 +418,13 @@ public class WelcomeAndLogin {
 
     @FXML
     void logIn() {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         /*
         TODO add username to pages: scheduler, service requests, sr list
          */
         try {
             String query = "SELECT * from USERS where USERNAME = ?";
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username.getText());
             ResultSet rs = stmt.executeQuery();

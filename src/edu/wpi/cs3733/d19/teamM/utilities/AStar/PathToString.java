@@ -23,20 +23,20 @@ public class PathToString {
         int distance = 0;
         double angle = 0.0;
         double oldAngle = 0.0;
-        Collections.reverse(paths.getPath());
+        //Collections.reverse(paths.getPath());
         //angle = calcAngle(oldX, oldY, n.getX(), n.getY());
         //step = getDirectionChange(angle, oldAngle);
         if (paths.getPath().size() < 3) {
             try {
                 FileWriter fstream = new FileWriter("resource.txt", false);
                 BufferedWriter out = new BufferedWriter(fstream);
-                out.write("Figure it out, it's literally next to you. Have a good day");
+                out.write("It should be next to you. Have a good day");
                 out.close();
             }
             catch (Exception e){
                 e.printStackTrace();
             }
-            return "Figure it out";
+            return "It should be next to you. Have a good day";
         }
         for (Path p : paths.getFloorPaths()) {
             if (p.getPath().size() > 1) {
@@ -59,6 +59,8 @@ public class PathToString {
             }
             path.append("Arrive at " + p.getPath().get(p.getPath().size() - 1).getLongName());
         }
+
+        Collections.reverse(paths.getPath());
 
         try {
             FileWriter fstream = new FileWriter("resource.txt", false);

@@ -117,6 +117,7 @@ public class GenerateReport implements Initializable {
 
     @FXML
     private void generateReport() {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         System.out.println("Trying to make request");
 
         chart.getData().clear();
@@ -127,7 +128,7 @@ public class GenerateReport implements Initializable {
         if (prescription.isSelected()) {
             int s = 0;
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 String query = "select count(*) from REQUESTLOG where TYPE = 'presciption'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -150,7 +151,7 @@ public class GenerateReport implements Initializable {
         if (it.isSelected()) {
             int size = 0;
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 String query = "select count(*) from REQUESTLOG where TYPE = 'it'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -173,7 +174,7 @@ public class GenerateReport implements Initializable {
         if (sanitation.isSelected()) {
             int s = 0;
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 String query = "select count(*) from REQUESTLOG where TYPE = 'sanitation'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -195,7 +196,7 @@ public class GenerateReport implements Initializable {
         if (security.isSelected()) {
             int s = 0;
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 String query = "select count(*) from REQUESTLOG where TYPE = 'security'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -217,7 +218,7 @@ public class GenerateReport implements Initializable {
         if (language.isSelected()) {
             int s = 0;
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 String query = "select count(*) from REQUESTLOG where TYPE = 'interpreter'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -239,7 +240,7 @@ public class GenerateReport implements Initializable {
         if (flowers.isSelected()) {
             int s = 0;
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 String query = "select count(*) from REQUESTLOG where TYPE = 'flowers'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -261,7 +262,7 @@ public class GenerateReport implements Initializable {
             if (av.isSelected()) {
                 int s = 0;
                 try {
-                    Connection conn = new DatabaseUtils().getConnection();
+                    Connection conn = DBUtils.getConnection();
                     String query = "select count(*) from REQUESTLOG where TYPE = 'av'";
 
                     PreparedStatement stmt = conn.prepareStatement(query);
@@ -284,7 +285,7 @@ public class GenerateReport implements Initializable {
         if (internal.isSelected()) {
             int s = 0;
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 String query = "select count(*) from REQUESTLOG where TYPE = 'internal'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -305,7 +306,7 @@ public class GenerateReport implements Initializable {
         if (external.isSelected()) {
             int s = 0;
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 String query = "select count(*) from REQUESTINPROGRESS where TYPE = 'external'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -327,7 +328,7 @@ public class GenerateReport implements Initializable {
         if (religous.isSelected()) {
             int s = 0;
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 String query = "select count(*) from REQUESTLOG where TYPE = 'religion'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -348,7 +349,7 @@ public class GenerateReport implements Initializable {
         if (labtest.isSelected()) {
             int s = 0;
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                Connection conn = DBUtils.getConnection();
                 String query = "select count(*) from REQUESTLOG where TYPE = 'laboratory'";
 
                 PreparedStatement stmt = conn.prepareStatement(query);
@@ -369,7 +370,7 @@ public class GenerateReport implements Initializable {
             if (gift.isSelected()) {
                 int s = 0;
                 try {
-                    Connection conn = new DatabaseUtils().getConnection();
+                    Connection conn = DBUtils.getConnection();
                     String query = "select count(*) from REQUESTLOG where TYPE = 'gift'";
 
                     PreparedStatement stmt = conn.prepareStatement(query);
