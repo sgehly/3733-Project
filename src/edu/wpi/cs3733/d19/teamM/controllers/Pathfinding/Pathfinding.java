@@ -170,6 +170,9 @@ public class Pathfinding {
     @FXML
     private TitledPane filters;
 
+    @FXML
+    private  Button sendRobotButton;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
@@ -177,6 +180,7 @@ public class Pathfinding {
     @FXML
     protected void initialize() throws Exception {
         filters.setExpanded(false);
+        sendRobotButton.setDisable(true);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
@@ -421,6 +425,7 @@ public class Pathfinding {
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
         if (path != null){
+            sendRobotButton.setDisable(false);
             showDir.setDisable(false);
             showDir.setText("TEXT DIRECTIONS");
         }
