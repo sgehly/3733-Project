@@ -76,6 +76,9 @@ public class Home{
     @FXML
     private Button admin;
 
+    /**
+     * Will be adding stuff for the train timings here
+     */
     @FXML
     private Button about;
 
