@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
+import edu.wpi.cs3733.d19.teamM.utilities.General.Options;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.IdleMonitor;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.SavedState;
 import io.ably.lib.realtime.AblyRealtime;
@@ -84,6 +85,8 @@ public class Main extends Application {
     private static Channel dmChannel;
 
     public static AblyRealtime ably;
+
+    private static Timer timer;
 
     /**
      * This method is to return the current stage we are working on for referencing the stage
@@ -277,6 +280,10 @@ public class Main extends Application {
         Main.setScene("welcome");
     }
 
+    public static void updateTimer(){
+        timer.setDelay(Options.getTimeout());
+    }
+
     /**
      * This method creates and sets the stage of the viewable JavaFX screen
      * @param primaryStage: The stage to display on start
@@ -308,11 +315,14 @@ public class Main extends Application {
         welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         welcomeScene= new Scene(welcomePane);
 
+
         //create the idle detection system
         ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));  //resets ui on timer trigger
-        Timer timer = new Timer(600000,uiReset); //creates the timer, attach to ui reset
+        timer = new Timer(Options.getTimeout(),uiReset); //creates the timer, attach to ui reset
         EventHandler<MouseEvent> idleReset = e -> timer.restart(); //event handler to reset the timer
         primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);  //add event handler to the application
+        Options.getOptions();
+        Options.setTimeout(600000);
         timer.start();
 
 
