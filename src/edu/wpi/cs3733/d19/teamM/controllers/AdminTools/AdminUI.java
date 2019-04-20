@@ -536,6 +536,30 @@ public class AdminUI {
             fw.close();
             conn.close();
             System.out.println("CSV File is created successfully.");
+
+
+
+
+            String filename2 = "BWEdgeExport.csv";
+            FileWriter fw2 = new FileWriter(filename2);
+            Connection conn2 = DBUtils.getConnection();
+            String query2 = "select * from edge";
+            Statement stmt2 = conn2.createStatement();
+            ResultSet rs2 = stmt2.executeQuery(query2);
+            while (rs2.next()) {
+                fw2.append(rs2.getString(1));
+                fw2.append(',');
+                fw2.append(rs2.getString(2));
+                fw2.append(',');
+                fw2.append(rs2.getString(3));
+                fw2.append('\n');
+            }
+            fw2.flush();
+            fw2.close();
+            conn2.close();
+            System.out.println("CSV File is created successfully.");
+
+
         } catch (Exception ev) {
             ev.printStackTrace();
         }
