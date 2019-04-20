@@ -435,7 +435,7 @@ public class Pathfinding {
         };
         new Thread(robotThread).start();
     }
-    
+
     private void findPathWithLongNames() throws Exception{
 
         String start = startText.getText();
