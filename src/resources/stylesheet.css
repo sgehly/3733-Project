@@ -56,8 +56,16 @@
 .logoutButton:hover {
     -fx-background-color: white;
     -fx-text-fill: black;
-    -fx-border-color: #ffffff;
     -fx-cursor: hand;
+}
+
+.redButton{
+    -fx-border-color: #eb3b5a;
+    -fx-text-fill: #eb3b5a;
+}
+.redButton:hover{
+    -fx-background-color: black;
+    -fx-text-fill: #eb3b5a;
 }
 
 .hoverIcon:hover{
@@ -76,9 +84,31 @@
     -fx-opacity:0.8;
     -fx-background-insets: 5px;
 }
+
 .pane{
     -fx-background-color: white;
     -fx-background-radius: 5px;
+}
+
+.alert{
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+}
+
+.redBG{
+    -fx-background-color: #ee5253;
+}
+
+.alertLabel{
+    -fx-text-fill: #000;
+    -fx-font-family: "Open Sans Bold";
+    -fx-font-size: 18pt;
+}
+
+.alertSublabel{
+    -fx-text-fill: #000;
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 14pt;
 }
 
 .bigButton{
@@ -114,19 +144,19 @@
 }
 
 .title{
-    -fx-font-family: "Palatino";
+    -fx-font-family: "Source Serif Pro";
     -fx-font-size: 36px;
     -fx-text-fill: white;
 }
 .bigtitle{
-    -fx-font-family: "Palatino";
+    -fx-font-family: "Source Serif Pro";
     -fx-font-size: 64px;
     -fx-text-fill: white;
 }
 
 
 .subtitle{
-    -fx-font-family: "Palatino";
+    -fx-font-family: "Source Serif Pro";
     -fx-font-size: 18pt;
     -fx-text-fill: white;
 }

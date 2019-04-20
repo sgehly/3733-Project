@@ -98,11 +98,7 @@ public class Main extends Application {
     }
 
     public static void setScene(String scene){
-        if(scene == "addUser"){
-            primaryStage.setScene(addUserScene);
-            savedState.setState("addUser");
-        }
-        else if(scene == "admin"){
+        if(scene == "admin"){
             primaryStage.setScene(adminScene);
             savedState.setState("admin");
         }
@@ -184,7 +180,7 @@ public class Main extends Application {
                 Platform.runLater(() -> {
                     try {
                         System.out.println("Loading scenes");
-                        adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
+                        adminPane = FXMLLoader.load(Main.getFXMLURL("admin"));
                         System.out.println(adminPane);
                         adminScene = new Scene(adminPane);
                     } catch (Exception e) {
@@ -296,9 +292,15 @@ public class Main extends Application {
 
         //Load the fonts that we want to use for the application
         //Fonts have been taken from what B & H hospital uses as their official fonts
-        System.out.println(Main.getResourceFromRoot("resources/palatino-linotype/palab.ttf").toString());
         Font.loadFont(Main.getResourceFromRoot("resources/palatino-linotype/palab.ttf"), 10);
         Font.loadFont(Main.getResourceFromRoot("resources/palatino-linotype/pala.ttf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Black.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Bold.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Regular.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Semibold.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/Prequel-bold.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/VarelaRound-Regular.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/flagreg.otf"), 10);
         //Get the main parent scene and load the FXML
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene mainScene = new Scene(root);

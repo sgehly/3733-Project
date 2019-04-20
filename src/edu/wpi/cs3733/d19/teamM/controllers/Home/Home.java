@@ -136,9 +136,10 @@ public class Home{
 
     @FXML
     void initialize() throws IOException, AblyException {
+
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
-        //userText.setText("");
+
         try{
             System.out.println(User.getPathToPic());
             Image image = new Image(Main.getResource("/resources/pics/"+User.getPathToPic()));
