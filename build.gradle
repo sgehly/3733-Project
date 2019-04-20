@@ -37,8 +37,12 @@ dependencies {
 
     implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
     implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
+    implementation group: 'com.google.cloud', name: 'google-cloud-texttospeech', version: '0.80.0-beta'
+    implementation group: 'net.sourceforge.argparse4j', name: 'argparse4j', version: '0.8.1'
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
     implementation 'com.jfoenix:jfoenix:8.0.8' // Java 8
+    implementation group: 'org.twitter4j', name: 'twitter4j-core', version: '[4.0,)'
+                                                                            //4.0.8-SNAPSHOT (Other possible version thing)
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
     compile group: 'net.sf.sociaal', name: 'freetts', version: '1.2.2'
     compile group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'

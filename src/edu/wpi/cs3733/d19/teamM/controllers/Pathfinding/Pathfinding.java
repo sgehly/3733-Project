@@ -168,6 +168,9 @@ public class Pathfinding {
     private Button showDir;
 
     @FXML
+    private Button sendRobotButton;
+
+    @FXML
     private TitledPane filters;
 
     /**
@@ -179,6 +182,8 @@ public class Pathfinding {
         filters.setExpanded(false);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
+
+        sendRobotButton.setDisable(true);
 
         gesturePane.setContent(mappingStuff);
 
@@ -219,7 +224,14 @@ public class Pathfinding {
 
         for (Node n : graph.getNodes().values()){
             if(!n.getNodeType().equals("HALL")){
-                nodeList.add(n.getLongName());
+                String nodeName = n.getLongName();
+                if(nodeName.toUpperCase().contains("FLOOR"))
+                {
+                    nodeList.add(n.getLongName());
+                }
+                else {
+                    nodeList.add(n.getLongName() + " Floor " +n.getFloor());
+                }
             }
         }
 
@@ -404,27 +416,45 @@ public class Pathfinding {
     private void findPath() throws Exception{
         //SocketClient s = new SocketClient();
         //Get path
-        String start = startText.getText();
+        String start = startText.getText();//start.indexOf(" on Floor: ")
         String end = endText.getText();
         Node startNode = graph.getNodes().get(start);
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
         PathToString.getDirections(path);
-        //s.toConnString(PathToString.pathToInstructions(path));
+
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
         if (path != null){
             showDir.setDisable(false);
+            sendRobotButton.setDisable(false);
             showDir.setText("TEXT DIRECTIONS");
         }
         resetTextBox();
         updateMap(null,null);
     }
 
+    @FXML
+    void sendRobot(){
+        Runnable robotThread = () -> {
+            try {
+                SocketClient s = new SocketClient();
+                s.toConnString(PathToString.pathToInstructions(path));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        };
+        new Thread(robotThread).start();
+    }
+
     private void findPathWithLongNames() throws Exception{
 
-        String start = startText.getText();
-        String end = endText.getText();
+        String startPre = startText.getText();
+        String start = startPre.substring(0,startPre.indexOf(" on Floor: "));
+        String endPre = endText.getText();
+        String end = endPre.substring(0,endPre.indexOf(" on Floor: "));
+
         Node startNode = null;
         Node endNode = null;
 
@@ -531,7 +561,7 @@ public class Pathfinding {
         {
             if(!node.getNodeType().equals("HALL"))
             {
-                longNames.add(node.getLongName());
+                longNames.add(node.getLongName() + " on Floor: " + node.getFloor());
             }
         }
         startText.textProperty().addListener((ov, oldValue, newValue) -> {
