@@ -5,6 +5,8 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
+import edu.wpi.cs3733.d19.teamM.utilities.MBTA;
+import edu.wpi.cs3733.d19.teamM.utilities.TwitterFeed;
 import io.ably.lib.realtime.AblyRealtime;
 import io.ably.lib.realtime.Channel;
 import io.ably.lib.types.AblyException;
@@ -38,14 +40,18 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
+import twitter4j.Status;
 
 import javax.imageio.ImageIO;
+
+import javafx.scene.text.Font;
 
 //import javax.swing.text.html.ImageView;
 
@@ -79,6 +85,14 @@ public class Home{
     @FXML
     private Button about;
 
+    @FXML
+    private Label tweet;
+
+    @FXML
+    private Label trainTime;
+
+    @FXML
+    private Pane tweetPane;
     /**
      * This method
      * @throws Exception
@@ -152,6 +166,23 @@ public class Home{
         }
 
         welcomeMessage.setText("Welcome to Brigham and Women's, " + User.getUsername());
+
+        new Thread(() -> {
+            ArrayList<Status> tweets = new TwitterFeed().getUpdates(1);
+            Platform.runLater(() -> {
+                tweet.setText(tweets.get(0).getText());
+                double width = com.sun.javafx.tk.Toolkit.getToolkit().getFontLoader().computeStringWidth(tweets.get(0).getText(), Font.font("Open Sans"));
+                tweet.setMinWidth(width);
+                tweetPane.setMinWidth(width+120);
+            });
+        }).start();
+
+        new Thread(() -> {
+            long nextTrainMins = new MBTA().getNextTrain();
+            Platform.runLater(() -> {
+                trainTime.setText(nextTrainMins+" Minutes");
+            });
+        }).start();
 
 
         if(User.getPrivilege() != 100){
