@@ -7,9 +7,12 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.MBTA;
 import edu.wpi.cs3733.d19.teamM.utilities.TwitterFeed;
+import edu.wpi.cs3733.d19.teamM.utilities.Weather;
 import io.ably.lib.realtime.AblyRealtime;
 import io.ably.lib.realtime.Channel;
 import io.ably.lib.types.AblyException;
+import io.ably.lib.types.Message;
+import io.ably.lib.types.PaginatedResult;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,6 +28,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
@@ -93,6 +97,25 @@ public class Home{
 
     @FXML
     private Pane tweetPane;
+
+    @FXML
+    private ImageView weatherIcon;
+
+    @FXML
+    private Label weatherText;
+
+    @FXML
+    private HBox notificationWrapper;
+
+    @FXML
+    private Pane notificationColor;
+
+    @FXML
+    private Label notificationText;
+
+    @FXML
+    private Label notificationTitle;
+
     /**
      * This method
      * @throws Exception
@@ -180,10 +203,38 @@ public class Home{
         new Thread(() -> {
             long nextTrainMins = new MBTA().getNextTrain();
             Platform.runLater(() -> {
-                trainTime.setText(nextTrainMins+" Minutes");
+                if(nextTrainMins > 0){
+                    trainTime.setText(nextTrainMins+" Minutes");
+                }else{
+                    trainTime.setText("Arriving Now");
+                }
             });
         }).start();
 
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                new Weather(weatherText, weatherIcon);
+            });
+        }).start();
+
+        new Thread(() -> {
+            try{
+                PaginatedResult<Message> resultPage = Main.channel.history(null);
+                if(resultPage.items().length < 1){
+                    notificationTitle.setText("No New Notifications");
+                    notificationText.setText("Have a nice day!");
+                    return;
+                }
+                Message lastMessage = resultPage.items()[0];
+                Platform.runLater(() -> {
+                    double width = com.sun.javafx.tk.Toolkit.getToolkit().getFontLoader().computeStringWidth(lastMessage.data.toString(), Font.font("Open Sans"));
+                    notificationTitle.setText("New Notification:");
+                    notificationText.setText(lastMessage.data.toString());
+                });
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }).start();
 
         if(User.getPrivilege() != 100){
             admin.setVisible(false);

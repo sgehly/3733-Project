@@ -80,9 +80,9 @@ public class Main extends Application {
     private static IdleMonitor idleMonitor;
     public static SavedState savedState;
 
-    private static Channel channel;
+    public static Channel channel;
 
-    private static Channel dmChannel;
+    public static Channel dmChannel;
 
     public static AblyRealtime ably;
 
