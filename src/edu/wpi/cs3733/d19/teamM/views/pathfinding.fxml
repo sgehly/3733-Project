@@ -260,7 +260,7 @@
                                               </StackPane>
                                           </children>
                                       </VBox>
-                              <TitledPane animated="false" maxHeight="425.0" maxWidth="300.0" pickOnBounds="false" prefHeight="420.0" prefWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
+                              <TitledPane fx:id="filters" animated="false" maxHeight="425.0" maxWidth="300.0" pickOnBounds="false" prefHeight="420.0" prefWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
                                       <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" pickOnBounds="false" prefHeight="245.0" prefWidth="278.0">
                                               <children>
@@ -402,12 +402,22 @@
                                                         <Insets right="50.0" />
                                                     </padding>
                                                 </HBox>
-                                    <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
+                                    <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="50.0" prefWidth="550.0" spacing="20.0">
                                        <children>
+                                          <Button fx:id="sendRobotButton" mnemonicParsing="false" onAction="#sendRobot" prefHeight="41.0" prefWidth="420.0" styleClass="blackButton" text="SEND ROBOT" />
                                           <Button fx:id="showDir" mnemonicParsing="false" onAction="#showText" prefWidth="425.0" styleClass="blackButton" text="SHOW DIRECTIONS" />
                                        </children>
                                        <padding>
-                                          <Insets bottom="50.0" right="50.0" />
+                                          <Insets right="50.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onMouseClicked="#speakDirections" prefWidth="425.0" styleClass="blackButton" text="SPEAK DIRECTIONS" />
+                                          <Button mnemonicParsing="false" onMouseClicked="#cancelDirections" prefWidth="425.0" styleClass="blackButton" text="CANCEL SPEAK" />
+                                       </children>
+                                       <padding>
+                                          <Insets right="50.0" />
                                        </padding>
                                     </HBox>
                                  </children>

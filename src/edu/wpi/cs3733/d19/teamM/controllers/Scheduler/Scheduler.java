@@ -55,6 +55,9 @@ public class Scheduler {
    //Instances of necessary objects
     public static String path;
 
+    //for the randomization purposes of the rooms
+    int secondsPassed = 0;
+
 
     @FXML
     private AnchorPane root;
@@ -269,9 +272,10 @@ public class Scheduler {
     }
 
     private void addBookedTime(String roomID, Timestamp start, Timestamp end){
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         String query = "INSERT INTO BookedTimes VALUES(?, ?, ?)";
         try{
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, roomID);
             stmt.setTimestamp(2, start);
@@ -287,11 +291,12 @@ public class Scheduler {
 
     @FXML
     private void exportToCsv(ActionEvent event) throws SQLException,ClassNotFoundException{
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         System.out.println("in print");
         String filename = "bookedRooms.csv";
         try {
             FileWriter file = new FileWriter(filename);
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             String query = "select * from BOOKEDTIMES";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -345,9 +350,10 @@ public class Scheduler {
     }
 
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         String query = "SELECT roomID, capacity, roomtype FROM ROOMS";
         try {
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             ObservableList<DisplayTable> entryList = getEntryObjects(rs);
@@ -383,6 +389,7 @@ public class Scheduler {
     }
 
     public ObservableList<DisplayTable> getAvailableRooms(Timestamp start, Timestamp end) throws ClassNotFoundException, SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
 
         String query2 = "SELECT ROOMID, CAPACITY, ROOMTYPE FROM Rooms";
         String query1 = "SELECT Rooms.ROOMID, CAPACITY, ROOMTYPE FROM BookedTimes RIGHT JOIN Rooms ON (Rooms.roomID) = (BookedTimes.roomID) EXCEPT ( SELECT Rooms.ROOMID, CAPACITY, ROOMTYPE FROM BookedTimes JOIN Rooms ON (Rooms.roomID) = (BookedTimes.roomID) WHERE ((BookedTimes.startTime >= ? AND BOOKEDTIMES.STARTTIME <= ? OR (BookedTimes.endTime <= ? AND BookedTimes.endTime >= ?))))";
@@ -405,7 +412,7 @@ public class Scheduler {
             error = false;
             try {
 
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query1, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             stmt.setTimestamp(1, start);
             stmt.setTimestamp(2, end);
@@ -455,6 +462,8 @@ public class Scheduler {
      */
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize(){
+        this.startRandomization();
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         this.initializePaneList();
         this.randomizeRandomRoomColors();
         new Clock(lblClock, lblDate);
@@ -472,7 +481,7 @@ public class Scheduler {
         String str9 = "insert into Rooms values('CR_9', 15, 'TBD', 'CLASS')";
         String str10 = "insert into Rooms values('CR_10', 15, 'TBD', 'CLASS')";
 
-        Connection conn = new DatabaseUtils().getConnection();
+        Connection conn = DBUtils.getConnection();
 
 //        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(strd);}catch(Exception e){}
 //        try{Statement stmt1 = conn.createStatement();stmt1.executeUpdate(str1);}catch(Exception e){}
@@ -574,6 +583,12 @@ public class Scheduler {
 
     }
 
+    private void startRandomization() {
+        Timer timer = new Timer();
+        TimerTask task = new Helper(this);
+        timer.schedule(task, 2000, 5000);
+    }
+
     private void initializePaneList() {
         randomPanes = new ArrayList<>();
         randomPanes.add(randomRoom1);
@@ -600,7 +615,7 @@ public class Scheduler {
         randomPanes.add(randomRoom22);
     }
 
-    private void randomizeRandomRoomColors() {
+    public void randomizeRandomRoomColors() {
         Random random = new Random();
         double randomFloat = 0;
         for(int i = 0; i < randomPanes.size(); i++){
@@ -707,11 +722,12 @@ public class Scheduler {
      * @throws SQLException: Any issues with the database
      */
     public ObservableList<DisplayTable> getAllRecords2() throws ClassNotFoundException, SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         //Get the query from the database
         String query = "SELECT * FROM BOOKEDTIMES WHERE ROOMID=?";
 
         try {
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, ids[this.selectedRoom]);
             ResultSet rs = stmt.executeQuery();
