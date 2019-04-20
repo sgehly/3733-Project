@@ -21,8 +21,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
@@ -116,6 +118,12 @@ public class Home{
     @FXML
     private Label notificationTitle;
 
+    @FXML
+    private ScrollPane scrollContainer;
+
+    @FXML
+    private HBox contentContainer;
+
     /**
      * This method
      * @throws Exception
@@ -171,6 +179,10 @@ public class Home{
     @FXML
     public void navigateToAbout(){Main.setScene("about");}
 
+
+    Timeline clock;
+    Timeline reverseClock;
+
     @FXML
     void initialize() throws IOException, AblyException {
 
@@ -187,6 +199,39 @@ public class Home{
         catch(Exception e){
             e.printStackTrace();
         }
+
+        double delta = 0.0004;
+
+        clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+
+            if(scrollContainer.getHvalue() == 1){
+               this.clock.stop();
+               this.reverseClock.play();
+            }
+
+            scrollContainer.setHvalue(scrollContainer.getHvalue()+delta);
+
+        }), new KeyFrame(Duration.seconds(0.01)));
+
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
+
+
+        reverseClock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+
+            if(scrollContainer.getHvalue() == 0){
+                this.reverseClock.stop();
+                this.clock.play();
+            }
+
+            scrollContainer.setHvalue(scrollContainer.getHvalue()-delta);
+
+        }), new KeyFrame(Duration.seconds(0.01)));
+        reverseClock.setCycleCount(Animation.INDEFINITE);
+
+
 
         welcomeMessage.setText("Welcome to Brigham and Women's, " + User.getUsername());
 
@@ -220,15 +265,17 @@ public class Home{
         new Thread(() -> {
             try{
                 PaginatedResult<Message> resultPage = Main.channel.history(null);
-                if(resultPage.items().length < 1){
-                    notificationTitle.setText("No New Notifications");
-                    notificationText.setText("Have a nice day!");
-                    return;
-                }
-                Message lastMessage = resultPage.items()[0];
+
                 Platform.runLater(() -> {
+                    if(resultPage.items().length < 1){
+                        notificationTitle.setText("No New Notifications");
+                        notificationText.setText("Have a nice day!");
+                        return;
+                    }
+                    Message lastMessage = resultPage.items()[0];
+
                     double width = com.sun.javafx.tk.Toolkit.getToolkit().getFontLoader().computeStringWidth(lastMessage.data.toString(), Font.font("Open Sans"));
-                    notificationTitle.setText("New Notification:");
+                    notificationTitle.setText(lastMessage.name);
                     notificationText.setText(lastMessage.data.toString());
                 });
             }catch(Exception e){

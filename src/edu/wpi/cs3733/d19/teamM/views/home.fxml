@@ -183,11 +183,11 @@
                               <Insets />
                            </VBox.margin>
                            <children>
-                              <ScrollPane hbarPolicy="NEVER" minHeight="80.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
+                              <ScrollPane fx:id="scrollContainer" hbarPolicy="NEVER" minHeight="80.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
                                 <content>
                                   <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="-Infinity" prefHeight="75.0">
                                        <children>
-                                          <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                          <HBox fx:id="contentContainer" prefHeight="100.0" prefWidth="200.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                              <children>
                                                 <HBox alignment="CENTER_LEFT" maxHeight="75.0" minHeight="75.0" minWidth="500.0" prefHeight="100.0" prefWidth="500.0" styleClass="pane">
                                                    <children>
