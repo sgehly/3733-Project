@@ -51,7 +51,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -222,7 +224,10 @@ public class Pathfinding {
                 e.printStackTrace();
             }
         }
+        tf.setTextAlignment(TextAlignment.CENTER);
+        Font myFont = new Font("Open Sans",20);
 
+        tf.setFont(myFont);
         directionsScanner.nextLine();
         //TODO: Create the VBOX
         //TODO: Get the text directions
