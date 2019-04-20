@@ -60,6 +60,7 @@ import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
 
 import externalLibraries.Arrow.*;
+import sun.font.TextLabel;
 
 import javax.swing.*;
 
@@ -203,7 +204,8 @@ public class Pathfinding {
     Image imageBox;
     ImageView imageBoxView;
     VBox dialogBoxVbox;
-    TextArea tf;
+    Label tf = new Label();
+
     Button buttonBox;
     File pathFile = new File("resource.txt");
     Scanner directionsScanner;
@@ -220,6 +222,7 @@ public class Pathfinding {
                 e.printStackTrace();
             }
         }
+
         directionsScanner.nextLine();
         //TODO: Create the VBOX
         //TODO: Get the text directions
@@ -230,15 +233,14 @@ public class Pathfinding {
         dialog.initOwner(Main.getStage());
 
         dialogBoxVbox = new VBox(20);
-        tf = new TextArea();
         buttonBox = new Button();
         buttonBox.setText("Next Directions");
-        imageBox = new Image("resources/icons/bell.png");
+        imageBox = new Image("resources/icons/street_view.png");
         imageBoxView = new ImageView();
         imageBoxView.setImage(imageBox);
-        tf.setEditable(false);
+        tf.setWrapText(true);
         tf.setText(directionsScanner.nextLine());
-        tf.setPrefSize(400,300);
+        tf.setPrefSize(400,200);
         dialogBoxVbox.getChildren().add(imageBoxView);
         dialogBoxVbox.setAlignment(Pos.CENTER);
         dialogBoxVbox.getChildren().add(tf);
@@ -249,7 +251,7 @@ public class Pathfinding {
                 updateBox();
             }
         });
-        Scene dialogScene = new Scene(dialogBoxVbox, 400, 300);
+        Scene dialogScene = new Scene(dialogBoxVbox, 450, 600);
         dialog.setScene(dialogScene);
         dialog.setTitle("Text Directions");
         dialog.show();
@@ -264,31 +266,35 @@ public class Pathfinding {
         }
         else
         {
-            if(line.toLowerCase().contains("stairs"))
+            if(line.toLowerCase().contains("straight"))
             {
-                imageBoxView.setImage(new Image(""));
-            }
-            else if(line.toLowerCase().contains("elevator"))
-            {
+                imageBoxView.setImage(new Image("resources/icons/circled_straight.png"));
 
             }
             else if(line.toLowerCase().contains("right"))
             {
+                imageBoxView.setImage(new Image("resources/icons/circled_right.png"));
 
             }
             else if(line.toLowerCase().contains("left"))
             {
+                imageBoxView.setImage(new Image("resources/icons/circled_left.png"));
 
             }
-            else if(line.toLowerCase().contains("straight"))
+            else if(line.toLowerCase().contains("stair"))
             {
-
+                imageBoxView.setImage(new Image("resources/icons/stairs.png"));
+            }
+            else if(line.toLowerCase().contains("elevator"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/elevator.png"));
             }
 
             tf.setText(line);
 
             if(line.toUpperCase().contains("ARRIVE"))
             {
+                imageBoxView.setImage(new Image("resources/icons/arrived.png"));
                 buttonBox.setText("No More Directions");
             }
         }
