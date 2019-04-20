@@ -308,7 +308,7 @@ public class Main extends Application {
 
         //create the idle detection system
         ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));  //resets ui on timer trigger
-        timer = new Timer(Options.getTimeout(),uiReset); //creates the timer, attach to ui reset
+        timer = new Timer(300000,uiReset); //creates the timer, attach to ui reset
         EventHandler<MouseEvent> idleReset = e -> timer.restart(); //event handler to reset the timer
         primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);  //add event handler to the application
         Options.getOptions();
