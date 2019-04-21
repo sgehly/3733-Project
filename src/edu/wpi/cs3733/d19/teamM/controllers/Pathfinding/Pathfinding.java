@@ -168,6 +168,9 @@ public class Pathfinding {
     private Button showDir;
 
     @FXML
+    private Button sendRobotButton;
+
+    @FXML
     private TitledPane filters;
 
     @FXML
@@ -183,6 +186,8 @@ public class Pathfinding {
         sendRobotButton.setDisable(true);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
+
+        sendRobotButton.setDisable(true);
 
         gesturePane.setContent(mappingStuff);
 
@@ -427,6 +432,7 @@ public class Pathfinding {
         if (path != null){
             sendRobotButton.setDisable(false);
             showDir.setDisable(false);
+            sendRobotButton.setDisable(false);
             showDir.setText("TEXT DIRECTIONS");
         }
         resetTextBox();
@@ -435,8 +441,16 @@ public class Pathfinding {
 
     @FXML
     void sendRobot(){
-        SocketClient s = new SocketClient();
-        s.toConnString(PathToString.pathToInstructions(path));
+        Runnable robotThread = () -> {
+            try {
+                SocketClient s = new SocketClient();
+                s.toConnString(PathToString.pathToInstructions(path));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        };
+        new Thread(robotThread).start();
     }
 
     private void findPathWithLongNames() throws Exception{

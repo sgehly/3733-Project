@@ -175,9 +175,8 @@
                                  <children>
                                     <TableView fx:id="tableView2" prefHeight="480.0" style="-fx-background-color: ffffff;">
                                       <columns>
-                                        <TableColumn fx:id="roomidCol" maxWidth="0.0" minWidth="0.0" prefWidth="0.0" text="Room#" />
-                                        <TableColumn fx:id="starttimeCol" minWidth="0.0" prefWidth="220.0" text="Start Time" />
-                                          <TableColumn fx:id="endtimeCol" minWidth="0.0" prefWidth="220.0" text="End Time" />
+                                        <TableColumn fx:id="starttimeCol" minWidth="0.0" prefWidth="350.0" style="-fx-alignment: CENTER;" text="Start Time" />
+                                          <TableColumn fx:id="endtimeCol" minWidth="0.0" prefWidth="350.0" style="-fx-alignment: CENTER;" text="End Time" />
                                       </columns>
                                     </TableView>
                                  </children>
@@ -430,6 +429,11 @@
                               <Insets left="150.0" top="145.0" />
                            </StackPane.margin>
                         </Pane>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Note: the workspaces are simulated timer based changes. These changes don't accurately represent the availability of the rooms" wrappingWidth="213.3333396911621" StackPane.alignment="BOTTOM_LEFT">
+                           <StackPane.margin>
+                              <Insets bottom="124.0" left="200.0" />
+                           </StackPane.margin>
+                        </Text>
                      </children>
                   </StackPane>
                             </children>
