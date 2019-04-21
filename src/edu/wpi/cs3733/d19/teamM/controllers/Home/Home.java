@@ -206,8 +206,9 @@ public class Home{
 
 
             if(scrollContainer.getHvalue() == 1){
-               this.clock.stop();
-               this.reverseClock.play();
+                //scrollContainer.setHvalue(0);
+                this.clock.stop();
+                this.reverseClock.play();
             }
 
             scrollContainer.setHvalue(scrollContainer.getHvalue()+delta);
@@ -221,7 +222,7 @@ public class Home{
         reverseClock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
 
 
-            if(scrollContainer.getHvalue() == 0){
+            if(scrollContainer.getHvalue() < 0.1){
                 this.reverseClock.stop();
                 this.clock.play();
             }

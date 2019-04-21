@@ -307,7 +307,7 @@ public class Main extends Application {
         Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Semibold.otf"), 10);
         Font.loadFont(Main.getResourceFromRoot("resources/fonts/Prequel-bold.otf"), 10);
         Font.loadFont(Main.getResourceFromRoot("resources/fonts/VarelaRound-Regular.otf"), 10);
-        Font.loadFont(Main.getResourceFromRoot("resources/fonts/flagreg.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/Bariol_Serif_Regular.otf"), 10);
         //Get the main parent scene and load the FXML
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene mainScene = new Scene(root);

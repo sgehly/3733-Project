@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Chat.Chat">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Chat.AdminChat">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -108,12 +108,6 @@
                                 <Insets />
                             </VBox.margin>
                             <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Live Helpdesk" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Please wait and someone will assist you shortly.">
-                           <VBox.margin>
-                              <Insets bottom="10.0" top="10.0" />
-                           </VBox.margin>
-                        </Text>
                                 <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                     <children>
                                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
@@ -138,17 +132,18 @@
                                     </HBox>
                                  </children>
                                         </VBox>
-                                        <VBox alignment="CENTER" maxWidth="0.0" prefHeight="0.0" prefWidth="0.0">
+                                        <VBox alignment="CENTER" prefHeight="961.0" prefWidth="442.0">
                                             <children>
-                                                <ListView fx:id="listEmployees" disable="true" maxWidth="0.0" opacity="0.0" prefHeight="0.0" prefWidth="0.0" VBox.vgrow="NEVER" />
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Select User:" />
+                                                <ListView fx:id="listEmployees" prefHeight="908.0" prefWidth="442.0" />
                                             </children>
+                                            <padding>
+                                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                            </padding>
                                         </VBox>
                                     </children>
                                 </HBox>
                             </children>
-                     <padding>
-                        <Insets top="20.0" />
-                     </padding>
                         </VBox>
                     </children>
                 </VBox>

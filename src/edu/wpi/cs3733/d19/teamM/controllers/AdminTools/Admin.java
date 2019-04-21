@@ -98,7 +98,7 @@ public class Admin{
 
     @FXML
     public void navigateToChat(){
-        Main.setScene("chat");
+        Main.setScene("adminHelpdesk");
     }
 
     @FXML

@@ -128,7 +128,7 @@
                                     </ImageView>
                                     <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="DIRECTIONS">
                                        <font>
-                                          <Font name="Open Sans Bold" size="56.0" />
+                                          <Font name="BariolSerif" size="56.0" />
                                        </font>
                                        <VBox.margin>
                                           <Insets top="50.0" />
@@ -145,7 +145,7 @@
                                     </ImageView>
                                     <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="SCHEDULING">
                                        <font>
-                                          <Font name="Open Sans Bold" size="56.0" />
+                                          <Font name="BariolSerif" size="56.0" />
                                        </font>
                                        <VBox.margin>
                                           <Insets top="50.0" />
@@ -165,7 +165,7 @@
                                     </ImageView>
                                     <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="REQUESTS">
                                        <font>
-                                          <Font name="Open Sans Bold" size="56.0" />
+                                          <Font name="BariolSerif" size="56.0" />
                                        </font>
                                        <VBox.margin>
                                           <Insets top="50.0" />

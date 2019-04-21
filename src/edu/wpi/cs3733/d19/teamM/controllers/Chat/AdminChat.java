@@ -3,30 +3,26 @@ package edu.wpi.cs3733.d19.teamM.controllers.Chat;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
-import io.ably.lib.realtime.AblyRealtime;
 import io.ably.lib.realtime.Channel;
 import io.ably.lib.realtime.CompletionListener;
 import io.ably.lib.realtime.Presence;
-import io.ably.lib.types.ClientOptions;
 import io.ably.lib.types.ErrorInfo;
-import io.ably.lib.types.Message;
 import io.ably.lib.types.PresenceMessage;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Chat {
+public class AdminChat {
 
     @FXML
     private Label lblClock;
@@ -46,9 +42,8 @@ public class Chat {
     @FXML
     private TextField messageBox;
 
-    Channel channel;
-
     Channel pubChannel;
+    Channel channel;
 
     ArrayList<String> online = new ArrayList<String>();
 
@@ -98,17 +93,20 @@ public class Chat {
 
             }
         });
-        pubChannel.presence.leave(new CompletionListener() {
-            @Override
-            public void onSuccess() {
+        if(pubChannel != null){
+            pubChannel.presence.leave(new CompletionListener() {
+                @Override
+                public void onSuccess() {
 
-            }
+                }
 
-            @Override
-            public void onError(ErrorInfo reason) {
+                @Override
+                public void onError(ErrorInfo reason) {
 
-            }
-        });
+                }
+            });
+        }
+
         Main.setScene("home");
     }
 
@@ -125,7 +123,7 @@ public class Chat {
 
     @FXML
     private void sendMessage() throws Exception {
-        channel.publish("message", User.getUsername()+": "+messageBox.getText());
+        pubChannel.publish("message", User.getUsername()+": "+messageBox.getText());
         messageBox.setText("");
     }
 
@@ -134,21 +132,37 @@ public class Chat {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
         messages.setStyle("-fx-font-size: 32px;");
-        try {
-            pubChannel = Main.ably.channels.get("chat");
-            channel = Main.ably.channels.get("help-"+User.getUsername());
-            channel.subscribe(message -> {
 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        messagesArr.add(message.data.toString());
-                        messages.setItems(FXCollections.observableArrayList(messagesArr));
+
+        listEmployees.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                messages.setItems(FXCollections.observableArrayList());
+                try{
+                    if(pubChannel != null){
+                        pubChannel.detach();
                     }
-                });
+                    pubChannel = Main.ably.channels.get("help-"+newValue.toString());
+                    pubChannel.subscribe(message -> {
 
-            });
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                messagesArr.add(message.data.toString());
+                                messages.setItems(FXCollections.observableArrayList(messagesArr));
+                            }
+                        });
 
+                    });
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        try {
+
+            channel = Main.ably.channels.get("chat");
 
             new Thread(() -> {
 
@@ -178,28 +192,6 @@ public class Chat {
                                     listEmployees.setItems(FXCollections.observableArrayList(online));
                                 });
                             });
-
-                        }
-                    });
-
-                    channel.presence.enter("iskrattar du förlorar du", new CompletionListener() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
-                        @Override
-                        public void onError(ErrorInfo info) {
-
-                        }
-                    });
-
-                    pubChannel.presence.enter("iskrattar du förlorar du", new CompletionListener() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
-                        @Override
-                        public void onError(ErrorInfo info) {
 
                         }
                     });

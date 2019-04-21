@@ -8,7 +8,7 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 10px;
     -fx-underline: none;
-    -fx-font-family: "Open Sans Bold"
+    -fx-font-family: "BariolSerif"
 }
 .blackButton:hover{
     -fx-background-color: #00172f;
@@ -29,12 +29,12 @@
     -fx-background-radius: 5px;
     -fx-border-width: .2em;
     -fx-border-radius: 5px;
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
 }
 .whiteButton:hover {
     -fx-background-color: white;
     -fx-text-fill: black;
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
     -fx-cursor: hand;
 }
 .scroll-pane > .viewport {
@@ -50,7 +50,7 @@
     -fx-text-fill: #ffffff;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
     -fx-font-size: 18pt;
 }
 .logoutButton:hover {
@@ -74,12 +74,12 @@
 }
 
 .mainBlock{
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
     -fx-background-color:"white";
     -fx-background-radius:5;
 }
 .mainBlock:hover{
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
     -fx-cursor:hand;
     -fx-opacity:0.8;
     -fx-background-insets: 5px;
@@ -101,7 +101,7 @@
 
 .alertLabel{
     -fx-text-fill: #000;
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
     -fx-font-size: 18pt;
 }
 
@@ -118,7 +118,7 @@
     -fx-text-fill: #ffffff;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
     -fx-font-size: 18pt;
 }
 .bigButton:hover {
@@ -138,7 +138,7 @@
 
 /*labels*/
 .blackLabel{
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
     -fx-font-size: 30px;
     -fx-text-fill: black;
 }
@@ -162,7 +162,7 @@
 }
 
 .controlLabel{
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
     -fx-font-size: 24pt;
 }
 
@@ -221,7 +221,7 @@
 .table-view .column-header-background .filler {
     -fx-background-color: #012d5a;
     -fx-text-fill: white;
-    -fx-font-family:"Open Sans Bold";
+    -fx-font-family:"BariolSerif";
     -fx-text-size:22px;
     -fx-text-alignment: center;
 
@@ -242,7 +242,7 @@
 }
 
 .table-row-cell{
-    -fx-font-family:"Open Sans Bold";
+    -fx-font-family:"BariolSerif";
     -fx-text-size:22px;
     -fx-text-alignment: center;
     -fx-background-color: #fff;
@@ -317,7 +317,7 @@
 }
 .jfx-date-picker > .jfx-text-field, .jfx-time-picker > .jfx-text-field{
     -fx-text-fill: white;
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
     -fx-font-size:18px;
     -fx-text-alignment: center;
     -fx-padding: 0px 0px 0px 20px;
@@ -329,7 +329,7 @@
 .darkInput{
     -fx-background-color: rgba(0,0,0,.4);
     -fx-text-fill: white;
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
     -fx-background-radius:5px;
     -fx-padding: 10px 15px 10px 15px;
     -fx-font-size:22px;
@@ -342,7 +342,7 @@
     -fx-border-color: rgba(0,0,0,.1);
     -fx-border-radius:5px;
     -fx-text-fill: black;
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
     -fx-background-radius:5px;
     -fx-padding: 5px 10px 5px 10px;
     -fx-font-size:18px;
@@ -355,7 +355,7 @@
     -fx-border-color: rgba(0,0,0,.1);
     -fx-border-radius:5px;
     -fx-text-fill: black;
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
     -fx-background-radius:5px;
     -fx-padding: 5px 10px 5px 10px;
     -fx-font-size:18px;
@@ -370,12 +370,12 @@
 
 .requestBox{
     -fx-font-size:36px;
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
  }
 
 .requestBox.small{
     -fx-font-size:24px;
-    -fx-font-family: "Open Sans Bold";
+    -fx-font-family: "BariolSerif";
 }
 
 .jfx-radio-button{
