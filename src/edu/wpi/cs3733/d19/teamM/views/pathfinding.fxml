@@ -260,6 +260,11 @@
                                               </StackPane>
                                           </children>
                                       </VBox>
+                              <Button fx:id="scheduling" mnemonicParsing="false" onAction="#navigateToScheduling" styleClass="blackButton" text="SCHEDULING">
+                                 <StackPane.margin>
+                                    <Insets left="840.0" top="120.0" />
+                                 </StackPane.margin>
+                              </Button>
                               <TitledPane fx:id="filters" animated="false" maxHeight="425.0" maxWidth="300.0" pickOnBounds="false" prefHeight="420.0" prefWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
                                       <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" pickOnBounds="false" prefHeight="245.0" prefWidth="278.0">

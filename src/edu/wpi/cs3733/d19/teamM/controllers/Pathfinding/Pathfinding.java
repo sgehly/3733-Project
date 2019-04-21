@@ -170,12 +170,16 @@ public class Pathfinding {
     @FXML
     private TitledPane filters;
 
+    @FXML
+    private Button scheduling;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
      */
     @FXML
     protected void initialize() throws Exception {
+        scheduling.setVisible(false);
         filters.setExpanded(false);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
@@ -306,10 +310,22 @@ public class Pathfinding {
     @FXML
     private void navigateToHome() throws Exception{
         filters.setExpanded(false);
+        scheduling.setVisible(false);
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
         Main.setScene("home");
+        cancelDirections();
+    }
+
+    @FXML
+    private void navigateToScheduling() throws Exception{
+        filters.setExpanded(false);
+        scheduling.setVisible(false);
+        lines.forEach(node -> util.buttonPane.getChildren().remove(node));
+        arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
+        clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
+        Main.setScene("scheduling");
         cancelDirections();
     }
 
@@ -585,14 +601,24 @@ public class Pathfinding {
     public void moveUp(ActionEvent value) throws Exception{
         util.moveUp();
         floorLabel.setText(util.getFloorLabel());
-
+        if(floorLabel.getText().equals("Floor Four")){
+            scheduling.setVisible(true);
+        }
+        else{
+            scheduling.setVisible(false);
+        }
         updateMap(null,null);
     }
 
     public void moveDown(ActionEvent value) throws Exception{
         util.moveDown();
         floorLabel.setText(util.getFloorLabel());
-
+        if(floorLabel.getText().equals("Floor Four")){
+            scheduling.setVisible(true);
+        }
+        else{
+            scheduling.setVisible(false);
+        }
         updateMap(null,null);
     }
 
