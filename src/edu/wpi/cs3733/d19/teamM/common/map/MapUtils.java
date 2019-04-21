@@ -53,9 +53,10 @@ public class MapUtils {
 
 
 
-    private String[] images = {"FLB.png", "00_thegroundfloor.png", "00_thelowerlevel1.png", "00_thelowerlevel2.png",  "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png"};
-    private String[] labels = {"FULLER", "Ground Floor",  "Lower Level 1", "Lower Level 2", "Floor One", "Floor Two", "Floor Three", "Floor Four"};
-    public String[] dbPrefixes = {"F", "G", "L1", "L2", "1", "2", "3"};
+
+    private String[] images = {"FLB.png", "00_thelowerlevel2.png", "00_thelowerlevel1.png","00_thegroundfloor.png", "01_thefirstfloor.png", "02_thesecondfloor.png", "03_thethirdfloor.png","04_thefourthfloor.png"};
+    private String[] labels = {"FULLER", "Lower Level 2", "Lower Level 1","Ground Floor","Floor One", "Floor Two", "Floor Three", "Floor Four"};
+    public String[] dbPrefixes = {"F", "L2", "L1", "G", "1", "2", "3","4"};
     private HashMap<Integer, Image> imageFiles = new HashMap<Integer, Image>();
 
     public int floor = 3;
@@ -335,9 +336,9 @@ public class MapUtils {
 
         String query = "SELECT * FROM NODE WHERE FLOOR='"+this.getCurrentFloorID()+"'";
 
-        if(this.getCurrentFloorID() == "2"){
+        /*if(this.getCurrentFloorID() == "2"){
             query += " OR FLOOR='4'";
-        }
+        }*/
 
         try {
             //Get the information that we want from the database
@@ -415,7 +416,7 @@ public class MapUtils {
     }
 
     public int idToFloor(String id){
-       if (id.equals("4")) return 6;
+       //if (id.equals("4")) return 6;
         for(int i=0;i<dbPrefixes.length;i++){
             if(dbPrefixes[i].equals(id)){
                 return i;
