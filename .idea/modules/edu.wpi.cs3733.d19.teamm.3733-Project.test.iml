@@ -10,12 +10,13 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../Team-G-Food-Request.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../TeamLGiftRequest-1.0.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Gradle: com.calendarfx:view:8.4.2" level="project" />
     <orderEntry type="library" name="Gradle: org.controlsfx:controlsfx:8.40.14" level="project" />
     <orderEntry type="library" name="Gradle: net.sf.sociaal:freetts:1.2.2" level="project" />
     <orderEntry type="library" name="Gradle: net.kurobako:gesturefx:0.3.0" level="project" />
@@ -25,6 +26,8 @@
     <orderEntry type="library" name="Gradle: com.github.sarxos:webcam-capture-driver-jmf:0.3.11" level="project" />
     <orderEntry type="library" name="Gradle: com.github.sarxos:webcam-capture:0.3.11" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-simple:1.6.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.calendarfx:recurrence:8.4.2" level="project" />
+    <orderEntry type="library" name="Gradle: de.jensd:fontawesomefx-fontawesome:4.7.0-1" level="project" />
     <orderEntry type="library" name="Gradle: io.ably:ably-java:1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.derby:derby:10.14.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.derby:derbytools:10.14.2.0" level="project" />
@@ -60,7 +63,7 @@
     <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpmime:4.3.4" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.5.6" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpcore:4.4.10" level="project" />
-    <orderEntry type="library" name="Gradle: joda-time:joda-time:2.5" level="project" />
+    <orderEntry type="library" name="Gradle: joda-time:joda-time:2.9.1" level="project" />
     <orderEntry type="library" name="Gradle: io.jsonwebtoken:jjwt:0.4" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.8" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.8" level="project" />
@@ -69,14 +72,15 @@
     <orderEntry type="library" name="Gradle: com.nativelibs4java:bridj:0.7.0" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.6" level="project" />
     <orderEntry type="library" name="Gradle: javax.media:jmf:2.1.1e" level="project" />
+    <orderEntry type="library" name="Gradle: de.jensd:fontawesomefx-commons:8.13" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:failureaccess:1.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" name="Gradle: org.checkerframework:checker-qual:2.5.2" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.msgpack:msgpack-core:0.8.11" level="project" />
     <orderEntry type="library" name="Gradle: com.google.errorprone:error_prone_annotations:2.2.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.msgpack:msgpack-core:0.8.11" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.ably:Java-WebSocket:1.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.17" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.7" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-netty-shaded:1.17.1" level="project" />

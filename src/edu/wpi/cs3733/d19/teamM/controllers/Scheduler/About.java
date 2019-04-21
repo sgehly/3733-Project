@@ -29,7 +29,7 @@ public class About {
 
     @FXML
     private void navigateToHome() throws Exception{
-        Main.setScene("home");
+        Main.setScene("admin");
     }
 
     @FXML
