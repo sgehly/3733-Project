@@ -24,7 +24,6 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
-import foodRequest.*;
 
 
 import java.io.IOException;
@@ -224,11 +223,11 @@ public class ServiceRequests {
     private void navigateToLanguage() throws Exception{
         Main.setScene("serviceRequests/languageRequest");
     }
-    @FXML
-    private void navigateToFood() throws Exception{
-        FoodRequest foodRequest = new FoodRequest();
-        foodRequest.run(0, 0, 10000, 1000, "/resources/stylesheet.css", null, null);
-    }
+//    @FXML
+//    private void navigateToFood() throws Exception{
+//        FoodRequest foodRequest = new FoodRequest();
+//        foodRequest.run(0, 0, 10000, 1000, "/resources/stylesheet.css", null, null);
+//    }
 
 
 

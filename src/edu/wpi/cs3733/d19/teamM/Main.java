@@ -1,49 +1,44 @@
 package edu.wpi.cs3733.d19.teamM;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
-import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.General.Options;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.IdleMonitor;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.SavedState;
 import io.ably.lib.realtime.AblyRealtime;
 import io.ably.lib.realtime.Channel;
 import io.ably.lib.realtime.CompletionListener;
-import io.ably.lib.types.ChannelOptions;
 import io.ably.lib.types.ClientOptions;
 import io.ably.lib.types.ErrorInfo;
-import io.ably.lib.types.Message;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
-import javafx.geometry.Rectangle2D;
+import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import giftRequest.*;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.InputStream;
 import java.net.URL;
+
 
 /**
  * Primary class that runs the JavaFx Application
@@ -438,7 +433,14 @@ public class Main extends Application {
         parser.connect();
         parser.nodeParse();
         parser.edgeParse();
-
+        giftRequest.GiftRequest e = new GiftRequest();
+        Platform.runLater(() -> {
+            try {
+                e.run(0, 0, 1000, 1000, "/resources/stylesheet.css", "what", "what");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
        /* Floor myFloor = new Floor("1");
         myFloor.populateFloor();*/
         launch(args);
