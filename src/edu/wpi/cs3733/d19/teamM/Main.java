@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
+import edu.wpi.cs3733.d19.teamM.utilities.General.Options;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.IdleMonitor;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.SavedState;
 import io.ably.lib.realtime.AblyRealtime;
@@ -79,11 +80,13 @@ public class Main extends Application {
     private static IdleMonitor idleMonitor;
     public static SavedState savedState;
 
-    private static Channel channel;
+    public static Channel channel;
 
-    private static Channel dmChannel;
+    public static Channel dmChannel;
 
     public static AblyRealtime ably;
+
+    private static Timer timer;
 
     /**
      * This method is to return the current stage we are working on for referencing the stage
@@ -98,11 +101,7 @@ public class Main extends Application {
     }
 
     public static void setScene(String scene){
-        if(scene == "addUser"){
-            primaryStage.setScene(addUserScene);
-            savedState.setState("addUser");
-        }
-        else if(scene == "admin"){
+        if(scene == "admin"){
             primaryStage.setScene(adminScene);
             savedState.setState("admin");
         }
@@ -184,7 +183,7 @@ public class Main extends Application {
                 Platform.runLater(() -> {
                     try {
                         System.out.println("Loading scenes");
-                        adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
+                        adminPane = FXMLLoader.load(Main.getFXMLURL("admin"));
                         System.out.println(adminPane);
                         adminScene = new Scene(adminPane);
                     } catch (Exception e) {
@@ -277,6 +276,10 @@ public class Main extends Application {
         Main.setScene("welcome");
     }
 
+    public static void updateTimer(){
+        timer.setDelay(Options.getTimeout());
+    }
+
     /**
      * This method creates and sets the stage of the viewable JavaFX screen
      * @param primaryStage: The stage to display on start
@@ -296,9 +299,15 @@ public class Main extends Application {
 
         //Load the fonts that we want to use for the application
         //Fonts have been taken from what B & H hospital uses as their official fonts
-        System.out.println(Main.getResourceFromRoot("resources/palatino-linotype/palab.ttf").toString());
         Font.loadFont(Main.getResourceFromRoot("resources/palatino-linotype/palab.ttf"), 10);
         Font.loadFont(Main.getResourceFromRoot("resources/palatino-linotype/pala.ttf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Black.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Bold.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Regular.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Semibold.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/Prequel-bold.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/VarelaRound-Regular.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/Bariol_Serif_Regular.otf"), 10);
         //Get the main parent scene and load the FXML
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene mainScene = new Scene(root);
@@ -308,11 +317,14 @@ public class Main extends Application {
         welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         welcomeScene= new Scene(welcomePane);
 
+
         //create the idle detection system
         ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));  //resets ui on timer trigger
-        Timer timer = new Timer(600000,uiReset); //creates the timer, attach to ui reset
+        timer = new Timer(300000,uiReset); //creates the timer, attach to ui reset
         EventHandler<MouseEvent> idleReset = e -> timer.restart(); //event handler to reset the timer
         primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);  //add event handler to the application
+        Options.getOptions();
+        Options.setTimeout(600000);
         timer.start();
 
 

@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Home.Home">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Home.Home">
    <children>
       <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <children>
             <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true" preserveRatio="false" StackPane.alignment="CENTER">
                <image>
-                  <Image url="@/resources/bg.png" />
+                  <Image url="@../../../../../../resources/bg.png" />
                </image>
             </ImageView>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
@@ -73,16 +76,17 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Button fx:id="admin" mnemonicParsing="false" onAction="#navigateToAdmin" onMouseClicked="#logout" styleClass="logoutButton" text="ADMIN">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets right="20.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </Button>
+                              <JFXButton onMouseClicked="#navigateToChat" styleClass="logoutButton" text="HELP" HBox.hgrow="ALWAYS" />
                               <Button mnemonicParsing="false" onAction="#logout" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
@@ -99,12 +103,12 @@
                      <children>
                         <ImageView fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@/resources/bwh-logo-new-brand.png" />
+                              <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
                            </image>
                         </ImageView>
                         <Text fx:id="welcomeMessage" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's">
                            <VBox.margin>
-                              <Insets top="40.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
                            <font>
                               <Font name="Palatino" size="49.0" />
@@ -112,7 +116,7 @@
                         </Text>
                         <HBox alignment="CENTER" prefHeight="400.0" prefWidth="200.0" spacing="50.0" VBox.vgrow="ALWAYS">
                            <padding>
-                              <Insets left="150.0" right="150.0" top="25.0" />
+                              <Insets bottom="20.0" left="150.0" right="150.0" top="25.0" />
                            </padding>
                            <children>
                               <VBox alignment="CENTER" onMouseClicked="#navigateToPathfinding" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
@@ -124,7 +128,7 @@
                                     </ImageView>
                                     <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="DIRECTIONS">
                                        <font>
-                                          <Font name="Open Sans Bold" size="56.0" />
+                                          <Font name="BariolSerif" size="56.0" />
                                        </font>
                                        <VBox.margin>
                                           <Insets top="50.0" />
@@ -141,7 +145,7 @@
                                     </ImageView>
                                     <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="SCHEDULING">
                                        <font>
-                                          <Font name="Open Sans Bold" size="56.0" />
+                                          <Font name="BariolSerif" size="56.0" />
                                        </font>
                                        <VBox.margin>
                                           <Insets top="50.0" />
@@ -161,7 +165,7 @@
                                     </ImageView>
                                     <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="REQUESTS">
                                        <font>
-                                          <Font name="Open Sans Bold" size="56.0" />
+                                          <Font name="BariolSerif" size="56.0" />
                                        </font>
                                        <VBox.margin>
                                           <Insets top="50.0" />
@@ -170,21 +174,122 @@
                                  </children>
                               </VBox>
                            </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
-                           <children>
-                              <JFXButton onMouseClicked="#navigateToChat" maxWidth="9999.0" styleClass="logoutButton" text="INTERNAL CHAT" HBox.hgrow="ALWAYS" />
-                              <JFXButton onMouseClicked="#navigateToNotifications" maxWidth="550.0" styleClass="logoutButton" text="SEND NOTIFICATION" HBox.hgrow="ALWAYS" />
-                              <JFXButton onMouseClicked="#navigateToDMs" maxWidth="99999.0" styleClass="logoutButton" text="SEND MESSAGE" HBox.hgrow="ALWAYS" />
-                              <JFXButton maxWidth="99999.0" onAction="#navigateToAbout" styleClass="logoutButton" text="ABOUT" HBox.hgrow="ALWAYS" />
-                           </children>
                            <VBox.margin>
-                              <Insets bottom="50.0" left="150.0" right="150.0" top="25.0" />
+                              <Insets top="20.0" />
                            </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="75.0" prefHeight="50.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: rgba(0,0,0,.4);" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <ScrollPane fx:id="scrollContainer" hbarPolicy="NEVER" minHeight="80.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" HBox.hgrow="ALWAYS">
+                                <content>
+                                  <AnchorPane maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="-Infinity" prefHeight="75.0">
+                                       <children>
+                                          <HBox fx:id="contentContainer" prefHeight="100.0" prefWidth="200.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" maxHeight="75.0" minHeight="75.0" minWidth="500.0" prefHeight="100.0" prefWidth="500.0" styleClass="pane">
+                                                   <children>
+                                                      <Pane maxHeight="75.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #2e86de; -fx-background-radius: 5 0 0 5;">
+                                                         <children>
+                                                            <ImageView fx:id="weatherIcon" fitHeight="50.0" fitWidth="100.0" layoutX="25.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../../../../../../resources/icons/icons8-cloud.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                      </Pane>
+                                                      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label styleClass="alertLabel" text="Boston, MA / 02115" />
+                                                            <Label fx:id="weatherText" styleClass="alertSublabel" text="Loading..." />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="20.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox fx:id="notificationWrapper" alignment="CENTER_LEFT" maxHeight="75.0" maxWidth="1.7976931348623157E308" minHeight="75.0" minWidth="500.0" prefHeight="100.0" styleClass="pane">
+                                                   <children>
+                                                      <Pane fx:id="notificationColor" maxHeight="75.0" minWidth="100.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #ee5253; -fx-background-radius: 5 0 0 5;">
+                                                         <children>
+                                                            <ImageView fitHeight="50.0" fitWidth="100.0" layoutX="25.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../../../../../../resources/icons/icons8-error.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                      </Pane>
+                                                      <VBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="200.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label fx:id="notificationTitle" styleClass="alertLabel" text="Notification" />
+                                                            <Label fx:id="notificationText" contentDisplay="TOP" maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="371.0" styleClass="alertSublabel" text="Loading..." />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="20.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" maxHeight="75.0" minWidth="500.0" prefHeight="50.0" styleClass="pane">
+                                                   <children>
+                                                      <Pane maxHeight="75.0" pickOnBounds="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-radius: 5 0 0 5; -fx-background-color: #10ac84;" styleClass="redBG">
+                                                         <children>
+                                                            <ImageView fitHeight="50.0" fitWidth="100.0" layoutX="23.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../../../../../../resources/icons/icons8-tram.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                      </Pane>
+                                                      <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                                         <children>
+                                                            <Label styleClass="alertLabel" text="Next Brigham Circle Train:" />
+                                                            <Label fx:id="trainTime" styleClass="alertSublabel" text="Loading..." />
+                                                         </children>
+                                                         <padding>
+                                                            <Insets left="20.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <HBox fx:id="tweetPane" alignment="CENTER_LEFT" maxHeight="75.0" minHeight="75.0" minWidth="500.0" prefHeight="50.0" styleClass="pane">
+                                                   <children>
+                                                      <Pane maxHeight="75.0" minWidth="100.0" pickOnBounds="false" prefHeight="100.0" prefWidth="100.0" style="-fx-background-radius: 5 0 0 5; -fx-background-color: #0abde3;" styleClass="redBG">
+                                                         <children>
+                                                            <ImageView fitHeight="50.0" fitWidth="100.0" layoutX="25.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../../../../../../resources/icons/icons8-twitter.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                      </Pane>
+                                                      <Label fx:id="tweet" maxWidth="1.7976931348623157E308" styleClass="alertSublabel" text="Loading..." wrapText="true" HBox.hgrow="ALWAYS">
+                                                         <padding>
+                                                            <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets left="50.0" right="50.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
+                           </children>
+                           <padding>
+                              <Insets bottom="20.0" top="20.0" />
+                           </padding>
                         </HBox>
                      </children>
                      <VBox.margin>
-                        <Insets top="50.0" />
+                        <Insets top="30.0" />
                      </VBox.margin>
                   </VBox>
                </children>
@@ -192,4 +297,8 @@
          </children>
       </StackPane>
    </children>
+   <stylesheets>
+      <URL value="@../../../../../../resources/stylesheet.css" />
+      <URL value="@../../../../../../resources/stylesheet.css" />
+   </stylesheets>
 </AnchorPane>
