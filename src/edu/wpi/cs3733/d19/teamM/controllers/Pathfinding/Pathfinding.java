@@ -179,12 +179,20 @@ public class Pathfinding {
     @FXML
     private TitledPane filters;
 
+    @FXML
+    private Button scheduling;
+
+    @FXML
+    private Button textToSpeech;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
      */
     @FXML
     protected void initialize() throws Exception {
+        textToSpeech.setText("SPEAK DIRECTIONS");
+        scheduling.setVisible(false);
         filters.setExpanded(false);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
@@ -385,19 +393,15 @@ public class Pathfinding {
     //A global int to keep track of whether the thing is speaking or not
     TextSpeech textSpeech = new TextSpeech();
     @FXML
-    private void speakDirections(){
-
+    private void handleSpeaking(){
+        if(textToSpeech.getText().equals("SPEAK DIRECTIONS") && showDir.getText().equals("TEXT DIRECTIONS")){
+            textToSpeech.setText("CANCEL SPEAKING");
             textSpeech.speakToUser();
-        System.out.println("Hit Start");
-
-
-    }
-
-    @FXML
-    private void cancelDirections()
-    {
-        textSpeech.quitSpeaking();
-        System.out.println("Hit Cancel");
+        }
+        else{
+            textSpeech.quitSpeaking();
+            textToSpeech.setText("SPEAK DIRECTIONS");
+        }
     }
 
 
@@ -410,11 +414,27 @@ public class Pathfinding {
     @FXML
     private void navigateToHome() throws Exception{
         filters.setExpanded(false);
+        scheduling.setVisible(false);
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
         Main.setScene("home");
-        cancelDirections();
+        if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
+            handleSpeaking();
+        }
+    }
+
+    @FXML
+    private void navigateToScheduling() throws Exception{
+        filters.setExpanded(false);
+        scheduling.setVisible(false);
+        lines.forEach(node -> util.buttonPane.getChildren().remove(node));
+        arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
+        clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
+        Main.setScene("scheduling");
+        if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
+            handleSpeaking();
+        }
     }
 
     @FXML
@@ -704,14 +724,24 @@ public class Pathfinding {
     public void moveUp(ActionEvent value) throws Exception{
         util.moveUp();
         floorLabel.setText(util.getFloorLabel());
-
+        if(floorLabel.getText().equals("Floor Four")){
+            scheduling.setVisible(true);
+        }
+        else{
+            scheduling.setVisible(false);
+        }
         updateMap(null,null);
     }
 
     public void moveDown(ActionEvent value) throws Exception{
         util.moveDown();
         floorLabel.setText(util.getFloorLabel());
-
+        if(floorLabel.getText().equals("Floor Four")){
+            scheduling.setVisible(true);
+        }
+        else{
+            scheduling.setVisible(false);
+        }
         updateMap(null,null);
     }
 
@@ -870,7 +900,7 @@ public class Pathfinding {
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
-                    if (nextFloor == 6) nextFloor = 4;
+                    //if (nextFloor == 6) nextFloor = 4;
                     final int nf = nextFloor;
                     final Node ns = nextFloorStart;
                     final Node ne = nextFloorEnd;
@@ -919,7 +949,7 @@ public class Pathfinding {
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
-                    if (nextFloor == 6) nextFloor = 4;
+                    //if (nextFloor == 6) nextFloor = 4;
                     final int nf = nextFloor;
 
                     startChangeButton.setOnAction(evt -> {
@@ -949,7 +979,9 @@ public class Pathfinding {
     @FXML
     public void logout() throws Exception{
         Main.logOut();
-        cancelDirections();
+        if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
+            handleSpeaking();
+        }
     }
 
     private boolean checkValidLongNameInput(){

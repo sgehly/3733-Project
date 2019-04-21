@@ -54,9 +54,9 @@ public abstract class SearchAlgorithm {
     }
 
     final protected double getFloorValue(String f){
-        if (f.equals("G")) return  0;
+        if (f.equals("L2")) return  0;
         else if (f.equals("L1")) return 1;
-        else if (f.equals("L2")) return 2;
+        else if (f.equals("G")) return 2;
         else if (f.equals("1")) return 4;
         else if (f.equals("2")) return 5;
         else if (f.equals("3")) return 6;
