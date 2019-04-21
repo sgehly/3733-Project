@@ -114,10 +114,10 @@
                         </HBox>
                         <TableView fx:id="BookedRooms" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                           <columns>
-                              <TableColumn fx:id="roomName" maxWidth="752.8181056976318" minWidth="50.0" prefWidth="469.0" text="ROOM NAME" />
-                                <TableColumn fx:id="roomType" minWidth="0.0" prefWidth="469.0" text="TYPE" />
-                              <TableColumn fx:id="startTime" minWidth="200.0" prefWidth="469.0" text="START TIME" />
-                                <TableColumn fx:id="endTime" minWidth="0.0" prefWidth="469.0" text="END TIME" />
+                              <TableColumn fx:id="roomName" maxWidth="752.8181056976318" minWidth="50.0" prefWidth="469.0" style="-fx-alignment: CENTER;" text="ROOM NAME" />
+                                <TableColumn fx:id="roomType" minWidth="0.0" prefWidth="469.0" style="-fx-alignment: CENTER;" text="TYPE" />
+                              <TableColumn fx:id="startTime" minWidth="200.0" prefWidth="469.0" style="-fx-alignment: CENTER;" text="START TIME" />
+                                <TableColumn fx:id="endTime" minWidth="0.0" prefWidth="469.0" style="-fx-alignment: CENTER;" text="END TIME" />
                           </columns>
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" />

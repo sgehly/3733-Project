@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Home.Credits">
+    <children>
+        <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
+            <image>
+                <Image url="@../../../../../../resources/bg.png" />
+            </image>
+        </ImageView>
+        <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+            <children>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="1661.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <ImageView fx:id="back" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true" styleClass="hoverIcon">
+                                            <HBox.margin>
+                                                <Insets right="10.0" />
+                                            </HBox.margin>
+                                            <image>
+                                                <Image url="@../../../../../../resources/icons/icons8-home.png" />
+                                            </image>
+                                        </ImageView>
+                                        <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                                            <font>
+                                                <Font name="Open Sans Bold" size="36.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets />
+                                            </HBox.margin>
+                                        </Text>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="659.0">
+                                            <children>
+                                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@/resources/icons/icons8-clock_8.png" />
+                                                    </image>
+                                                    <HBox.margin>
+                                                        <Insets right="10.0" />
+                                                    </HBox.margin>
+                                                </ImageView>
+                                                <VBox alignment="CENTER" prefHeight="300.0" prefWidth="150.0">
+                                                    <children>
+                                                        <Label fx:id="lblDate" alignment="CENTER" maxHeight="24.0" prefHeight="50.0" prefWidth="200.0" styleClass="dateLabel" text="04/06/2019" textFill="WHITE">
+                                                            <font>
+                                                                <Font size="24.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="lblClock" alignment="CENTER" maxHeight="24.0" prefHeight="47.8828125" prefWidth="132.046875" styleClass="clockLabel" text="12:24:36" textFill="WHITE">
+                                                            <font>
+                                                                <Font size="24.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                            <padding>
+                                                <Insets right="300.0" top="15.0" />
+                                            </padding>
+                                            <HBox.margin>
+                                                <Insets left="270.0" />
+                                            </HBox.margin>
+                                        </HBox>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Button fx:id="logout" mnemonicParsing="false" onAction="#navigateToWelcome" onMouseClicked="#navigateToWelcome" styleClass="logoutButton" text="LOGOUT">
+                                            <font>
+                                                <Font name="Open Sans Bold" size="24.0" />
+                                            </font>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                            </children>
+                            <VBox.margin>
+                                <Insets left="50.0" right="50.0" top="20.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="1910.0" scaleX="0.9" scaleY="0.9" styleClass="pane" VBox.vgrow="ALWAYS">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                            <children>
+                                <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <VBox alignment="CENTER" prefHeight="960.0" prefWidth="2267.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <ImageView fitHeight="250.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../../../../../../resources/icons/developing_code.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Credits">
+                                                    <VBox.margin>
+                                                        <Insets top="20.0" />
+                                                    </VBox.margin>
+                                                    <font>
+                                                        <Font name="Palatino" size="64.0" />
+                                                    </font>
+                                                </Text>
+                                    <VBox alignment="CENTER" prefHeight="500.0" prefWidth="1873.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Other Team APIs" underline="true" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Elevator API - Team N" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="External APIs" underline="true" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Javax.mail" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="JFoenix" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="ControlsFX" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="FreeTTS" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="GestureFX" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Twilio" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Java-google-speech-api" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Webcam-capture" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Text" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Text" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Text" />
+                                       </children>
+                                    </VBox>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" prefHeight="961.0" prefWidth="442.0">
+                                            <padding>
+                                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                            </padding>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </children>
+</AnchorPane>
