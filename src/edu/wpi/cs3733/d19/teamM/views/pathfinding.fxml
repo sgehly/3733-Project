@@ -260,11 +260,6 @@
                                               </StackPane>
                                           </children>
                                       </VBox>
-                              <Button fx:id="scheduling" mnemonicParsing="false" onAction="#navigateToScheduling" styleClass="blackButton" text="SCHEDULING">
-                                 <StackPane.margin>
-                                    <Insets left="840.0" top="120.0" />
-                                 </StackPane.margin>
-                              </Button>
                               <TitledPane fx:id="filters" animated="false" maxHeight="425.0" maxWidth="300.0" pickOnBounds="false" prefHeight="420.0" prefWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
                                       <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" pickOnBounds="false" prefHeight="245.0" prefWidth="278.0">
@@ -418,6 +413,14 @@
                                     <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
                                        <children>
                                           <Button fx:id="textToSpeech" mnemonicParsing="false" onMouseClicked="#handleSpeaking" prefWidth="425.0" styleClass="blackButton" text="SPEAK DIRECTIONS" />
+                                       </children>
+                                       <padding>
+                                          <Insets right="50.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="50.0" prefWidth="550.0" spacing="20.0">
+                                       <children>
+                                          <Button fx:id="scheduling" mnemonicParsing="false" onAction="#navigateToScheduling" prefWidth="425.0" styleClass="blackButton" text="SCHEDULING" />
                                        </children>
                                        <padding>
                                           <Insets right="50.0" />
