@@ -88,7 +88,7 @@ public class Admin{
         Parent pathFindingPane;
         Scene pathFindingScene;
         try {
-            pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
+            pathFindingPane = FXMLLoader.load(Main.getFXMLURL("settings"));
             pathFindingScene = new Scene(pathFindingPane);
             Main.getStage().setScene(pathFindingScene);
         } catch (Exception e) {
