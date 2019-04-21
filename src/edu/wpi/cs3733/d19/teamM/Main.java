@@ -433,14 +433,7 @@ public class Main extends Application {
         parser.connect();
         parser.nodeParse();
         parser.edgeParse();
-        giftRequest.GiftRequest e = new GiftRequest();
-        Platform.runLater(() -> {
-            try {
-                e.run(0, 0, 1000, 1000, "/resources/stylesheet.css", "what", "what");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
+
        /* Floor myFloor = new Floor("1");
         myFloor.populateFloor();*/
         launch(args);

@@ -4,9 +4,11 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+import giftRequest.GiftRequest;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -24,7 +26,6 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
-
 
 import java.io.IOException;
 
@@ -54,8 +55,6 @@ public class ServiceRequests {
     //initializing the timestamp
     long time = date.getTime();
     Timestamp ts = new Timestamp(time);
-
-
 
     @FXML
     private Text userText;
@@ -93,7 +92,6 @@ public class ServiceRequests {
     @FXML
     private TextArea languageNotes;
 
-
     public int RandIDgenerator(){
         Random rand = new Random();
         int id = rand.nextInt(10000);
@@ -113,13 +111,11 @@ public class ServiceRequests {
             }
         }
 
-
         catch (Exception e) {
             e.printStackTrace();
         }
         return id;
     }
-
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -138,7 +134,6 @@ public class ServiceRequests {
     private void navigateToHome() throws Exception {
         Main.setScene("home");
     }
-
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -180,9 +175,7 @@ public class ServiceRequests {
     @FXML
     private void navigateToFLowers() throws Exception{
         Main.setScene("serviceRequests/flowersRequest");
-
     }
-
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -203,13 +196,10 @@ public class ServiceRequests {
         Main.setScene("serviceRequests/audiovisual");
     }
 
-
     @FXML
     private void naviagateToExternal() throws Exception{
         Main.setScene("serviceRequests/ExtTransport");
     }
-
-
 
     @FXML
     private void navigateToIntTransport() throws Exception{
@@ -229,7 +219,17 @@ public class ServiceRequests {
 //        foodRequest.run(0, 0, 10000, 1000, "/resources/stylesheet.css", null, null);
 //    }
 
-
+    @FXML
+    private void navigateToLGift() throws Exception {
+        GiftRequest e = new GiftRequest();
+        //Platform.runLater(() -> {
+            try {
+                e.run(0, 0, 1000, 1000, "/resources/stylesheet.css", "what", "what");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        //});
+    }
 
     /**
      * This method checks room availability after a button is clicked
@@ -239,7 +239,6 @@ public class ServiceRequests {
     void checkRoomValidity(MouseEvent event) {
 
     }
-
 
     /**
      * This method send teh user to the service request list page
