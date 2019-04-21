@@ -58,7 +58,6 @@ public class Scheduler {
     //for the randomization purposes of the rooms
     int secondsPassed = 0;
 
-
     @FXML
     private AnchorPane root;
 
@@ -164,8 +163,6 @@ public class Scheduler {
     @FXML
     private ImageView room10 = new ImageView();
 
-
-
     //random rooms that are not bookable but will change color with rng on every update of time and date
     @FXML
     private Pane randomRoom1;
@@ -211,10 +208,104 @@ public class Scheduler {
     private Pane randomRoom21;
     @FXML
     private Pane randomRoom22;
+    @FXML
+    private Pane randomRoom23;
+    @FXML
+    private Pane randomRoom24;
+    @FXML
+    private Pane randomRoom25;
+    @FXML
+    private Pane randomRoom26;
+    @FXML
+    private Pane randomRoom27;
+    @FXML
+    private Pane randomRoom28;
+    @FXML
+    private Pane randomRoom29;
+    @FXML
+    private Pane randomRoom30;
+    @FXML
+    private Pane randomRoom31;
+    @FXML
+    private Pane randomRoom32;
+    @FXML
+    private Pane randomRoom33;
+    @FXML
+    private Pane randomRoom34;
+    @FXML
+    private Pane randomRoom35;
+    @FXML
+    private Pane randomRoom36;
+    @FXML
+    private Pane randomRoom37;
+    @FXML
+    private Pane randomRoom38;
+    @FXML
+    private Pane randomRoom39;
+    @FXML
+    private Pane randomRoom40;
+    @FXML
+    private Pane randomRoom41;
+    @FXML
+    private Pane randomRoom42;
+    @FXML
+    private Pane randomRoom43;
+    @FXML
+    private Pane randomRoom44;
+    @FXML
+    private Pane randomRoom45;
+    @FXML
+    private Pane randomRoom46;
+    @FXML
+    private Pane randomRoom47;
+    @FXML
+    private Pane randomRoom48;
+    @FXML
+    private Pane randomRoom49;
+    @FXML
+    private Pane randomRoom50;
+    @FXML
+    private Pane randomRoom51;
+    @FXML
+    private Pane randomRoom52;
+    @FXML
+    private Pane randomRoom53;
+    @FXML
+    private Pane randomRoom54;
+    @FXML
+    private Pane randomRoom55;
+    @FXML
+    private Pane randomRoom56;
+    @FXML
+    private Pane randomRoom57;
+    @FXML
+    private Pane randomRoom58;
+    @FXML
+    private Pane randomRoom59;
+    @FXML
+    private Pane randomRoom60;
+    @FXML
+    private Pane randomRoom61;
+    @FXML
+    private Pane randomRoom62;
+    @FXML
+    private Pane randomRoom63;
+    @FXML
+    private Pane randomRoom64;
+    @FXML
+    private Pane randomRoom65;
+    @FXML
+    private Pane randomRoom66;
+    @FXML
+    private Pane randomRoom67;
+    @FXML
+    private Pane randomRoom68;
+    @FXML
+    private Pane randomRoom69;
+    @FXML
+    private Pane randomRoom70;
 
     ArrayList<Pane> randomPanes;
-
-
 
     Node[] focusable = new Node[] {startTime, startDate, endTime, endDate};
 
@@ -227,6 +318,12 @@ public class Scheduler {
 
     int selectedRoom = 0;
 
+    /**
+     * Checks room availability
+     *
+     * @throws Exception Throws exception if the room that the user wants to select is already booked for the
+     *                   selected time and date
+     */
     @FXML
     private void checkAvailability() throws Exception{
         LocalDate dateStart = startDate.getValue();
@@ -244,11 +341,21 @@ public class Scheduler {
         this.getAvailableRooms(ts, te);
     }
 
+    /**
+     * Logs user out of the app
+     *
+     * @throws Exception
+     */
     @FXML
     public void logout() throws Exception{
         Main.logOut();
     }
 
+    /**
+     * Books a room
+     *
+     * @throws Exception Throws exception if the selected room cannot be booked
+     */
     @FXML
     private void bookRoom() throws Exception{
         LocalDate dateStart = startDate.getValue();
@@ -271,6 +378,13 @@ public class Scheduler {
         this.checkAvailability();
     }
 
+    /**
+     * Adds the booked room to the database
+     *
+     * @param roomID
+     * @param start
+     * @param end
+     */
     private void addBookedTime(String roomID, Timestamp start, Timestamp end){
         DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         String query = "INSERT INTO BookedTimes VALUES(?, ?, ?)";
@@ -289,6 +403,13 @@ public class Scheduler {
         }
     }
 
+    /**
+     * Exports the booked rooms table as a CSV
+     *
+     * @param event
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     @FXML
     private void exportToCsv(ActionEvent event) throws SQLException,ClassNotFoundException{
         DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
@@ -318,18 +439,33 @@ public class Scheduler {
         }
     }
 
+    /**
+     * Returns to the home screen
+     *
+     * @throws Exception
+     */
     @FXML
     private void navigateToHome() throws Exception{
         Main.setScene("home");
     }
 
+    /**
+     * Goes to the scheduler calendar that displays a list of the rooms booked
+     *
+     * @throws Exception
+     */
     @FXML
     private void navigateToDetails() throws Exception{
         Main.setScene("schedulerList");
     }
 
-
-
+    /**
+     * Shows the booked rooms in the database in a table
+     *
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
     private ObservableList<DisplayTable> getEntryObjects(ResultSet rs) throws SQLException {
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
         try {
@@ -349,6 +485,13 @@ public class Scheduler {
         }
     }
 
+    /**
+     * Gets all of the items in the database
+     *
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public ObservableList<DisplayTable> getAllRecords() throws ClassNotFoundException, SQLException {
         DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         String query = "SELECT roomID, capacity, roomtype FROM ROOMS";
@@ -367,7 +510,12 @@ public class Scheduler {
         }
     }
 
-
+    /**
+     * Produces the image of the rooms to be booked
+     *
+     * @param roomId
+     * @param available
+     */
     private void processImage(String roomId, boolean available){
 
         char fileSuffix = available ? 'a' : 't';
@@ -388,6 +536,15 @@ public class Scheduler {
 
     }
 
+    /**
+     * Shows the available rooms to be booked on the image
+     *
+     * @param start
+     * @param end
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public ObservableList<DisplayTable> getAvailableRooms(Timestamp start, Timestamp end) throws ClassNotFoundException, SQLException {
         DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
 
@@ -444,10 +601,8 @@ public class Scheduler {
                 processImage(allRoomName, roomIsAvailable);
                 availRooms.beforeFirst();
             }
-
             this.switchToRoom(this.selectedRoom);
             conn.close();
-
             } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error trying to get available rooms");
@@ -537,23 +692,16 @@ public class Scheduler {
             e.printStackTrace();
         }
 
-
-        //userText.setText("");
-
         startDate.setStyle("-jfx-unfocus-color: WHITE;");
         startTime.setStyle("-jfx-unfocus-color: WHITE;");
         endDate.setStyle("-jfx-unfocus-color: WHITE;");
         endTime.setStyle("-jfx-unfocus-color: WHITE;");
 
-
         try{
             System.out.println("printing inside initialize");
-           // initWithType();
-           // ObservableList<DisplayTable> entList = getAllRecords2();
             roomidCol.setCellValueFactory(new PropertyValueFactory<>("Room"));
             starttimeCol.setCellValueFactory(new PropertyValueFactory<>("starttime"));
             endtimeCol.setCellValueFactory(new PropertyValueFactory<>("endtime"));
-            //tableView2.setItems(entList);
             initWithType();
 
             startDate.setValue(LocalDate.now());
@@ -569,20 +717,16 @@ public class Scheduler {
 
 
             this.checkAvailability();
-            //initWithType();
         }catch(Exception e){e.printStackTrace();};
-        //initWithType();
-//        roomidCol.setCellValueFactory(new PropertyValueFactory<>("room"));
-//        System.out.println(new PropertyValueFactory<>("room"));
-//        starttimeCol.setCellValueFactory(new PropertyValueFactory<>("starttime"));
-//        endtimeCol.setCellValueFactory(new PropertyValueFactory<>("endtime"));
-        //initWithType();
+
         assert zoomLvl != null : "fx:id=\"zoomLvl\" was not injected: check your FXML file 'scheduler.fxml'.";
         assert imageView != null : "fx:id=\"imageView\" was not injected: check your FXML file 'scheduler.fxml'.";
         assert image != null : "fx:id=\"image\" was not injected: check your FXML file 'scheduler.fxml'.";
-
     }
 
+    /**
+     * Randomizes the availability of the workspaces
+     */
     private void startRandomization() {
         Timer timer = new Timer();
         TimerTask task = new Helper(this);
@@ -613,8 +757,59 @@ public class Scheduler {
         randomPanes.add(randomRoom20);
         randomPanes.add(randomRoom21);
         randomPanes.add(randomRoom22);
+        randomPanes.add(randomRoom23);
+        randomPanes.add(randomRoom24);
+        randomPanes.add(randomRoom25);
+        randomPanes.add(randomRoom26);
+        randomPanes.add(randomRoom27);
+        randomPanes.add(randomRoom28);
+        randomPanes.add(randomRoom29);
+        randomPanes.add(randomRoom30);
+        randomPanes.add(randomRoom31);
+        randomPanes.add(randomRoom32);
+        randomPanes.add(randomRoom33);
+        randomPanes.add(randomRoom34);
+        randomPanes.add(randomRoom35);
+        randomPanes.add(randomRoom36);
+        randomPanes.add(randomRoom37);
+        randomPanes.add(randomRoom38);
+        randomPanes.add(randomRoom39);
+        randomPanes.add(randomRoom40);
+        randomPanes.add(randomRoom41);
+        randomPanes.add(randomRoom42);
+        randomPanes.add(randomRoom43);
+        randomPanes.add(randomRoom44);
+        randomPanes.add(randomRoom45);
+        randomPanes.add(randomRoom46);
+        randomPanes.add(randomRoom47);
+        randomPanes.add(randomRoom48);
+        randomPanes.add(randomRoom49);
+        randomPanes.add(randomRoom50);
+        randomPanes.add(randomRoom51);
+        randomPanes.add(randomRoom52);
+        randomPanes.add(randomRoom53);
+        randomPanes.add(randomRoom54);
+        randomPanes.add(randomRoom55);
+        randomPanes.add(randomRoom56);
+        randomPanes.add(randomRoom57);
+        randomPanes.add(randomRoom58);
+        randomPanes.add(randomRoom59);
+        randomPanes.add(randomRoom60);
+        randomPanes.add(randomRoom61);
+        randomPanes.add(randomRoom62);
+        randomPanes.add(randomRoom63);
+        randomPanes.add(randomRoom64);
+        randomPanes.add(randomRoom65);
+        randomPanes.add(randomRoom66);
+        randomPanes.add(randomRoom67);
+        randomPanes.add(randomRoom68);
+        randomPanes.add(randomRoom69);
+        randomPanes.add(randomRoom70);
     }
 
+    /**
+     * Randomizes the colors of the workspaces on the image
+     */
     public void randomizeRandomRoomColors() {
         Random random = new Random();
         double randomFloat = 0;
@@ -627,10 +822,14 @@ public class Scheduler {
             else{
                 randomPanes.get(i).setStyle("-fx-background-color: #118b56");
             }
-
         }
     }
 
+    /**
+     * Switches the labels to the selected room
+     *
+     * @param id
+     */
     private void switchToRoom(int id){
         if(error) return;
         this.selectedRoom = id;
@@ -648,7 +847,6 @@ public class Scheduler {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     private void switchToRoom1(){switchToRoom(0);};
@@ -680,8 +878,12 @@ public class Scheduler {
     @FXML
     private void switchToRoom10(){switchToRoom(9);};
 
-
-
+    /**
+     *
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
     private static ObservableList<DisplayTable> getEntryObjects2(ResultSet rs) throws SQLException {
         //The list we will populate
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
@@ -702,7 +904,9 @@ public class Scheduler {
         }
     }
 
-
+    /**
+     *
+     */
     private void initWithType(){
 
         try{
@@ -713,7 +917,6 @@ public class Scheduler {
             e.printStackTrace();
         }
     }
-
 
     /**
      * This method gets all the records from the database so that they can be added to the display on the screen
