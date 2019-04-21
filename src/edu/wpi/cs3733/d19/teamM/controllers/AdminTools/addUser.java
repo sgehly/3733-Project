@@ -400,7 +400,7 @@ public class addUser {
     void navigateToHome(MouseEvent event) {
         if (webcam != null)
             webcam.close();
-        Main.setScene("adminUI");
+        Main.setScene("admin");
     }
 
     @FXML
