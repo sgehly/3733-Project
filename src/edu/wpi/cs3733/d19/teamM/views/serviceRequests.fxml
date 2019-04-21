@@ -77,7 +77,7 @@
                            <children>
                               <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
                                  <font>
-                                    <Font name="Open Sans Bold" size="24.0" />
+                                    <Font name="BariolSerif" size="24.0" />
                                  </font>
                               </Button>
                            </children>
@@ -96,7 +96,7 @@
                                     <Insets bottom="7.0" />
                                  </padding>
                                  <children>
-                                    <VBox alignment="TOP_CENTER" onMouseClicked="#navigateToSanitaton" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToSanitaton" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -108,7 +108,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="SANITATION">
                                              <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -131,7 +131,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="INTERPRETER">
                                              <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -154,7 +154,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="IT SERVICE">
                                              <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -177,7 +177,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="AV SERVICE">
                                              <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -204,7 +204,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="GIFT SHOP">
                                              <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -224,7 +224,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="FLORIST">
                                              <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -247,7 +247,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="INT TRANSPORT">
                                              <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -270,7 +270,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="EXT TRANSPORT">
                                              <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -297,7 +297,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="RELIGIOUS">
                                              <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -317,7 +317,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="SECURITY">
                                              <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -340,7 +340,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="PRESCRIPTIONS">
                                              <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
@@ -363,7 +363,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="LAB TEST" textAlignment="CENTER" wrappingWidth="280.4765625">
                                              <font>
-                                                <Font name="Open Sans Bold" size="36.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />
