@@ -174,6 +174,9 @@ public class Pathfinding {
     private Button showDir;
 
     @FXML
+    private Button sendRobotButton;
+
+    @FXML
     private TitledPane filters;
 
     /**
@@ -185,6 +188,8 @@ public class Pathfinding {
         filters.setExpanded(false);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
+
+        sendRobotButton.setDisable(true);
 
         gesturePane.setContent(mappingStuff);
 
@@ -516,15 +521,30 @@ public class Pathfinding {
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
         PathToString.getDirections(path);
-        //s.toConnString(PathToString.pathToInstructions(path));
+
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
         if (path != null){
             showDir.setDisable(false);
+            sendRobotButton.setDisable(false);
             showDir.setText("TEXT DIRECTIONS");
         }
         resetTextBox();
         updateMap(null,null);
+    }
+
+    @FXML
+    void sendRobot(){
+        Runnable robotThread = () -> {
+            try {
+                SocketClient s = new SocketClient();
+                s.toConnString(PathToString.pathToInstructions(path));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        };
+        new Thread(robotThread).start();
     }
 
     private void findPathWithLongNames() throws Exception{
