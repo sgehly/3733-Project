@@ -417,8 +417,7 @@
                                     </HBox>
                                     <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onMouseClicked="#speakDirections" prefWidth="425.0" styleClass="blackButton" text="SPEAK DIRECTIONS" />
-                                          <Button mnemonicParsing="false" onMouseClicked="#cancelDirections" prefWidth="425.0" styleClass="blackButton" text="CANCEL SPEAK" />
+                                          <Button fx:id="textToSpeech" mnemonicParsing="false" onMouseClicked="#handleSpeaking" prefWidth="425.0" styleClass="blackButton" text="SPEAK DIRECTIONS" />
                                        </children>
                                        <padding>
                                           <Insets right="50.0" />
