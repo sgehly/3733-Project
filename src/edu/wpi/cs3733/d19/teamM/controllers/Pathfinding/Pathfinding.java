@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamM.controllers.Pathfinding;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.*;
 import java.text.DateFormat;
@@ -36,7 +37,9 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
@@ -47,8 +50,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -57,6 +64,8 @@ import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
 
 import externalLibraries.Arrow.*;
+import org.w3c.dom.css.Rect;
+import sun.font.TextLabel;
 
 import javax.swing.*;
 
@@ -77,7 +86,8 @@ public class Pathfinding {
 
     ArrayList<Button> clearNodes = new ArrayList<Button>();
     ArrayList<Line> lines = new ArrayList<Line>();
-    ArrayList<Arrow> arrows = new ArrayList<Arrow>();
+    ArrayList<Rectangle> arrows = new ArrayList<Rectangle>();
+
 
     //Get the FXML objects to be linked
     @FXML
@@ -174,7 +184,10 @@ public class Pathfinding {
     private TitledPane filters;
 
     @FXML
-    private  Button sendRobotButton;
+    private Button scheduling;
+
+    @FXML
+    private Button textToSpeech;
 
     /**
      * This method will initialize the pathfinding screen's controller
@@ -182,8 +195,9 @@ public class Pathfinding {
      */
     @FXML
     protected void initialize() throws Exception {
+        textToSpeech.setText("SPEAK DIRECTIONS");
+        scheduling.setVisible(false);
         filters.setExpanded(false);
-        sendRobotButton.setDisable(true);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
@@ -206,21 +220,114 @@ public class Pathfinding {
 
         chooseNav();
     }
+    Image imageBox;
+    ImageView imageBoxView;
+    VBox dialogBoxVbox;
+    Label tf = new Label();
+
+    Button buttonBox;
+    File pathFile = new File("resource.txt");
+    Scanner directionsScanner;
+     Stage dialogBox;
+
+
 
     @FXML
     private void showText(){
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(Main.getStage());
 
-        VBox dialogVbox = new VBox(20);
-        TextArea tf = new TextArea();
-        tf.setText(PathToString.getDirections(path));
-        tf.setPrefSize(400,300);
-        dialogVbox.getChildren().add(tf);
-        Scene dialogScene = new Scene(dialogVbox, 400, 300);
-        dialog.setScene(dialogScene);
-        dialog.show();
+        {
+            try {
+                directionsScanner = new Scanner(pathFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+         dialogBox = new Stage();
+        tf.setTextAlignment(TextAlignment.CENTER);
+        Font myFont = new Font("Open Sans",20);
+
+        tf.setFont(myFont);
+        directionsScanner.nextLine();
+        //TODO: Create the VBOX
+        //TODO: Get the text directions
+        //TODO: For each set of text directions
+            //TODO: Set the image and the text and the next button
+        dialogBox.initModality(Modality.APPLICATION_MODAL);
+        dialogBox.initOwner(Main.getStage());
+
+        dialogBoxVbox = new VBox(20);
+        buttonBox = new Button();
+        buttonBox.setText("NEXT DIRECTION");
+        imageBox = new Image("resources/icons/street_view.png");
+        imageBoxView = new ImageView();
+        imageBoxView.setImage(imageBox);
+        tf.setWrapText(true);
+        tf.setText(directionsScanner.nextLine());
+        tf.setPrefSize(400,200);
+        dialogBoxVbox.getChildren().add(imageBoxView);
+        dialogBoxVbox.setAlignment(Pos.CENTER);
+        dialogBoxVbox.getChildren().add(tf);
+        dialogBoxVbox.getChildren().add(buttonBox);
+        buttonBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                updateBox();
+            }
+        });
+        Scene dialogScene = new Scene(dialogBoxVbox, 450, 600);
+        dialogBox.setScene(dialogScene);
+        dialogBox.setTitle("Text Directions");
+        dialogBox.show();
+    }
+
+    private void updateBox()
+    {
+
+        String line = directionsScanner.nextLine();
+        if(line.isEmpty())
+        {
+            updateBox();
+        }
+        else
+        {
+            if(line.toLowerCase().contains("straight"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/circled_straight.png"));
+
+            }
+            else if(line.toLowerCase().contains("right"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/circled_right.png"));
+
+            }
+            else if(line.toLowerCase().contains("left"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/circled_left.png"));
+
+            }
+            else if(line.toLowerCase().contains("stair"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/stairs.png"));
+            }
+            else if(line.toLowerCase().contains("elevator"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/elevator.png"));
+            }
+
+            tf.setText(line);
+
+            if(line.toUpperCase().contains("ARRIVE") && !line.toUpperCase().contains("ELEVATOR") && !line.toUpperCase().contains("STAIR"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/arrived.png"));
+                buttonBox.setText("CLOSE");
+                buttonBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        dialogBox.close();
+                    }
+                });
+            }
+        }
     }
 
     private void loadDirectory(){
@@ -290,19 +397,15 @@ public class Pathfinding {
     //A global int to keep track of whether the thing is speaking or not
     TextSpeech textSpeech = new TextSpeech();
     @FXML
-    private void speakDirections(){
-
+    private void handleSpeaking(){
+        if(textToSpeech.getText().equals("SPEAK DIRECTIONS") && showDir.getText().equals("TEXT DIRECTIONS")){
+            textToSpeech.setText("CANCEL SPEAKING");
             textSpeech.speakToUser();
-        System.out.println("Hit Start");
-
-
-    }
-
-    @FXML
-    private void cancelDirections()
-    {
-        textSpeech.quitSpeaking();
-        System.out.println("Hit Cancel");
+        }
+        else{
+            textSpeech.quitSpeaking();
+            textToSpeech.setText("SPEAK DIRECTIONS");
+        }
     }
 
 
@@ -315,11 +418,27 @@ public class Pathfinding {
     @FXML
     private void navigateToHome() throws Exception{
         filters.setExpanded(false);
+        scheduling.setVisible(false);
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
         Main.setScene("home");
-        cancelDirections();
+        if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
+            handleSpeaking();
+        }
+    }
+
+    @FXML
+    private void navigateToScheduling() throws Exception{
+        filters.setExpanded(false);
+        scheduling.setVisible(false);
+        lines.forEach(node -> util.buttonPane.getChildren().remove(node));
+        arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
+        clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
+        Main.setScene("scheduling");
+        if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
+            handleSpeaking();
+        }
     }
 
     @FXML
@@ -430,7 +549,6 @@ public class Pathfinding {
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
         if (path != null){
-            sendRobotButton.setDisable(false);
             showDir.setDisable(false);
             sendRobotButton.setDisable(false);
             showDir.setText("TEXT DIRECTIONS");
@@ -610,19 +728,80 @@ public class Pathfinding {
     public void moveUp(ActionEvent value) throws Exception{
         util.moveUp();
         floorLabel.setText(util.getFloorLabel());
-
+        if(floorLabel.getText().equals("Floor Four")){
+            scheduling.setVisible(true);
+        }
+        else{
+            scheduling.setVisible(false);
+        }
         updateMap(null,null);
     }
 
     public void moveDown(ActionEvent value) throws Exception{
         util.moveDown();
         floorLabel.setText(util.getFloorLabel());
-
+        if(floorLabel.getText().equals("Floor Four")){
+            scheduling.setVisible(true);
+        }
+        else{
+            scheduling.setVisible(false);
+        }
         updateMap(null,null);
     }
 
     private Button generateButton(String text, double x, double y){
         return new Button();
+    }
+
+    ArrayList<Timeline> clocks = new ArrayList<Timeline>();
+
+    private void travelPath(Rectangle traveller, ArrayList<MapPoint> points, int index, int clockIndex){
+
+        if(index > points.size()-1){
+            clocks.get(clockIndex).stop();
+            traveller.setX(points.get(0).x);
+            traveller.setY(points.get(0).y);
+            this.travelPath(traveller, points, 0, clockIndex);
+            return;
+        }
+
+        double finalX = points.get(index).x;
+        double finalY = points.get(index).y;
+        if(clockIndex > clocks.size()-1){
+            clocks.add(new Timeline());
+        }
+        clocks.set(clockIndex, new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+            double currentX = traveller.getX();
+            double currentY = traveller.getY();
+
+            if((int)currentX == (int)finalX && (int)currentY == (int)finalY){
+                if(clockIndex < clocks.size()){
+                    clocks.get(clockIndex).stop();
+                }
+                travelPath(traveller, points, index+1, clockIndex);
+                return;
+            }
+            if(currentX < finalX){
+                traveller.setX(currentX+0.01);
+            }
+            if(currentX > finalX){
+                traveller.setX(currentX-0.01);
+            }
+
+            if(currentY < finalY){
+                traveller.setY(currentY+0.01);
+            }
+            if(currentY > finalY){
+                traveller.setY(currentY-0.01);
+            }
+
+            traveller.setTranslateX(-traveller.getWidth()/2);
+            traveller.setTranslateY(-traveller.getHeight()/2);
+        }), new KeyFrame(Duration.seconds(0.0005))));
+
+        clocks.get(clockIndex).setCycleCount(Animation.INDEFINITE);
+        clocks.get(clockIndex).play();
     }
 
     private void zoomToPath(Node startN, Node endN){
@@ -649,16 +828,28 @@ public class Pathfinding {
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
 
+        clocks.forEach(clock -> {
+            clock.stop();
+        });
+
+        clocks.removeAll(clocks);
+
         List<Path> floorPaths = path.getSpecificPath(util.getCurrentFloorID());
         List<Path> allPaths = path.getFloorPaths();
 
         if (floorPaths != null){
-            floorPaths.forEach(path -> {
+            int clockIndex = 0;
+            for(Path path : floorPaths){
                 List<Node> nodes = path.getPath();
 
+                ArrayList<MapPoint> pointsToTravel = new ArrayList<MapPoint>();
                 for(int i=0;i<nodes.size()-1;i++){
                     MapPoint start = util.scalePoints(nodes.get(i).getX(), nodes.get(i).getY());
                     MapPoint end = util.scalePoints(nodes.get(i+1).getX(), nodes.get(i+1).getY());
+
+                    pointsToTravel.add(start);
+                    pointsToTravel.add(end);
+
                     Line line = new Line();
                     line.setStartX(start.x);
                     line.setStartY(start.y);
@@ -675,14 +866,28 @@ public class Pathfinding {
                     Arrow arrow = new Arrow(start.x, start.y, end.x, end.y, 4);
                     arrow.setFill(Color.valueOf("#f6bd38"));
                     util.buttonPane.getChildren().add(line);
-                    util.buttonPane.getChildren().add(arrow);
                     arrow.setScaleX(0.5);
                     arrow.setScaleY(0.5);
                     line.setStyle("-fx-border-radius:5px");
                     lines.add(line);
-                    arrows.add(arrow);
                 }
-            });
+
+                if(pointsToTravel.size() != 0){
+                    Rectangle traveller = new Rectangle(pointsToTravel.get(0).x, pointsToTravel.get(0).y, 15, 15);
+                    traveller.setStyle("-fx-background-color: red; -fx-border-width: 5px; -fx-border-color: yellow;-fx-background-radius: 15px");
+                    traveller.setFill(Color.web("#012d5a"));
+                    traveller.setStroke(Color.web("#f6bd38"));
+                    traveller.setStrokeWidth(3);
+                    util.buttonPane.getChildren().add(traveller);
+                    arrows.add(traveller);
+                    traveller.toFront();
+                    traveller.setArcHeight(999);
+                    traveller.setArcWidth(999);
+                    this.travelPath(traveller, pointsToTravel, 0, clockIndex);
+                    clockIndex++;
+                }
+
+            }
         }
         else {
             overlayImage.setImage(null);
@@ -776,7 +981,7 @@ public class Pathfinding {
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
-                    if (nextFloor == 6) nextFloor = 4;
+                    //if (nextFloor == 6) nextFloor = 4;
                     final int nf = nextFloor;
                     final Node ns = nextFloorStart;
                     final Node ne = nextFloorEnd;
@@ -825,7 +1030,7 @@ public class Pathfinding {
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
-                    if (nextFloor == 6) nextFloor = 4;
+                    //if (nextFloor == 6) nextFloor = 4;
                     final int nf = nextFloor;
 
                     startChangeButton.setOnAction(evt -> {
@@ -855,7 +1060,9 @@ public class Pathfinding {
     @FXML
     public void logout() throws Exception{
         Main.logOut();
-        cancelDirections();
+        if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
+            handleSpeaking();
+        }
     }
 
     private boolean checkValidLongNameInput(){
