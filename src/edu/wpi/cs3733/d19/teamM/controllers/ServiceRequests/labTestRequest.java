@@ -1,10 +1,13 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
@@ -34,7 +37,7 @@ public class labTestRequest implements Initializable {
     private Text userText;
 
     @FXML
-    private JFXTextField roomField;
+    private JFXComboBox<String> roomField;
 
     @FXML
     private JFXTextField testType;
@@ -85,7 +88,7 @@ public class labTestRequest implements Initializable {
                 errorMessage.setText("You didn't answer all the required fields.");
                 throw e;
             }
-            new ServiceRequests().makeRequest("laboratory", roomField.getText(), testType.getText(), requestText.getText(), urgent.isSelected());
+            new ServiceRequests().makeRequest("laboratory", roomField.getSelectionModel().getSelectedItem(), testType.getText(), requestText.getText(), urgent.isSelected());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,12 +96,34 @@ public class labTestRequest implements Initializable {
     }
 
     private boolean areFieldsEmpty() {
-        return roomField.getText().isEmpty() || testType.getText().isEmpty();
+        return roomField.getSelectionModel().getSelectedItem() == "NONE" || testType.getText().isEmpty();
     }
     @FXML
     private void goToList() throws Exception {
         Main.setScene("serviceRequestsList");
     }
+
+    @FXML
+    public void getRoomNodes() {
+        Floor graph = Floor.getFloor();
+        ObservableList<String> nodeList = FXCollections.observableArrayList();
+
+        for(Node n :graph.getNodes().values()){
+            if (!n.getNodeType().equals("HALL")) {
+                String nodeName = n.getLongName();
+                if (nodeName.toUpperCase().contains("FLOOR")) {
+                    nodeList.add(n.getLongName());
+                } else {
+                    nodeList.add(n.getLongName() + " Floor " + n.getFloor());
+                }
+            }
+        }
+
+        FXCollections.sort(nodeList); // sorted directory alphabetically
+        roomField.setItems(nodeList);
+
+    }
+
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
 

@@ -1,11 +1,14 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
@@ -30,7 +33,7 @@ public class ExternalTransportRequest {
     private Text userText;
 
     @FXML
-    private JFXTextField roomField;
+    private JFXComboBox<String> roomField;
 
     @FXML
     private JFXTextField vehicle;
@@ -80,19 +83,40 @@ public class ExternalTransportRequest {
                 errorMessage.setText("You didn't answer all the required fields.");
                 throw e;
             }
-            new ServiceRequests().makeRequest("external", roomField.getText(), vehicle.getText(), requestText.getText(), urgent.isSelected());
+            new ServiceRequests().makeRequest("external", roomField.getSelectionModel().getSelectedItem(), vehicle.getText(), requestText.getText(), urgent.isSelected());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private boolean areFieldsEmpty() {
-        return roomField.getText().isEmpty() || vehicle.getText().isEmpty();
+        return roomField.getSelectionModel().getSelectedItem() == "NONE" || vehicle.getText().isEmpty();
     }
 
     @FXML
     private void goToList() throws Exception {
         Main.setScene("serviceRequestsList");
+    }
+
+    @FXML
+    public void getRoomNodes() {
+        Floor graph = Floor.getFloor();
+        ObservableList<String> nodeList = FXCollections.observableArrayList();
+
+        for(Node n :graph.getNodes().values()){
+            if (!n.getNodeType().equals("HALL")) {
+                String nodeName = n.getLongName();
+                if (nodeName.toUpperCase().contains("FLOOR")) {
+                    nodeList.add(n.getLongName());
+                } else {
+                    nodeList.add(n.getLongName() + " Floor " + n.getFloor());
+                }
+            }
+        }
+
+        FXCollections.sort(nodeList); // sorted directory alphabetically
+        roomField.setItems(nodeList);
+
     }
 
     @FXML

@@ -5,6 +5,8 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
 import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
+import com.jfoenix.controls.JFXComboBox;
 
 
 import java.awt.*;
@@ -47,7 +50,7 @@ public class AudioVisual implements Initializable {
 
     //Text field for room location input
     @FXML
-    private TextField room;
+    private JFXComboBox<String> roomDropDown;
 
     @FXML
     private JFXCheckBox pickUp;
@@ -100,7 +103,7 @@ public class AudioVisual implements Initializable {
                 errorMessage.setText("You didn't answer all the required fields.");
                 throw e;
             }
-            new ServiceRequests().makeRequest("av", room.getText(), audioVisType.getText(), notes.getText(), pickUp.isSelected());
+            new ServiceRequests().makeRequest("av", roomDropDown.getSelectionModel().getSelectedItem(), audioVisType.getText(), notes.getText(), pickUp.isSelected());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -108,12 +111,33 @@ public class AudioVisual implements Initializable {
     }
 
     private boolean areFieldsEmpty() {
-        return audioVisType.getText().isEmpty() || room.getText().isEmpty();
+        return audioVisType.getText().isEmpty() || roomDropDown.getSelectionModel().getSelectedItem() == "NONE";
     }
 
     @FXML
     private void goToList() throws Exception {
         Main.setScene("serviceRequestsList");
+    }
+
+    @FXML
+    public void getRoomNodes() {
+        Floor graph = Floor.getFloor();
+        ObservableList<String> nodeList = FXCollections.observableArrayList();
+
+        for(Node n :graph.getNodes().values()){
+            if (!n.getNodeType().equals("HALL")) {
+                String nodeName = n.getLongName();
+                if (nodeName.toUpperCase().contains("FLOOR")) {
+                    nodeList.add(n.getLongName());
+                } else {
+                    nodeList.add(n.getLongName() + " Floor " + n.getFloor());
+                }
+            }
+        }
+
+        FXCollections.sort(nodeList); // sorted directory alphabetically
+        roomDropDown.setItems(nodeList);
+
     }
 
     @Override

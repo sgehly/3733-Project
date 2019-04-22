@@ -1,8 +1,11 @@
 package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
@@ -31,7 +34,7 @@ public class SanitationRequest implements Initializable {
 
     //Text field for room location input
     @FXML
-    private TextField room;
+    private JFXComboBox<String> room;
 
     @FXML
     private JFXCheckBox hazard;
@@ -84,7 +87,7 @@ public class SanitationRequest implements Initializable {
                 errorMessage.setText("You didn't answer all the required fields.");
                 throw e;
             }
-            new ServiceRequests().makeRequest("sanitation", room.getText(), typeofmess.getText(), notes.getText(), hazard.isSelected());
+            new ServiceRequests().makeRequest("sanitation", room.getSelectionModel().getSelectedItem(), typeofmess.getText(), notes.getText(), hazard.isSelected());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -92,12 +95,33 @@ public class SanitationRequest implements Initializable {
     }
 
     private boolean areFieldsEmpty() {
-        return room.getText().isEmpty() || typeofmess.getText().isEmpty();
+        return room.getSelectionModel().getSelectedItem() == "NONE" || typeofmess.getText().isEmpty();
     }
 
     @FXML
     private void goToList() throws Exception {
         Main.setScene("serviceRequestsList");
+    }
+
+    @FXML
+    public void getRoomNodes() {
+        Floor graph = Floor.getFloor();
+        ObservableList<String> nodeList = FXCollections.observableArrayList();
+
+        for(Node n :graph.getNodes().values()){
+            if (!n.getNodeType().equals("HALL")) {
+                String nodeName = n.getLongName();
+                if (nodeName.toUpperCase().contains("FLOOR")) {
+                    nodeList.add(n.getLongName());
+                } else {
+                    nodeList.add(n.getLongName() + " Floor " + n.getFloor());
+                }
+            }
+        }
+
+        FXCollections.sort(nodeList); // sorted directory alphabetically
+        room.setItems(nodeList);
+
     }
 
 
