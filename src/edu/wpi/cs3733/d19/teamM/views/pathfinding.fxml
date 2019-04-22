@@ -231,7 +231,7 @@
                                                 <Font name="Open Sans Bold" size="42.0" />
                                              </font>
                                           </Text>
-                                          <ListView fx:id="directoryList" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                                          <ListView fx:id="directoryList" maxWidth="500.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                                        </children>
                                     </VBox>
                                  </children>
