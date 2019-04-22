@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamM.utilities;
 // Java code to convert
 // text to speech
 
+import com.sun.javafx.application.PlatformImpl;
 import com.sun.speech.freetts.VoiceManager;
 import com.dragonbean.cloud.gTTS4j;
 import javafx.scene.media.Media;
@@ -48,8 +49,14 @@ public class TextSpeech
         TextSpeech textSpeech = new TextSpeech();
         textSpeech.speakToUser();
     }
+    Media direction = new Media(new File("src/resources/output.mp3").toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(direction);
 
-    MediaPlayer mediaPlayer = null;
+
+    public MediaPlayer getMediaPlayer()
+    {
+        return mediaPlayer;
+    }
     int tracker = 0;
 
     int working = 0;
@@ -117,9 +124,10 @@ public class TextSpeech
                                out.write(audioContents.toByteArray());
                                System.out.println("Audio content written to file \"output.mp3\"");
                            }
-                           Media direction = new Media(new File("src/resources/output.mp3").toURI().toString());
-                           com.sun.javafx.application.PlatformImpl.startup(()->{});
-                           mediaPlayer = new MediaPlayer(direction);
+                           speechClient.shutdown();
+                        //   Media direction = new Media(new File("src/resources/output.mp3").toURI().toString());
+                           PlatformImpl.startup(()->{});
+                         //  mediaPlayer = new MediaPlayer(direction);
                            mediaPlayer.play();
                      //  }
 
