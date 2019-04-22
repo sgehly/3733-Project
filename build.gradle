@@ -32,14 +32,17 @@ sourceSets.main.java.srcDirs = ['src']
 sourceSets.main.resources.srcDirs = ['src']
 
 dependencies {
-    // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.google.guava:guava:27.0.1-jre'
     compile 'com.github.yp2211:gTTS4j:master-SNAPSHOT'
 
     implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
     implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
+    implementation group: 'com.google.cloud', name: 'google-cloud-texttospeech', version: '0.80.0-beta'
+    implementation group: 'net.sourceforge.argparse4j', name: 'argparse4j', version: '0.8.1'
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
     implementation 'com.jfoenix:jfoenix:8.0.8' // Java 8
+    implementation group: 'org.twitter4j', name: 'twitter4j-core', version: '[4.0,)'
+    //4.0.8-SNAPSHOT (Other possible version thing)
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
     compile group: 'net.sf.sociaal', name: 'freetts', version: '1.2.2'
     compile group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'
@@ -52,13 +55,15 @@ dependencies {
     compile group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.4'
     compile group: 'com.github.sarxos', name: 'webcam-capture-driver-jmf', version: '0.3.11'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
-    
-    
-    /// calendar view 
+    //compile group: 'com.calendarfx', name: 'calendarfx', version: '11.5.0'
+    //compile 'com.calendarfx:calendarfx-java:11.5.0'
+//    compile(group: 'com.calendarfx', name: 'recurrence', version: '11.5.0', ext: 'jar', classifier: '')
+//    compile(group: 'com.calendarfx', name: 'view', version: '11.5.0', ext: 'jar', classifier: '')
+//    compile 'com.calendarfx:calendar:11.5.0'
     compile group: 'com.calendarfx', name: 'view', version: '8.4.2'
-
-
-
+    compile group: 'com.calendarfx', name: 'recurrence', version: '8.4.2'
+    runtime group: 'de.jensd', name: 'fontawesomefx-commons', version: '8.13'
+    compile group: 'de.jensd', name: 'fontawesomefx-fontawesome', version: '4.7.0-1'
 
     compile 'io.ably:ably-java:1.1.0'
 
@@ -68,7 +73,7 @@ dependencies {
     compile group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
     compile group: 'org.apache.derby', name: 'derbytools', version: '10.14.1.0'
     compile group: 'com.jfoenix',name:'jfoenix',version:'8.0.8'
-    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
+    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.13'
 
     //compile(files('/Users/JeffHarnois/Desktop/theJar-all.jar'))
     //compile(files('Team-G-Food-Request.jar'))

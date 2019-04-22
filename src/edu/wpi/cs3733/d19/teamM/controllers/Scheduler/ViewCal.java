@@ -48,7 +48,10 @@ public class ViewCal {
     @FXML
     public CalendarView calendar = new CalendarView();
 
-
+    @FXML
+    public void navigateToWelcome() throws Exception {
+        Main.setScene("welcome");
+    }
 
 
     @FXML
