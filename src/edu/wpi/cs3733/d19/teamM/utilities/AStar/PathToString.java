@@ -38,7 +38,6 @@ public class PathToString {
             }
             return "It should be next to you. Have a good day";
         }
-
         for (Path p : paths.getFloorPaths()) {
             if (p.getPath().size() > 1) {
                 path.append("\nDirections for floor " + p.getFloorID() + "\n\n");
