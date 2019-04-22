@@ -84,16 +84,8 @@ public class Admin{
      * @throws Exception
      */
     @FXML
-    public void navigateToPathfinding(){
-        Parent pathFindingPane;
-        Scene pathFindingScene;
-        try {
-            pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
-            pathFindingScene = new Scene(pathFindingPane);
-            Main.getStage().setScene(pathFindingScene);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void navigateToSettings(){
+        Main.setScene("settings");
     }
 
     @FXML
