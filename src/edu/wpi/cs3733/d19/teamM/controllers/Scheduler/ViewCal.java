@@ -29,6 +29,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.objects.Global;
 
 import javax.swing.text.html.parser.Entity;
 
@@ -46,7 +47,7 @@ public class ViewCal {
     private Text userText;
 
     @FXML
-    public CalendarView calendar = new CalendarView();
+    public CalendarView calendar;
 
     @FXML
     public void navigateToWelcome() throws Exception {
@@ -170,12 +171,21 @@ public class ViewCal {
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() throws SQLException {
-
             generateEntries();
+            CR_1.setReadOnly(true);
+            CR_2.setReadOnly(true);
+            CR_3.setReadOnly(true);
+            CR_4.setReadOnly(true);
+            CR_5.setReadOnly(true);
+            CR_6.setReadOnly(true);
+            CR_8.setReadOnly(true);
+            CR_7.setReadOnly(true);
+            CR_9.setReadOnly(true);
+            CR_10.setReadOnly(true);
 
-
-       // new Clock(lblClock, lblDate);
-        //userText.setText(User.getUsername());
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
     }
 }
+
 
