@@ -44,6 +44,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 
 import javafx.scene.Scene;
@@ -337,13 +338,7 @@ public class Pathfinding {
         for (Node n : graph.getNodes().values()){
             if(!n.getNodeType().equals("HALL")){
                 String nodeName = n.getLongName();
-                if(nodeName.toUpperCase().contains("FLOOR"))
-                {
-                    nodeList.add(n.getLongName());
-                }
-                else {
-                    nodeList.add(n.getLongName() + " Floor " +n.getFloor());
-                }
+                nodeList.add("["+n.getFloor()+"] "+n.getLongName()+" \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<"+n.getId()+">");
             }
         }
 
@@ -351,17 +346,20 @@ public class Pathfinding {
 
         directoryList.setItems(nodeList);
         directoryList.setEditable(false);
+        directoryList.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
+            @Override
+            public void handle(ScrollEvent event) {
+                if (event.getDeltaX() != 0) {
+                    event.consume();
+                }
+            }
+        });
         directoryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 // Your action here
-                String nodeId = null;
-                for (Node n : graph.getNodes().values()){
-                    if(n.getLongName().equals(newValue)){
-                        nodeId = n.getId();
-                    }
-                }
+                String nodeId = newValue.split("<")[1].replace(">","");
 
                 if(nodeId != null){
                     if(startText.getText().length() == 0){

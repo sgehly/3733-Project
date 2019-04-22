@@ -1,8 +1,0 @@
-
-<<<Directions for floor 1>>>
-
-Start at Francis Street Exit MapNode 1 Floor 1, move towards Staircase MapNode 13 Floor 1
-In 14 feet, at Staircase MapNode 13 Floor 1, take a right turn
-In 26 feet, at Hallway MapNode 6 Floor 1, take a left turn
-In 35 feet, at Hallway MapNode 7 Floor 1, take a right turn
-Arrive at Elevator Q MapNode 18 Floor 1
