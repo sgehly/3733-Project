@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import giftRequest.GiftRequest;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -224,7 +225,7 @@ public class ServiceRequests {
         GiftRequest e = new GiftRequest();
         //Platform.runLater(() -> {
             try {
-                e.run(0, 0, 1000, 1000, "/resources/stylesheet.css", "what", "what");
+                e.run(0, 0, 1000, 1000, "/resources/StylesheetAPI.css", "what", "what");
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

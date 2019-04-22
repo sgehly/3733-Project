@@ -378,7 +378,7 @@
     -fx-font-family: "BariolSerif";
 }
 
-.jfx-radio-button{
+.jfx-radio-button {
     -jfx-selected-color: #ffffff;
     -jfx-unselected-color: #ffffff;
     -fx-font-size: 16pt;

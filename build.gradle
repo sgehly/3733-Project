@@ -79,6 +79,8 @@ dependencies {
     //compile(files('/Users/JeffHarnois/Desktop/theJar-all.jar'))
     compile(files('Team-G-Food-Request.jar'))
     compile(files('TeamLGiftRequest-1.0.0.jar'))
+    compile(files('DominosRequest-1.0.1.jar'))
+    compile(files('TeamNInternalTransportRequest-1.0.0.jar'))
 
     configurations.compile.extendsFrom(configurations.extraLibs)
 }

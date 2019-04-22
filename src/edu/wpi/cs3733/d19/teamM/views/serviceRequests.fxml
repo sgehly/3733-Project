@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
          <image>
@@ -87,11 +87,11 @@
                         <Insets left="50.0" right="50.0" top="20.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <HBox maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
                         <VBox alignment="CENTER" maxWidth="1450.0" prefHeight="749.0" prefWidth="1000.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <HBox alignment="CENTER" maxHeight="290.0" prefHeight="278.0" prefWidth="1713.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                              <HBox alignment="CENTER" maxHeight="290.0" maxWidth="-Infinity" prefHeight="227.0" prefWidth="2000.0" spacing="20.0" VBox.vgrow="ALWAYS">
                                  <padding>
                                     <Insets bottom="7.0" />
                                  </padding>
@@ -165,7 +165,7 @@
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToAudioVis" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToAudioVis" prefHeight="216.0" prefWidth="499.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -376,32 +376,6 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                           </children>
-                        </VBox>
-                        <VBox onMouseClicked="#navigateToLGift" prefHeight="200.0" prefWidth="369.0" styleClass="mainBlock">
-                           <padding>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </padding>
-                           <HBox.margin>
-                              <Insets bottom="7.0" left="15.0" />
-                           </HBox.margin>
-                           <children>
-                              <ImageView fitHeight="175.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                 <VBox.margin>
-                                    <Insets left="50.0" top="225.0" />
-                                 </VBox.margin>
-                                 <image>
-                                    <Image url="@../../../../../../resources/icons/shopping.png" />
-                                 </image>
-                              </ImageView>
-                              <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM L GIFT SHOP" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Open Sans Bold" size="36.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets left="15.0" />
-                                 </VBox.margin>
-                              </Text>
                            </children>
                         </VBox>
                      </children>
