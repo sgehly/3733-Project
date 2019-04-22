@@ -64,7 +64,6 @@ dependencies {
     compile group: 'com.calendarfx', name: 'recurrence', version: '8.4.2'
     runtime group: 'de.jensd', name: 'fontawesomefx-commons', version: '8.13'
     compile group: 'de.jensd', name: 'fontawesomefx-fontawesome', version: '4.7.0-1'
-    compile group: "com.github.dlemmermann", name: 'CalendarFX', version: '8.5.0'
 
     compile 'io.ably:ably-java:1.1.0'
 
@@ -77,7 +76,7 @@ dependencies {
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.13'
 
     //compile(files('/Users/JeffHarnois/Desktop/theJar-all.jar'))
-    compile(files('Team-G-Food-Request.jar'))
+    //compile(files('Team-G-Food-Request.jar'))
     compile(files('TeamLGiftRequest-1.0.0.jar'))
     compile(files('DominosRequest-1.0.1.jar'))
     compile(files('TeamNInternalTransportRequest-1.0.0.jar'))
