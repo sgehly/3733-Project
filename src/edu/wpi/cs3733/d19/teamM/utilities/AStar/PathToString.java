@@ -40,8 +40,8 @@ public class PathToString {
         }
         for (Path p : paths.getFloorPaths()) {
             if (p.getPath().size() > 1) {
-                path.append("\n<<<Directions for floor " + p.getFloorID() + ">>>\n\n");
-                path.append("Start at " + p.getPath().get(0).getLongName() + ", move towards " + p.getPath().get(1).getLongName() + "\n");
+                path.append("\nDirections for floor " + p.getFloorID() + "\n\n");
+                path.append("Start at " + p.getPath().get(0).getLongName() + ", move towards " + p.getPath().get(1).getLongName() + ".\n");
                 oldAngle = calcAngle(p.getPath().get(0).getX(), p.getPath().get(0).getY(), p.getPath().get(1).getX(), p.getPath().get(1).getY(), distance);
                 oldX = p.getPath().get(1).getX();
                 oldY = p.getPath().get(1).getY();
@@ -52,7 +52,7 @@ public class PathToString {
                 angle = calcAngle(oldX, oldY, next.getX(), next.getY(), distance);
                 step = getDirectionChange(angle, oldAngle);
                 distance = (int)(getDistance(oldX, oldY, next.getX(), next.getY()) * 0.34);
-                path.append("In " + distance + " feet, at " + n.getLongName() + ", " + step + "\n");
+                path.append("In " + distance + " feet, at " + n.getLongName() + ", " + step + ".\n");
                 oldX = next.getX();
                 oldY = next.getY();
                 oldAngle = angle;

@@ -49,6 +49,7 @@ import javafx.scene.layout.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -396,8 +397,15 @@ public class Pathfinding {
 
     //A global int to keep track of whether the thing is speaking or not
     TextSpeech textSpeech = new TextSpeech();
+    MediaPlayer player = textSpeech.getMediaPlayer();
+
+
     @FXML
     private void handleSpeaking(){
+        player.setOnEndOfMedia(() -> {
+            textSpeech.quitSpeaking();
+            textToSpeech.setText("SPEAK DIRECTIONS");
+        });
         if(textToSpeech.getText().equals("SPEAK DIRECTIONS") && showDir.getText().equals("TEXT DIRECTIONS")){
             textToSpeech.setText("CANCEL SPEAKING");
             textSpeech.speakToUser();
