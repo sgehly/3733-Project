@@ -144,7 +144,7 @@
                                                                 <Insets left="20.0" />
                                                             </HBox.margin>
                                                         </JFXTextField>
-                                          <Button maxHeight="-Infinity" maxWidth="300.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 18;" styleClass="blackButton" stylesheets="@../../../../../../../resources/stylesheet.css" text="CLEAR">
+                                          <Button fx:id="clrBtn" maxHeight="-Infinity" maxWidth="300.0" mnemonicParsing="false" onAction="#handleClear" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 18;" styleClass="blackButton" stylesheets="@../../../../../../../resources/stylesheet.css" text="CLEAR">
                                              <HBox.margin>
                                                 <Insets left="10.0" />
                                              </HBox.margin>

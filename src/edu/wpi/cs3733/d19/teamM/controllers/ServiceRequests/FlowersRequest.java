@@ -51,9 +51,9 @@ public class FlowersRequest implements Initializable {
     String[] flowers = {"Alstroemeria","Amaryllis","Asiatic Lily","Aster","Azalea","Baby’s Breath","Begonia","Bird of Paradise"
             ,"Calla Lily","Campanula","Carnation","Chrysanthemum","Cockscomb","Crocus","Cyclamen","Cymbidium Orchid","Daffodil","Daisy","Delphinium","Dendrobium Orchid",
             "Freesia","Gardenia","Geranium","Gladiolus","Heather","Hibiscus","Hyacinth","Hydrangea","Hypericum","Iris","Jasmine","Jonquil","Kalanchoe","Larkspur","Lavender",
-            "Daffodil","Liatris","Lilac","Lily","Limonium","Lisianthus","Magnolia","Marigold","Mini-Carnation","Narcissus","Orchid","Oriental Lily","Pansy","Peace Lily","Petite Rose",
+            "Liatris","Lilac","Lily","Limonium","Lisianthus","Magnolia","Marigold","Mini-Carnation","Narcissus","Orchid","Oriental Lily","Pansy","Peace Lily","Petite Rose",
             "Phalaenopsis Orchid","Poinsettia","Pompon","Protea","Ranunculus","Snapdragon","Solidago","Spray Rose","Star of Bethlehem","Stargazer Lily","Statice","Stock",
-            "Tea Rose","Trachelium","Tuberose","Violet","Waxflower","Zinnia", "Dahlia","Tulip"};
+            "Tea Rose","Trachelium","Tuberose","Violet","Waxflower","Zinnia","Dahlia","Tulip"};
 
     //Tesxt Field for flower type input
     @FXML
@@ -76,6 +76,9 @@ public class FlowersRequest implements Initializable {
 
     @FXML
     private Button submitReuqest;
+
+    @FXML
+    private Button clrBtn;
 
     @FXML
     private Button colorfulBouquet;
@@ -107,7 +110,14 @@ public class FlowersRequest implements Initializable {
     }
 
     @FXML
-    public void handleFlowerBouquet(ActionEvent event) throws IOException{
+    public void handleClear(ActionEvent event) {
+        if(event.getSource() == clrBtn) {
+            flowerType.setText("");
+        }
+    }
+
+    @FXML
+    public void handleFlowerBouquet(ActionEvent event) {
         System.out.println("HANDLE FLOWER BUTTON");
         if(event.getSource() == colorfulBouquet) {
             flowerType.setText(colorfulBouquet.getText());
