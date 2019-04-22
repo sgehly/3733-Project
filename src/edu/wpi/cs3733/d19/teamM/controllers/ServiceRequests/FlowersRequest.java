@@ -8,11 +8,16 @@ import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.scene.control.*;
 import org.controlsfx.control.textfield.TextFields;
 
 
@@ -43,11 +48,12 @@ public class FlowersRequest implements Initializable {
     @FXML
     private javafx.scene.control.Label lblDate;
 
-    String[] flowers = {"Amaryllis","Azalea","Baby’s Breath","Bird of Paradise","Buttercup",
-            "Carnation","Chrysanthemum","Daffodil","Dahlia","Daisy","Delphinium","Freesia","Gardenia",
-            "Gladiolus","Hibiscus","Hyacinth","Hydrangea","Iris","Jasmine","Lavender","Lilac","Lily","Magnolia",
-            "Marigold","Orchid","Pansy","Peony","Petunia","Poinsettia","Roses","Snapdragon",
-            "Sunflower","Tulip","Violet","Waterlily"};
+    String[] flowers = {"Alstroemeria","Amaryllis","Asiatic Lily","Aster","Azalea","Baby’s Breath","Begonia","Bird of Paradise"
+            ,"Calla Lily","Campanula","Carnation","Chrysanthemum","Cockscomb","Crocus","Cyclamen","Cymbidium Orchid","Daffodil","Daisy","Delphinium","Dendrobium Orchid",
+            "Freesia","Gardenia","Geranium","Gladiolus","Heather","Hibiscus","Hyacinth","Hydrangea","Hypericum","Iris","Jasmine","Jonquil","Kalanchoe","Larkspur","Lavender",
+            "Daffodil","Liatris","Lilac","Lily","Limonium","Lisianthus","Magnolia","Marigold","Mini-Carnation","Narcissus","Orchid","Oriental Lily","Pansy","Peace Lily","Petite Rose",
+            "Phalaenopsis Orchid","Poinsettia","Pompon","Protea","Ranunculus","Snapdragon","Solidago","Spray Rose","Star of Bethlehem","Stargazer Lily","Statice","Stock",
+            "Tea Rose","Trachelium","Tuberose","Violet","Waxflower","Zinnia", "Dahlia","Tulip"};
 
     //Tesxt Field for flower type input
     @FXML
@@ -71,6 +77,17 @@ public class FlowersRequest implements Initializable {
     @FXML
     private Button submitReuqest;
 
+    @FXML
+    private Button colorfulBouquet;
+    @FXML
+    private Button earthyBouquet;
+    @FXML
+    private Button pinkBouquet;
+    @FXML
+    private Button roseBouquet;
+    @FXML
+    private Button sunflowerBouquet;
+
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
      * @throws Exception: Any exception that is encountered
@@ -90,8 +107,19 @@ public class FlowersRequest implements Initializable {
     }
 
     @FXML
-    private void navigateToFlowers() throws Exception {
-        Main.setScene("serviceRequests/flowers");
+    public void handleFlowerBouquet(ActionEvent event) throws IOException{
+        System.out.println("HANDLE FLOWER BUTTON");
+        if(event.getSource() == colorfulBouquet) {
+            flowerType.setText(colorfulBouquet.getText());
+        } else if(event.getSource() == earthyBouquet) {
+            flowerType.setText(earthyBouquet.getText());
+        } else if(event.getSource() == pinkBouquet) {
+            flowerType.setText(pinkBouquet.getText());
+        } else if(event.getSource() == roseBouquet) {
+            flowerType.setText(roseBouquet.getText());
+        } else if(event.getSource() == sunflowerBouquet) {
+            flowerType.setText(sunflowerBouquet.getText());
+        }
     }
 
     /**
@@ -131,6 +159,7 @@ public class FlowersRequest implements Initializable {
 
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
+        System.out.println("ROOM NUM: " + room.getText());
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
@@ -153,6 +182,13 @@ public class FlowersRequest implements Initializable {
         catch (Exception e){
             e.printStackTrace();
         }
+
+//        System.out.println("HERE");
+//        room = new TextField();
+//        room.setText(room.getText());
+//        ObservableList<String> input = FXCollections.observableArrayList();
+//        input.add(room.getText());
+//        input.add(flowerType.getText());
 
         TextFields.bindAutoCompletion(flowerType,flowers);
     }
