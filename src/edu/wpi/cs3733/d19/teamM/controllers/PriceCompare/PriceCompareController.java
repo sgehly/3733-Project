@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamM.controllers.PriceCompare;
 
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.User.User;
+import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,6 +14,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.BufferedReader;
@@ -140,13 +143,24 @@ public class PriceCompareController {
     private TextField searchBar;
 
     @FXML
+    private Label lblDate;
+
+    @FXML
+    private Label lblClock;
+
+    @FXML
+    private Text userText;
+
+    @FXML
     public void initialize(){
         labWorkData = new ArrayList<>();
         labTests = new ArrayList<>();
         bodyScanData = new ArrayList<>();
         bodyScans = new ArrayList<>();
-
         bWData = new ArrayList<>();
+
+        new Clock(lblClock, lblDate);
+        userText.setText(User.getUsername());
 
         try {
             parseFile("labWork.csv", labWorkData);
@@ -161,12 +175,14 @@ public class PriceCompareController {
                 labTests.add(l.get(0));
             }
         }
+        Collections.sort(labTests);
 
         for (List<String> l : bodyScanData){
             if (!bodyScans.contains(l.get(0))){
                 bodyScans.add(l.get(0));
             }
         }
+        Collections.sort(bodyScans);
 
         hospitalCol.setCellValueFactory(new PropertyValueFactory<DataItem, String>("name"));
         priceCol.setCellValueFactory(new PropertyValueFactory<DataItem, String>("price"));
@@ -318,6 +334,11 @@ public class PriceCompareController {
     }
 
     @FXML
+    private void tabChanged(){
+        initVisibility();
+    }
+
+    @FXML
     private void navigateToHome(){
         Main.setScene("Home");
     }
@@ -355,6 +376,7 @@ public class PriceCompareController {
         ourLBL.setText(hospital + " price: $" + String.valueOf(bW));
 
         double prog = (100.0 / (max - min) * (bW - min));
+        bar.setStyle(getColor(prog / 100.0));
         bar.setProgress(prog/100);
 
         Label hosLBL = new Label();
@@ -391,6 +413,7 @@ public class PriceCompareController {
         ourLBL2.setText(hospital + " price: $" + String.valueOf(bW));
 
         double prog = (100.0 / (max - min) * (bW - min));
+        bar2.setStyle(getColor(prog / 100.0));
         bar2.setProgress(prog/100);
 
         Label hosLBL = new Label();
@@ -444,4 +467,10 @@ public class PriceCompareController {
         }
     }
 
+    public String getColor(Double amount){
+        if (amount > 0.75) return "-fx-accent: Red; ";
+        else if (amount > 0.50) return "-fx-accent: Orange; ";
+        else if (amount > 0.25) return "-fx-accent: Yellow; ";
+        else return "-fx-accent: Green; ";
+    }
 }
