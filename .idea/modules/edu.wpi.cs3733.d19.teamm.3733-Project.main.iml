@@ -17,6 +17,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Gradle: com.github.yp2211:gTTS4j:master-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Gradle: com.calendarfx:view:8.4.2" level="project" />
     <orderEntry type="library" name="Gradle: org.controlsfx:controlsfx:8.40.14" level="project" />
     <orderEntry type="library" name="Gradle: net.sf.sociaal:freetts:1.2.2" level="project" />
@@ -45,8 +46,8 @@
     <orderEntry type="library" name="Gradle: com.google.protobuf:protobuf-java-util:3.6.1" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-alts:1.17.1" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-protobuf:1.17.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.grpc:grpc-grpclb:1.17.1" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-stub:1.17.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.grpc:grpc-grpclb:1.17.1" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-auth:1.17.1" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-protobuf-lite:1.17.1" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-core:1.17.1" level="project" />
@@ -57,11 +58,12 @@
     <orderEntry type="library" name="Gradle: net.sourceforge.argparse4j:argparse4j:0.8.1" level="project" />
     <orderEntry type="library" name="Gradle: com.sun.mail:javax.mail:1.6.2" level="project" />
     <orderEntry type="library" name="Gradle: org.twitter4j:twitter4j-core:4.0.7" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.auto.value:auto-value:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpmime:4.3.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.5.6" level="project" />
     <orderEntry type="library" name="Gradle: com.github.axet:java-flac-encoder:0.3.8" level="project" />
     <orderEntry type="library" name="Gradle: com.sendgrid:smtpapi-java:0.1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.json:json:20150729" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpmime:4.3.4" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.5.6" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpcore:4.4.10" level="project" />
     <orderEntry type="library" name="Gradle: joda-time:joda-time:2.9.1" level="project" />
     <orderEntry type="library" name="Gradle: io.jsonwebtoken:jjwt:0.4" level="project" />

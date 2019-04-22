@@ -456,7 +456,7 @@ public class Scheduler {
      */
     @FXML
     private void navigateToDetails() throws Exception{
-        Main.setScene("schedulerList");
+        Main.setScene("CalendarView");
     }
 
     /**
@@ -815,7 +815,6 @@ public class Scheduler {
         double randomFloat = 0;
         for(int i = 0; i < randomPanes.size(); i++){
             randomFloat = random.nextDouble();
-            //System.out.println(randomFloat);
             if(randomFloat > .5){
                 randomPanes.get(i).setStyle("-fx-background-color:  #8b1111");
             }
