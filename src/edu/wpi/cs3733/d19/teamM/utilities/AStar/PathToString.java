@@ -38,9 +38,10 @@ public class PathToString {
             }
             return "It should be next to you. Have a good day";
         }
+
         for (Path p : paths.getFloorPaths()) {
             if (p.getPath().size() > 1) {
-                path.append("\n<<<Directions for floor " + p.getFloorID() + ">>>\n\n");
+                path.append("\nDirections for floor " + p.getFloorID() + "\n\n");
                 path.append("Start at " + p.getPath().get(0).getLongName() + ", move towards " + p.getPath().get(1).getLongName() + "\n");
                 oldAngle = calcAngle(p.getPath().get(0).getX(), p.getPath().get(0).getY(), p.getPath().get(1).getX(), p.getPath().get(1).getY(), distance);
                 oldX = p.getPath().get(1).getX();
