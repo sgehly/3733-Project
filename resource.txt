@@ -1,0 +1,53 @@
+
+Directions for floor 1
+
+Start at MS Waiting, move towards Hall.
+In 87 feet, at Hall, bear right.
+In 43 feet, at Hall, take a right turn.
+In 38 feet, at Hall, take a right turn.
+In 25 feet, at Hall, remain straight.
+In 47 feet, at Hall, take a left turn.
+Arrive at Cafe Stairs
+Directions for floor 2
+
+Start at Stairs Floor 2, move towards Hall.
+In 14 feet, at Hall, take a right turn.
+In 31 feet, at Hall, take a right turn.
+In 30 feet, at Hall, take a left turn.
+In 73 feet, at Hallway Connector 10 Floor 2, remain straight.
+In 9 feet, at Hallway Connector 9 Floor 2, remain straight.
+In 29 feet, at Hall Node 37 Floor 2, remain straight.
+In 10 feet, at Hall Node 33 Floor 2, take a right turn.
+In 27 feet, at Hall Node 34 Floor 2, take a left turn.
+In 38 feet, at Hall Node 29 Floor 2, remain straight.
+In 32 feet, at Hall Node 27 Floor 2, remain straight.
+In 11 feet, at Hall Node 23 Floor 2, remain straight.
+In 19 feet, at Hall Node 22 Floor 2, remain straight.
+In 83 feet, at Hallway Connector 8 Floor 2, remain straight.
+In 74 feet, at Hallway Connector 7 Floor 2, remain straight.
+In 28 feet, at Hallway Connector 9 Floor 2, take a right turn.
+In 78 feet, at Elevator M Floor 2, remain straight.
+In 10 feet, at Hallway Connector 10 Floor 2, remain straight.
+In 6 feet, at Hallway Connector 5 Floor 2, remain straight.
+In 28 feet, at Hallway Connector 6 Floor 2, remain straight.
+In 11 feet, at Staircase Intersection 9 Level 2, remain straight.
+In 7 feet, at Restroom 3 Level 2, remain straight.
+In 104 feet, at Hallway Intersection 4 Level 2, remain straight.
+In 77 feet, at Hallway Intersection 31 Level 2, remain straight.
+In 39 feet, at Hallway Intersection 33 Level 2, take a left turn.
+In 4 feet, at Hallway Intersection 30 Level 2, remain straight.
+In 20 feet, at Restroom 5 Level 2, remain straight.
+In 8 feet, at Hallway Intersection 29 Level 2, remain straight.
+In 7 feet, at Hallway Intersection 43 level 2, take a left turn.
+In 11 feet, at Hallway Intersection 42 Level 2, take a right turn.
+In 27 feet, at Hallway Intersection 20 Level 2, take a right turn.
+In 25 feet, at Hallway Intersection 21 Level 2, bear left.
+In 8 feet, at Hallway Intersection 22 Level 2, bear left.
+In 20 feet, at Hallway Intersection 23 Level 2, bear left.
+In 11 feet, at Hallway Intersection 11 Level 2, take a right turn.
+Arrive at Elevator G Floor 2
+Directions for floor 1
+
+Start at Elevator G Floor 1, move towards Hallway Node 17 Floor 1.
+In 52 feet, at Hallway Node 17 Floor 1, take a left turn.
+Arrive at Asthma Research Floor 1
