@@ -147,7 +147,8 @@ public class ServiceRequestsList {
         if (requestsInProgress.getFocusModel().getFocusedIndex() >= 0) {
             String query = "DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
                 PreparedStatement s = conn.prepareStatement(query);
                 s.setString(1, this.getIdFromTable("incomplete"));
                 s.executeUpdate();
@@ -169,7 +170,8 @@ public class ServiceRequestsList {
         if (requestsCompleted.getFocusModel().getFocusedIndex() >= 0) {
             String query = "DELETE FROM REQUESTLOG Where REQUESTID = ?";
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
                 PreparedStatement s = conn.prepareStatement(query);
                 s.setString(1, this.getIdFromTable("complete"));
                 s.executeUpdate();
@@ -208,7 +210,8 @@ public class ServiceRequestsList {
             int pre = 0;
             int lab = 0;
             String query = "SELECT * FROM USERS Where USERNAME = ?";
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement s = conn.prepareStatement(query);
             s.setString(1, (String) usersDropDown.getSelectionModel().getSelectedItem());
             ResultSet rs = s.executeQuery();
@@ -340,7 +343,8 @@ public class ServiceRequestsList {
         if (requestsInProgress.getFocusModel().getFocusedIndex() == -1) return;
 
         try {
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query1);
             stmt.setString(1, this.getIdFromTable("incomplete"));
             stmt.executeUpdate();
@@ -492,7 +496,8 @@ public class ServiceRequestsList {
         }
 
         try {
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             //Store the results we get in the entry list display table
@@ -513,7 +518,8 @@ public class ServiceRequestsList {
         String filename = "RequestInProgress.csv";
         try {
             FileWriter file = new FileWriter(filename);
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             String query = "select * from REQUESTINPROGRESS";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -556,7 +562,8 @@ public class ServiceRequestsList {
         String filename = "CompletedRequests.csv";
         try {
             FileWriter file = new FileWriter(filename);
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             String query = "select * from REQUESTLOG";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -708,7 +715,8 @@ public class ServiceRequestsList {
         fulfill.setDisable(true);
         ObservableList<String> uDropDown = FXCollections.observableArrayList();
         try {
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             String query = "SELECT * From USERS";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);

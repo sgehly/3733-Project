@@ -10,31 +10,34 @@ import edu.wpi.cs3733.d19.teamM.Main;
 
 //necessary package importations
 import edu.wpi.cs3733.d19.teamM.User.User;
-import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+import edu.wpi.cs3733.d19.teamM.utilities.*;
 import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 
 //FXML packages
-import edu.wpi.cs3733.d19.teamM.utilities.Transitions;
-import javafx.animation.ParallelTransition;
-import javafx.animation.SequentialTransition;
+import io.ably.lib.types.PaginatedResult;
+import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.text.Font;
+import javafx.util.Duration;
+import twitter4j.Status;
 
 //SQL imports
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * @TODO refactor this code
@@ -96,6 +99,46 @@ public class WelcomeAndLogin {
     private Label secondFactorLabel;
 
 
+    @FXML
+    private Button about;
+
+    @FXML
+    private Label tweet;
+
+    @FXML
+    private Label trainTime;
+
+    @FXML
+    private Pane tweetPane;
+
+    @FXML
+    private ImageView weatherIcon;
+
+    @FXML
+    private Label weatherText;
+
+    @FXML
+    private HBox notificationWrapper;
+
+    @FXML
+    private Pane notificationColor;
+
+    @FXML
+    private Label notificationText;
+
+    @FXML
+    private Label notificationTitle;
+
+    @FXML
+    private ScrollPane scrollContainer;
+
+    @FXML
+    private HBox contentContainer;
+
+    Timeline clock;
+    Timeline reverseClock;
+
+
 
     //transitions used throughout the scene
     Transitions transitions = new Transitions();
@@ -128,6 +171,90 @@ public class WelcomeAndLogin {
         this.setInitialTriggers();
         this.setupTransitions();
         this.startMedia();
+
+        double delta = 0.0004;
+
+        clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+
+            if(scrollContainer.getHvalue() == 1){
+                //scrollContainer.setHvalue(0);
+                this.clock.stop();
+                this.reverseClock.play();
+            }
+
+            scrollContainer.setHvalue(scrollContainer.getHvalue()+delta);
+
+        }), new KeyFrame(Duration.seconds(0.01)));
+
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
+
+
+        reverseClock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+
+            if(scrollContainer.getHvalue() < 0.1){
+                this.reverseClock.stop();
+                this.clock.play();
+            }
+
+            scrollContainer.setHvalue(scrollContainer.getHvalue()-delta);
+
+        }), new KeyFrame(Duration.seconds(0.01)));
+        reverseClock.setCycleCount(Animation.INDEFINITE);
+
+        new Thread(() -> {
+            ArrayList<Status> tweets = new TwitterFeed().getUpdates(1);
+            Platform.runLater(() -> {
+                tweet.setText(tweets.get(0).getText());
+                double width = com.sun.javafx.tk.Toolkit.getToolkit().getFontLoader().computeStringWidth(tweets.get(0).getText(), Font.font("Open Sans"));
+                tweet.setMinWidth(width);
+                tweetPane.setMinWidth(width+120);
+            });
+        }).start();
+
+        new Thread(() -> {
+            long nextTrainMins = new MBTA().getNextTrain();
+            Platform.runLater(() -> {
+                if(nextTrainMins > 0){
+                    trainTime.setText(nextTrainMins+" Minutes");
+                }else{
+                    trainTime.setText("Arriving Now");
+                }
+            });
+        }).start();
+
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                new Weather(weatherText, weatherIcon);
+            });
+        }).start();
+
+        new Thread(() -> {
+
+
+                Platform.runLater(() -> {
+                    try{
+                        PaginatedResult<io.ably.lib.types.Message> resultPage = Main.channel.history(null);
+
+                        if(resultPage.items().length < 1){
+                            notificationTitle.setText("No New Notifications");
+                            notificationText.setText("Have a nice day!");
+                            return;
+                        }
+                        io.ably.lib.types.Message lastMessage = resultPage.items()[0];
+
+                        double width = com.sun.javafx.tk.Toolkit.getToolkit().getFontLoader().computeStringWidth(lastMessage.data.toString(), Font.font("Open Sans"));
+                        notificationTitle.setText(lastMessage.name);
+                        notificationText.setText(lastMessage.data.toString());
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                });
+
+
+        }).start();
     }
 
 
@@ -337,8 +464,9 @@ public class WelcomeAndLogin {
     }
     //helper function for onKeyPressed() to figure out if the user has a phone number connected to the account
     private boolean hasPhoneNumber() throws SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         String query = "SELECT * from USERS where USERNAME = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        Connection conn = DBUtils.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, username.getText());
         ResultSet rs = stmt.executeQuery();
@@ -353,8 +481,9 @@ public class WelcomeAndLogin {
     }
     //helper function for onKeyPressed() to figure out if the inputted username and password is a valid one
     private boolean isValidLogin() throws SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         String query = "SELECT * from USERS where USERNAME = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        Connection conn = DBUtils.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, username.getText());
         ResultSet rs = stmt.executeQuery();
@@ -416,12 +545,13 @@ public class WelcomeAndLogin {
 
     @FXML
     void logIn() {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         /*
         TODO add username to pages: scheduler, service requests, sr list
          */
         try {
             String query = "SELECT * from USERS where USERNAME = ?";
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username.getText());
             ResultSet rs = stmt.executeQuery();

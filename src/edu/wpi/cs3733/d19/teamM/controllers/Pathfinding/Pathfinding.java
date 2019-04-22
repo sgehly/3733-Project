@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamM.controllers.Pathfinding;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.*;
 import java.text.DateFormat;
@@ -36,7 +37,9 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
@@ -48,7 +51,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -57,6 +62,7 @@ import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
 
 import externalLibraries.Arrow.*;
+import sun.font.TextLabel;
 
 import javax.swing.*;
 
@@ -167,14 +173,23 @@ public class Pathfinding {
     @FXML
     private Button showDir;
 
+    @FXML
+    private Button sendRobotButton;
+
+    @FXML
+    private TitledPane filters;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
      */
     @FXML
     protected void initialize() throws Exception {
+        filters.setExpanded(false);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
+
+        sendRobotButton.setDisable(true);
 
         gesturePane.setContent(mappingStuff);
 
@@ -193,21 +208,114 @@ public class Pathfinding {
 
         chooseNav();
     }
+    Image imageBox;
+    ImageView imageBoxView;
+    VBox dialogBoxVbox;
+    Label tf = new Label();
+
+    Button buttonBox;
+    File pathFile = new File("resource.txt");
+    Scanner directionsScanner;
+     Stage dialogBox;
+
+
 
     @FXML
     private void showText(){
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(Main.getStage());
 
-        VBox dialogVbox = new VBox(20);
-        TextArea tf = new TextArea();
-        tf.setText(PathToString.getDirections(path));
-        tf.setPrefSize(400,300);
-        dialogVbox.getChildren().add(tf);
-        Scene dialogScene = new Scene(dialogVbox, 400, 300);
-        dialog.setScene(dialogScene);
-        dialog.show();
+        {
+            try {
+                directionsScanner = new Scanner(pathFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+         dialogBox = new Stage();
+        tf.setTextAlignment(TextAlignment.CENTER);
+        Font myFont = new Font("Open Sans",20);
+
+        tf.setFont(myFont);
+        directionsScanner.nextLine();
+        //TODO: Create the VBOX
+        //TODO: Get the text directions
+        //TODO: For each set of text directions
+            //TODO: Set the image and the text and the next button
+        dialogBox.initModality(Modality.APPLICATION_MODAL);
+        dialogBox.initOwner(Main.getStage());
+
+        dialogBoxVbox = new VBox(20);
+        buttonBox = new Button();
+        buttonBox.setText("NEXT DIRECTION");
+        imageBox = new Image("resources/icons/street_view.png");
+        imageBoxView = new ImageView();
+        imageBoxView.setImage(imageBox);
+        tf.setWrapText(true);
+        tf.setText(directionsScanner.nextLine());
+        tf.setPrefSize(400,200);
+        dialogBoxVbox.getChildren().add(imageBoxView);
+        dialogBoxVbox.setAlignment(Pos.CENTER);
+        dialogBoxVbox.getChildren().add(tf);
+        dialogBoxVbox.getChildren().add(buttonBox);
+        buttonBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                updateBox();
+            }
+        });
+        Scene dialogScene = new Scene(dialogBoxVbox, 450, 600);
+        dialogBox.setScene(dialogScene);
+        dialogBox.setTitle("Text Directions");
+        dialogBox.show();
+    }
+
+    private void updateBox()
+    {
+
+        String line = directionsScanner.nextLine();
+        if(line.isEmpty())
+        {
+            updateBox();
+        }
+        else
+        {
+            if(line.toLowerCase().contains("straight"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/circled_straight.png"));
+
+            }
+            else if(line.toLowerCase().contains("right"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/circled_right.png"));
+
+            }
+            else if(line.toLowerCase().contains("left"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/circled_left.png"));
+
+            }
+            else if(line.toLowerCase().contains("stair"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/stairs.png"));
+            }
+            else if(line.toLowerCase().contains("elevator"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/elevator.png"));
+            }
+
+            tf.setText(line);
+
+            if(line.toUpperCase().contains("ARRIVE") && !line.toUpperCase().contains("ELEVATOR") && !line.toUpperCase().contains("STAIR"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/arrived.png"));
+                buttonBox.setText("CLOSE");
+                buttonBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        dialogBox.close();
+                    }
+                });
+            }
+        }
     }
 
     private void loadDirectory(){
@@ -215,7 +323,14 @@ public class Pathfinding {
 
         for (Node n : graph.getNodes().values()){
             if(!n.getNodeType().equals("HALL")){
-                nodeList.add(n.getLongName());
+                String nodeName = n.getLongName();
+                if(nodeName.toUpperCase().contains("FLOOR"))
+                {
+                    nodeList.add(n.getLongName());
+                }
+                else {
+                    nodeList.add(n.getLongName() + " Floor " +n.getFloor());
+                }
             }
         }
 
@@ -294,6 +409,7 @@ public class Pathfinding {
      */
     @FXML
     private void navigateToHome() throws Exception{
+        filters.setExpanded(false);
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
@@ -399,27 +515,45 @@ public class Pathfinding {
     private void findPath() throws Exception{
         //SocketClient s = new SocketClient();
         //Get path
-        String start = startText.getText();
+        String start = startText.getText();//start.indexOf(" on Floor: ")
         String end = endText.getText();
         Node startNode = graph.getNodes().get(start);
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
         PathToString.getDirections(path);
-        //s.toConnString(PathToString.pathToInstructions(path));
+
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
         if (path != null){
             showDir.setDisable(false);
+            sendRobotButton.setDisable(false);
             showDir.setText("TEXT DIRECTIONS");
         }
         resetTextBox();
         updateMap(null,null);
     }
 
+    @FXML
+    void sendRobot(){
+        Runnable robotThread = () -> {
+            try {
+                SocketClient s = new SocketClient();
+                s.toConnString(PathToString.pathToInstructions(path));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        };
+        new Thread(robotThread).start();
+    }
+
     private void findPathWithLongNames() throws Exception{
 
-        String start = startText.getText();
-        String end = endText.getText();
+        String startPre = startText.getText();
+        String start = startPre.substring(0,startPre.indexOf(" on Floor: "));
+        String endPre = endText.getText();
+        String end = endPre.substring(0,endPre.indexOf(" on Floor: "));
+
         Node startNode = null;
         Node endNode = null;
 
@@ -526,7 +660,7 @@ public class Pathfinding {
         {
             if(!node.getNodeType().equals("HALL"))
             {
-                longNames.add(node.getLongName());
+                longNames.add(node.getLongName() + " on Floor: " + node.getFloor());
             }
         }
         startText.textProperty().addListener((ov, oldValue, newValue) -> {
@@ -698,7 +832,7 @@ public class Pathfinding {
                 clearNodes.add(startChangeButton);
             }
 
-            if(start.getId().equals(end.getId())) return;
+            //if(start.getId().equals(end.getId())) return;
             //ELEV or STAI
 
             String startNodeType = end.getNodeType();

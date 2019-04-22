@@ -162,7 +162,7 @@ public class AdminUI {
 
     @FXML
     private void navigateToHome() throws Exception{
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
+        Parent pane = FXMLLoader.load(Main.getFXMLURL("admin"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
         nodeLabel.setVisible(false);
@@ -283,7 +283,8 @@ public class AdminUI {
         System.out.println("Updating values...");
         //TODO: Can someone on database make this so SQL Injection can't happen
         String query = "SELECT * FROM NODE WHERE NODEID = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+        Connection conn = DBUtils.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, nodeId);
         ResultSet rs = stmt.executeQuery();
@@ -506,9 +507,10 @@ public class AdminUI {
     @FXML
     private void exportToCsv(ActionEvent event) throws  SQLException,ClassNotFoundException{
         String filename = "BWRoomExport.csv";
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         try {
             FileWriter fw = new FileWriter(filename);
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             String query = "select * from node";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);

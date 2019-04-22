@@ -284,6 +284,7 @@ public class addUser {
 
     @FXML
     void addUser(ActionEvent event) throws SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         try {
             if (areFieldsEmpty2()) {
  //               errorMessage.setStyle("-fx-text-inner-color: red;");
@@ -292,7 +293,7 @@ public class addUser {
             String tempName = username.getText();
             String tempPhone = phoneField.getText();
             String tempPass = Encrypt.getMd5(newPassword.getText());
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement stmt1 = conn.prepareStatement("SELECT * FROM USERS WHERE USERNAME = ?");
             stmt1.setString(1,tempName);
             ResultSet rs = stmt1.executeQuery();
@@ -340,6 +341,7 @@ public class addUser {
 
     @FXML
     void save(ActionEvent event) {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         try {
             Exception e = new Exception();
             if (areFieldsEmpty()) {
@@ -352,7 +354,7 @@ public class addUser {
             }
             String tempName = username2.getText();
             String tempPhone = phoneField2.getText();
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             String query = "UPDATE USERS SET isSan = ?, isInterp= ?, isIT= ?, isAV= ?, isGift= ?, isFlor= ?, isExt= ?, isInt= ?, isRel= ?, isSec= ?, isPer= ?, isLab= ?, ACCOUNTINT= ?, USERPASS= ?, PATHTOPIC= ?, PHONEEMAIL= ? WHERE USERNAME = ?";
             String tempPass = Encrypt.getMd5(newPassword2.getText());
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -398,18 +400,19 @@ public class addUser {
     void navigateToHome(MouseEvent event) {
         if (webcam != null)
             webcam.close();
-        Main.setScene("adminUI");
+        Main.setScene("admin");
     }
 
     @FXML
     void removeUser(ActionEvent event) {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         try{
             Exception e = new Exception();
             if(User.getUsername().compareTo(username.getText()) == 0) {
                 System.out.println("Cannot Delete Current");
                 throw e;
             }
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM USERS WHERE USERNAME = ?");
             stmt.setString(1, this.getIdFromTable());
             stmt.execute();
@@ -503,8 +506,9 @@ public class addUser {
     }
 
     private void populateUserTable() throws SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         list.setItems(null);
-        Connection conn = new DatabaseUtils().getConnection();
+        Connection conn = DBUtils.getConnection();
         String query = "SELECT USERNAME From USERS";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
