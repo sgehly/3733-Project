@@ -33,7 +33,7 @@
                                                 <Insets right="10.0" />
                                             </HBox.margin>
                                             <image>
-                                                <Image url="@../../../../../../resources/icons/icons8-home.png" />
+                                                <Image url="@../../../../../../resources/icons/icons8-circled_left_2.png" />
                                             </image>
                                         </ImageView>
                                         <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
@@ -52,7 +52,7 @@
                                  <children>
                                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@/resources/icons/icons8-clock_8.png" />
+                                          <Image url="@/resources/icons/icons8-circled_left_2.png" />
                                        </image>
                                        <HBox.margin>
                                           <Insets right="10.0" />
