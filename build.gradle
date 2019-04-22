@@ -34,6 +34,7 @@ sourceSets.main.resources.srcDirs = ['src']
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.google.guava:guava:27.0.1-jre'
+    compile 'com.github.yp2211:gTTS4j:master-SNAPSHOT'
 
     implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
     implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
@@ -76,7 +77,8 @@ dependencies {
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.13'
 
     //compile(files('/Users/JeffHarnois/Desktop/theJar-all.jar'))
-    compile(files('Team-G-Food-Request.jar'))
+    //compile(files('Team-G-Food-Request.jar'))
+    compile(files('TeamLGiftRequest-1.0.0.jar'))
 
     configurations.compile.extendsFrom(configurations.extraLibs)
 }

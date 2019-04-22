@@ -50,8 +50,11 @@ import javafx.scene.layout.*;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -63,6 +66,7 @@ import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
 
 import externalLibraries.Arrow.*;
+import org.w3c.dom.css.Rect;
 import sun.font.TextLabel;
 
 import javax.swing.*;
@@ -84,7 +88,8 @@ public class Pathfinding {
 
     ArrayList<Button> clearNodes = new ArrayList<Button>();
     ArrayList<Line> lines = new ArrayList<Line>();
-    ArrayList<Arrow> arrows = new ArrayList<Arrow>();
+    ArrayList<Rectangle> arrows = new ArrayList<Rectangle>();
+
 
     //Get the FXML objects to be linked
     @FXML
@@ -390,8 +395,15 @@ public class Pathfinding {
 
     //A global int to keep track of whether the thing is speaking or not
     TextSpeech textSpeech = new TextSpeech();
+    MediaPlayer player = textSpeech.getMediaPlayer();
+
+
     @FXML
     private void handleSpeaking(){
+        player.setOnEndOfMedia(() -> {
+            textSpeech.quitSpeaking();
+            textToSpeech.setText("SPEAK DIRECTIONS");
+        });
         if(textToSpeech.getText().equals("SPEAK DIRECTIONS") && showDir.getText().equals("TEXT DIRECTIONS")){
             textToSpeech.setText("CANCEL SPEAKING");
             textSpeech.speakToUser();
@@ -747,6 +759,57 @@ public class Pathfinding {
         return new Button();
     }
 
+    ArrayList<Timeline> clocks = new ArrayList<Timeline>();
+
+    private void travelPath(Rectangle traveller, ArrayList<MapPoint> points, int index, int clockIndex){
+
+        if(index > points.size()-1){
+            clocks.get(clockIndex).stop();
+            traveller.setX(points.get(0).x);
+            traveller.setY(points.get(0).y);
+            this.travelPath(traveller, points, 0, clockIndex);
+            return;
+        }
+
+        double finalX = points.get(index).x;
+        double finalY = points.get(index).y;
+        if(clockIndex > clocks.size()-1){
+            clocks.add(new Timeline());
+        }
+        clocks.set(clockIndex, new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+            double currentX = traveller.getX();
+            double currentY = traveller.getY();
+
+            if((int)currentX == (int)finalX && (int)currentY == (int)finalY){
+                if(clockIndex < clocks.size()){
+                    clocks.get(clockIndex).stop();
+                }
+                travelPath(traveller, points, index+1, clockIndex);
+                return;
+            }
+            if(currentX < finalX){
+                traveller.setX(currentX+0.01);
+            }
+            if(currentX > finalX){
+                traveller.setX(currentX-0.01);
+            }
+
+            if(currentY < finalY){
+                traveller.setY(currentY+0.01);
+            }
+            if(currentY > finalY){
+                traveller.setY(currentY-0.01);
+            }
+
+            traveller.setTranslateX(-traveller.getWidth()/2);
+            traveller.setTranslateY(-traveller.getHeight()/2);
+        }), new KeyFrame(Duration.seconds(0.0005))));
+
+        clocks.get(clockIndex).setCycleCount(Animation.INDEFINITE);
+        clocks.get(clockIndex).play();
+    }
+
     private void zoomToPath(Node startN, Node endN){
         double startX = startN.getX();
         double startY = startN.getY();
@@ -771,16 +834,28 @@ public class Pathfinding {
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
 
+        clocks.forEach(clock -> {
+            clock.stop();
+        });
+
+        clocks.removeAll(clocks);
+
         List<Path> floorPaths = path.getSpecificPath(util.getCurrentFloorID());
         List<Path> allPaths = path.getFloorPaths();
 
         if (floorPaths != null){
-            floorPaths.forEach(path -> {
+            int clockIndex = 0;
+            for(Path path : floorPaths){
                 List<Node> nodes = path.getPath();
 
+                ArrayList<MapPoint> pointsToTravel = new ArrayList<MapPoint>();
                 for(int i=0;i<nodes.size()-1;i++){
                     MapPoint start = util.scalePoints(nodes.get(i).getX(), nodes.get(i).getY());
                     MapPoint end = util.scalePoints(nodes.get(i+1).getX(), nodes.get(i+1).getY());
+
+                    pointsToTravel.add(start);
+                    pointsToTravel.add(end);
+
                     Line line = new Line();
                     line.setStartX(start.x);
                     line.setStartY(start.y);
@@ -797,14 +872,28 @@ public class Pathfinding {
                     Arrow arrow = new Arrow(start.x, start.y, end.x, end.y, 4);
                     arrow.setFill(Color.valueOf("#f6bd38"));
                     util.buttonPane.getChildren().add(line);
-                    util.buttonPane.getChildren().add(arrow);
                     arrow.setScaleX(0.5);
                     arrow.setScaleY(0.5);
                     line.setStyle("-fx-border-radius:5px");
                     lines.add(line);
-                    arrows.add(arrow);
                 }
-            });
+
+                if(pointsToTravel.size() != 0){
+                    Rectangle traveller = new Rectangle(pointsToTravel.get(0).x, pointsToTravel.get(0).y, 15, 15);
+                    traveller.setStyle("-fx-background-color: red; -fx-border-width: 5px; -fx-border-color: yellow;-fx-background-radius: 15px");
+                    traveller.setFill(Color.web("#012d5a"));
+                    traveller.setStroke(Color.web("#f6bd38"));
+                    traveller.setStrokeWidth(3);
+                    util.buttonPane.getChildren().add(traveller);
+                    arrows.add(traveller);
+                    traveller.toFront();
+                    traveller.setArcHeight(999);
+                    traveller.setArcWidth(999);
+                    this.travelPath(traveller, pointsToTravel, 0, clockIndex);
+                    clockIndex++;
+                }
+
+            }
         }
         else {
             overlayImage.setImage(null);
