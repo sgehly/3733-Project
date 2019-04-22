@@ -49,7 +49,7 @@ public class TextSpeech
         textSpeech.speakToUser();
     }
 
-    MediaPlayer mediaPlayer;
+    MediaPlayer mediaPlayer = null;
     int tracker = 0;
 
     int working = 0;
@@ -57,8 +57,13 @@ public class TextSpeech
     //Thread voiceThread =  voiceThread =
     public void speakToUser()
     {
+
        if(working == 0)
        {
+           if(mediaPlayer!=null)
+           {
+               quitSpeaking();
+           }
            new Thread(new Thread(() -> {
                try
                {
