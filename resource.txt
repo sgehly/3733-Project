@@ -1,4 +1,14 @@
 
+<<<<<<< HEAD
+Directions for floor 4
+
+Start at Flexible Workspace Classroom 4, move towards Flexible Hallway Node 6.
+In 51 feet, at Flexible Hallway Node 6, bear left.
+In 26 feet, at Flexible Hallway Node 5, bear right.
+In 12 feet, at Flexible Hallway Node 4, take a slight right turn.
+In 14 feet, at Flexible Hallway Node 1, take a left turn.
+Arrive at Flexible Workspace Classroom 1
+=======
 Directions for floor 2
 
 Start at MRI Associates Floor 2, move towards Hallway 46 Floor 2.
@@ -16,3 +26,4 @@ In 5 feet, at Hallway Connector 2 Floor 2, bear left.
 In 17 feet, at Hallway Connector 1 Floor 2, remain straight.
 In 13 feet, at Hallway Intersection 14 Level 2, remain straight.
 Arrive at Elevator E Floor 2
+>>>>>>> Sprint4/develop

@@ -26,8 +26,10 @@ import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.*;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Path;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -52,9 +54,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -848,13 +848,19 @@ public class Pathfinding {
             for(Path path : floorPaths){
                 List<Node> nodes = path.getPath();
 
-                ArrayList<MapPoint> pointsToTravel = new ArrayList<MapPoint>();
+                //lol
+                final javafx.scene.shape.Path travellerPath = new javafx.scene.shape.Path();
+
                 for(int i=0;i<nodes.size()-1;i++){
+
                     MapPoint start = util.scalePoints(nodes.get(i).getX(), nodes.get(i).getY());
                     MapPoint end = util.scalePoints(nodes.get(i+1).getX(), nodes.get(i+1).getY());
 
-                    pointsToTravel.add(start);
-                    pointsToTravel.add(end);
+                    if(i == 0){
+                        travellerPath.getElements().add(new MoveTo(start.x, start.y));
+                    }
+
+                    travellerPath.getElements().add(new LineTo(end.x, end.y));
 
                     Line line = new Line();
                     line.setStartX(start.x);
@@ -862,7 +868,7 @@ public class Pathfinding {
 
                     line.setEndX(end.x);
                     line.setEndY(end.y);
-                    line.setStrokeWidth(4);
+                    line.setStrokeWidth(2);
 
                     line.setStroke(Color.valueOf("#012d5a"));
 
@@ -871,27 +877,54 @@ public class Pathfinding {
 
                     Arrow arrow = new Arrow(start.x, start.y, end.x, end.y, 4);
                     arrow.setFill(Color.valueOf("#f6bd38"));
-                    util.buttonPane.getChildren().add(line);
+                    //util.buttonPane.getChildren().add(line);
                     arrow.setScaleX(0.5);
                     arrow.setScaleY(0.5);
                     line.setStyle("-fx-border-radius:5px");
                     lines.add(line);
                 }
 
-                if(pointsToTravel.size() != 0){
-                    Rectangle traveller = new Rectangle(pointsToTravel.get(0).x, pointsToTravel.get(0).y, 15, 15);
-                    traveller.setStyle("-fx-background-color: red; -fx-border-width: 5px; -fx-border-color: yellow;-fx-background-radius: 15px");
-                    traveller.setFill(Color.web("#012d5a"));
-                    traveller.setStroke(Color.web("#f6bd38"));
-                    traveller.setStrokeWidth(3);
+                for(int i=0;i<travellerPath.getElements().size();i++){
+                    //System.out.println("("+((LineTo)travellerPath.getElements().get(i)).getX()+","+((LineTo)travellerPath.getElements().get(i)).getY()+")");
+                }
+
+                Rectangle traveller = new Rectangle();
+
+                if(travellerPath.getElements().size() != 0){
+
+                    traveller.setX(((MoveTo)travellerPath.getElements().get(0)).getX());
+                    traveller.setY(((MoveTo)travellerPath.getElements().get(0)).getY());
+                    traveller.setWidth(10);
+                    traveller.setHeight(10);
+                    System.out.println("Generate!");
+                    traveller.setFill(Color.web("#f6bd38"));
+                    traveller.setStroke(Color.web("#012d5a"));
+                    travellerPath.setOpacity(1);
+                    travellerPath.setStrokeWidth(3);
+                    traveller.setStrokeWidth(1);
+                    util.buttonPane.getChildren().add(travellerPath);
                     util.buttonPane.getChildren().add(traveller);
                     arrows.add(traveller);
                     traveller.toFront();
                     traveller.setArcHeight(999);
                     traveller.setArcWidth(999);
-                    this.travelPath(traveller, pointsToTravel, 0, clockIndex);
+
+                    final PathTransition pathTransition = new PathTransition();
+
+                    pathTransition.setDuration(Duration.seconds(travellerPath.getElements().size()/2));
+                    pathTransition.setDelay(Duration.seconds(0));
+                    pathTransition.setPath(travellerPath);
+                    pathTransition.setNode(traveller);
+                    pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+                    pathTransition.setCycleCount(Timeline.INDEFINITE);
+                    pathTransition.setAutoReverse(false);
+                    pathTransition.play();
+
                     clockIndex++;
                 }
+
+                travellerPath.toFront();
+                traveller.toFront();
 
             }
         }
@@ -901,7 +934,6 @@ public class Pathfinding {
 
         arrows.forEach(node -> node.toFront());
         util.nodes.forEach(node -> {
-            System.out.println(node.getId());
             node.toFront();
         });
 
