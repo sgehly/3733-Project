@@ -48,6 +48,8 @@ public class Chat {
 
     Channel channel;
 
+    Channel pubChannel;
+
     ArrayList<String> online = new ArrayList<String>();
 
     ArrayList<String> messagesArr = new ArrayList<String>();
@@ -55,6 +57,17 @@ public class Chat {
     @FXML
     public void logout() throws Exception {
         channel.presence.leave(new CompletionListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(ErrorInfo reason) {
+
+            }
+        });
+        pubChannel.presence.leave(new CompletionListener() {
             @Override
             public void onSuccess() {
 
@@ -75,6 +88,17 @@ public class Chat {
     @FXML
     private void navigateBack() throws Exception {
         channel.presence.leave(new CompletionListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(ErrorInfo reason) {
+
+            }
+        });
+        pubChannel.presence.leave(new CompletionListener() {
             @Override
             public void onSuccess() {
 
@@ -111,8 +135,8 @@ public class Chat {
         userText.setText(User.getUsername());
         messages.setStyle("-fx-font-size: 32px;");
         try {
-
-            channel = Main.ably.channels.get("chat");
+            pubChannel = Main.ably.channels.get("chat");
+            channel = Main.ably.channels.get("help-"+User.getUsername());
             channel.subscribe(message -> {
 
                 Platform.runLater(new Runnable() {
@@ -159,6 +183,17 @@ public class Chat {
                     });
 
                     channel.presence.enter("iskrattar du förlorar du", new CompletionListener() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+                        @Override
+                        public void onError(ErrorInfo info) {
+
+                        }
+                    });
+
+                    pubChannel.presence.enter("iskrattar du förlorar du", new CompletionListener() {
                         @Override
                         public void onSuccess() {
 

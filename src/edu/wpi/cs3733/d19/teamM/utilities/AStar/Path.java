@@ -81,8 +81,8 @@ public class Path {
     public List<Path> getSpecificPath(String floorID){
         List<Path> paths = new ArrayList<>();
         for (Path p : getFloorPaths()){
-            if (floorID.equals("4") && p.getFloorID().equals("2")) paths.add(p);
-            if (floorID.equals("2") && p.getFloorID().equals("4")) paths.add(p);
+            //if (floorID.equals("4") && p.getFloorID().equals("2")) paths.add(p);
+            //if (floorID.equals("2") && p.getFloorID().equals("4")) paths.add(p);
             if (p.getFloorID().equals(floorID)) paths.add(p);
         }
         return paths;

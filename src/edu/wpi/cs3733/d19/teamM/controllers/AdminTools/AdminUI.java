@@ -162,7 +162,7 @@ public class AdminUI {
 
     @FXML
     private void navigateToHome() throws Exception{
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
+        Parent pane = FXMLLoader.load(Main.getFXMLURL("admin"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
         nodeLabel.setVisible(false);

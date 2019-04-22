@@ -1,6 +1,9 @@
 package edu.wpi.cs3733.d19.teamM.utilities;
 
+import edu.wpi.cs3733.d19.teamM.Main;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.json.JSONObject;
 
 import java.net.URL;
@@ -14,31 +17,39 @@ public class Weather {
     /**
      * Gets the weather of the city of Boston.
      *
-     * @param currTemp Label for the current temperature
-     * @param minTemp Label for the min temperature for the day
-     * @param maxTemp Label for the max temperature for the day
-     * @param description Label for the physical description of the current weather
      */
-    public Weather(Label currTemp, Label minTemp, Label maxTemp, Label description) {
+    public Weather(Label desc, ImageView icon) {
 
         try{
             geocoding("Boston"); // gets info for this city or place
 
             JSONObject j = obj.getJSONObject("main");
 
-            currTemp.setText(j.getInt("temp") + DEGREE + "F"); // gets current temperature
-            minTemp.setText(j.getInt("temp_min") + DEGREE + "F"); // min temp for day
-            maxTemp.setText(j.getInt("temp_max") + DEGREE + "F"); // high temp for day
-
             // go to different part of api link
-            j = obj.getJSONArray("weather").getJSONObject(0);
+            JSONObject detail = obj.getJSONArray("weather").getJSONObject(0);
 
             // may want to add a picture or gif of the weather
             // String weathDesc = j.getString("main"); and then use switch statement
 
-            description.setText(j.getString("description")); // textual description of weather
+            desc.setText(j.getInt("temp")+"° / "+detail.getString("main")); // textual description of weather
 
+            String main = detail.getString("main");
 
+            //Clouds,Mist,Snow,Rain,Haze,
+            if(main.equals("Rain") || main.equals("Thunderstorm") || main.equals("Drizzle")){
+                icon.setImage(new Image(Main.getResource("/resources/icons/icons8-rain.png")));
+            }
+            else if(main.equals("Snow")){
+                icon.setImage(new Image(Main.getResource("/resources/icons/snow.png")));
+            }
+            else if(main.equals("Clouds")){
+                icon.setImage(new Image(Main.getResource("/resources/icons/icons8-cloud.png")));
+            }
+            else if(main.equals("Clear")){
+                icon.setImage(new Image(Main.getResource("/resources/icons/icons8-sunny.png")));
+            }else{
+                icon.setImage(new Image(Main.getResource("/resources/icons/icons8-error.png")));
+            }
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -64,6 +75,7 @@ public class Weather {
         }
         scan.close();
 
+        System.out.println(str);
         // JSON object created from new string which has all necessary info for extracting weather information
         obj = new JSONObject(str);
     }
