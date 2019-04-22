@@ -14,6 +14,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import com.calendarfx.view.CalendarView?>
+<?import com.sun.deploy.uitoolkit.impl.fx.ui.FXDefaultPreloader.FXPreloaderPane?>
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Scheduler.ViewCal">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
@@ -105,6 +106,7 @@
                                 <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                     <children>
                                         <CalendarView fx:id="calendar" HBox.hgrow="ALWAYS" prefHeight="-Infinity" prefWidth="-Infinity" maxHeight="1000.0" maxWidth="2000.0" minHeight="200.0" minWidth="300.0" pickOnBounds="true" />
+
                                     </children>
                                 </HBox>
                             </children>

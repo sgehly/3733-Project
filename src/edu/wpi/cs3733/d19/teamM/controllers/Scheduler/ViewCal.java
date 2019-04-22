@@ -70,29 +70,10 @@ public class ViewCal {
     Calendar CR_9 = new Calendar("Classroom 9");
     Calendar CR_10 = new Calendar("Theater");
 
-    CalendarSource myCalendarSource = new CalendarSource("MY CALENDARS");
-
+    CalendarSource myCalendarSource = new CalendarSource("ROOMS");
 
 
     public void generateEntries() throws SQLException{
-
-        myCalendarSource.getCalendars().addAll(CR_1,CR_2,CR_3,CR_4,CR_5,CR_6,CR_7,CR_8,CR_9,CR_10);
-        calendar.getCalendarSources().addAll(myCalendarSource);
-
-        CR_1.setStyle(Style.STYLE1);
-        CR_2.setStyle(Style.STYLE2);
-        CR_3.setStyle(Style.STYLE3);
-        CR_4.setStyle(Style.STYLE4);
-        CR_5.setStyle(Style.STYLE5);
-        CR_6.setStyle(Style.STYLE6);
-        CR_7.setStyle(Style.STYLE7);
-        CR_8.setStyle(Style.STYLE1);
-        CR_9.setStyle(Style.STYLE2);
-        CR_10.setStyle(Style.STYLE3);
-
-
-
-
 
         String query = "Select ROOMID ,STARTTIME ,ENDTIME from BookedTimes";
 
@@ -182,6 +163,25 @@ public class ViewCal {
             CR_7.setReadOnly(true);
             CR_9.setReadOnly(true);
             CR_10.setReadOnly(true);
+            calendar.setTransitionsEnabled(false);
+
+
+
+        CR_1.setStyle(Style.STYLE1);
+        CR_2.setStyle(Style.STYLE2);
+        CR_3.setStyle(Style.STYLE3);
+        CR_4.setStyle(Style.STYLE4);
+        CR_5.setStyle(Style.STYLE5);
+        CR_6.setStyle(Style.STYLE6);
+        CR_7.setStyle(Style.STYLE7);
+        CR_8.setStyle(Style.STYLE1);
+        CR_9.setStyle(Style.STYLE2);
+        CR_10.setStyle(Style.STYLE3);
+
+        myCalendarSource.getCalendars().addAll(CR_1,CR_2,CR_3,CR_4,CR_5,CR_6,CR_7,CR_8,CR_9,CR_10);
+        calendar.getCalendarSources().addAll(myCalendarSource);
+        calendar.setShowPrintButton(false);
+        calendar.setShowAddCalendarButton(false);
 
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
