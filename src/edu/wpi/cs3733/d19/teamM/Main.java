@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamM;
 
+import com.calendarfx.model.Calendar;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.cs3733.d19.teamM.User.User;
@@ -33,6 +34,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import giftRequest.*;
+import jdk.nashorn.internal.objects.Global;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -46,6 +48,8 @@ import java.net.URL;
 public class Main extends Application {
 
     //Create the primary stage and set it to null
+
+
 
     static boolean isLoaded = false;
 
@@ -69,6 +73,7 @@ public class Main extends Application {
     private static Scene serviceRequestScene;
     private static Scene serviceRequestListScene;
     private static Scene welcomeScene;
+    private static Scene calendar;
     private static Scene loginScene;
     private static Scene addUserScene;
 
@@ -104,6 +109,7 @@ public class Main extends Application {
             primaryStage.setScene(schedulerScene);
             savedState.setState("scheduling");
         }
+
         else if(scene == "serviceRequest"){
             primaryStage.setScene(serviceRequestScene);
             savedState.setState("serviceRequests");

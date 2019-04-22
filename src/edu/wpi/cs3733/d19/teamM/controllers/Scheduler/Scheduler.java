@@ -456,7 +456,7 @@ public class Scheduler {
      */
     @FXML
     private void navigateToDetails() throws Exception{
-        Main.setScene("schedulerList");
+        Main.setScene("CalendarView");
     }
 
     /**
