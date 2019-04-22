@@ -142,6 +142,19 @@ public class Home{
     }
 
     @FXML
+    public void navigateToPriceCheck(){
+        Parent pathFindingPane;
+        Scene pathFindingScene;
+        try {
+            pathFindingPane = FXMLLoader.load(Main.getFXMLURL("priceCompare"));
+            pathFindingScene = new Scene(pathFindingPane);
+            Main.getStage().setScene(pathFindingScene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     public void navigateToChat(){
         Main.setScene("chat");
     }

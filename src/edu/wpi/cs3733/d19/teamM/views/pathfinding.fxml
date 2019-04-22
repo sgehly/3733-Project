@@ -171,7 +171,7 @@
                                                             <Font name="Open Sans Bold" size="42.0" />
                                                         </font>
                                                     </Text>
-                                                    <Button mnemonicParsing="false" onAction="#findBathroom" prefWidth="400.0" styleClass="bigButton" text="Nearest Bathroom" VBox.vgrow="ALWAYS">
+                                                    <Button mnemonicParsing="false" onAction="#findBathroom" prefWidth="400.0" styleClass="bigButton" text="Nearby Bathroom" VBox.vgrow="ALWAYS">
                                                         <font>
                                                             <Font name="Open Sans Bold" size="36.0" />
                                                         </font>
@@ -182,7 +182,7 @@
                                                             <Insets />
                                                         </VBox.margin>
                                                     </Button>
-                                                    <Button mnemonicParsing="false" onAction="#findStaircase" prefWidth="400.0" styleClass="bigButton" text="Nearest Staircase" VBox.vgrow="ALWAYS">
+                                                    <Button mnemonicParsing="false" onAction="#findStaircase" prefWidth="400.0" styleClass="bigButton" text="Nearby Staircase" VBox.vgrow="ALWAYS">
                                                         <font>
                                                             <Font size="36.0" />
                                                         </font>
@@ -190,7 +190,7 @@
                                                             <Insets />
                                                         </opaqueInsets>
                                                     </Button>
-                                                    <Button mnemonicParsing="false" onAction="#findElevator" prefWidth="400.0" styleClass="bigButton" text="Nearest Elevator">
+                                                    <Button mnemonicParsing="false" onAction="#findElevator" prefWidth="400.0" styleClass="bigButton" text="Nearby Elevator">
                                                         <font>
                                                             <Font size="36.0" />
                                                         </font>
@@ -198,7 +198,7 @@
                                                             <Insets />
                                                         </opaqueInsets>
                                                     </Button>
-                                                    <Button mnemonicParsing="false" onAction="#findExit" prefWidth="400.0" styleClass="bigButton" text="Nearest Exit">
+                                                    <Button mnemonicParsing="false" onAction="#findExit" prefWidth="400.0" styleClass="bigButton" text="Nearby Exit">
                                                         <font>
                                                             <Font size="36.0" />
                                                         </font>
@@ -206,7 +206,7 @@
                                                             <Insets />
                                                         </opaqueInsets>
                                                     </Button>
-                                                    <Button mnemonicParsing="false" onAction="#findServiceDesk" prefWidth="400.0" styleClass="bigButton" text="Nearest Service Desk">
+                                                    <Button mnemonicParsing="false" onAction="#findServiceDesk" prefWidth="400.0" styleClass="bigButton" text="Nearby Service Desk">
                                                         <font>
                                                             <Font size="36.0" />
                                                         </font>
@@ -214,7 +214,7 @@
                                                             <Insets />
                                                         </opaqueInsets>
                                                     </Button>
-                                                    <Button mnemonicParsing="false" onAction="#findFood" prefWidth="400.0" styleClass="bigButton" text="Nearest Cafeteria">
+                                                    <Button mnemonicParsing="false" onAction="#findFood" prefWidth="400.0" styleClass="bigButton" text="Nearby Cafeteria">
                                                         <font>
                                                             <Font size="36.0" />
                                                         </font>
@@ -231,7 +231,7 @@
                                                 <Font name="Open Sans Bold" size="42.0" />
                                              </font>
                                           </Text>
-                                          <ListView fx:id="directoryList" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                                          <ListView fx:id="directoryList" maxWidth="500.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -413,8 +413,15 @@
                                     </HBox>
                                     <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onMouseClicked="#speakDirections" prefWidth="425.0" styleClass="blackButton" text="SPEAK DIRECTIONS" />
-                                          <Button mnemonicParsing="false" onMouseClicked="#cancelDirections" prefWidth="425.0" styleClass="blackButton" text="CANCEL SPEAK" />
+                                          <Button fx:id="textToSpeech" mnemonicParsing="false" onMouseClicked="#handleSpeaking" prefWidth="425.0" styleClass="blackButton" text="SPEAK DIRECTIONS" />
+                                       </children>
+                                       <padding>
+                                          <Insets right="50.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="50.0" prefWidth="550.0" spacing="20.0">
+                                       <children>
+                                          <Button fx:id="scheduling" mnemonicParsing="false" onAction="#navigateToScheduling" prefWidth="425.0" styleClass="blackButton" text="SCHEDULING" />
                                        </children>
                                        <padding>
                                           <Insets right="50.0" />
