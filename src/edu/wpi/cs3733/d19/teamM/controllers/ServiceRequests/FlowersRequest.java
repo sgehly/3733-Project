@@ -43,18 +43,18 @@ public class FlowersRequest implements Initializable {
     @FXML
     private javafx.scene.control.Label lblDate;
 
-
-    String[] flowers = {"Roses","Dahlia","Tulip","Sun Flower","Alstroemeria","Amaryllis","Asiatic Lily","Aster","Azalea","Baby’s Breath","Begonia","Bird of Paradise"
-            ,"Calla Lily","Campanula","Carnation","Chrysanthemum","Cockscomb","Crocus","Cyclamen","Cymbidium Orchid","Daffodil","Daisy","Delphinium","Dendrobium Orchid",
-            "Freesia","Gardenia","Geranium","Gladiolus","Heather","Hibiscus","Hyacinth","Hydrangea","Hypericum","Iris","Jasmine","Jonquil","Kalanchoe","Larkspur","Lavender",
-            "Daffodil","Liatris","Lilac","Lily","Limonium","Lisianthus","Magnolia","Marigold","Mini-Carnation","Narcissus","Orchid","Oriental Lily","Pansy","Peace Lily","Petite Rose",
-            "Phalaenopsis Orchid","Poinsettia","Pompon","Protea","Ranunculus","Snapdragon","Solidago","Spray Rose","Star of Bethlehem","Stargazer Lily","Statice","Stock",
-            "Tea Rose","Trachelium","Tuberose","Violet","Waxflower","Zinnia"};
-
+    String[] flowers = {"Amaryllis","Azalea","Baby’s Breath","Bird of Paradise","Buttercup",
+            "Carnation","Chrysanthemum","Daffodil","Dahlia","Daisy","Delphinium","Freesia","Gardenia",
+            "Gladiolus","Hibiscus","Hyacinth","Hydrangea","Iris","Jasmine","Lavender","Lilac","Lily","Magnolia",
+            "Marigold","Orchid","Pansy","Peony","Petunia","Poinsettia","Roses","Snapdragon",
+            "Sunflower","Tulip","Violet","Waterlily"};
 
     //Tesxt Field for flower type input
     @FXML
     private TextField flowerType;
+
+    @FXML
+    private javafx.scene.control.Button btn;
 
 
     //Text field for room location input
@@ -70,7 +70,6 @@ public class FlowersRequest implements Initializable {
 
     @FXML
     private Button submitReuqest;
-
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -90,10 +89,19 @@ public class FlowersRequest implements Initializable {
         Main.setScene("serviceRequests");
     }
 
+    @FXML
+    private void navigateToFlowers() throws Exception {
+        Main.setScene("serviceRequests/flowers");
+    }
+
     /**
      * This method allows the user to create a flowers request using the button
      * @param : The action that is associated with making the flowers request
      */
+    @FXML
+    public void setFlower(String flower) {
+        flowerType.setText(flower);
+    }
 
     @FXML
     public void makeFlowersRequest() throws IOException {
@@ -107,8 +115,6 @@ public class FlowersRequest implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     private boolean areFieldsEmpty() {
@@ -148,8 +154,6 @@ public class FlowersRequest implements Initializable {
             e.printStackTrace();
         }
 
-
-        //userText.setText("");
         TextFields.bindAutoCompletion(flowerType,flowers);
     }
 }
