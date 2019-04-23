@@ -285,7 +285,7 @@ public class ServiceRequests {
             stmt.close();
             conn.close();
 
-            this.goToList();
+            //this.goToList();
 
         } catch (Exception e) {
             e.printStackTrace();
