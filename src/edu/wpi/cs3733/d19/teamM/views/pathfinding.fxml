@@ -351,9 +351,9 @@
                                     <Insets bottom="40.0" />
                                  </StackPane.margin>
                               </VBox>
-                              <TitledPane fx:id="filters" animated="false" maxHeight="425.0" maxWidth="300.0" pickOnBounds="false" prefHeight="420.0" prefWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
+                              <TitledPane fx:id="filters" animated="false" maxHeight="425.0" maxWidth="300.0" pickOnBounds="false" prefHeight="420.0" prefWidth="300.0" text="Filters" textFill="WHITE" StackPane.alignment="TOP_LEFT">
                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" pickOnBounds="false" prefHeight="245.0" prefWidth="278.0" style="-fx-background-color: #012d5a;">
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" pickOnBounds="false" prefHeight="245.0" prefWidth="278.0" style="-fx-background-color: white;">
                                               <children>
                                                   <ScrollPane pickOnBounds="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                       <content>
@@ -373,47 +373,47 @@
                                                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                               </rowConstraints>
                                                               <children>
-                                                                  <CheckBox fx:id="bathrooms" mnemonicParsing="false" prefHeight="32.0" prefWidth="139.0" style="-fx-text-fill: white;" text="Bathrooms">
+                                                                  <CheckBox fx:id="bathrooms" mnemonicParsing="false" prefHeight="32.0" prefWidth="139.0" style="-fx-text-fill: black;" text="Bathrooms">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" top="10.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="stairs" mnemonicParsing="false" style="-fx-text-fill: white;" text="Stairs" GridPane.rowIndex="1">
+                                                                  <CheckBox fx:id="stairs" mnemonicParsing="false" style="-fx-text-fill: black;" text="Stairs" GridPane.rowIndex="1">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="elevators" mnemonicParsing="false" style="-fx-text-fill: white;" text="Elevators" GridPane.rowIndex="2">
+                                                                  <CheckBox fx:id="elevators" mnemonicParsing="false" style="-fx-text-fill: black;" text="Elevators" GridPane.rowIndex="2">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="labs" mnemonicParsing="false" style="-fx-text-fill: white;" text="Labs" GridPane.rowIndex="3">
+                                                                  <CheckBox fx:id="labs" mnemonicParsing="false" style="-fx-text-fill: black;" text="Labs" GridPane.rowIndex="3">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="confs" mnemonicParsing="false" style="-fx-text-fill: white;" text="Conference Rooms" GridPane.rowIndex="4">
+                                                                  <CheckBox fx:id="confs" mnemonicParsing="false" style="-fx-text-fill: black;" text="Conference Rooms" GridPane.rowIndex="4">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="food" mnemonicParsing="false" style="-fx-text-fill: white;" text="Food" GridPane.rowIndex="5">
+                                                                  <CheckBox fx:id="food" mnemonicParsing="false" style="-fx-text-fill: black;" text="Food" GridPane.rowIndex="5">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="services" mnemonicParsing="false" style="-fx-text-fill: white;" text="Services" GridPane.rowIndex="6">
+                                                                  <CheckBox fx:id="services" mnemonicParsing="false" style="-fx-text-fill: black;" text="Services" GridPane.rowIndex="6">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="exits" mnemonicParsing="false" style="-fx-text-fill: white;" text="Exits" GridPane.rowIndex="7">
+                                                                  <CheckBox fx:id="exits" mnemonicParsing="false" style="-fx-text-fill: black;" text="Exits" GridPane.rowIndex="7">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleButton" text="Apply" GridPane.rowIndex="8">
+                                                                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleButton" styleClass="blackButton" text="Apply" GridPane.rowIndex="8">
                                                                       <GridPane.margin>
                                                                           <Insets bottom="15.0" left="90.0" />
                                                                       </GridPane.margin>
