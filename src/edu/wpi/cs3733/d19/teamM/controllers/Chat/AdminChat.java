@@ -146,10 +146,10 @@ public class AdminChat {
                         pubChannel.detach();
                     }
                     pubChannel = Main.ably.channels.get("help-"+newValue.toString());
-
+s
                     new Thread(() -> {
                         try{
-                            PaginatedResult<Message> resultPage = Main.channel.history(null);
+                            PaginatedResult<Message> resultPage = pubChannel.history(null);
 
                             if(resultPage.items().length < 1){
                                 return;
