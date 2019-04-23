@@ -25,26 +25,29 @@
 }
 
 .button2:hover{
-    -fx-background-color: WHITE;
+    -fx-background-color: #00172f;
     -fx-text-fill: WHITE;
-    -fx-border-color: #012D5A;
+    -fx-border-color: WHITE;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
 
 .button2{
-    -fx-text-fill: BLACK;
-    -fx-prompt-text-fill: WHITE;
-    -fx-border-color: #012D5A;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-background-color: WHITE;
+    -fx-border-width: 5px;
+    -fx-border-color:  BLACK;
+    -fx-text-fill: #012D5A;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 10px;
+    -fx-underline: none;
+    -fx-font-family: "BariolSerif"
 }
 
 .jfx-text-field {
     -fx-font-size: 15;
     -fx-prompt-text-fill: GRAY;
-    -fx-text-fill: BLACK;
-    -fx-fill: WHITE;
+    -fx-text-fill: WHITE;
+    -fx-fill: BLACK;
     -jfx-focus-color: #012D5A;
     -jfx-unfocus-color: #012D5A;
 }
@@ -107,7 +110,7 @@
     -fx-stroke-width: 3pt;
 }
 .jfx-tab-pane .tab-label{
-    -fx-text-fill: BLACK;
+    -fx-text-fill: WHITE;
     -fx-font-size: 15;
 }
 .jfx-tab-pane .tab:selected{

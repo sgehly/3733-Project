@@ -1,26 +1,51 @@
 
-<<<Directions for floor 1>>>
+<<<Directions for floor 3>>>
 
-Start at Elevator Q MapNode 18 Floor 1, move towards Hallway MapNode 17 Floor 1
-In 35 feet, at Hallway MapNode 17 Floor 1, take a sharp right turn
-In 26 feet, at Hallway MapNode 7 Floor 1, take a left turn
-Arrive at Stairway MapNode 5 Floor 1
+Start at Restroom BTM conference center 3rd floor, move towards HallNode
+In 23 feet, at HallNode, remain straight
+In 30 feet, at Hall, take a left turn
+In 11 feet, at Hall, remain straight
+In 17 feet, at Hall, take a left turn
+In 22 feet, at Hall, remain straight
+Arrive at Elevator S Floor 3
 <<<Directions for floor 2>>>
 
-Start at Stairs Node 28 Floor 2, move towards Hall Node 29 Floor 2
+Start at Elevator S 02, move towards Hall
+In 21 feet, at Hall, take a sharp right turn
+In 47 feet, at Hall, take a left turn
+In 14 feet, at Hall, remain straight
+In 31 feet, at Hall, take a right turn
+In 30 feet, at Hall, take a left turn
+In 73 feet, at Hallway Connector 10 Floor 2, remain straight
+In 9 feet, at Hallway Connector 9 Floor 2, remain straight
+In 29 feet, at Hall Node 37 Floor 2, remain straight
+In 11 feet, at Hall Node 33 Floor 2, remain straight
+In 17 feet, at Hall Node 32 Floor 2, remain straight
+In 14 feet, at Stairs Node 28 Floor 2, take a right turn
 In 38 feet, at Hall Node 29 Floor 2, take a left turn
 In 32 feet, at Hall Node 27 Floor 2, remain straight
 In 11 feet, at Hall Node 23 Floor 2, remain straight
 In 19 feet, at Hall Node 22 Floor 2, remain straight
 In 83 feet, at Hallway Connector 8 Floor 2, remain straight
 In 74 feet, at Hallway Connector 7 Floor 2, remain straight
-Arrive at Elevator M Floor 2
-<<<Directions for floor 1>>>
+In 17 feet, at Hallway Connector 9 Floor 2, remain straight
+In 22 feet, at Hallway Connector 8 Floor 2, remain straight
+In 31 feet, at Hallway Connector 7 Floor 2, bear right
+In 25 feet, at Hallway Connector 6 Floor 2, remain straight
+In 17 feet, at Hallway Connector 5 Floor 2, take a slight right turn
+In 34 feet, at Hallway Connector 4 Floor 2, take a left turn
+In 28 feet, at Hallway Connector 1 Floor 2, take a right turn
+In 27 feet, at Hallway Connector 2 Floor 2, remain straight
+In 17 feet, at Hallway Connector 3 Floor 2, remain straight
+In 6 feet, at Hallway Connector 3 Floor 2, remain straight
+In 24 feet, at Hallway Connector 4 Floor 2, remain straight
+In 20 feet, at Staircase Intersection 1 Level 2, remain straight
+In 13 feet, at Hallway Intersection 1 Level 2, remain straight
+In 36 feet, at Hallway Intersection 2 Level 2, remain straight
+Arrive at Elevator J Floor 2
+<<<Directions for floor 3>>>
 
-Start at Elevator M Floor 1, move towards Lobby Hallway 1
-In 40 feet, at Lobby Hallway 1, remain straight
-In 13 feet, at Lobby Hallway 2, take a left turn
-In 20 feet, at Lobby Hallway 3, take a right turn
-In 89 feet, at Lobby Hallway 4, take a left turn
-In 22 feet, at Lobby Hallway 6, remain straight
-Arrive at Lobby Shattuck Street Stairs
+Start at Elevator J Floor 3, move towards Hallway Node 18
+In 44 feet, at Hallway Node 18, take a left turn
+In 35 feet, at Hallway Node 19, remain straight
+Arrive at Gynecology

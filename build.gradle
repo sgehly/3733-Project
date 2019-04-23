@@ -80,6 +80,7 @@ dependencies {
     compile(files('TeamLGiftRequest-1.0.0.jar'))
     compile(files('DominosRequest-1.0.1.jar'))
     compile(files('TeamNInternalTransportRequest-1.0.0.jar'))
+    compile(files('ServiceRequest-1.0-SNAPSHOT.jar'))
 
     configurations.compile.extendsFrom(configurations.extraLibs)
 }
