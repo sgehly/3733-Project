@@ -49,7 +49,7 @@ public class Main extends Application {
 
     static boolean isLoaded = false;
 
-    private static Stage primaryStage = null;
+    public static Stage primaryStage = null;
 
     final static KeyCombination keyShiftTab = new KeyCodeCombination(KeyCode.TAB, KeyCombination.SHIFT_ANY);
 

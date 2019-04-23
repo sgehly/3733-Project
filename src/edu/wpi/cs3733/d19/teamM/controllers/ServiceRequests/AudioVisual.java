@@ -75,8 +75,6 @@ public class AudioVisual implements Initializable {
     @FXML
     private Label lblDate;
 
-    @FXML
-    private Label confLabel;
 
 
     /**
@@ -193,7 +191,7 @@ public class AudioVisual implements Initializable {
         Clock clock = new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
-        confLabel.setVisible(false);
+        //confLabel.setVisible(false);
 
         ObservableList<String> list = FXCollections.observableArrayList();
 

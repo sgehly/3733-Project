@@ -156,11 +156,6 @@
                                                         <JFXCheckBox fx:id="pickUp" text=" " />
                                                     </children>
                                                 </HBox>
-                                    <Label fx:id="confLabel" text="Label">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
                                                 <Text fx:id="errorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0">
                                                     <font>
                                                         <Font size="24.0" />
