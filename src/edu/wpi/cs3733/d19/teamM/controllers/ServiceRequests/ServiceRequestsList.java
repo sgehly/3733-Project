@@ -147,7 +147,8 @@ public class ServiceRequestsList {
         if (requestsInProgress.getFocusModel().getFocusedIndex() >= 0) {
             String query = "DELETE FROM REQUESTINPROGRESS Where REQUESTID = ?";
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
                 PreparedStatement s = conn.prepareStatement(query);
                 s.setString(1, this.getIdFromTable("incomplete"));
                 s.executeUpdate();
@@ -169,7 +170,8 @@ public class ServiceRequestsList {
         if (requestsCompleted.getFocusModel().getFocusedIndex() >= 0) {
             String query = "DELETE FROM REQUESTLOG Where REQUESTID = ?";
             try {
-                Connection conn = new DatabaseUtils().getConnection();
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
                 PreparedStatement s = conn.prepareStatement(query);
                 s.setString(1, this.getIdFromTable("complete"));
                 s.executeUpdate();
@@ -194,21 +196,66 @@ public class ServiceRequestsList {
     @FXML
     void disengageComplete() {
         try {
-            int temp = 0;
+            //int temp = 0;
+            int san = 0;
+            int interp = 0;
+            int it = 0;
+            int av = 0;
+            int gift = 0;
+            int flor = 0;
+            int ext = 0;
+            int internal = 0;
+            int rel = 0;
+            int sec = 0;
+            int pre = 0;
+            int lab = 0;
             String query = "SELECT * FROM USERS Where USERNAME = ?";
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement s = conn.prepareStatement(query);
             s.setString(1, (String) usersDropDown.getSelectionModel().getSelectedItem());
             ResultSet rs = s.executeQuery();
             while(rs.next()){
-                temp = rs.getInt("ACCOUNTINT");
+                //temp = rs.getInt("ACCOUNTINT");
+                san = rs.getInt("isSan");
+                interp = rs.getInt("isInterp");
+                it = rs.getInt("isIT");
+                av = rs.getInt("isAV");
+                gift = rs.getInt("isGift");
+                flor = rs.getInt("isFlor");
+                ext = rs.getInt("isExt");
+                internal = rs.getInt("isInt");
+                rel = rs.getInt("isRel");
+                sec = rs.getInt("isSec");
+                pre = rs.getInt("isPer");
+                lab = rs.getInt("isLab");
             }
-            System.out.println(temp);
+            //System.out.println(temp);
             System.out.println((String) usersDropDown.getSelectionModel().getSelectedItem());
             System.out.println(getRequestFromTable("incomplete"));
-            if (getRequestFromTable("incomplete").equals("sanitation") && temp == 2 || User.getPrivilege() != 100)
+            if (getRequestFromTable("incomplete").equals("sanitation") && san == 0 /*|| User.getPrivilege() != 100*/)
                 fulfill.setDisable(true);
-            else if (getRequestFromTable("incomplete").equals("interpreter") && temp == 1 || User.getPrivilege() != 100)
+            else if (getRequestFromTable("incomplete").equals("interpreter") && interp == 0 /*|| User.getPrivilege() != 100*/)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("it") && it == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("av") && av == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("gift") && gift == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("flowers") && flor == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("external") && ext == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("internal") && internal == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("religion") && rel == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("security") && sec == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("prescriptions") && pre == 0)
+                fulfill.setDisable(true);
+            else if(getRequestFromTable("incomplete").equals("laboratory") && lab == 0)
                 fulfill.setDisable(true);
             else if (usersDropDown.getSelectionModel().getSelectedItem() == null){
                 fulfill.setDisable(true);
@@ -296,7 +343,8 @@ public class ServiceRequestsList {
         if (requestsInProgress.getFocusModel().getFocusedIndex() == -1) return;
 
         try {
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query1);
             stmt.setString(1, this.getIdFromTable("incomplete"));
             stmt.executeUpdate();
@@ -448,7 +496,8 @@ public class ServiceRequestsList {
         }
 
         try {
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             //Store the results we get in the entry list display table
@@ -469,7 +518,8 @@ public class ServiceRequestsList {
         String filename = "RequestInProgress.csv";
         try {
             FileWriter file = new FileWriter(filename);
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             String query = "select * from REQUESTINPROGRESS";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -512,7 +562,8 @@ public class ServiceRequestsList {
         String filename = "CompletedRequests.csv";
         try {
             FileWriter file = new FileWriter(filename);
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             String query = "select * from REQUESTLOG";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -547,7 +598,7 @@ public class ServiceRequestsList {
 
     private void initWithType(int index) {
 
-        String identifiers[] = new String[]{"all", "sanitation", "interpreter", "it", "av", "gift", "flowers", "internal", "external", "religion", "security", "prescriptions", "laboratory"};
+        String identifiers[] = new String[]{"sanitation", "interpreter", "it", "av", "gift", "flowers", "internal", "external", "religion", "security", "prescriptions", "laboratory"};
         String identifier = identifiers[index];
 
         try {
@@ -664,7 +715,8 @@ public class ServiceRequestsList {
         fulfill.setDisable(true);
         ObservableList<String> uDropDown = FXCollections.observableArrayList();
         try {
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             String query = "SELECT * From USERS";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -675,6 +727,8 @@ public class ServiceRequestsList {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        FXCollections.sort(uDropDown); // sorts the dropdown list of users alphabetically
 
         usersDropDown.setItems(uDropDown);
         usersDropDown.setOnAction((e) -> {
@@ -689,10 +743,10 @@ public class ServiceRequestsList {
 
         ObservableList<String> dropdownList = FXCollections.observableArrayList();
         ;
-        dropdownList.setAll("All", "Sanitation", "Interpreter", "IT Service", "AV Service", "Gift Shop", "Florist", "Internal Transport", "External Transport", "Religious", "Security", "Prescriptions", "Lab test");
+        dropdownList.setAll("Sanitation", "Interpreter", "IT Service", "AV Service", "Gift Shop", "Florist", "Internal Transport", "External Transport", "Religious", "Security", "Prescriptions", "Lab test");
 
         dropdown.setItems(dropdownList);
-        dropdown.getSelectionModel().select("All");
+        dropdown.getSelectionModel().select("Sanitation");
 
         dropdown.setOnAction((e) -> {
             currentTab = dropdown.getSelectionModel().getSelectedIndex();

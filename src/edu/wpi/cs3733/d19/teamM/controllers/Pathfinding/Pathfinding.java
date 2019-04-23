@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamM.controllers.Pathfinding;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.*;
 import java.text.DateFormat;
@@ -25,8 +26,10 @@ import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.*;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Path;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -36,19 +39,25 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -57,6 +66,8 @@ import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
 
 import externalLibraries.Arrow.*;
+import org.w3c.dom.css.Rect;
+import sun.font.TextLabel;
 
 import javax.swing.*;
 
@@ -77,7 +88,8 @@ public class Pathfinding {
 
     ArrayList<Button> clearNodes = new ArrayList<Button>();
     ArrayList<Line> lines = new ArrayList<Line>();
-    ArrayList<Arrow> arrows = new ArrayList<Arrow>();
+    ArrayList<Rectangle> arrows = new ArrayList<Rectangle>();
+
 
     //Get the FXML objects to be linked
     @FXML
@@ -164,40 +176,157 @@ public class Pathfinding {
     @FXML
     private Button navButton;
 
+    @FXML
+    private Button showDir;
+
+    @FXML
+    private Button sendRobotButton;
+
+    @FXML
+    private TitledPane filters;
+
+    @FXML
+    private Button textToSpeech;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
      */
     @FXML
     protected void initialize() throws Exception {
+        textToSpeech.setText("SPEAK DIRECTIONS");
+        //scheduling.setVisible(false);
+        filters.setExpanded(false);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
+        sendRobotButton.setDisable(true);
+
         gesturePane.setContent(mappingStuff);
 
+        graph = Floor.getFloor();
+        path = new Path();
+        util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues, false, null, null);
+        setUpListeners();
+        util.initialize();
+        floorLabel.setText(util.getFloorLabel());
 
-        //userText.setText("");
+//        hearDir.setDisable(true);
+        showDir.setDisable(true);
+        showDir.setText("NO DIRECTIONS");
 
-        new Thread(() -> {
-            try{
-                graph = Floor.getFloor();
-                path = new Path();
-                util = new MapUtils(buttonContainer, imageView, image, overlayImage, zoomSlider, this::setValues, this::clickValues, false, null, null);
-                setUpListeners();
-                util.initialize();
-                floorLabel.setText(util.getFloorLabel());
+        loadDirectory();
 
-                loadDirectory();
+        chooseNav();
+    }
+    Image imageBox;
+    ImageView imageBoxView;
+    VBox dialogBoxVbox;
+    Label tf = new Label();
 
-                chooseNav();
-            }catch(Exception e){
+    Button buttonBox;
+    File pathFile = new File("resource.txt");
+    Scanner directionsScanner;
+     Stage dialogBox;
+
+
+
+    @FXML
+    private void showText(){
+
+        {
+            try {
+                directionsScanner = new Scanner(pathFile);
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        }
+         dialogBox = new Stage();
+        tf.setTextAlignment(TextAlignment.CENTER);
+        Font myFont = new Font("Open Sans",20);
 
-        }).start();
+        tf.setFont(myFont);
+        directionsScanner.nextLine();
+        //TODO: Create the VBOX
+        //TODO: Get the text directions
+        //TODO: For each set of text directions
+            //TODO: Set the image and the text and the next button
+        dialogBox.initModality(Modality.APPLICATION_MODAL);
+        dialogBox.initOwner(Main.getStage());
 
-        System.out.println("Finished pathfinding");
+        dialogBoxVbox = new VBox(20);
+        buttonBox = new Button();
+        buttonBox.setText("NEXT DIRECTION");
+        imageBox = new Image("resources/icons/street_view.png");
+        imageBoxView = new ImageView();
+        imageBoxView.setImage(imageBox);
+        tf.setWrapText(true);
+        tf.setText(directionsScanner.nextLine());
+        tf.setPrefSize(400,200);
+        dialogBoxVbox.getChildren().add(imageBoxView);
+        dialogBoxVbox.setAlignment(Pos.CENTER);
+        dialogBoxVbox.getChildren().add(tf);
+        dialogBoxVbox.getChildren().add(buttonBox);
+        buttonBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                updateBox();
+            }
+        });
+        Scene dialogScene = new Scene(dialogBoxVbox, 450, 600);
+        dialogBox.setScene(dialogScene);
+        dialogBox.setTitle("Text Directions");
+        dialogBox.show();
+    }
 
+    private void updateBox()
+    {
+
+        String line = directionsScanner.nextLine();
+        if(line.isEmpty())
+        {
+            updateBox();
+        }
+        else
+        {
+            if(line.toLowerCase().contains("straight"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/circled_straight.png"));
+
+            }
+            else if(line.toLowerCase().contains("right"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/circled_right.png"));
+
+            }
+            else if(line.toLowerCase().contains("left"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/circled_left.png"));
+
+            }
+            else if(line.toLowerCase().contains("stair"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/stairs.png"));
+            }
+            else if(line.toLowerCase().contains("elevator"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/elevator.png"));
+            }
+
+            tf.setText(line);
+
+            if(line.toUpperCase().contains("ARRIVE") && !line.toUpperCase().contains("ELEVATOR") && !line.toUpperCase().contains("STAIR"))
+            {
+                imageBoxView.setImage(new Image("resources/icons/arrived.png"));
+                buttonBox.setText("CLOSE");
+                buttonBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        dialogBox.close();
+                    }
+                });
+            }
+        }
     }
 
     private void loadDirectory(){
@@ -205,7 +334,8 @@ public class Pathfinding {
 
         for (Node n : graph.getNodes().values()){
             if(!n.getNodeType().equals("HALL")){
-                nodeList.add(n.getLongName());
+                String nodeName = n.getLongName();
+                nodeList.add("["+n.getFloor()+"] "+n.getLongName()+" \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<"+n.getId()+">");
             }
         }
 
@@ -213,21 +343,34 @@ public class Pathfinding {
 
         directoryList.setItems(nodeList);
         directoryList.setEditable(false);
+        directoryList.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
+            @Override
+            public void handle(ScrollEvent event) {
+                if (event.getDeltaX() != 0) {
+                    event.consume();
+                }
+            }
+        });
         directoryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){
                 // Your action here
-                String nodeId = null;
-                for (Node n : graph.getNodes().values()){
-                    if(n.getLongName().equals(newValue)){
-                        nodeId = n.getId();
-                    }
-                }
+                String nodeId = newValue.split("<")[1].replace(">","");
 
                 if(nodeId != null){
+                    Floor graph = Floor.getFloor();
                     if(startText.getText().length() == 0){
                         startText.setText(nodeId);
+                        for(Node n : graph.getNodes().values()){
+                            if(n.getId().equals(startText.getText())){
+                                System.out.println("found it!");
+                                try {
+                                        String floor = n.getFloor();
+                                        util.setFloor(floor);
+                                }catch (Exception e){}
+                            }
+                        }
                         endText.requestFocus();
                     }else{
                         endText.setText(nodeId);
@@ -257,12 +400,27 @@ public class Pathfinding {
         dirButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
     }
 
+    //A global int to keep track of whether the thing is speaking or not
+    TextSpeech textSpeech = new TextSpeech();
+    MediaPlayer player = textSpeech.getMediaPlayer();
+
 
     @FXML
-    private void speakDirections(){
-        TextSpeech textSpeech = new TextSpeech();
-        textSpeech.speakToUser();
+    private void handleSpeaking(){
+        player.setOnEndOfMedia(() -> {
+            textSpeech.quitSpeaking();
+            textToSpeech.setText("SPEAK DIRECTIONS");
+        });
+        if(textToSpeech.getText().equals("SPEAK DIRECTIONS") && showDir.getText().equals("TEXT DIRECTIONS")){
+            textToSpeech.setText("CANCEL SPEAKING");
+            textSpeech.speakToUser();
+        }
+        else{
+            textSpeech.quitSpeaking();
+            textToSpeech.setText("SPEAK DIRECTIONS");
+        }
     }
+
 
     private void clickValues(MouseEvent evt){}
 
@@ -272,7 +430,29 @@ public class Pathfinding {
      */
     @FXML
     private void navigateToHome() throws Exception{
+        filters.setExpanded(false);
+       // scheduling.setVisible(false);
+        lines.forEach(node -> util.buttonPane.getChildren().remove(node));
+        arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
+        clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
+        util = null;
         Main.setScene("home");
+        if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
+            handleSpeaking();
+        }
+    }
+
+    @FXML
+    private void navigateToScheduling() throws Exception{
+        filters.setExpanded(false);
+        //scheduling.setVisible(false);
+        lines.forEach(node -> util.buttonPane.getChildren().remove(node));
+        arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
+        clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
+        Main.setScene("scheduling");
+        if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
+            handleSpeaking();
+        }
     }
 
     @FXML
@@ -359,34 +539,59 @@ public class Pathfinding {
         floorLabel.setText(util.getFloorLabel());
         PathToString.getDirections(path);
 
+        if (path != null){
+            showDir.setDisable(false);
+            showDir.setText("TEXT DIRECTIONS");
+        }
+
         updateMap(null, null);
         resetTextBox();
     }
 
 
 
-
-
-
     private void findPath() throws Exception{
+        //SocketClient s = new SocketClient();
         //Get path
-        String start = startText.getText();
+        String start = startText.getText();//start.indexOf(" on Floor: ")
         String end = endText.getText();
         Node startNode = graph.getNodes().get(start);
         Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
         PathToString.getDirections(path);
+
         util.setFloor(path.getFinalPath().get(0).getFloor());
         floorLabel.setText(util.getFloorLabel());
-
+        if (path != null){
+            showDir.setDisable(false);
+            sendRobotButton.setDisable(false);
+            showDir.setText("TEXT DIRECTIONS");
+        }
         resetTextBox();
         updateMap(null,null);
     }
 
+    @FXML
+    void sendRobot(){
+        Runnable robotThread = () -> {
+            try {
+                SocketClient s = new SocketClient();
+                s.toConnString(PathToString.pathToInstructions(path));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        };
+        new Thread(robotThread).start();
+    }
+
     private void findPathWithLongNames() throws Exception{
 
-        String start = startText.getText();
-        String end = endText.getText();
+        String startPre = startText.getText();
+        String start = startPre.substring(0,startPre.indexOf(" on Floor: "));
+        String endPre = endText.getText();
+        String end = endPre.substring(0,endPre.indexOf(" on Floor: "));
+
         Node startNode = null;
         Node endNode = null;
 
@@ -412,6 +617,11 @@ public class Pathfinding {
         floorLabel.setText(util.getFloorLabel());
 
         System.out.println("Seeing util floor as "+util.floor);
+
+        if (path != null){
+            showDir.setDisable(false);
+            showDir.setText("TEXT DIRECTIONS");
+        }
 
         updateMap(null,null);
         resetTextBox();
@@ -488,7 +698,7 @@ public class Pathfinding {
         {
             if(!node.getNodeType().equals("HALL"))
             {
-                longNames.add(node.getLongName());
+                longNames.add(node.getLongName() + " on Floor: " + node.getFloor());
             }
         }
         startText.textProperty().addListener((ov, oldValue, newValue) -> {
@@ -532,14 +742,24 @@ public class Pathfinding {
     public void moveUp(ActionEvent value) throws Exception{
         util.moveUp();
         floorLabel.setText(util.getFloorLabel());
-
+        /*if(floorLabel.getText().equals("Floor Four")){
+            scheduling.setVisible(true);
+        }
+        else{
+            scheduling.setVisible(false);
+        }*/
         updateMap(null,null);
     }
 
     public void moveDown(ActionEvent value) throws Exception{
         util.moveDown();
         floorLabel.setText(util.getFloorLabel());
-
+        if(floorLabel.getText().equals("Floor Four")){
+            //scheduling.setVisible(true);
+        }
+        else{
+            //scheduling.setVisible(false);
+        }
         updateMap(null,null);
     }
 
@@ -547,28 +767,116 @@ public class Pathfinding {
         return new Button();
     }
 
+    ArrayList<Timeline> clocks = new ArrayList<Timeline>();
+
+    private void travelPath(Rectangle traveller, ArrayList<MapPoint> points, int index, int clockIndex){
+
+        if(index > points.size()-1){
+            clocks.get(clockIndex).stop();
+            traveller.setX(points.get(0).x);
+            traveller.setY(points.get(0).y);
+            this.travelPath(traveller, points, 0, clockIndex);
+            return;
+        }
+
+        double finalX = points.get(index).x;
+        double finalY = points.get(index).y;
+        if(clockIndex > clocks.size()-1){
+            clocks.add(new Timeline());
+        }
+        clocks.set(clockIndex, new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+            double currentX = traveller.getX();
+            double currentY = traveller.getY();
+
+            if((int)currentX == (int)finalX && (int)currentY == (int)finalY){
+                if(clockIndex < clocks.size()){
+                    clocks.get(clockIndex).stop();
+                }
+                travelPath(traveller, points, index+1, clockIndex);
+                return;
+            }
+            if(currentX < finalX){
+                traveller.setX(currentX+0.01);
+            }
+            if(currentX > finalX){
+                traveller.setX(currentX-0.01);
+            }
+
+            if(currentY < finalY){
+                traveller.setY(currentY+0.01);
+            }
+            if(currentY > finalY){
+                traveller.setY(currentY-0.01);
+            }
+
+            traveller.setTranslateX(-traveller.getWidth()/2);
+            traveller.setTranslateY(-traveller.getHeight()/2);
+        }), new KeyFrame(Duration.seconds(0.0005))));
+
+        clocks.get(clockIndex).setCycleCount(Animation.INDEFINITE);
+        clocks.get(clockIndex).play();
+    }
+
+    private void zoomToPath(Node startN, Node endN){
+        double startX = startN.getX();
+        double startY = startN.getY();
+
+        double endX = endN.getX();
+        double endY = endN.getY();
+
+        double newXRaw = startN.getX() - ((startN.getX()-endN.getX()) / 2);
+        double newYRaw = startN.getY() - ((startN.getY()-endN.getY()) / 2);
+
+        double deltaX = Math.abs((startN.getX()-endN.getX()) / 2);
+        double deltaY = Math.abs((startN.getY()-endN.getY()) / 2);
+
+        gesturePane.reset();
+        double scale = deltaX > deltaY ? gesturePane.getWidth() / deltaX : gesturePane.getHeight() / deltaY;
+        MapPoint p = util.scalePoints((int)newXRaw,(int)newYRaw);
+        gesturePane.zoomBy(scale * 0.8, new Point2D(p.x, p.y));
+    }
+
     private void updateMap(Node startNode, Node endNode) throws Exception{
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
 
+        clocks.forEach(clock -> {
+            clock.stop();
+        });
+
+        clocks.removeAll(clocks);
+
         List<Path> floorPaths = path.getSpecificPath(util.getCurrentFloorID());
         List<Path> allPaths = path.getFloorPaths();
 
         if (floorPaths != null){
-            floorPaths.forEach(path -> {
+            int clockIndex = 0;
+            for(Path path : floorPaths){
                 List<Node> nodes = path.getPath();
 
+                //lol
+                final javafx.scene.shape.Path travellerPath = new javafx.scene.shape.Path();
+
                 for(int i=0;i<nodes.size()-1;i++){
+
                     MapPoint start = util.scalePoints(nodes.get(i).getX(), nodes.get(i).getY());
                     MapPoint end = util.scalePoints(nodes.get(i+1).getX(), nodes.get(i+1).getY());
+
+                    if(i == 0){
+                        travellerPath.getElements().add(new MoveTo(start.x, start.y));
+                    }
+
+                    travellerPath.getElements().add(new LineTo(end.x, end.y));
+
                     Line line = new Line();
                     line.setStartX(start.x);
                     line.setStartY(start.y);
 
                     line.setEndX(end.x);
                     line.setEndY(end.y);
-                    line.setStrokeWidth(4);
+                    line.setStrokeWidth(2);
 
                     line.setStroke(Color.valueOf("#012d5a"));
 
@@ -577,15 +885,56 @@ public class Pathfinding {
 
                     Arrow arrow = new Arrow(start.x, start.y, end.x, end.y, 4);
                     arrow.setFill(Color.valueOf("#f6bd38"));
-                    util.buttonPane.getChildren().add(line);
-                    util.buttonPane.getChildren().add(arrow);
+                    //util.buttonPane.getChildren().add(line);
                     arrow.setScaleX(0.5);
                     arrow.setScaleY(0.5);
                     line.setStyle("-fx-border-radius:5px");
                     lines.add(line);
-                    arrows.add(arrow);
                 }
-            });
+
+                for(int i=0;i<travellerPath.getElements().size();i++){
+                    //System.out.println("("+((LineTo)travellerPath.getElements().get(i)).getX()+","+((LineTo)travellerPath.getElements().get(i)).getY()+")");
+                }
+
+                Rectangle traveller = new Rectangle();
+
+                if(travellerPath.getElements().size() != 0){
+
+                    traveller.setX(((MoveTo)travellerPath.getElements().get(0)).getX());
+                    traveller.setY(((MoveTo)travellerPath.getElements().get(0)).getY());
+                    traveller.setWidth(10);
+                    traveller.setHeight(10);
+                    System.out.println("Generate!");
+                    traveller.setFill(Color.web("#f6bd38"));
+                    traveller.setStroke(Color.web("#012d5a"));
+                    travellerPath.setOpacity(1);
+                    travellerPath.setStrokeWidth(3);
+                    traveller.setStrokeWidth(1);
+                    util.buttonPane.getChildren().add(travellerPath);
+                    util.buttonPane.getChildren().add(traveller);
+                    arrows.add(traveller);
+                    traveller.toFront();
+                    traveller.setArcHeight(999);
+                    traveller.setArcWidth(999);
+
+                    final PathTransition pathTransition = new PathTransition();
+
+                    pathTransition.setDuration(Duration.seconds(travellerPath.getElements().size()/2));
+                    pathTransition.setDelay(Duration.seconds(0));
+                    pathTransition.setPath(travellerPath);
+                    pathTransition.setNode(traveller);
+                    pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+                    pathTransition.setCycleCount(Timeline.INDEFINITE);
+                    pathTransition.setAutoReverse(false);
+                    pathTransition.play();
+
+                    clockIndex++;
+                }
+
+                travellerPath.toFront();
+                traveller.toFront();
+
+            }
         }
         else {
             overlayImage.setImage(null);
@@ -593,24 +942,13 @@ public class Pathfinding {
 
         arrows.forEach(node -> node.toFront());
         util.nodes.forEach(node -> {
-            System.out.println(node.getId());
             node.toFront();
         });
 
         if(startNode != null && endNode != null){
             //We zoomin boys
 
-            double startX = startNode.getX();
-            double startY = startNode.getY();
-
-            double endX = endNode.getX();
-            double endY = endNode.getY();
-
-            int newXRaw = startNode.getX()+(Math.abs(startNode.getX()-endNode.getX())/2);
-            int newYRaw = startNode.getY()+(Math.abs(startNode.getY()-endNode.getY())/2);
-
-            MapPoint scale = util.scalePoints((int)startX,(int)startY);
-            gesturePane.zoomTo(5, new Point2D(scale.x, scale.y));
+            zoomToPath(startNode, endNode);
 
         }
 
@@ -651,7 +989,7 @@ public class Pathfinding {
                 clearNodes.add(startChangeButton);
             }
 
-            if(start.getId().equals(end.getId())) return;
+            //if(start.getId().equals(end.getId())) return;
             //ELEV or STAI
 
             String startNodeType = end.getNodeType();
@@ -689,7 +1027,7 @@ public class Pathfinding {
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
-                    if (nextFloor == 6) nextFloor = 4;
+                    //if (nextFloor == 6) nextFloor = 4;
                     final int nf = nextFloor;
                     final Node ns = nextFloorStart;
                     final Node ne = nextFloorEnd;
@@ -738,7 +1076,7 @@ public class Pathfinding {
                     startChangeButton.setOnMouseEntered((ov) -> {startChangeButton.setOpacity(1);});
                     startChangeButton.setOnMouseExited((ov) -> {startChangeButton.setOpacity(0.5);});
 
-                    if (nextFloor == 6) nextFloor = 4;
+                    //if (nextFloor == 6) nextFloor = 4;
                     final int nf = nextFloor;
 
                     startChangeButton.setOnAction(evt -> {
@@ -767,7 +1105,11 @@ public class Pathfinding {
      */
     @FXML
     public void logout() throws Exception{
+        util = null;
         Main.logOut();
+        if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
+            handleSpeaking();
+        }
     }
 
     private boolean checkValidLongNameInput(){

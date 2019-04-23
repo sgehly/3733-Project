@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ExternalTransportRequest">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ExternalTransportRequest">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -114,6 +114,9 @@
                                        <image>
                                           <Image url="@../../../../../../../resources/icons/external.png" />
                                        </image>
+                                        <VBox.margin>
+                                            <Insets top="40.0" />
+                                        </VBox.margin>
                                     </ImageView>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="External Transport - Completed by Bridget">
                                        <VBox.margin>
@@ -132,13 +135,88 @@
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Vehicle:" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Vehicle:">
+                                             <HBox.margin>
+                                                <Insets left="150.0" />
+                                             </HBox.margin></Text>
                                           <JFXTextField fx:id="vehicle" styleClass="lightInput">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin>
                                           </JFXTextField>
+                                          <Button fx:id="clrBtn" maxHeight="-Infinity" maxWidth="300.0" mnemonicParsing="false" onAction="#handleClear" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 18;" styleClass="blackButton" stylesheets="@../../../../../../../resources/stylesheet.css" text="CLEAR">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Button>
                                        </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <Button fx:id="ambulance" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleETShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Ambulance">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-ambulance-128.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="helicopter" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleETShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Helicopter">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-hospital-helicopter-512.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="shuttle" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleETShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Shuttle">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-shuttle-512.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="taxi" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleETShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Taxi">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-taxi-512.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="valet" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleETShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Valet">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-valet-96.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
@@ -177,7 +255,7 @@
                                           </Button>
                                        </children>
                                        <VBox.margin>
-                                          <Insets top="20.0" />
+                                          <Insets bottom="40.0" top="20.0" />
                                        </VBox.margin>
                                     </HBox>
                                  </children>

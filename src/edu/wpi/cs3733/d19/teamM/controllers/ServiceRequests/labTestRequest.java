@@ -107,11 +107,12 @@ public class labTestRequest implements Initializable {
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query = "select * FROM users Where ACCOUNTINT = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        String query = "select * FROM users Where isLab = ?";
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+        Connection conn = DBUtils.getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 9);
+            s.setInt(1, 1);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));

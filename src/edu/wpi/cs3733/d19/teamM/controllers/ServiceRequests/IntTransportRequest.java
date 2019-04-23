@@ -10,10 +10,13 @@ import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,7 +28,6 @@ public class IntTransportRequest {
      * This method is for the logout button which allows the user to go back to the welcome screen
      * @throws Exception: Any exception that is encountered
      */
-
 
     @FXML
     private Text userText;
@@ -55,6 +57,22 @@ public class IntTransportRequest {
     private Label lblDate;
 
     @FXML
+    private Button clrBtn;
+
+    @FXML
+    private Button crutches;
+    @FXML
+    private Button moveBeds;
+    @FXML
+    private Button stretcher;
+    @FXML
+    private Button walker;
+    @FXML
+    private Button wheelchair;
+
+    String[] intTrans = {"Stretcher","Wheelchair","Rascal Scooter","Moveable Beds","Hospital Trolley","Walker","Crutches","Cane"};
+
+    @FXML
     public void logout() throws Exception {
         Main.setScene("welcome");
     }
@@ -71,6 +89,28 @@ public class IntTransportRequest {
     @FXML
     private void goToServiceRequestsList() throws Exception {
         Main.setScene("serviceRequests");
+    }
+
+    @FXML
+    public void handleClear(ActionEvent event) {
+        if(event.getSource() == clrBtn) {
+            modeTransport.setText("");
+        }
+    }
+
+    @FXML
+    public void handleIntTransShortcuts(ActionEvent event) {
+        if(event.getSource() == crutches) {
+            modeTransport.setText(crutches.getText());
+        } else if(event.getSource() == moveBeds) {
+            modeTransport.setText(moveBeds.getText());
+        } else if(event.getSource() == stretcher) {
+            modeTransport.setText(stretcher.getText());
+        } else if(event.getSource() == walker) {
+            modeTransport.setText(walker.getText());
+        } else if(event.getSource() == wheelchair) {
+            modeTransport.setText(wheelchair.getText());
+        }
     }
 
     @FXML
@@ -104,11 +144,12 @@ public class IntTransportRequest {
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query = "select * FROM users Where ACCOUNTINT = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        String query = "select * FROM users Where isInt = ?";
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+        Connection conn = DBUtils.getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 7);
+            s.setInt(1, 1);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));
@@ -123,9 +164,7 @@ public class IntTransportRequest {
             e.printStackTrace();
         }
 
-        //userText.setText("");
+        TextFields.bindAutoCompletion(modeTransport, intTrans);
+
     }
-
-
-
 }

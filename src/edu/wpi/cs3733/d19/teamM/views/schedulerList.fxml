@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.calendarfx.view.page.DayPage?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import com.calendarfx.view.CalendarView?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Scheduler.SchedulerList">
     <children>
@@ -90,41 +98,28 @@
                                 <Insets left="50.0" right="50.0" top="20.0" />
                             </VBox.margin>
                         </HBox>
-                        <VBox prefHeight="200.0" prefWidth="1910.0" scaleX="0.9" scaleY="0.9" styleClass="pane" VBox.vgrow="ALWAYS">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                            <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <JFXComboBox fx:id="roomDropDown" onAction="#updateTable" prefHeight="50.0" prefWidth="300.0" promptText="Select Room " />
-                              <JFXComboBox fx:id="dateDropDown" onAction="#updateTable" prefHeight="50.0" prefWidth="300.0" promptText="Select Date ">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </JFXComboBox>
-                              <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                           </children>
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets top="15.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <TableView fx:id="BookedRooms" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                          <columns>
-                              <TableColumn fx:id="roomName" maxWidth="752.8181056976318" minWidth="50.0" prefWidth="469.0" text="ROOM NAME" />
-                                <TableColumn fx:id="roomType" minWidth="0.0" prefWidth="469.0" text="TYPE" />
-                              <TableColumn fx:id="startTime" minWidth="200.0" prefWidth="469.0" text="START TIME" />
-                                <TableColumn fx:id="endTime" minWidth="0.0" prefWidth="469.0" text="END TIME" />
-                          </columns>
-                           <VBox.margin>
-                              <Insets left="20.0" right="20.0" />
-                           </VBox.margin>
-                        </TableView>
-                            </children>
-                        </VBox>
+                  <HBox prefHeight="987.0" prefWidth="1920.0">
+                     <children>
+                        <StackPane prefHeight="974.0" prefWidth="2000.0" />
+                         <children>
+                             <BorderPane >
+                                 <top>
+                                     <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
+                                         <menus>
+                                             <Menu fx:id="homeButton" mnemonicParsing="false">
+                                                 <items>
+                                                     <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#navigateBack" text="HOME" />
+                                                 </items>
+                                             </Menu>
+                                         </menus>
+                                     </MenuBar>
+                                 </top>
+                                 <center>
+                                     <CalendarView fx:id="calendar" prefHeight="-Infinity" prefWidth="-Infinity" maxHeight="900.0" maxWidth="1300.0" minHeight="200.0" minWidth="300.0" pickOnBounds="true" BorderPane.alignment="TOP_LEFT" />
+                                 </center>
+                             </BorderPane>
+                     </children>
+                  </HBox>
                     </children>
                 </VBox>
             </children>

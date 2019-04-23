@@ -1,26 +1,27 @@
 
-<<<Directions for floor 1>>>
+Directions for floor 1
 
-Start at Asthma Research Floor 1, move towards Staircase MapNode 13 Floor 1
-At Staircase MapNode 13 Floor 1, take a slight right turn
-Arrive at Stairway MapNode 5 Floor 1
-<<<Directions for floor 2>>>
-
-Start at Stairs Node 28 Floor 2, move towards Hall Node 32 Floor 2
-At Hall Node 32 Floor 2, remain straight
-At Hall Node 33 Floor 2, remain straight
-At Hall Node 37 Floor 2, remain straight
-At Hallway Connector 9 Floor 2, remain straight
-At Hallway Connector 10 Floor 2, remain straight
-At Hall, take a right turn
-At Hall, take a left turn
-Arrive at Stairs Floor 2
-<<<Directions for floor 1>>>
-
-Start at Cafe Stairs, move towards Hall
-At Hall, take a left turn
-At Hall, take a right turn
-At Hall, remain straight
-At Hall, take a left turn
-At Hall, take a left turn
-Arrive at MS Waiting
+Start at Ocupational Health Floor 1, move towards Wound and Ambulatory 1.
+In 47 feet, at Wound and Ambulatory 1, remain straight.
+In 8 feet, at Hallway Node 17 Floor 1, remain straight.
+In 4 feet, at Elevator G Floor 1, take a slight left turn.
+In 5 feet, at Hallway Node 16 Floor 1, take a slight right turn.
+In 79 feet, at Hallway Node 14 Floor 1, remain straight.
+In 22 feet, at Hallway Node 13 Floor 1, remain straight.
+In 8 feet, at Hallway Node 9 Floor 1, remain straight.
+In 42 feet, at Hallway Node 7 Floor 1, remain straight.
+In 25 feet, at Hallway Node 6 Floor 1, remain straight.
+In 32 feet, at Hallway Node 4 Floor 1, remain straight.
+In 5 feet, at Hallway Node 3 Floor 1, remain straight.
+In 11 feet, at Hallway Node 2 Floor 1, remain straight.
+In 17 feet, at Hallway Node 1 Floor 1, remain straight.
+In 5 feet, at Staircase K1 Floor 1, remain straight.
+In 5 feet, at Hallway Connector 2 Floor 1, remain straight.
+In 35 feet, at Hallway Connector 1 Floor 1, remain straight.
+In 9 feet, at Lower Pike Hallway Exit Lobby, remain straight.
+In 22 feet, at Lobby Shattuck Street, take a left turn.
+In 89 feet, at Lobby Hallway 6, remain straight.
+In 13 feet, at Lobby Hallway 4, take a left turn.
+In 14 feet, at Lobby Hallway 7, take a right turn.
+In 21 feet, at Emergency Hallway, take a left turn.
+Arrive at Emergency Department Entrance

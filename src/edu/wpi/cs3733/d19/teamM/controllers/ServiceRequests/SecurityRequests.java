@@ -8,11 +8,14 @@ import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import org.controlsfx.control.textfield.TextFields;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +25,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class SecurityRequests {
-
 
     //Text field for room location input
     @FXML
@@ -53,6 +55,22 @@ public class SecurityRequests {
     @FXML
     private ListView listEmployees;
 
+    String[] security = {"Intruder","Fight","Unruly Patient","Weapons Sighting","CODE ADAM","Lost Patient"};
+
+    @FXML
+    private javafx.scene.control.Button clrBtn;
+
+    @FXML
+    private javafx.scene.control.Button fight;
+    @FXML
+    private javafx.scene.control.Button intruder;
+    @FXML
+    private javafx.scene.control.Button lostPatient;
+    @FXML
+    private javafx.scene.control.Button unrulyPatient;
+    @FXML
+    private Button weapons;
+
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
      * @throws Exception: Any exception that is encountered
@@ -69,6 +87,28 @@ public class SecurityRequests {
     @FXML
     private void navigateBack() throws Exception {
         Main.setScene("serviceRequests");
+    }
+
+    @FXML
+    public void handleClear(ActionEvent event) {
+        if(event.getSource() == clrBtn) {
+            type.setText("");
+        }
+    }
+
+    @FXML
+    public void handleSecurityShortcuts(ActionEvent event) {
+        if(event.getSource() == fight) {
+            type.setText(fight.getText());
+        } else if(event.getSource() == intruder) {
+            type.setText(intruder.getText());
+        } else if(event.getSource() == lostPatient) {
+            type.setText(lostPatient.getText());
+        } else if(event.getSource() == unrulyPatient) {
+            type.setText(unrulyPatient.getText());
+        } else if(event.getSource() == weapons) {
+            type.setText(weapons.getText());
+        }
     }
 
     public void makeSecurityRequest() throws IOException {
@@ -102,11 +142,12 @@ public class SecurityRequests {
         userText.setText(User.getUsername());
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query = "select * FROM users Where ACCOUNTINT = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        String query = "select * FROM users Where isSec = ?";
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+        Connection conn = DBUtils.getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 4);
+            s.setInt(1, 1);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));
@@ -121,8 +162,8 @@ public class SecurityRequests {
             e.printStackTrace();
         }
 
+        TextFields.bindAutoCompletion(type, security);
 
-        //userText.setText("");
     }
 
 }

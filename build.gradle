@@ -47,6 +47,21 @@ dependencies {
     implementation 'com.sendgrid:sendgrid-java:1.1.0'
     implementation group: 'com.twilio.sdk', name: 'twilio', version: '7.37.0'
 
+    compile 'com.github.yp2211:gTTS4j:master-SNAPSHOT'
+
+    implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
+    implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
+    implementation group: 'com.google.cloud', name: 'google-cloud-texttospeech', version: '0.80.0-beta'
+    implementation group: 'net.sourceforge.argparse4j', name: 'argparse4j', version: '0.8.1'
+    implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+    implementation 'com.jfoenix:jfoenix:8.0.8' // Java 8
+    implementation group: 'org.twitter4j', name: 'twitter4j-core', version: '[4.0,)'
+    //4.0.8-SNAPSHOT (Other possible version thing)
+    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
+    compile group: 'net.sf.sociaal', name: 'freetts', version: '1.2.2'
+    compile group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'
+    compile group: 'com.github.goxr3plus', name: 'java-google-speech-api', version: '8.0.0'
+//its on you jeff
     compile 'com.sendgrid:sendgrid-java:1.1.0'
     compile group: "com.twilio.sdk", name: "twilio", version: "7.37.0"
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
@@ -54,15 +69,37 @@ dependencies {
 // https://mvnrepository.com/artifact/com.github.sarxos/webcam-capture
     compile group: 'com.github.sarxos', name: 'webcam-capture', version: '0.3.4'
     compile group: 'com.github.sarxos', name: 'webcam-capture-driver-jmf', version: '0.3.11'
+
     compile group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'
 
     compile "com.gluonhq:charm-down-common:2.0.1"
     compile 'com.gluonhq:charm-down-ios:2.0.1'
     compile group: 'com.gluonhq', name: 'charm-down-core-ios', version: '3.8.6'
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+    //compile group: 'com.calendarfx', name: 'calendarfx', version: '11.5.0'
+    //compile 'com.calendarfx:calendarfx-java:11.5.0'
+//    compile(group: 'com.calendarfx', name: 'recurrence', version: '11.5.0', ext: 'jar', classifier: '')
+//    compile(group: 'com.calendarfx', name: 'view', version: '11.5.0', ext: 'jar', classifier: '')
+//    compile 'com.calendarfx:calendar:11.5.0'
+    compile group: 'com.calendarfx', name: 'view', version: '8.4.2'
+    compile group: 'com.calendarfx', name: 'recurrence', version: '8.4.2'
+    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.13'
+
+    runtime group: 'de.jensd', name: 'fontawesomefx-commons', version: '8.13'
+    compile group: 'de.jensd', name: 'fontawesomefx-fontawesome', version: '4.7.0-1'
+
+    compile group: 'com.github.goxr3plus', name: 'JavaFX-Web-Browser', version: 'V9.1.0'
 
     compile group: 'com.github.goxr3plus', name: 'java-google-speech-api', version: '8.0.0'
 
-    compile(files('Team-G-Food-Request.jar'))
+    compile group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
+    compile group: 'org.apache.derby', name: 'derbytools', version: '10.14.1.0'
+    compile group: 'com.jfoenix',name:'jfoenix',version:'8.0.8'
+
+    //compile(files('/Users/JeffHarnois/Desktop/theJar-all.jar'))
+    //compile(files('Team-G-Food-Request.jar'))
+    //compile(files('TeamLGiftRequest-1.0.0.jar'))
+
     compile 'io.ably:ably-java:1.1.0'
 
     // Use JUnit test framework

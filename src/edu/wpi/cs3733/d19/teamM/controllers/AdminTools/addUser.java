@@ -2,7 +2,11 @@ package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
 
 //import java.awt.*;
-import javafx.scene.control.CheckBox;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.*;
+
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,13 +27,12 @@ import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import javax.imageio.ImageIO;
@@ -98,6 +101,35 @@ public class addUser {
     @FXML
     private CheckBox adminButton;
 
+    @FXML
+    private Button addUserButton;
+    @FXML
+    private Button removeButton;
+    @FXML
+    private Button modifyButton;
+
+    @FXML
+    private ListView list;
+
+    @FXML
+    private VBox addUserBox;
+    @FXML
+    private VBox removeUserBox;
+    @FXML
+    private VBox modifyUserBox;
+
+    @FXML
+    private TextField username2;
+    @FXML
+    private TextField newPassword2;
+    @FXML
+    private TextField confirmPassword2;
+    @FXML
+    private TextField phoneField2;
+    @FXML
+    private Label user;
+
+
 
     private void savePhoto(){
         File f = new File("src/resources/tempPhoto.png");
@@ -106,9 +138,9 @@ public class addUser {
     }
 
     private boolean areFieldsEmpty() {
-        return username.getText() == null || username.getText().isEmpty() ||
-                newPassword.getText() == null || newPassword.getText().isEmpty() ||
-                newPassword.getText().compareTo(confirmPassword.getText()) != 0;
+        return username2.getText() == null || username2.getText().isEmpty() ||
+                newPassword2.getText() == null || newPassword2.getText().isEmpty() ||
+                newPassword2.getText().compareTo(confirmPassword2.getText()) != 0;
     }
 
     /**
@@ -172,6 +204,13 @@ public class addUser {
             return 100;
     }
 
+
+
+    private String getIdFromTable() {
+        int name = list.getFocusModel().getFocusedIndex();
+        return (String) list.getItems().get(name);
+    }
+
     private ArrayList<Integer> buildBuffer(){
         ArrayList<Integer> buffer =new ArrayList<Integer>();
         buffer.add(buttonVal(sanitationButton.isSelected()));
@@ -197,27 +236,78 @@ public class addUser {
     }
 
     @FXML
+    private void chooseAdd(){
+        user.setVisible(false);
+        addUserBox.setDisable(false);
+        modifyUserBox.setDisable(true);
+        removeUserBox.setDisable(true);
+        modifyButton.setStyle("");
+        removeButton.setStyle("");
+        removeUserBox.setMouseTransparent(true);
+        modifyUserBox.setMouseTransparent(true);
+        addUserBox.setMouseTransparent(false);
+        removeUserBox.setOpacity(0);
+        modifyUserBox.setOpacity(0);
+        addUserBox.setOpacity(1);
+        addUserButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
+    }
+
+    @FXML
+    private void chooseRemove() throws SQLException {
+        user.setVisible(false);
+        this.populateUserTable();
+        addUserBox.setDisable(true);
+        modifyUserBox.setDisable(true);
+        removeUserBox.setDisable(false);
+        modifyButton.setStyle("");
+        addUserButton.setStyle("");
+        removeUserBox.setMouseTransparent(false);
+        modifyUserBox.setMouseTransparent(true);
+        addUserBox.setMouseTransparent(true);
+        removeUserBox.setOpacity(1);
+        modifyUserBox.setOpacity(0);
+        addUserBox.setOpacity(0);
+        removeButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
+    }
+
+    @FXML
+    private void chooseModify() throws SQLException{
+        user.setVisible(false);
+        addUserBox.setDisable(true);
+        modifyUserBox.setDisable(false);
+        removeUserBox.setDisable(true);
+        addUserButton.setStyle("");
+        removeButton.setStyle("");
+        removeUserBox.setMouseTransparent(true);
+        modifyUserBox.setMouseTransparent(false);
+        addUserBox.setMouseTransparent(true);
+        removeUserBox.setOpacity(0);
+        modifyUserBox.setOpacity(1);
+        addUserBox.setOpacity(0);
+        modifyButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
+    }
+
+    @FXML
     void addUser(ActionEvent event) throws SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         try {
-            Exception e = new Exception();
-            if (areFieldsEmpty()) {
-                errorMessage.setStyle("-fx-text-inner-color: red;");
-                errorMessage.setText("Incorrect Fields/Photo");
-                throw e;
+            if (areFieldsEmpty2()) {
+ //               errorMessage.setStyle("-fx-text-inner-color: red;");
+ //               errorMessage.setText("Incorrect Fields/Photo");
             }
             String tempName = username.getText();
             String tempPhone = phoneField.getText();
             String tempPass = Encrypt.getMd5(newPassword.getText());
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement stmt1 = conn.prepareStatement("SELECT * FROM USERS WHERE USERNAME = ?");
             stmt1.setString(1,tempName);
             ResultSet rs = stmt1.executeQuery();
             if(rs.next()){
-                errorMessage.setText("User Already Exists");
-                throw e;
+//                errorMessage.setText("User Already Exists");
+
             }
 
-            String query = "INSERT INTO USERS (USERNAME, isSan, isInterp, isIT, isAV, isGift, isFlor, isExt, isInt, isRel, isSec, isPer, isLab, ACCOUNTINT, USERPASS, PATHTOPIC) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO USERS (USERNAME, isSan, isInterp, isIT, isAV, isGift, isFlor, isExt, isInt, isRel, isSec, isPer, isLab, ACCOUNTINT, USERPASS, PATHTOPIC, PHONEEMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             //isSan int, isInterp int, isIT int, isAV int, isGift int, isFlor int, isInt int, isExt int, isRel int, isSec int, isPer int, isLab int, accountInt int, userPass varchar(100) not null,pathtopic varchar(100)
             PreparedStatement stmt = conn.prepareStatement(query);
             ArrayList<Integer> buffer = buildBuffer();
@@ -237,17 +327,30 @@ public class addUser {
             stmt.setInt(14, buffer.get(12));
             stmt.setString(15, tempPass);
             stmt.setString(16, "src/resources/People_Pictures/" + tempName + ".png");
+            stmt.setString(17,tempPhone);
             savePhoto();
             stmt.execute();
             conn.close();
-            errorMessage.setStyle("-fx-text-fill: green;");
-            errorMessage.setText("User Added");
+            user.setStyle("-fx-text-fill: green;");
+            user.setText("User Added!");
+            user.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
+            user.setStyle("-fx-text-fill: red;");
+            user.setText("User not Added!");
+            user.setVisible(true);
         }
     }
+
+    private boolean areFieldsEmpty2() {
+        return username.getText() == null || username.getText().isEmpty() ||
+                newPassword.getText() == null || newPassword.getText().isEmpty() ||
+                newPassword.getText().compareTo(confirmPassword.getText()) != 0;
+    }
+
     @FXML
     void save(ActionEvent event) {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         try {
             Exception e = new Exception();
             if (areFieldsEmpty()) {
@@ -258,13 +361,14 @@ public class addUser {
                 errorMessage.setText("Cannot edit current user");
                 throw e;
             }
-            String tempName = username.getText();
-            Connection conn = new DatabaseUtils().getConnection();
-            String query = "UPDATE USERS SET isSan = ?, isInterp= ?, isIT= ?, isAV= ?, isGift= ?, isFlor= ?, isExt= ?, isInt= ?, isRel= ?, isSec= ?, isPer= ?, isLab= ?, ACCOUNTINT= ?, USERPASS= ?, PATHTOPIC= ? WHERE USERNAME = ?";
-            String tempPass = Encrypt.getMd5(newPassword.getText());
+            String tempName = username2.getText();
+            String tempPhone = phoneField2.getText();
+            Connection conn = DBUtils.getConnection();
+            String query = "UPDATE USERS SET isSan = ?, isInterp= ?, isIT= ?, isAV= ?, isGift= ?, isFlor= ?, isExt= ?, isInt= ?, isRel= ?, isSec= ?, isPer= ?, isLab= ?, ACCOUNTINT= ?, USERPASS= ?, PATHTOPIC= ?, PHONEEMAIL= ? WHERE USERNAME = ?";
+            String tempPass = Encrypt.getMd5(newPassword2.getText());
             PreparedStatement stmt = conn.prepareStatement(query);
             ArrayList<Integer> buffer = buildBuffer();
-            stmt.setString(16, tempName);
+            stmt.setString(17, tempName);
             stmt.setInt(1, buffer.get(0));
             stmt.setInt(2, buffer.get(1));
             stmt.setInt(3, buffer.get(2));
@@ -280,14 +384,21 @@ public class addUser {
             stmt.setInt(13, buffer.get(12));
             stmt.setString(14, tempPass);
             stmt.setString(15, "src/resources/People_Pictures/" + tempName + ".png");
+            stmt.setString(16,tempPhone);
             if(tempPhoto != null){
                 savePhoto();
             }
             stmt.executeUpdate();
             conn.close();
-            errorMessage.setStyle("-fx-text-fill: green");
-            errorMessage.setText("User Updated");
+            user.setStyle("-fx-text-fill: green;");
+            user.setText("User modified!");
+            user.setVisible(true);
+//            errorMessage.setStyle("-fx-text-fill: green");
+//            errorMessage.setText("User Updated");
         } catch (Exception e) {
+            user.setStyle("-fx-text-fill: red;");
+            user.setText("User not modified!");
+            user.setVisible(true);
             e.printStackTrace();
         }
     }
@@ -302,27 +413,38 @@ public class addUser {
 
     @FXML
     void navigateToHome(MouseEvent event) {
+        user.setVisible(false);
         if (webcam != null)
             webcam.close();
-        Main.setScene("adminUI");
+        Main.setScene("admin");
     }
 
     @FXML
     void removeUser(ActionEvent event) {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         try{
             Exception e = new Exception();
             if(User.getUsername().compareTo(username.getText()) == 0) {
-                errorMessage.setText("Cannot Delete Current");
+                System.out.println("Cannot Delete Current");
                 throw e;
             }
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM USERS WHERE USERNAME = ?");
-            stmt.setString(1, username.getText());
+            stmt.setString(1, this.getIdFromTable());
             stmt.execute();
             conn.close();
-            errorMessage.setText("User Deleted");
+            System.out.println("User Deleted");
+            user.setStyle("-fx-text-fill: green;");
+            user.setText("User removed!");
+            user.setVisible(true);
+            this.populateUserTable();
+//            errorMessage.setText("User Deleted");
         }
         catch (Exception e){
+            System.out.println("Error while trying to fetch all records");
+            user.setStyle("-fx-text-fill: red;");
+            user.setText("User not removed!");
+            user.setVisible(true);
             e.printStackTrace();
         }
     }
@@ -347,9 +469,20 @@ public class addUser {
     }
 
     @FXML
-    void initialize() {
+    void initialize() throws SQLException {
+        user.setVisible(false);
+        addUserBox.setDisable(false);
+        modifyUserBox.setDisable(true);
+        removeUserBox.setDisable(true);
+
+        addUserButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
+        addUserBox.setOpacity(1);
+        modifyUserBox.setOpacity(0);
+        removeUserBox.setOpacity(0);
+        this.populateUserTable();
         System.out.println("123");
         new Clock(lblClock, lblDate);
+
 
         userText.setText(User.getUsername());
 
@@ -393,5 +526,26 @@ public class addUser {
         assert imageView != null : "fx:id=\"imageView\" was not injected: check your FXML file 'addUser.fxml'.";
         assert image != null : "fx:id=\"image\" was not injected: check your FXML file 'addUser.fxml'.";
         //assert webcamPreview != null : "fx:id=\"webcamPreview\" was not injected: check your FXML file 'addUser.fxml'.";
+    }
+
+    private void populateUserTable() throws SQLException {
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+        list.setItems(null);
+        Connection conn = DBUtils.getConnection();
+        String query = "SELECT USERNAME From USERS";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        ObservableList<String>  items = FXCollections.observableArrayList();
+        try{
+            while(rs.next()){
+                items.add(rs.getString(1));
+            }
+                list.setItems(items);
+        }catch(SQLException e){
+            System.out.println("error while trying to fetch all records");
+            e.printStackTrace();
+            throw e;
+        }
+        conn.close();
     }
 }

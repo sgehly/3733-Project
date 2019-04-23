@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -30,7 +31,7 @@ import java.util.ResourceBundle;
 public class AudioVisual implements Initializable {
 
 
-    String[] audioVis = {"Headphones", "Speakers", "Radio", "TV", "Camera"};
+    String[] audioVis = {"Headphones","Speakers","Radio","TV","Camera","Microphone","CD","DVD","DVD Player","Projector","Video Camera"};
 
     @FXML
     private ListView listEmployees;
@@ -65,6 +66,20 @@ public class AudioVisual implements Initializable {
     @FXML
     private Label lblDate;
 
+    @FXML
+    private javafx.scene.control.Button clrBtn;
+
+    @FXML
+    private javafx.scene.control.Button camera;
+    @FXML
+    private javafx.scene.control.Button earbuds;
+    @FXML
+    private javafx.scene.control.Button projector;
+    @FXML
+    private javafx.scene.control.Button speakers;
+    @FXML
+    private javafx.scene.control.Button tv;
+
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -86,12 +101,33 @@ public class AudioVisual implements Initializable {
         Main.setScene("serviceRequests");
     }
 
+    @FXML
+    public void handleClear(ActionEvent event) {
+        if(event.getSource() == clrBtn) {
+            audioVisType.setText("");
+        }
+    }
+
+    @FXML
+    public void handleAVShortcuts(ActionEvent event) {
+        if(event.getSource() == camera) {
+            audioVisType.setText(camera.getText());
+        } else if(event.getSource() == earbuds) {
+            audioVisType.setText(earbuds.getText());
+        } else if(event.getSource() == projector) {
+            audioVisType.setText(projector.getText());
+        } else if(event.getSource() == speakers) {
+            audioVisType.setText(speakers.getText());
+        } else if(event.getSource() == tv) {
+            audioVisType.setText(tv.getText());
+        }
+    }
+
     /**
      * This method allows the user to create a flowers request using the button
      *
      * @param : The action that is associated with making the flowers request
      */
-
     @FXML
     public void makeAudioVisRequest() throws IOException {
         try {
@@ -123,11 +159,12 @@ public class AudioVisual implements Initializable {
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query = "select * FROM users Where ACCOUNTINT = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        String query = "select * FROM users Where isAV = ?";
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+        Connection conn = DBUtils.getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 11);
+            s.setInt(1, 1);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));
@@ -144,7 +181,5 @@ public class AudioVisual implements Initializable {
 
         TextFields.bindAutoCompletion(audioVisType, audioVis);
 
-
-        //userText.setText("");
     }
 }

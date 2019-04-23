@@ -75,11 +75,12 @@ public class ReligiousRequests {
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query = "select * FROM users Where ACCOUNTINT = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        String query = "select * FROM users Where isRel = ?";
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+        Connection conn = DBUtils.getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 0);
+            s.setInt(1, 1);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));

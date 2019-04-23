@@ -8,11 +8,16 @@ import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.scene.control.*;
 import org.controlsfx.control.textfield.TextFields;
 
 
@@ -43,18 +48,19 @@ public class FlowersRequest implements Initializable {
     @FXML
     private javafx.scene.control.Label lblDate;
 
-
-    String[] flowers = {"Roses","Dahlia","Tulip","Sun Flower","Alstroemeria","Amaryllis","Asiatic Lily","Aster","Azalea","Baby’s Breath","Begonia","Bird of Paradise"
+    String[] flowers = {"Alstroemeria","Amaryllis","Asiatic Lily","Aster","Azalea","Baby’s Breath","Begonia","Bird of Paradise"
             ,"Calla Lily","Campanula","Carnation","Chrysanthemum","Cockscomb","Crocus","Cyclamen","Cymbidium Orchid","Daffodil","Daisy","Delphinium","Dendrobium Orchid",
             "Freesia","Gardenia","Geranium","Gladiolus","Heather","Hibiscus","Hyacinth","Hydrangea","Hypericum","Iris","Jasmine","Jonquil","Kalanchoe","Larkspur","Lavender",
-            "Daffodil","Liatris","Lilac","Lily","Limonium","Lisianthus","Magnolia","Marigold","Mini-Carnation","Narcissus","Orchid","Oriental Lily","Pansy","Peace Lily","Petite Rose",
+            "Liatris","Lilac","Lily","Limonium","Lisianthus","Magnolia","Marigold","Mini-Carnation","Narcissus","Orchid","Oriental Lily","Pansy","Peace Lily","Petite Rose",
             "Phalaenopsis Orchid","Poinsettia","Pompon","Protea","Ranunculus","Snapdragon","Solidago","Spray Rose","Star of Bethlehem","Stargazer Lily","Statice","Stock",
-            "Tea Rose","Trachelium","Tuberose","Violet","Waxflower","Zinnia"};
-
+            "Tea Rose","Trachelium","Tuberose","Violet","Waxflower","Zinnia","Dahlia","Tulip"};
 
     //Tesxt Field for flower type input
     @FXML
     private TextField flowerType;
+
+    @FXML
+    private javafx.scene.control.Button btn;
 
 
     //Text field for room location input
@@ -71,6 +77,19 @@ public class FlowersRequest implements Initializable {
     @FXML
     private Button submitReuqest;
 
+    @FXML
+    private Button clrBtn;
+
+    @FXML
+    private Button colorfulBouquet;
+    @FXML
+    private Button earthyBouquet;
+    @FXML
+    private Button pinkBouquet;
+    @FXML
+    private Button roseBouquet;
+    @FXML
+    private Button sunflowerBouquet;
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -90,10 +109,37 @@ public class FlowersRequest implements Initializable {
         Main.setScene("serviceRequests");
     }
 
+    @FXML
+    public void handleClear(ActionEvent event) {
+        if(event.getSource() == clrBtn) {
+            flowerType.setText("");
+        }
+    }
+
+    @FXML
+    public void handleFlowerBouquet(ActionEvent event) {
+        System.out.println("HANDLE FLOWER BUTTON");
+        if(event.getSource() == colorfulBouquet) {
+            flowerType.setText(colorfulBouquet.getText());
+        } else if(event.getSource() == earthyBouquet) {
+            flowerType.setText(earthyBouquet.getText());
+        } else if(event.getSource() == pinkBouquet) {
+            flowerType.setText(pinkBouquet.getText());
+        } else if(event.getSource() == roseBouquet) {
+            flowerType.setText(roseBouquet.getText());
+        } else if(event.getSource() == sunflowerBouquet) {
+            flowerType.setText(sunflowerBouquet.getText());
+        }
+    }
+
     /**
      * This method allows the user to create a flowers request using the button
      * @param : The action that is associated with making the flowers request
      */
+    @FXML
+    public void setFlower(String flower) {
+        flowerType.setText(flower);
+    }
 
     @FXML
     public void makeFlowersRequest() throws IOException {
@@ -107,8 +153,6 @@ public class FlowersRequest implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     private boolean areFieldsEmpty() {
@@ -125,14 +169,16 @@ public class FlowersRequest implements Initializable {
 
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
+        System.out.println("ROOM NUM: " + room.getText());
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
-        String query = "select * FROM users Where ACCOUNTINT = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        String query = "select * FROM users Where isFlor = ?";
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+        Connection conn = DBUtils.getConnection();
         try{
             PreparedStatement s = conn.prepareStatement(query);
-            s.setInt(1, 5);
+            s.setInt(1, 1);
             ResultSet rs = s.executeQuery();
             while(rs.next()){
                 list.add(rs.getString(1));
@@ -147,8 +193,13 @@ public class FlowersRequest implements Initializable {
             e.printStackTrace();
         }
 
+//        System.out.println("HERE");
+//        room = new TextField();
+//        room.setText(room.getText());
+//        ObservableList<String> input = FXCollections.observableArrayList();
+//        input.add(room.getText());
+//        input.add(flowerType.getText());
 
-        //userText.setText("");
         TextFields.bindAutoCompletion(flowerType,flowers);
     }
 }

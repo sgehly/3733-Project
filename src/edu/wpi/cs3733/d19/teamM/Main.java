@@ -1,48 +1,46 @@
 package edu.wpi.cs3733.d19.teamM;
 
-import com.jfoenix.controls.JFXButton;
+import com.calendarfx.model.Calendar;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
-import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
+import edu.wpi.cs3733.d19.teamM.utilities.General.Options;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.IdleMonitor;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.SavedState;
 import io.ably.lib.realtime.AblyRealtime;
 import io.ably.lib.realtime.Channel;
 import io.ably.lib.realtime.CompletionListener;
-import io.ably.lib.types.ChannelOptions;
 import io.ably.lib.types.ClientOptions;
 import io.ably.lib.types.ErrorInfo;
-import io.ably.lib.types.Message;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
-import javafx.geometry.Rectangle2D;
+import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+//import giftRequest.*;
+import jdk.nashorn.internal.objects.Global;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.InputStream;
 import java.net.URL;
+
 
 /**
  * Primary class that runs the JavaFx Application
@@ -51,13 +49,16 @@ public class Main extends Application {
 
     //Create the primary stage and set it to null
 
+
+
     static boolean isLoaded = false;
 
     private static Stage primaryStage = null;
 
+    final static KeyCombination keyShiftTab = new KeyCodeCombination(KeyCode.TAB, KeyCombination.SHIFT_ANY);
+
     private static Parent homePane;
     private static Parent adminPane;
-    private static Parent pathFindingPane;
     private static Parent schedulerPane;
     private static Parent serviceRequestPane;
     private static Parent serviceRequestListPane;
@@ -67,22 +68,25 @@ public class Main extends Application {
 
     private static Scene homeScene;
     private static Scene adminScene;
-    private static Scene pathFindingScene;
+
     private static Scene schedulerScene;
     private static Scene serviceRequestScene;
     private static Scene serviceRequestListScene;
     private static Scene welcomeScene;
+    private static Scene calendar;
     private static Scene loginScene;
     private static Scene addUserScene;
 
     private static IdleMonitor idleMonitor;
     public static SavedState savedState;
 
-    private static Channel channel;
+    public static Channel channel;
 
-    private static Channel dmChannel;
+    public static Channel dmChannel;
 
-    private static AblyRealtime ably;
+    public static AblyRealtime ably;
+
+    private static Timer timer;
 
     /**
      * This method is to return the current stage we are working on for referencing the stage
@@ -97,22 +101,15 @@ public class Main extends Application {
     }
 
     public static void setScene(String scene){
-        if(scene == "addUser"){
-            primaryStage.setScene(addUserScene);
-            savedState.setState("addUser");
-        }
-        else if(scene == "admin"){
+        if(scene == "admin"){
             primaryStage.setScene(adminScene);
             savedState.setState("admin");
-        }
-        else if(scene == "pathfinding"){
-            primaryStage.setScene(pathFindingScene);
-            savedState.setState("pathfinding");
         }
         else if(scene == "scheduling"){
             primaryStage.setScene(schedulerScene);
             savedState.setState("scheduling");
         }
+
         else if(scene == "serviceRequest"){
             primaryStage.setScene(serviceRequestScene);
             savedState.setState("serviceRequests");
@@ -138,6 +135,25 @@ public class Main extends Application {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setMaxWidth(primaryScreenBounds.getWidth());
         primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
+
+        /*if(scene != "welcome"){
+
+            EventHandler<KeyEvent> handler = new EventHandler<KeyEvent>(){
+                @Override
+                public void handle(KeyEvent e)
+                {
+                    if (keyShiftTab.match(e))
+                    {
+                        Main.setScene("welcome");
+                        e.consume();
+                    }
+                }
+            };
+
+            primaryStage.getScene().removeEventHandler(KeyEvent.KEY_PRESSED, handler);
+            primaryStage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, handler);
+        }*/
+
     }
 
     /**
@@ -163,52 +179,53 @@ public class Main extends Application {
         homePane = FXMLLoader.load(Main.getFXMLURL("home"));
         homeScene = new Scene(Main.homePane);
 
-        if(!isLoaded) {
+        if(true) {
             Runnable loadAdminThread = () -> {
-                try {
-                    System.out.println("Loading scenes");
-                    adminPane = FXMLLoader.load(Main.getFXMLURL("adminUI"));
-                    adminScene = new Scene(adminPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            };
-            Runnable loadPathfindingThread = () -> {
-                try {
-                    pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
-                    pathFindingScene = new Scene(pathFindingPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        System.out.println("Loading scenes");
+                        adminPane = FXMLLoader.load(Main.getFXMLURL("admin"));
+                        System.out.println(adminPane);
+                        adminScene = new Scene(adminPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
             };
             Runnable loadSchedulerThread = () -> {
-                try {
-                    schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
-                    schedulerScene = new Scene(schedulerPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        schedulerPane = FXMLLoader.load(Main.getFXMLURL("scheduler"));
+                        schedulerScene = new Scene(schedulerPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             };
             Runnable loadServiceRequestsThread = () -> {
-                try {
-                    serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
-                    serviceRequestScene = new Scene(serviceRequestPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        serviceRequestPane = FXMLLoader.load(Main.getFXMLURL("serviceRequests"));
+                        serviceRequestScene = new Scene(serviceRequestPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             };
             Runnable loadSRListThread = () -> {
-                try {
-                    serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
-                    serviceRequestListScene = new Scene(serviceRequestListPane);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Platform.runLater(() -> {
+                    try {
+                        serviceRequestListPane = FXMLLoader.load(Main.getFXMLURL("serviceRequestsList"));
+                        serviceRequestListScene = new Scene(serviceRequestListPane);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             };
 
 
             new Thread(loadAdminThread).start();
-            new Thread(loadPathfindingThread).start();
             new Thread(loadSchedulerThread).start();
             new Thread(loadServiceRequestsThread).start();
             new Thread(loadSRListThread).start();
@@ -225,6 +242,11 @@ public class Main extends Application {
                 }
             });
             channel.detach();
+
+            if(ably.connection != null && ably.connection.id != null){
+                ably.close();
+                ably = null;
+            }
 
 
             ClientOptions options = new ClientOptions("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
@@ -255,6 +277,10 @@ public class Main extends Application {
         Main.setScene("welcome");
     }
 
+    public static void updateTimer(){
+        timer.setDelay(Options.getTimeout());
+    }
+
     /**
      * This method creates and sets the stage of the viewable JavaFX screen
      * @param primaryStage: The stage to display on start
@@ -262,21 +288,6 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-        DatabaseUtils parser = new DatabaseUtils();
-        parser.connect();
-        parser.nodeParse();
-        parser.edgeParse();
-
-        Runnable loadPathfindingThread = () -> {
-            try {
-                pathFindingPane = FXMLLoader.load(Main.getFXMLURL("pathfinding"));
-                pathFindingScene = new Scene(pathFindingPane);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        };
-        new Thread(loadPathfindingThread).start();
 
 
         //TODO on logout, set memento to home DONE
@@ -289,9 +300,15 @@ public class Main extends Application {
 
         //Load the fonts that we want to use for the application
         //Fonts have been taken from what B & H hospital uses as their official fonts
-        System.out.println(Main.getResourceFromRoot("resources/palatino-linotype/palab.ttf").toString());
         Font.loadFont(Main.getResourceFromRoot("resources/palatino-linotype/palab.ttf"), 10);
         Font.loadFont(Main.getResourceFromRoot("resources/palatino-linotype/pala.ttf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Black.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Bold.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Regular.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/SourceSerifPro-Semibold.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/Prequel-bold.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/VarelaRound-Regular.otf"), 10);
+        Font.loadFont(Main.getResourceFromRoot("resources/fonts/Bariol_Serif_Regular.otf"), 10);
         //Get the main parent scene and load the FXML
         Parent root = FXMLLoader.load(Main.getFXMLURL("welcome"));
         Scene mainScene = new Scene(root);
@@ -301,12 +318,15 @@ public class Main extends Application {
         welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         welcomeScene= new Scene(welcomePane);
 
+
         //create the idle detection system
-        /*ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));  //resets ui on timer trigger
-        Timer timer = new Timer(45000,uiReset); //creates the timer, attach to ui reset
+        ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));  //resets ui on timer trigger
+        timer = new Timer(300000,uiReset); //creates the timer, attach to ui reset
         EventHandler<MouseEvent> idleReset = e -> timer.restart(); //event handler to reset the timer
         primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);  //add event handler to the application
-        timer.start();*/
+        Options.getOptions();
+        Options.setTimeout(600000);
+        timer.start();
 
 
         //Set the color and the title and the screen
@@ -417,7 +437,7 @@ public class Main extends Application {
         //Map<String, Node> mappedNodes = parse.getNodes();
 //        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
         //aS.drawPath(path);
-        DatabaseUtils parser = new DatabaseUtils();
+        DatabaseUtils parser = DatabaseUtils.getDBUtils();
         parser.connect();
         parser.nodeParse();
         parser.edgeParse();

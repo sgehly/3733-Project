@@ -4,9 +4,12 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+//import giftRequest.GiftRequest;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -24,8 +27,6 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
-import foodRequest.*;
-
 
 import java.io.IOException;
 
@@ -55,8 +56,6 @@ public class ServiceRequests {
     //initializing the timestamp
     long time = date.getTime();
     Timestamp ts = new Timestamp(time);
-
-
 
     @FXML
     private Text userText;
@@ -94,13 +93,13 @@ public class ServiceRequests {
     @FXML
     private TextArea languageNotes;
 
-
     public int RandIDgenerator(){
         Random rand = new Random();
         int id = rand.nextInt(10000);
         try {
             String query = "SELECT REQUESTID FROM REQUESTINPROGRESS";
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()){
@@ -113,13 +112,11 @@ public class ServiceRequests {
             }
         }
 
-
         catch (Exception e) {
             e.printStackTrace();
         }
         return id;
     }
-
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -138,7 +135,6 @@ public class ServiceRequests {
     private void navigateToHome() throws Exception {
         Main.setScene("home");
     }
-
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -180,9 +176,7 @@ public class ServiceRequests {
     @FXML
     private void navigateToFLowers() throws Exception{
         Main.setScene("serviceRequests/flowersRequest");
-
     }
-
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -203,13 +197,10 @@ public class ServiceRequests {
         Main.setScene("serviceRequests/audiovisual");
     }
 
-
     @FXML
     private void naviagateToExternal() throws Exception{
         Main.setScene("serviceRequests/ExtTransport");
     }
-
-
 
     @FXML
     private void navigateToIntTransport() throws Exception{
@@ -223,13 +214,38 @@ public class ServiceRequests {
     private void navigateToLanguage() throws Exception{
         Main.setScene("serviceRequests/languageRequest");
     }
+
     @FXML
-    private void navigateToFood() throws Exception{
-        FoodRequest foodRequest = new FoodRequest();
-        foodRequest.run(0, 0, 10000, 1000, "/resources/stylesheet.css", null, null);
+    private void navigateToLGift() throws Exception {
+        /*GiftRequest e = new GiftRequest();
+            try {
+                e.run(0, 0, 1000, 1000, "/resources/StylesheetAPI.css", "what", "what");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }*/
     }
 
-
+//    @FXML
+//    private void toPizza(){
+//        try{
+//            edu.wpi.cs3733.d19.teamO.request.Request pizza = new edu.wpi.cs3733.d19.teamO.request.Request();
+//            pizza.run(0,0,1500,1500,"/resources/stylesheet.css", "", "");
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @FXML
+//    private void toElevator(){
+//        try{
+//            InternalTransportRequestApi i = new InternalTransportRequestApi();
+//            i.run(0,0,1500,1500,"/resources/stylesheetAPI.css","","AELEV00S01",true,"m");
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * This method checks room availability after a button is clicked
@@ -239,7 +255,6 @@ public class ServiceRequests {
     void checkRoomValidity(MouseEvent event) {
 
     }
-
 
     /**
      * This method send teh user to the service request list page
@@ -253,7 +268,8 @@ public class ServiceRequests {
     public void makeRequest(String type, String room, String subtype, String description, boolean checkbox){
         System.out.println("Trying to make request");
         try {
-            Connection conn = new DatabaseUtils().getConnection();
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
             String query = "insert into APP.REQUESTINPROGRESS  (REQUESTID, TYPE, ROOM, SUBTYPE, DESCRIPTION, DATE, CHECKBOX) values (?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(query);
 

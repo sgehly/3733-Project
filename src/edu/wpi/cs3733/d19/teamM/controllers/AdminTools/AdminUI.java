@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXNodesList;
 import com.jfoenix.controls.JFXSlider;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
@@ -25,6 +27,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
@@ -146,8 +149,21 @@ public class AdminUI {
     private GesturePane gesturePane;
 
     @FXML
+    private JFXButton searchAlgorithmButton;
+    @FXML
+    private JFXButton AStarButton;
+    @FXML
+    private JFXButton BFSButton;
+    @FXML
+    private JFXButton DFSButton;
+    @FXML
+    private JFXButton DStarButton;
+
+
+    @FXML
     private void navigateToHome() throws Exception{
-        Parent pane = FXMLLoader.load(Main.getFXMLURL("home"));
+        util = null;
+        Parent pane = FXMLLoader.load(Main.getFXMLURL("admin"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
         nodeLabel.setVisible(false);
@@ -264,13 +280,11 @@ public class AdminUI {
             util.buttonPane.getChildren().remove(route);
         });
 
-
-
-
         System.out.println("Updating values...");
         //TODO: Can someone on database make this so SQL Injection can't happen
         String query = "SELECT * FROM NODE WHERE NODEID = ?";
-        Connection conn = new DatabaseUtils().getConnection();
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+        Connection conn = DBUtils.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, nodeId);
         ResultSet rs = stmt.executeQuery();
@@ -369,7 +383,20 @@ public class AdminUI {
     private void setValues(MouseEvent value){
         try {
             String nodeId = ((Button)value.getSource()).getId();
-            System.out.println(1);
+
+            if(nodeId.equals(nodeIdTextBox.getText())){
+                routeArr.forEach(node -> {
+                    util.buttonPane.getChildren().remove(node);
+                });
+                nodeIdTextBox.setText("");
+                longNameTextBox.setText("");
+                shortNameTextBox.setText("");
+                floorTextBox.setText("");
+                buildingTextBox.setText("");
+                typeTextBox.setText("");
+                return;
+            }
+
             this.updateValues(nodeId, value.isShiftDown());
         }
         catch (Exception e) {
@@ -396,7 +423,6 @@ public class AdminUI {
     }
 
     private void hoverCallback(MouseEvent value){
-        System.out.println(value.isShiftDown()+"/"+edgeCreationLine);
         if(value.isShiftDown() && edgeCreationLine != null){
             edgeCreationLine.setEndX(edgeCreationLine.getLayoutX()+value.getX()-2.5);
             edgeCreationLine.setEndY(edgeCreationLine.getLayoutY()+value.getY()-2.5);
@@ -415,20 +441,23 @@ public class AdminUI {
 
         Button toMove = (Button)value.getSource();
 
-        if(!nodeIdTextBox.getText().equals(toMove.getId())){
-            try{
-                System.out.println(2);
-                this.updateValues(toMove.getId(), value.isShiftDown());
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+        try{
+            this.updateValues(toMove.getId(), false);
+        }catch(Exception e){
+            e.printStackTrace();
         }
+
+        /*routeArr.forEach(node -> {
+            route.setStartX(toMove.getLayoutX()+2.5);
+            route.setStartY(toMove.getLayoutY()+2.5);
+        });*/
 
         System.out.println("("+value.getX()+","+value.getY()+")");
         toMove.setLayoutX(toMove.getLayoutX()+value.getX()-2.5);
         toMove.setLayoutY(toMove.getLayoutY()+value.getY()-2.5);
 
         MapPoint original = util.scalePointReversed(toMove.getLayoutX()+value.getX()-2.5, toMove.getLayoutY()+value.getY()-2.5);
+
         xCoordTextBox.setText(String.valueOf((int)original.x));
         yCoordTextBox.setText(String.valueOf((int)original.y));
 
@@ -441,11 +470,14 @@ public class AdminUI {
 
     @FXML
     protected void initialize() throws Exception {
+        System.out.println("Loading ADMIN UI");
+        this.setupAlgorithmsButton();
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
         gesturePane.setContent(mapStuff);
 
-
+        //nodeIdTextBox.setOpacity(0);
+        //nodeIdTextBox.setDisable(true);
         //userText.setText("");
 
         edgeLabel.setVisible(false);
@@ -463,17 +495,24 @@ public class AdminUI {
 
     }
 
+    private void setupAlgorithmsButton() {
+
+
+    }
+
     @FXML
     public void logout() throws Exception{
+        util = null;
         Main.logOut();
     }
 
     @FXML
     private void exportToCsv(ActionEvent event) throws  SQLException,ClassNotFoundException{
         String filename = "BWRoomExport.csv";
+        DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         try {
             FileWriter fw = new FileWriter(filename);
-            Connection conn = new DatabaseUtils().getConnection();
+            Connection conn = DBUtils.getConnection();
             String query = "select * from node";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
