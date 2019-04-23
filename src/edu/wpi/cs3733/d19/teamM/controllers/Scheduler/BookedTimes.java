@@ -79,12 +79,9 @@ public class BookedTimes {
             Connection conn = new DatabaseUtils().getConnection();
             String sql = "select * from bookedtimes where users = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, user.toLowerCase());
+            stmt.setString(1, user);
             ResultSet rs = stmt.executeQuery();
             System.out.println(rs.next());
-            while (rs.next()){
-                System.out.println(rs.getString("user"));
-            }
             toList(rs);
             conn.close();
         }

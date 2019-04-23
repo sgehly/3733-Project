@@ -384,7 +384,7 @@ public class Scheduler {
             Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, roomID);
-            stmt.setString(2, userText.getText());
+            stmt.setString(2, userText.getText().toLowerCase());
             stmt.setTimestamp(3, start);
             stmt.setTimestamp(4, end);
             stmt.execute();
