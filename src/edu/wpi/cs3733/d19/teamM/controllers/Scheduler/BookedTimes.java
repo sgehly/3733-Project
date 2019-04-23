@@ -45,22 +45,30 @@ public class BookedTimes {
 
     @FXML
     private void callFun(){
-        String user = userName.getText();
+
+        System.out.println("in call fun ");
         Connection conn = new DatabaseUtils().getConnection();
         String sql = "select accountint from users where username = ?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, userName.getText());
             ResultSet rs = stmt.executeQuery();
+
             while (rs.next()){
-                int accountint = rs.getInt("accountint");
-                if(accountint == 100){
-                    showAll();
-                }
-                else{
-                    showUser(rs.getString("username"));
-                }
+                 String accountint = rs.getString("accountint");
+
+            System.out.println(accountint);
+
+            if (accountint == "100") {
+                showAll();
+                System.out.println("user is an admin ");
+            } else {
+                System.out.println("user is an employee");
+                showUser(rs.getString("username"));
+
             }
+        }
+
         }
         catch (Exception e){
             e.printStackTrace();
@@ -101,6 +109,7 @@ public class BookedTimes {
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
         try {
             while (rs.next()) {
+                System.out.println(" //////////////////////////////////////////////in to list ");
                 DisplayTable ent = new DisplayTable();
                 ent.setRoom(rs.getString("ROOMID"));
                 ent.setUser(rs.getString("users"));
@@ -138,9 +147,11 @@ public class BookedTimes {
 
     @FXML
     void initialize() throws SQLException {
+
         new Clock(lblClock, lblDate);
         System.out.println("First Point");
         userName.setText(User.getUsername());
+        callFun();
     }
 
 }
