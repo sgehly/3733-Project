@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 
 import java.awt.*;
 import java.nio.channels.SelectableChannel;
@@ -19,7 +20,7 @@ import java.sql.*;
 public class BookedTimes {
 
     @FXML
-    private Label userText;
+    private Text userName;
 
     @FXML
     private javafx.scene.control.Label lblClock;
@@ -44,12 +45,12 @@ public class BookedTimes {
 
     @FXML
     private void callFun(){
-        String user = userText.getText();
+        String user = userName.getText();
         Connection conn = new DatabaseUtils().getConnection();
         String sql = "select accountint from users where username = ?";
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, userText.getText());
+            stmt.setString(1, userName.getText());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()){
                 int accountint = rs.getInt("accountint");
@@ -138,7 +139,8 @@ public class BookedTimes {
     @FXML
     void initialize() throws SQLException {
         new Clock(lblClock, lblDate);
-        userText.setText(User.getUsername());
+        System.out.println("First Point");
+        userName.setText(User.getUsername());
     }
 
 }

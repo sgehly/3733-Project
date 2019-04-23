@@ -41,7 +41,7 @@ public class SchedulerList {
     private JFXComboBox<String> dateDropDown;
 
     @FXML
-    private Text userText;
+    private Text userName;
 
     @FXML
     private Label lblClock;
@@ -355,12 +355,15 @@ public class SchedulerList {
     void initialize() throws SQLException {
 
         new Clock(lblClock, lblDate);
-
-        userText.setText(User.getUsername());
+        System.out.println("First First");
+        userName.setText(User.getUsername());
+        System.out.println("First Second");
 
         roomDropDown.setItems(rooms);
+        System.out.println("First Third");
 
         dateDropDown.setItems(getDatesForDropDown());
+        System.out.println("First Fourth");
 
         Thread updateTimeThread = new Thread("Calendar: Update Time Thread") {
             @Override
