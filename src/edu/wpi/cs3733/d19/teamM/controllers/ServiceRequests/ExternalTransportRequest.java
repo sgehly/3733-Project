@@ -127,6 +127,8 @@ public class ExternalTransportRequest {
             }
             new ServiceRequests().makeRequest("external", roomField.getSelectionModel().getSelectedItem(), vehicle.getText(), requestText.getText(), urgent.isSelected());
 
+            errorMessage.setText(" ");
+
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialogLayout content = new JFXDialogLayout();

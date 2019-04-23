@@ -153,6 +153,8 @@ public class AudioVisual implements Initializable {
             confLabel.setText("Request Submitted!");
             */
 
+            errorMessage.setText(" ");
+
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialogLayout content = new JFXDialogLayout();

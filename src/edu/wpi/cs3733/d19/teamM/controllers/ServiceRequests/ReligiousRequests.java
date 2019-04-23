@@ -123,6 +123,8 @@ public class ReligiousRequests {
             }
             new ServiceRequests().makeRequest("religion", roomField.getSelectionModel().getSelectedItem(), religion.getText(), requestText.getText(), possession.isSelected());
 
+            errorMessage.setText(" ");
+
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialogLayout content = new JFXDialogLayout();

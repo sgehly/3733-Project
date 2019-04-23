@@ -124,6 +124,8 @@ public class ITRequests implements Initializable {
             }
             new ServiceRequests().makeRequest("it", room.getSelectionModel().getSelectedItem(), type.getText(), notes.getText(), urgent.isSelected());
 
+            errorMessage.setText(" ");
+
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialogLayout content = new JFXDialogLayout();
