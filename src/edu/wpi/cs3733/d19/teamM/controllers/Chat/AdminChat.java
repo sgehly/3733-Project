@@ -7,6 +7,8 @@ import io.ably.lib.realtime.Channel;
 import io.ably.lib.realtime.CompletionListener;
 import io.ably.lib.realtime.Presence;
 import io.ably.lib.types.ErrorInfo;
+import io.ably.lib.types.Message;
+import io.ably.lib.types.PaginatedResult;
 import io.ably.lib.types.PresenceMessage;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -17,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -143,6 +146,30 @@ public class AdminChat {
                         pubChannel.detach();
                     }
                     pubChannel = Main.ably.channels.get("help-"+newValue.toString());
+s
+                    new Thread(() -> {
+                        try{
+                            PaginatedResult<Message> resultPage = pubChannel.history(null);
+
+                            if(resultPage.items().length < 1){
+                                return;
+                            }
+                            io.ably.lib.types.Message lastMessage[] = resultPage.items();
+
+                            for(int i=0;i<lastMessage.length;i++){
+                                messagesArr.add(lastMessage[i].data.toString());
+                            }
+                            Platform.runLater(() -> {
+                                messages.setItems(FXCollections.observableArrayList(messagesArr));
+                            });
+                        }
+                        catch(Exception e){
+                            e.printStackTrace();
+                        }
+
+                    }).start();
+
+
                     pubChannel.subscribe(message -> {
 
                         Platform.runLater(new Runnable() {
