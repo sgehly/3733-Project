@@ -357,13 +357,23 @@ public class Pathfinding {
         directoryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){
                 // Your action here
                 String nodeId = newValue.split("<")[1].replace(">","");
 
                 if(nodeId != null){
+                    Floor graph = Floor.getFloor();
                     if(startText.getText().length() == 0){
                         startText.setText(nodeId);
+                        for(Node n : graph.getNodes().values()){
+                            if(n.getId().equals(startText.getText())){
+                                System.out.println("found it!");
+                                try {
+                                        String floor = n.getFloor();
+                                        util.setFloor(floor);
+                                }catch (Exception e){}
+                            }
+                        }
                         endText.requestFocus();
                     }else{
                         endText.setText(nodeId);
