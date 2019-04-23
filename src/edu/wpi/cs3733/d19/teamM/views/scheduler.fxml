@@ -172,7 +172,7 @@
                            </VBox.margin>
                            <styleClass>
                               <String fx:value="whiteButton" />
-                              <String fx:value="bigButton" />
+                              <String fx:value="largeButton" />
                            </styleClass>
                                           </Button>
                         <Button fx:id="exp" mnemonicParsing="false" onAction="#exportToCsv" prefHeight="50.0" prefWidth="300.0" styleClass="whiteButton" text="EXPORT ALL BOOKED TIMES" VBox.vgrow="ALWAYS" />
