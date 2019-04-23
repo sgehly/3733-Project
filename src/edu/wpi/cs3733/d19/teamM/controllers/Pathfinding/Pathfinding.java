@@ -544,7 +544,9 @@ public class Pathfinding {
             showDir.setText("TEXT DIRECTIONS");
         }
 
-        updateMap(null, null);
+        Path curPath = path.getFloorPaths().get(0);
+
+        updateMap(curPath.getPath().get(0), curPath.getPath().get(curPath.getPath().size() - 1));
         resetTextBox();
     }
 
@@ -564,7 +566,10 @@ public class Pathfinding {
             showDir.setText("TEXT DIRECTIONS");
         }
         resetTextBox();
-        updateMap(null,null);
+
+        Path curPath = path.getFloorPaths().get(0);
+
+        updateMap(curPath.getPath().get(0), curPath.getPath().get(curPath.getPath().size() - 1));
     }
 
     @FXML
