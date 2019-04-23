@@ -19,13 +19,18 @@
     -fx-font-size:36px;
     padding: 10px 20px 10px 20px;
 }
+.bigButton{
+    -fx-font-size: 36px;
+}
+.bigButton:hover{
+    -fx-font-size: 36px;
+}
 .whiteButton {
     -fx-background-color: transparent;
     -fx-background-radius: 5px;
     -fx-border-width: .2em;
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
-    -fx-text-size: 26px;
     -fx-background-radius: 5px;
     -fx-border-width: .2em;
     -fx-border-radius: 5px;
@@ -34,7 +39,6 @@
 .whiteButton:hover {
     -fx-background-color: white;
     -fx-text-fill: black;
-    -fx-font-family: "BariolSerif";
     -fx-cursor: hand;
 }
 .scroll-pane > .viewport {
