@@ -30,9 +30,9 @@
                       <children>
                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true" styleClass="hoverIcon">
+                        <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#navigateBack" pickOnBounds="true" preserveRatio="true" styleClass="hoverIcon">
                            <image>
-                              <Image url="@../../../../../../resources/icons/icons8-circled_left_2.png" />
+                              <Image url="@../../../../../../resources/icons/circled_left.png" />
                            </image>
                         </ImageView>
                                   <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">

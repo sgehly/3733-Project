@@ -282,42 +282,42 @@
                                                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                               </rowConstraints>
                                                               <children>
-                                                                  <CheckBox fx:id="bathrooms" mnemonicParsing="false" prefHeight="32.0" prefWidth="139.0" text="Bathrooms">
+                                                                  <CheckBox fx:id="bathrooms" mnemonicParsing="false" prefHeight="32.0" prefWidth="139.0" style="-fx-text-fill: white;" text="Bathrooms">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" top="10.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="stairs" mnemonicParsing="false" text="Stairs" GridPane.rowIndex="1">
+                                                                  <CheckBox fx:id="stairs" mnemonicParsing="false" style="-fx-text-fill: white;" text="Stairs" GridPane.rowIndex="1">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="elevators" mnemonicParsing="false" text="Elevators" GridPane.rowIndex="2">
+                                                                  <CheckBox fx:id="elevators" mnemonicParsing="false" style="-fx-text-fill: white;" text="Elevators" GridPane.rowIndex="2">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="labs" mnemonicParsing="false" text="Labs" GridPane.rowIndex="3">
+                                                                  <CheckBox fx:id="labs" mnemonicParsing="false" style="-fx-text-fill: white;" text="Labs" GridPane.rowIndex="3">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="confs" mnemonicParsing="false" text="Conference Rooms" GridPane.rowIndex="4">
+                                                                  <CheckBox fx:id="confs" mnemonicParsing="false" style="-fx-text-fill: white;" text="Conference Rooms" GridPane.rowIndex="4">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="food" mnemonicParsing="false" text="Food" GridPane.rowIndex="5">
+                                                                  <CheckBox fx:id="food" mnemonicParsing="false" style="-fx-text-fill: white;" text="Food" GridPane.rowIndex="5">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="services" mnemonicParsing="false" text="Services" GridPane.rowIndex="6">
+                                                                  <CheckBox fx:id="services" mnemonicParsing="false" style="-fx-text-fill: white;" text="Services" GridPane.rowIndex="6">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="exits" mnemonicParsing="false" text="Exits" GridPane.rowIndex="7">
+                                                                  <CheckBox fx:id="exits" mnemonicParsing="false" style="-fx-text-fill: white;" text="Exits" GridPane.rowIndex="7">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>

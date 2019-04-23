@@ -112,7 +112,7 @@ public class GenerateReport implements Initializable {
      * @throws Exception: Any exception that is encountered
      */
     @FXML
-    private void navigateToHome() throws Exception {
+    private void navigateBack() throws Exception {
         Main.setScene("serviceRequestsList");
     }
 

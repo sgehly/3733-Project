@@ -1,10 +1,12 @@
 package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
 import com.github.sarxos.webcam.Webcam;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
+import edu.wpi.cs3733.d19.teamM.utilities.Transitions;
 import io.ably.lib.realtime.AblyRealtime;
 import io.ably.lib.realtime.Channel;
 import io.ably.lib.types.AblyException;
@@ -12,6 +14,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,11 +24,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -54,6 +58,8 @@ import javax.imageio.ImageIO;
  */
 public class Admin{
 
+    Transitions transitions;
+
     @FXML
     private ImageView myImg;
 
@@ -79,21 +85,48 @@ public class Admin{
     @FXML
     private Button about;
 
+    @FXML
+    private StackPane stackpane;
+
+    @FXML
+    private StackPane dialog;
+
+    @FXML
+    private VBox contentPane;
+
+    @FXML
+    private ImageView backgroundImage;
+
+    @FXML
+    private ImageView exitButton;
+
     /**
      * This method
      * @throws Exception
      */
     @FXML
-    public void navigateToPathfinding(){
-        Parent pathFindingPane;
-        Scene pathFindingScene;
-        try {
-            pathFindingPane = FXMLLoader.load(Main.getFXMLURL("settings"));
-            pathFindingScene = new Scene(pathFindingPane);
-            Main.getStage().setScene(pathFindingScene);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void navigateToSettings(){
+        Main.setScene("settings");
+    }
+
+    @FXML
+    public void loadDialogue(){
+        backgroundImage.setEffect(new GaussianBlur());
+        //backgroundImage.setDisable(true);
+        contentPane.setEffect(new GaussianBlur());
+        //contentPane.setDisable(true);
+        dialog.setDisable(false);
+        transitions.fadeIn(dialog, 500).play();
+    }
+
+    @FXML
+    public void unloadDialogue(){
+        backgroundImage.setEffect(null);
+        //backgroundImage.setDisable(false);
+        contentPane.setEffect(null);
+        //contentPane.setDisable(false);
+        dialog.setDisable(true);
+        transitions.fadeOut(dialog, 500).play();
     }
 
     @FXML
@@ -139,6 +172,17 @@ public class Admin{
 
     @FXML
     void initialize() throws IOException, AblyException {
+        //blur stuff
+        BoxBlur bb = new BoxBlur();
+        bb.setWidth(5);
+        bb.setHeight(5);
+        bb.setIterations(3);
+
+        dialog.setOpacity(0);
+        dialog.setDisable(true);
+        contentPane.setDisable(false);
+        backgroundImage.setDisable(false);
+        transitions = new Transitions();
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
     }
