@@ -192,6 +192,9 @@ public class Home{
     @FXML
     public void navigateToAbout(){Main.setScene("about");}
 
+    @FXML
+    public void navigateToWeb(){Main.setScene("web");}
+
 
     Timeline clock;
     Timeline reverseClock;

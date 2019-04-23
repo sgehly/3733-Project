@@ -67,6 +67,8 @@ dependencies {
     runtime group: 'de.jensd', name: 'fontawesomefx-commons', version: '8.13'
     compile group: 'de.jensd', name: 'fontawesomefx-fontawesome', version: '4.7.0-1'
 
+    compile group: 'com.github.goxr3plus', name: 'JavaFX-Web-Browser', version: 'V9.1.0'
+
     compile 'io.ably:ably-java:1.1.0'
 
     // Use JUnit test framework
