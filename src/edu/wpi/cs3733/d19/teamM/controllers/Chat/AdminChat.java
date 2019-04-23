@@ -148,19 +148,25 @@ public class AdminChat {
                     pubChannel = Main.ably.channels.get("help-"+newValue.toString());
 
                     new Thread(() -> {
-                        PaginatedResult<Message> resultPage = Main.channel.history(null);
+                        try{
+                            PaginatedResult<Message> resultPage = Main.channel.history(null);
 
-                        if(resultPage.items().length < 1){
-                            return;
-                        }
-                        io.ably.lib.types.Message lastMessage[] = resultPage.items();
+                            if(resultPage.items().length < 1){
+                                return;
+                            }
+                            io.ably.lib.types.Message lastMessage[] = resultPage.items();
 
-                        for(int i=0;i<lastMessage.length;i++){
-                            messagesArr.add(lastMessage[i].data.toString());
+                            for(int i=0;i<lastMessage.length;i++){
+                                messagesArr.add(lastMessage[i].data.toString());
+                            }
+                            Platform.runLater(() -> {
+                                messages.setItems(FXCollections.observableArrayList(messagesArr));
+                            });
                         }
-                        Platform.runLater(() -> {
-                            messages.setItems(FXCollections.observableArrayList(messagesArr));
-                        });
+                        catch(Exception e){
+                            e.printStackTrace();
+                        }
+
                     }).start();
 
 
