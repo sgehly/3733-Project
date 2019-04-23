@@ -13,7 +13,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Home.Credits">
+<?import com.calendarfx.view.CalendarView?>
+<?import com.sun.deploy.uitoolkit.impl.fx.ui.FXDefaultPreloader.FXPreloaderPane?>
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Scheduler.ViewCal">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -103,47 +105,8 @@
                             <children>
                                 <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <VBox alignment="CENTER" prefHeight="960.0" prefWidth="2267.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
-                                            <children>
-                                                <ImageView fitHeight="250.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
-                                                    <image>
-                                                        <Image url="@../../../../../../resources/icons/developing_code.png" />
-                                                    </image>
-                                                </ImageView>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="Credits">
-                                                    <VBox.margin>
-                                                        <Insets top="20.0" />
-                                                    </VBox.margin>
-                                                    <font>
-                                                        <Font name="Palatino" size="64.0" />
-                                                    </font>
-                                                </Text>
-                                    <VBox alignment="CENTER" prefHeight="500.0" prefWidth="1873.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Other Team APIs" underline="true" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Gift Request API - Team L" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="External APIs" underline="true" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Javax.mail" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="JFoenix" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="ControlsFX" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="FreeTTS" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="GestureFX" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Twilio" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Java-google-speech-api" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Webcam-capture" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Webcam-capture-driver-jmf" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Slf4j-simple" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="CalendarFX" />
-                                       </children>
-                                    </VBox>
-                                            </children>
-                                        </VBox>
-                                        <VBox alignment="CENTER" prefHeight="961.0" prefWidth="442.0">
-                                            <padding>
-                                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                            </padding>
-                                        </VBox>
+                                        <CalendarView fx:id="calendar" HBox.hgrow="ALWAYS" prefHeight="-Infinity" prefWidth="-Infinity" maxHeight="1000.0" maxWidth="2000.0" minHeight="200.0" minWidth="300.0" pickOnBounds="true" />
+
                                     </children>
                                 </HBox>
                             </children>
