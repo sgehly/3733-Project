@@ -192,6 +192,9 @@ public class Home{
     @FXML
     public void navigateToAbout(){Main.setScene("about");}
 
+    @FXML
+    public void navigateToWeb(){Main.setScene("web");}
+
 
     Timeline clock;
     Timeline reverseClock;
@@ -222,9 +225,9 @@ public class Home{
 
 
             if(scrollContainer.getHvalue() == 1){
-                //scrollContainer.setHvalue(0);
-                this.clock.stop();
-                this.reverseClock.play();
+                scrollContainer.setHvalue(0);
+                //this.clock.stop();
+                //this.reverseClock.play();
             }
 
             scrollContainer.setHvalue(scrollContainer.getHvalue()+delta);
