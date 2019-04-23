@@ -126,6 +126,8 @@ public class addUser {
     private TextField confirmPassword2;
     @FXML
     private TextField phoneField2;
+    @FXML
+    private Label user;
 
 
 
@@ -235,6 +237,7 @@ public class addUser {
 
     @FXML
     private void chooseAdd(){
+        user.setVisible(false);
         addUserBox.setDisable(false);
         modifyUserBox.setDisable(true);
         removeUserBox.setDisable(true);
@@ -251,6 +254,7 @@ public class addUser {
 
     @FXML
     private void chooseRemove() throws SQLException {
+        user.setVisible(false);
         this.populateUserTable();
         addUserBox.setDisable(true);
         modifyUserBox.setDisable(true);
@@ -267,7 +271,8 @@ public class addUser {
     }
 
     @FXML
-    private void chooseModify() {
+    private void chooseModify() throws SQLException{
+        user.setVisible(false);
         addUserBox.setDisable(true);
         modifyUserBox.setDisable(false);
         removeUserBox.setDisable(true);
@@ -326,10 +331,14 @@ public class addUser {
             savePhoto();
             stmt.execute();
             conn.close();
-            errorMessage.setStyle("-fx-text-fill: green;");
-            errorMessage.setText("User Added");
+            user.setStyle("-fx-text-fill: green;");
+            user.setText("User Added!");
+            user.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
+            user.setStyle("-fx-text-fill: red;");
+            user.setText("User not Added!");
+            user.setVisible(true);
         }
     }
 
@@ -381,9 +390,15 @@ public class addUser {
             }
             stmt.executeUpdate();
             conn.close();
+            user.setStyle("-fx-text-fill: green;");
+            user.setText("User modified!");
+            user.setVisible(true);
 //            errorMessage.setStyle("-fx-text-fill: green");
 //            errorMessage.setText("User Updated");
         } catch (Exception e) {
+            user.setStyle("-fx-text-fill: red;");
+            user.setText("User not modified!");
+            user.setVisible(true);
             e.printStackTrace();
         }
     }
@@ -398,6 +413,7 @@ public class addUser {
 
     @FXML
     void navigateToHome(MouseEvent event) {
+        user.setVisible(false);
         if (webcam != null)
             webcam.close();
         Main.setScene("admin");
@@ -418,11 +434,17 @@ public class addUser {
             stmt.execute();
             conn.close();
             System.out.println("User Deleted");
+            user.setStyle("-fx-text-fill: green;");
+            user.setText("User removed!");
+            user.setVisible(true);
             this.populateUserTable();
 //            errorMessage.setText("User Deleted");
         }
         catch (Exception e){
             System.out.println("Error while trying to fetch all records");
+            user.setStyle("-fx-text-fill: red;");
+            user.setText("User not removed!");
+            user.setVisible(true);
             e.printStackTrace();
         }
     }
@@ -448,6 +470,7 @@ public class addUser {
 
     @FXML
     void initialize() throws SQLException {
+        user.setVisible(false);
         addUserBox.setDisable(false);
         modifyUserBox.setDisable(true);
         removeUserBox.setDisable(true);
