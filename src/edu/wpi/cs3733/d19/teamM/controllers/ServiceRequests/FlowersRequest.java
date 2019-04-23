@@ -228,7 +228,7 @@ public class FlowersRequest implements Initializable {
 
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
-        System.out.println("ROOM NUM: " + room.getText());
+        System.out.println("ROOM NUM: " + room.getSelectionModel().getSelectedItem());
 
         ObservableList<String> list = FXCollections.observableArrayList();
 
