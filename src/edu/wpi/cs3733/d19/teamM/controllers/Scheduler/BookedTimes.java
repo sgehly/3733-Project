@@ -58,10 +58,9 @@ public class BookedTimes {
 
                 if (accountint == 100) {
                     showAll();
-                     System.out.println("user is an admin ");
+                    System.out.println("user is an admin ");
                  } else {
-                    System.out.println("user is an employee");
-                    showUser(rs.getString("username"));
+                    showUser(userName.getText().toLowerCase());
 
                 }
              }
@@ -80,8 +79,12 @@ public class BookedTimes {
             Connection conn = new DatabaseUtils().getConnection();
             String sql = "select * from bookedtimes where users = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, user);
+            stmt.setString(1, user.toLowerCase());
             ResultSet rs = stmt.executeQuery();
+            System.out.println(rs.next());
+            while (rs.next()){
+                System.out.println(rs.getString("user"));
+            }
             toList(rs);
             conn.close();
         }
@@ -109,7 +112,7 @@ public class BookedTimes {
         ObservableList<DisplayTable> entList = FXCollections.observableArrayList();
         try {
             while (rs.next()) {
-                System.out.println(" //////////////////////////////////////////////in to list ");
+                System.out.println("in here");
                 DisplayTable ent = new DisplayTable();
                 ent.setRoom(rs.getString("ROOMID"));
                 ent.setUser(rs.getString("users"));
