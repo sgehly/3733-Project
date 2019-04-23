@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ServiceRequests">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
          <image>
@@ -192,7 +192,7 @@
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" onMouseClicked="#navigateToLGift" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../../../../resources/icons/mobile_phone.png" />
+                                                <Image url="@../../../../../../resources/icons/shopping.png" />
                                              </image>
                                              <VBox.margin>
                                                 <Insets />
@@ -304,17 +304,17 @@
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#toElevator" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                    <VBox alignment="CENTER" onMouseClicked="#toImaging" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../../../../resources/icons/external.png" />
+                                                <Image url="@../../../../../../resources/icons/artificial_intelligence.png" />
                                              </image>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM N ELEVATOR">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM A IMAGING">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
@@ -424,7 +424,7 @@
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../../../../resources/icons/LabTest.png" />
+                                                <Image url="@../../../../../../resources/icons/mobile_phone.png" />
                                              </image>
                                              <VBox.margin>
                                                 <Insets />
@@ -432,7 +432,7 @@
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM O DOMINOS" textAlignment="CENTER" wrappingWidth="302.4765625">
                                              <font>
-                                                <Font name="BariolSerif" size="36.0" />
+                                                <Font size="35.0" />
                                              </font>
                                              <VBox.margin>
                                                 <Insets />

@@ -25,25 +25,26 @@
 }
 
 .button2:hover{
-    -fx-background-color: WHITE;
-    -fx-text-fill: WHITE;
-    -fx-border-color: #012D5A;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-cursor: hand;
 }
 
 .button2{
-    -fx-text-fill: BLACK;
-    -fx-prompt-text-fill: WHITE;
-    -fx-border-color: #012D5A;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-background-color: transparent;
+    -fx-border-width: .2em;
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-family: "BariolSerif";
+    -fx-font-size: 18pt;
 }
 
 .jfx-text-field {
     -fx-font-size: 15;
     -fx-prompt-text-fill: GRAY;
-    -fx-text-fill: BLACK;
+    -fx-text-fill: WHITE;
     -fx-fill: WHITE;
     -jfx-focus-color: #012D5A;
     -jfx-unfocus-color: #012D5A;
@@ -55,7 +56,7 @@
 
 .jfx-text-area {
     -fx-prompt-text-fill: GRAY;
-    -fx-text-fill: BLACK;
+    -fx-text-fill: WHITE;
     -fx-fill: WHITE;
     -fx-background-color: WHITE;
     -fx-border-color: #012D5A;
@@ -107,7 +108,7 @@
     -fx-stroke-width: 3pt;
 }
 .jfx-tab-pane .tab-label{
-    -fx-text-fill: BLACK;
+    -fx-text-fill: WHITE;
     -fx-font-size: 15;
 }
 .jfx-tab-pane .tab:selected{
