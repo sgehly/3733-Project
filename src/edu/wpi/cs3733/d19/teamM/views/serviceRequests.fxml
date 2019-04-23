@@ -394,7 +394,7 @@
                                     <Image url="@../../../../../../resources/icons/shopping.png" />
                                  </image>
                               </ImageView>
-                              <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="GIFT SHOP" textAlignment="CENTER">
+                              <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM L GIFT SHOP">
                                  <font>
                                     <Font name="BariolSerif" size="36.0" />
                                  </font>
