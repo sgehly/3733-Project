@@ -1,51 +1,29 @@
 
-<<<Directions for floor 3>>>
+<<<<<<< HEAD
+Directions for floor 4
 
-Start at Restroom BTM conference center 3rd floor, move towards HallNode
-In 23 feet, at HallNode, remain straight
-In 30 feet, at Hall, take a left turn
-In 11 feet, at Hall, remain straight
-In 17 feet, at Hall, take a left turn
-In 22 feet, at Hall, remain straight
-Arrive at Elevator S Floor 3
-<<<Directions for floor 2>>>
+Start at Flexible Workspace Classroom 4, move towards Flexible Hallway Node 6.
+In 51 feet, at Flexible Hallway Node 6, bear left.
+In 26 feet, at Flexible Hallway Node 5, bear right.
+In 12 feet, at Flexible Hallway Node 4, take a slight right turn.
+In 14 feet, at Flexible Hallway Node 1, take a left turn.
+Arrive at Flexible Workspace Classroom 1
+=======
+Directions for floor 2
 
-Start at Elevator S 02, move towards Hall
-In 21 feet, at Hall, take a sharp right turn
-In 47 feet, at Hall, take a left turn
-In 14 feet, at Hall, remain straight
-In 31 feet, at Hall, take a right turn
-In 30 feet, at Hall, take a left turn
-In 73 feet, at Hallway Connector 10 Floor 2, remain straight
-In 9 feet, at Hallway Connector 9 Floor 2, remain straight
-In 29 feet, at Hall Node 37 Floor 2, remain straight
-In 11 feet, at Hall Node 33 Floor 2, remain straight
-In 17 feet, at Hall Node 32 Floor 2, remain straight
-In 14 feet, at Stairs Node 28 Floor 2, take a right turn
-In 38 feet, at Hall Node 29 Floor 2, take a left turn
-In 32 feet, at Hall Node 27 Floor 2, remain straight
-In 11 feet, at Hall Node 23 Floor 2, remain straight
-In 19 feet, at Hall Node 22 Floor 2, remain straight
-In 83 feet, at Hallway Connector 8 Floor 2, remain straight
-In 74 feet, at Hallway Connector 7 Floor 2, remain straight
-In 17 feet, at Hallway Connector 9 Floor 2, remain straight
-In 22 feet, at Hallway Connector 8 Floor 2, remain straight
-In 31 feet, at Hallway Connector 7 Floor 2, bear right
-In 25 feet, at Hallway Connector 6 Floor 2, remain straight
-In 17 feet, at Hallway Connector 5 Floor 2, take a slight right turn
-In 34 feet, at Hallway Connector 4 Floor 2, take a left turn
-In 28 feet, at Hallway Connector 1 Floor 2, take a right turn
-In 27 feet, at Hallway Connector 2 Floor 2, remain straight
-In 17 feet, at Hallway Connector 3 Floor 2, remain straight
-In 6 feet, at Hallway Connector 3 Floor 2, remain straight
-In 24 feet, at Hallway Connector 4 Floor 2, remain straight
-In 20 feet, at Staircase Intersection 1 Level 2, remain straight
-In 13 feet, at Hallway Intersection 1 Level 2, remain straight
-In 36 feet, at Hallway Intersection 2 Level 2, remain straight
-Arrive at Elevator J Floor 2
-<<<Directions for floor 3>>>
-
-Start at Elevator J Floor 3, move towards Hallway Node 18
-In 44 feet, at Hallway Node 18, take a left turn
-In 35 feet, at Hallway Node 19, remain straight
-Arrive at Gynecology
+Start at MRI Associates Floor 2, move towards Hallway 46 Floor 2.
+In 28 feet, at Hallway 46 Floor 2, take a left turn.
+In 31 feet, at Hallway 47 Floor 2, remain straight.
+In 8 feet, at Hallway 48 Floor 2, remain straight.
+In 19 feet, at Hallway 50 Floor 2, remain straight.
+In 17 feet, at Hallway 51 Floor 2, remain straight.
+In 12 feet, at Hallway 53 Floor 2, remain straight.
+In 13 feet, at Hallway 54 Floor 2, remain straight.
+In 10 feet, at Hallway 55 Floor 2, remain straight.
+In 7 feet, at Hallway 59 Floor 2, take a sharp left turn.
+In 22 feet, at Waiting Room Floor 2, take a sharp right turn.
+In 5 feet, at Hallway Connector 2 Floor 2, bear left.
+In 17 feet, at Hallway Connector 1 Floor 2, remain straight.
+In 13 feet, at Hallway Intersection 14 Level 2, remain straight.
+Arrive at Elevator E Floor 2
+>>>>>>> Sprint4/develop

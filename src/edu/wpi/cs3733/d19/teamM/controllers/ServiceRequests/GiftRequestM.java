@@ -8,7 +8,9 @@ import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import javafx.scene.control.ListView;
@@ -51,6 +53,20 @@ public class GiftRequestM {
     @FXML
     private ListView listEmployees;
 
+    @FXML
+    private Button clrBtn;
+
+    @FXML
+    private Button balloons;
+    @FXML
+    private Button card;
+    @FXML
+    private Button chocolate;
+    @FXML
+    private Button pictureFrame;
+    @FXML
+    private Button teddyBear;
+
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
      * @throws Exception: Any exception that is encountered
@@ -67,6 +83,28 @@ public class GiftRequestM {
     @FXML
     private void navigateBack() throws Exception {
         Main.setScene("serviceRequests");
+    }
+
+    @FXML
+    public void handleClear(ActionEvent event) {
+        if(event.getSource() == clrBtn) {
+            giftTypes.setText("");
+        }
+    }
+
+    @FXML
+    public void handleGiftShortcuts(ActionEvent event) {
+        if(event.getSource() == balloons) {
+            giftTypes.setText(balloons.getText());
+        } else if(event.getSource() == card) {
+            giftTypes.setText(card.getText());
+        } else if(event.getSource() == chocolate) {
+            giftTypes.setText(chocolate.getText());
+        } else if(event.getSource() == pictureFrame) {
+            giftTypes.setText(pictureFrame.getText());
+        } else if(event.getSource() == teddyBear) {
+            giftTypes.setText(teddyBear.getText());
+        }
     }
 
     /**

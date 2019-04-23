@@ -598,7 +598,7 @@ public class ServiceRequestsList {
 
     private void initWithType(int index) {
 
-        String identifiers[] = new String[]{"all", "sanitation", "interpreter", "it", "av", "gift", "flowers", "internal", "external", "religion", "security", "prescriptions", "laboratory"};
+        String identifiers[] = new String[]{"sanitation", "interpreter", "it", "av", "gift", "flowers", "internal", "external", "religion", "security", "prescriptions", "laboratory"};
         String identifier = identifiers[index];
 
         try {
@@ -743,10 +743,10 @@ public class ServiceRequestsList {
 
         ObservableList<String> dropdownList = FXCollections.observableArrayList();
         ;
-        dropdownList.setAll("All", "Sanitation", "Interpreter", "IT Service", "AV Service", "Gift Shop", "Florist", "Internal Transport", "External Transport", "Religious", "Security", "Prescriptions", "Lab test");
+        dropdownList.setAll("Sanitation", "Interpreter", "IT Service", "AV Service", "Gift Shop", "Florist", "Internal Transport", "External Transport", "Religious", "Security", "Prescriptions", "Lab test");
 
         dropdown.setItems(dropdownList);
-        dropdown.getSelectionModel().select("All");
+        dropdown.getSelectionModel().select("Sanitation");
 
         dropdown.setOnAction((e) -> {
             currentTab = dropdown.getSelectionModel().getSelectedIndex();
