@@ -19,16 +19,22 @@
     -fx-font-size:36px;
     padding: 10px 20px 10px 20px;
 }
+.largeButton{
+    -fx-font-size: 36px;
+}
+.largeButton:hover{
+    -fx-font-size: 36px;
+}
 .whiteButton {
     -fx-background-color: transparent;
     -fx-background-radius: 5px;
     -fx-border-width: .2em;
     -fx-border-color: #ffffff;
     -fx-text-fill: #ffffff;
-    -fx-text-size: 26px;
     -fx-background-radius: 5px;
     -fx-border-width: .2em;
     -fx-border-radius: 5px;
+    -fx-text-size: 26px;
     -fx-font-family: "BariolSerif";
 }
 .whiteButton:hover {

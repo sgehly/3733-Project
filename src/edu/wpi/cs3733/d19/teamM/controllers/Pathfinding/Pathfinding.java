@@ -188,9 +188,6 @@ public class Pathfinding {
     private TitledPane filters;
 
     @FXML
-    private Button scheduling;
-
-    @FXML
     private Button textToSpeech;
 
     /**
@@ -200,7 +197,7 @@ public class Pathfinding {
     @FXML
     protected void initialize() throws Exception {
         textToSpeech.setText("SPEAK DIRECTIONS");
-        scheduling.setVisible(false);
+        //scheduling.setVisible(false);
         filters.setExpanded(false);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
@@ -436,7 +433,7 @@ public class Pathfinding {
     @FXML
     private void navigateToHome() throws Exception{
         filters.setExpanded(false);
-        scheduling.setVisible(false);
+       // scheduling.setVisible(false);
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
@@ -450,7 +447,7 @@ public class Pathfinding {
     @FXML
     private void navigateToScheduling() throws Exception{
         filters.setExpanded(false);
-        scheduling.setVisible(false);
+        //scheduling.setVisible(false);
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
@@ -759,12 +756,12 @@ public class Pathfinding {
     public void moveUp(ActionEvent value) throws Exception{
         util.moveUp();
         floorLabel.setText(util.getFloorLabel());
-        if(floorLabel.getText().equals("Floor Four")){
+        /*if(floorLabel.getText().equals("Floor Four")){
             scheduling.setVisible(true);
         }
         else{
             scheduling.setVisible(false);
-        }
+        }*/
         updateMap(null,null);
     }
 
@@ -772,10 +769,10 @@ public class Pathfinding {
         util.moveDown();
         floorLabel.setText(util.getFloorLabel());
         if(floorLabel.getText().equals("Floor Four")){
-            scheduling.setVisible(true);
+            //scheduling.setVisible(true);
         }
         else{
-            scheduling.setVisible(false);
+            //scheduling.setVisible(false);
         }
         updateMap(null,null);
     }
