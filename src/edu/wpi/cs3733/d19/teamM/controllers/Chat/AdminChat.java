@@ -96,6 +96,9 @@ public class AdminChat {
 
             }
         });
+
+        Main.setScene("home");
+
         if(pubChannel != null){
             pubChannel.presence.leave(new CompletionListener() {
                 @Override
@@ -109,8 +112,6 @@ public class AdminChat {
                 }
             });
         }
-
-        Main.setScene("home");
     }
 
     @FXML
