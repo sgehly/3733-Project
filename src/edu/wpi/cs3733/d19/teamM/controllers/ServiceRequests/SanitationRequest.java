@@ -2,18 +2,24 @@ package edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests;
 
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.Node;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 import java.awt.*;
@@ -88,6 +94,39 @@ public class SanitationRequest implements Initializable {
                 throw e;
             }
             new ServiceRequests().makeRequest("sanitation", room.getSelectionModel().getSelectedItem(), typeofmess.getText(), notes.getText(), hazard.isSelected());
+
+            StackPane stackPane = new StackPane();
+            stackPane.autosize();
+            JFXDialogLayout content = new JFXDialogLayout();
+            content.setHeading(new Text("Success!"));
+            content.setBody(new Text("Your service request was sent."));
+            JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER);
+            Pane imInPane = (Pane) Main.primaryStage.getScene().getRoot();
+            imInPane.getChildren().add(stackPane);
+
+            // Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+            //System.out.println(content.getLayoutBounds().getWidth()+"/"+content.getLayoutBounds().getHeight());
+            AnchorPane.setBottomAnchor(stackPane, 10.0);
+            AnchorPane.setRightAnchor(stackPane, 10.0);
+            AnchorPane.setTopAnchor(stackPane, 10.0);
+            AnchorPane.setLeftAnchor(stackPane, 10.0);
+            dialog.show();
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        this.sleep(5000);
+                        Platform.runLater(() -> {
+                            dialog.close();
+                            imInPane.getChildren().remove(stackPane);
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
