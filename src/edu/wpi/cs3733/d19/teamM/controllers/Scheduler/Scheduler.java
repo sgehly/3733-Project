@@ -387,13 +387,14 @@ public class Scheduler {
      */
     private void addBookedTime(String roomID, Timestamp start, Timestamp end){
         DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
-        String query = "INSERT INTO BookedTimes VALUES(?, ?, ?)";
+        String query = "INSERT INTO BookedTimes VALUES(?, ?, ?, ?)";
         try{
             Connection conn = DBUtils.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, roomID);
-            stmt.setTimestamp(2, start);
-            stmt.setTimestamp(3, end);
+            stmt.setString(2, userText.getText());
+            stmt.setTimestamp(3, start);
+            stmt.setTimestamp(4, end);
             stmt.execute();
             conn.close();
         }
