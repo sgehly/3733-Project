@@ -83,6 +83,8 @@ public class PrescriptionRequest {
             }
             new ServiceRequests().makeRequest("prescriptions", room.getSelectionModel().getSelectedItem(), fillId.getText(), notes.getText(), urgent.isSelected());
 
+            errorMessage.setText(" ");
+
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialogLayout content = new JFXDialogLayout();
