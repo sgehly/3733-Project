@@ -121,7 +121,7 @@
                                     <VBox alignment="CENTER" prefHeight="500.0" prefWidth="1873.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Other Team APIs" underline="true" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Elevator API - Team N" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Gift Request API - Team L" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="External APIs" underline="true" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Javax.mail" />
@@ -132,9 +132,9 @@
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Twilio" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Java-google-speech-api" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Webcam-capture" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Text" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Text" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Text" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Webcam-capture-driver-jmf" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Slf4j-simple" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="CalendarFX" />
                                        </children>
                                     </VBox>
                                             </children>

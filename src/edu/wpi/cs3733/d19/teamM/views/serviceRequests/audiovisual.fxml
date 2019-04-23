@@ -141,8 +141,80 @@
                                                                 <Insets left="20.0" />
                                                             </HBox.margin>
                                                         </JFXTextField>
+                                          <Button fx:id="clrBtn" maxHeight="-Infinity" maxWidth="300.0" mnemonicParsing="false" onAction="#handleClear" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 18;" styleClass="blackButton" stylesheets="@../../../../../../../resources/stylesheet.css" text="CLEAR">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Button>
                                                     </children>
                                                 </HBox>
+                                    <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <Button fx:id="camera" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleAVShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Camera">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-slr-camera-128.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="earbuds" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleAVShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Earbuds">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-earbud-headphones-128.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="projector" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleAVShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Projector">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-video-projector-96.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="speakers" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleAVShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Speakers">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-speaker.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="tv" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleAVShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="TV">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-tv-512.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Additional Specifications:" />
