@@ -79,7 +79,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
+                        <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" stylesheets="@../../../../../../resources/stylesheet.css" text="LOGOUT">
                            <font>
                               <Font name="Open Sans Bold" size="24.0" />
                            </font>
@@ -91,12 +91,12 @@
                   </HBox>
                </children>
                <padding>
-                  <Insets bottom="20.0" />
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
                </padding>
             </HBox>
             <TabPane prefHeight="1080.0" prefWidth="1920.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab style="-fx-background-color: #fff;" text="Lab Work">
+                <Tab onSelectionChanged="#tabChanged" style="-fx-background-color: #fff;" text="Lab Work">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -121,7 +121,7 @@
                                                             <Insets top="50.0" />
                                                          </HBox.margin>
                                                       </Label>
-                                                      <ProgressBar fx:id="bar" prefHeight="125.0" prefWidth="800.0" progress="0.0">
+                                                      <ProgressBar fx:id="bar" prefHeight="125.0" prefWidth="800.0" progress="0.0" stylesheets="@../../../../../../resources/stylesheet.css">
                                                          <padding>
                                                             <Insets top="50.0" />
                                                          </padding>
@@ -147,7 +147,7 @@
                                                       <Font name="System Bold" size="25.0" />
                                                    </font>
                                                 </Label>
-                                                <TableView fx:id="priceTable" prefHeight="600.0" prefWidth="200.0">
+                                                <TableView fx:id="priceTable" prefHeight="600.0" prefWidth="200.0" stylesheets="@../../../../../../resources/stylesheet.css">
                                                    <VBox.margin>
                                                       <Insets top="50.0" />
                                                    </VBox.margin>
@@ -162,7 +162,7 @@
                                                 </TableView>
                                              </children>
                                           </VBox>
-                                          <ImageView fx:id="imgOverlay" fitHeight="953.0" fitWidth="1038.0" layoutX="10.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="295.0" AnchorPane.topAnchor="0.0">
+                                          <ImageView fx:id="imgOverlay" fitHeight="953.0" fitWidth="1038.0" layoutX="10.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="170.0">
                                              <image>
                                                 <Image url="@../../../../../../resources/overlay.png" />
                                              </image>
@@ -175,7 +175,7 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab style="-fx-background-color: #fff;" text="Body Scans">
+                <Tab onSelectionChanged="#tabChanged" style="-fx-background-color: #fff;" text="Body Scans">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -200,7 +200,7 @@
                                                             <Insets top="50.0" />
                                                          </HBox.margin>
                                                       </Label>
-                                                      <ProgressBar fx:id="bar2" prefHeight="125.0" prefWidth="800.0" progress="0.0">
+                                                      <ProgressBar fx:id="bar2" prefHeight="125.0" prefWidth="800.0" progress="0.0" stylesheets="@../../../../../../resources/stylesheet.css">
                                                          <padding>
                                                             <Insets top="50.0" />
                                                          </padding>
@@ -226,7 +226,7 @@
                                                       <Font name="System Bold" size="25.0" />
                                                    </font>
                                                 </Label>
-                                                <TableView fx:id="priceTable2" prefHeight="600.0" prefWidth="200.0">
+                                                <TableView fx:id="priceTable2" prefHeight="600.0" prefWidth="200.0" stylesheets="@../../../../../../resources/stylesheet.css">
                                                    <VBox.margin>
                                                       <Insets top="50.0" />
                                                    </VBox.margin>
@@ -241,7 +241,7 @@
                                                 </TableView>
                                              </children>
                                           </VBox>
-                                          <ImageView fx:id="imgOverlay2" fitHeight="953.0" fitWidth="1038.0" layoutX="10.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="295.0" AnchorPane.topAnchor="0.0">
+                                          <ImageView fx:id="imgOverlay2" fitHeight="953.0" fitWidth="1038.0" layoutX="10.0" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.leftAnchor="170.0">
                                              <image>
                                                 <Image url="@../../../../../../resources/overlay.png" />
                                              </image>
@@ -276,7 +276,7 @@
                                           <Insets left="25.0" top="25.0" />
                                        </VBox.margin>
                                     </HBox>
-                                    <TableView fx:id="chargeMasterTV" prefHeight="700.0" prefWidth="200.0">
+                                    <TableView fx:id="chargeMasterTV" prefHeight="600.0" prefWidth="200.0" stylesheets="@../../../../../../resources/stylesheet.css">
                                       <columns>
                                           <TableColumn fx:id="hospitalCol1" prefWidth="75.0" text="Hospital" />
                                         <TableColumn fx:id="procedureCol1" prefWidth="75.0" text="Procedure" />
@@ -286,7 +286,7 @@
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
                                     </TableView>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="284.0" prefWidth="1820.0" text="Disclaimer: These prices rarely reflect what a patient pays. This is the starting point and isuarance negotiates from these average prices. It does not reflect the price of a patiet's specfic treatment, quality of care, and diagnosis. It is nearly impossible to set a flat price." textFill="WHITE">
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="86.0" prefWidth="1820.0" text="Disclaimer: These prices rarely reflect what a patient pays. This is the starting point and isuarance negotiates from these average prices. It does not reflect the price of a patiet's specfic treatment, quality of care, and diagnosis. It is nearly impossible to set a flat price." textFill="WHITE">
                                        <VBox.margin>
                                           <Insets left="50.0" right="50.0" top="25.0" />
                                        </VBox.margin>
