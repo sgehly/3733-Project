@@ -87,7 +87,7 @@
                                 <Insets right="200.0" top="15.0" />
                             </HBox.margin>
                         </HBox>
-                          <Button mnemonicParsing="false" onMouseClicked="#navigateToDetails" prefHeight="55.0" prefWidth="183.0" styleClass="logoutButton" text="GO TO LIST">
+                          <Button mnemonicParsing="false" onMouseClicked="#navigateToDetails" prefHeight="55.0" prefWidth="183.0" styleClass="logoutButton" text="CALENDAR">
                               <font>
                                   <Font name="Open Sans Bold" size="24.0" />
                               </font>
@@ -95,6 +95,14 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                           </Button>
+                  <Button mnemonicParsing="false" onMouseClicked="#navigateToDetails" prefHeight="55.0" prefWidth="183.0" styleClass="logoutButton" text="BOOKINGS">
+                     <font>
+                        <Font name="Open Sans Bold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
                   <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
                      <font>
                         <Font name="Open Sans Bold" size="24.0" />
