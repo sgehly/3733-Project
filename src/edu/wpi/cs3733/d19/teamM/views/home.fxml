@@ -87,6 +87,11 @@
                                  </HBox.margin>
                               </Button>
                               <JFXButton onMouseClicked="#navigateToChat" styleClass="logoutButton" text="HELP" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="admin1" mnemonicParsing="false" onAction="#navigateToWeb" onMouseClicked="#logout" styleClass="logoutButton" text="WEB">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
+                                 </font>
+                              </Button>
                               <Button mnemonicParsing="false" onAction="#logout" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
                                  <font>
                                     <Font name="Open Sans Bold" size="24.0" />
