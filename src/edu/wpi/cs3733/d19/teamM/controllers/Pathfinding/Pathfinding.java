@@ -531,6 +531,9 @@ public class Pathfinding {
         if (startNode != null) {
             path = graph.findPresetPath(startNode, type, graph.getNodes());
         }
+        else {
+            path = null;
+        }
 
         final JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -565,6 +568,7 @@ public class Pathfinding {
             sendRobotButton.setDisable(false);
             showDir.setText("TEXT DIRECTIONS");
         }
+
         resetTextBox();
 
         Path curPath = path.getFloorPaths().get(0);
@@ -584,48 +588,6 @@ public class Pathfinding {
             }
         };
         new Thread(robotThread).start();
-    }
-
-    private void findPathWithLongNames() throws Exception{
-
-        String startPre = startText.getText();
-        String start = startPre.substring(0,startPre.indexOf(" on Floor: "));
-        String endPre = endText.getText();
-        String end = endPre.substring(0,endPre.indexOf(" on Floor: "));
-
-        Node startNode = null;
-        Node endNode = null;
-
-        for (Node n : graph.getNodes().values()){
-            if (n.getLongName().equals(start)){
-                startNode = n;
-            }
-            if (n.getLongName().equals(end)){
-                endNode = n;
-            }
-        }
-
-        if (startNode != null && endNode != null) {
-            path = graph.findPath(startNode, endNode);
-            PathToString.getDirections(path);
-           // Printing myPrinter = new Printing();
-            //myPrinter.printDirections("C:\\Users\\kenne\\Desktop\\the-file-name.txt");
-        }
-
-        int newFloorInt = util.idToFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
-        System.out.println("Setting floor to "+newFloorInt);
-        util.setFloor(newFloorInt);
-        floorLabel.setText(util.getFloorLabel());
-
-        System.out.println("Seeing util floor as "+util.floor);
-
-        if (path != null){
-            showDir.setDisable(false);
-            showDir.setText("TEXT DIRECTIONS");
-        }
-
-        updateMap(null,null);
-        resetTextBox();
     }
 
     private void filterNodes(String s) {
