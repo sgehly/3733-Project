@@ -582,6 +582,8 @@ public class LanguageRequests implements Initializable {
             }
             new ServiceRequests().makeRequest("interpreter", room.getSelectionModel().getSelectedItem(), Language.getText(), notes.getText(), Urgent.isSelected());
 
+            errorMessage.setText(" ");
+
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialogLayout content = new JFXDialogLayout();

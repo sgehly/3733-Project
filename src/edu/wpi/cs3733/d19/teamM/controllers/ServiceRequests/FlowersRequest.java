@@ -156,6 +156,8 @@ public class FlowersRequest implements Initializable {
             }
             new ServiceRequests().makeRequest("flowers", room.getSelectionModel().getSelectedItem(), flowerType.getText(), notes.getText(), replace.isSelected());
 
+            errorMessage.setText(" ");
+
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialogLayout content = new JFXDialogLayout();
