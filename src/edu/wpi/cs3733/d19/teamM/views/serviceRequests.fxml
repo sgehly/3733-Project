@@ -281,7 +281,7 @@
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#naviagateToExternal" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                    <VBox alignment="CENTER" onMouseClicked="#naviagateToExternal" prefHeight="202.0" prefWidth="496.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -292,29 +292,6 @@
                                              </VBox.margin>
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="EXT TRANSPORT">
-                                             <font>
-                                                <Font name="BariolSerif" size="36.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#toElevator" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
-                                       <children>
-                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/external.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM N ELEVATOR">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
@@ -408,29 +385,6 @@
                                              </VBox.margin>
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="LAB TEST" textAlignment="CENTER" wrappingWidth="280.4765625">
-                                             <font>
-                                                <Font name="BariolSerif" size="36.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#toPizza" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
-                                       <children>
-                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/LabTest.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM O DOMINOS" textAlignment="CENTER" wrappingWidth="302.4765625">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>

@@ -4,7 +4,6 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
-import elevator_api.InternalTransportRequestApi;
 import giftRequest.GiftRequest;
 
 import javafx.animation.Animation;
@@ -226,27 +225,27 @@ public class ServiceRequests {
             }
     }
 
-    @FXML
-    private void toPizza(){
-        try{
-            edu.wpi.cs3733.d19.teamO.request.Request pizza = new edu.wpi.cs3733.d19.teamO.request.Request();
-            pizza.run(0,0,1500,1500,"/resources/stylesheet.css", "", "");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void toElevator(){
-        try{
-            InternalTransportRequestApi i = new InternalTransportRequestApi();
-            i.run(0,0,1500,1500,"/resources/stylesheetAPI.css","","AELEV00S01",true,"m");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    @FXML
+//    private void toPizza(){
+//        try{
+//            edu.wpi.cs3733.d19.teamO.request.Request pizza = new edu.wpi.cs3733.d19.teamO.request.Request();
+//            pizza.run(0,0,1500,1500,"/resources/stylesheet.css", "", "");
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @FXML
+//    private void toElevator(){
+//        try{
+//            InternalTransportRequestApi i = new InternalTransportRequestApi();
+//            i.run(0,0,1500,1500,"/resources/stylesheetAPI.css","","AELEV00S01",true,"m");
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * This method checks room availability after a button is clicked
