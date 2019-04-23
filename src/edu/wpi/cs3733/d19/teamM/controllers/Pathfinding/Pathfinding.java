@@ -438,6 +438,7 @@ public class Pathfinding {
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
+        util = null;
         Main.setScene("home");
         if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
             handleSpeaking();
@@ -1075,6 +1076,7 @@ public class Pathfinding {
      */
     @FXML
     public void logout() throws Exception{
+        util = null;
         Main.logOut();
         if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
             handleSpeaking();
