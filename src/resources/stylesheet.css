@@ -211,10 +211,22 @@
     -fx-background-color: blue;
 }
 
+.titled-pane > .title
+{
+    -fx-background-color:  #012d5a;
+}
+
+.titled-pane > .title > .arrow-button .arrow {
+    -fx-background-color: white;
+}
 /*tableview*/
 .table-view, .table-view *{
     -fx-border-color: transparent;
     -fx-border-width: 0;
+}
+.check-box > .box
+{
+    -fx-background-color: #DCDCDC;
 }
 
 .table-view .column-header,
