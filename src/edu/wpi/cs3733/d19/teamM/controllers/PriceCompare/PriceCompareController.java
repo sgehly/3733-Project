@@ -14,6 +14,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
 
@@ -119,9 +120,6 @@ public class PriceCompareController {
     private Label ourLBL;
 
     @FXML
-    private ImageView imgOverlay;
-
-    @FXML
     private ProgressBar bar2;
 
     @FXML
@@ -133,8 +131,6 @@ public class PriceCompareController {
     @FXML
     private Label ourLBL2;
 
-    @FXML
-    private ImageView imgOverlay2;
 
     @FXML
     private TableView chargeMasterTV;
@@ -150,6 +146,24 @@ public class PriceCompareController {
 
     @FXML
     private Text userText;
+
+    @FXML
+    private AnchorPane labWorkContainer;
+
+    @FXML
+    private AnchorPane bodyScansContainer;
+
+    @FXML
+    private AnchorPane chargemasterContainer;
+
+    @FXML
+    private Button labWorkButton;
+
+    @FXML
+    private Button bodyScansButton;
+
+    @FXML
+    private Button chargemasterButton;
 
     @FXML
     public void initialize(){
@@ -210,19 +224,66 @@ public class PriceCompareController {
 
     }
 
+    @FXML
+    private void changeToChargemaster(){
+        bodyScansContainer.setMouseTransparent(true);
+        bodyScansContainer.setOpacity(0);
+        labWorkContainer.setMouseTransparent(true);
+        labWorkContainer.setOpacity(0);
+        chargemasterContainer.setMouseTransparent(false);
+        chargemasterContainer.setOpacity(1);
+
+        bodyScansButton.setStyle("");
+        labWorkButton.setStyle("");
+        chargemasterButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
+    }
+
+    @FXML
+    private void changeToBodyScans(){
+        bodyScansContainer.setMouseTransparent(false);
+        bodyScansContainer.setOpacity(1);
+        labWorkContainer.setMouseTransparent(true);
+        labWorkContainer.setOpacity(0);
+        chargemasterContainer.setMouseTransparent(true);
+        chargemasterContainer.setOpacity(0);
+
+        bodyScansButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
+        labWorkButton.setStyle("");
+        chargemasterButton.setStyle("");
+    }
+
+    @FXML
+    private void changeToLabWork(){
+        bodyScansContainer.setMouseTransparent(true);
+        bodyScansContainer.setOpacity(0);
+        labWorkContainer.setMouseTransparent(false);
+        labWorkContainer.setOpacity(1);
+        chargemasterContainer.setMouseTransparent(true);
+        chargemasterContainer.setOpacity(0);
+
+        bodyScansButton.setStyle("");
+        labWorkButton.setStyle("-fx-background-color: white; -fx-text-fill: black");
+        chargemasterButton.setStyle("");
+    }
+
     private void initVisibility(){
         bar.setVisible(false);
         maxLBL.setVisible(false);
         minLBL.setVisible(false);
         ourLBL.setVisible(false);
         priceTable.setVisible(false);
-        imgOverlay.setVisible(true);
+//        imgOverlay.setVisible(true);
         bar2.setVisible(false);
         maxLBL2.setVisible(false);
         minLBL2.setVisible(false);
         ourLBL2.setVisible(false);
         priceTable2.setVisible(false);
-        imgOverlay2.setVisible(true);
+//        imgOverlay2.setVisible(true);
+
+        listView.getSelectionModel().select(0);
+        listView2.getSelectionModel().select(0);
+
+        this.changeToLabWork();
     }
 
     private void setUpListeners(){
@@ -288,7 +349,7 @@ public class PriceCompareController {
         maxLBL.setVisible(true);
         minLBL.setVisible(true);
         ourLBL.setVisible(true);
-        imgOverlay.setVisible(false);
+       // imgOverlay.setVisible(false);
 
         Label lbl = (Label) s;
         List<List<String>> data = getCorrectData(lbl.getText());
@@ -307,7 +368,6 @@ public class PriceCompareController {
         maxLBL2.setVisible(true);
         minLBL2.setVisible(true);
         ourLBL2.setVisible(true);
-        imgOverlay2.setVisible(false);
 
 
         Label lbl = (Label) s;
@@ -373,7 +433,7 @@ public class PriceCompareController {
 
         minLBL.setText("$" + String.valueOf(min));
         maxLBL.setText("$" + String.valueOf(max));
-        ourLBL.setText(hospital + " price: $" + String.valueOf(bW));
+        ourLBL.setText(hospital + " Price: $" + String.valueOf(bW));
 
         double prog = (100.0 / (max - min) * (bW - min));
         bar.setStyle(getColor(prog / 100.0));
@@ -468,9 +528,9 @@ public class PriceCompareController {
     }
 
     public String getColor(Double amount){
-        if (amount > 0.75) return "-fx-accent: Red; ";
-        else if (amount > 0.50) return "-fx-accent: Orange; ";
-        else if (amount > 0.25) return "-fx-accent: Yellow; ";
-        else return "-fx-accent: Green; ";
+        if (amount > 0.75) return "-fx-accent: #ee5253; ";
+        else if (amount > 0.50) return "-fx-accent: #ff9f43; ";
+        else if (amount > 0.25) return "-fx-accent: #feca57; ";
+        else return "-fx-accent: #10ac84; ";
     }
 }
