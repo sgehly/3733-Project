@@ -89,7 +89,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox alignment="CENTER" maxWidth="1450.0" prefHeight="749.0" prefWidth="1000.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="CENTER" maxWidth="1599.0" prefHeight="750.0" prefWidth="1599.0" HBox.hgrow="ALWAYS">
                            <children>
                               <HBox alignment="CENTER" maxHeight="290.0" prefHeight="278.0" prefWidth="1713.0" spacing="20.0" VBox.vgrow="ALWAYS">
                                  <padding>
@@ -111,7 +111,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -134,7 +134,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -157,7 +157,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -180,7 +180,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -207,7 +207,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -227,7 +227,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -250,7 +250,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -273,7 +273,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -300,7 +300,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -320,7 +320,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -343,7 +343,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -366,7 +366,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -378,7 +378,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox onMouseClicked="#navigateToLGift" prefHeight="200.0" prefWidth="369.0" styleClass="mainBlock">
+                        <VBox alignment="CENTER" maxWidth="300.0" minWidth="300.0" onMouseClicked="#navigateToLGift" prefHeight="200.0" prefWidth="200.0" styleClass="mainBlock" HBox.hgrow="NEVER">
                            <padding>
                               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                            </padding>
@@ -388,18 +388,18 @@
                            <children>
                               <ImageView fitHeight="175.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                  <VBox.margin>
-                                    <Insets left="50.0" top="225.0" />
+                                    <Insets />
                                  </VBox.margin>
                                  <image>
                                     <Image url="@../../../../../../resources/icons/shopping.png" />
                                  </image>
                               </ImageView>
-                              <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM L GIFT SHOP" textAlignment="CENTER">
+                              <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM L GIFT SHOP" textAlignment="CENTER" wrappingWidth="300.0">
                                  <font>
-                                    <Font name="Open Sans Bold" size="36.0" />
+                                    <Font name="BariolSerif" size="36.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets left="15.0" />
+                                    <Insets top="20.0" />
                                  </VBox.margin>
                               </Text>
                            </children>

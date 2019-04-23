@@ -13,6 +13,7 @@ import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -21,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.awt.*;
 import java.io.IOException;
@@ -65,6 +67,21 @@ public class SanitationRequest implements Initializable {
     @FXML
     private Text errorMessage;
 
+    String[] sanitation = {"Solid Spills","Fluid Spills","Trash","Needle Removal","Bathroom"};
+
+    @FXML
+    private javafx.scene.control.Button clrBtn;
+
+    @FXML
+    private javafx.scene.control.Button bathroom;
+    @FXML
+    private javafx.scene.control.Button fluidSpill;
+    @FXML
+    private javafx.scene.control.Button needle;
+    @FXML
+    private javafx.scene.control.Button solidSpill;
+    @FXML
+    private javafx.scene.control.Button trash;
 
     /**
      * This method is for the logout button which allows the user to go back to the welcome screen
@@ -82,6 +99,28 @@ public class SanitationRequest implements Initializable {
     @FXML
     private void navigateBack() throws Exception {
         Main.setScene("serviceRequests");
+    }
+
+    @FXML
+    public void handleClear(ActionEvent event) {
+        if(event.getSource() == clrBtn) {
+            typeofmess.setText("");
+        }
+    }
+
+    @FXML
+    public void handleSanitationShortcuts(ActionEvent event) {
+        if(event.getSource() == bathroom) {
+            typeofmess.setText(bathroom.getText());
+        } else if(event.getSource() == fluidSpill) {
+            typeofmess.setText(fluidSpill.getText());
+        } else if(event.getSource() == needle) {
+            typeofmess.setText(needle.getText());
+        } else if(event.getSource() == solidSpill) {
+            typeofmess.setText(solidSpill.getText());
+        } else if(event.getSource() == trash) {
+            typeofmess.setText(trash.getText());
+        }
     }
 
     @FXML
@@ -191,7 +230,7 @@ public class SanitationRequest implements Initializable {
         catch (Exception e){
             e.printStackTrace();
         }
+        TextFields.bindAutoCompletion(typeofmess, sanitation);
 
-        //userText.setText("");
     }
 }

@@ -23,7 +23,7 @@ public class PathToString {
         int distance = 0;
         double angle = 0.0;
         double oldAngle = 0.0;
-        //Collections.reverse(paths.getPath());
+        Collections.reverse(paths.getPath());
         //angle = calcAngle(oldX, oldY, n.getX(), n.getY());
         //step = getDirectionChange(angle, oldAngle);
         if (paths.getPath().size() < 3) {
@@ -60,7 +60,7 @@ public class PathToString {
             path.append("Arrive at " + p.getPath().get(p.getPath().size() - 1).getLongName());
         }
 
-        Collections.reverse(paths.getPath());
+        //Collections.reverse(paths.getPath());
 
         try {
             FileWriter fstream = new FileWriter("resource.txt", false);

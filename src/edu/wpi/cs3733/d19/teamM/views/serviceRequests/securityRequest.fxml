@@ -132,14 +132,89 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
                                                     <children>
-                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Type:" />
+                                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Type:">
+                                             <HBox.margin>
+                                                <Insets left="168.0" />
+                                             </HBox.margin></Text>
                                                         <JFXTextField fx:id="type" styleClass="lightInput">
                                                             <HBox.margin>
                                                                 <Insets left="20.0" />
                                                             </HBox.margin>
                                                         </JFXTextField>
+                                          <Button fx:id="clrBtn" maxHeight="-Infinity" maxWidth="300.0" mnemonicParsing="false" onAction="#handleClear" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 18;" styleClass="blackButton" stylesheets="@../../../../../../../resources/stylesheet.css" text="CLEAR">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Button>
                                                     </children>
                                                 </HBox>
+                                    <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <Button fx:id="fight" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSecurityShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Fight">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-fight-96.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="intruder" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSecurityShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Intruder">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-id-not-verified-128.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="lostPatient" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSecurityShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Lost Patient">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-quest-96.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="unrulyPatient" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSecurityShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Unruly Patient">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-headache-128.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="weapons" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleSecurityShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Weapons Sighting">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-no-weapons-80.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
                                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
                                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Notes:" />
