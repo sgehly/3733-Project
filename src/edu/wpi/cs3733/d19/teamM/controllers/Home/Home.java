@@ -219,9 +219,9 @@ public class Home{
 
 
             if(scrollContainer.getHvalue() == 1){
-                //scrollContainer.setHvalue(0);
-                this.clock.stop();
-                this.reverseClock.play();
+                scrollContainer.setHvalue(0);
+                //this.clock.stop();
+                //this.reverseClock.play();
             }
 
             scrollContainer.setHvalue(scrollContainer.getHvalue()+delta);
