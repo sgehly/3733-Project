@@ -32,7 +32,6 @@ sourceSets.main.java.srcDirs = ['src']
 sourceSets.main.resources.srcDirs = ['src']
 
 dependencies {
-    // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.google.guava:guava:27.0.1-jre'
     compile 'com.github.yp2211:gTTS4j:master-SNAPSHOT'
 
@@ -43,7 +42,7 @@ dependencies {
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
     implementation 'com.jfoenix:jfoenix:8.0.8' // Java 8
     implementation group: 'org.twitter4j', name: 'twitter4j-core', version: '[4.0,)'
-                                                                            //4.0.8-SNAPSHOT (Other possible version thing)
+    //4.0.8-SNAPSHOT (Other possible version thing)
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
     compile group: 'net.sf.sociaal', name: 'freetts', version: '1.2.2'
     compile group: 'net.kurobako', name: 'gesturefx', version: '0.3.0'

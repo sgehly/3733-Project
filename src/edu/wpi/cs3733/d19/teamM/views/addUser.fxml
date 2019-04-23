@@ -346,6 +346,13 @@
                      <VBox.margin>
                         <Insets bottom="30.0" left="37.0" right="29.0" top="15.0" />
                      </VBox.margin>
+                     <children>
+                        <Label fx:id="user" text="Label">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                     </children>
                   </HBox>
                </children>
                <opaqueInsets>

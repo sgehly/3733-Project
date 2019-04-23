@@ -132,7 +132,7 @@
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Language:" />
                                           <JFXTextField fx:id="Language" styleClass="lightInput">
                                              <HBox.margin>
-                                                <Insets left="20.0" />
+                                                <Insets left="20.0" right="40.0" />
                                              </HBox.margin>
                                           </JFXTextField>
                                        </children>
@@ -164,19 +164,8 @@
                                     </Text>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onMouseClicked="#quickTranslateToEnglish" text="TO ENGLISH">
-                                             <styleClass>
-                                                <String fx:value="blackButton" />
-                                                <String fx:value="requestButton" />
-                                             </styleClass>
-                                          </Button>
-                                          <JFXTextField fx:id="translateText" alignment="CENTER" prefHeight="76.0" prefWidth="547.0" promptText="TYPE TEXT HERE TO TRANSLATE" styleClass="lightInput" />
-                                          <Button mnemonicParsing="false" onMouseClicked="#quickTranslateToTarget" text="TO SELECTED">
-                                             <styleClass>
-                                                <String fx:value="blackButton" />
-                                                <String fx:value="requestButton" />
-                                             </styleClass>
-                                          </Button>
+                                          <JFXTextField fx:id="translateText" alignment="CENTER" prefHeight="50.0" prefWidth="500.0" promptText="TYPE TEXT HERE TO TRANSLATE" styleClass="lightInput" />
+                                          <Button mnemonicParsing="false" onMouseClicked="#quickTranslateToTarget" prefHeight="50.0" style="-fx-font-size: 20;" styleClass="blackButton" text="TO SELECTED" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">

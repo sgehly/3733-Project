@@ -392,3 +392,21 @@
     -fx-font-size: 16pt;
     -fx-text-fill: white;
 }
+
+.progress-bar {
+    -fx-box-border: #ffffff;
+}
+
+.green-bar  { -fx-accent: green;  }
+.yellow-bar { -fx-accent: yellow; }
+.orange-bar { -fx-accent: orange; }
+.red-bar    { -fx-accent: red;    }
+
+.chart{
+    -fx-tick-label-fill: white;
+}
+
+.chart-bar {
+    -fx-bar-fill: white;
+    -fx-tick-label-fill: white;
+}
