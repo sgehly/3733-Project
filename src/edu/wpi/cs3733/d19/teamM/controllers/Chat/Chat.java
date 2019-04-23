@@ -56,28 +56,33 @@ public class Chat {
 
     @FXML
     public void logout() throws Exception {
-        channel.presence.leave(new CompletionListener() {
-            @Override
-            public void onSuccess() {
+        try{
+            channel.presence.leave(new CompletionListener() {
+                @Override
+                public void onSuccess() {
 
-            }
+                }
 
-            @Override
-            public void onError(ErrorInfo reason) {
+                @Override
+                public void onError(ErrorInfo reason) {
 
-            }
-        });
-        pubChannel.presence.leave(new CompletionListener() {
-            @Override
-            public void onSuccess() {
+                }
+            });
+            pubChannel.presence.leave(new CompletionListener() {
+                @Override
+                public void onSuccess() {
 
-            }
+                }
 
-            @Override
-            public void onError(ErrorInfo reason) {
+                @Override
+                public void onError(ErrorInfo reason) {
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         Main.setScene("welcome");
     }
 
@@ -87,28 +92,33 @@ public class Chat {
      */
     @FXML
     private void navigateBack() throws Exception {
-        channel.presence.leave(new CompletionListener() {
-            @Override
-            public void onSuccess() {
+        try{
+            channel.presence.leave(new CompletionListener() {
+                @Override
+                public void onSuccess() {
 
-            }
+                }
 
-            @Override
-            public void onError(ErrorInfo reason) {
+                @Override
+                public void onError(ErrorInfo reason) {
 
-            }
-        });
-        pubChannel.presence.leave(new CompletionListener() {
-            @Override
-            public void onSuccess() {
+                }
+            });
+            pubChannel.presence.leave(new CompletionListener() {
+                @Override
+                public void onSuccess() {
 
-            }
+                }
 
-            @Override
-            public void onError(ErrorInfo reason) {
+                @Override
+                public void onError(ErrorInfo reason) {
 
-            }
-        });
+                }
+            });
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
         Main.setScene("home");
     }
 
