@@ -142,6 +142,19 @@ public class Home{
     }
 
     @FXML
+    public void navigateToPriceCheck(){
+        Parent pathFindingPane;
+        Scene pathFindingScene;
+        try {
+            pathFindingPane = FXMLLoader.load(Main.getFXMLURL("priceCompare"));
+            pathFindingScene = new Scene(pathFindingPane);
+            Main.getStage().setScene(pathFindingScene);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     public void navigateToChat(){
         Main.setScene("chat");
     }
@@ -179,6 +192,9 @@ public class Home{
     @FXML
     public void navigateToAbout(){Main.setScene("about");}
 
+    @FXML
+    public void navigateToWeb(){Main.setScene("web");}
+
 
     Timeline clock;
     Timeline reverseClock;
@@ -194,7 +210,10 @@ public class Home{
             Image image = new Image(Main.getResource("/resources/pics/"+User.getPathToPic()));
             myImg.setStyle("-fx-background-radius: 1000; -fx-border-radius:1000");
             myImg.setImage(image);
-            myImg.setClip(new Circle(24.5,24.5,24));
+            if(!userText.getText().toLowerCase().contains("staff"))
+            {
+                myImg.setClip(new Circle(24.5,24.5,24));
+            }
         }
         catch(Exception e){
             e.printStackTrace();
@@ -206,9 +225,9 @@ public class Home{
 
 
             if(scrollContainer.getHvalue() == 1){
-                //scrollContainer.setHvalue(0);
-                this.clock.stop();
-                this.reverseClock.play();
+                scrollContainer.setHvalue(0);
+                //this.clock.stop();
+                //this.reverseClock.play();
             }
 
             scrollContainer.setHvalue(scrollContainer.getHvalue()+delta);

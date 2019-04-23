@@ -1,26 +1,27 @@
 
-<<<Directions for floor 1>>>
+Directions for floor 1
 
-Start at Elevator Q MapNode 18 Floor 1, move towards Hallway MapNode 17 Floor 1
-In 35 feet, at Hallway MapNode 17 Floor 1, take a sharp right turn
-In 26 feet, at Hallway MapNode 7 Floor 1, take a left turn
-Arrive at Stairway MapNode 5 Floor 1
-<<<Directions for floor 2>>>
-
-Start at Stairs Node 28 Floor 2, move towards Hall Node 29 Floor 2
-In 38 feet, at Hall Node 29 Floor 2, take a left turn
-In 32 feet, at Hall Node 27 Floor 2, remain straight
-In 11 feet, at Hall Node 23 Floor 2, remain straight
-In 19 feet, at Hall Node 22 Floor 2, remain straight
-In 83 feet, at Hallway Connector 8 Floor 2, remain straight
-In 74 feet, at Hallway Connector 7 Floor 2, remain straight
-Arrive at Elevator M Floor 2
-<<<Directions for floor 1>>>
-
-Start at Elevator M Floor 1, move towards Lobby Hallway 1
-In 40 feet, at Lobby Hallway 1, remain straight
-In 13 feet, at Lobby Hallway 2, take a left turn
-In 20 feet, at Lobby Hallway 3, take a right turn
-In 89 feet, at Lobby Hallway 4, take a left turn
-In 22 feet, at Lobby Hallway 6, remain straight
-Arrive at Lobby Shattuck Street Stairs
+Start at Ocupational Health Floor 1, move towards Wound and Ambulatory 1.
+In 47 feet, at Wound and Ambulatory 1, remain straight.
+In 8 feet, at Hallway Node 17 Floor 1, remain straight.
+In 4 feet, at Elevator G Floor 1, take a slight left turn.
+In 5 feet, at Hallway Node 16 Floor 1, take a slight right turn.
+In 79 feet, at Hallway Node 14 Floor 1, remain straight.
+In 22 feet, at Hallway Node 13 Floor 1, remain straight.
+In 8 feet, at Hallway Node 9 Floor 1, remain straight.
+In 42 feet, at Hallway Node 7 Floor 1, remain straight.
+In 25 feet, at Hallway Node 6 Floor 1, remain straight.
+In 32 feet, at Hallway Node 4 Floor 1, remain straight.
+In 5 feet, at Hallway Node 3 Floor 1, remain straight.
+In 11 feet, at Hallway Node 2 Floor 1, remain straight.
+In 17 feet, at Hallway Node 1 Floor 1, remain straight.
+In 5 feet, at Staircase K1 Floor 1, remain straight.
+In 5 feet, at Hallway Connector 2 Floor 1, remain straight.
+In 35 feet, at Hallway Connector 1 Floor 1, remain straight.
+In 9 feet, at Lower Pike Hallway Exit Lobby, remain straight.
+In 22 feet, at Lobby Shattuck Street, take a left turn.
+In 89 feet, at Lobby Hallway 6, remain straight.
+In 13 feet, at Lobby Hallway 4, take a left turn.
+In 14 feet, at Lobby Hallway 7, take a right turn.
+In 21 feet, at Emergency Hallway, take a left turn.
+Arrive at Emergency Department Entrance

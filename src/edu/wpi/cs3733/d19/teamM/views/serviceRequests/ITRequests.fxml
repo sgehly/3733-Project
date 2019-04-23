@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
@@ -18,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ITRequests">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.ServiceRequests.ITRequests">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -125,23 +126,94 @@
                                     </Text>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Room:" />
-                                          <JFXTextField fx:id="room" styleClass="lightInput">
-                                             <HBox.margin>
-                                                <Insets left="20.0" />
-                                             </HBox.margin>
-                                          </JFXTextField>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Room:  " />
+                                          <JFXComboBox fx:id="room" onMouseClicked="#getRoomNodes" prefWidth="150.0" promptText="Select Room" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Type of Equipment:" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Type of Equipment:">
+                                             <HBox.margin>
+                                                <Insets left="25.0" />
+                                             </HBox.margin></Text>
                                           <JFXTextField fx:id="type" styleClass="lightInput">
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin>
                                           </JFXTextField>
+                                          <Button fx:id="clrBtn" maxHeight="-Infinity" maxWidth="300.0" mnemonicParsing="false" onAction="#handleClear" prefHeight="25.0" prefWidth="150.0" style="-fx-font-size: 18;" styleClass="blackButton" stylesheets="@../../../../../../../resources/stylesheet.css" text="CLEAR">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Button>
                                        </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <Button fx:id="desktop" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleITShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Desktop Computer">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-monitor-200.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="laptop" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleITShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Laptop">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-laptop-96.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="passLog" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleITShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Password/Login">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-secure-filled-100.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="phone" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleITShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="Phone">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-office-phone-80.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="wifi" contentDisplay="TOP" mnemonicParsing="false" onAction="#handleITShortcuts" prefHeight="125.0" prefWidth="150.0" style="-fx-border-color: #012d5a; -fx-font-size: 15;" styleClass="mainBlock" stylesheets="@../../../../../../../resources/stylesheet.css" text="WiFi">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../../resources/icons/icons8-wi-fi-96.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
                                     </HBox>
                                     <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                        <children>

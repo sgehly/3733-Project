@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.XYChart;
@@ -13,6 +14,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.CheckBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.awt.*;
@@ -110,8 +112,8 @@ public class GenerateReport implements Initializable {
      * @throws Exception: Any exception that is encountered
      */
     @FXML
-    private void navigateToHome() throws Exception {
-        Main.setScene("serviceRequests");
+    private void navigateBack() throws Exception {
+        Main.setScene("serviceRequestsList");
     }
 
 
@@ -120,11 +122,8 @@ public class GenerateReport implements Initializable {
         DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         System.out.println("Trying to make request");
 
-        chart.getData().clear();
         XYChart.Series set1 = new XYChart.Series<>();
-
-
-
+        chart.setOpacity(0);
         if (prescription.isSelected()) {
             int s = 0;
             try {
@@ -391,15 +390,25 @@ public class GenerateReport implements Initializable {
         }
 
 
-
-
+        System.out.println("Done");
+        chart.getData().clear();
         chart.setBarGap(10);
 
             X.setAnimated(false);
             Y.setAnimated(false);
 
         chart.getData().addAll(set1);
+        new Thread(() -> {
+            try{
+                Thread.sleep(1000);
+                Platform.runLater(() -> {
+                    chart.setOpacity(1);
+                });
+            }catch(Exception e){
+                e.printStackTrace();
+            }
 
+        }).start();
 
     }
 
@@ -414,6 +423,10 @@ public class GenerateReport implements Initializable {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
         //userText.setText("");
+        X.setTickLabelFill(Color.WHITE);
+        Y.setTickLabelFill(Color.WHITE);
+        X.setStyle("-fx-tick-label-fill: white;");
+        Y.setStyle("-fx-tick-label-fill: white;");
     }
 }
 
