@@ -34,11 +34,13 @@
     -fx-background-radius: 5px;
     -fx-border-width: .2em;
     -fx-border-radius: 5px;
+    -fx-text-size: 26px;
     -fx-font-family: "BariolSerif";
 }
 .whiteButton:hover {
     -fx-background-color: white;
     -fx-text-fill: black;
+    -fx-font-family: "BariolSerif";
     -fx-cursor: hand;
 }
 .scroll-pane > .viewport {

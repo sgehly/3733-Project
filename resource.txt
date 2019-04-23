@@ -1,6 +1,46 @@
 
+Directions for floor 2
+
+Start at Outpatient Pharmacy, move towards Staircase Intersection 6 Level 2.
+In 6 feet, at Staircase Intersection 6 Level 2, remain straight.
+In 7 feet, at Elevator E Floor 2, remain straight.
+In 13 feet, at Weiner Center for Preoperative Evaluation, remain straight.
+In 17 feet, at Hallway Intersection 14 Level 2, remain straight.
+In 5 feet, at Hallway Connector 1 Floor 2, remain straight.
+In 22 feet, at Hallway Connector 2 Floor 2, bear right.
+In 7 feet, at Waiting Room Floor 2, take a sharp left turn.
+In 10 feet, at Hallway 59 Floor 2, take a sharp right turn.
+In 13 feet, at Hallway 55 Floor 2, remain straight.
+In 12 feet, at Hallway 54 Floor 2, remain straight.
+In 17 feet, at Hallway 53 Floor 2, remain straight.
+In 19 feet, at Hallway 51 Floor 2, remain straight.
+In 8 feet, at Hallway 50 Floor 2, remain straight.
+In 31 feet, at Hallway 48 Floor 2, remain straight.
+In 28 feet, at Hallway 47 Floor 2, remain straight.
+In 14 feet, at Hallway 46 Floor 2, remain straight.
+In 20 feet, at Hallway 43 Floor 2, remain straight.
+In 33 feet, at Hallway 34 Floor 2, remain straight.
+In 42 feet, at Hallway 32 Floor 2, remain straight.
+In 16 feet, at Hallway 30 Floor 2, remain straight.
+In 12 feet, at Hallway 29 Floor 2, remain straight.
+In 17 feet, at Hallway 28 Floor 2, remain straight.
+In 22 feet, at Hallway 26 Floor 2, take a right turn.
+In 12 feet, at Hallway 27 Floor 2, remain straight.
+In 12 feet, at 15 Lobby Entrance Floor 2, remain straight.
+In 9 feet, at Street Node 1, remain straight.
+In 27 feet, at Street Node 2, take a right turn.
+In 33 feet, at Street Node 3, take a left turn.
+In 35 feet, at Street Node 4, remain straight.
+In 83 feet, at Street Node 5, remain straight.
+In 88 feet, at Street Node 6, remain straight.
+In 74 feet, at Street Node 7, take a right turn.
+In 49 feet, at Street Node 8, remain straight.
+In 100 feet, at Street Node 9, take a left turn.
+Arrive at Elevator to the workspace
 Directions for floor 4
 
-Start at Flexible Workspace Classroom 4, move towards Flexible Hallway Node 6.
-In 17 feet, at Flexible Hallway Node 6, take a right turn.
-Arrive at Flexible Workspace Classroom 6
+Start at Flexible Workspace Elevator 1, move towards Flexible Hallway Node 1.
+In 12 feet, at Flexible Hallway Node 1, take a sharp left turn.
+In 26 feet, at Flexible Hallway Node 4, take a slight left turn.
+In 19 feet, at Flexible Hallway Node 5, take a slight left turn.
+Arrive at Flexible Workspace Classroom 5
