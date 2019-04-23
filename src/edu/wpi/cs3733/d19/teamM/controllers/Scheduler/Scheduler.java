@@ -106,14 +106,6 @@ public class Scheduler {
     @FXML
     private TableColumn<DisplayTable,Integer> endtimeCol = new TableColumn("endtime");
 
-//    @FXML
-//    private TableColumn<DisplayTable,String> roomId = new TableColumn("roomId");
-//
-//    @FXML
-//    private TableColumn<DisplayTable,String> capacity = new TableColumn("capacity");
-//
-//    @FXML
-//    private TableColumn<DisplayTable,String> roomType = new TableColumn("roomType");
 
     @FXML
     private JFXDatePicker startDate = new JFXDatePicker();

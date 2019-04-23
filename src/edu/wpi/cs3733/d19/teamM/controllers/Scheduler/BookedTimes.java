@@ -45,36 +45,34 @@ public class BookedTimes {
 
     @FXML
     private void callFun(){
-
-        System.out.println("in call fun ");
-        Connection conn = new DatabaseUtils().getConnection();
-        String sql = "select accountint from users where username = ?";
-        try {
+        try{
+            Connection conn = new DatabaseUtils().getConnection();
+            String sql = "select accountint from users where username = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, userName.getText());
+            stmt.setString(1, userName.getText().toLowerCase());
             ResultSet rs = stmt.executeQuery();
-
             while (rs.next()){
-                 String accountint = rs.getString("accountint");
+                System.out.println("inside");
+                int accountint = rs.getInt("accountint");
+                System.out.println(accountint);
 
-            System.out.println(accountint);
+                if (accountint == 100) {
+                    showAll();
+                     System.out.println("user is an admin ");
+                 } else {
+                    System.out.println("user is an employee");
+                    showUser(rs.getString("username"));
 
-            if (accountint == "100") {
-                showAll();
-                System.out.println("user is an admin ");
-            } else {
-                System.out.println("user is an employee");
-                showUser(rs.getString("username"));
-
-            }
-        }
+                }
+             }
+            conn.close();
 
         }
         catch (Exception e){
             e.printStackTrace();
         }
 
-
+        System.out.println("BOOOO");
     }
 
     private void showUser(String user){
@@ -85,6 +83,7 @@ public class BookedTimes {
             stmt.setString(1, user);
             ResultSet rs = stmt.executeQuery();
             toList(rs);
+            conn.close();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -99,6 +98,7 @@ public class BookedTimes {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             toList(rs);
+            conn.close();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -147,7 +147,6 @@ public class BookedTimes {
 
     @FXML
     void initialize() throws SQLException {
-
         new Clock(lblClock, lblDate);
         System.out.println("First Point");
         userName.setText(User.getUsername());
