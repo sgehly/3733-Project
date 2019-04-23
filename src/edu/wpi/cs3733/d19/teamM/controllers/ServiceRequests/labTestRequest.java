@@ -91,6 +91,8 @@ public class labTestRequest implements Initializable {
             }
             new ServiceRequests().makeRequest("laboratory", roomField.getSelectionModel().getSelectedItem(), testType.getText(), requestText.getText(), urgent.isSelected());
 
+            errorMessage.setText(" ");
+
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialogLayout content = new JFXDialogLayout();

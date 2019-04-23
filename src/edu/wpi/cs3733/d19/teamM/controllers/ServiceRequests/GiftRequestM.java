@@ -126,6 +126,8 @@ public class GiftRequestM {
             }
             new ServiceRequests().makeRequest("gift", room.getSelectionModel().getSelectedItem(), giftTypes.getText(), requestText.getText(), packaged.isSelected());
 
+            errorMessage.setText(" ");
+
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialogLayout content = new JFXDialogLayout();

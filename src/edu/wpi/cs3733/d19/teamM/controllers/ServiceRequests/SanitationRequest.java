@@ -134,6 +134,8 @@ public class SanitationRequest implements Initializable {
             }
             new ServiceRequests().makeRequest("sanitation", room.getSelectionModel().getSelectedItem(), typeofmess.getText(), notes.getText(), hazard.isSelected());
 
+            errorMessage.setText(" ");
+
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialogLayout content = new JFXDialogLayout();
