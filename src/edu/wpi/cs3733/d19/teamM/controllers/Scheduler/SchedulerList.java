@@ -6,10 +6,6 @@
 
 package edu.wpi.cs3733.d19.teamM.controllers.Scheduler;
 
-import com.calendarfx.model.Calendar;
-import com.calendarfx.model.Entry;
-import com.calendarfx.view.CalendarView;
-import com.calendarfx.view.DetailedDayView;
 import com.jfoenix.controls.JFXComboBox;
 import edu.wpi.cs3733.d19.teamM.Main;
 import edu.wpi.cs3733.d19.teamM.User.User;
@@ -70,7 +66,7 @@ public class SchedulerList {
     @FXML
     private TableColumn<DisplayTable,String> endTime;
 
-    DetailedDayView ddv = new DetailedDayView(); // initializes the detailed day view
+   // DetailedDayView ddv = new DetailedDayView(); // initializes the detailed day view
 
     /**
      *
@@ -204,7 +200,7 @@ public class SchedulerList {
                 ResultSet resultSet = stmt.executeQuery();
                 ObservableList<DisplayTable> entryList = getEntryObjects2(resultSet);
                 String roomNum = roomDropDown.getSelectionModel().getSelectedItem();
-                Entry<DisplayTable> roomEnt;
+                //Entry<DisplayTable> roomEnt;
 
                 entryList.forEach(DisplayTable -> {
                     //if(DisplayTable.getRoom().equals("CR_1"))
@@ -371,8 +367,8 @@ public class SchedulerList {
             public void run() {
                 while (true) {
                     Platform.runLater(() -> {
-                        ddv.setToday(LocalDate.now());
-                        ddv.setTime(LocalTime.now());
+//                        ddv.setToday(LocalDate.now());
+//                        ddv.setTime(LocalTime.now());
                     });
 
                     try {
@@ -390,7 +386,7 @@ public class SchedulerList {
         updateTimeThread.setDaemon(true);
         updateTimeThread.start();
 
-        Calendar c1 = new Calendar();
+        //Calendar c1 = new Calendar();
         //c1.addEntries(getAllRecords());
         // make entries from database
         //c1.addEntries(dateDropDown.getSelectionModel().);
