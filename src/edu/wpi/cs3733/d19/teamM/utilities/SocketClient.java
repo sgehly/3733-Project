@@ -18,7 +18,8 @@ public class SocketClient {
             outputString += ",S" + (int)Math.abs(input.get(i).get(1));
         }
         System.out.println(outputString);
-        connect(outputString + ",-");
+        //connect(outputString + ",-");
+        connect(",MRoomba Test,-");
 
     }
 
@@ -28,7 +29,7 @@ public class SocketClient {
             char[] myArr = sentence.toCharArray();
             for (int i = 0; i < sentence.length(); i++) {
                 String modifiedSentence;
-                Socket clientSocket = new Socket("130.215.120.185", 9999);
+                Socket clientSocket = new Socket("130.215.122.95", 9999);
                 DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
                 BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 outToServer.writeBytes(Character.toString(myArr[i]));
