@@ -162,6 +162,7 @@ public class AdminUI {
 
     @FXML
     private void navigateToHome() throws Exception{
+        util = null;
         Parent pane = FXMLLoader.load(Main.getFXMLURL("admin"));
         Scene scene = new Scene(pane);
         Main.getStage().setScene(scene);
@@ -470,6 +471,7 @@ public class AdminUI {
 
     @FXML
     protected void initialize() throws Exception {
+        System.out.println("Loading ADMIN UI");
         this.setupAlgorithmsButton();
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
@@ -501,6 +503,7 @@ public class AdminUI {
 
     @FXML
     public void logout() throws Exception{
+        util = null;
         Main.logOut();
     }
 
