@@ -26,8 +26,10 @@ import edu.wpi.cs3733.d19.teamM.common.map.MapUtils;
 import edu.wpi.cs3733.d19.teamM.controllers.Scheduler.DisplayTable;
 import edu.wpi.cs3733.d19.teamM.utilities.AStar.*;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Path;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -44,13 +46,15 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -62,6 +66,7 @@ import net.kurobako.gesturefx.GesturePane;
 import org.controlsfx.control.textfield.TextFields;
 
 import externalLibraries.Arrow.*;
+import org.w3c.dom.css.Rect;
 import sun.font.TextLabel;
 
 import javax.swing.*;
@@ -83,7 +88,8 @@ public class Pathfinding {
 
     ArrayList<Button> clearNodes = new ArrayList<Button>();
     ArrayList<Line> lines = new ArrayList<Line>();
-    ArrayList<Arrow> arrows = new ArrayList<Arrow>();
+    ArrayList<Rectangle> arrows = new ArrayList<Rectangle>();
+
 
     //Get the FXML objects to be linked
     @FXML
@@ -332,13 +338,7 @@ public class Pathfinding {
         for (Node n : graph.getNodes().values()){
             if(!n.getNodeType().equals("HALL")){
                 String nodeName = n.getLongName();
-                if(nodeName.toUpperCase().contains("FLOOR"))
-                {
-                    nodeList.add(n.getLongName());
-                }
-                else {
-                    nodeList.add(n.getLongName() + " Floor " +n.getFloor());
-                }
+                nodeList.add("["+n.getFloor()+"] "+n.getLongName()+" \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<"+n.getId()+">");
             }
         }
 
@@ -346,21 +346,34 @@ public class Pathfinding {
 
         directoryList.setItems(nodeList);
         directoryList.setEditable(false);
+        directoryList.addEventFilter(ScrollEvent.SCROLL,new EventHandler<ScrollEvent>() {
+            @Override
+            public void handle(ScrollEvent event) {
+                if (event.getDeltaX() != 0) {
+                    event.consume();
+                }
+            }
+        });
         directoryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){
                 // Your action here
-                String nodeId = null;
-                for (Node n : graph.getNodes().values()){
-                    if(n.getLongName().equals(newValue)){
-                        nodeId = n.getId();
-                    }
-                }
+                String nodeId = newValue.split("<")[1].replace(">","");
 
                 if(nodeId != null){
+                    Floor graph = Floor.getFloor();
                     if(startText.getText().length() == 0){
                         startText.setText(nodeId);
+                        for(Node n : graph.getNodes().values()){
+                            if(n.getId().equals(startText.getText())){
+                                System.out.println("found it!");
+                                try {
+                                        String floor = n.getFloor();
+                                        util.setFloor(floor);
+                                }catch (Exception e){}
+                            }
+                        }
                         endText.requestFocus();
                     }else{
                         endText.setText(nodeId);
@@ -392,8 +405,15 @@ public class Pathfinding {
 
     //A global int to keep track of whether the thing is speaking or not
     TextSpeech textSpeech = new TextSpeech();
+    MediaPlayer player = textSpeech.getMediaPlayer();
+
+
     @FXML
     private void handleSpeaking(){
+        player.setOnEndOfMedia(() -> {
+            textSpeech.quitSpeaking();
+            textToSpeech.setText("SPEAK DIRECTIONS");
+        });
         if(textToSpeech.getText().equals("SPEAK DIRECTIONS") && showDir.getText().equals("TEXT DIRECTIONS")){
             textToSpeech.setText("CANCEL SPEAKING");
             textSpeech.speakToUser();
@@ -418,6 +438,7 @@ public class Pathfinding {
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
+        util = null;
         Main.setScene("home");
         if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
             handleSpeaking();
@@ -749,6 +770,57 @@ public class Pathfinding {
         return new Button();
     }
 
+    ArrayList<Timeline> clocks = new ArrayList<Timeline>();
+
+    private void travelPath(Rectangle traveller, ArrayList<MapPoint> points, int index, int clockIndex){
+
+        if(index > points.size()-1){
+            clocks.get(clockIndex).stop();
+            traveller.setX(points.get(0).x);
+            traveller.setY(points.get(0).y);
+            this.travelPath(traveller, points, 0, clockIndex);
+            return;
+        }
+
+        double finalX = points.get(index).x;
+        double finalY = points.get(index).y;
+        if(clockIndex > clocks.size()-1){
+            clocks.add(new Timeline());
+        }
+        clocks.set(clockIndex, new Timeline(new KeyFrame(Duration.ZERO, e -> {
+
+            double currentX = traveller.getX();
+            double currentY = traveller.getY();
+
+            if((int)currentX == (int)finalX && (int)currentY == (int)finalY){
+                if(clockIndex < clocks.size()){
+                    clocks.get(clockIndex).stop();
+                }
+                travelPath(traveller, points, index+1, clockIndex);
+                return;
+            }
+            if(currentX < finalX){
+                traveller.setX(currentX+0.01);
+            }
+            if(currentX > finalX){
+                traveller.setX(currentX-0.01);
+            }
+
+            if(currentY < finalY){
+                traveller.setY(currentY+0.01);
+            }
+            if(currentY > finalY){
+                traveller.setY(currentY-0.01);
+            }
+
+            traveller.setTranslateX(-traveller.getWidth()/2);
+            traveller.setTranslateY(-traveller.getHeight()/2);
+        }), new KeyFrame(Duration.seconds(0.0005))));
+
+        clocks.get(clockIndex).setCycleCount(Animation.INDEFINITE);
+        clocks.get(clockIndex).play();
+    }
+
     private void zoomToPath(Node startN, Node endN){
         double startX = startN.getX();
         double startY = startN.getY();
@@ -773,23 +845,41 @@ public class Pathfinding {
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
 
+        clocks.forEach(clock -> {
+            clock.stop();
+        });
+
+        clocks.removeAll(clocks);
+
         List<Path> floorPaths = path.getSpecificPath(util.getCurrentFloorID());
         List<Path> allPaths = path.getFloorPaths();
 
         if (floorPaths != null){
-            floorPaths.forEach(path -> {
+            int clockIndex = 0;
+            for(Path path : floorPaths){
                 List<Node> nodes = path.getPath();
 
+                //lol
+                final javafx.scene.shape.Path travellerPath = new javafx.scene.shape.Path();
+
                 for(int i=0;i<nodes.size()-1;i++){
+
                     MapPoint start = util.scalePoints(nodes.get(i).getX(), nodes.get(i).getY());
                     MapPoint end = util.scalePoints(nodes.get(i+1).getX(), nodes.get(i+1).getY());
+
+                    if(i == 0){
+                        travellerPath.getElements().add(new MoveTo(start.x, start.y));
+                    }
+
+                    travellerPath.getElements().add(new LineTo(end.x, end.y));
+
                     Line line = new Line();
                     line.setStartX(start.x);
                     line.setStartY(start.y);
 
                     line.setEndX(end.x);
                     line.setEndY(end.y);
-                    line.setStrokeWidth(4);
+                    line.setStrokeWidth(2);
 
                     line.setStroke(Color.valueOf("#012d5a"));
 
@@ -798,15 +888,56 @@ public class Pathfinding {
 
                     Arrow arrow = new Arrow(start.x, start.y, end.x, end.y, 4);
                     arrow.setFill(Color.valueOf("#f6bd38"));
-                    util.buttonPane.getChildren().add(line);
-                    util.buttonPane.getChildren().add(arrow);
+                    //util.buttonPane.getChildren().add(line);
                     arrow.setScaleX(0.5);
                     arrow.setScaleY(0.5);
                     line.setStyle("-fx-border-radius:5px");
                     lines.add(line);
-                    arrows.add(arrow);
                 }
-            });
+
+                for(int i=0;i<travellerPath.getElements().size();i++){
+                    //System.out.println("("+((LineTo)travellerPath.getElements().get(i)).getX()+","+((LineTo)travellerPath.getElements().get(i)).getY()+")");
+                }
+
+                Rectangle traveller = new Rectangle();
+
+                if(travellerPath.getElements().size() != 0){
+
+                    traveller.setX(((MoveTo)travellerPath.getElements().get(0)).getX());
+                    traveller.setY(((MoveTo)travellerPath.getElements().get(0)).getY());
+                    traveller.setWidth(10);
+                    traveller.setHeight(10);
+                    System.out.println("Generate!");
+                    traveller.setFill(Color.web("#f6bd38"));
+                    traveller.setStroke(Color.web("#012d5a"));
+                    travellerPath.setOpacity(1);
+                    travellerPath.setStrokeWidth(3);
+                    traveller.setStrokeWidth(1);
+                    util.buttonPane.getChildren().add(travellerPath);
+                    util.buttonPane.getChildren().add(traveller);
+                    arrows.add(traveller);
+                    traveller.toFront();
+                    traveller.setArcHeight(999);
+                    traveller.setArcWidth(999);
+
+                    final PathTransition pathTransition = new PathTransition();
+
+                    pathTransition.setDuration(Duration.seconds(travellerPath.getElements().size()/2));
+                    pathTransition.setDelay(Duration.seconds(0));
+                    pathTransition.setPath(travellerPath);
+                    pathTransition.setNode(traveller);
+                    pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+                    pathTransition.setCycleCount(Timeline.INDEFINITE);
+                    pathTransition.setAutoReverse(false);
+                    pathTransition.play();
+
+                    clockIndex++;
+                }
+
+                travellerPath.toFront();
+                traveller.toFront();
+
+            }
         }
         else {
             overlayImage.setImage(null);
@@ -814,7 +945,6 @@ public class Pathfinding {
 
         arrows.forEach(node -> node.toFront());
         util.nodes.forEach(node -> {
-            System.out.println(node.getId());
             node.toFront();
         });
 
@@ -978,6 +1108,7 @@ public class Pathfinding {
      */
     @FXML
     public void logout() throws Exception{
+        util = null;
         Main.logOut();
         if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
             handleSpeaking();

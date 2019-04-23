@@ -8,10 +8,12 @@ import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 
 import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
@@ -58,6 +60,22 @@ public class ITRequests implements Initializable {
     @FXML
     private javafx.scene.control.Label lblDate;
 
+    String[] it = {"Laptop","Desktop Computer","WiFi","Password/Login","Printer","Phone","Software"};
+
+    @FXML
+    private Button clrBtn;
+
+    @FXML
+    private Button desktop;
+    @FXML
+    private Button laptop;
+    @FXML
+    private Button passLog;
+    @FXML
+    private Button phone;
+    @FXML
+    private Button wifi;
+
     @FXML
     public void logout() throws Exception {
         Main.setScene("welcome");
@@ -66,6 +84,28 @@ public class ITRequests implements Initializable {
     @FXML
     private void navigateBack() throws Exception {
         Main.setScene("serviceRequests");
+    }
+
+    @FXML
+    public void handleClear(ActionEvent event) {
+        if(event.getSource() == clrBtn) {
+            type.setText("");
+        }
+    }
+
+    @FXML
+    public void handleITShortcuts(ActionEvent event) {
+        if(event.getSource() == desktop) {
+            type.setText(desktop.getText());
+        } else if(event.getSource() == laptop) {
+            type.setText(laptop.getText());
+        } else if(event.getSource() == passLog) {
+            type.setText(passLog.getText());
+        } else if(event.getSource() == phone) {
+            type.setText(phone.getText());
+        } else if(event.getSource() == wifi) {
+            type.setText(wifi.getText());
+        }
     }
 
     @FXML
@@ -120,7 +160,7 @@ public class ITRequests implements Initializable {
             e.printStackTrace();
         }
 
+        TextFields.bindAutoCompletion(type, it);
 
-        //userText.setText("");
     }
 }

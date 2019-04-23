@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "hospitalapp-238022",
+  "private_key_id": "44a6e1b378eb910d5174760e8e32dd5cf9ab410d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCnn48WwuRfsoJn\n0fnRbmoXyQeqZSVQkSBtYFalV2IFkYWgeCoW6a18aI6XYOpN6xTpES/lNbCsghno\nM1sBFsqF2f//yu0nV6ENc/k1j7SS4WnD9rwbCvA7SDdD9eligEPazTQ1zH3o2vjS\nSovLPwC3pWufmobvJJomuTYHP38mOLi42QlufEvL3f/uJTDvokNiVTCmOb4WUQYF\n36jGMzTLKUMoEZq6r6oqprnQKEDi3L1K2YO/XbelItPwVmvI4qcik4Tsf7sA2NhR\nfS6qBtqwIPMXvg+Sm26ShHG1s/pT/A7PXq3zdRn4OPAwCZhTG7YXZAzflQr6eoOe\n86LjMVm1AgMBAAECggEAEvkSfycMJnDUJeA0gKoYxBxzC6xrLtVecELpS8m6RJsW\nHvW6/eDxTBWhnizQGIW1VjQl0bHkD4KiYBAACv2Daucj/NYBReS7TASGfrOHYuC0\n0gOJgx4X1v3zk3OwOP//rjJv6G7/CW5Pn63kaNr2v9Kvfd9Fyqe/8wYfwW5EfBTc\ni3ag4gRrl9a+rTJ3W+NIP9sqa7SyFFpZVvRR4p7GF3ELKhtizWwAEvXLerVD/zhm\nunLjfSpd9MENoPiwWiLJsvfThyXnEoPMHbL/FFGko9iFfs1zoCbZDlW7cy2lFk4L\nvI9gyFnUsSHc2leY/KlOuKPKLSp8n5cCgO2SJ6KceQKBgQDbNsYkAl3ue7XR9Qys\nGKzUEMsYwTUPHv4U7KzZlisUi2g9JrN6vJ+oaS1Uw+4HTT9zCzbXrGIn1s9/87q8\no3THbuRF6ovOz0MHUsBXS0826aPSJhYt5SRqH8by3bsvgIOwJ3HMwk33w2HoNwnS\ncXuOLB5ILX4jJCoJYrr+MU6jKwKBgQDDwH9iviPUpFntGFKvRotGfNYB2MNT5A1h\nAYkx7LaWVkjnzabXj6t10QIuBTsHY6EWhbSNA0AzAK0cj9HR+TdaSsnfCM46ubv2\noQmQ7EFN3IkXlJUXzdHOxyBFu0pMGsyTBa/RiJTpF7GfQqEZUbS+3tTAlyX1o4cA\nRtkUmxUGnwKBgQCf15m06hDp80TJuoAqALgMzc351+/DfdrRER6cbdYt3dT9OfoH\nFgDpAQAv3cnzgw0v6s5rhuPvnr+g0eyo3hspzJ8gp/yXqSN79IgRXvV82fI9Ks5j\nWsEprNAZiTqTUYc0bB6bqlbFwa7jbzZ3P45TRbIy+REPuK/6NgaZkQSBDwKBgQCz\nm5hGHXf6z6HDLaIQOIXp8vjZUO5HtuOfsi0TpcISRrE2HzeKacREobWCTEJREVTo\nuV1kVSs+oMw1fLBkHGpxalW3UvkGYQzZygBg/KUer88J18bExJBRTduKn8IX+i7i\nZ0Fe3BblmFvdaOEvvgw9ZW+IFic6LwTbeCYOBg1QuQKBgHODU9kgoAbNTy+QDgWJ\nfE19MXDehXU47TI3Oi2qhxLIKJiHn18uPjUzP3usItO/4X6AHQMc0YLqSdPrOLTl\nmul/okWkDQ4uPoKNQoib/SZk2l6/+LROV3r5S4qKwRdrSa4FGUCNbhNgB6WnzwZh\nEIOexryhYYtElYUCVGjmQFpX\n-----END PRIVATE KEY-----\n",
+  "client_email": "mainaccount1@hospitalapp-238022.iam.gserviceaccount.com",
+  "client_id": "110644490543904328130",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/mainaccount1%40hospitalapp-238022.iam.gserviceaccount.com"
+}

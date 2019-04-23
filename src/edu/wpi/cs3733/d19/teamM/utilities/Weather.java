@@ -31,7 +31,7 @@ public class Weather {
             // may want to add a picture or gif of the weather
             // String weathDesc = j.getString("main"); and then use switch statement
 
-            desc.setText(j.getInt("temp")+"° / "+detail.getString("main")); // textual description of weather
+            desc.setText(j.getInt("temp")+"\u00b0F / "+detail.getString("main")); // textual description of weather
 
             String main = detail.getString("main");
 

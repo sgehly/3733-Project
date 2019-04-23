@@ -10,10 +10,13 @@ import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -54,6 +57,22 @@ public class ExternalTransportRequest {
     private Label lblDate;
 
     @FXML
+    private Button clrBtn;
+
+    @FXML
+    private Button ambulance;
+    @FXML
+    private Button helicopter;
+    @FXML
+    private Button shuttle;
+    @FXML
+    private Button taxi;
+    @FXML
+    private Button valet;
+
+    String[] extTrans = {"Ambulance","Helicopter","Taxi","Valet","Shuttle"};
+
+    @FXML
     public void logout() throws Exception {
         Main.setScene("welcome");
     }
@@ -70,6 +89,28 @@ public class ExternalTransportRequest {
     @FXML
     private void goToServiceRequestsList() throws Exception {
         Main.setScene("serviceRequests");
+    }
+
+    @FXML
+    public void handleClear(ActionEvent event) {
+        if(event.getSource() == clrBtn) {
+            vehicle.setText("");
+        }
+    }
+
+    @FXML
+    public void handleETShortcuts(ActionEvent event) {
+        if(event.getSource() == ambulance) {
+            vehicle.setText(ambulance.getText());
+        } else if(event.getSource() == helicopter) {
+            vehicle.setText(helicopter.getText());
+        } else if(event.getSource() == shuttle) {
+            vehicle.setText(shuttle.getText());
+        } else if(event.getSource() == taxi) {
+            vehicle.setText(taxi.getText());
+        } else if(event.getSource() == valet) {
+            vehicle.setText(valet.getText());
+        }
     }
 
     @FXML
@@ -123,6 +164,7 @@ public class ExternalTransportRequest {
             e.printStackTrace();
         }
 
+        TextFields.bindAutoCompletion(vehicle, extTrans);
 
     }
 

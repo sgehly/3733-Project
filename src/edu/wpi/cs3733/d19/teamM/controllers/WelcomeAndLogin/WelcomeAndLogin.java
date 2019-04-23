@@ -451,6 +451,9 @@ public class WelcomeAndLogin {
                             e.printStackTrace();
                         }
                     }
+                    else {
+                        loginError.setOpacity(0);
+                    }
                 }
         );
         //handles when you press enter on the final code box; alternatively you can press the login button
@@ -488,14 +491,23 @@ public class WelcomeAndLogin {
         stmt.setString(1, username.getText());
         ResultSet rs = stmt.executeQuery();
         rs.next();
-        if (Encrypt.getMd5(password.getText()).equals(rs.getString("USERPASS"))) {
-            conn.close();
-            return true;
+        try
+        {
+            if (Encrypt.getMd5(password.getText()).equals(rs.getString("USERPASS"))) {
+                conn.close();
+                return true;
+            }
+            else{
+                loginError.setOpacity(1);
+                //transitions.pulseText(loginLabel, loginLabelBox, "Username or password is invalid");
+            }
         }
-        else{
+        catch (Exception e)
+        {
+            e.printStackTrace();
             loginError.setOpacity(1);
-            //transitions.pulseText(loginLabel, loginLabelBox, "Username or password is invalid");
         }
+
         conn.close();
         return false;
     }
