@@ -37,7 +37,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="@../../../../../../resources/icons/icons8-circled_left_2.png" />
+                                    <Image url="@../../../../../../resources/icons/icons8-home.png" />
                                  </image>
                               </ImageView>
                               <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
