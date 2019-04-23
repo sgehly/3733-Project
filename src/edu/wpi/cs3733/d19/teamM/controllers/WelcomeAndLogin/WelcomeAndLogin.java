@@ -178,9 +178,9 @@ public class WelcomeAndLogin {
 
 
             if(scrollContainer.getHvalue() == 1){
-                //scrollContainer.setHvalue(0);
-                this.clock.stop();
-                this.reverseClock.play();
+                scrollContainer.setHvalue(0);
+                //this.clock.stop();
+                //this.reverseClock.play();
             }
 
             scrollContainer.setHvalue(scrollContainer.getHvalue()+delta);
@@ -194,9 +194,9 @@ public class WelcomeAndLogin {
         reverseClock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
 
 
-            if(scrollContainer.getHvalue() < 0.1){
-                this.reverseClock.stop();
-                this.clock.play();
+            if(scrollContainer.getHvalue() == 0){
+                //this.reverseClock.stop();
+                //his.clock.play();
             }
 
             scrollContainer.setHvalue(scrollContainer.getHvalue()-delta);
