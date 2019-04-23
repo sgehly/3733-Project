@@ -1,0 +1,125 @@
+.button:hover{
+    -fx-background-color: #00172f;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.icon{
+    -fx-fill:BLACK;
+}
+
+.button:hover .icon{
+    -fx-fill: WHITE;
+    -glyph-size: 50px;
+}
+
+.button{
+    -fx-background-color: transparent;
+    -fx-border-width: .2em;
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-family: "BariolSerif";
+    -fx-font-size: 18pt;
+}
+
+.button2:hover{
+    -fx-background-color: WHITE;
+    -fx-text-fill: WHITE;
+    -fx-border-color: #012D5A;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.button2{
+    -fx-text-fill: BLACK;
+    -fx-prompt-text-fill: WHITE;
+    -fx-border-color: #012D5A;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.jfx-text-field {
+    -fx-font-size: 15;
+    -fx-prompt-text-fill: GRAY;
+    -fx-text-fill: BLACK;
+    -fx-fill: WHITE;
+    -jfx-focus-color: #012D5A;
+    -jfx-unfocus-color: #012D5A;
+}
+
+.jfx-text-field:hover{
+    -fx-prompt-text-fill: #BDBDBD;
+}
+
+.jfx-text-area {
+    -fx-prompt-text-fill: GRAY;
+    -fx-text-fill: BLACK;
+    -fx-fill: WHITE;
+    -fx-background-color: WHITE;
+    -fx-border-color: #012D5A;
+    -fx-border-radius: 10;
+    -fx-border-width: 3;
+    -fx-background-radius: 10;
+    -jfx-unfocus-color: transparent;
+    -jfx-focus-color: transparent;
+}
+
+.jfx-combo-box > .list-cell > .label{
+    -fx-text-fill: BLACK;
+    -fx-prompt-text-fill: GRAY;
+    -fx-focus-color: #012D5A;
+}
+
+.jfx-combo-box {
+    -fx-font-size: 15;
+    -fx-prompt-text-fill: BLACK;
+    -fx-text-fill: BLACK;
+    -fx-background-color: WHITE;
+    -fx-border-color: BLACK;
+    -fx-focus-color: #012D5A;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -jfx-unfocus-color: transparent;
+    -jfx-focus-color: transparent;
+
+}
+.jfx-combo-box:hover{
+    -fx-background-color: #BDBDBD;
+    -fx-border-color: #012D5A;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.jfx-combobox-base{
+    -fx-background-color: WHITE;
+    -fx-focus-color: #012D5A;
+}
+
+.jfx-tab-pane .headers-region {
+    -fx-background-color: #012D5A
+}
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #012D5A;
+}
+.jfx-tab-pane .tab-selected-line {
+    -fx-stroke-width: 3pt;
+}
+.jfx-tab-pane .tab-label{
+    -fx-text-fill: BLACK;
+    -fx-font-size: 15;
+}
+.jfx-tab-pane .tab:selected{
+    -fx-background-color: #012D5A;
+}
+.jfx-tab-pane .tab:hover{
+    -fx-background-color: #012D5A;
+}
+
+.tree-table-view{
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-border-width: 5;
+    -fx-border-color: #012D5A;
+}
