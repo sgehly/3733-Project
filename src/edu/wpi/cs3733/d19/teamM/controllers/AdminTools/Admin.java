@@ -4,8 +4,11 @@ import com.github.sarxos.webcam.Webcam;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXTextField;
 import edu.wpi.cs3733.d19.teamM.Main;
+import edu.wpi.cs3733.d19.teamM.utilities.AStar.Floor;
 import edu.wpi.cs3733.d19.teamM.utilities.Clock;
+import edu.wpi.cs3733.d19.teamM.utilities.General.Options;
 import edu.wpi.cs3733.d19.teamM.utilities.Transitions;
 import io.ably.lib.realtime.AblyRealtime;
 import io.ably.lib.realtime.Channel;
@@ -101,6 +104,13 @@ public class Admin{
     @FXML
     private ImageView exitButton;
 
+    @FXML
+    private JFXTextField jfxTextfield;
+    @FXML
+    private Label selected;
+
+
+
     /**
      * This method
      * @throws Exception
@@ -132,6 +142,7 @@ public class Admin{
 
     @FXML
     public void navigateToChat(){
+        selected.setVisible(false);
         Main.setScene("adminHelpdesk");
     }
 
@@ -142,6 +153,7 @@ public class Admin{
 
     @FXML
     public void navigateToServiceRequests(){
+        selected.setVisible(false);
         Main.setScene("addUser");
     }
 
@@ -152,11 +164,13 @@ public class Admin{
 
     @FXML
     public void logout(){
+        selected.setVisible(false);
         Main.setScene("welcome");
     }
 
     @FXML
     public void navigateToScheduling(){
+        selected.setVisible(false);
         Main.setScene("adminUI");
     }
 
@@ -166,14 +180,62 @@ public class Admin{
     }
 
     @FXML
-    public void navigateToAbout(){Main.setScene("about");}
+    public void navigateToAbout(){
+        selected.setVisible(false);
+        Main.setScene("about");}
 
     @FXML
+    public void navigateToHome(){
+        selected.setVisible(false);
+        Main.setScene("home");}
+
+    @FXML
+    private void chooseAStar(){
+        Floor graph = Floor.getFloor();
+        selected.setStyle("-fx-text-fill: green;");
+        selected.setText("A* Selected!");
+        selected.setVisible(true);
+        graph.setAStar();
+    }
+
+    @FXML
+    private void chooseDFS(){
+        Floor graph = Floor.getFloor();
+        selected.setStyle("-fx-text-fill: green;");
+        selected.setText("DFS Selected!");
+        selected.setVisible(true);
+        graph.setDFS();
+    }
+
+    @FXML
+    private void chooseBFS(){
+        Floor graph = Floor.getFloor();
+        selected.setStyle("-fx-text-fill: green;");
+        selected.setText("BFS Selected!");
+        selected.setVisible(true);
+        graph.setBFS();
+    }
+
+    @FXML
+    private void chooseDijkstra(){
+        Floor graph = Floor.getFloor();
+        selected.setStyle("-fx-text-fill: green;");
+        selected.setText("Dijkstra Selected!");
+        selected.setVisible(true);
+        graph.setDijkstra();
+    }
+
+    @FXML
+    private void setTimeout(){
+        if(jfxTextfield.getText() != "") {
+            Options.setTimeout(Integer.parseInt(jfxTextfield.getText()));
+            System.out.println(Options.getTimeout());
+        }
+    }
     public void navigateToCredits() { Main.setScene("credits");}
 
     @FXML
     public void navigateToHome(){Main.setScene("home");}
-
     @FXML
     public void displayWarning(){
         warningBox.setOpacity(1);
@@ -194,6 +256,7 @@ public class Admin{
 
     @FXML
     void initialize() throws IOException, AblyException {
+        selected.setVisible(false);
         //blur stuff
         BoxBlur bb = new BoxBlur();
         bb.setWidth(5);
