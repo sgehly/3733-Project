@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Chat.Chat">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Chat.Chat">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -35,7 +35,7 @@
                                                 <Insets right="10.0" />
                                             </HBox.margin>
                                             <image>
-                                                <Image url="@/resources/icons/icons8-home.png" />
+                                                <Image url="@../../../../../../resources/icons/circled_left.png" />
                                             </image>
                                         </ImageView>
                                         <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
