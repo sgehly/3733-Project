@@ -451,6 +451,10 @@ public class Scheduler {
     private void navigateToDetails() throws Exception{
         Main.setScene("schedulerList");
     }
+    @FXML
+    private void navigateToCalendar() throws Exception{
+        Main.setScene("CalendarView");
+    }
 
     /**
      * Shows the booked rooms in the database in a table

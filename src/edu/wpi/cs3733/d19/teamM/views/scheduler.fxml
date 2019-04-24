@@ -87,7 +87,7 @@
                                 <Insets right="200.0" top="15.0" />
                             </HBox.margin>
                         </HBox>
-                          <Button mnemonicParsing="false" onMouseClicked="#navigateToDetails" prefHeight="55.0" prefWidth="183.0" styleClass="logoutButton" text="CALENDAR">
+                          <Button mnemonicParsing="false" onMouseClicked="#navigateToCalendar" prefHeight="55.0" prefWidth="183.0" styleClass="logoutButton" text="CALENDAR">
                               <font>
                                   <Font name="Open Sans Bold" size="24.0" />
                               </font>
@@ -362,7 +362,7 @@
                               <Insets left="90.0" top="157.0" />
                            </StackPane.margin>
                         </Pane>
-                        <Pane fx:id="randomRoom10" maxHeight="50.0" maxWidth="70.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: 118b56;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
+                        <Pane fx:id="randomRoom17" maxHeight="50.0" maxWidth="70.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: 118b56;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
                            <StackPane.margin>
                               <Insets left="150.0" top="145.0" />
                            </StackPane.margin>
@@ -390,11 +390,6 @@
                         <Pane fx:id="randomRoom48" maxHeight="51.0" maxWidth="20.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #8b1111;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
                            <StackPane.margin>
                               <Insets left="600.0" top="750.0" />
-                           </StackPane.margin>
-                        </Pane>
-                        <Pane fx:id="randomRoom17" maxHeight="50.0" maxWidth="70.0" onMouseClicked="#switchToRoom1" opacity="0.73" prefHeight="150.0" prefWidth="0.0" style="-fx-background-color: #118b56;" styleClass="hoverRoom" StackPane.alignment="TOP_LEFT">
-                           <StackPane.margin>
-                              <Insets left="150.0" top="145.0" />
                            </StackPane.margin>
                         </Pane>
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Note: the workspaces are simulated timer based changes. These changes don't accurately represent the availability of the rooms" wrappingWidth="213.3333396911621" StackPane.alignment="BOTTOM_LEFT">
