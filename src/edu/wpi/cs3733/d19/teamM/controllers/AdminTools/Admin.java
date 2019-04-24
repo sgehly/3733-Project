@@ -58,8 +58,6 @@ import javax.imageio.ImageIO;
  */
 public class Admin{
 
-    Transitions transitions;
-
     @FXML
     private ImageView myImg;
 
@@ -95,6 +93,9 @@ public class Admin{
     private VBox contentPane;
 
     @FXML
+    private HBox warningBox;
+
+    @FXML
     private ImageView backgroundImage;
 
     @FXML
@@ -116,7 +117,7 @@ public class Admin{
         contentPane.setEffect(new GaussianBlur());
         //contentPane.setDisable(true);
         dialog.setDisable(false);
-        transitions.fadeIn(dialog, 250).play();
+        dialog.setOpacity(1);
     }
 
     @FXML
@@ -126,7 +127,7 @@ public class Admin{
         contentPane.setEffect(null);
         //contentPane.setDisable(false);
         dialog.setDisable(true);
-        transitions.fadeOut(dialog, 250).play();
+        dialog.setOpacity(0);
     }
 
     @FXML
@@ -171,6 +172,24 @@ public class Admin{
     public void navigateToHome(){Main.setScene("home");}
 
     @FXML
+    public void displayWarning(){
+        warningBox.setOpacity(1);
+        warningBox.setDisable(false);
+        dialog.setDisable(true);
+        contentPane.setDisable(true);
+        backgroundImage.setDisable(true);
+    }
+
+    @FXML
+    public void closeWarning(){
+        warningBox.setOpacity(0);
+        warningBox.setDisable(true);
+        dialog.setDisable(false);
+        contentPane.setDisable(false);
+        backgroundImage.setDisable(false);
+    }
+
+    @FXML
     void initialize() throws IOException, AblyException {
         //blur stuff
         BoxBlur bb = new BoxBlur();
@@ -178,11 +197,12 @@ public class Admin{
         bb.setHeight(5);
         bb.setIterations(3);
 
+        warningBox.setOpacity(0);
+        warningBox.setDisable(true);
         dialog.setOpacity(0);
         dialog.setDisable(true);
         contentPane.setDisable(false);
         backgroundImage.setDisable(false);
-        transitions = new Transitions();
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
     }
