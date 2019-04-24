@@ -80,6 +80,14 @@
                           </HBox>
                           <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
+                        <Button mnemonicParsing="false" onMouseClicked="#exportToCsv" styleClass="logoutButton" text="EXPORT">
+                           <font>
+                              <Font name="Open Sans Bold" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="50.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
                                   <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT" HBox.hgrow="ALWAYS">
                                       <font>
                                           <Font name="Open Sans Bold" size="24.0" />
@@ -262,7 +270,7 @@
                                  </styleClass></Button>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="30.0" left="20.0" right="20.0" top="20.0" />
+                              <Insets bottom="40.0" left="60.0" right="60.0" top="30.0" />
                            </VBox.margin>
                         </HBox>
                         <JFXButton onAction="#exportToCsv" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="EXPORT ALL">

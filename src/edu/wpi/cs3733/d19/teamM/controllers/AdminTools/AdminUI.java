@@ -34,6 +34,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.scene.shape.Line;
 import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.FileWriter;
 import java.sql.*;
@@ -210,11 +211,6 @@ public class AdminUI {
         }
     }
 
-    @FXML
-    private void newUser() throws Exception {
-        Main.loadAddUsers();
-        Main.setScene("addUser");
-    }
 
 //    @FXML
 //    private void addNode(){
@@ -492,6 +488,28 @@ public class AdminUI {
         path = new Path();
         util = new MapUtils(buttonContainer, imageView, image, new ImageView(), new JFXSlider(), this::setValues, this::clickValues, true, this::dragCallback, this::hoverCallback);
         util.initialize();
+
+        ArrayList<String> buildings = new ArrayList<String>();
+        buildings.add("BTM");
+        buildings.add("45 Francis");
+        buildings.add("Tower");
+        buildings.add("15 Francis");
+        buildings.add("Shapiro");
+        TextFields.bindAutoCompletion(buildingTextBox,buildings);
+
+        ArrayList<String> types = new ArrayList<String>();
+        types.add("AUDT");
+        types.add("CLSS");
+        types.add("CONF");
+        types.add("DEPT");
+        types.add("ELEV");
+        types.add("EXIT");
+        types.add("HALL");
+        types.add("COMP");
+        types.add("CLASS");
+
+        TextFields.bindAutoCompletion(typeTextBox,types);
+
 
     }
 
