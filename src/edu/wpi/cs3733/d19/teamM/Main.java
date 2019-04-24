@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamM;
 
-import com.calendarfx.model.Calendar;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.cs3733.d19.teamM.User.User;
@@ -430,20 +429,10 @@ public class Main extends Application {
      * @param args: The arguments for the application, if any (none in this case)
      */
     public static void main(String[] args) {
-
-
-        //CSVParser parse = new CSVParser("C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\nodes.csv", "C:\\Users\\kenne\\IdeaProjects\\3733-Project\\src\\app\\edges.csv");
-        //AStar aS = new AStar();
-        //Map<String, Node> mappedNodes = parse.getNodes();
-//        List<Node> path = aS.findPath(mappedNodes.get("GHALL002L1"), mappedNodes.get("GHALL006L1"));
-        //aS.drawPath(path);
         DatabaseUtils parser = DatabaseUtils.getDBUtils();
         parser.connect();
         parser.nodeParse();
         parser.edgeParse();
-
-       /* Floor myFloor = new Floor("1");
-        myFloor.populateFloor();*/
         launch(args);
     }
 

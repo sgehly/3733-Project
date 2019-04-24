@@ -20,6 +20,7 @@ public class DisplayTable {
     private StringProperty roomid;
     private StringProperty starttime;
     private StringProperty endtime;
+    private StringProperty user;
 
 
     /**
@@ -36,6 +37,7 @@ public class DisplayTable {
         this.filledBy = new SimpleStringProperty();
         this.starttime = new  SimpleStringProperty();
         this.endtime = new  SimpleStringProperty();
+        this.user = new SimpleStringProperty();
 
 
     }
@@ -75,6 +77,7 @@ public class DisplayTable {
     public StringProperty filledByProperty(){return filledBy;}
     public StringProperty starttimeProperty() { return starttime;}
     public StringProperty endtimeProperty() { return endtime;}
+    public StringProperty userProperty(){ return user;}
 
 
     //getters
@@ -100,6 +103,10 @@ public class DisplayTable {
     }
     public String getDate(){return dateProperty().get();}
     public String getFilledBy(){return filledByProperty().get();}
+    public String getUser(){return userProperty().get();}
+
+
+
 
     //setters
     public void setRoom(String room){
@@ -126,5 +133,7 @@ public class DisplayTable {
     public void setEndTime(String end){this.endtime.set(end);}
 
     public void setFilledBy(String filledBy){this.filledByProperty().set(filledBy);}
+
+    public void setUser(String user){this.user.set(user);}
 
 }
