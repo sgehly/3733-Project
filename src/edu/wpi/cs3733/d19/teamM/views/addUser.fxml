@@ -131,7 +131,7 @@
                      <children>
                         <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#chooseAdd" prefHeight="50.0" prefWidth="400.0" styleClass="blackButton" text="ADD USER" HBox.hgrow="SOMETIMES" />
                         <Button fx:id="removeButton" mnemonicParsing="false" onAction="#chooseRemove" prefHeight="50.0" prefWidth="400.0" styleClass="blackButton" text="REMOVE USER" textAlignment="CENTER" HBox.hgrow="SOMETIMES" />
-                        <Button fx:id="modifyButton" mnemonicParsing="false" onAction="#chooseModify" prefHeight="50.0" prefWidth="400.0" styleClass="blackButton" text="Modify" HBox.hgrow="SOMETIMES" />
+                        <Button fx:id="modifyButton" mnemonicParsing="false" onAction="#chooseModify" prefHeight="50.0" prefWidth="400.0" styleClass="blackButton" text="MODIFY USER" HBox.hgrow="SOMETIMES" />
                      </children>
                   </HBox>
                   <StackPane prefHeight="408.0" prefWidth="1920.0">

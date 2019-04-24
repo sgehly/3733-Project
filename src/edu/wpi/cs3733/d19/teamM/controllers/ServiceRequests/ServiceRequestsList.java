@@ -32,8 +32,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.scene.text.Text;
 
@@ -115,6 +117,17 @@ public class ServiceRequestsList {
     private TableColumn<DisplayTable, Integer> RCCheckboxCol = new TableColumn("checkbox");
     @FXML
     private TableColumn<DisplayTable, String> RCFilledByCol = new TableColumn("filledBy");
+
+    //for popup purposes
+    @FXML
+    private ImageView backgroundImage;
+    @FXML
+    private VBox content;
+    @FXML
+    private VBox pendingPopup;
+    @FXML
+    private VBox completePopup;
+
 
 
     @FXML
@@ -514,6 +527,7 @@ public class ServiceRequestsList {
 
     @FXML
     private void exportInProgress(ActionEvent event) throws SQLException, ClassNotFoundException {
+        this.hidePendingPopup();
         System.out.println("in print");
         String filename = "RequestInProgress.csv";
         try {
@@ -557,7 +571,48 @@ public class ServiceRequestsList {
     }
 
     @FXML
+    private void displayPendingPopup(){
+        backgroundImage.setEffect(new GaussianBlur());
+        backgroundImage.setDisable(true);
+        content.setEffect(new GaussianBlur());
+        content.setDisable(true);
+        pendingPopup.setDisable(false);
+        pendingPopup.setOpacity(1);
+    }
+
+    @FXML
+    private void hidePendingPopup(){
+        backgroundImage.setEffect(null);
+        backgroundImage.setDisable(false);
+        content.setEffect(null);
+        content.setDisable(false);
+        pendingPopup.setDisable(true);
+        pendingPopup.setOpacity(0);
+    }
+
+    @FXML
+    private void displayCompletePopup(){
+        backgroundImage.setEffect(new GaussianBlur());
+        backgroundImage.setDisable(true);
+        content.setEffect(new GaussianBlur());
+        content.setDisable(true);
+        completePopup.setDisable(false);
+        completePopup.setOpacity(1);
+    }
+
+    @FXML
+    private void hideCompletePopup(){
+        backgroundImage.setEffect(null);
+        backgroundImage.setDisable(false);
+        content.setEffect(null);
+        content.setDisable(false);
+        completePopup.setDisable(true);
+        completePopup.setOpacity(0);
+    }
+
+    @FXML
     private void exportComplete(ActionEvent event) throws SQLException, ClassNotFoundException {
+        this.hideCompletePopup();
         System.out.println("in print");
         String filename = "CompletedRequests.csv";
         try {
@@ -892,7 +947,11 @@ public class ServiceRequestsList {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
-
+        //for popup purposes
+        pendingPopup.setDisable(true);
+        pendingPopup.setOpacity(0);
+        completePopup.setDisable(true);
+        completePopup.setOpacity(0);
 
 
         fulfill.setDisable(true);
