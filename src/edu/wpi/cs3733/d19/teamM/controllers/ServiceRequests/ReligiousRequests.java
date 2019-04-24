@@ -187,7 +187,7 @@ public class ReligiousRequests {
 
 
     private boolean areFieldsEmpty() {
-        return roomField.getSelectionModel().getSelectedItem() == "NONE" || religion.getText().isEmpty();
+        return roomField.getValue() == null || religion.getText().isEmpty();
     }
 
 }

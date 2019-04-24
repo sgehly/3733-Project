@@ -167,7 +167,7 @@ public class ExternalTransportRequest {
     }
 
     private boolean areFieldsEmpty() {
-        return roomField.getSelectionModel().getSelectedItem() == "NONE" || vehicle.getText().isEmpty();
+        return roomField.getValue() == null || vehicle.getText().isEmpty();
     }
 
     @FXML

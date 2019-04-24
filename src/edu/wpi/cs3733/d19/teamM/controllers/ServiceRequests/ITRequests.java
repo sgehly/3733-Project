@@ -165,7 +165,7 @@ public class ITRequests implements Initializable {
     }
 
     private boolean areFieldsEmpty() {
-        return room.getSelectionModel().getSelectedItem() == "NONE" || type.getText().isEmpty();
+        return room.getValue() == null || type.getText().isEmpty();
     }
 
     @FXML

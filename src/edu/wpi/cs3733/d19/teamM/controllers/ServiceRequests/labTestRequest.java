@@ -132,7 +132,7 @@ public class labTestRequest implements Initializable {
     }
 
     private boolean areFieldsEmpty() {
-        return roomField.getSelectionModel().getSelectedItem() == "NONE" || testType.getText().isEmpty();
+        return roomField.getValue() == null || testType.getText().isEmpty();
     }
     @FXML
     private void goToList() throws Exception {
