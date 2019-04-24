@@ -169,6 +169,9 @@ public class Admin{
     public void navigateToAbout(){Main.setScene("about");}
 
     @FXML
+    public void navigateToCredits() { Main.setScene("credits");}
+
+    @FXML
     public void navigateToHome(){Main.setScene("home");}
 
     @FXML
