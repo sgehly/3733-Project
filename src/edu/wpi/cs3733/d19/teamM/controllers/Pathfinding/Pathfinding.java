@@ -89,6 +89,7 @@ public class Pathfinding {
     ArrayList<Button> clearNodes = new ArrayList<Button>();
     ArrayList<Line> lines = new ArrayList<Line>();
     ArrayList<Rectangle> arrows = new ArrayList<Rectangle>();
+    ArrayList<javafx.scene.shape.Path> paths = new ArrayList<javafx.scene.shape.Path>();
 
     private Map<String, String> longNameMap;
 
@@ -190,8 +191,28 @@ public class Pathfinding {
     @FXML
     private Button textToSpeech;
 
+    @FXML
+    private Button clearPathButton;
+
     private List<String> filterOut;
 
+
+    @FXML
+    protected void clearPath(){
+        lines.forEach(node -> util.buttonPane.getChildren().remove(node));
+        arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
+        clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
+        paths.forEach(path -> util.buttonPane.getChildren().remove(path));
+        clocks.forEach(clock -> {
+            clock.stop();
+        });
+        textToSpeech.setDisable(true);
+        clearPathButton.setDisable(true);
+        sendRobotButton.setDisable(true);
+        showDir.setDisable(true);
+        textSpeech.quitSpeaking();
+        player.stop();
+    }
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
@@ -199,6 +220,12 @@ public class Pathfinding {
     @FXML
     protected void initialize() throws Exception {
         textToSpeech.setText("SPEAK DIRECTIONS");
+
+        textToSpeech.setDisable(true);
+        clearPathButton.setDisable(true);
+        showDir.setDisable(true);
+        sendRobotButton.setDisable(true);
+
         //scheduling.setVisible(false);
         filters.setExpanded(false);
         new Clock(lblClock, lblDate);
@@ -442,6 +469,7 @@ public class Pathfinding {
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
+        paths.forEach(path -> util.buttonPane.getChildren().remove(path));
         util = null;
         Main.setScene("home");
         if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
@@ -456,6 +484,7 @@ public class Pathfinding {
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
+        paths.forEach(path -> util.buttonPane.getChildren().remove(path));
         Main.setScene("scheduling");
         if(textToSpeech.getText().equals("CANCEL SPEAKING")) {
             handleSpeaking();
@@ -826,6 +855,7 @@ public class Pathfinding {
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
+        paths.forEach(path -> util.buttonPane.getChildren().remove(path));
 
         clocks.forEach(clock -> {
             clock.stop();
@@ -895,6 +925,9 @@ public class Pathfinding {
                     travellerPath.setOpacity(1);
                     travellerPath.setStrokeWidth(3);
                     traveller.setStrokeWidth(1);
+
+                    paths.add(travellerPath);
+
                     util.buttonPane.getChildren().add(travellerPath);
                     util.buttonPane.getChildren().add(traveller);
                     arrows.add(traveller);
@@ -929,6 +962,11 @@ public class Pathfinding {
         util.nodes.forEach(node -> {
             node.toFront();
         });
+
+        textToSpeech.setDisable(false);
+        clearPathButton.setDisable(false);
+        showDir.setDisable(false);
+        sendRobotButton.setDisable(false);
 
         if(startNode != null && endNode != null){
             //We zoomin boys
