@@ -100,7 +100,7 @@
                           </HBox>
                       </children>
                       <VBox.margin>
-                          <Insets />
+                          <Insets bottom="15.0" top="30.0" />
                       </VBox.margin>
                <padding>
                   <Insets bottom="20.0" left="50.0" right="50.0" top="5.0" />
