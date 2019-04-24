@@ -190,6 +190,8 @@ public class Pathfinding {
     @FXML
     private Button textToSpeech;
 
+    private List<String> filterOut;
+
     /**
      * This method will initialize the pathfinding screen's controller
      * @throws Exception: Any exception that arises in the screen
@@ -218,8 +220,9 @@ public class Pathfinding {
 //        hearDir.setDisable(true);
         showDir.setDisable(true);
         showDir.setText("NO DIRECTIONS");
-
-        loadDirectory();
+        filterOut = new ArrayList<>();
+        filterOut.add("HALL");
+        loadDirectory(filterOut);
 
         chooseNav();
     }
@@ -331,13 +334,15 @@ public class Pathfinding {
         }
     }
 
-    private void loadDirectory(){
+    private void loadDirectory(List<String> filterOut){
         ObservableList<String> nodeList = FXCollections.observableArrayList();
-
+        directoryList.getItems().clear();
         for (Node n : graph.getNodes().values()){
-            if(!n.getNodeType().equals("HALL")){
-                String nodeName = n.getLongName();
-                nodeList.add("["+n.getFloor()+"] "+n.getLongName()+" \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<"+n.getId()+">");
+            for (String s : filterOut) {
+                if (!n.getNodeType().equals(s)) {
+                    String nodeName = n.getLongName();
+                    nodeList.add("[" + n.getFloor() + "] " + n.getLongName() + " \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<" + n.getId() + ">");
+                }
             }
         }
 
@@ -589,10 +594,14 @@ public class Pathfinding {
 
     private void filterNodes(String s) {
         util.filterNodes(s);
+        filterOut.add(s);
+        loadDirectory(filterOut);
     }
 
     private void unfilterNodes(String s) {
         util.unfilterNodes(s);
+        filterOut.remove(s);
+        loadDirectory(filterOut);
     }
 
     /**
