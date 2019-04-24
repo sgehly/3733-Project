@@ -339,6 +339,7 @@
                                           <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
                                              <children>
                                                 <Button fx:id="textToSpeech" mnemonicParsing="false" onMouseClicked="#handleSpeaking" prefWidth="425.0" styleClass="blackButton" text="SPEAK DIRECTIONS" />
+                                                <Button fx:id="clearPathButton" mnemonicParsing="false" onAction="#clearPath" onMouseClicked="#handleSpeaking" prefWidth="425.0" styleClass="blackButton" text="CLEAR PATH" />
                                              </children>
                                              <padding>
                                                 <Insets right="50.0" />
