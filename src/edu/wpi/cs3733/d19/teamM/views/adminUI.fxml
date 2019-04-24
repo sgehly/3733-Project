@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXSlider?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -110,9 +111,9 @@
                   </HBox>
                   <HBox fx:id="imageView" alignment="CENTER" prefWidth="1920.0" VBox.vgrow="ALWAYS">
                       <children>
-                          <VBox minWidth="500.0" prefHeight="970.0" prefWidth="698.0" style="-fx-background-color: rgba(0,35,71,0.6);" HBox.hgrow="ALWAYS">
+                          <VBox alignment="CENTER" maxWidth="550.0" minWidth="400.0" prefHeight="970.0" prefWidth="698.0" style="-fx-background-color: rgba(0,35,71,0.6);" HBox.hgrow="ALWAYS">
                               <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="500.0" prefHeight="100.0" prefWidth="200.0">
                            <children>
                                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="Admin Operations" HBox.hgrow="ALWAYS">
                                             <font>
@@ -195,38 +196,26 @@
                               </VBox>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="30.0" left="30.0" right="30.0" top="50.0" />
+                              <Insets left="30.0" right="30.0" top="50.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="186.0" prefWidth="655.0" spacing="30.0" VBox.vgrow="NEVER">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="655.0" spacing="30.0" VBox.vgrow="NEVER">
                            <children>
-                              <GridPane prefHeight="135.0" prefWidth="482.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints vgrow="SOMETIMES" />
-                                  <RowConstraints vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <JFXButton onAction="#addNode" prefHeight="37.0" prefWidth="231.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Add" GridPane.halignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </GridPane.margin></JFXButton>
-                                    <JFXButton onAction="#removeNode" prefHeight="37.0" prefWidth="234.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Remove" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </GridPane.margin></JFXButton>
-                                    <JFXButton onAction="#updateNode" prefHeight="37.0" prefWidth="483.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Modify/Save" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                                       <GridPane.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </GridPane.margin></JFXButton>
-                                 </children>
-                              </GridPane>
+                              <JFXButton onAction="#updateNode" prefWidth="250.0" stylesheets="@../../../../../../resources/stylesheet.css" text="ADD/SAVE NODE">
+                                 <styleClass>
+                                    <String fx:value="whiteButton" />
+                                    <String fx:value="bigButton" />
+                                 </styleClass>
+                              </JFXButton>
+                              <JFXButton onAction="#removeNode" prefHeight="55.0" prefWidth="250.0" stylesheets="@../../../../../../resources/stylesheet.css" text="REMOVE">
+                                 <styleClass>
+                                    <String fx:value="whiteButton" />
+                                    <String fx:value="bigButton" />
+                                 </styleClass>
+                              </JFXButton>
                            </children>
                            <VBox.margin>
-                              <Insets left="60.0" right="60.0" />
+                              <Insets left="20.0" right="20.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
