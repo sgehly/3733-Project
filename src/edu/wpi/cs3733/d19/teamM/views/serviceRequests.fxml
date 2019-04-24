@@ -308,7 +308,7 @@
                                                 <Image url="@../../../../../../resources/icons/sanitation.png" />
                                              </image>
                                              <VBox.margin>
-                                                <Insets top="11.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="SANITATION">
@@ -316,7 +316,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -329,7 +329,7 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" maxHeight="290.0" prefHeight="400.0" prefWidth="200.0" spacing="20.0">
+                              <HBox alignment="CENTER" maxHeight="290.0" prefHeight="400.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
                                  <padding>
                                     <Insets bottom="7.0" top="7.0" />
                                  </padding>
@@ -354,7 +354,7 @@
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#toImaging" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                    <VBox alignment="CENTER" onMouseClicked="#toImaging" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -364,7 +364,7 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="(A) IMAGING">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="IMAGING">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
@@ -377,7 +377,7 @@
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToLGift" prefHeight="216.0" prefWidth="499.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToLGift" prefHeight="216.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" onMouseClicked="#navigateToLGift" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -387,7 +387,7 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="(L) GIFT SHOP">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="GIFT SHOP">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
@@ -400,7 +400,7 @@
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#toPizza" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                    <VBox alignment="CENTER" onMouseClicked="#toPizza" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -410,7 +410,30 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="(O) DOMINOS" textAlignment="CENTER" wrappingWidth="302.4765625">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="DOMINOS" textAlignment="CENTER" wrappingWidth="302.4765625">
+                                             <font>
+                                                <Font name="BariolSerif" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets top="20.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER" onMouseClicked="#toFood" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../resources/icons/lunch_break.png" />
+                                             </image>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="FOOD" textAlignment="CENTER" wrappingWidth="302.4765625">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>

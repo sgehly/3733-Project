@@ -34,6 +34,8 @@ import javafx.stage.Screen;
 
 import java.io.IOException;
 
+import foodRequest.*;
+
 /**
  * The controller class associated with creating service requests
  */
@@ -223,8 +225,16 @@ public class ServiceRequests {
     private void navigateToLGift() throws Exception {
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
 
-        GiftRequest e = new GiftRequest();
+       GiftRequest e = new GiftRequest();
         e.run(0, 0, (int)bounds.getWidth(), (int)bounds.getHeight(), "/resources/StylesheetAPI.css", "what", "what");
+    }
+
+    @FXML
+    private void toFood() throws Exception {
+        Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+
+        FoodRequest e = new FoodRequest();
+        e.run(0, 0, (int)bounds.getWidth(), (int)bounds.getHeight(), "", "what", "what");
     }
 
     @FXML
@@ -241,8 +251,9 @@ public class ServiceRequests {
 
     @FXML
     private void toImaging(){
+        Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
         ImagingRequest imagingRequest = new ImagingRequest();
-        imagingRequest.run(0,0,1080,1920,null,"ELABS00101", "ELABS00101");
+        imagingRequest.run(0,0,(int)bounds.getHeight(),(int)bounds.getWidth(),null,"ELABS00101", "ELABS00101");
     }
 
     @FXML

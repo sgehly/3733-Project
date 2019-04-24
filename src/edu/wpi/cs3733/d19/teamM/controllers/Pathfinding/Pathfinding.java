@@ -63,6 +63,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import externalLibraries.Arrow.*;
@@ -703,10 +704,23 @@ public class Pathfinding {
             }
         }
         startText.textProperty().addListener((ov, oldValue, newValue) -> {
-            TextFields.bindAutoCompletion(startText,longNames);
+            AutoCompletionBinding<String> meta = TextFields.bindAutoCompletion(startText,longNames);
+            meta.setOnAutoCompleted((ev) -> {
+                endText.requestFocus();
+            });
         });
         endText.textProperty().addListener((ov, oldValue, newValue) -> {
-            TextFields.bindAutoCompletion(endText,longNames);
+            AutoCompletionBinding<String> meta = TextFields.bindAutoCompletion(endText,longNames);
+            meta.setOnAutoCompleted((ev) -> {
+                String start = startText.getText();
+                String end = endText.getText();
+                try{
+                    checkInputAndRunSearch(start, end);
+                }
+                catch (Exception e){
+
+                };
+            });
             String start = startText.getText();
             String end = endText.getText();
             try{
@@ -715,6 +729,7 @@ public class Pathfinding {
             catch (Exception e){
                 e.printStackTrace();
             }
+
         });
     }
 
