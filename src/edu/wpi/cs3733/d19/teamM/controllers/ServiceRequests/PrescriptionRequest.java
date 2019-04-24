@@ -124,7 +124,7 @@ public class PrescriptionRequest {
     }
 
     private boolean areFieldsEmpty() {
-        return room.getSelectionModel().getSelectedItem() == "NONE" || fillId.getText().isEmpty();
+        return room.getValue() == null || fillId.getText().isEmpty();
     }
 
     @FXML

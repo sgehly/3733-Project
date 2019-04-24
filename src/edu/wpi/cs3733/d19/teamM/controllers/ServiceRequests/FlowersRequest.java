@@ -196,7 +196,7 @@ public class FlowersRequest implements Initializable {
     }
 
     private boolean areFieldsEmpty() {
-        return room.getSelectionModel().getSelectedItem() == "NONE" || flowerType.getText().isEmpty();
+        return room.getValue() == null || flowerType.getText().isEmpty();
     }
 
     @FXML

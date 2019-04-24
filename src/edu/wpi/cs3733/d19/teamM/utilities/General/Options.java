@@ -16,7 +16,7 @@ public class Options {
         return timeout;
     }
     public static void setTimeout(int time){
-        options.timeout = time;
+        options.timeout = time *1000;
         Main.updateTimer();
     }
 }

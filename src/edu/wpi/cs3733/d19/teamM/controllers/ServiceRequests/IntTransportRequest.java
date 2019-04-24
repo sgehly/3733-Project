@@ -169,7 +169,7 @@ public class IntTransportRequest {
     }
 
     private boolean areFieldsEmpty() {
-        return roomField.getSelectionModel().getSelectedItem() == "NONE" || modeTransport.getText().isEmpty();
+        return roomField.getValue() == null || modeTransport.getText().isEmpty();
     }
 
     @FXML

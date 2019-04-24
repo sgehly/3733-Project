@@ -623,7 +623,7 @@ public class LanguageRequests implements Initializable {
     }
 
     private boolean areFieldsEmpty() {
-        return room.getSelectionModel().getSelectedItem() == "NONE" || Language.getText().isEmpty();
+        return room.getValue() == null || Language.getText().isEmpty();
     }
 
     @FXML

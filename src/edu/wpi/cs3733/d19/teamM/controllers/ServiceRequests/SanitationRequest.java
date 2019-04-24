@@ -175,7 +175,7 @@ public class SanitationRequest implements Initializable {
     }
 
     private boolean areFieldsEmpty() {
-        return room.getSelectionModel().getSelectedItem() == "NONE" || typeofmess.getText().isEmpty();
+        return room.getValue() == null || typeofmess.getText().isEmpty();
     }
 
     @FXML

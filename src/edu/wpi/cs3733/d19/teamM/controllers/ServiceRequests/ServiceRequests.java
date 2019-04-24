@@ -29,7 +29,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import imaging.ImagingRequest;
-import bishopfishapi.Emergency;
 import javafx.stage.Screen;
 
 import java.io.IOException;
@@ -254,16 +253,6 @@ public class ServiceRequests {
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
         ImagingRequest imagingRequest = new ImagingRequest();
         imagingRequest.run(0,0,(int)bounds.getHeight(),(int)bounds.getWidth(),null,"ELABS00101", "ELABS00101");
-    }
-
-    @FXML
-    private void toEmergency() {
-        try {
-            Emergency emergency = new Emergency();
-            emergency.run(0, 0, 1920, 1080, "/resources/StylesheetAPI.css", "destNode", "originNode");
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**

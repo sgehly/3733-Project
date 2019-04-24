@@ -194,7 +194,7 @@ public class AudioVisual implements Initializable {
     }
 
     private boolean areFieldsEmpty() {
-        return audioVisType.getText().isEmpty() || roomDropDown.getSelectionModel().getSelectedItem() == "NONE";
+        return (audioVisType.getText().isEmpty() || roomDropDown.getValue() == null);
     }
 
     @FXML

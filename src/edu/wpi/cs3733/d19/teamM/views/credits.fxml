@@ -125,6 +125,7 @@
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Other Team APIs" underline="true" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Medical Imaging API - Team A" />
+                                          <Text layoutX="786.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Food Request API - Team G" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Gift Shop API - Team L" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Dominos API - Team O" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" />
