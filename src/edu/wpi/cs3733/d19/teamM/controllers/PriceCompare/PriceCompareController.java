@@ -20,6 +20,8 @@ import org.controlsfx.control.textfield.TextFields;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -325,7 +327,7 @@ public class PriceCompareController {
     }
 
     private void populateChargeMaster() throws Exception{
-        try (BufferedReader br = new BufferedReader(new FileReader("BrighamWomens.csv"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(Main.getResource("/resources/BrighamWomens.csv")))){
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
@@ -400,7 +402,7 @@ public class PriceCompareController {
 
     @FXML
     private void navigateToHome(){
-        Main.setScene("Home");
+        Main.setScene("home");
     }
 
     @FXML
@@ -518,7 +520,8 @@ public class PriceCompareController {
 
     private void parseFile(String fileURI, List<List<String>> data) throws Exception{
         List<List<String>> records = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(fileURI))) {
+        //        try (BufferedReader br = new BufferedReader()){
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(Main.getResource("/resources/"+fileURI)))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
