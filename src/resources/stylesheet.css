@@ -68,10 +68,20 @@
 .redButton{
     -fx-border-color: #eb3b5a;
     -fx-text-fill: #eb3b5a;
+    -fx-background-radius: 5px;
+    -fx-border-width: .2em;
+    -fx-border-radius: 5px;
+    -fx-font-family: "BariolSerif";
+    -fx-text-size: 26px;
 }
 .redButton:hover{
     -fx-background-color: black;
     -fx-text-fill: #eb3b5a;
+    -fx-font-family: "BariolSerif";
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+    -fx-border-width: .2em;
+    -fx-border-radius: 5px;
 }
 
 .hoverIcon:hover{

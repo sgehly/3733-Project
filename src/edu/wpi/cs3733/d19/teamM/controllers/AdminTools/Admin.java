@@ -116,7 +116,7 @@ public class Admin{
         contentPane.setEffect(new GaussianBlur());
         //contentPane.setDisable(true);
         dialog.setDisable(false);
-        transitions.fadeIn(dialog, 500).play();
+        transitions.fadeIn(dialog, 250).play();
     }
 
     @FXML
@@ -126,7 +126,7 @@ public class Admin{
         contentPane.setEffect(null);
         //contentPane.setDisable(false);
         dialog.setDisable(true);
-        transitions.fadeOut(dialog, 500).play();
+        transitions.fadeOut(dialog, 250).play();
     }
 
     @FXML
