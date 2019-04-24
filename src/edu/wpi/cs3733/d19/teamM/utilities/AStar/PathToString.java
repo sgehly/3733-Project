@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static java.lang.Math.abs;
+
 public class PathToString {
 
     /**
@@ -98,7 +100,7 @@ public class PathToString {
                 oldY = p.getPath().get(1).getY();
                 instructions.add(Arrays.asList(oldAngle, distance));
             }
-            for (int i = 1; i < p.getPath().size() - 2; i++) {
+            for (int i = 1; i <= p.getPath().size() - 2; i++) {
                 Node n = p.getPath().get(i);
                 Node next = p.getPath().get(i + 1);
                 angle = calcAngle(oldX, oldY, next.getX(), next.getY(), distance);
@@ -111,6 +113,44 @@ public class PathToString {
             }
         }
         return instructions;
+    }
+
+    public static String pathToRoombaInstructions(Path path){
+        String instructions = "";
+        int nextHeading = 0;
+        int currentHeading = 0;
+        int nextDistance = 0;
+        for(int i = 0; i <= path.getPath().size()-2; i++){
+            int nextAbsoHeading = getNextHeading(path.getPath().get(i),path.getPath().get(i+1));
+            nextHeading = nextAbsoHeading - currentHeading;
+            currentHeading = nextHeading;
+            nextDistance = getNextDistance(path.getPath().get(i), path.getPath().get(i+1));
+            if(nextHeading < 0)
+                instructions += ",R" + Math.abs(nextHeading);
+            else
+                instructions += ",L" + Math.abs(nextHeading);
+            instructions += ",S" + nextDistance;
+        }
+        System.out.println(instructions);
+        return instructions + ",-";
+    }
+
+    private static int getNextHeading(Node curNode, Node nextNode){
+        if(curNode.getXCoord()-nextNode.getXCoord() == 0 && curNode.getYCoord()-nextNode.getYCoord() < 0)
+            return 90;
+        else if(curNode.getXCoord()-nextNode.getXCoord() == 0 && curNode.getYCoord()-nextNode.getYCoord() > 0)
+            return -90;
+        else if(curNode.getYCoord()-nextNode.getYCoord() == 0 && curNode.getXCoord()-nextNode.getXCoord() < 0)
+            return 0;
+        else if(curNode.getYCoord()-nextNode.getYCoord() == 0 && curNode.getXCoord()-nextNode.getXCoord() > 0)
+            return 180;
+        else
+            return (int) Math.toDegrees(Math.atan(curNode.getYCoord()-nextNode.getYCoord())/Math.abs((curNode.getXCoord()-nextNode.getXCoord())));
+    }
+
+    private static int getNextDistance(Node curNode, Node nextNode){
+        return (int) Math.sqrt(Math.pow(Math.abs(curNode.getXCoord()-nextNode.getXCoord()), 2)
+                + Math.pow(Math.abs((curNode.getYCoord()-nextNode.getYCoord())),2));
     }
 
     private static double getDistance(int x, int y, int x1, int y1){

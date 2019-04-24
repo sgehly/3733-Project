@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDialogLayout;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import edu.wpi.cs3733.d19.teamM.utilities.General.Options;
+import edu.wpi.cs3733.d19.teamM.utilities.SocketClient;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.IdleMonitor;
 import edu.wpi.cs3733.d19.teamM.utilities.Timeout.SavedState;
 import io.ably.lib.realtime.AblyRealtime;
@@ -87,6 +88,8 @@ public class Main extends Application {
     public static AblyRealtime ably;
 
     private static Timer timer;
+
+    private static SocketClient socket = new SocketClient();
 
     /**
      * This method is to return the current stage we are working on for referencing the stage
@@ -373,7 +376,9 @@ public class Main extends Application {
 
     public static void notificationSubscribe(Channel channel) throws Exception {
         channel.subscribe(message -> {
+            socket.connect(",M"+message.name + " " + message.data.toString()+",-");
             System.out.println("New message! " + message.name + " - " + message.data.toString());
+
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {

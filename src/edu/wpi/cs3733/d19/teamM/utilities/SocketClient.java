@@ -22,7 +22,7 @@ public class SocketClient {
         connect(outputString + ",-");
         //connect(",MHello ken this is a test,-");
         //connect(outputString + ",-");
-        connect(",MRoomba Test,-");
+        //connect(",I ,-");
 
     }
 
