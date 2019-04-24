@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.AdminTools.Admin">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.AdminTools.Admin">
    <children>
       <StackPane fx:id="stackpane" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
          <children>
@@ -36,7 +37,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                                  <image>
-                                    <Image url="@../../../../../../resources/icons/icons8-home.png" />
+                                    <Image url="@../../../../../../resources/icons/icons8-circled_left_2.png" />
                                  </image>
                               </ImageView>
                               <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
@@ -175,8 +176,8 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                            <children>
-                              <JFXButton maxWidth="9999.0" onMouseClicked="#navigateToChat" prefHeight="61.0" prefWidth="128.0" styleClass="logoutButton" text="JOIN HELPDESK STAFF" HBox.hgrow="ALWAYS" />
-                              <JFXButton maxWidth="99999.0" onMouseClicked="#navigateToNotifications" prefHeight="57.0" prefWidth="130.0" styleClass="redButton" text="SEND NOTIFICATION" HBox.hgrow="ALWAYS" />
+                              <JFXButton maxWidth="9999.0" onMouseClicked="#navigateToChat" prefHeight="65.0" prefWidth="403.0" styleClass="logoutButton" text="JOIN HELPDESK STAFF" HBox.hgrow="ALWAYS" />
+                              <JFXButton maxWidth="99999.0" onMouseClicked="#navigateToNotifications" prefHeight="65.0" prefWidth="399.0" text="SEND NOTIFICATION" HBox.hgrow="ALWAYS" styleClass="logoutButton"></JFXButton>
                            </children>
                            <VBox.margin>
                               <Insets bottom="50.0" left="150.0" right="150.0" top="25.0" />
@@ -201,14 +202,14 @@
                               <Insets top="30.0" />
                            </VBox.margin>
                         </Label>
-                        <VBox alignment="BOTTOM_CENTER" prefHeight="109.0" prefWidth="540.0">
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="169.0" prefWidth="540.0">
                            <children>
                               <Label text="Search Algorithm">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <HBox alignment="CENTER" prefHeight="67.0" prefWidth="540.0" spacing="15.0">
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="438.0" spacing="15.0">
                                  <children>
                                     <JFXButton prefHeight="50.0" prefWidth="112.0" styleClass="blackButton" text="A Star" />
                                     <JFXButton prefHeight="50.0" prefWidth="112.0" styleClass="blackButton" text="BFS" HBox.hgrow="ALWAYS" />
@@ -217,11 +218,8 @@
                                  </children>
                               </HBox>
                            </children>
-                           <VBox.margin>
-                              <Insets top="30.0" />
-                           </VBox.margin>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="191.0" prefWidth="540.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="183.0" prefWidth="540.0">
                            <children>
                               <Label text="Data Settings">
                                  <font>
@@ -234,13 +232,10 @@
                                     <JFXButton prefHeight="50.0" prefWidth="305.0" styleClass="blackButton" text="Flush Request Data" />
                                  </children>
                               </HBox>
-                              <JFXButton prefHeight="46.0" prefWidth="492.0" styleClass="redButton" text="Flush All Data" />
+                              <JFXButton onMouseClicked="#displayWarning" prefHeight="46.0" prefWidth="492.0" styleClass="redButton" text="Flush All Data" />
                            </children>
-                           <VBox.margin>
-                              <Insets top="30.0" />
-                           </VBox.margin>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="161.0" prefWidth="540.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="183.0" prefWidth="540.0">
                            <children>
                               <Label text="Usage Settings">
                                  <font>
@@ -266,7 +261,7 @@
                                     </VBox>
                                  </children>
                                  <VBox.margin>
-                                    <Insets />
+                                    <Insets top="15.0" />
                                  </VBox.margin>
                               </HBox>
                               <VBox alignment="CENTER" prefHeight="27.0" prefWidth="538.0" styleClass="whiteButton">
@@ -275,26 +270,43 @@
                                  </children>
                               </VBox>
                            </children>
-                           <VBox.margin>
-                              <Insets top="30.0" />
-                           </VBox.margin>
                         </VBox>
                      </children>
                   </VBox>
-                  <JFXButton onMouseClicked="#unloadDialogue" prefHeight="40.0" prefWidth="27.0" text=" " StackPane.alignment="CENTER">
-                     <graphic>
-                        <ImageView fx:id="exitButton" onMouseClicked="#unloadDialogue" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../resources/icons/close.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <ImageView fx:id="exitButton" fitHeight="52.0" fitWidth="46.0" onMouseClicked="#unloadDialogue" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../resources/icons/close.png" />
+                     </image>
                      <StackPane.margin>
-                        <Insets bottom="570.0" left="500.0" />
+                        <Insets bottom="555.0" left="471.0" />
                      </StackPane.margin>
-                  </JFXButton>
+                  </ImageView>
                </children>
             </StackPane>
+            <HBox fx:id="warningBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="179.0" prefWidth="398.0" style="-fx-background-color: white; -fx-border-width: 5; -fx-border-color: #012d5a; -fx-background-radius: 30; -fx-border-radius: 25;">
+               <children>
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="359.0">
+                     <children>
+                        <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="WARNING" textAlignment="CENTER" wrappingWidth="205.505859375">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="you are about to flush all data within this embedded database. Are you sure you would like to make this change?" textAlignment="CENTER" wrappingWidth="318.62890625">
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                        </Text>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                           <children>
+                              <JFXButton onMouseClicked="#closeWarning" prefHeight="40.0" prefWidth="140.0" styleClass="blackButton" text="Cancel" />
+                              <JFXButton prefHeight="40.0" prefWidth="140.0" styleClass="redButton" text="Flush All Data" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children>
       </StackPane>
    </children>

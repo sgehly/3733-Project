@@ -96,75 +96,6 @@
                                     <Insets bottom="7.0" />
                                  </padding>
                                  <children>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToSanitaton" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/sanitation.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets top="11.0" />
-                                             </VBox.margin>
-                                          </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="SANITATION">
-                                             <font>
-                                                <Font name="BariolSerif" size="36.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToLanguage" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/interpreter.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="INTERPRETER">
-                                             <font>
-                                                <Font name="BariolSerif" size="36.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToIT" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/it.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="IT SERVICE">
-                                             <font>
-                                                <Font name="BariolSerif" size="36.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </VBox>
                                     <VBox alignment="CENTER" onMouseClicked="#navigateToAudioVis" prefHeight="216.0" prefWidth="499.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
@@ -176,99 +107,6 @@
                                              </VBox.margin>
                                           </ImageView>
                                           <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="AV SERVICE">
-                                             <font>
-                                                <Font name="BariolSerif" size="36.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToLGift" prefHeight="216.0" prefWidth="499.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
-                                       <children>
-                                          <ImageView fitHeight="132.0" fitWidth="250.0" onMouseClicked="#navigateToLGift" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/shopping.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM L GIFT SHOP">
-                                             <font>
-                                                <Font name="BariolSerif" size="36.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" maxHeight="290.0" prefHeight="400.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
-                                 <padding>
-                                    <Insets bottom="7.0" top="7.0" />
-                                 </padding>
-                                 <children>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToGifts" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/gift.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="GIFT SHOP">
-                                             <font>
-                                                <Font name="BariolSerif" size="36.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToFLowers" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/florist.png" />
-                                             </image>
-                                          </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="FLORIST">
-                                             <font>
-                                                <Font name="BariolSerif" size="36.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToIntTransport" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/internal.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="INT TRANSPORT">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
@@ -304,17 +142,57 @@
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#toImaging" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToFLowers" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../../../../resources/icons/artificial_intelligence.png" />
+                                                <Image url="@../../../../../../resources/icons/florist.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="FLORIST">
+                                             <font>
+                                                <Font name="BariolSerif" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToLanguage" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../resources/icons/interpreter.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="INTERPRETER">
+                                             <font>
+                                                <Font name="BariolSerif" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToIntTransport" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../resources/icons/internal.png" />
                                              </image>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM A IMAGING">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="INT TRANSPORT">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
@@ -329,19 +207,22 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" maxHeight="290.0" prefHeight="400.0" prefWidth="200.0" spacing="20.0">
+                              <HBox alignment="CENTER" maxHeight="290.0" prefHeight="400.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
                                  <padding>
                                     <Insets bottom="7.0" top="7.0" />
                                  </padding>
                                  <children>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToReligious" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToIT" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../../../../resources/icons/religious.png" />
+                                                <Image url="@../../../../../../resources/icons/it.png" />
                                              </image>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="RELIGIOUS">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="IT SERVICE">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
@@ -354,14 +235,17 @@
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToSecurity" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToLab" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../../../../resources/icons/security.png" />
+                                                <Image url="@../../../../../../resources/icons/LabTest.png" />
                                              </image>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="SECURITY">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="LAB TEST" textAlignment="CENTER" wrappingWidth="280.4765625">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
@@ -397,17 +281,136 @@
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToLab" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToReligious" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@../../../../../../resources/icons/LabTest.png" />
+                                                <Image url="@../../../../../../resources/icons/religious.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="RELIGIOUS">
+                                             <font>
+                                                <Font name="BariolSerif" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToSanitaton" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../resources/icons/sanitation.png" />
+                                             </image>
+                                             <VBox.margin>
+                                                <Insets top="11.0" />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="SANITATION">
+                                             <font>
+                                                <Font name="BariolSerif" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" maxHeight="290.0" prefHeight="400.0" prefWidth="200.0" spacing="20.0">
+                                 <padding>
+                                    <Insets bottom="7.0" top="7.0" />
+                                 </padding>
+                                 <children>
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToSecurity" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../resources/icons/security.png" />
+                                             </image>
+                                          </ImageView>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="SECURITY">
+                                             <font>
+                                                <Font name="BariolSerif" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER" onMouseClicked="#toImaging" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                       <children>
+                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../resources/icons/artificial_intelligence.png" />
                                              </image>
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="LAB TEST" textAlignment="CENTER" wrappingWidth="280.4765625">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM A IMAGING">
+                                             <font>
+                                                <Font name="BariolSerif" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER" onMouseClicked="#toEmergency" prefHeight="216.0" prefWidth="499.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                       <children>
+                                          <ImageView fitHeight="132.0" fitWidth="250.0" onMouseClicked="#navigateToLGift" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../resources/icons/run.png" />
+                                             </image>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM B EMERGENCY">
+                                             <font>
+                                                <Font size="33.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToLGift" prefHeight="216.0" prefWidth="499.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                       <children>
+                                          <ImageView fitHeight="132.0" fitWidth="250.0" onMouseClicked="#navigateToLGift" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../resources/icons/shopping.png" />
+                                             </image>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM L GIFT SHOP">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>

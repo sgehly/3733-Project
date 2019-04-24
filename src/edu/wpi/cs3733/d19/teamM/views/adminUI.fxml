@@ -10,11 +10,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -243,7 +240,7 @@
                                     </TextField>
                                     <Label fx:id="edgeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="192.0" text="Label" textAlignment="CENTER" textFill="WHITE">
                                        <VBox.margin>
-                                          <Insets />
+                                          <Insets top="20.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font size="20.0" />
@@ -261,30 +258,43 @@
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="432.0" spacing="30.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#addEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Add Edge" />
-                              <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Remove Edge" />
+                              <Button mnemonicParsing="false" onAction="#addEdge" prefHeight="50.0" prefWidth="400.0" text="ADD EDGE">
+                                 <styleClass>
+                                    <String fx:value="whiteButton" />
+                                    <String fx:value="bigButton" />
+                                 </styleClass></Button>
+                              <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" text="REMOVE EDGE">
+                                 <styleClass>
+                                    <String fx:value="whiteButton" />
+                                    <String fx:value="bigButton" />
+                                 </styleClass></Button>
                            </children>
                            <VBox.margin>
                               <Insets bottom="40.0" left="60.0" right="60.0" top="30.0" />
                            </VBox.margin>
                         </HBox>
+                        <JFXButton onAction="#exportToCsv" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="EXPORT ALL">
+                           <VBox.margin>
+                              <Insets bottom="50.0" />
+                           </VBox.margin>
+                        </JFXButton>
                               </children>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                           </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: rgba(0,35,71,0.6);">
+                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: rgba(0,35,71,0.6);" HBox.hgrow="ALWAYS">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="1100.0">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0">
+                              <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <GesturePane fx:id="gesturePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" />
-                                    <VBox fx:id="mapStuff" maxHeight="700.0" maxWidth="1100.0" prefHeight="200.0" prefWidth="100.0">
+                                    <GesturePane fx:id="gesturePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" />
+                                    <VBox fx:id="mapStuff" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                                    <StackPane maxHeight="700.0" maxWidth="1100.0" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                    <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                         <children>
-                                                            <AnchorPane maxWidth="1100.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
+                                                            <AnchorPane maxWidth="1.7976931348623157E308" style="-fx-background-color: white;" StackPane.alignment="CENTER">
                                                                 <children>
                                                                     <ImageView fx:id="image" fitHeight="700.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                     <ImageView fx:id="overlayImage" fitHeight="700.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -345,15 +355,9 @@
                                        </StackPane.margin>
                                                 </VBox>
                                  </children>
-                                 <HBox.margin>
-                                    <Insets top="146.0" />
-                                 </HBox.margin>
                               </StackPane>
                            </children>
-                           <VBox.margin>
-                              <Insets left="15.0" right="30.0" />
-                           </VBox.margin>
-                        </HBox>
+                        </AnchorPane>
                      </children>
                   </VBox>
                       </children>

@@ -191,7 +191,7 @@ public class WelcomeAndLogin {
 
             scrollContainer.setHvalue(scrollContainer.getHvalue()+delta);
 
-        }), new KeyFrame(Duration.seconds(0.01)));
+        }), new KeyFrame(Duration.seconds(0.02)));
 
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();

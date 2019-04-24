@@ -52,7 +52,7 @@ public class Notifications {
      */
     @FXML
     private void navigateBack() throws Exception {
-        Main.setScene("home");
+        Main.setScene("admin");
     }
 
     @FXML

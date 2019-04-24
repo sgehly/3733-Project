@@ -212,13 +212,13 @@ public class AdminUI {
     }
 
 
-    @FXML
-    private void addNode(){
-        edgeLabel.setVisible(false);
-        addN();
-        graph = Floor.getFloor();
-        resetTextFields();
-    }
+//    @FXML
+//    private void addNode(){
+//        edgeLabel.setVisible(false);
+//        updateN();
+//        graph = Floor.getFloor();
+//        resetTextFields();
+//    }
 
     @FXML
     private void removeNode(){
@@ -561,35 +561,7 @@ public class AdminUI {
         }
     }
 
-    private void addN(){
-        try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
-            PreparedStatement stmt = conn.prepareStatement("insert into NODE values (?,?,?,?,?,?,?,?)");
-            stmt.setString(1, nodeIdTextBox.getText());
-            stmt.setInt(2, Integer.parseInt(xCoordTextBox.getText()));
-            stmt.setInt(3, Integer.parseInt(yCoordTextBox.getText()));
-            stmt.setString(4, floorTextBox.getText());
-            stmt.setString(5, buildingTextBox.getText());
-            stmt.setString(6, typeTextBox.getText());
-            stmt.setString(7, longNameTextBox.getText());
-            stmt.setString(8, shortNameTextBox.getText());
-            stmt.executeUpdate();
-            conn.close();
-            nodeLabel.setTextFill(Color.GREEN);
-            nodeLabel.setVisible(true);
-            nodeLabel.setText("Node Added!");
-            Node newNode = new Node(nodeIdTextBox.getText(), Integer.parseInt(xCoordTextBox.getText()), Integer.parseInt(yCoordTextBox.getText()), floorTextBox.getText(), buildingTextBox.getText(), typeTextBox.getText(), longNameTextBox.getText(), shortNameTextBox.getText());
-            graph.getNodes().put(nodeIdTextBox.getText(), newNode);
-            util.getAllRecords(util.floor);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            nodeLabel.setTextFill(Color.RED);
-            nodeLabel.setVisible(true);
-            nodeLabel.setText("Node not added!");
-        }
-    }
+
 
     public void removeN(){
         try{
@@ -717,15 +689,37 @@ public class AdminUI {
 
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);
-            nodeLabel.setText("Node Updated!");
+            nodeLabel.setText("Successful!");
             util.getAllRecords(util.floor);
         }
         catch(Exception e){
-            e.printStackTrace();
-            nodeLabel.setTextFill(Color.RED);
-            nodeLabel.setVisible(true);
-            nodeLabel.setText("Node Not Updated!");
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                Connection conn = DriverManager.getConnection(dbPath);
+                PreparedStatement stmt = conn.prepareStatement("insert into NODE values (?,?,?,?,?,?,?,?)");
+                stmt.setString(1, nodeIdTextBox.getText());
+                stmt.setInt(2, Integer.parseInt(xCoordTextBox.getText()));
+                stmt.setInt(3, Integer.parseInt(yCoordTextBox.getText()));
+                stmt.setString(4, floorTextBox.getText());
+                stmt.setString(5, buildingTextBox.getText());
+                stmt.setString(6, typeTextBox.getText());
+                stmt.setString(7, longNameTextBox.getText());
+                stmt.setString(8, shortNameTextBox.getText());
+                stmt.executeUpdate();
+                conn.close();
+                nodeLabel.setTextFill(Color.GREEN);
+                nodeLabel.setVisible(true);
+                nodeLabel.setText("Successful!");
+                Node newNode = new Node(nodeIdTextBox.getText(), Integer.parseInt(xCoordTextBox.getText()), Integer.parseInt(yCoordTextBox.getText()), floorTextBox.getText(), buildingTextBox.getText(), typeTextBox.getText(), longNameTextBox.getText(), shortNameTextBox.getText());
+                graph.getNodes().put(nodeIdTextBox.getText(), newNode);
+                util.getAllRecords(util.floor);
+            }
+            catch(Exception r){
+                r.printStackTrace();
+                nodeLabel.setTextFill(Color.RED);
+                nodeLabel.setVisible(true);
+                nodeLabel.setText("Node not added!");
+            }
         }
     }
-
 }
