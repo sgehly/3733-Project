@@ -98,7 +98,7 @@
                             <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <JFXComboBox fx:id="dropdown" prefHeight="50.0" prefWidth="300.0">
+                              <JFXComboBox fx:id="dropdown" prefHeight="50.0" prefWidth="300.0" promptText="Select Type">
                                  <HBox.margin>
                                     <Insets top="5.0" />
                                  </HBox.margin>
