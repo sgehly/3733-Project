@@ -235,8 +235,6 @@ public class Admin{
     public void navigateToCredits() { Main.setScene("credits");}
 
     @FXML
-    public void navigateToHome(){Main.setScene("home");}
-    @FXML
     public void displayWarning(){
         warningBox.setOpacity(1);
         warningBox.setDisable(false);
