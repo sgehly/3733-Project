@@ -76,10 +76,21 @@
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                     <children>
+                              <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#deleteFromList" styleClass="logoutButton" text="DELETE">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
+                              </Button>
                                         <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
                                             <font>
                                                 <Font name="Open Sans Bold" size="24.0" />
                                             </font>
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
                                         </Button>
                                     </children>
                                 </HBox>

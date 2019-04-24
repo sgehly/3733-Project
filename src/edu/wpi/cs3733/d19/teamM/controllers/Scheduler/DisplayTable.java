@@ -106,6 +106,8 @@ public class DisplayTable {
     public String getUser(){return userProperty().get();}
 
 
+
+
     //setters
     public void setRoom(String room){
         this.roomProperty().set(room);
