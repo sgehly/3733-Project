@@ -208,6 +208,8 @@ public class Pathfinding {
             clock.stop();
         });
 
+        path = null;
+
         textToSpeech.setDisable(true);
         clearPathButton.setDisable(true);
         sendRobotButton.setDisable(true);
