@@ -97,7 +97,7 @@ public class AdminChat {
             }
         });
 
-        Main.setScene("home");
+        Main.setScene("admin");
 
         if(pubChannel != null){
             pubChannel.presence.leave(new CompletionListener() {
