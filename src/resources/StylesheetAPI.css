@@ -46,6 +46,7 @@
     -fx-prompt-text-fill: GRAY;
     -fx-text-fill: WHITE;
     -fx-fill: WHITE;
+    -fx-alignment: CENTER;
     -jfx-focus-color: #012D5A;
     -jfx-unfocus-color: #012D5A;
 }
