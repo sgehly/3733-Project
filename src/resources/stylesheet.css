@@ -7,7 +7,6 @@
     -fx-text-fill: white;
     -fx-border-radius: 5px;
     -fx-background-radius: 10px;
-    -fx-underline: none;
     -fx-font-family: "BariolSerif"
 }
 .default-color0.chart-bar {
@@ -440,4 +439,12 @@
 .chart-bar {
     -fx-bar-fill: white;
     -fx-tick-label-fill: white;
+}
+
+.popup{
+    -fx-background-color: white;
+    -fx-border-width: 5px;
+    -fx-border-color: #012d5a;
+    -fx-background-radius: 30px;
+    -fx-border-radius:25px;
 }

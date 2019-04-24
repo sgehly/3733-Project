@@ -25,6 +25,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -105,6 +106,17 @@ public class Scheduler {
 
     @FXML
     private TableColumn<DisplayTable,Integer> endtimeCol = new TableColumn("endtime");
+
+    //For popup purposes
+    @FXML
+    private VBox popup;
+
+    @FXML
+    private VBox content;
+
+    @FXML
+    private ImageView backgroundImage;
+
 
 
     @FXML
@@ -396,6 +408,27 @@ public class Scheduler {
         }
     }
 
+    @FXML
+    private void displayPopup(){
+        backgroundImage.setEffect(new GaussianBlur());
+        backgroundImage.setDisable(true);
+        content.setEffect(new GaussianBlur());
+        content.setDisable(true);
+        popup.setDisable(false);
+        popup.setOpacity(1);
+    }
+
+    @FXML
+    private void hidePopup(){
+        backgroundImage.setEffect(null);
+        backgroundImage.setDisable(false);
+        content.setEffect(null);
+        content.setDisable(false);
+        popup.setDisable(true);
+        popup.setOpacity(0);
+    }
+
+
     /**
      * Exports the booked rooms table as a CSV
      *
@@ -404,10 +437,11 @@ public class Scheduler {
      * @throws ClassNotFoundException
      */
     @FXML
-    private void exportToCsv(ActionEvent event) throws SQLException,ClassNotFoundException{
+    private void exportToCsv() throws SQLException,ClassNotFoundException{
         DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         System.out.println("in print");
         String filename = "bookedRooms.csv";
+        this.hidePopup();
         try {
             FileWriter file = new FileWriter(filename);
             Connection conn = DBUtils.getConnection();
@@ -620,6 +654,10 @@ public class Scheduler {
         this.randomizeRandomRoomColors();
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
+
+        //for popup purposes
+        popup.setOpacity(0);
+        popup.setDisable(true);
 
         String strd = "DELETE FROM ROOMS";
         String str1 = "INSERT INTO Rooms VALUES('CR_1', 19, 'TBD', 'COMP')";
