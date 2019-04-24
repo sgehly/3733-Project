@@ -57,7 +57,7 @@
                         <Insets top="15.0" />
                      </padding>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="150.0" HBox.hgrow="ALWAYS">
                             <children>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -83,7 +83,7 @@
                                 </VBox>
                             </children>
                             <HBox.margin>
-                                <Insets right="200.0" top="15.0" />
+                                <Insets left="300.0" right="100.0" top="15.0" />
                             </HBox.margin>
                         </HBox>
                           <Button mnemonicParsing="false" onMouseClicked="#navigateToCalendar" prefHeight="55.0" prefWidth="183.0" styleClass="logoutButton" text="CALENDAR">
