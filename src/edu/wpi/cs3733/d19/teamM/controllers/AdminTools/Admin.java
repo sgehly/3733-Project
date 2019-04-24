@@ -58,8 +58,6 @@ import javax.imageio.ImageIO;
  */
 public class Admin{
 
-    Transitions transitions;
-
     @FXML
     private ImageView myImg;
 
@@ -116,7 +114,7 @@ public class Admin{
         contentPane.setEffect(new GaussianBlur());
         //contentPane.setDisable(true);
         dialog.setDisable(false);
-        transitions.fadeIn(dialog, 250).play();
+        dialog.setOpacity(1);
     }
 
     @FXML
@@ -126,7 +124,7 @@ public class Admin{
         contentPane.setEffect(null);
         //contentPane.setDisable(false);
         dialog.setDisable(true);
-        transitions.fadeOut(dialog, 250).play();
+        dialog.setOpacity(0);
     }
 
     @FXML
@@ -182,7 +180,6 @@ public class Admin{
         dialog.setDisable(true);
         contentPane.setDisable(false);
         backgroundImage.setDisable(false);
-        transitions = new Transitions();
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
     }
