@@ -6,6 +6,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -246,47 +247,55 @@
                         </VBox>
                         <VBox fx:id="modifyUserBox" alignment="CENTER" prefHeight="335.0" prefWidth="1920.0">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="335.0" prefWidth="1840.0" spacing="30.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="335.0" prefWidth="1840.0" spacing="75.0">
                                  <children>
-                                    <GridPane prefHeight="344.0" prefWidth="500.0">
+                                    <GridPane alignment="TOP_RIGHT" prefHeight="335.0" prefWidth="381.0">
                                        <columnConstraints>
-                                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="189.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.0" minWidth="10.0" prefWidth="192.0" />
                                        </columnConstraints>
                                        <rowConstraints>
-                                          <RowConstraints vgrow="SOMETIMES" />
-                                          <RowConstraints vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="95.33331298828125" minHeight="63.33331298828125" prefHeight="63.33331298828125" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="75.66668701171875" minHeight="43.66668701171875" prefHeight="75.66668701171875" />
+                                          <RowConstraints maxHeight="151.0" minHeight="56.0" prefHeight="85.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="151.0" minHeight="64.0" prefHeight="83.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="144.0" minHeight="63.33331298828125" prefHeight="82.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="106.0" minHeight="43.66668701171875" prefHeight="80.0" />
                                        </rowConstraints>
                                        <children>
-                                          <TextField fx:id="username2" styleClass="lightInput" GridPane.columnIndex="1" />
-                                          <TextField fx:id="newPassword2" styleClass="lightInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <TextField fx:id="confirmPassword2" styleClass="lightInput" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Username" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="New Password:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                              <font>
                                                 <Font size="25.0" />
                                              </font>
                                           </Text>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="New Password" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Confirm Password:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                              <font>
                                                 <Font size="25.0" />
                                              </font>
                                           </Text>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Confirm Password" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Phone:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                                              <font>
                                                 <Font size="25.0" />
                                              </font>
                                           </Text>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Phone" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                                          <TextField fx:id="phoneField2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="148.0" styleClass="lightInput" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="User Name:">
                                              <font>
                                                 <Font size="25.0" />
                                              </font>
                                           </Text>
-                                          <TextField fx:id="phoneField2" styleClass="lightInput" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="username2" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="148.0" styleClass="lightInput" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                                          <PasswordField fx:id="confirmPassword2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="148.0" styleClass="lightInput" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                          <PasswordField fx:id="newPassword2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="148.0" styleClass="lightInput" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                        </children>
+                                       <HBox.margin>
+                                          <Insets left="274.0" right="-23.0" />
+                                       </HBox.margin>
                                     </GridPane>
-                                    <ScrollPane hbarPolicy="NEVER" prefHeight="321.0" prefWidth="200.0">
+                                    <ListView fx:id="modifyList" prefHeight="335.0" prefWidth="304.0">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </ListView>
+                                    <ScrollPane hbarPolicy="NEVER" prefHeight="335.0" prefWidth="156.0">
                                        <content>
                                           <GridPane prefHeight="557.0" prefWidth="238.0">
                                              <columnConstraints>
@@ -332,7 +341,7 @@
                               </HBox>
                               <JFXButton onAction="#save" prefHeight="38.0" prefWidth="129.0" styleClass="blackButton" text="Modify">
                                  <VBox.margin>
-                                    <Insets />
+                                    <Insets top="25.0" />
                                  </VBox.margin>
                               </JFXButton>
                            </children>
