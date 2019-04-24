@@ -80,6 +80,14 @@
                           </HBox>
                           <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                               <children>
+                        <Button mnemonicParsing="false" onMouseClicked="#exportToCsv" styleClass="logoutButton" text="EXPORT">
+                           <font>
+                              <Font name="Open Sans Bold" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
+                        </Button>
                                   <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT" HBox.hgrow="ALWAYS">
                                       <font>
                                           <Font name="Open Sans Bold" size="24.0" />
@@ -196,7 +204,7 @@
                                     <String fx:value="bigButton" />
                                  </styleClass>
                               </JFXButton>
-                              <JFXButton onAction="#removeNode" prefHeight="55.0" prefWidth="250.0" stylesheets="@../../../../../../resources/stylesheet.css" text="REMOVE">
+                              <JFXButton onAction="#removeNode" prefHeight="55.0" prefWidth="250.0" stylesheets="@../../../../../../resources/stylesheet.css" text="REMOVE NODE">
                                  <styleClass>
                                     <String fx:value="whiteButton" />
                                     <String fx:value="bigButton" />
@@ -245,7 +253,7 @@
                               </VBox>
                            </children>
                            <VBox.margin>
-                              <Insets left="30.0" right="30.0" top="30.0" />
+                              <Insets left="30.0" right="30.0" top="60.0" />
                            </VBox.margin>
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="432.0" spacing="30.0">
@@ -255,21 +263,16 @@
                                     <String fx:value="whiteButton" />
                                     <String fx:value="bigButton" />
                                  </styleClass></Button>
-                              <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" text="REMOVE EDGE">
+                              <Button maxWidth="500.0" mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" text="REMOVE EDGE">
                                  <styleClass>
                                     <String fx:value="whiteButton" />
                                     <String fx:value="bigButton" />
                                  </styleClass></Button>
                            </children>
                            <VBox.margin>
-                              <Insets bottom="30.0" left="20.0" right="20.0" top="20.0" />
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
                            </VBox.margin>
                         </HBox>
-                        <JFXButton onAction="#exportToCsv" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="EXPORT ALL">
-                           <VBox.margin>
-                              <Insets bottom="50.0" />
-                           </VBox.margin>
-                        </JFXButton>
                               </children>
                      <HBox.margin>
                         <Insets />
