@@ -128,6 +128,8 @@ public class IntTransportRequest {
             }
             new ServiceRequests().makeRequest("internal", roomField.getSelectionModel().getSelectedItem(), modeTransport.getText(), requestText.getText(), urgent.isSelected());
 
+            errorMessage.setText(" ");
+
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialogLayout content = new JFXDialogLayout();

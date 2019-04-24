@@ -126,6 +126,8 @@ public class SecurityRequests {
             }
             new ServiceRequests().makeRequest("security", room.getSelectionModel().getSelectedItem(), type.getText(), notes.getText(), emergency.isSelected());
 
+            errorMessage.setText(" ");
+
             StackPane stackPane = new StackPane();
             stackPane.autosize();
             JFXDialogLayout content = new JFXDialogLayout();
