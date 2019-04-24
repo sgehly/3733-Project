@@ -10,6 +10,9 @@
     -fx-underline: none;
     -fx-font-family: "BariolSerif"
 }
+.default-color0.chart-bar {
+    -fx-bar-fill: #012f5a;
+}
 .blackButton:hover{
     -fx-background-color: #00172f;
     -fx-text-fill: white;
