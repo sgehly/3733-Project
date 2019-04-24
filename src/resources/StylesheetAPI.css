@@ -125,3 +125,8 @@
     -fx-border-width: 5;
     -fx-border-color: #012D5A;
 }
+
+.pane{
+    -fx-background-color: #012D5A;
+    -fx-border-color: #012D5A;
+}
