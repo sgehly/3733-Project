@@ -216,13 +216,13 @@ public class AdminUI {
         Main.setScene("addUser");
     }
 
-    @FXML
-    private void addNode(){
-        edgeLabel.setVisible(false);
-        updateN();
-        graph = Floor.getFloor();
-        resetTextFields();
-    }
+//    @FXML
+//    private void addNode(){
+//        edgeLabel.setVisible(false);
+//        updateN();
+//        graph = Floor.getFloor();
+//        resetTextFields();
+//    }
 
     @FXML
     private void removeNode(){
@@ -671,7 +671,7 @@ public class AdminUI {
 
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);
-            nodeLabel.setText("Node Updated!");
+            nodeLabel.setText("Successful!");
             util.getAllRecords(util.floor);
         }
         catch(Exception e){
@@ -691,7 +691,7 @@ public class AdminUI {
                 conn.close();
                 nodeLabel.setTextFill(Color.GREEN);
                 nodeLabel.setVisible(true);
-                nodeLabel.setText("Node Added!");
+                nodeLabel.setText("Successful!");
                 Node newNode = new Node(nodeIdTextBox.getText(), Integer.parseInt(xCoordTextBox.getText()), Integer.parseInt(yCoordTextBox.getText()), floorTextBox.getText(), buildingTextBox.getText(), typeTextBox.getText(), longNameTextBox.getText(), shortNameTextBox.getText());
                 graph.getNodes().put(nodeIdTextBox.getText(), newNode);
                 util.getAllRecords(util.floor);
