@@ -12,6 +12,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +30,7 @@ import java.util.Date;
 import java.util.Random;
 import imaging.ImagingRequest;
 import bishopfishapi.Emergency;
+import javafx.stage.Screen;
 
 import java.io.IOException;
 
@@ -219,15 +221,18 @@ public class ServiceRequests {
 
     @FXML
     private void navigateToLGift() throws Exception {
+        Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+
         GiftRequest e = new GiftRequest();
-        e.run(0, 0, 1920, 1080, "/resources/StylesheetAPI.css", "what", "what");
+        e.run(0, 0, (int)bounds.getWidth(), (int)bounds.getHeight(), "/resources/StylesheetAPI.css", "what", "what");
     }
 
     @FXML
     private void toPizza(){
         try{
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
             edu.wpi.cs3733.d19.teamO.request.Request pizza = new edu.wpi.cs3733.d19.teamO.request.Request();
-            pizza.run(0,0,1920,1080,"/resources/stylesheet.css", "", "");
+            pizza.run(0,0,(int)bounds.getWidth(),(int)bounds.getHeight(),"/resources/stylesheet.css", "", "");
         }
         catch (Exception e){
             e.printStackTrace();
