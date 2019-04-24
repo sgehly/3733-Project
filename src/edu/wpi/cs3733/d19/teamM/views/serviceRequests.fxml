@@ -111,7 +111,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -134,7 +134,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -154,7 +154,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -174,7 +174,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -197,7 +197,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="30.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -227,7 +227,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -250,7 +250,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -273,7 +273,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -293,7 +293,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -346,7 +346,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -364,35 +364,12 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM A IMAGING">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="(A) IMAGING">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#toEmergency" prefHeight="216.0" prefWidth="499.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
-                                       <children>
-                                          <ImageView fitHeight="132.0" fitWidth="250.0" onMouseClicked="#navigateToLGift" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/run.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM B EMERGENCY">
-                                             <font>
-                                                <Font size="33.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -410,12 +387,12 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM L GIFT SHOP">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="(L) GIFT SHOP">
                                              <font>
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -433,12 +410,12 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM O DOMINOS" textAlignment="CENTER" wrappingWidth="302.4765625">
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="(O) DOMINOS" textAlignment="CENTER" wrappingWidth="302.4765625">
                                              <font>
-                                                <Font size="35.0" />
+                                                <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets />
+                                                <Insets top="20.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>

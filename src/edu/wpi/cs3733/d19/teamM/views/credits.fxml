@@ -125,23 +125,17 @@
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Other Team APIs" underline="true" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Medical Imaging API - Team A" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Emegency API - Team B" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Gift Shop API - Team L" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Dominos API - Team O" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="External APIs" underline="true" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Ably.io" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Apache Foundation" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="CalendarFX" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="ControlsFX" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Font Awesome" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="GestureFX" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="ControlsFX / CalendarFX / GestureFX" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Font Awesome / Icons8 / ManyPixels.co" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Google TextToSpeech" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Icons8" />
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="JFoenix" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Manypixels.co" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="SendGrid" />
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Twilio" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="SendGrid / Twilio" />
                                        </children>
                                        <VBox.margin>
                                           <Insets bottom="10.0" />

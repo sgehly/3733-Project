@@ -105,10 +105,13 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="960.0" prefWidth="2267.0" style="-fx-background-color: white;" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ImageView fitHeight="250.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="200.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../../../../../resources/icons/mind_map.png" />
                                        </image>
+                                       <VBox.margin>
+                                          <Insets top="30.0" />
+                                       </VBox.margin>
                                     </ImageView>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="bigtitle" text="About">
                                        <VBox.margin>
@@ -120,35 +123,20 @@
                                     </Text>
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Worcester Polytechnic Institute" textAlignment="CENTER">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Worcester Polytechnic Institute CS Department" textAlignment="CENTER">
                                              <VBox.margin>
                                                 <Insets top="20.0" />
                                              </VBox.margin></Text>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Computer Science Department">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="CS3733-D19 Software Engineering - Professor Wilson Wong">
                                              <VBox.margin>
                                                 <Insets top="10.0" />
                                              </VBox.margin>
                                           </Text>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="CS3733-D19 Software Engineering">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Coach: Marissa Bennett and Matt LeMay">
                                              <VBox.margin>
                                                 <Insets top="10.0" />
                                              </VBox.margin>
                                           </Text>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Professor Wilson Wong">
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                             <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Coach:" />
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Marissa Bennett and Matt Lemay">
-                                                   <HBox.margin>
-                                                      <Insets left="10.0" />
-                                                   </HBox.margin>
-                                                </Text>
-                                             </children>
-                                          </HBox>
                                        </children>
                                     </VBox>
                                     <HBox alignment="CENTER" prefHeight="191.0" prefWidth="1873.0">
@@ -221,17 +209,12 @@
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="Special thanks to Brigham and Women's Hospital and Andrew Shinn for their contributions and insight " />
                                        </children>
                                     </HBox>
-                                    <Label text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes.">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitle" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes.">
+                                       <VBox.margin>
+                                          <Insets bottom="30.0" top="10.0" />
+                                       </VBox.margin>
+                                    </Text>
                                  </children>
-                              </VBox>
-                              <VBox alignment="CENTER" prefHeight="961.0" prefWidth="442.0">
-                                 <padding>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                 </padding>
                               </VBox>
                            </children>
                         </HBox>
