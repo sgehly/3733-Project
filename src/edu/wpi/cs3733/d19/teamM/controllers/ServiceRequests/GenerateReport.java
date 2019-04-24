@@ -394,6 +394,8 @@ public class GenerateReport implements Initializable {
         chart.getData().clear();
         chart.setBarGap(10);
 
+
+
             X.setAnimated(false);
             Y.setAnimated(false);
 
@@ -423,10 +425,10 @@ public class GenerateReport implements Initializable {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
         //userText.setText("");
-        X.setTickLabelFill(Color.WHITE);
-        Y.setTickLabelFill(Color.WHITE);
-        X.setStyle("-fx-tick-label-fill: white;");
-        Y.setStyle("-fx-tick-label-fill: white;");
+        //X.setTickLabelFill(Color.WHITE);
+       // Y.setTickLabelFill(Color.WHITE);
+       // X.setStyle("-fx-tick-label-fill: white;");
+       // Y.setStyle("-fx-tick-label-fill: white;");
     }
 }
 

@@ -91,7 +91,7 @@ public class AdminChat {
     @FXML
     private void navigateBack() throws Exception {
 
-        Main.setScene("home");
+        Main.setScene("admin");
 
         try{
 
