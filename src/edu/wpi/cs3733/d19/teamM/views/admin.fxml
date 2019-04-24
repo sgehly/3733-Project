@@ -223,6 +223,14 @@
                               </HBox>
                            </children>
                         </VBox>
+                        <Label fx:id="selected" text="Label">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </Label>
                         <VBox alignment="TOP_CENTER" prefHeight="183.0" prefWidth="540.0">
                            <children>
                               <Label text="Usage Settings">
@@ -256,7 +264,7 @@
                               </VBox>
                            </children>
                            <VBox.margin>
-                              <Insets top="30.0" />
+                              <Insets top="15.0" />
                            </VBox.margin>
                         </VBox>
                      </children>
