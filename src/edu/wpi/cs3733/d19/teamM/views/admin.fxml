@@ -2,8 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
-<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -183,7 +181,7 @@
                            <children>
 
                               <JFXButton maxWidth="9999.0" onMouseClicked="#navigateToChat" prefHeight="65.0" prefWidth="403.0" styleClass="logoutButton" text="JOIN HELPDESK STAFF" HBox.hgrow="ALWAYS" />
-                              <JFXButton maxWidth="99999.0" onMouseClicked="#navigateToNotifications" prefHeight="65.0" prefWidth="399.0" text="SEND NOTIFICATION" HBox.hgrow="ALWAYS" styleClass="logoutButton"></JFXButton>
+                              <JFXButton maxWidth="99999.0" onMouseClicked="#navigateToNotifications" prefHeight="65.0" prefWidth="399.0" styleClass="logoutButton" text="SEND NOTIFICATION" HBox.hgrow="ALWAYS" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="50.0" left="150.0" right="150.0" top="25.0" />
@@ -198,7 +196,7 @@
             </VBox>
             <StackPane fx:id="dialog" prefHeight="150.0" prefWidth="200.0">
                <children>
-                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="626.0" prefWidth="550.0" style="-fx-background-color: WHITE; -fx-border-width: 5; -fx-border-color: #012d5a; -fx-background-radius: 30; -fx-border-radius: 25;" StackPane.alignment="CENTER">
+                  <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="550.0" style="-fx-background-color: WHITE; -fx-border-width: 5; -fx-border-color: #012d5a; -fx-background-radius: 30; -fx-border-radius: 25;" StackPane.alignment="CENTER">
                      <children>
                         <Label alignment="CENTER" contentDisplay="TOP" prefHeight="59.0" prefWidth="576.0" text="Application Settings" textAlignment="RIGHT">
                            <font>
@@ -225,27 +223,6 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <Label fx:id="selected" text="Label">
-                           <font>
-                              <Font size="29.0" />
-                           </font>
-                        </Label>
-                        <VBox alignment="TOP_CENTER" prefHeight="191.0" prefWidth="540.0">
-                           <children>
-                              <Label text="Data Settings">
-                                 <font>
-                                    <Font size="22.0" />
-                                 </font>
-                              </Label>
-                              <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="493.0" spacing="15.0">
-                                 <children>
-                                    <JFXButton prefHeight="50.0" prefWidth="305.0" styleClass="blackButton" text="Flush Scheduling Data" />
-                                    <JFXButton prefHeight="50.0" prefWidth="305.0" styleClass="blackButton" text="Flush Request Data" />
-                                 </children>
-                              </HBox>
-                              <JFXButton onMouseClicked="#displayWarning" prefHeight="46.0" prefWidth="492.0" styleClass="redButton" text="Flush All Data" />
-                           </children>
-                        </VBox>
                         <VBox alignment="TOP_CENTER" prefHeight="183.0" prefWidth="540.0">
                            <children>
                               <Label text="Usage Settings">
@@ -255,12 +232,6 @@
                               </Label>
                               <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="76.0" prefWidth="493.0" spacing="114.0">
                                  <children>
-                                    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2FA" />
-                                          <JFXToggleButton text=" " toggleColor="#022e59" toggleLineColor="#51a8ff" />
-                                       </children>
-                                    </VBox>
                                     <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Timeout (seconds)" />
@@ -275,12 +246,18 @@
                                     <Insets top="15.0" />
                                  </VBox.margin>
                               </HBox>
-                              <VBox alignment="CENTER" prefHeight="27.0" prefWidth="538.0" styleClass="whiteButton">
+                              <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="502.0" styleClass="whiteButton">
                                  <children>
-                                    <JFXButton onMouseClicked="#setTimeout" prefHeight="35.0" prefWidth="65.0" styleClass="blackButton" text="Apply" />
+                                    <JFXButton onMouseClicked="#setTimeout" prefHeight="35.0" prefWidth="105.0" styleClass="blackButton" text="Apply">
+                                       <VBox.margin>
+                                          <Insets bottom="30.0" top="30.0" />
+                                       </VBox.margin></JFXButton>
                                  </children>
                               </VBox>
                            </children>
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
                         </VBox>
                      </children>
                   </VBox>
@@ -289,12 +266,12 @@
                         <Image url="@../../../../../../resources/icons/close.png" />
                      </image>
                      <StackPane.margin>
-                        <Insets bottom="555.0" left="471.0" />
+                        <Insets bottom="387.0" left="475.0" />
                      </StackPane.margin>
                   </ImageView>
                </children>
             </StackPane>
-            <HBox fx:id="warningBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="179.0" prefWidth="398.0" style="-fx-background-color: white; -fx-border-width: 5; -fx-border-color: #012d5a; -fx-background-radius: 30; -fx-border-radius: 25;">
+            <HBox fx:id="warningBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="179.0" prefWidth="398.0" style="-fx-background-color: white; -fx-border-width: 5; -fx-border-color: #012d5a; -fx-background-radius: 30; -fx-border-radius: 25;" visible="false">
                <children>
                   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="359.0">
                      <children>
