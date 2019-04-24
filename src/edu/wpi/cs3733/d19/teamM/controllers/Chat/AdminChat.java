@@ -54,52 +54,19 @@ public class AdminChat {
 
     @FXML
     public void logout() throws Exception {
-        channel.presence.leave(new CompletionListener() {
-            @Override
-            public void onSuccess() {
 
-            }
+        try {
+            channel.presence.leave(new CompletionListener() {
+                @Override
+                public void onSuccess() {
 
-            @Override
-            public void onError(ErrorInfo reason) {
+                }
 
-            }
-        });
-        pubChannel.presence.leave(new CompletionListener() {
-            @Override
-            public void onSuccess() {
+                @Override
+                public void onError(ErrorInfo reason) {
 
-            }
-
-            @Override
-            public void onError(ErrorInfo reason) {
-
-            }
-        });
-        Main.setScene("welcome");
-    }
-
-    /**
-     * This method is for the logout button which allows the user to go back to the welcome screen
-     * @throws Exception: Any exception that is encountered
-     */
-    @FXML
-    private void navigateBack() throws Exception {
-        channel.presence.leave(new CompletionListener() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onError(ErrorInfo reason) {
-
-            }
-        });
-
-        Main.setScene("home");
-
-        if(pubChannel != null){
+                }
+            });
             pubChannel.presence.leave(new CompletionListener() {
                 @Override
                 public void onSuccess() {
@@ -111,7 +78,52 @@ public class AdminChat {
 
                 }
             });
+        }catch(Exception e){
+            e.printStackTrace();
         }
+        Main.setScene("welcome");
+    }
+
+    /**
+     * This method is for the logout button which allows the user to go back to the welcome screen
+     * @throws Exception: Any exception that is encountered
+     */
+    @FXML
+    private void navigateBack() throws Exception {
+
+        Main.setScene("home");
+
+        try{
+
+            channel.presence.leave(new CompletionListener() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(ErrorInfo reason) {
+
+                }
+            });
+
+            if(pubChannel != null){
+                pubChannel.presence.leave(new CompletionListener() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError(ErrorInfo reason) {
+
+                    }
+                });
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
