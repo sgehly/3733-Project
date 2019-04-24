@@ -206,12 +206,14 @@ public class Pathfinding {
         clocks.forEach(clock -> {
             clock.stop();
         });
+
         textToSpeech.setDisable(true);
         clearPathButton.setDisable(true);
         sendRobotButton.setDisable(true);
         showDir.setDisable(true);
+
         textSpeech.quitSpeaking();
-        player.stop();
+        textToSpeech.setText("SPEAK DIRECTIONS");
     }
     /**
      * This method will initialize the pathfinding screen's controller

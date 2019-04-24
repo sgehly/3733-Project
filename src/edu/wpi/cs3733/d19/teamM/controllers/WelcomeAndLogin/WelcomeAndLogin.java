@@ -17,6 +17,8 @@ import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 import io.ably.lib.types.PaginatedResult;
 import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -141,6 +143,18 @@ public class WelcomeAndLogin {
 
 
 
+    public static void addTextLimiter(final TextField tf, final int maxLength) {
+        tf.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+                if (tf.getText().length() > maxLength) {
+                    String s = tf.getText().substring(0, maxLength);
+                    tf.setText(s);
+                }
+            }
+        });
+    }
+
     //transitions used throughout the scene
     Transitions transitions = new Transitions();
     //all components of the loginToPhoneTransition transition
@@ -172,6 +186,14 @@ public class WelcomeAndLogin {
         this.setInitialTriggers();
         this.setupTransitions();
         this.startMedia();
+
+        addTextLimiter(code1, 1);
+        addTextLimiter(code2, 1);
+
+        addTextLimiter(code3, 1);
+
+        addTextLimiter(code4, 1);
+
 
         code1.setEditable(true);
         code2.setEditable(true);
@@ -260,16 +282,13 @@ public class WelcomeAndLogin {
 
         }).start();
 
-        code1.requestFocus();
-        code1.setOnKeyTyped(new EventHandler<KeyEvent>() {
+        code1.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
 
-
-
                 if(code1.getText().length()==1)
                 {
-                    code1.setEditable(false);
+                    code2.requestFocus();
                 }
 
               /*  if (!event.getCharacter().isEmpty()) {
@@ -280,16 +299,14 @@ public class WelcomeAndLogin {
             }
         });
 
-        code2.setOnKeyTyped(new EventHandler<KeyEvent>() {
+        code2.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 System.out.println(event.getCharacter());
 
                 if(code2.getText().length()==1)
                 {
-                    code2.setEditable(false);
-
-
+                    code3.requestFocus();
                 }
 
            /*     if (!event.getCharacter().isEmpty()) {
@@ -300,15 +317,15 @@ public class WelcomeAndLogin {
             }
         });
 
-        code3.setOnKeyTyped(new EventHandler<KeyEvent>() {
+        code3.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 System.out.println(event.getCharacter());
                 if(code3.getText().length()==1)
                 {
-                    code3.setEditable(false);
-
+                    code4.requestFocus();
                 }
+
 
            /*    if (!event.getCharacter().isEmpty()) {
                     code4.requestFocus();
@@ -318,18 +335,20 @@ public class WelcomeAndLogin {
             }
         });
 
-        code4.setOnKeyTyped(new EventHandler<KeyEvent>() {
+        code4.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 System.out.println(event.getCharacter());
 
                 if(code4.getText().length()==1)
                 {
-                    code4.setEditable(false);
 
                 }
             }
         });
+
+        code1.requestFocus();
+
     }
 
 

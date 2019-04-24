@@ -171,7 +171,7 @@ public class TextSpeech
     }
     public void quitSpeaking() {
         mediaPlayer.stop();
-       tracker = 1;
-       working = 0;
+        tracker = 1;
+        working = 0;
     }
 }
