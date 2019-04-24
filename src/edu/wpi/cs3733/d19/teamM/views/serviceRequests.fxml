@@ -400,52 +400,33 @@
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#toPizza" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                                    <HBox prefHeight="230.0" prefWidth="866.0">
                                        <children>
-                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/mobile_phone.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="DOMINOS" textAlignment="CENTER" wrappingWidth="302.4765625">
-                                             <font>
-                                                <Font name="BariolSerif" size="36.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="20.0" />
-                                             </VBox.margin>
-                                          </Text>
+                                          <VBox alignment="CENTER" onMouseClicked="#toFood" prefHeight="200.0" prefWidth="528.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../resources/icons/lunch_break.png" />
+                                                   </image>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </ImageView>
+                                                <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="FOOD" textAlignment="CENTER" wrappingWidth="302.4765625">
+                                                   <font>
+                                                      <Font name="BariolSerif" size="36.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets top="20.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                             </padding>
+                                          </VBox>
                                        </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#toFood" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/lunch_break.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets />
-                                             </VBox.margin>
-                                          </ImageView>
-                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="FOOD" textAlignment="CENTER" wrappingWidth="302.4765625">
-                                             <font>
-                                                <Font name="BariolSerif" size="36.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="20.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                    </VBox>
+                                    </HBox>
                                  </children>
                               </HBox>
                            </children>
