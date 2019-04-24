@@ -1,6 +1,7 @@
 
 Directions for floor 1
 
+<<<<<<< HEAD
 Start at Elevator E Floor 1, move towards Hallway Node 20 Floor 1.
 In 13 feet, at Hallway Node 20 Floor 1, take a right turn.
 In 10 feet, at Hallway Node 19 Floor 1, remain straight.
@@ -16,3 +17,21 @@ In 28 feet, at Hallway Node 28 Floor 1, take a right turn.
 In 11 feet, at Staircase H1 Floor 1, remain straight.
 In 34 feet, at Restroom H1 Floor 1, remain straight.
 Arrive at Rehabilitation Services Floor 1
+=======
+Start at 75 Francis Valet Drop-off, move towards Lobby Entrance Hallway.
+In 7 feet, at Lobby Entrance Hallway, take a right turn.
+Arrive at Elevator M Floor 1
+Directions for floor 3
+
+Start at Elevator M Floor 3, move towards Hallway Connector 1 Floor 3.
+In 6 feet, at Hallway Connector 1 Floor 3, remain straight.
+In 59 feet, at Hallway Connector 2 Floor 3, remain straight.
+In 23 feet, at Hallway Node 1, remain straight.
+In 87 feet, at Hallway Node 2, take a left turn.
+In 13 feet, at Hallway Node 13, remain straight.
+In 48 feet, at Hallway Node 14, remain straight.
+In 13 feet, at Hallway Node 17, take a right turn.
+In 44 feet, at Hallway Node 18, remain straight.
+In 35 feet, at Hallway Node 19, remain straight.
+Arrive at Gynecology
+>>>>>>> 27fc61db67919cb1ae7fa1941ec59e0728047337
