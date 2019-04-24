@@ -28,6 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import imaging.ImagingRequest;
+import bishopfishapi.Emergency;
 
 import java.io.IOException;
 
@@ -239,6 +240,16 @@ public class ServiceRequests {
         imagingRequest.run(0,0,1080,1920,null,"ELABS00101", "ELABS00101");
     }
 
+    @FXML
+    private void toEmergency() {
+        try {
+            Emergency emergency = new Emergency();
+            emergency.run(0, 0, 1920, 1080, "/resources/StylesheetAPI.css", "destNode", "originNode");
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * This method checks room availability after a button is clicked
      * @param event
@@ -277,7 +288,7 @@ public class ServiceRequests {
             stmt.close();
             conn.close();
 
-            this.goToList();
+            //this.goToList();
 
         } catch (Exception e) {
             e.printStackTrace();

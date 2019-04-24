@@ -9,26 +9,16 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:id="root" alignment="center" hgap="10" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../../../resources/stylesheet.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.WelcomeAndLogin.WelcomeAndLogin">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
-   <children>
-       <AnchorPane fx:id="mainContent" onKeyPressed="#onKeyPressed" style="-fx-background-color: #012d5a;" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+<AnchorPane fx:id="mainContent" maxHeight="1080.0" onKeyPressed="#onKeyPressed" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.WelcomeAndLogin.WelcomeAndLogin">
          <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                <MediaView fx:id="mediaView" opacity="0.13" />
@@ -39,10 +29,10 @@
                            <Image url="@../../../../../../resources/bwh-logo-new-brand.png" />
                         </image>
                         <VBox.margin>
-                           <Insets bottom="25.0" top="250.0" />
+                           <Insets bottom="25.0" top="200.0" />
                         </VBox.margin>
                      </ImageView>
-                   <StackPane prefHeight="417.0" prefWidth="1920.0" VBox.vgrow="ALWAYS">
+                   <StackPane maxHeight="1.7976931348623157E308" prefHeight="300.0" prefWidth="1920.0" VBox.vgrow="ALWAYS">
                        <VBox fx:id="welcomeField" alignment="TOP_CENTER" style="-fx-cursor: hand;">
                         <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Brigham and Women's Hospital" textAlignment="CENTER" wrappingWidth="1327.9160461425781">
                            <font>
@@ -167,6 +157,7 @@
                                     <children>
                                        <HBox fx:id="contentContainer" prefHeight="100.0" prefWidth="200.0" spacing="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                           <children>
+                                             <HBox alignment="CENTER_LEFT" maxHeight="75.0" minHeight="75.0" minWidth="1700.0" prefHeight="100.0" prefWidth="500.0" />
                                              <HBox alignment="CENTER_LEFT" maxHeight="75.0" minHeight="75.0" minWidth="500.0" prefHeight="100.0" prefWidth="500.0" styleClass="pane">
                                                 <children>
                                                    <Pane maxHeight="75.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #2e86de; -fx-background-radius: 5 0 0 5;">
@@ -251,25 +242,23 @@
                                                    </Label>
                                                 </children>
                                              </HBox>
+                                             <HBox alignment="CENTER_LEFT" maxHeight="75.0" minHeight="75.0" minWidth="1700.0" prefHeight="100.0" prefWidth="500.0" HBox.hgrow="ALWAYS" />
                                           </children>
                                        </HBox>
                                     </children>
-                                    <padding>
-                                       <Insets left="50.0" right="50.0" />
-                                    </padding>
                                  </AnchorPane>
                               </content>
-                              <padding>
-                                 <Insets left="100.0" right="100.0" />
-                              </padding>
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin>
                            </ScrollPane>
                         </children>
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
                         <padding>
                            <Insets bottom="20.0" top="20.0" />
                         </padding>
-                        <VBox.margin>
-                           <Insets bottom="60.0" />
-                        </VBox.margin>
                      </HBox>
                   </children>
                   <StackPane.margin>
@@ -279,5 +268,3 @@
             </children>
          </StackPane>
       </AnchorPane>
-   </children>
-</GridPane>

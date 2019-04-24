@@ -34,6 +34,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.scene.shape.Line;
 import net.kurobako.gesturefx.GesturePane;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.FileWriter;
 import java.sql.*;
@@ -210,19 +211,14 @@ public class AdminUI {
         }
     }
 
-    @FXML
-    private void newUser() throws Exception {
-        Main.loadAddUsers();
-        Main.setScene("addUser");
-    }
 
-    @FXML
-    private void addNode(){
-        edgeLabel.setVisible(false);
-        addN();
-        graph = Floor.getFloor();
-        resetTextFields();
-    }
+//    @FXML
+//    private void addNode(){
+//        edgeLabel.setVisible(false);
+//        updateN();
+//        graph = Floor.getFloor();
+//        resetTextFields();
+//    }
 
     @FXML
     private void removeNode(){
@@ -493,6 +489,28 @@ public class AdminUI {
         util = new MapUtils(buttonContainer, imageView, image, new ImageView(), new JFXSlider(), this::setValues, this::clickValues, true, this::dragCallback, this::hoverCallback);
         util.initialize();
 
+        ArrayList<String> buildings = new ArrayList<String>();
+        buildings.add("BTM");
+        buildings.add("45 Francis");
+        buildings.add("Tower");
+        buildings.add("15 Francis");
+        buildings.add("Shapiro");
+        TextFields.bindAutoCompletion(buildingTextBox,buildings);
+
+        ArrayList<String> types = new ArrayList<String>();
+        types.add("AUDT");
+        types.add("CLSS");
+        types.add("CONF");
+        types.add("DEPT");
+        types.add("ELEV");
+        types.add("EXIT");
+        types.add("HALL");
+        types.add("COMP");
+        types.add("CLASS");
+
+        TextFields.bindAutoCompletion(typeTextBox,types);
+
+
     }
 
     private void setupAlgorithmsButton() {
@@ -543,35 +561,7 @@ public class AdminUI {
         }
     }
 
-    private void addN(){
-        try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-            Connection conn = DriverManager.getConnection(dbPath);
-            PreparedStatement stmt = conn.prepareStatement("insert into NODE values (?,?,?,?,?,?,?,?)");
-            stmt.setString(1, nodeIdTextBox.getText());
-            stmt.setInt(2, Integer.parseInt(xCoordTextBox.getText()));
-            stmt.setInt(3, Integer.parseInt(yCoordTextBox.getText()));
-            stmt.setString(4, floorTextBox.getText());
-            stmt.setString(5, buildingTextBox.getText());
-            stmt.setString(6, typeTextBox.getText());
-            stmt.setString(7, longNameTextBox.getText());
-            stmt.setString(8, shortNameTextBox.getText());
-            stmt.executeUpdate();
-            conn.close();
-            nodeLabel.setTextFill(Color.GREEN);
-            nodeLabel.setVisible(true);
-            nodeLabel.setText("Node Added!");
-            Node newNode = new Node(nodeIdTextBox.getText(), Integer.parseInt(xCoordTextBox.getText()), Integer.parseInt(yCoordTextBox.getText()), floorTextBox.getText(), buildingTextBox.getText(), typeTextBox.getText(), longNameTextBox.getText(), shortNameTextBox.getText());
-            graph.getNodes().put(nodeIdTextBox.getText(), newNode);
-            util.getAllRecords(util.floor);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            nodeLabel.setTextFill(Color.RED);
-            nodeLabel.setVisible(true);
-            nodeLabel.setText("Node not added!");
-        }
-    }
+
 
     public void removeN(){
         try{
@@ -699,15 +689,37 @@ public class AdminUI {
 
             nodeLabel.setTextFill(Color.GREEN);
             nodeLabel.setVisible(true);
-            nodeLabel.setText("Node Updated!");
+            nodeLabel.setText("Successful!");
             util.getAllRecords(util.floor);
         }
         catch(Exception e){
-            e.printStackTrace();
-            nodeLabel.setTextFill(Color.RED);
-            nodeLabel.setVisible(true);
-            nodeLabel.setText("Node Not Updated!");
+            try {
+                Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                Connection conn = DriverManager.getConnection(dbPath);
+                PreparedStatement stmt = conn.prepareStatement("insert into NODE values (?,?,?,?,?,?,?,?)");
+                stmt.setString(1, nodeIdTextBox.getText());
+                stmt.setInt(2, Integer.parseInt(xCoordTextBox.getText()));
+                stmt.setInt(3, Integer.parseInt(yCoordTextBox.getText()));
+                stmt.setString(4, floorTextBox.getText());
+                stmt.setString(5, buildingTextBox.getText());
+                stmt.setString(6, typeTextBox.getText());
+                stmt.setString(7, longNameTextBox.getText());
+                stmt.setString(8, shortNameTextBox.getText());
+                stmt.executeUpdate();
+                conn.close();
+                nodeLabel.setTextFill(Color.GREEN);
+                nodeLabel.setVisible(true);
+                nodeLabel.setText("Successful!");
+                Node newNode = new Node(nodeIdTextBox.getText(), Integer.parseInt(xCoordTextBox.getText()), Integer.parseInt(yCoordTextBox.getText()), floorTextBox.getText(), buildingTextBox.getText(), typeTextBox.getText(), longNameTextBox.getText(), shortNameTextBox.getText());
+                graph.getNodes().put(nodeIdTextBox.getText(), newNode);
+                util.getAllRecords(util.floor);
+            }
+            catch(Exception r){
+                r.printStackTrace();
+                nodeLabel.setTextFill(Color.RED);
+                nodeLabel.setVisible(true);
+                nodeLabel.setText("Node not added!");
+            }
         }
     }
-
 }

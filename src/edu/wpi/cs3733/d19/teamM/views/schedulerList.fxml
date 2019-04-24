@@ -106,10 +106,10 @@
                             <children>
                         <TableView fx:id="table" prefHeight="961.0" prefWidth="1920.0">
                           <columns>
-                            <TableColumn fx:id="roomName" prefWidth="480.0" text="ROOM" />
-                            <TableColumn fx:id="startTime" prefWidth="480.0" text="STARTTIME" />
-                              <TableColumn fx:id="endTime" prefWidth="480.0" text="ENDTIME" />
-                              <TableColumn fx:id="user" prefWidth="480.0" text="USER" />
+                            <TableColumn fx:id="roomName" prefWidth="410.0" text="ROOM" />
+                            <TableColumn fx:id="startTime" prefWidth="410.0" text="STARTTIME" />
+                              <TableColumn fx:id="endTime" prefWidth="410.0" text="ENDTIME" />
+                              <TableColumn fx:id="user" prefWidth="410.0" text="USER" />
                           </columns>
                         </TableView>
                             </children>

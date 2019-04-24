@@ -32,8 +32,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.scene.text.Text;
 
@@ -115,6 +117,17 @@ public class ServiceRequestsList {
     private TableColumn<DisplayTable, Integer> RCCheckboxCol = new TableColumn("checkbox");
     @FXML
     private TableColumn<DisplayTable, String> RCFilledByCol = new TableColumn("filledBy");
+
+    //for popup purposes
+    @FXML
+    private ImageView backgroundImage;
+    @FXML
+    private VBox content;
+    @FXML
+    private VBox pendingPopup;
+    @FXML
+    private VBox completePopup;
+
 
 
     @FXML
@@ -514,6 +527,7 @@ public class ServiceRequestsList {
 
     @FXML
     private void exportInProgress(ActionEvent event) throws SQLException, ClassNotFoundException {
+        this.hidePendingPopup();
         System.out.println("in print");
         String filename = "RequestInProgress.csv";
         try {
@@ -557,7 +571,48 @@ public class ServiceRequestsList {
     }
 
     @FXML
+    private void displayPendingPopup(){
+        backgroundImage.setEffect(new GaussianBlur());
+        backgroundImage.setDisable(true);
+        content.setEffect(new GaussianBlur());
+        content.setDisable(true);
+        pendingPopup.setDisable(false);
+        pendingPopup.setOpacity(1);
+    }
+
+    @FXML
+    private void hidePendingPopup(){
+        backgroundImage.setEffect(null);
+        backgroundImage.setDisable(false);
+        content.setEffect(null);
+        content.setDisable(false);
+        pendingPopup.setDisable(true);
+        pendingPopup.setOpacity(0);
+    }
+
+    @FXML
+    private void displayCompletePopup(){
+        backgroundImage.setEffect(new GaussianBlur());
+        backgroundImage.setDisable(true);
+        content.setEffect(new GaussianBlur());
+        content.setDisable(true);
+        completePopup.setDisable(false);
+        completePopup.setOpacity(1);
+    }
+
+    @FXML
+    private void hideCompletePopup(){
+        backgroundImage.setEffect(null);
+        backgroundImage.setDisable(false);
+        content.setEffect(null);
+        content.setDisable(false);
+        completePopup.setDisable(true);
+        completePopup.setOpacity(0);
+    }
+
+    @FXML
     private void exportComplete(ActionEvent event) throws SQLException, ClassNotFoundException {
+        this.hideCompletePopup();
         System.out.println("in print");
         String filename = "CompletedRequests.csv";
         try {
@@ -702,6 +757,186 @@ public class ServiceRequestsList {
         }
     }
 
+    public void updateUdropDown(){
+
+
+        ObservableList<String> u = FXCollections.observableArrayList();
+
+        if(dropdown.getSelectionModel().getSelectedItem() == "Sanitation"){
+            try {
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
+                String query = "SELECT * From USERS where ISSAN = 1 ";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    u.add(rs.getString(1));
+                }
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(dropdown.getSelectionModel().getSelectedItem() == "Religious"){
+            try {
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
+                String query = "SELECT * From USERS where ISREL = 1 ";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    u.add(rs.getString(1));
+                }
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(dropdown.getSelectionModel().getSelectedItem() == "Internal Transport"){
+            try {
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
+                String query = "SELECT * From USERS where ISINT = 1 ";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    u.add(rs.getString(1));
+                }
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(dropdown.getSelectionModel().getSelectedItem() == "External Transport"){
+            try {
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
+                String query = "SELECT * From USERS where  ISEXT = 1 ";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    u.add(rs.getString(1));
+                }
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(dropdown.getSelectionModel().getSelectedItem() == "IT Service"){
+            try {
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
+                String query = "SELECT * From USERS where  ISIT = 1 ";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    u.add(rs.getString(1));
+                }
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(dropdown.getSelectionModel().getSelectedItem() == "Interpreter"){
+            try {
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
+                String query = "SELECT * From USERS where  ISINTERP = 1 ";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    u.add(rs.getString(1));
+                }
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(dropdown.getSelectionModel().getSelectedItem() == "AV Service"){
+            try {
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
+                String query = "SELECT * From USERS where  ISAV = 1 ";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    u.add(rs.getString(1));
+                }
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(dropdown.getSelectionModel().getSelectedItem() == "Florist"){
+            try {
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
+                String query = "SELECT * From USERS where  ISFLOR = 1 ";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    u.add(rs.getString(1));
+                }
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(dropdown.getSelectionModel().getSelectedItem() == "Prescriptions"){
+            try {
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
+                String query = "SELECT * From USERS where  ISPER = 1 ";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    u.add(rs.getString(1));
+                }
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(dropdown.getSelectionModel().getSelectedItem() == "Lab test"){
+            try {
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
+                String query = "SELECT * From USERS where  ISLAB = 1 ";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    u.add(rs.getString(1));
+                }
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(dropdown.getSelectionModel().getSelectedItem() == "Security"){
+            try {
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
+                String query = "SELECT * From USERS where  ISSEC = 1 ";
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                while (rs.next()) {
+                    u.add(rs.getString(1));
+                }
+                conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        usersDropDown.setItems(u);
+        FXCollections.sort(u);
+
+    }
+
+
+
+
+
     /**
      * This method is meant to initialize the controller for use
      */
@@ -712,25 +947,15 @@ public class ServiceRequestsList {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
 
+        //for popup purposes
+        pendingPopup.setDisable(true);
+        pendingPopup.setOpacity(0);
+        completePopup.setDisable(true);
+        completePopup.setOpacity(0);
+
+
         fulfill.setDisable(true);
-        ObservableList<String> uDropDown = FXCollections.observableArrayList();
-        try {
-            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
-            Connection conn = DBUtils.getConnection();
-            String query = "SELECT * From USERS";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                uDropDown.add(rs.getString(1));
-            }
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        FXCollections.sort(uDropDown); // sorts the dropdown list of users alphabetically
-
-        usersDropDown.setItems(uDropDown);
         usersDropDown.setOnAction((e) -> {
             this.disengageComplete();
         });
@@ -751,7 +976,28 @@ public class ServiceRequestsList {
         dropdown.setOnAction((e) -> {
             currentTab = dropdown.getSelectionModel().getSelectedIndex();
             initWithType(currentTab);
+            updateUdropDown();
         });
+
+        ObservableList<String> u = FXCollections.observableArrayList();
+
+        try {
+            DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+            Connection conn = DBUtils.getConnection();
+            String query = "SELECT * From USERS where ISSAN = 1 ";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                u.add(rs.getString(1));
+                System.out.println(rs.getString(1));
+                System.out.println(" the users are " );
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        usersDropDown.setItems(u);
 
         RIPIdCol.setCellValueFactory(new PropertyValueFactory<>("requestId"));
         RIPTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -769,6 +1015,7 @@ public class ServiceRequestsList {
         RCFilledByCol.setCellValueFactory(new PropertyValueFactory<>("filledBy"));
 
         initWithType(0);
+
     }
 
     /**
