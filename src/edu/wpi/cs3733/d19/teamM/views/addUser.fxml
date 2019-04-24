@@ -229,7 +229,7 @@
                                                 <CheckBox fx:id="giftButton" mnemonicParsing="false" text="Gift" GridPane.rowIndex="6" />
                                                 <CheckBox fx:id="internalButton" mnemonicParsing="false" text="Internal Transport" GridPane.rowIndex="7" />
                                                 <CheckBox fx:id="itButton" mnemonicParsing="false" text="IT" GridPane.rowIndex="8" />
-                                                <CheckBox fx:id="perscriptionButton" mnemonicParsing="false" text="Perscription" GridPane.rowIndex="9" />
+                                                <CheckBox fx:id="perscriptionButton" mnemonicParsing="false" text="Prescription" GridPane.rowIndex="9" />
                                                 <CheckBox fx:id="labTestButton" mnemonicParsing="false" text="LabTest" GridPane.rowIndex="10" />
                                                 <CheckBox fx:id="avButton" mnemonicParsing="false" text="AV" GridPane.rowIndex="11" />
                                                 <CheckBox fx:id="adminButton" mnemonicParsing="false" text="Admin" GridPane.rowIndex="12" />
@@ -326,7 +326,7 @@
                                                 <CheckBox fx:id="giftButton2" mnemonicParsing="false" text="Gift" GridPane.rowIndex="6" />
                                                 <CheckBox fx:id="internalButton2" mnemonicParsing="false" text="Internal Transport" GridPane.rowIndex="7" />
                                                 <CheckBox fx:id="itButton2" mnemonicParsing="false" text="IT" GridPane.rowIndex="8" />
-                                                <CheckBox fx:id="perscriptionButton2" mnemonicParsing="false" text="Perscription" GridPane.rowIndex="9" />
+                                                <CheckBox fx:id="perscriptionButton2" mnemonicParsing="false" text="Prescription" GridPane.rowIndex="9" />
                                                 <CheckBox fx:id="labTestButton2" mnemonicParsing="false" text="LabTest" GridPane.rowIndex="10" />
                                                 <CheckBox fx:id="avButton2" mnemonicParsing="false" text="AV" GridPane.rowIndex="11" />
                                                 <CheckBox fx:id="adminButton2" mnemonicParsing="false" text="Admin" GridPane.rowIndex="12" />
