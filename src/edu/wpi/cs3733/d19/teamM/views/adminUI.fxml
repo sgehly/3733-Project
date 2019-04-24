@@ -9,18 +9,15 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.AdminTools.AdminUI">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.AdminTools.AdminUI">
     <children>
       <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -106,7 +103,7 @@
                   </HBox>
                   <HBox fx:id="imageView" alignment="CENTER" prefWidth="1920.0" VBox.vgrow="ALWAYS">
                       <children>
-                          <VBox minWidth="500.0" prefHeight="970.0" prefWidth="698.0" style="-fx-background-color: rgba(0,35,71,0.6);" HBox.hgrow="ALWAYS">
+                          <VBox alignment="CENTER" minWidth="500.0" prefHeight="970.0" prefWidth="698.0" style="-fx-background-color: rgba(0,35,71,0.6);" HBox.hgrow="ALWAYS">
                               <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
@@ -196,34 +193,8 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="186.0" prefWidth="655.0" spacing="30.0" VBox.vgrow="NEVER">
                            <children>
-                              <GridPane>
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints vgrow="SOMETIMES" />
-                                  <RowConstraints vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <JFXButton onAction="#addNode" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Add" GridPane.halignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </GridPane.margin></JFXButton>
-                                    <JFXButton onAction="#removeNode" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Remove" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </GridPane.margin></JFXButton>
-                                    <JFXButton onAction="#updateNode" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Modify/Save" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                                       <GridPane.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </GridPane.margin></JFXButton>
-                                    <JFXButton onAction="#exportToCsv" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="Export" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                                       <GridPane.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </GridPane.margin></JFXButton>
-                                 </children>
-                              </GridPane>
+                              <JFXButton onAction="#updateNode" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="ADD/SAVE NODE" />
+                              <JFXButton onAction="#removeNode" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="REMOVE NODE" />
                            </children>
                            <VBox.margin>
                               <Insets left="60.0" right="60.0" />
@@ -272,13 +243,18 @@
                         </HBox>
                         <HBox prefHeight="50.0" prefWidth="432.0" spacing="30.0">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#addEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Add Edge" />
-                              <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="Remove Edge" />
+                              <Button mnemonicParsing="false" onAction="#addEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="ADD EDGE" />
+                              <Button mnemonicParsing="false" onAction="#removeEdge" prefHeight="50.0" prefWidth="400.0" styleClass="whiteButton" text="REMOVE EDGE" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="30.0" left="60.0" right="60.0" top="50.0" />
                            </VBox.margin>
                         </HBox>
+                        <JFXButton onAction="#exportToCsv" prefWidth="160.0" styleClass="whiteButton" stylesheets="@../../../../../../resources/stylesheet.css" text="EXPORT ALL">
+                           <VBox.margin>
+                              <Insets bottom="50.0" />
+                           </VBox.margin>
+                        </JFXButton>
                               </children>
                      <HBox.margin>
                         <Insets />
