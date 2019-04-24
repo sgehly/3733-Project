@@ -17,6 +17,7 @@ import edu.wpi.cs3733.d19.teamM.utilities.General.Encrypt;
 import io.ably.lib.types.PaginatedResult;
 import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -172,6 +173,11 @@ public class WelcomeAndLogin {
         this.setupTransitions();
         this.startMedia();
 
+        code1.setEditable(true);
+        code2.setEditable(true);
+        code3.setEditable(true);
+        code4.setEditable(true);
+
         double delta = 0.0004;
 
         clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -255,6 +261,77 @@ public class WelcomeAndLogin {
 
 
         }).start();
+
+        code1.requestFocus();
+        code1.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+
+
+
+                if(code1.getText().length()==1)
+                {
+                    code1.setEditable(false);
+                }
+
+              /*  if (!event.getCharacter().isEmpty()) {
+                    code2.requestFocus();
+                    code2.setText("");
+                }*/
+
+            }
+        });
+
+        code2.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                System.out.println(event.getCharacter());
+
+                if(code2.getText().length()==1)
+                {
+                    code2.setEditable(false);
+
+
+                }
+
+           /*     if (!event.getCharacter().isEmpty()) {
+                    code3.requestFocus();
+                    code3.setText("");
+                }*/
+
+            }
+        });
+
+        code3.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                System.out.println(event.getCharacter());
+                if(code3.getText().length()==1)
+                {
+                    code3.setEditable(false);
+
+                }
+
+           /*    if (!event.getCharacter().isEmpty()) {
+                    code4.requestFocus();
+                    code4.setText("");
+                }*/
+
+            }
+        });
+
+        code4.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                System.out.println(event.getCharacter());
+
+                if(code4.getText().length()==1)
+                {
+                    code4.setEditable(false);
+
+                }
+            }
+        });
     }
 
 
@@ -650,12 +727,20 @@ public class WelcomeAndLogin {
         if(myFactor.getTheCode() == this.getUserInputtedCode()){
             System.out.println("Yay");
             this.logIn();
+            code1.setEditable(true);
+            code2.setEditable(true);
+            code3.setEditable(true);
+            code4.setEditable(true);
         }
         else{
             code1.clear();
             code2.clear();
             code3.clear();
             code4.clear();
+            code1.setEditable(true);
+            code2.setEditable(true);
+            code3.setEditable(true);
+            code4.setEditable(true);
             code1.requestFocus();
             codeErrorLabel.setOpacity(1);
         }
