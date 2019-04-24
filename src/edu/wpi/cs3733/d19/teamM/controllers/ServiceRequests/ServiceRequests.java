@@ -27,6 +27,7 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+import imaging.ImagingRequest;
 
 import java.io.IOException;
 
@@ -218,34 +219,25 @@ public class ServiceRequests {
     @FXML
     private void navigateToLGift() throws Exception {
         GiftRequest e = new GiftRequest();
-            try {
-                e.run(0, 0, 1000, 1000, "/resources/StylesheetAPI.css", "what", "what");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+        e.run(0, 0, 1920, 1080, "/resources/StylesheetAPI.css", "what", "what");
     }
 
-//    @FXML
-//    private void toPizza(){
-//        try{
-//            edu.wpi.cs3733.d19.teamO.request.Request pizza = new edu.wpi.cs3733.d19.teamO.request.Request();
-//            pizza.run(0,0,1500,1500,"/resources/stylesheet.css", "", "");
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @FXML
-//    private void toElevator(){
-//        try{
-//            InternalTransportRequestApi i = new InternalTransportRequestApi();
-//            i.run(0,0,1500,1500,"/resources/stylesheetAPI.css","","AELEV00S01",true,"m");
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
+    @FXML
+    private void toPizza(){
+        try{
+            edu.wpi.cs3733.d19.teamO.request.Request pizza = new edu.wpi.cs3733.d19.teamO.request.Request();
+            pizza.run(0,0,1920,1080,"/resources/stylesheet.css", "", "");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void toImaging(){
+        ImagingRequest imagingRequest = new ImagingRequest();
+        imagingRequest.run(0,0,1080,1920,null,"ELABS00101", "ELABS00101");
+    }
 
     /**
      * This method checks room availability after a button is clicked
@@ -285,7 +277,7 @@ public class ServiceRequests {
             stmt.close();
             conn.close();
 
-            //this.goToList();
+            this.goToList();
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -87,11 +87,11 @@
                         <Insets left="50.0" right="50.0" top="20.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <HBox maxHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox alignment="CENTER" maxWidth="1599.0" prefHeight="750.0" prefWidth="1599.0" HBox.hgrow="ALWAYS">
+                        <VBox alignment="CENTER" maxWidth="1820.0" prefHeight="676.0" prefWidth="1820.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <HBox alignment="CENTER" maxHeight="290.0" prefHeight="278.0" prefWidth="1713.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                              <HBox alignment="CENTER" maxHeight="290.0" maxWidth="-Infinity" prefHeight="227.0" prefWidth="2000.0" spacing="20.0" VBox.vgrow="ALWAYS">
                                  <padding>
                                     <Insets bottom="7.0" />
                                  </padding>
@@ -111,7 +111,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="20.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -134,7 +134,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="20.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -157,7 +157,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="20.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -165,7 +165,7 @@
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="CENTER" onMouseClicked="#navigateToAudioVis" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToAudioVis" prefHeight="216.0" prefWidth="499.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock" HBox.hgrow="ALWAYS">
                                        <children>
                                           <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
@@ -180,7 +180,30 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="20.0" />
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER" onMouseClicked="#navigateToLGift" prefHeight="216.0" prefWidth="499.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                       <children>
+                                          <ImageView fitHeight="132.0" fitWidth="250.0" onMouseClicked="#navigateToLGift" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../resources/icons/shopping.png" />
+                                             </image>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM L GIFT SHOP">
+                                             <font>
+                                                <Font name="BariolSerif" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -207,7 +230,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="20.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -227,7 +250,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="20.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -250,7 +273,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="20.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -273,7 +296,30 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="20.0" />
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER" onMouseClicked="#toImaging" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                       <children>
+                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../resources/icons/artificial_intelligence.png" />
+                                             </image>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM A IMAGING">
+                                             <font>
+                                                <Font name="BariolSerif" size="36.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -300,7 +346,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="20.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -320,7 +366,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="20.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -343,7 +389,7 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="20.0" />
+                                                <Insets />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -366,7 +412,30 @@
                                                 <Font name="BariolSerif" size="36.0" />
                                              </font>
                                              <VBox.margin>
-                                                <Insets top="20.0" />
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="CENTER" onMouseClicked="#toPizza" prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white; -fx-background-radius: 5;" styleClass="mainBlock">
+                                       <children>
+                                          <ImageView fitHeight="132.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../../../resources/icons/mobile_phone.png" />
+                                             </image>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </ImageView>
+                                          <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM O DOMINOS" textAlignment="CENTER" wrappingWidth="302.4765625">
+                                             <font>
+                                                <Font size="35.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -376,32 +445,6 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" maxWidth="300.0" minWidth="300.0" onMouseClicked="#navigateToLGift" prefHeight="200.0" prefWidth="200.0" styleClass="mainBlock" HBox.hgrow="NEVER">
-                           <padding>
-                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                           </padding>
-                           <HBox.margin>
-                              <Insets bottom="7.0" left="15.0" />
-                           </HBox.margin>
-                           <children>
-                              <ImageView fitHeight="175.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                                 <image>
-                                    <Image url="@../../../../../../resources/icons/shopping.png" />
-                                 </image>
-                              </ImageView>
-                              <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="requestBox small" text="TEAM L GIFT SHOP" textAlignment="CENTER" wrappingWidth="300.0">
-                                 <font>
-                                    <Font name="BariolSerif" size="36.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </Text>
                            </children>
                         </VBox>
                      </children>

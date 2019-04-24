@@ -226,33 +226,31 @@ public class WelcomeAndLogin {
         }).start();
 
         new Thread(() -> {
-            Platform.runLater(() -> {
-                new Weather(weatherText, weatherIcon);
-            });
+            new Weather(weatherText, weatherIcon);
         }).start();
 
         new Thread(() -> {
 
+            try{
+                PaginatedResult<io.ably.lib.types.Message> resultPage = Main.channel.history(null);
 
+                if(resultPage == null || resultPage.items() == null || resultPage.items().length < 1){
+                    Platform.runLater(() -> {
+                        notificationTitle.setText("No New Notifications");
+                        notificationText.setText("Have a nice day!");
+                    });
+                    return;
+                }
+                io.ably.lib.types.Message lastMessage = resultPage.items()[0];
+
+                double width = com.sun.javafx.tk.Toolkit.getToolkit().getFontLoader().computeStringWidth(lastMessage.data.toString(), Font.font("Open Sans"));
                 Platform.runLater(() -> {
-                    try{
-                        PaginatedResult<io.ably.lib.types.Message> resultPage = Main.channel.history(null);
-
-                        if(resultPage.items().length < 1){
-                            notificationTitle.setText("No New Notifications");
-                            notificationText.setText("Have a nice day!");
-                            return;
-                        }
-                        io.ably.lib.types.Message lastMessage = resultPage.items()[0];
-
-                        double width = com.sun.javafx.tk.Toolkit.getToolkit().getFontLoader().computeStringWidth(lastMessage.data.toString(), Font.font("Open Sans"));
-                        notificationTitle.setText(lastMessage.name);
-                        notificationText.setText(lastMessage.data.toString());
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }
+                    notificationTitle.setText(lastMessage.name);
+                    notificationText.setText(lastMessage.data.toString());
                 });
-
+            }catch(Exception e){
+                e.printStackTrace();
+            }
 
         }).start();
     }

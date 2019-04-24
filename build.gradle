@@ -37,11 +37,11 @@ dependencies {
 
     implementation group: 'org.apache.derby',name: 'derby',version: '10.14.2.0'
     implementation group: 'org.apache.derby',name: 'derbytools',version: '10.14.2.0'
-    implementation group: 'com.google.cloud', name: 'google-cloud-texttospeech', version: '0.80.0-beta'
+    compile group: 'com.google.cloud', name: 'google-cloud-texttospeech', version: '0.80.0-beta'
     implementation group: 'net.sourceforge.argparse4j', name: 'argparse4j', version: '0.8.1'
     implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
     implementation 'com.jfoenix:jfoenix:8.0.8' // Java 8
-    implementation group: 'org.twitter4j', name: 'twitter4j-core', version: '[4.0,)'
+    compile group: 'org.twitter4j', name: 'twitter4j-core', version: '[4.0,)'
     //4.0.8-SNAPSHOT (Other possible version thing)
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.14'
     compile group: 'net.sf.sociaal', name: 'freetts', version: '1.2.2'
@@ -67,7 +67,7 @@ dependencies {
     runtime group: 'de.jensd', name: 'fontawesomefx-commons', version: '8.13'
     compile group: 'de.jensd', name: 'fontawesomefx-fontawesome', version: '4.7.0-1'
 
-    compile group: 'com.github.goxr3plus', name: 'JavaFX-Web-Browser', version: 'V9.1.0'
+    compile group: 'com.github.goxr3plus', name: 'JavaFX-Web-Browser', version: 'V3.5.1'
 
     compile 'io.ably:ably-java:1.1.0'
 
@@ -76,11 +76,12 @@ dependencies {
 
     compile group: 'org.apache.derby', name: 'derby', version: '10.14.1.0'
     compile group: 'org.apache.derby', name: 'derbytools', version: '10.14.1.0'
-    compile group: 'com.jfoenix',name:'jfoenix',version:'8.0.8'
 
     //compile(files('/Users/JeffHarnois/Desktop/theJar-all.jar'))
     //compile(files('Team-G-Food-Request.jar'))
     compile(files('TeamLGiftRequest-1.0.0.jar'))
+    compile(files('DominosRequest-1.0.1.jar'))
+    compile(files('TeamAMedicalImagingRequest-1.1.2.jar'))
 
     configurations.compile.extendsFrom(configurations.extraLibs)
 }

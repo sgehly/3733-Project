@@ -295,6 +295,10 @@ public class Main extends Application {
         //TODO change memento based on visited pages DONE
         savedState = new SavedState();
 
+        ably = new AblyRealtime("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
+        channel = ably.channels.get("notifications");
+        Main.notificationSubscribe(channel);
+
         //Set the reference to the primary stage
         this.primaryStage = primaryStage;
 
@@ -341,7 +345,7 @@ public class Main extends Application {
         primaryStage.setY(bounds.getMinY());
         primaryStage.setWidth(bounds.getWidth());
         primaryStage.setHeight(bounds.getHeight());
-        primaryStage.setFullScreen(true);
+        primaryStage.setFullScreen(false);
         primaryStage.show();
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -365,10 +369,6 @@ public class Main extends Application {
                 start.start();
             }
         });
-
-        ably = new AblyRealtime("URg4iA.H7_X5w:2Zc5-2d-nGC8UmjV");
-        channel = ably.channels.get("notifications");
-        Main.notificationSubscribe(channel);
     }
 
     public static void notificationSubscribe(Channel channel) throws Exception {

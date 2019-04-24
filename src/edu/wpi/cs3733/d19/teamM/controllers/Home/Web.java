@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import main.java.com.goxr3plus.javafxwebbrowser.browser.WebBrowserController;
+//import main.java.com.goxr3plus.javafxwebbrowser.browser.WebBrowserController;
 
 public class Web {
     @FXML
@@ -44,17 +44,17 @@ public class Web {
         Main.setScene("welcome");
     }
 
-    public WebBrowserController webBrowser = new WebBrowserController();
+    //public WebBrowserController webBrowser = new WebBrowserController();
 
 
     @FXML
     void initialize() {
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
-        webBrowser.setMovingTitlesEnabled(false);
+        /*webBrowser.setMovingTitlesEnabled(false);
         webBrowser.setMinHeight(900);
         webBrowser.createAndAddNewTab("https://brighamandwomens.org");
         webBrowser.closeTabsToTheLeft(webBrowser.getTabPane().getTabs().get(1));
-        pane.getChildren().add(webBrowser);
+        pane.getChildren().add(webBrowser);*/
     }
 }
