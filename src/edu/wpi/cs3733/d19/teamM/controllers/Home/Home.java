@@ -192,6 +192,9 @@ public class Home{
     @FXML
     public void navigateToAbout(){Main.setScene("about");}
 
+    @FXML
+    public void navigateToWeb(){Main.setScene("web");}
+
 
     Timeline clock;
     Timeline reverseClock;
@@ -222,9 +225,9 @@ public class Home{
 
 
             if(scrollContainer.getHvalue() == 1){
-                //scrollContainer.setHvalue(0);
-                this.clock.stop();
-                this.reverseClock.play();
+                scrollContainer.setHvalue(0);
+                //this.clock.stop();
+                //this.reverseClock.play();
             }
 
             scrollContainer.setHvalue(scrollContainer.getHvalue()+delta);
@@ -274,30 +277,32 @@ public class Home{
         }).start();
 
         new Thread(() -> {
-            Platform.runLater(() -> {
-                new Weather(weatherText, weatherIcon);
-            });
+            new Weather(weatherText, weatherIcon);
         }).start();
 
         new Thread(() -> {
-            try{
-                PaginatedResult<Message> resultPage = Main.channel.history(null);
 
-                Platform.runLater(() -> {
-                    if(resultPage.items().length < 1){
+            try{
+                PaginatedResult<io.ably.lib.types.Message> resultPage = Main.channel.history(null);
+
+                if(resultPage.items().length < 1){
+                    Platform.runLater(() -> {
                         notificationTitle.setText("No New Notifications");
                         notificationText.setText("Have a nice day!");
-                        return;
-                    }
-                    Message lastMessage = resultPage.items()[0];
+                    });
+                    return;
+                }
+                io.ably.lib.types.Message lastMessage = resultPage.items()[0];
 
-                    double width = com.sun.javafx.tk.Toolkit.getToolkit().getFontLoader().computeStringWidth(lastMessage.data.toString(), Font.font("Open Sans"));
+                double width = com.sun.javafx.tk.Toolkit.getToolkit().getFontLoader().computeStringWidth(lastMessage.data.toString(), Font.font("Open Sans"));
+                Platform.runLater(() -> {
                     notificationTitle.setText(lastMessage.name);
                     notificationText.setText(lastMessage.data.toString());
                 });
             }catch(Exception e){
                 e.printStackTrace();
             }
+
         }).start();
 
         if(User.getPrivilege() != 100){

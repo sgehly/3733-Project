@@ -260,56 +260,19 @@
                                               </StackPane>
                                           </children>
                                       </VBox>
-                              <VBox alignment="TOP_RIGHT" maxHeight="100.0" maxWidth="550.0" pickOnBounds="false" prefHeight="200.0" prefWidth="100.0" spacing="20.0" StackPane.alignment="BOTTOM_RIGHT">
+                              <HBox alignment="BOTTOM_CENTER" maxHeight="100.0" pickOnBounds="false" prefHeight="100.0" prefWidth="200.0" StackPane.alignment="BOTTOM_CENTER">
                                  <children>
-                                    <HBox disable="true" maxWidth="430.0" opacity="0.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 5px;" visible="false">
-                                       <children>
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/icons8-minus2.png" />
-                                             </image>
-                                          </ImageView>
-                                          <JFXSlider fx:id="zoomSlider" maxHeight="500.0" maxWidth="500.0" prefHeight="24.0" prefWidth="490.0" />
-                                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../resources/icons/icons8-plus.png" />
-                                             </image>
-                                          </ImageView>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets right="50.0" />
-                                       </VBox.margin>
-                                       <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="TOP_RIGHT" minHeight="50.0" prefHeight="100.0" prefWidth="200.0">
-                                       <children>
-                                                        <TextField fx:id="sendMapTextBox" prefHeight="50.0" prefWidth="331.0" promptText="Email Address or Phone #" style="-fx-background-color: white; -fx-background-radius: 5px;">
-                                                            <HBox.margin>
-                                                                <Insets />
-                                                            </HBox.margin>
-                                                            <padding>
-                                                                <Insets left="10.0" />
-                                                            </padding>
-                                                        </TextField>
-                                                        <Button maxHeight="50.0" mnemonicParsing="false" onAction="#sendMap" prefHeight="40.0" styleClass="blackButton" text="SEND DIRECTIONS">
-                                                            <HBox.margin>
-                                                                <Insets left="10.0" />
-                                                            </HBox.margin>
-                                                        </Button>
-                                       </children>
-                                       <padding>
-                                          <Insets right="50.0" />
-                                       </padding>
-                                    </HBox>
-                                                <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="50.0" prefWidth="700.0" spacing="20.0">
+                                                <HBox alignment="CENTER_LEFT" maxHeight="75.0" pickOnBounds="false" prefHeight="50.0" prefWidth="700.0" spacing="20.0">
                                                     <children>
-                                                        <Text fx:id="floorLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="FLOOR 1">
-                                                            <font>
-                                                                <Font name="Open Sans Bold" size="18.0" />
-                                                            </font>
-                                                        </Text>
+                                          <HBox alignment="CENTER" maxHeight="50.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 5px;" styleClass="5px">
+                                             <children>
+                                                              <Text fx:id="floorLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="FLOOR 1">
+                                                                  <font>
+                                                                      <Font name="Open Sans Bold" size="18.0" />
+                                                                  </font>
+                                                              </Text>
+                                             </children>
+                                          </HBox>
                                                         <Button maxHeight="50.0" mnemonicParsing="false" onAction="#moveDown" prefHeight="40.0" styleClass="blackButton" text="MOVE DOWN FLOOR">
                                                             <HBox.margin>
                                                                 <Insets left="10.0" />
@@ -318,42 +281,79 @@
                                                         <Button maxHeight="50.0" mnemonicParsing="false" onAction="#moveUp" prefHeight="40.0" styleClass="blackButton" text="MOVE UP FLOOR" />
                                                     </children>
                                                     <padding>
-                                                        <Insets right="50.0" />
+                                                        <Insets left="25.0" right="50.0" />
                                                     </padding>
                                                 </HBox>
-                                    <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="50.0" prefWidth="550.0" spacing="20.0">
+                                    <VBox alignment="TOP_RIGHT" maxHeight="100.0" maxWidth="99999.0" pickOnBounds="false" prefHeight="200.0" prefWidth="100.0" spacing="20.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Button fx:id="sendRobotButton" mnemonicParsing="false" onAction="#sendRobot" prefHeight="41.0" prefWidth="420.0" styleClass="blackButton" text="SEND ROBOT" />
-                                          <Button fx:id="showDir" mnemonicParsing="false" onAction="#showText" prefWidth="425.0" styleClass="blackButton" text="SHOW DIRECTIONS" />
+                                          <HBox disable="true" maxWidth="430.0" opacity="0.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 5px;" visible="false">
+                                             <children>
+                                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../resources/icons/icons8-minus2.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <JFXSlider fx:id="zoomSlider" maxHeight="500.0" maxWidth="500.0" prefHeight="24.0" prefWidth="490.0" />
+                                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../../../resources/icons/icons8-plus.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets right="50.0" />
+                                             </VBox.margin>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="TOP_RIGHT" minHeight="50.0" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                              <TextField fx:id="sendMapTextBox" prefHeight="50.0" prefWidth="331.0" promptText="Email Address or Phone #" style="-fx-background-color: white; -fx-background-radius: 5px;">
+                                                                  <HBox.margin>
+                                                                      <Insets />
+                                                                  </HBox.margin>
+                                                                  <padding>
+                                                                      <Insets left="10.0" />
+                                                                  </padding>
+                                                              </TextField>
+                                                              <Button maxHeight="50.0" mnemonicParsing="false" onAction="#sendMap" prefHeight="40.0" prefWidth="200.0" styleClass="blackButton" text="SEND DIRECTIONS" HBox.hgrow="ALWAYS">
+                                                                  <HBox.margin>
+                                                                      <Insets left="10.0" />
+                                                                  </HBox.margin>
+                                                              </Button>
+                                             </children>
+                                             <padding>
+                                                <Insets right="50.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="50.0" prefWidth="550.0" spacing="20.0">
+                                             <children>
+                                                <Button fx:id="sendRobotButton" mnemonicParsing="false" onAction="#sendRobot" prefHeight="41.0" prefWidth="420.0" styleClass="blackButton" text="SEND ROBOT" />
+                                                <Button fx:id="showDir" mnemonicParsing="false" onAction="#showText" prefWidth="425.0" styleClass="blackButton" text="SHOW DIRECTIONS" />
+                                             </children>
+                                             <padding>
+                                                <Insets right="50.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
+                                             <children>
+                                                <Button fx:id="textToSpeech" mnemonicParsing="false" onMouseClicked="#handleSpeaking" prefWidth="425.0" styleClass="blackButton" text="SPEAK DIRECTIONS" />
+                                             </children>
+                                             <padding>
+                                                <Insets right="50.0" />
+                                             </padding>
+                                          </HBox>
                                        </children>
-                                       <padding>
-                                          <Insets right="50.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="75.0" prefWidth="1420.0" spacing="20.0">
-                                       <children>
-                                          <Button fx:id="textToSpeech" mnemonicParsing="false" onMouseClicked="#handleSpeaking" prefWidth="425.0" styleClass="blackButton" text="SPEAK DIRECTIONS" />
-                                       </children>
-                                       <padding>
-                                          <Insets right="50.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="TOP_RIGHT" maxHeight="75.0" prefHeight="50.0" prefWidth="550.0" spacing="20.0">
-                                       <children>
-                                          <Button fx:id="scheduling" mnemonicParsing="false" onAction="#navigateToScheduling" prefWidth="425.0" styleClass="blackButton" text="SCHEDULING" />
-                                       </children>
-                                       <padding>
-                                          <Insets right="50.0" />
-                                       </padding>
-                                    </HBox>
+                                    </VBox>
                                  </children>
                                  <StackPane.margin>
-                                    <Insets bottom="40.0" />
+                                    <Insets bottom="50.0" />
                                  </StackPane.margin>
-                              </VBox>
-                              <TitledPane fx:id="filters" animated="false" maxHeight="425.0" maxWidth="300.0" pickOnBounds="false" prefHeight="420.0" prefWidth="300.0" text="Filters" StackPane.alignment="TOP_LEFT">
+                              </HBox>
+                              <TitledPane fx:id="filters" animated="false" maxHeight="425.0" maxWidth="300.0" pickOnBounds="false" prefHeight="420.0" prefWidth="300.0" text="Filters" textFill="WHITE" StackPane.alignment="TOP_LEFT">
                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" pickOnBounds="false" prefHeight="245.0" prefWidth="278.0" style="-fx-background-color: #012d5a;">
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" pickOnBounds="false" prefHeight="245.0" prefWidth="278.0" style="-fx-background-color: white;">
                                               <children>
                                                   <ScrollPane pickOnBounds="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                       <content>
@@ -373,47 +373,47 @@
                                                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                               </rowConstraints>
                                                               <children>
-                                                                  <CheckBox fx:id="bathrooms" mnemonicParsing="false" prefHeight="32.0" prefWidth="139.0" style="-fx-text-fill: white;" text="Bathrooms">
+                                                                  <CheckBox fx:id="bathrooms" mnemonicParsing="false" prefHeight="32.0" prefWidth="139.0" style="-fx-text-fill: black;" text="Bathrooms">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" top="10.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="stairs" mnemonicParsing="false" style="-fx-text-fill: white;" text="Stairs" GridPane.rowIndex="1">
+                                                                  <CheckBox fx:id="stairs" mnemonicParsing="false" style="-fx-text-fill: black;" text="Stairs" GridPane.rowIndex="1">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="elevators" mnemonicParsing="false" style="-fx-text-fill: white;" text="Elevators" GridPane.rowIndex="2">
+                                                                  <CheckBox fx:id="elevators" mnemonicParsing="false" style="-fx-text-fill: black;" text="Elevators" GridPane.rowIndex="2">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="labs" mnemonicParsing="false" style="-fx-text-fill: white;" text="Labs" GridPane.rowIndex="3">
+                                                                  <CheckBox fx:id="labs" mnemonicParsing="false" style="-fx-text-fill: black;" text="Labs" GridPane.rowIndex="3">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="confs" mnemonicParsing="false" style="-fx-text-fill: white;" text="Conference Rooms" GridPane.rowIndex="4">
+                                                                  <CheckBox fx:id="confs" mnemonicParsing="false" style="-fx-text-fill: black;" text="Conference Rooms" GridPane.rowIndex="4">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="food" mnemonicParsing="false" style="-fx-text-fill: white;" text="Food" GridPane.rowIndex="5">
+                                                                  <CheckBox fx:id="food" mnemonicParsing="false" style="-fx-text-fill: black;" text="Food" GridPane.rowIndex="5">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="services" mnemonicParsing="false" style="-fx-text-fill: white;" text="Services" GridPane.rowIndex="6">
+                                                                  <CheckBox fx:id="services" mnemonicParsing="false" style="-fx-text-fill: black;" text="Services" GridPane.rowIndex="6">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <CheckBox fx:id="exits" mnemonicParsing="false" style="-fx-text-fill: white;" text="Exits" GridPane.rowIndex="7">
+                                                                  <CheckBox fx:id="exits" mnemonicParsing="false" style="-fx-text-fill: black;" text="Exits" GridPane.rowIndex="7">
                                                                       <GridPane.margin>
                                                                           <Insets left="15.0" />
                                                                       </GridPane.margin>
                                                                   </CheckBox>
-                                                                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleButton" text="Apply" GridPane.rowIndex="8">
+                                                                  <Button contentDisplay="CENTER" layoutY="25.0" mnemonicParsing="false" onAction="#handleButton" styleClass="blackButton" text="Apply" translateY="10.0" GridPane.rowIndex="8">
                                                                       <GridPane.margin>
                                                                           <Insets bottom="15.0" left="90.0" />
                                                                       </GridPane.margin>

@@ -90,6 +90,8 @@ public class Pathfinding {
     ArrayList<Line> lines = new ArrayList<Line>();
     ArrayList<Rectangle> arrows = new ArrayList<Rectangle>();
 
+    private Map<String, String> longNameMap;
+
 
     //Get the FXML objects to be linked
     @FXML
@@ -186,9 +188,6 @@ public class Pathfinding {
     private TitledPane filters;
 
     @FXML
-    private Button scheduling;
-
-    @FXML
     private Button textToSpeech;
 
     /**
@@ -198,10 +197,12 @@ public class Pathfinding {
     @FXML
     protected void initialize() throws Exception {
         textToSpeech.setText("SPEAK DIRECTIONS");
-        scheduling.setVisible(false);
+        //scheduling.setVisible(false);
         filters.setExpanded(false);
         new Clock(lblClock, lblDate);
         userText.setText(User.getUsername());
+
+        longNameMap = new HashMap<>();
 
         sendRobotButton.setDisable(true);
 
@@ -230,9 +231,7 @@ public class Pathfinding {
     Button buttonBox;
     File pathFile = new File("resource.txt");
     Scanner directionsScanner;
-     Stage dialogBox;
-
-
+    Stage dialogBox;
 
     @FXML
     private void showText(){
@@ -434,7 +433,7 @@ public class Pathfinding {
     @FXML
     private void navigateToHome() throws Exception{
         filters.setExpanded(false);
-        scheduling.setVisible(false);
+       // scheduling.setVisible(false);
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
@@ -448,7 +447,7 @@ public class Pathfinding {
     @FXML
     private void navigateToScheduling() throws Exception{
         filters.setExpanded(false);
-        scheduling.setVisible(false);
+        //scheduling.setVisible(false);
         lines.forEach(node -> util.buttonPane.getChildren().remove(node));
         arrows.forEach(node -> util.buttonPane.getChildren().remove(node));
         clearNodes.forEach(node -> util.buttonPane.getChildren().remove(node));
@@ -525,14 +524,12 @@ public class Pathfinding {
     //TODO: fix with new graph class
     private void findPresetHelper(String type) throws Exception{
         String start = startText.getText();
-        Node startNode = null;
-        for (Node n : graph.getNodes().values()){
-            if (n.getId().equals(start)){
-                startNode = n;
-            }
-        }
+        Node startNode = getNodeFromString(start);
         if (startNode != null) {
             path = graph.findPresetPath(startNode, type, graph.getNodes());
+        }
+        else {
+            path = null;
         }
 
         final JFrame frame = new JFrame();
@@ -547,19 +544,17 @@ public class Pathfinding {
             showDir.setText("TEXT DIRECTIONS");
         }
 
-        updateMap(null, null);
+        Path curPath = path.getFloorPaths().get(0);
+
+        updateMap(curPath.getPath().get(0), curPath.getPath().get(curPath.getPath().size() - 1));
         resetTextBox();
     }
 
 
 
-    private void findPath() throws Exception{
+    private void findPath(Node startNode, Node endNode) throws Exception{
         //SocketClient s = new SocketClient();
         //Get path
-        String start = startText.getText();//start.indexOf(" on Floor: ")
-        String end = endText.getText();
-        Node startNode = graph.getNodes().get(start);
-        Node endNode = graph.getNodes().get(end);
         path = graph.findPath(startNode, endNode);
         PathToString.getDirections(path);
 
@@ -570,8 +565,12 @@ public class Pathfinding {
             sendRobotButton.setDisable(false);
             showDir.setText("TEXT DIRECTIONS");
         }
+
         resetTextBox();
-        updateMap(null,null);
+
+        Path curPath = path.getFloorPaths().get(0);
+
+        updateMap(curPath.getPath().get(0), curPath.getPath().get(curPath.getPath().size() - 1));
     }
 
     @FXML
@@ -586,48 +585,6 @@ public class Pathfinding {
             }
         };
         new Thread(robotThread).start();
-    }
-
-    private void findPathWithLongNames() throws Exception{
-
-        String startPre = startText.getText();
-        String start = startPre.substring(0,startPre.indexOf(" on Floor: "));
-        String endPre = endText.getText();
-        String end = endPre.substring(0,endPre.indexOf(" on Floor: "));
-
-        Node startNode = null;
-        Node endNode = null;
-
-        for (Node n : graph.getNodes().values()){
-            if (n.getLongName().equals(start)){
-                startNode = n;
-            }
-            if (n.getLongName().equals(end)){
-                endNode = n;
-            }
-        }
-
-        if (startNode != null && endNode != null) {
-            path = graph.findPath(startNode, endNode);
-            PathToString.getDirections(path);
-           // Printing myPrinter = new Printing();
-            //myPrinter.printDirections("C:\\Users\\kenne\\Desktop\\the-file-name.txt");
-        }
-
-        int newFloorInt = util.idToFloor(path.getFinalPath().get(path.getFinalPath().size()-1).getFloor());
-        System.out.println("Setting floor to "+newFloorInt);
-        util.setFloor(newFloorInt);
-        floorLabel.setText(util.getFloorLabel());
-
-        System.out.println("Seeing util floor as "+util.floor);
-
-        if (path != null){
-            showDir.setDisable(false);
-            showDir.setText("TEXT DIRECTIONS");
-        }
-
-        updateMap(null,null);
-        resetTextBox();
     }
 
     private void filterNodes(String s) {
@@ -702,6 +659,7 @@ public class Pathfinding {
             if(!node.getNodeType().equals("HALL"))
             {
                 longNames.add(node.getLongName() + " on Floor: " + node.getFloor());
+                longNameMap.put(node.getLongName() + " on Floor: " + node.getFloor(), node.getId());
             }
         }
         startText.textProperty().addListener((ov, oldValue, newValue) -> {
@@ -712,17 +670,32 @@ public class Pathfinding {
             String start = startText.getText();
             String end = endText.getText();
             try{
-                if (graph.getNodes().containsKey(start) && graph.getNodes().containsKey(end)){
-                    findPath();
-                }
-                else if (checkValidLongNameInput()){
-                    findPathWithLongNames();
-                }
+                checkInputAndRunSearch(start, end);
             }
             catch (Exception e){
                 e.printStackTrace();
             }
         });
+    }
+
+    private void checkInputAndRunSearch(String str1, String str2) throws Exception {
+        Node sN = getNodeFromString(str1);
+        Node eN = getNodeFromString(str2);
+
+        if (sN != null && eN != null) findPath(sN, eN);
+    }
+
+    private Node getNodeFromString(String str){
+        Node n = null;
+
+        if (graph.getNodes().containsKey(str)) {
+            n = graph.getNodes().get(str);
+        }
+        else if (graph.getNodes().containsKey(longNameMap.get(str))){
+            n = graph.getNodes().get(longNameMap.get(str));
+        }
+
+        return n;
     }
 
     /**
@@ -745,12 +718,12 @@ public class Pathfinding {
     public void moveUp(ActionEvent value) throws Exception{
         util.moveUp();
         floorLabel.setText(util.getFloorLabel());
-        if(floorLabel.getText().equals("Floor Four")){
+        /*if(floorLabel.getText().equals("Floor Four")){
             scheduling.setVisible(true);
         }
         else{
             scheduling.setVisible(false);
-        }
+        }*/
         updateMap(null,null);
     }
 
@@ -758,10 +731,10 @@ public class Pathfinding {
         util.moveDown();
         floorLabel.setText(util.getFloorLabel());
         if(floorLabel.getText().equals("Floor Four")){
-            scheduling.setVisible(true);
+            //scheduling.setVisible(true);
         }
         else{
-            scheduling.setVisible(false);
+            //scheduling.setVisible(false);
         }
         updateMap(null,null);
     }
@@ -837,7 +810,7 @@ public class Pathfinding {
         gesturePane.reset();
         double scale = deltaX > deltaY ? gesturePane.getWidth() / deltaX : gesturePane.getHeight() / deltaY;
         MapPoint p = util.scalePoints((int)newXRaw,(int)newYRaw);
-        gesturePane.zoomBy(scale * 0.8, new Point2D(p.x, p.y));
+        gesturePane.zoomBy(scale * 0.6, new Point2D(p.x, p.y));
     }
 
     private void updateMap(Node startNode, Node endNode) throws Exception{

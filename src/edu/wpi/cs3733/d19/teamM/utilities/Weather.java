@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamM.utilities;
 
 import edu.wpi.cs3733.d19.teamM.Main;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,25 +32,31 @@ public class Weather {
             // may want to add a picture or gif of the weather
             // String weathDesc = j.getString("main"); and then use switch statement
 
-            desc.setText(j.getInt("temp")+"\u00b0F / "+detail.getString("main")); // textual description of weather
-
             String main = detail.getString("main");
 
             //Clouds,Mist,Snow,Rain,Haze,
-            if(main.equals("Rain") || main.equals("Thunderstorm") || main.equals("Drizzle")){
-                icon.setImage(new Image(Main.getResource("/resources/icons/icons8-rain.png")));
-            }
-            else if(main.equals("Snow")){
-                icon.setImage(new Image(Main.getResource("/resources/icons/snow.png")));
-            }
-            else if(main.equals("Clouds")){
-                icon.setImage(new Image(Main.getResource("/resources/icons/icons8-cloud.png")));
-            }
-            else if(main.equals("Clear")){
-                icon.setImage(new Image(Main.getResource("/resources/icons/icons8-sunny.png")));
-            }else{
-                icon.setImage(new Image(Main.getResource("/resources/icons/icons8-error.png")));
-            }
+
+            Platform.runLater(() -> {
+
+                desc.setText(j.getInt("temp")+"\u00b0F / "+detail.getString("main")); // textual description of weather
+
+                if(main.equals("Rain") || main.equals("Thunderstorm") || main.equals("Drizzle")){
+                    icon.setImage(new Image(Main.getResource("/resources/icons/icons8-rain.png")));
+                }
+                else if(main.equals("Snow")){
+                    icon.setImage(new Image(Main.getResource("/resources/icons/snow.png")));
+                }
+                else if(main.equals("Clouds")){
+                    icon.setImage(new Image(Main.getResource("/resources/icons/icons8-cloud.png")));
+                }
+                else if(main.equals("Clear")){
+                    icon.setImage(new Image(Main.getResource("/resources/icons/icons8-sunny.png")));
+                }else{
+                    icon.setImage(new Image(Main.getResource("/resources/icons/icons8-error.png")));
+                }
+            });
+
+
         } catch(Exception e) {
             e.printStackTrace();
         }

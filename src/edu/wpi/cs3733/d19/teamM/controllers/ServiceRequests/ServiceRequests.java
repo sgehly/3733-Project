@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d19.teamM.utilities.Clock;
 import edu.wpi.cs3733.d19.teamM.User.User;
 import edu.wpi.cs3733.d19.teamM.utilities.DatabaseUtils;
 import giftRequest.GiftRequest;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -26,6 +27,7 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+import imaging.ImagingRequest;
 
 import java.io.IOException;
 
@@ -213,22 +215,28 @@ public class ServiceRequests {
     private void navigateToLanguage() throws Exception{
         Main.setScene("serviceRequests/languageRequest");
     }
-//    @FXML
-//    private void navigateToFood() throws Exception{
-//        FoodRequest foodRequest = new FoodRequest();
-//        foodRequest.run(0, 0, 10000, 1000, "/resources/stylesheet.css", null, null);
-//    }
 
     @FXML
     private void navigateToLGift() throws Exception {
         GiftRequest e = new GiftRequest();
-        //Platform.runLater(() -> {
-            try {
-                e.run(0, 0, 1000, 1000, "/resources/stylesheet.css", "what", "what");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        //});
+        e.run(0, 0, 1920, 1080, "/resources/StylesheetAPI.css", "what", "what");
+    }
+
+    @FXML
+    private void toPizza(){
+        try{
+            edu.wpi.cs3733.d19.teamO.request.Request pizza = new edu.wpi.cs3733.d19.teamO.request.Request();
+            pizza.run(0,0,1920,1080,"/resources/stylesheet.css", "", "");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void toImaging(){
+        ImagingRequest imagingRequest = new ImagingRequest();
+        imagingRequest.run(0,0,1080,1920,null,"ELABS00101", "ELABS00101");
     }
 
     /**

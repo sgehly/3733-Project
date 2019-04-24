@@ -5,6 +5,10 @@ package edu.wpi.cs3733.d19.teamM.utilities;
 
 import com.sun.javafx.application.PlatformImpl;
 import com.sun.speech.freetts.VoiceManager;
+
+import com.dragonbean.cloud.gTTS4j;
+import edu.wpi.cs3733.d19.teamM.Main;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javax.sound.midi.SysexMessage;
@@ -44,12 +48,21 @@ import javax.speech.synthesis.SynthesizerModeDesc;
 
 public class TextSpeech
 {
-    public static void main(String[] args) {
-        TextSpeech textSpeech = new TextSpeech();
-        textSpeech.speakToUser();
+    static Media direction;
+    static MediaPlayer mediaPlayer;
+
+    public TextSpeech() {
+        try (OutputStream out = new FileOutputStream("output.mp3")) {
+            out.write(1);
+            System.out.println("Audio content written to file \"output.mp3\"");
+
+            direction = new Media(new File("output.mp3").toURI().toString());
+            mediaPlayer = new MediaPlayer(direction);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
-    Media direction = new Media(new File("src/resources/output.mp3").toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(direction);
 
 
     public MediaPlayer getMediaPlayer()
@@ -77,7 +90,7 @@ public class TextSpeech
                    tracker = 0;
                    working = 1;
 
-                   CredentialsProvider credentialsProvider = FixedCredentialsProvider.create(ServiceAccountCredentials.fromStream(new FileInputStream("src/resources/My_First_Project-2c9e8d24c91a.json")));
+                   CredentialsProvider credentialsProvider = FixedCredentialsProvider.create(ServiceAccountCredentials.fromStream(Main.getResource("/resources/My_First_Project-2c9e8d24c91a.json")));
 
                    TextToSpeechSettings settings = TextToSpeechSettings.newBuilder().setCredentialsProvider(credentialsProvider).build();
                    TextToSpeechClient speechClient = TextToSpeechClient.create(settings);
@@ -119,13 +132,16 @@ public class TextSpeech
 
                            ByteString audioContents = response.getAudioContent();
 
-                           try (OutputStream out = new FileOutputStream("src/resources/output.mp3")) {
+                           try (OutputStream out = new FileOutputStream("output.mp3")) {
                                out.write(audioContents.toByteArray());
                                System.out.println("Audio content written to file \"output.mp3\"");
                            }
                            speechClient.shutdown();
                         //   Media direction = new Media(new File("src/resources/output.mp3").toURI().toString());
                            PlatformImpl.startup(()->{});
+
+                   direction = new Media(new File("output.mp3").toURI().toString());
+                   mediaPlayer = new MediaPlayer(direction);
                          //  mediaPlayer = new MediaPlayer(direction);
                            mediaPlayer.play();
                      //  }
