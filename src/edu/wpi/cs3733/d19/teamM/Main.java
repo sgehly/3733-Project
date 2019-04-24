@@ -34,6 +34,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import giftRequest.*;
 import jdk.nashorn.internal.objects.Global;
+import org.checkerframework.checker.nullness.Opt;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -277,7 +278,19 @@ public class Main extends Application {
     }
 
     public static void updateTimer(){
-        timer.setDelay(Options.getTimeout());
+        Options o = Options.getOptions();
+        //timer = null;
+        ActionListener uiReset = e -> Platform.runLater(() -> {
+            timer.restart();
+            Main.setScene("welcome");
+        });
+        //Timer temp = new Timer(o.getTimeout(), uiReset);
+        timer = new Timer(o.getTimeout(), uiReset);
+        //temp = null;
+        //timer.restart();
+        System.out.println(o.getTimeout());
+        //System.out.println(Options.getTimeout());
+        //timer.restart();
     }
 
     /**
@@ -321,14 +334,16 @@ public class Main extends Application {
         welcomePane = FXMLLoader.load(Main.getFXMLURL("welcome"));
         welcomeScene= new Scene(welcomePane);
 
-
         //create the idle detection system
-        ActionListener uiReset = e -> Platform.runLater(() -> Main.setScene("welcome"));  //resets ui on timer trigger
-        timer = new Timer(300000,uiReset); //creates the timer, attach to ui reset
+        Options.getOptions();
+        ActionListener uiReset = e -> Platform.runLater(() -> {
+            Main.setScene("welcome");
+            timer.restart();
+        });  //resets ui on timer trigger
+        timer = new Timer(1000000,uiReset); //creates the timer, attach to ui reset
         EventHandler<MouseEvent> idleReset = e -> timer.restart(); //event handler to reset the timer
         primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);  //add event handler to the application
-        Options.getOptions();
-        Options.setTimeout(600000);
+        //Options.setTimeout(10000);
         timer.start();
 
 
