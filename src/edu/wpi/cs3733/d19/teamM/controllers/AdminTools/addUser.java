@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamM.controllers.AdminTools;
 
 
 //import java.awt.*;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -74,6 +75,38 @@ public class addUser {
     private ImageView tempPhoto;
     @FXML
     private ImageView defaultImage;
+
+
+
+    @FXML
+    private CheckBox religousButton2;
+    @FXML
+    private CheckBox sanitationButton2;
+    @FXML
+    private CheckBox languageButton2;
+    @FXML
+    private CheckBox externalButton2;
+    @FXML
+    private CheckBox securityButton2;
+    @FXML
+    private CheckBox flowersButton2;
+    @FXML
+    private CheckBox giftButton2;
+    @FXML
+    private CheckBox internalButton2;
+    @FXML
+    private CheckBox itButton2;
+    @FXML
+    private CheckBox perscriptionButton2;
+    @FXML
+    private CheckBox labTestButton2;
+    @FXML
+    private CheckBox avButton2;
+    @FXML
+    private CheckBox adminButton2;
+
+
+
     @FXML
     private CheckBox religousButton;
     @FXML
@@ -108,8 +141,12 @@ public class addUser {
     @FXML
     private Button modifyButton;
 
+
+
     @FXML
     private ListView list;
+    @FXML
+    private ListView modifyList;
 
     @FXML
     private VBox addUserBox;
@@ -121,9 +158,9 @@ public class addUser {
     @FXML
     private TextField username2;
     @FXML
-    private TextField newPassword2;
+    private PasswordField newPassword2;
     @FXML
-    private TextField confirmPassword2;
+    private PasswordField confirmPassword2;
     @FXML
     private TextField phoneField2;
     @FXML
@@ -138,8 +175,7 @@ public class addUser {
     }
 
     private boolean areFieldsEmpty() {
-        return username2.getText() == null || username2.getText().isEmpty() ||
-                newPassword2.getText() == null || newPassword2.getText().isEmpty() ||
+        return  newPassword2.getText() == null || newPassword2.getText().isEmpty() ||
                 newPassword2.getText().compareTo(confirmPassword2.getText()) != 0;
     }
 
@@ -214,18 +250,72 @@ public class addUser {
     private ArrayList<Integer> buildBuffer(){
         ArrayList<Integer> buffer =new ArrayList<Integer>();
         buffer.add(buttonVal(sanitationButton.isSelected()));
+        System.out.println("sanitation: " + sanitationButton.isSelected());
         buffer.add(buttonVal(languageButton.isSelected()));
+        System.out.println("language: " + languageButton.isSelected());
         buffer.add(buttonVal(itButton.isSelected()));
+        System.out.println("it: " + itButton.isSelected());
         buffer.add(buttonVal(avButton.isSelected()));
+        System.out.println("av: " + avButton.isSelected());
         buffer.add(buttonVal(giftButton.isSelected()));
+        System.out.println("gift: " + giftButton.isSelected());
         buffer.add(buttonVal(flowersButton.isSelected()));
+        System.out.println("flowers: " + flowersButton.isSelected());
         buffer.add(buttonVal(internalButton.isSelected()));
+        System.out.println("internal: " + internalButton.isSelected());
         buffer.add(buttonVal(externalButton.isSelected()));
+        System.out.println("external: " + externalButton.isSelected());
         buffer.add(buttonVal(securityButton.isSelected()));
+        System.out.println("security: " + securityButton.isSelected());
         buffer.add(buttonVal(religousButton.isSelected()));
+        System.out.println("religious: " + religousButton.isSelected());
         buffer.add(buttonVal(perscriptionButton.isSelected()));
+        System.out.println("perscription: " + perscriptionButton.isSelected());
         buffer.add(buttonVal(labTestButton.isSelected()));
-        buffer.add(buttonVal(adminButton.isSelected()));
+        System.out.println("lab test: " + labTestButton.isSelected());
+        if(adminButton.isSelected()){
+            buffer.add(100);
+        }
+        else{
+            buffer.add(0);
+        }
+        System.out.println("admin: " + adminButton.isSelected());
+        return buffer;
+    }
+
+    private ArrayList<Integer> buildBuffer2(){
+        ArrayList<Integer> buffer =new ArrayList<Integer>();
+        buffer.add(buttonVal(sanitationButton2.isSelected()));
+        System.out.println("sanitation: " + sanitationButton2.isSelected());
+        buffer.add(buttonVal(languageButton2.isSelected()));
+        System.out.println("language: " + languageButton2.isSelected());
+        buffer.add(buttonVal(itButton2.isSelected()));
+        System.out.println("it: " + itButton2.isSelected());
+        buffer.add(buttonVal(avButton2.isSelected()));
+        System.out.println("av: " + avButton2.isSelected());
+        buffer.add(buttonVal(giftButton2.isSelected()));
+        System.out.println("gift: " + giftButton2.isSelected());
+        buffer.add(buttonVal(flowersButton2.isSelected()));
+        System.out.println("flowers: " + flowersButton2.isSelected());
+        buffer.add(buttonVal(internalButton2.isSelected()));
+        System.out.println("internal: " + internalButton2.isSelected());
+        buffer.add(buttonVal(externalButton2.isSelected()));
+        System.out.println("external: " + externalButton2.isSelected());
+        buffer.add(buttonVal(securityButton2.isSelected()));
+        System.out.println("security: " + securityButton2.isSelected());
+        buffer.add(buttonVal(religousButton2.isSelected()));
+        System.out.println("religious: " + religousButton2.isSelected());
+        buffer.add(buttonVal(perscriptionButton2.isSelected()));
+        System.out.println("perscription: " + perscriptionButton2.isSelected());
+        buffer.add(buttonVal(labTestButton2.isSelected()));
+        System.out.println("lab test: " + labTestButton2.isSelected());
+        if(adminButton2.isSelected()){
+            buffer.add(100);
+        }
+        else{
+            buffer.add(0);
+        }
+        System.out.println("admin: " + adminButton2.isSelected());
         return buffer;
     }
 
@@ -255,7 +345,8 @@ public class addUser {
     @FXML
     private void chooseRemove() throws SQLException {
         user.setVisible(false);
-        this.populateUserTable();
+        this.populateUserTable(list);
+        this.populateUserTable(modifyList);
         addUserBox.setDisable(true);
         modifyUserBox.setDisable(true);
         removeUserBox.setDisable(false);
@@ -273,6 +364,8 @@ public class addUser {
     @FXML
     private void chooseModify() throws SQLException{
         user.setVisible(false);
+        this.populateUserTable(list);
+        this.populateUserTable(modifyList);
         addUserBox.setDisable(true);
         modifyUserBox.setDisable(false);
         removeUserBox.setDisable(true);
@@ -354,21 +447,20 @@ public class addUser {
         try {
             Exception e = new Exception();
             if (areFieldsEmpty()) {
-                errorMessage.setText("Missing Fields");
+                user.setText("Missing Fields");
                 throw e;
             }
             if(User.getUsername().compareTo(username.getText()) == 0){
                 errorMessage.setText("Cannot edit current user");
                 throw e;
             }
-            String tempName = username2.getText();
+            String tempName = modifyList.getSelectionModel().selectedItemProperty().getValue().toString();;
             String tempPhone = phoneField2.getText();
             Connection conn = DBUtils.getConnection();
-            String query = "UPDATE USERS SET isSan = ?, isInterp= ?, isIT= ?, isAV= ?, isGift= ?, isFlor= ?, isExt= ?, isInt= ?, isRel= ?, isSec= ?, isPer= ?, isLab= ?, ACCOUNTINT= ?, USERPASS= ?, PATHTOPIC= ?, PHONEEMAIL= ? WHERE USERNAME = ?";
+            String query = "UPDATE USERS SET isSan = ?, isInterp= ?, isIT= ?, isAV= ?, isGift= ?, isFlor= ?, isInt= ?, isExt= ?, ISSEC= ?, ISREL= ?, isPer= ?, isLab= ?, ACCOUNTINT= ?, USERPASS= ?, PATHTOPIC= ?, PHONEEMAIL= ? WHERE USERNAME = ?";
             String tempPass = Encrypt.getMd5(newPassword2.getText());
             PreparedStatement stmt = conn.prepareStatement(query);
-            ArrayList<Integer> buffer = buildBuffer();
-            stmt.setString(17, tempName);
+            ArrayList<Integer> buffer = buildBuffer2();
             stmt.setInt(1, buffer.get(0));
             stmt.setInt(2, buffer.get(1));
             stmt.setInt(3, buffer.get(2));
@@ -385,11 +477,13 @@ public class addUser {
             stmt.setString(14, tempPass);
             stmt.setString(15, "src/resources/People_Pictures/" + tempName + ".png");
             stmt.setString(16,tempPhone);
+            stmt.setString(17, tempName);
             if(tempPhoto != null){
                 savePhoto();
             }
             stmt.executeUpdate();
             conn.close();
+            this.resetModifyFields();
             user.setStyle("-fx-text-fill: green;");
             user.setText("User modified!");
             user.setVisible(true);
@@ -401,6 +495,13 @@ public class addUser {
             user.setVisible(true);
             e.printStackTrace();
         }
+    }
+
+    private void resetModifyFields() {
+        newPassword2.clear();
+        confirmPassword2.clear();
+        phoneField2.clear();
+        modifyList.getSelectionModel().clearSelection();
     }
 
     @FXML
@@ -437,7 +538,8 @@ public class addUser {
             user.setStyle("-fx-text-fill: green;");
             user.setText("User removed!");
             user.setVisible(true);
-            this.populateUserTable();
+            this.populateUserTable(list);
+            this.populateUserTable(modifyList);
 //            errorMessage.setText("User Deleted");
         }
         catch (Exception e){
@@ -479,56 +581,104 @@ public class addUser {
         addUserBox.setOpacity(1);
         modifyUserBox.setOpacity(0);
         removeUserBox.setOpacity(0);
-        this.populateUserTable();
+        this.populateUserTable(list);
+        this.populateUserTable(modifyList);
         System.out.println("123");
         new Clock(lblClock, lblDate);
 
-
         userText.setText(User.getUsername());
 
-        String os = System.getProperty("os.name").toLowerCase();
-        /*if(os.indexOf("win") >= 0){
-            defaultImage.setFitHeight(0);
-            defaultImage.setFitWidth(0);
-            try{
-                if (Webcam.getDefault() != null) {
-                    System.out.println("Trying...");
-                    webcam = Webcam.getDefault();
-                    webcam.open();
-                    webcamPanel = new WebcamPanel(webcam, false);
-                    pane.getChildren().add(swingNode);
-                    createSwingContent(swingNode);
-                } else {
-                    errorMessage.setText("No Webcam Found, Resart");
-                    errorMessage.setStyle("-fx-text-inner-color: red;");
+        modifyList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                String user = modifyList.getSelectionModel().selectedItemProperty().getValue().toString();
+                username2.setText(user);
+                newPassword2.clear();
+                confirmPassword2.clear();
+                DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
+                Connection conn = DBUtils.getConnection();
+                try {
+                    String query = "SELECT * FROM USERS WHERE USERNAME = ?";
+                    PreparedStatement stmt = conn.prepareStatement(query);
+                    stmt.setString(1, user);
+                    ResultSet rs = stmt.executeQuery();
+                    ArrayList<Integer> checkboxList = new ArrayList<Integer>();
+                    while (rs.next()) {
+                        checkboxList.add(rs.getInt("isSan"));
+                        checkboxList.add(rs.getInt("isInterp"));
+                        checkboxList.add(rs.getInt("isIT"));
+                        checkboxList.add(rs.getInt("isAV"));
+                        checkboxList.add(rs.getInt("isGift"));
+                        checkboxList.add(rs.getInt("isFlor"));
+                        checkboxList.add(rs.getInt("isExt"));
+                        checkboxList.add(rs.getInt("isInt"));
+                        checkboxList.add(rs.getInt("isRel"));
+                        checkboxList.add(rs.getInt("isSec"));
+                        checkboxList.add(rs.getInt("isPer"));
+                        checkboxList.add(rs.getInt("isLab"));
+                        checkboxList.add(rs.getInt("ACCOUNTINT"));
+                        phoneField2.setText(rs.getString("PHONEEMAIL"));
+                    }
+                    this.updateCheckboxes(checkboxList);
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
-            catch(Exception e){
-                e.printStackTrace();
+
+            private void updateCheckboxes(ArrayList<Integer> checkboxList) {
+                for(int i = 0; i < checkboxList.size(); i++){
+                    if(checkboxList.get(i) == 100){
+                        adminButton2.setSelected(true);
+                    }
+                    else if(checkboxList.get(i) == 1){
+                        switch(i){
+                            case 1: sanitationButton2.setSelected(true);
+                            case 2: languageButton2.setSelected(true);
+                            case 3: itButton2.setSelected(true);
+                            case 4: avButton2.setSelected(true);
+                            case 5: giftButton2.setSelected(true);
+                            case 6: flowersButton2.setSelected(true);
+                            case 7: externalButton2.setSelected(true);
+                            case 8: internalButton2.setSelected(true);
+                            case 9: religousButton2.setSelected(true);
+                            case 10: securityButton2.setSelected(true);
+                            case 11: perscriptionButton2.setSelected(true);
+                            case 12: labTestButton2.setSelected(true);
+                        }
+                    }
+                    else{
+                        switch (i) {
+                            case 1: sanitationButton2.setSelected(false);
+                            case 2: languageButton2.setSelected(false);
+                            case 3: itButton2.setSelected(false);
+                            case 4: avButton2.setSelected(false);
+                            case 5: giftButton2.setSelected(false);
+                            case 6: flowersButton2.setSelected(false);
+                            case 7: externalButton2.setSelected(false);
+                            case 8: internalButton2.setSelected(false);
+                            case 9: religousButton2.setSelected(false);
+                            case 10: securityButton2.setSelected(false);
+                            case 11: perscriptionButton2.setSelected(false);
+                            case 12: labTestButton2.setSelected(false);
+                            case 13: adminButton2.setSelected(false);
+                        }
+                    }
+                }
             }
-        }else{
-            tempPhoto.setFitHeight(0);
-            tempPhoto.setFitWidth(0);
-            tempPhoto.setVisible(false);
-
-            image.setFitHeight(0);
-            image.setFitHeight(0);
-            image.setVisible(false);
-        }*/
+        });
 
 
-
-        //userText.setText("");
-
-        assert userText != null : "fx:id=\"userText\" was not injected: check your FXML file 'addUser.fxml'.";
-        assert lblDate != null : "fx:id=\"lblDate\" was not injected: check your FXML file 'addUser.fxml'.";
-        assert lblClock != null : "fx:id=\"lblClock\" was not injected: check your FXML file 'addUser.fxml'.";
-        assert imageView != null : "fx:id=\"imageView\" was not injected: check your FXML file 'addUser.fxml'.";
-        assert image != null : "fx:id=\"image\" was not injected: check your FXML file 'addUser.fxml'.";
-        //assert webcamPreview != null : "fx:id=\"webcamPreview\" was not injected: check your FXML file 'addUser.fxml'.";
+        assert userText !=null:"fx:id=\"userText\" was not injected: check your FXML file 'addUser.fxml'.";
+        assert lblDate !=null:"fx:id=\"lblDate\" was not injected: check your FXML file 'addUser.fxml'.";
+        assert lblClock !=null:"fx:id=\"lblClock\" was not injected: check your FXML file 'addUser.fxml'.";
+        assert imageView !=null:"fx:id=\"imageView\" was not injected: check your FXML file 'addUser.fxml'.";
+        assert image !=null:"fx:id=\"image\" was not injected: check your FXML file 'addUser.fxml'.";
+            //assert webcamPreview != null : "fx:id=\"webcamPreview\" was not injected: check your FXML file 'addUser.fxml'."
     }
 
-    private void populateUserTable() throws SQLException {
+
+    private void populateUserTable(ListView list) throws SQLException {
         DatabaseUtils DBUtils = DatabaseUtils.getDBUtils();
         list.setItems(null);
         Connection conn = DBUtils.getConnection();

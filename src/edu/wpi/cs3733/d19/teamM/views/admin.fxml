@@ -175,8 +175,8 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                            <children>
-                              <JFXButton maxWidth="9999.0" onMouseClicked="#navigateToChat" styleClass="logoutButton" text="JOIN HELPDESK STAFF" HBox.hgrow="ALWAYS" />
-                              <JFXButton maxWidth="99999.0" onMouseClicked="#navigateToNotifications" text="SEND NOTIFICATION" HBox.hgrow="ALWAYS" styleClass="logoutButton"></JFXButton>
+                              <JFXButton maxWidth="9999.0" onMouseClicked="#navigateToChat" prefHeight="61.0" prefWidth="128.0" styleClass="logoutButton" text="JOIN HELPDESK STAFF" HBox.hgrow="ALWAYS" />
+                              <JFXButton maxWidth="99999.0" onMouseClicked="#navigateToNotifications" prefHeight="57.0" prefWidth="130.0" styleClass="redButton" text="SEND NOTIFICATION" HBox.hgrow="ALWAYS" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="50.0" left="150.0" right="150.0" top="25.0" />
