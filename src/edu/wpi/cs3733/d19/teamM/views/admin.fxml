@@ -126,7 +126,7 @@
                                     </ImageView>
                                     <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="SETTINGS">
                                        <font>
-                                          <Font name="Open Sans Bold" size="56.0" />
+                                          <Font name="BariolSerif" size="56.0" />
                                        </font>
                                        <VBox.margin>
                                           <Insets top="50.0" />
@@ -143,7 +143,7 @@
                                     </ImageView>
                                     <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="MAP BUILDER">
                                        <font>
-                                          <Font name="Open Sans Bold" size="56.0" />
+                                          <Font name="BariolSerif" size="56.0" />
                                        </font>
                                        <VBox.margin>
                                           <Insets top="50.0" />
@@ -163,7 +163,7 @@
                                     </ImageView>
                                     <Text fill="#012d5a" strokeType="OUTSIDE" strokeWidth="0.0" text="USERS">
                                        <font>
-                                          <Font name="Open Sans Bold" size="56.0" />
+                                          <Font name="BariolSerif" size="56.0" />
                                        </font>
                                        <VBox.margin>
                                           <Insets top="50.0" />
@@ -175,12 +175,11 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                            <children>
-                              <JFXButton maxWidth="9999.0" onMouseClicked="#navigateToChat" prefHeight="61.0" prefWidth="417.0" styleClass="logoutButton" text="JOIN HELPDESK STAFF" HBox.hgrow="ALWAYS" />
-                              <JFXButton maxWidth="9999.0" onMouseClicked="#navigateToChat" prefHeight="63.0" prefWidth="411.0" styleClass="redButton" text="SEND EMERGENCY NOTIFICATION" HBox.hgrow="ALWAYS">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </JFXButton>
+                              <JFXButton maxWidth="9999.0" onMouseClicked="#navigateToChat" styleClass="logoutButton" text="JOIN HELPDESK STAFF" HBox.hgrow="ALWAYS" />
+                              <JFXButton maxWidth="99999.0" onMouseClicked="#navigateToNotifications" text="SEND NOTIFICATION" HBox.hgrow="ALWAYS">
+                                 <styleClass>
+                                    <String fx:value="logoutButton" />
+                                 </styleClass></JFXButton>
                            </children>
                            <VBox.margin>
                               <Insets bottom="50.0" left="150.0" right="150.0" top="25.0" />
