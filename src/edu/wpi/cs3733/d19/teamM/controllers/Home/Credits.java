@@ -27,8 +27,8 @@ public class Credits {
     private Label lblDate;
 
     @FXML
-    private void navigateToHome() throws Exception{
-        Main.setScene("home");
+    private void navigateToAdmin() throws Exception{
+        Main.setScene("admin");
     }
 
     @FXML
