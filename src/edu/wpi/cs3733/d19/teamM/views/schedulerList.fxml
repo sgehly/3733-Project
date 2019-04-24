@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,20 +14,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.calendarfx.view.page.DayPage?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
-
-<?import com.calendarfx.view.CalendarView?>
-
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Scheduler.SchedulerList">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #012d5a;" stylesheets="@../../../../../../resources/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamM.controllers.Scheduler.BookedTimes">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" opacity="0.1" pickOnBounds="true">
             <image>
@@ -48,7 +38,7 @@
                                                 <Image url="@/resources/icons/icons8-circled_left_2.png" />
                                             </image>
                                         </ImageView>
-                                        <Text fx:id="userText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                                        <Text fx:id="userName" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
                                             <font>
                                                 <Font name="Open Sans Bold" size="36.0" />
                                             </font>
@@ -86,10 +76,21 @@
                                 </HBox>
                                 <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                                     <children>
+                              <Button fx:id="deleteButton" mnemonicParsing="false" onMouseClicked="#deleteFromList" styleClass="logoutButton" text="DELETE">
+                                 <font>
+                                    <Font name="Open Sans Bold" size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
+                              </Button>
                                         <Button mnemonicParsing="false" onMouseClicked="#logout" styleClass="logoutButton" text="LOGOUT">
                                             <font>
                                                 <Font name="Open Sans Bold" size="24.0" />
                                             </font>
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
                                         </Button>
                                     </children>
                                 </HBox>
@@ -98,28 +99,21 @@
                                 <Insets left="50.0" right="50.0" top="20.0" />
                             </VBox.margin>
                         </HBox>
-                  <HBox prefHeight="987.0" prefWidth="1920.0">
-                     <children>
-                        <StackPane prefHeight="974.0" prefWidth="2000.0" />
-                         <children>
-                             <BorderPane >
-                                 <top>
-                                     <MenuBar blendMode="ADD" prefWidth="900.0" style="-fx-background-color: white;" stylesheets="@../css/background.css" BorderPane.alignment="CENTER">
-                                         <menus>
-                                             <Menu fx:id="homeButton" mnemonicParsing="false">
-                                                 <items>
-                                                     <MenuItem fx:id="backMenuItem" mnemonicParsing="false" onAction="#navigateBack" text="HOME" />
-                                                 </items>
-                                             </Menu>
-                                         </menus>
-                                     </MenuBar>
-                                 </top>
-                                 <center>
-                                     <CalendarView fx:id="calendar" prefHeight="-Infinity" prefWidth="-Infinity" maxHeight="900.0" maxWidth="1300.0" minHeight="200.0" minWidth="300.0" pickOnBounds="true" BorderPane.alignment="TOP_LEFT" />
-                                 </center>
-                             </BorderPane>
-                     </children>
-                  </HBox>
+                        <VBox prefHeight="200.0" prefWidth="1910.0" scaleX="0.9" scaleY="0.9" styleClass="pane" VBox.vgrow="ALWAYS">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                            <children>
+                        <TableView fx:id="table" prefHeight="961.0" prefWidth="1920.0">
+                          <columns>
+                            <TableColumn fx:id="roomName" prefWidth="480.0" text="ROOM" />
+                            <TableColumn fx:id="startTime" prefWidth="480.0" text="STARTTIME" />
+                              <TableColumn fx:id="endTime" prefWidth="480.0" text="ENDTIME" />
+                              <TableColumn fx:id="user" prefWidth="480.0" text="USER" />
+                          </columns>
+                        </TableView>
+                            </children>
+                        </VBox>
                     </children>
                 </VBox>
             </children>

@@ -202,12 +202,12 @@
                                 </AnchorPane>
                         <Pane fx:id="buttonContainer" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                            <children>
-                              <BarChart fx:id="chart" barGap="30.0" blendMode="MULTIPLY" categoryGap="30.0" layoutX="59.0" layoutY="66.0" mouseTransparent="true" prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #fff;" title="Request Report">
+                              <BarChart fx:id="chart" barGap="30.0" blendMode="MULTIPLY" categoryGap="30.0" layoutX="59.0" layoutY="66.0" mouseTransparent="true" prefHeight="850.0" prefWidth="1300.0" style="-fx-border-color: white; -fx-background-color: white;" title="Request Report">
                                 <xAxis>
                                   <CategoryAxis fx:id="X" label="Type" style="-fx-tick: white;" stylesheets="@../../../../../../resources/stylesheet.css" />
                                 </xAxis>
                                 <yAxis>
-                                  <NumberAxis fx:id="Y" label="Number of Request" side="LEFT" style="-fx-tick-label-fill: white;">
+                                  <NumberAxis fx:id="Y" label="Number of Request" side="LEFT" style="-fx-tick-label-fill: black; -fx-background-color: white;">
                                        <tickLabelFont>
                                           <Font size="32.0" />
                                        </tickLabelFont>

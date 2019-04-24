@@ -36,7 +36,7 @@ public class Web {
 
     @FXML
     private void navigateToHome() throws Exception{
-        Main.setScene("admin");
+        Main.setScene("home");
     }
 
     @FXML
