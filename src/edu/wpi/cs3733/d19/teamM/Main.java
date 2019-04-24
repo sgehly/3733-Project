@@ -279,18 +279,37 @@ public class Main extends Application {
 
     public static void updateTimer(){
         Options o = Options.getOptions();
-        //timer = null;
+
+        timer.stop();
+        timer = null;
+
         ActionListener uiReset = e -> Platform.runLater(() -> {
             timer.restart();
             Main.setScene("welcome");
         });
-        //Timer temp = new Timer(o.getTimeout(), uiReset);
+
+
+
         timer = new Timer(o.getTimeout(), uiReset);
-        //temp = null;
-        //timer.restart();
+
+        /*Options.getOptions();
+        ActionListener uiReset = e -> Platform.runLater(() -> {
+            Main.setScene("welcome");
+            timer.restart();
+        });  //resets ui on timer trigger
+        timer = new Timer(1000000,uiReset); //creates the timer, attach to ui reset
+        primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);  //add event handler to the application
+        //Options.setTimeout(10000);
+        */
+
+        EventHandler<MouseEvent> idleReset = e -> timer.restart(); //event handler to reset the timer
+
+        primaryStage.removeEventHandler(MouseEvent.MOUSE_MOVED,idleReset);
+        primaryStage.addEventHandler(MouseEvent.MOUSE_MOVED,idleReset);
+
         System.out.println(o.getTimeout());
-        //System.out.println(Options.getTimeout());
-        //timer.restart();
+
+        timer.start();
     }
 
     /**
